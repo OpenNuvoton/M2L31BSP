@@ -60,8 +60,8 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 #define EPWM_SSCTL_SSRC_EPWM0                      (0U<<EPWM_SSCTL_SSRC_Pos)    /*!< Synchronous start source comes from EPWM0 \hideinitializer */
 #define EPWM_SSCTL_SSRC_EPWM1                      (1U<<EPWM_SSCTL_SSRC_Pos)    /*!< Synchronous start source comes from EPWM0 \hideinitializer */
-#define EPWM_SSCTL_SSRC_PWM0   `                   (2U<<EPWM_SSCTL_SSRC_Pos)    /*!< Synchronous start source comes from PWM0 \hideinitializer */
-#define EPWM_SSCTL_SSRC_PWM1    `                  (3U<<EPWM_SSCTL_SSRC_Pos)    /*!< Synchronous start source comes from PWM1 \hideinitializer */
+#define EPWM_SSCTL_SSRC_PWM0                       (2U<<EPWM_SSCTL_SSRC_Pos)    /*!< Synchronous start source comes from PWM0 \hideinitializer */
+#define EPWM_SSCTL_SSRC_PWM1                       (3U<<EPWM_SSCTL_SSRC_Pos)    /*!< Synchronous start source comes from PWM1 \hideinitializer */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  Trigger Source Select Constant Definitions                                                             */
