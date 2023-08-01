@@ -486,7 +486,7 @@ void LPUART_EnableFlowCtrl(LPUART_T* lpuart);
 void LPUART_EnableInt(LPUART_T*  lpuart, uint32_t u32InterruptFlag);
 void LPUART_Open(LPUART_T* lpuart, uint32_t u32baudrate);
 uint32_t LPUART_Read(LPUART_T* lpuart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes);
-void LPUART_SetLineConfig(LPUART_T* lpuart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t  u32stop_bits);
+void LPUART_SetLine_Config(LPUART_T* lpuart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t  u32stop_bits);
 void LPUART_SetTimeoutCnt(LPUART_T* lpuart, uint32_t u32TOC);
 void LPUART_SelectRS485Mode(LPUART_T* lpuart, uint32_t u32Mode, uint32_t u32Addr);
 uint32_t LPUART_Write(LPUART_T* lpuart, uint8_t pu8TxBuf[], uint32_t u32WriteBytes);

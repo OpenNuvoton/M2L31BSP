@@ -295,7 +295,7 @@ uint32_t LPUART_Read(LPUART_T* lpuart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes
  *
  *    @details      This function use to config LPUART line setting.
  */
-void LPUART_SetLineConfig(LPUART_T* lpuart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t  u32stop_bits)
+void LPUART_SetLine_Config(LPUART_T* lpuart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t  u32stop_bits)
 {
     uint32_t u32UartClkSrcSel=0ul, u32UartClkDivNum=0ul;
     uint32_t u32ClkTbl[4] = {__HIRC, __MIRC, __LXT};
