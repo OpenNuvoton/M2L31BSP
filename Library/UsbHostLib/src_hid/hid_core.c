@@ -1,6 +1,6 @@
 /**************************************************************************//**
  * @file     hid_core.c
- * @brief    M471M/R1/S USB Host HID driver.
+ * @brief    USB Host HID driver.
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.

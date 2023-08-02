@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     otg.h
  * @version  V0.10
- * @brief    M480 Series OTG Driver Header File
+ * @brief    M2L31 Series OTG Driver Header File
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2016-2020 Nuvoton Technology Corp. All rights reserved.

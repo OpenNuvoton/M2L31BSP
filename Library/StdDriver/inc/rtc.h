@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     rtc.h
  * @version  V3.00
- * @brief    M480 series RTC driver header file
+ * @brief    M2L31 series RTC driver header file
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2016-2020 Nuvoton Technology Corp. All rights reserved.

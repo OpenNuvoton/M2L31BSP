@@ -86,7 +86,7 @@ uint32_t GetRMCChecksum(uint32_t u32Address, uint32_t u32Size)
  *
  * @return      None
  *
- * @details     The DMA default IRQ, declared in startup_M030G.s.
+ * @details     The DMA default IRQ, declared in startup_M2L31.s.
  */
 void PDMA0_IRQHandler(void)
 {

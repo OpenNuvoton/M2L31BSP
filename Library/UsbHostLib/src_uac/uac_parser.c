@@ -1,6 +1,6 @@
 /**************************************************************************//**
  * @file     uac_parser.c
- * @brief    M471M/R1/S MCU USB Host Audio Class driver
+ * @brief    MCU USB Host Audio Class driver
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.

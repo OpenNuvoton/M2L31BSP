@@ -27,7 +27,7 @@ void UART_Init(void);
  *
  * @return      None
  *
- * @details     The TAMPER_IRQHandler is default IRQ of RTC TAMPER, declared in startup_M2354.s.
+ * @details     The TAMPER_IRQHandler is default IRQ of RTC TAMPER, declared in startup_M2L31.s.
  */
 void TAMPER_IRQHandler(void)
 {

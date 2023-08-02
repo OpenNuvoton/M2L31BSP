@@ -1,6 +1,6 @@
 /******************************************************************************
  * @file     DataFlashProg.h
- * @brief    M253 series data flash programming driver header
+ * @brief    M2L31 series data flash programming driver header
  *
  * @note
  * SPDX-License-Identifier: Apache-2.0

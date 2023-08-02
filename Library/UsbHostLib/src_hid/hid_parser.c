@@ -1,6 +1,6 @@
 /**************************************************************************//**
  * @file     hid_parser.c
- * @brief    M471M/R1/S MCU USB Host HID report descriptor parser
+ * @brief    MCU USB Host HID report descriptor parser
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.

@@ -1,6 +1,6 @@
 /******************************************************************************
  * @file     massstorage.h
- * @brief    M253 series USB mass storage header file
+ * @brief    M2L31 series USB mass storage header file
  *
  * @note
  * SPDX-License-Identifier: Apache-2.0
@@ -92,8 +92,8 @@ static __INLINE uint32_t get_be32(uint8_t *buf)
 /******************************************************************************/
 /*                USBD Mass Storage Structure                                 */
 /******************************************************************************/
-/** @addtogroup M253_USBD_Mass_Exported_Struct M253 USBD Mass Exported Struct
-  M253 USBD Mass Specific Struct
+/** @addtogroup M2L31_USBD_Mass_Exported_Struct M2L31 USBD Mass Exported Struct
+  M2L31 USBD Mass Specific Struct
   @{
 */
 

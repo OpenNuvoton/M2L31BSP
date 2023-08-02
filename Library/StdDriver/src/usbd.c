@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     usbd.c
  * @version  V1.00
- * @brief    M480 USBD driver source file
+ * @brief    M2L31 USBD driver source file
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2016-2020 Nuvoton Technology Corp. All rights reserved.
