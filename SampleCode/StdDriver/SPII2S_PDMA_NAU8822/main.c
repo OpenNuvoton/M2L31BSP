@@ -3,8 +3,7 @@
  * @version  V3.00
  * $Revision: 3 $
  * $Date: 20/08/12 6:06p $
- * @brief    M471 I2S Driver Sample Code
- *           This is a I2S demo with PDMA function connected with NAU8822 codec.
+ * @brief    This is a I2S demo with PDMA function connected with NAU8822 codec.
  *
  * @note
  * SPDX-License-Identifier: Apache-2.0

@@ -259,7 +259,6 @@ int main(void)
     while (1);
 }
 
-
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables for PDMA                                                                               */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -268,15 +267,6 @@ uint32_t SrcArray[64];
 uint32_t DestArray[64];
 uint32_t volatile u32IsTestOver = 0;
 
-/**
- * @brief       DMA IRQ
- *
- * @param       None
- *
- * @return      None
- *
- * @details     The DMA default IRQ, declared in startup_M031Series.s.
- */
 void PDMA0_IRQHandler(void)
 {
     uint32_t status = PDMA_GET_INT_STATUS(PDMA);

@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     dac.c
  * @version  V1.00
- * @brief    M2L31 series DAC driver source file
+ * @brief    DAC driver source file
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2016-2020 Nuvoton Technology Corp. All rights reserved.
@@ -23,7 +23,7 @@
 /**
   * @brief This function make DAC module be ready to convert.
   * @param[in] dac Base address of DAC module.
-  * @param[in] u32Ch Not used in M480 DAC.
+  * @param[in] u32Ch Not use.
   * @param[in] u32TrgSrc Decides the trigger source. Valid values are:
   *                      - \ref DAC_WRITE_DAT_TRIGGER             :Write DAC_DAT trigger
   *                      - \ref DAC_SOFTWARE_TRIGGER              :Software trigger
@@ -54,7 +54,7 @@ void DAC_Open(DAC_T *dac,
 /**
   * @brief Disable DAC analog power.
   * @param[in] dac Base address of DAC module.
-  * @param[in] u32Ch Not used in M480 DAC.
+  * @param[in] u32Ch Not used.
   * @return None
   * @details Disable DAC analog power for saving power consumption.
   */
