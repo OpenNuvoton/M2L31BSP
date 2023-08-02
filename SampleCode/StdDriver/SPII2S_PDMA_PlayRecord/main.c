@@ -3,8 +3,7 @@
  * @version  V3.00
  * $Revision: 4 $
  * $Date: 20/08/12 6:06p $
- * @brief    M471 SPI Driver Sample Code
- *           This is a I2S demo for playing and recording data with PDMA function.
+ * @brief    This is a I2S demo for playing and recording data with PDMA function.
  *
  * @note
  * SPDX-License-Identifier: Apache-2.0
