@@ -189,13 +189,13 @@ void RS485_HANDLE()
 /*---------------------------------------------------------------------------------------------------------*/
 void RS485_SendAddressByte(uint8_t u8data)
 {
-    UART_SetLineConfig(UART1, 0, UART_WORD_LEN_8, UART_PARITY_MARK, UART_STOP_BIT_1);
+    UART_SetLine_Config(UART1, 0, UART_WORD_LEN_8, UART_PARITY_MARK, UART_STOP_BIT_1);
     UART_WRITE(UART1, u8data);
 }
 
 void RS485_SendDataByte(uint8_t *pu8TxBuf, uint32_t u32WriteBytes)
 {
-    UART_SetLineConfig(UART1, 0, UART_WORD_LEN_8, UART_PARITY_SPACE, UART_STOP_BIT_1);
+    UART_SetLine_Config(UART1, 0, UART_WORD_LEN_8, UART_PARITY_SPACE, UART_STOP_BIT_1);
     UART_Write(UART1, pu8TxBuf, u32WriteBytes);
 }
 
@@ -260,7 +260,7 @@ void RS485_9bitModeMaster()
 void RS485_9bitModeSlave()
 {
     /* Set Data Format*/ /* Only need parity enable whenever parity ODD/EVEN */
-    UART_SetLineConfig(UART1, 0, UART_WORD_LEN_8, UART_PARITY_EVEN, UART_STOP_BIT_1);
+    UART_SetLine_Config(UART1, 0, UART_WORD_LEN_8, UART_PARITY_EVEN, UART_STOP_BIT_1);
 
     /* Reset RX FIFO Before Test */
     UART1->FIFO |= UART_FIFO_RXRST_Msk;

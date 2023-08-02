@@ -24,28 +24,16 @@ extern "C" {
 #define DEBUG_PORT      UART0       /*!< Select Debug Port which is used for retarget.c to output debug message to UART */
 #endif
 
-//#define FPGA_BOARD
-
 /*----------------------------------------------------------------------------
   Define clocks
  *----------------------------------------------------------------------------*/
-#ifdef FPGA_BOARD
-    #define __HXT       (12000000UL)    /*!< External Crystal Clock Frequency     */
-    #define __LIRC      (   32768UL)    /*!< Internal 38.4KHz RC Oscillator Frequency */
-    #define __HIRC      (12000000UL)    /*!< Internal 48M RC Oscillator Frequency */
-    #define __HIRC48    (12000000UL)    /*!< Internal 48M RC Oscillator Frequency */
-    #define __MIRC      ( 4000000UL)    /*!< Internal 4M RC Oscillator Frequency */
-    #define __LXT       (   32768UL)    /*!< External Crystal Clock Frequency 32.768KHz */
-    #define __HSI       (15000000UL)    /*!< PLL default output is 12MHz from PLL */
-#else
-    #define __HXT       (12000000UL)    /*!< External Crystal Clock Frequency     */
-    #define __LIRC      (   32000UL)    /*!< Internal 32.0KHz RC Oscillator Frequency */
-    #define __HIRC      (12000000UL)    /*!< Internal 48M RC Oscillator Frequency */
-    #define __HIRC48    (48000000UL)    /*!< Internal 48M RC Oscillator Frequency */
-    #define __MIRC      ( 4000000UL)    /*!< Internal 4M RC Oscillator Frequency */
-    #define __LXT       (   32768UL)    /*!< External Crystal Clock Frequency 32.768KHz */
-    #define __HSI       (72000000UL)    /*!< Default output is 72MHz for PLL */
-#endif
+#define __HXT       (12000000UL)    /*!< External Crystal Clock Frequency     */
+#define __LIRC      (   32000UL)    /*!< Internal 32.0KHz RC Oscillator Frequency */
+#define __HIRC      (12000000UL)    /*!< Internal 48M RC Oscillator Frequency */
+#define __HIRC48    (48000000UL)    /*!< Internal 48M RC Oscillator Frequency */
+#define __MIRC      ( 4000000UL)    /*!< Internal 4M RC Oscillator Frequency */
+#define __LXT       (   32768UL)    /*!< External Crystal Clock Frequency 32.768KHz */
+#define __HSI       (72000000UL)    /*!< Default output is 72MHz for PLL */
 
 extern uint32_t SystemCoreClock;    /*!< System Clock Frequency (Core Clock)  */
 extern uint32_t CyclesPerUs;        /*!< Cycles per micro second              */
