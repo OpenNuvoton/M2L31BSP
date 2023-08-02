@@ -86,7 +86,7 @@ int32_t main(void)
         /* Clear SOF */
         USBD_CLR_INT_FLAG(USBD_INTSTS_SOFIF_Msk);
 
-        /* Using polling mode and Removed Interrupt Table to reduce code size for M253 */
+        /* Using polling mode and Removed Interrupt Table to reduce code size for M2L31 */
         while (DetectPin == 0)
         {
             /* Start USB trim function if it is not enabled. */

@@ -76,7 +76,7 @@ typedef struct
      * |Bits    |Field     |Descriptions
      * | :----: | :----:   | :---- |
      * |[31:0]  |ISPADDR   |ISP Address
-     * |        |          |The M230 series is equipped with embedded RRAM. ISPADDR[1:0] must be kept 00 for ISP 32-bit operation.
+     * |        |          |The M2L31 series is equipped with embedded RRAM. ISPADDR[1:0] must be kept 00 for ISP 32-bit operation.
      * |        |          |For CRC32 Checksum Calculation command, this field is the RRAM starting address for checksum calculation, 4 Kbytes alignment is necessary for CRC32 checksum calculation.
      * |        |          |For RRAM32-bit Program, ISP address needs word alignment (4-byte).
      * @var RMC_T::ISPDAT

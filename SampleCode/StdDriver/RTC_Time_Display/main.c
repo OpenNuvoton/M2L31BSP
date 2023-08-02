@@ -27,7 +27,7 @@ void UART_Init(void);
  *
  * @return      None
  *
- * @details     The RTC_IRQHandler is default IRQ of RTC, declared in startup_M2354.s.
+ * @details     The RTC_IRQHandler is default IRQ of RTC, declared in startup_M2L31.s.
  */
 void RTC_IRQHandler(void)
 {

@@ -30,7 +30,7 @@ static CONN_FUNC  *g_conn_func, *g_disconn_func;
 
 
 /**
-  * @brief       Initialize M471M/R1/S USB Host controller and USB stack.
+  * @brief       Initialize USB Host controller and USB stack.
   *
   * @return      None.
   */
