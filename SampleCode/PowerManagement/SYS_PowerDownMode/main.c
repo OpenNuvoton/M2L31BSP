@@ -25,7 +25,7 @@ static volatile uint32_t s_u32RTCTickINT;
  *
  * @return      None
  *
- * @details     The RTC_IRQHandler is default IRQ of RTC, declared in startup_M2351.s.
+ * @details     The RTC_IRQHandler is default IRQ of RTC, declared in startup_M2L31.s.
  */
 void RTC_IRQHandler(void)
 {
