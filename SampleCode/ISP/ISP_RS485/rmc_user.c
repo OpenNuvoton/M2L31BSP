@@ -1,6 +1,6 @@
 /***************************************************************************//**
  * @file     rmc_user.c
- * @brief    M030G series RMC driver source file
+ * @brief    M2L31 series RMC driver source file
  * @version  2.0.0
  *
  * @copyright (C) 2016 Nuvoton Technology Corp. All rights reserved.
