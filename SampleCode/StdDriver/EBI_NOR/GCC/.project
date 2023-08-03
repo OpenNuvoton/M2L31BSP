@@ -57,7 +57,7 @@
 		<link>
 			<name>User/nor_MX29LV320T.c</name>
 			<type>1</type>
-			<location>E:/Users/mhkuo/MAD025_M2L31/BSP/SampleCode/StdDriver/EBI_NOR/nor_MX29LV320T.c</location>
+			<locationURI>PARENT-1-PROJECT_LOC/nor_MX29LV320T.c</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>
