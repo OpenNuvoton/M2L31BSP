@@ -22,20 +22,20 @@ LED_T LEDInfo[TKLIB_TOL_NUM_KEY] =
     {0x01, PE, BIT10},  //TK1
     {0x02, PE, BIT9},   //TK2
     {0x03, PE, BIT8},   //TK3
-    {0xFF, PE, BIT7},   //TK4 is invalid
-    {0x05, PG, BIT4},   //TK5
+    {0x04, PG, BIT4},   //TK4
+    {0xFF, PG, 0xFF},   //TK5 acts shielding. It is invalid
     {0x06, PG, BIT3},   //TK6
     {0x07, PG, BIT2},   //TK7
     {0x08, PD, BIT10},  //TK8
-    {0xFF, PG, BIT4},   //TK9
-    {0xFF, PG, BIT3},   //TK10
-    {0xFF, PG, BIT2},   //TK11
-    {0xFF, PD, BIT10},  //TK12
-    {0xFF, PG, BIT4},   //TK13
-    {0xFF, PG, BIT3},   //TK14
-    {0xFF, PG, BIT2},   //TK15
-    {0xFF, PD, BIT10},  //TK16
-    {0xFF, PG, BIT4},   //TK17
+    {0xFF, PD, 0xFF},   //TK9
+    {0xFF, PD, 0xFF},   //TK10
+    {0xFF, PD, 0xFF},   //TK11
+    {0xFF, PD, 0xFF},  //TK12
+    {0xFF, PD, 0xFF},   //TK13
+    {0xFF, PD, 0xFF},   //TK14
+    {0xFF, PD, 0xFF},   //TK15
+    {0xFF, PD, 0xFF},  //TK16
+    {0xFF, PD, 0xFF},   //TK17
 
 };
 /**

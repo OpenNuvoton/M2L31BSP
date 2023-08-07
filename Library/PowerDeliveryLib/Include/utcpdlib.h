@@ -79,8 +79,8 @@ void UTCPD_InstallCallback(int port, utcpd_pvFunPtr* pfn);
 
 enum pd_cc_states UTCPD_TC_get_cc_state(int port);
 enum pd_cc_states UTCPD_TC_get_polarity(int port);
-enum pd_cc_states UTCPD_PE_get_src_caps(int port, int32_t* pu32SrcArray, int32_t* pi32SrcCnt);
-enum pd_cc_states UTCPD_PE_get_snk_caps(int port, int32_t* pu32SnkArray, int32_t* pi32SnkCnt);
+void UTCPD_PE_get_src_caps(int port, int32_t* pu32SrcArray, int32_t* pi32SrcCnt);
+void UTCPD_PE_get_snk_caps(int port, int32_t* pu32SnkArray, int32_t* pi32SnkCnt);
 
 extern void UTCPD_TimerBaseInc(void);
 extern void EADC_ConfigPins(void);

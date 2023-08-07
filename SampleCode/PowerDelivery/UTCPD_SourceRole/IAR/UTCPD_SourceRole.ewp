@@ -1064,7 +1064,7 @@
             <name>$PROJ_DIR$\..\..\..\..\Library\StdDriver\src\gpio.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\..\..\..\Library\PowerDeliveryLib\PD_SNK.a</name>
+            <name>$PROJ_DIR$\..\..\..\..\Library\PowerDeliveryLib\PD_SRC.a</name>
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\..\Library\StdDriver\src\retarget.c</name>

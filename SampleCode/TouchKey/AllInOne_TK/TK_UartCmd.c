@@ -296,24 +296,22 @@ int8_t TK_CmdType1(uint8_t *pu8RXBuf)
 
         if((SYS->PDID&0x01D23140) == 0x01D23140)
         {
-            //TK17~TK14
-//                      psTkFeat->u32PinSel = 0x00000000;       //B set
-//                      psTkFeat->u32PinSel1 = 0x00000000;
-
             psTkFeat->u32PinSel = 0x50000000;   //A set
             psTkFeat->u32PinSel1 = 0x00000005;
         }
-        else
-        {
-            if( ((u32PDID&0x000FFF00) != 0x00025840)
-                    &&
-                    ((u32PDID&0x000FFF00) != 0x00025640)
-              )
-            {
-                psTkFeat->u32PinSel = 0x54000000;
-                psTkFeat->u32PinSel1 = 0x00000001;
-            }
+		else if((u32PDID&0xFFFFF000) == 0x01F31000)
+		{//M2L31 series
+			psTkFeat->u32PinSel = 0x50000000;	//TK14/TK15 A Set
+			psTkFeat->u32PinSel1 = 0x00000005;	//TK16/TK17 A set	
         }
+        else if( ((u32PDID&0x000FFF00) != 0x00025840)
+               && ((u32PDID&0x000FFF00) != 0x00025640))
+        {
+			psTkFeat->u32PinSel = 0x54000000;
+			psTkFeat->u32PinSel1 = 0x00000001;
+		} 
+//		printf("u32PinSel = 0x%x\n", psTkFeat->u32PinSel); 
+//	    printf("u32PinSel1 = 0x%x\n", psTkFeat->u32PinSel1); 
         break;
 
 

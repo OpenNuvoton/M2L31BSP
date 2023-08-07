@@ -115,7 +115,7 @@ extern "C"
 
 /* usb_dual_role.c */
 #define CONFIG_USB_PD_PREFER_MV                  0
-#define CONFIG_USB_PD_ONLY_FIXED_PDOS            0
+#define CONFIG_USB_PD_ONLY_FIXED_PDOS            1
 #define PD_MAX_CURRENT_MA                        3000     /* defined in board level */
 #define PD_MAX_POWER_MW                          65000    /* defined in board level */
 #define PD_PREFER_LOW_VOLTAGE                    0        /* Can't found on config.h */
@@ -126,7 +126,7 @@ extern "C"
 
 #if (OPT_SNK_ONLY == 1)
 #undef CONFIG_USB_PD_TRY_SRC
-#define CONFIG_USB_PD_TRY_SRC                    1
+#define CONFIG_USB_PD_TRY_SRC                    0
 #undef CONFIG_USB_PD_DUAL_ROLE_AUTO_TOGGLE
 #define CONFIG_USB_PD_DUAL_ROLE_AUTO_TOGGLE      0
 #define CONFIG_COMMAND_SHELL                     1
