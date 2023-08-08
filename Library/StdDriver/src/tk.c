@@ -285,13 +285,13 @@ void TK_SetRefCapBankData(uint32_t u32TKNum, uint32_t u32CapData)
 {
     if(u32TKNum <= 16)
     {
-        *(__IO uint32_t *)(&(TK->TK_REFCBD0) + ((u32TKNum % 17) >> 2)) &= ~(TK_REFCBD0_CBD0_Msk << ((u32TKNum % 17) % 4 * 8));
-        *(__IO uint32_t *)(&(TK->TK_REFCBD0) + ((u32TKNum % 17) >> 2)) |= (u32CapData << ((u32TKNum % 17) % 4 * 8));
+        *(__IO uint32_t *)(&(TK->REFCBD0) + ((u32TKNum % 17) >> 2)) &= ~(TK_REFCBD0_CBD0_Msk << ((u32TKNum % 17) % 4 * 8));
+        *(__IO uint32_t *)(&(TK->REFCBD0) + ((u32TKNum % 17) >> 2)) |= (u32CapData << ((u32TKNum % 17) % 4 * 8));
     }
     else
     {
-        *(__IO uint32_t *)(&(TK->TK_REFCBD5) + ((u32TKNum % 17) >> 2)) &= ~(TK_REFCBD0_CBD0_Msk << ((u32TKNum % 17) % 4 * 8));
-        *(__IO uint32_t *)(&(TK->TK_REFCBD5) + ((u32TKNum % 17) >> 2)) |= (u32CapData << ((u32TKNum % 17) % 4 * 8));
+        *(__IO uint32_t *)(&(TK->REFCBD5) + ((u32TKNum % 17) >> 2)) &= ~(TK_REFCBD0_CBD0_Msk << ((u32TKNum % 17) % 4 * 8));
+        *(__IO uint32_t *)(&(TK->REFCBD5) + ((u32TKNum % 17) >> 2)) |= (u32CapData << ((u32TKNum % 17) % 4 * 8));
     }
 }
 
@@ -392,7 +392,7 @@ void TK_ClearTKIF(void)
 void TK_EnableScanAll(uint8_t u8RefcbAll, uint8_t u8CcbAll, uint8_t u8HThAll)
 {
     TK->REFC |= TK_REFC_SCAN_ALL_Msk;
-    TK->TK_REFCBD4 = (TK->TK_REFCBD4 & (~TK_REFCBD4_CBD_ALL_Msk)) | (u8RefcbAll << TK_REFCBD4_CBD_ALL_Pos);
+    TK->REFCBD4 = (TK->REFCBD4 & (~TK_REFCBD4_CBD_ALL_Msk)) | (u8RefcbAll << TK_REFCBD4_CBD_ALL_Pos);
     TK->CCBD4 = (TK->CCBD4 & (~TK_CCBD4_CCBD_ALL_Msk)) | (u8CcbAll << TK_CCBD4_CCBD_ALL_Pos);
     TK->THC16 = (TK->THC16 & (~TK_THC16_HTH_ALL_Msk))  | (u8HThAll << TK_THC16_HTH_ALL_Pos);
 }
