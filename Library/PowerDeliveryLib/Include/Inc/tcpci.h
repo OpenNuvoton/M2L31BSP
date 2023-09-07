@@ -129,6 +129,7 @@
 #define TCPC_REG_PINPL_SRCEN                BIT(0)
 #define TCPC_REG_PINPL_SNKEN                BIT(1)
 #define TCPC_REG_PINPL_VBDCHG               BIT(2)
+#define TCPC_REG_PINPL_FRSTX                BIT(3)
 #define TCPC_REG_PINPL_VCEN                 BIT(8)
 #define TCPC_REG_PINPL_VCDCHG               BIT(9)
 

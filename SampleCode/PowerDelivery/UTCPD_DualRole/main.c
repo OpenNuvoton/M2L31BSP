@@ -178,6 +178,12 @@ void SYS_Init(void)
     /* Set GPB[1:0] multi-function pins debug port */
     SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(SYS_GPB_MFP0_PB0MFP_Msk | SYS_GPB_MFP0_PB1MFP_Msk));
 
+	/* Initialize FRSCC1 and FRS_CC2 to default Low */
+    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(0xFFUL << (0*8))) | (17UL << (0*8)); //FRSCC1
+    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(0xFFUL << (1*8))) | (17UL << (1*8)); //FRSCC2
+    frs_mux_selection(1, 1);
+	frs_tx_polarity_active_high(); 
+
 #ifdef ACMP_INIT
     ACMP_Pin_Open();
 #endif
