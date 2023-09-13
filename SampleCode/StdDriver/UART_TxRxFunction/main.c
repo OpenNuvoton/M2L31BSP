@@ -54,29 +54,29 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART module clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Select UART module clock source as HIRC and UART module clock divider as 1 */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
+    Uart1DefaultMPF();
 }
 
-void UART0_Init()
+void UART1_Init()
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Reset UART0 */
-    SYS_ResetModule(UART0_RST);
+    /* Reset UART1 */
+    SYS_ResetModule(UART1_RST);
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -100,8 +100,8 @@ int32_t main(void)
     /* Lock protected registers */
     SYS_LockReg();
 
-    /* Init UART0 for printf and test */
-    UART0_Init();
+    /* Init UART1 for printf and test */
+    UART1_Init();
 
     /*---------------------------------------------------------------------------------------------------------*/
     /* SAMPLE CODE                                                                                             */
@@ -119,9 +119,9 @@ int32_t main(void)
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
-/* ISR to handle UART Channel 0 interrupt event                                                            */
+/* ISR to handle UART Channel 1 interrupt event                                                            */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART0_IRQHandler(void)
+void UART1_IRQHandler(void)
 {
     UART_TEST_HANDLE();
 }
@@ -133,15 +133,15 @@ void UART_TEST_HANDLE()
 {
     uint8_t u8InChar = 0xFF;
 
-    if (UART_GET_INT_FLAG(UART0,UART_INTSTS_RDAINT_Msk))
+    if (UART_GET_INT_FLAG(UART1,UART_INTSTS_RDAINT_Msk))
     {
         printf("\nInput:");
 
         /* Get all the input characters */
-        while(UART_IS_RX_READY(UART0))
+        while(UART_IS_RX_READY(UART1))
         {
             /* Get the character from UART Buffer */
-            u8InChar = UART_READ(UART0);
+            u8InChar = UART_READ(UART1);
 
             printf("%c ", u8InChar);
 
@@ -162,23 +162,23 @@ void UART_TEST_HANDLE()
         printf("\nTransmission Test:");
     }
 
-    if(UART_GET_INT_FLAG(UART0, UART_INTSTS_THREINT_Msk))
+    if(UART_GET_INT_FLAG(UART1, UART_INTSTS_THREINT_Msk))
     {
         uint16_t tmp;
         tmp = g_u32comRtail;
         if(g_u32comRhead != tmp)
         {
             u8InChar = g_u8RecData[g_u32comRhead];
-            while(UART_IS_TX_FULL(UART0));  /* Wait Tx is not full to transmit data */
-            UART_WRITE(UART0, u8InChar);
+            while(UART_IS_TX_FULL(UART1));  /* Wait Tx is not full to transmit data */
+            UART_WRITE(UART1, u8InChar);
             g_u32comRhead = (g_u32comRhead == (RXBUFSIZE - 1)) ? 0 : (g_u32comRhead + 1);
             g_u32comRbytes--;
         }
     }
 
-    if(UART0->FIFOSTS & (UART_FIFOSTS_BIF_Msk | UART_FIFOSTS_FEF_Msk | UART_FIFOSTS_PEF_Msk | UART_FIFOSTS_RXOVIF_Msk))
+    if(UART1->FIFOSTS & (UART_FIFOSTS_BIF_Msk | UART_FIFOSTS_FEF_Msk | UART_FIFOSTS_PEF_Msk | UART_FIFOSTS_RXOVIF_Msk))
     {
-        UART_ClearIntFlag(UART0, (UART_INTSTS_RLSINT_Msk| UART_INTSTS_BUFERRINT_Msk));
+        UART_ClearIntFlag(UART1, (UART_INTSTS_RLSINT_Msk| UART_INTSTS_BUFERRINT_Msk));
     }
 }
 
@@ -196,19 +196,19 @@ void UART_FunctionTest()
     printf("+-----------------------------------------------------------+\n");
 
     /*
-        Using a RS232 cable to connect UART0 and PC.
-        UART0 is set to debug port. UART0 is enable RDA and RLS interrupt.
+        Using a RS232 cable to connect UART1 and PC.
+        UART1 is set to debug port. UART1 is enable RDA and RLS interrupt.
         When inputting char to terminal screen, RDA interrupt will happen and
-        UART0 will print the received char on screen.
+        UART1 will print the received char on screen.
     */
 
     /* Enable UART RDA and THRE interrupt */
-    NVIC_EnableIRQ(UART0_IRQn);
-    UART_EnableInt(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_THREIEN_Msk));
+    NVIC_EnableIRQ(UART1_IRQn);
+    UART_EnableInt(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_THREIEN_Msk));
     while(g_bWait);
 
     /* Disable UART RDA and THRE interrupt */
-    UART_DisableInt(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_THREIEN_Msk));
+    UART_DisableInt(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_THREIEN_Msk));
     g_bWait = TRUE;
     printf("\nUART Sample Demo End.\n");
 

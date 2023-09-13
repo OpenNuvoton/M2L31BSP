@@ -35,7 +35,7 @@ void UART_PowerDownWakeUpTest(void);
 void PowerDownFunction(void)
 {
     /* Check if all the debug messages are finished */
-    UART_WAIT_TX_EMPTY(UART0);
+    UART_WAIT_TX_EMPTY(UART1);
 
     /* Set Power-down mode */
     CLK_SetPowerDownMode(TEST_POWER_DOWN_MODE);
@@ -80,15 +80,14 @@ void SYS_Init(void)
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
+    Uart1DefaultMPF();
 
-    /* Set PA multi-function pins for UART1 TXD, RXD, CTS and RTS */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk |          \
-                                       SYS_GPA_MFP0_PA2MFP_Msk | SYS_GPA_MFP0_PA3MFP_Msk) ) |                                          \
-                    (SYS_GPA_MFP0_PA0MFP_UART1_nRTS | SYS_GPA_MFP0_PA1MFP_UART1_nCTS |                  \
-                     SYS_GPA_MFP0_PA2MFP_UART1_RXD | SYS_GPA_MFP0_PA3MFP_UART1_TXD);
-
+    /* Set PA multi-function pins for UART0 TXD, RXD, CTS and RTS */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk )) |    \
+                    (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD );
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(SYS_GPA_MFP1_PA4MFP_Msk | SYS_GPA_MFP1_PA5MFP_Msk)) |    \
+                    (SYS_GPA_MFP1_PA4MFP_UART0_nRTS | SYS_GPA_MFP1_PA5MFP_UART0_nCTS);
 
 }
 
@@ -101,7 +100,7 @@ void UART0_Init(void)
     SYS_ResetModule(UART0_RST);
 
     /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    UART_Open(UART0, 9600);
 }
 
 void UART1_Init(void)
@@ -113,7 +112,7 @@ void UART1_Init(void)
     SYS_ResetModule(UART1_RST);
 
     /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 9600);
+    UART_Open(UART1, 115200);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -131,10 +130,10 @@ int32_t main(void)
     /* Lock protected registers */
     SYS_LockReg();
 
-    /* Init UART0 for printf */
+    /* Init UART0 for test */
     UART0_Init();
 
-    /* Init UART1 for test */
+    /* Init UART1 for printf */
     UART1_Init();
 
     /* clear all wake-up flag */
@@ -161,25 +160,26 @@ int32_t main(void)
 /*---------------------------------------------------------------------------------------------------------*/
 /* ISR to handle UART Channel 1 interrupt event                                                            */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART1_IRQHandler(void)
+void UART0_IRQHandler(void)
 {
     uint32_t u32Data;
 
-    if(UART_GET_INT_FLAG(UART1, UART_INTSTS_WKINT_Msk))     /* UART wake-up interrupt flag */
+    if(UART_GET_INT_FLAG(UART0, UART_INTSTS_WKINT_Msk))     /* UART wake-up interrupt flag */
     {
-        UART_ClearIntFlag(UART1, UART_INTSTS_WKINT_Msk);
+        UART_ClearIntFlag(UART0, UART_INTSTS_WKINT_Msk);
         printf("UART wake-up.\n");
-        UART_WAIT_TX_EMPTY(UART0);
+        UART_WAIT_TX_EMPTY(UART1);
     }
-    else if(UART_GET_INT_FLAG(UART1, UART_INTSTS_RDAINT_Msk | UART_INTSTS_RXTOINT_Msk))     /* UART receive data available flag */
+    else if(UART_GET_INT_FLAG(UART0, UART_INTSTS_RDAINT_Msk | UART_INTSTS_RXTOINT_Msk))     /* UART receive data available flag */
     {
-        while(UART_GET_RX_EMPTY(UART1) == 0)
+        while(UART_GET_RX_EMPTY(UART0) == 0)
         {
-            u32Data = UART_READ(UART1);
+            u32Data = UART_READ(UART0);
             if(u32Data & UART_DAT_PARITY_Msk)
                 printf("Address: 0x%X\n", (u32Data & 0xFF));
             else
                 printf("Data: 0x%X\n", u32Data);
+            UART_WAIT_TX_EMPTY(UART1);
         }
     }
 
@@ -191,10 +191,10 @@ void UART1_IRQHandler(void)
 void UART_CTSWakeUp(void)
 {
     /* Enable UART nCTS wake-up frunction */
-    UART1->WKCTL |= UART_WKCTL_WKCTSEN_Msk;
+    UART0->WKCTL |= UART_WKCTL_WKCTSEN_Msk;
 
     printf("System enter to Power-down mode NPD%d.\n", (int)(CLK->PMUCTL & CLK_PMUCTL_PDMSEL_Msk));
-    printf("Toggle UART1 nCTS to wake-up system.\n\n");
+    printf("Toggle UART0 nCTS to wake-up system.\n\n");
 
 }
 
@@ -204,18 +204,18 @@ void UART_CTSWakeUp(void)
 void UART_DataWakeUp(void)
 {
     /* Enable UART data wake-up frunction */
-    UART1->WKCTL |= UART_WKCTL_WKDATEN_Msk;
+    UART0->WKCTL |= UART_WKCTL_WKDATEN_Msk;
 
     /* Set UART data wake-up start bit compensation value.
        It indicates how many clock cycle selected by UART_CLK does the UART controller can get the first bit (start bit)
        when the device is wake-up from power-down mode.
        If UART_CLK is selected as HIRC(12MHz) and the HIRC stable time is about 52.03us,
        the data wake-up start bit compensation value can be set as 0x270. */
-    UART_Open(UART1, 9600);
-    UART1->DWKCOMP = 0x270;
+    UART_Open(UART0, 9600);
+    UART0->DWKCOMP = 0x270;
 
     printf("System enter to Power-down mode NPD%d.\n", (int)(CLK->PMUCTL & CLK_PMUCTL_PDMSEL_Msk));
-    printf("Send data with baud rate 9600bps to UART1 to wake-up system.\n\n");
+    printf("Send data with baud rate 9600bps to UART0 to wake-up system.\n\n");
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -224,25 +224,25 @@ void UART_DataWakeUp(void)
 void UART_RxThresholdWakeUp(void)
 {
     /* Wait data transmission is finished and select UART clock source as LXT */
-    while((UART0->FIFOSTS & UART_FIFOSTS_TXEMPTYF_Msk) == 0);
-    while((UART0->FIFOSTS & UART_FIFOSTS_RXIDLE_Msk) == 0);
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_LXT, CLK_CLKDIV0_UART1(1));
+    while((UART1->FIFOSTS & UART_FIFOSTS_TXEMPTYF_Msk) == 0);
+    while((UART1->FIFOSTS & UART_FIFOSTS_RXIDLE_Msk) == 0);
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_LXT, CLK_CLKDIV0_UART0(1));
 
     /* Set UART baud rate and baud rate compensation */
-    UART_Open(UART1, 9600);
-    UART1->BRCOMP = 0xA5;
+    UART_Open(UART0, 9600);
+    UART0->BRCOMP = 0xA5;
 
     /* Enable UART Rx Threshold and Rx time-out wake-up frunction */
-    UART1->WKCTL |= UART_WKCTL_WKRFRTEN_Msk | UART_WKCTL_WKTOUTEN_Msk;
+    UART0->WKCTL |= UART_WKCTL_WKRFRTEN_Msk | UART_WKCTL_WKTOUTEN_Msk;
 
     /* Set Rx FIFO interrupt trigger level */
-    UART1->FIFO = (UART1->FIFO & (~UART_FIFO_RFITL_Msk)) | UART_FIFO_RFITL_4BYTES;
+    UART0->FIFO = (UART0->FIFO & (~UART_FIFO_RFITL_Msk)) | UART_FIFO_RFITL_4BYTES;
 
     /* Enable UART Rx time-out function */
-    UART_SetTimeoutCnt(UART1, 40);
+    UART_SetTimeoutCnt(UART0, 40);
 
     printf("System enter to Power-down mode NPD%d.\n", (int)(CLK->PMUCTL & CLK_PMUCTL_PDMSEL_Msk));
-    printf("Send data with baud rate 9600bps to UART1 to wake-up system.\n\n");
+    printf("Send data with baud rate 9600bps to UART0 to wake-up system.\n\n");
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -251,28 +251,28 @@ void UART_RxThresholdWakeUp(void)
 void UART_RS485WakeUp(void)
 {
     /* Wait data transmission is finished and select UART clock source as LXT */
-    while((UART0->FIFOSTS & UART_FIFOSTS_TXEMPTYF_Msk) == 0);
-    while((UART0->FIFOSTS & UART_FIFOSTS_RXIDLE_Msk) == 0);
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_LXT, CLK_CLKDIV0_UART1(1));
+    while((UART1->FIFOSTS & UART_FIFOSTS_TXEMPTYF_Msk) == 0);
+    while((UART1->FIFOSTS & UART_FIFOSTS_RXIDLE_Msk) == 0);
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_LXT, CLK_CLKDIV0_UART0(1));
 
     /* Set UART baud rate and baud rate compensation */
-    UART_Open(UART1, 9600);
-    UART1->BRCOMP = 0xA5;
+    UART_Open(UART0, 9600);
+    UART0->BRCOMP = 0xA5;
 
     /* RS485 address match (AAD mode) setting */
-    UART_SelectRS485Mode(UART1, UART_ALTCTL_RS485AAD_Msk, RS485_ADDRESS);
+    UART_SelectRS485Mode(UART0, UART_ALTCTL_RS485AAD_Msk, RS485_ADDRESS);
 
     /* Enable parity source selection function */
-    UART1->LINE |= (UART_LINE_PSS_Msk | UART_LINE_PBE_Msk);
+    UART0->LINE |= (UART_LINE_PSS_Msk | UART_LINE_PBE_Msk);
 
     /* Enable UART RS485 address match, Rx Threshold and Rx time-out wake-up frunction */
-    UART1->WKCTL |= UART_WKCTL_WKRFRTEN_Msk | UART_WKCTL_WKRS485EN_Msk | UART_WKCTL_WKTOUTEN_Msk;
+    UART0->WKCTL |= UART_WKCTL_WKRFRTEN_Msk | UART_WKCTL_WKRS485EN_Msk | UART_WKCTL_WKTOUTEN_Msk;
 
     /* Enable UART Rx time-out function */
-    UART_SetTimeoutCnt(UART1, 40);
+    UART_SetTimeoutCnt(UART0, 40);
 
     printf("System enter to Power-down mode NPD%d.\n", (int)(CLK->PMUCTL & CLK_PMUCTL_PDMSEL_Msk));
-    printf("Send RS485 address byte 0x%X with baud rate 9600bps to UART1 to wake-up system.\n\n", RS485_ADDRESS);
+    printf("Send RS485 address byte 0x%X with baud rate 9600bps to UART0 to wake-up system.\n\n", RS485_ADDRESS);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -310,8 +310,8 @@ void UART_PowerDownWakeUpTest(void)
     SYS_LockReg();
 
     /* Enable UART wake-up and receive data available interrupt */
-    NVIC_EnableIRQ(UART1_IRQn);
-    UART_EnableInt(UART1, UART_INTEN_WKIEN_Msk | UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk);
+    NVIC_EnableIRQ(UART0_IRQn);
+    UART_EnableInt(UART0, UART_INTEN_WKIEN_Msk | UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk);
 
     UART_PowerDown_TestItem();
     u32Item = getchar();
@@ -347,9 +347,9 @@ void UART_PowerDownWakeUpTest(void)
     getchar();
 
     /* Disable UART wake-up function */
-    UART1->WKCTL = 0;
+    UART0->WKCTL = 0;
 
     /* Disable UART Interrupt */
-    UART_DisableInt(UART1, UART_INTEN_WKIEN_Msk | UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk);
+    UART_DisableInt(UART0, UART_INTEN_WKIEN_Msk | UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk);
 
 }

@@ -73,29 +73,28 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable IP clock */
-    CLK->APBCLK0 |= CLK_APBCLK0_UART0CKEN_Msk;
+    CLK_EnableModuleClock(UART1_MODULE);
 
     CLK->APBCLK0 |= CLK_APBCLK0_UART0CKEN_Msk | CLK_APBCLK0_TMR1CKEN_Msk;
 
     /* Select IP clock source */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Update System Core Clock */
     /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
     SystemCoreClockUpdate();
 
-    /* Set GPB multi-function pins for UART0 RXD and TXD */
-    SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB12MFP_Msk | SYS_GPB_MFP3_PB13MFP_Msk)) |  \
-                    (SYS_GPB_MFP3_PB12MFP_UART0_RXD | SYS_GPB_MFP3_PB13MFP_UART0_TXD);
+    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
+    Uart1DefaultMPF();
 
     /* Lock protected registers */
     SYS_LockReg();
 
 }
 
-void UART0_Init()
+void UART1_Init()
 {
-    UART_Open(UART0, 115200);
+    UART_Open(UART1, 115200);
 }
 
 #if USE_MY_HARDFAULT
@@ -204,7 +203,7 @@ int32_t main(void)
     SYS_Init();
 
     /* Init UART0 for printf */
-    UART0_Init();
+    UART1_Init();
 
     while(1)
     {

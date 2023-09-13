@@ -263,7 +263,7 @@ int32_t LPUART_AutoOP(uint32_t u32PDMode)
 
     printf("     System enter to Power-down mode NPD%d.\n", (int)(CLK->PMUCTL & CLK_PMUCTL_PDMSEL_Msk));
 
-    UART_WAIT_TX_EMPTY(UART0);
+    UART_WAIT_TX_EMPTY(UART1);
     CLK_PowerDown();
     printf("     Wakeup\n");
 
@@ -294,14 +294,14 @@ void SYS_Init(void)
     /* Set LPTMR0 clock source from MIRC */
     CLK_SetModuleClock(LPTMR0_MODULE, LPSCC_CLKSEL0_LPTMR0SEL_HIRC, 0);
 
-    /* Select UART0 clock source is HIRC and UART module clock divider as 1 */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    /* Select UART1 clock source is HIRC and UART module clock divider as 1 */
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Select Low Power UART0 clock source is HIRC and Low Power UART module clock divider as 1*/
     CLK_SetModuleClock(LPUART0_MODULE, LPSCC_CLKSEL0_LPUART0SEL_MIRC, LPSCC_CLKDIV0_LPUART0(1));
 
-    /* Enable UART0 peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    /* Enable UART1 peripheral clock */
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Enable LPUART0 peripheral clock */
     CLK_EnableModuleClock(LPUART0_MODULE);
@@ -315,8 +315,8 @@ void SYS_Init(void)
     /* Enable LPTMR 0 module clock */
     CLK_EnableModuleClock(LPTMR0_MODULE);
 
-    /* Set GPB multi-function pins for UART0 RXD and TXD */
-    Uart0DefaultMPF();
+    /* Set GPA multi-function pins for UART1 RXD and TXD */
+    Uart1DefaultMPF();
 
     /* Set PA multi-function pins for Low Power UART0 TXD and RXD */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk)) |    \
@@ -328,11 +328,11 @@ void SYS_Init(void)
 
 void UART_Init()
 {
-    /* Reset UART0 */
-    SYS_ResetModule(UART0_RST);
+    /* Reset UART1 */
+    SYS_ResetModule(UART1_RST);
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -353,7 +353,7 @@ int main(void)
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART0 for printf */
+    /* Init UART1 for printf */
     UART_Init();
 
     /* Init LPUART0 for test */

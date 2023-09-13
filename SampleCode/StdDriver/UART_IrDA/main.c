@@ -66,14 +66,14 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
+    Uart1DefaultMPF();
 
-    /* Set PA multi-function pins for UART1 TXD, RXD, CTS and RTS */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk |          \
-                                       SYS_GPA_MFP0_PA2MFP_Msk | SYS_GPA_MFP0_PA3MFP_Msk) ) |                                          \
-                    (SYS_GPA_MFP0_PA0MFP_UART1_nRTS | SYS_GPA_MFP0_PA1MFP_UART1_nCTS |                  \
-                     SYS_GPA_MFP0_PA2MFP_UART1_RXD | SYS_GPA_MFP0_PA3MFP_UART1_TXD);
+    /* Set PA multi-function pins for UART0 TXD, RXD, CTS and RTS */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk )) |    \
+                    (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD );
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(SYS_GPA_MFP1_PA4MFP_Msk | SYS_GPA_MFP1_PA5MFP_Msk)) |    \
+                    (SYS_GPA_MFP1_PA4MFP_UART0_nRTS | SYS_GPA_MFP1_PA5MFP_UART0_nCTS);
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -88,7 +88,7 @@ void UART0_Init(void)
     SYS_ResetModule(UART0_RST);
 
     /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    UART_Open(UART0, 57600);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -100,7 +100,7 @@ void UART1_Init(void)
     SYS_ResetModule(UART1_RST);
 
     /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 57600);
+    UART_Open(UART1, 115200);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -147,20 +147,20 @@ void IrDA_FunctionTest(void)
     printf("|  ______                                      ______         |\n");
     printf("| |      |                                    |      |        |\n");
     printf("| |      |                                    |      |        |\n");
-    printf("| |Master|---TXD1(PA3)  <====>  RXD1(PA2)  ---|Slave |        |\n");
+    printf("| |Master|---TXD0(PA1)  <====>  RXD0(PA0)  ---|Slave |        |\n");
     printf("| |      |                                    |      |        |\n");
     printf("| |______|                                    |______|        |\n");
     printf("|                                                             |\n");
     printf("+-------------------------------------------------------------+\n");
 
     /*
-        UART5 is set to debug port and connect with PC firstly.
+        UART1 is set to debug port and connect with PC firstly.
         The IrDA sample code needs two module board to execute.
         Set the master board is IrDA TX Mode and the other is IrDA Rx mode.
         Inputting char on terminal will be sent to the UART0 of master.
-        After the master receiving, the inputting char will send to UART0 again.
-        At the same time, it also sends to UART1 TX pin by IrDA mode.
-        Slave will print received char after UART1 send out.
+        After the master receiving, the inputting char will send to UART1 again.
+        At the same time, it also sends to UART0 TX pin by IrDA mode.
+        Slave will print received char after UART0 send out.
         Note that IrDA mode is ONLY used when baud rate equation is selected mode 0.
 
     */
@@ -199,22 +199,22 @@ void IrDA_FunctionTxTest(void)
     printf("+-----------------------------------------------------------+\n");
     printf("|     IrDA Function Tx Mode Test                            |\n");
     printf("+-----------------------------------------------------------+\n");
-    printf("| 1). Input char by UART0 terminal.                         |\n");
-    printf("| 2). UART1 will send a char according to step 1.           |\n");
+    printf("| 1). Input char by UART1 terminal.                         |\n");
+    printf("| 2). UART0 will send a char according to step 1.           |\n");
     printf("| 3). Return step 1. (Press '0' to exit)                    |\n");
     printf("+-----------------------------------------------------------+\n\n");
 
     printf("\nIRDA Sample Code Start. \n");
 
     /* Select IrDA Tx mode and set baud rate */
-    UART_SelectIrDAMode(UART1, 57600, UART_IRDA_TXEN);
+    UART_SelectIrDAMode(UART0, 57600, UART_IRDA_TXEN);
 
-    /* Wait Terminal input to send data to UART1 TX pin */
+    /* Wait Terminal input to send data to UART0 TX pin */
     do
     {
         u8OutChar = getchar();
         printf(" Input: %c , Send %c out\n", u8OutChar, u8OutChar);
-        UART_WRITE(UART1, u8OutChar);
+        UART_WRITE(UART0, u8OutChar);
     }
     while (u8OutChar != '0');
 
@@ -237,20 +237,20 @@ void IrDA_FunctionRxTest(void)
     printf("+-----------------------------------------------------------+\n\n");
 
     /* Select IrDA Rx mode and set baud rate */
-    UART_SelectIrDAMode(UART1, 57600, UART_IRDA_RXEN);
+    UART_SelectIrDAMode(UART0, 57600, UART_IRDA_RXEN);
 
     /* Reset Rx FIFO */
-    UART1->FIFO |= UART_FIFO_RXRST_Msk;
-    while(UART1->FIFO & UART_FIFO_RXRST_Msk);
+    UART0->FIFO |= UART_FIFO_RXRST_Msk;
+    while(UART0->FIFO & UART_FIFO_RXRST_Msk);
 
     printf("Waiting...\n");
 
     /* Use polling method to wait master data */
     do
     {
-        if (UART_IS_RX_READY(UART1))
+        if (UART_IS_RX_READY(UART0))
         {
-            u8InChar = UART_READ(UART1);
+            u8InChar = UART_READ(UART0);
             printf("   Input: %c \n", u8InChar);
         }
     }

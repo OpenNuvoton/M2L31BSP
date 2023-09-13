@@ -42,18 +42,18 @@ void SYS_Init(void)
     CLK_EnableModuleClock(HCLK1_MODULE);
 
     /* Enable peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
     CLK_EnableModuleClock(LPTMR0_MODULE);
     CLK_EnableModuleClock(LPTMR1_MODULE);
 
     /* Peripheral clock source */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
     CLK_SetModuleClock(LPTMR0_MODULE, LPSCC_CLKSEL0_LPTMR0SEL_HIRC, 0);
     CLK_SetModuleClock(LPTMR1_MODULE, LPSCC_CLKSEL0_LPTMR0SEL_HIRC, 0);
 
 
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins for UART1 */
+    Uart1DefaultMPF();
 
     /* Set Low Power TMR0~1 PWM output pins */
     SYS->GPB_MFP1 = (SYS->GPB_MFP1 & (SYS_GPB_MFP1_PB5MFP_Msk | SYS_GPB_MFP1_PB4MFP_Msk)) | \
@@ -76,8 +76,8 @@ int main(void)
        to unlock protected register if necessary */
     SYS_Init();
 
-    /* Configure UART0 and set UART0 Baudrate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 Baudrate */
+    UART_Open(UART1, 115200);
 
     printf("+---------------------------------------------------+\n");
     printf("|  Low Power TMR0~TMR1 PWM Output Duty Sample Code  |\n");

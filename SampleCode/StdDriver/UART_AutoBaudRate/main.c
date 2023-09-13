@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include "NuMicro.h"
 
+#define UART_TEST_PORT   UART0
+
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -66,12 +68,13 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
+    Uart1DefaultMPF();
 
-    /* Set PA multi-function pins for UART1 TXD and RXD */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA2MFP_Msk | SYS_GPA_MFP0_PA3MFP_Msk)) |    \
-                    (SYS_GPA_MFP0_PA2MFP_UART1_RXD | SYS_GPA_MFP0_PA3MFP_UART1_TXD);
+    /* Set PA multi-function pins for UART0 TXD and RXD */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk)) |    \
+                    (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD);
+
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -145,7 +148,7 @@ void AutoBaudRate_Test(void)
     printf("+-----------------------------------------------------------+\n");
     printf("|  ______                                            _____  |\n");
     printf("| |      |                                          |     | |\n");
-    printf("| |Master|--UART1_TXD(PA.3) <====> UART1_RXD(PA.2)--|Slave| |\n");
+    printf("| |Master|--UART0_TXD(PA.1) <====> UART0_RXD(PA.0)--|Slave| |\n");
     printf("| |      |                                          |     | |\n");
     printf("| |______|                                          |_____| |\n");
     printf("|                                                           |\n");
@@ -201,18 +204,18 @@ void AutoBaudRate_TxTest(void)
         switch(u32Item)
         {
         case '1':
-            UART1->BAUD = UART_BAUD_MODE2 | UART_BAUD_MODE2_DIVIDER(__HIRC, 38400);
+            UART_TEST_PORT->BAUD = UART_BAUD_MODE2 | UART_BAUD_MODE2_DIVIDER(__HIRC, 38400);
             break;
         case '2':
-            UART1->BAUD = UART_BAUD_MODE2 | UART_BAUD_MODE2_DIVIDER(__HIRC, 57600);
+            UART_TEST_PORT->BAUD = UART_BAUD_MODE2 | UART_BAUD_MODE2_DIVIDER(__HIRC, 57600);
             break;
         default:
-            UART1->BAUD = UART_BAUD_MODE2 | UART_BAUD_MODE2_DIVIDER(__HIRC, 115200);
+            UART_TEST_PORT->BAUD = UART_BAUD_MODE2 | UART_BAUD_MODE2_DIVIDER(__HIRC, 115200);
             break;
         }
 
         /* Send input pattern 0x1 for auto baud rate detection bit length is 1-bit */
-        UART_WRITE(UART1, 0x1);
+        UART_WRITE(UART_TEST_PORT, 0x1);
 
     }
     while(u32Item != 27);
@@ -298,23 +301,23 @@ uint32_t GetUartBaudrate(UART_T *uart)
 void AutoBaudRate_RxTest(void)
 {
     /* Enable auto baud rate detect function */
-    UART1->ALTCTL |= UART_ALTCTL_ABRDEN_Msk;
+    UART_TEST_PORT->ALTCTL |= UART_ALTCTL_ABRDEN_Msk;
 
     printf("\nreceiving input pattern... ");
 
     /* Wait until auto baud rate detect finished or time-out */
-    while((UART1->ALTCTL & UART_ALTCTL_ABRIF_Msk) == 0);
+    while((UART_TEST_PORT->ALTCTL & UART_ALTCTL_ABRIF_Msk) == 0);
 
-    if(UART1->FIFOSTS & UART_FIFOSTS_ABRDIF_Msk)
+    if(UART_TEST_PORT->FIFOSTS & UART_FIFOSTS_ABRDIF_Msk)
     {
         /* Clear auto baud rate detect finished flag */
-        UART1->FIFOSTS = UART_FIFOSTS_ABRDIF_Msk;
-        printf("Baud rate is %dbps.\n", GetUartBaudrate(UART1));
+        UART_TEST_PORT->FIFOSTS = UART_FIFOSTS_ABRDIF_Msk;
+        printf("Baud rate is %dbps.\n", GetUartBaudrate(UART_TEST_PORT));
     }
-    else if(UART1->FIFOSTS & UART_FIFOSTS_ABRDTOIF_Msk)
+    else if(UART_TEST_PORT->FIFOSTS & UART_FIFOSTS_ABRDTOIF_Msk)
     {
         /* Clear auto baud rate detect time-out flag */
-        UART1->FIFOSTS = UART_FIFOSTS_ABRDTOIF_Msk;
+        UART_TEST_PORT->FIFOSTS = UART_FIFOSTS_ABRDTOIF_Msk;
         printf("Time-out!\n");
     }
 

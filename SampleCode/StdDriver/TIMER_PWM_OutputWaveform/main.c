@@ -39,21 +39,21 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Enable peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
     CLK_EnableModuleClock(TMR0_MODULE);
     CLK_EnableModuleClock(TMR1_MODULE);
     CLK_EnableModuleClock(TMR2_MODULE);
     CLK_EnableModuleClock(TMR3_MODULE);
 
     /* Peripheral clock source */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
     CLK_SetModuleClock(TMR0_MODULE, CLK_CLKSEL1_TMR0SEL_PCLK0, 0);
     CLK_SetModuleClock(TMR1_MODULE, CLK_CLKSEL1_TMR1SEL_PCLK0, 0);
     CLK_SetModuleClock(TMR2_MODULE, CLK_CLKSEL1_TMR2SEL_PCLK1, 0);
     CLK_SetModuleClock(TMR3_MODULE, CLK_CLKSEL1_TMR3SEL_PCLK1, 0);
 
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins for UART1 */
+    Uart1DefaultMPF();
 
     /* Set Timer0~4 PWM output pins */
     SYS->GPB_MFP0 =  (SYS->GPB_MFP0 & ~(SYS_GPB_MFP0_PB3MFP_Msk | SYS_GPB_MFP0_PB2MFP_Msk)) | \
@@ -79,8 +79,8 @@ int main(void)
        to unlock protected register if necessary */
     SYS_Init();
 
-    /* Configure UART0 and set UART0 Baudrate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 Baudrate */
+    UART_Open(UART1, 115200);
 
     printf("+-------------------------------------------------+\n");
     printf("|    Timer0~Timer3 PWM Output Duty Sample Code    |\n");

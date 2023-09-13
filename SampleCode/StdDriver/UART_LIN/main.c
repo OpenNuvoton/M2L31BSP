@@ -27,30 +27,30 @@ void UART_FunctionTest(void);
 void LIN_Tx_FunctionTest(void);
 void LIN_Rx_FunctionTest(void);
 
-void UART1_IRQHandler(void)
+void UART0_IRQHandler(void)
 {
-    volatile uint32_t u32IntSts = UART1->INTSTS;
+    volatile uint32_t u32IntSts = UART0->INTSTS;
 
     if(u32IntSts & UART_INTSTS_LINIF_Msk)
     {
-        if(UART1->LINSTS & UART_LINSTS_SLVHDETF_Msk)
+        if(UART0->LINSTS & UART_LINSTS_SLVHDETF_Msk)
         {
             // Clear LIN slave header detection flag
-            UART1->LINSTS = UART_LINSTS_SLVHDETF_Msk;
+            UART0->LINSTS = UART_LINSTS_SLVHDETF_Msk;
             printf("\n LIN Slave Header detected ");
         }
 
-        if(UART1->LINSTS & (UART_LINSTS_SLVHEF_Msk | UART_LINSTS_SLVIDPEF_Msk | UART_LINSTS_BITEF_Msk))
+        if(UART0->LINSTS & (UART_LINSTS_SLVHEF_Msk | UART_LINSTS_SLVIDPEF_Msk | UART_LINSTS_BITEF_Msk))
         {
             // Clear LIN error flag
-            UART1->LINSTS = (UART_LINSTS_SLVHEF_Msk | UART_LINSTS_SLVIDPEF_Msk | UART_LINSTS_BITEF_Msk);
+            UART0->LINSTS = (UART_LINSTS_SLVHEF_Msk | UART_LINSTS_SLVIDPEF_Msk | UART_LINSTS_BITEF_Msk);
             printf("\n LIN error detected ");
         }
     }
 
     if(u32IntSts & UART_INTSTS_RDAIF_Msk)
     {
-        g_u8ReceiveData[g_i32RxCounter] = UART1->DAT;
+        g_u8ReceiveData[g_i32RxCounter] = UART0->DAT;
         g_i32RxCounter++;
     }
 
@@ -85,21 +85,21 @@ void SYS_Init(void)
     CLK_EnableModuleClock(UART1_MODULE);
 
     /* Set GPB multi-function pins for UART0 RXD and TXD */
-    Uart0DefaultMPF();
+    Uart1DefaultMPF();
 
-    /* Set PA multi-function pins for UART1 TXD, RXD, CTS and RTS */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk |          \
-                                       SYS_GPA_MFP0_PA2MFP_Msk | SYS_GPA_MFP0_PA3MFP_Msk) ) |                                          \
-                    (SYS_GPA_MFP0_PA0MFP_UART1_nRTS | SYS_GPA_MFP0_PA1MFP_UART1_nCTS |                  \
-                     SYS_GPA_MFP0_PA2MFP_UART1_RXD | SYS_GPA_MFP0_PA3MFP_UART1_TXD);
+    /* Set PA multi-function pins for UART0 TXD, RXD, CTS and RTS */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk )) |    \
+                    (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD );
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(SYS_GPA_MFP1_PA4MFP_Msk | SYS_GPA_MFP1_PA5MFP_Msk)) |    \
+                    (SYS_GPA_MFP1_PA4MFP_UART0_nRTS | SYS_GPA_MFP1_PA5MFP_UART0_nCTS);
 
 }
 
-void UART0_Init()
+void UART1_Init()
 {
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 
@@ -115,8 +115,8 @@ int32_t main(void)
     /* Lock protected registers */
     SYS_LockReg();
 
-    /* Init UART0 for printf and test */
-    UART0_Init();
+    /* Init UART1 for printf and test */
+    UART1_Init();
 
     printf("\n\nCPU @ %d Hz\n", SystemCoreClock);
 
@@ -228,22 +228,22 @@ void LIN_Tx_FunctionTest(void)
     g_i32pointer = 0 ;
 
     /* Set UART Configuration, LIN Max Speed is 20K */
-    UART_SetLine_Config(UART1, 9600, UART_WORD_LEN_8, UART_PARITY_NONE, UART_STOP_BIT_1);
+    UART_SetLine_Config(UART0, 9600, UART_WORD_LEN_8, UART_PARITY_NONE, UART_STOP_BIT_1);
 
     /* Switch back to LIN Function */
-    UART1->FUNCSEL = UART_FUNCSEL_LIN;
+    UART0->FUNCSEL = UART_FUNCSEL_LIN;
 
     // Send Header
-    UART1->LINCTL = UART_LINCTL_PID(LIN_ID) | UART_LINCTL_HSEL_BREAK_SYNC_ID |
+    UART0->LINCTL = UART_LINCTL_PID(LIN_ID) | UART_LINCTL_HSEL_BREAK_SYNC_ID |
                     UART_LINCTL_BSL(1) | UART_LINCTL_BRKFL(12) | UART_LINCTL_IDPEN_Msk;
     /* LIN TX Send Header Enable */
-    UART1->LINCTL |= UART_LINCTL_SENDH_Msk;
+    UART0->LINCTL |= UART_LINCTL_SENDH_Msk;
     /* Wait until break field, sync field and ID field transfer completed */
-    while((UART1->LINCTL & UART_LINCTL_SENDH_Msk) == UART_LINCTL_SENDH_Msk);
+    while((UART0->LINCTL & UART_LINCTL_SENDH_Msk) == UART_LINCTL_SENDH_Msk);
 
     /* Compute checksum without ID and fill checksum value to  au8TestPattern[8] */
     au8TestPattern[8] = ComputeChksumValue(&au8TestPattern[0], 8);
-    UART_Write(UART1, &au8TestPattern[0], 9);
+    UART_Write(UART0, &au8TestPattern[0], 9);
 
     printf("\n UART LIN Tx Function Demo End !!\n");
 }
@@ -261,23 +261,23 @@ void LIN_Rx_FunctionTest(void)
     printf("+--------------------------------------------------------------------------------+\n");
 
     /* Reset RX FIFO Before Test */
-    UART1->FIFO |= UART_FIFO_RXRST_Msk;
-    UART1->FIFO &= ~UART_FIFO_RXRST_Msk;
+    UART0->FIFO |= UART_FIFO_RXRST_Msk;
+    UART0->FIFO &= ~UART_FIFO_RXRST_Msk;
 
     g_i32RxCounter = 0;
 
     /* Set UART Configuration, LIN Max Speed is 20K */
-    UART_SetLine_Config(UART1, 9600, UART_WORD_LEN_8, UART_PARITY_NONE, UART_STOP_BIT_1);
+    UART_SetLine_Config(UART0, 9600, UART_WORD_LEN_8, UART_PARITY_NONE, UART_STOP_BIT_1);
 
     /* Switch back to LIN Function */
-    UART1->FUNCSEL = UART_FUNCSEL_LIN;
+    UART0->FUNCSEL = UART_FUNCSEL_LIN;
 
     /* Enable RDA\Time-out\LIN Interrupt  */
-    UART_ENABLE_INT(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk | UART_INTEN_LINIEN_Msk));
-    NVIC_EnableIRQ(UART1_IRQn);
+    UART_ENABLE_INT(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk | UART_INTEN_LINIEN_Msk));
+    NVIC_EnableIRQ(UART0_IRQn);
 
     // Receive Header: break+sync+ID
-    UART1->LINCTL = UART_LINCTL_PID(LIN_ID) | UART_LINCTL_HSEL_BREAK_SYNC_ID | UART_LINCTL_SLVHDEN_Msk |
+    UART0->LINCTL = UART_LINCTL_PID(LIN_ID) | UART_LINCTL_HSEL_BREAK_SYNC_ID | UART_LINCTL_SLVHDEN_Msk |
                     UART_LINCTL_IDPEN_Msk | UART_LINCTL_MUTE_Msk | UART_LINCTL_SLVEN_Msk;
 
     while(g_i32RxCounter < 9);
@@ -287,7 +287,7 @@ void LIN_Rx_FunctionTest(void)
            g_u8ReceiveData[4], g_u8ReceiveData[5], g_u8ReceiveData[6], g_u8ReceiveData[7],
            g_u8ReceiveData[8]);
 
-    NVIC_DisableIRQ(UART1_IRQn);
+    NVIC_DisableIRQ(UART0_IRQn);
 
     printf("\n UART LIN Rx Function Demo End !!\n");
 }

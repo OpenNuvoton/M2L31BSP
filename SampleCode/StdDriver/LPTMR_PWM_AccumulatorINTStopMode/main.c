@@ -48,16 +48,16 @@ void SYS_Init(void)
     CLK_EnableModuleClock(HCLK1_MODULE);
 
     /* Enable UART0 module clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
-    /* Select UART0 module clock source as HIRC and UART0 module clock divider as 1 */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    /* Select UART module clock source as HIRC and UART module clock divider as 1 */
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set multi-function pins for UART0 RXD and TXD */
-    Uart0DefaultMPF();
+    /* Set multi-function pins for UART1 RXD and TXD */
+    Uart1DefaultMPF();
 
 
     /*---------------------------------------------------------------------------------------------------------*/
@@ -81,7 +81,7 @@ void UART_Init(void)
     /* Reset UART0 */
     SYS_ResetModule(UART0_RST);
 
-    /* Configure UART0 and set UART0 baud rate */
+    /* Configure UART1 and set UART1 baud rate */
     UART_Open(DEBUG_PORT, 115200);
 }
 

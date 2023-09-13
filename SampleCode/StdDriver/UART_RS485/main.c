@@ -74,11 +74,12 @@ void SYS_Init(void)
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    Uart1DefaultMPF();
 
-    /* Set PA multi-function pins for UART1 TXD, RXD and RTS */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA2MFP_Msk | SYS_GPA_MFP0_PA3MFP_Msk)) |   \
-                    (SYS_GPA_MFP0_PA0MFP_UART1_nRTS | SYS_GPA_MFP0_PA2MFP_UART1_RXD | SYS_GPA_MFP0_PA3MFP_UART1_TXD);
+    /* Set PA multi-function pins for UART0 TXD, RXD and RTS */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk)) |    \
+                    (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD);
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(SYS_GPA_MFP1_PA4MFP_Msk)) | (SYS_GPA_MFP1_PA4MFP_UART0_nRTS);
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -129,7 +130,7 @@ int main(void)
 /*---------------------------------------------------------------------------------------------------------*/
 /* ISR to handle UART Channel 1 interrupt event                                                            */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART1_IRQHandler(void)
+void UART0_IRQHandler(void)
 {
     RS485_HANDLE();
 }
@@ -141,14 +142,14 @@ void RS485_HANDLE()
 {
     volatile uint32_t addr = 0;
     volatile uint32_t regRX = 0xFF;
-    volatile uint32_t u32IntSts = UART1->INTSTS;
+    volatile uint32_t u32IntSts = UART0->INTSTS;
 
-    if (UART_GET_INT_FLAG(UART1,UART_INTSTS_RLSINT_Msk ) && UART_GET_INT_FLAG(UART1, UART_INTSTS_RDAINT_Msk))       /* RLS INT & RDA INT */ //For RS485 Detect Address
+    if (UART_GET_INT_FLAG(UART0,UART_INTSTS_RLSINT_Msk ) && UART_GET_INT_FLAG(UART0, UART_INTSTS_RDAINT_Msk))       /* RLS INT & RDA INT */ //For RS485 Detect Address
     {
-        if (UART_RS485_GET_ADDR_FLAG(UART1))   /* ADD_IF, RS485 mode */
+        if (UART_RS485_GET_ADDR_FLAG(UART0))   /* ADD_IF, RS485 mode */
         {
-            addr = UART_READ(UART1);
-            UART_RS485_CLEAR_ADDR_FLAG(UART1);        /* clear ADD_IF flag */
+            addr = UART_READ(UART0);
+            UART_RS485_CLEAR_ADDR_FLAG(UART0);        /* clear ADD_IF flag */
             printf("\nAddr=0x%x,Get:", addr);
 
 #if (IS_USE_RS485NMM ==1) //RS485_NMM
@@ -157,30 +158,30 @@ void RS485_HANDLE()
             /* In NMM mode,user can decide multi-address filter. In AAD mode,only one address can set */
             if ((addr == MATCH_ADDRSS1) || (addr == MATCH_ADDRSS2))
             {
-                UART1->FIFO &= ~ UART_FIFO_RXOFF_Msk;  /* Enable RS485 RX */
+                UART0->FIFO &= ~ UART_FIFO_RXOFF_Msk;  /* Enable RS485 RX */
             }
             else
             {
 
-                UART1->FIFO |= UART_FIFO_RXOFF_Msk;      /* Disable RS485 RX */
-                UART1->FIFO |= UART_FIFO_RXRST_Msk;      /* Clear data from RX FIFO */
+                UART0->FIFO |= UART_FIFO_RXOFF_Msk;      /* Disable RS485 RX */
+                UART0->FIFO |= UART_FIFO_RXRST_Msk;      /* Clear data from RX FIFO */
                 printf("\n");
             }
 
 #endif
         }
     }
-    else if (UART_GET_INT_FLAG(UART1,UART_INTSTS_RDAINT_Msk ) || UART_GET_INT_FLAG(UART1,UART_INTSTS_RXTOINT_Msk ))     /* Rx Ready or Time-out INT*/
+    else if (UART_GET_INT_FLAG(UART0,UART_INTSTS_RDAINT_Msk ) || UART_GET_INT_FLAG(UART0,UART_INTSTS_RXTOINT_Msk ))     /* Rx Ready or Time-out INT*/
     {
         /* Handle received data */
-        while (!UART_GET_RX_EMPTY(UART1))
-            printf("%2d,", UART_READ(UART1));
+        while (!UART_GET_RX_EMPTY(UART0))
+            printf("%2d,", UART_READ(UART0));
 
     }
-    else if (UART_GET_INT_FLAG(UART1,UART_INTSTS_BUFERRINT_Msk ))     /* Buffer Error INT */
+    else if (UART_GET_INT_FLAG(UART0,UART_INTSTS_BUFERRINT_Msk ))     /* Buffer Error INT */
     {
         printf("\nBuffer Error...\n");
-        UART_ClearIntFlag(UART1, UART_INTSTS_BUFERRINT_Msk);
+        UART_ClearIntFlag(UART0, UART_INTSTS_BUFERRINT_Msk);
     }
 }
 
@@ -189,14 +190,14 @@ void RS485_HANDLE()
 /*---------------------------------------------------------------------------------------------------------*/
 void RS485_SendAddressByte(uint8_t u8data)
 {
-    UART_SetLine_Config(UART1, 0, UART_WORD_LEN_8, UART_PARITY_MARK, UART_STOP_BIT_1);
-    UART_WRITE(UART1, u8data);
+    UART_SetLine_Config(UART0, 0, UART_WORD_LEN_8, UART_PARITY_MARK, UART_STOP_BIT_1);
+    UART_WRITE(UART0, u8data);
 }
 
 void RS485_SendDataByte(uint8_t *pu8TxBuf, uint32_t u32WriteBytes)
 {
-    UART_SetLine_Config(UART1, 0, UART_WORD_LEN_8, UART_PARITY_SPACE, UART_STOP_BIT_1);
-    UART_Write(UART1, pu8TxBuf, u32WriteBytes);
+    UART_SetLine_Config(UART0, 0, UART_WORD_LEN_8, UART_PARITY_SPACE, UART_STOP_BIT_1);
+    UART_Write(UART0, pu8TxBuf, u32WriteBytes);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -222,9 +223,9 @@ void RS485_9bitModeMaster()
     getchar();
 
     /* Set RS485-Master as AUD mode*/
-    UART_SelectRS485Mode(UART1, UART_ALTCTL_RS485AUD_Msk, 0);
+    UART_SelectRS485Mode(UART0, UART_ALTCTL_RS485AUD_Msk, 0);
 
-    UART1->MODEM &= ~UART_MODEM_RTSACTLV_Msk;
+    UART0->MODEM &= ~UART_MODEM_RTSACTLV_Msk;
 
     /* Prepare Data to transmit*/
     for (i32 = 0; i32 < 10; i32++)
@@ -260,19 +261,19 @@ void RS485_9bitModeMaster()
 void RS485_9bitModeSlave()
 {
     /* Set Data Format*/ /* Only need parity enable whenever parity ODD/EVEN */
-    UART_SetLine_Config(UART1, 0, UART_WORD_LEN_8, UART_PARITY_EVEN, UART_STOP_BIT_1);
+    UART_SetLine_Config(UART0, 0, UART_WORD_LEN_8, UART_PARITY_EVEN, UART_STOP_BIT_1);
 
     /* Reset RX FIFO Before Test */
-    UART1->FIFO |= UART_FIFO_RXRST_Msk;
-    UART1->FIFO &= ~UART_FIFO_RXRST_Msk;
+    UART0->FIFO |= UART_FIFO_RXRST_Msk;
+    UART0->FIFO &= ~UART_FIFO_RXRST_Msk;
 
     /* Set RX Trigger Level = 1 */
-    UART1->FIFO &= ~UART_FIFO_RFITL_Msk;
-    UART1->FIFO |= UART_FIFO_RFITL_1BYTE;
+    UART0->FIFO &= ~UART_FIFO_RFITL_Msk;
+    UART0->FIFO |= UART_FIFO_RFITL_1BYTE;
 
     /* Set RTS pin active level as High level active */
-    UART1->MODEM &= ~UART_MODEM_RTSACTLV_Msk;
-    UART1->MODEM |= UART_RTS_IS_HIGH_LEV_ACTIVE;
+    UART0->MODEM &= ~UART_MODEM_RTSACTLV_Msk;
+    UART0->MODEM |= UART_RTS_IS_HIGH_LEV_ACTIVE;
 
 #if(IS_USE_RS485NMM == 1)
     printf("+-----------------------------------------------------------+\n");
@@ -283,11 +284,11 @@ void RS485_9bitModeSlave()
     printf("+-----------------------------------------------------------+\n");
 
     /* Set RX_DIS enable before set RS485-NMM mode */
-    UART1->FIFO |= UART_FIFO_RXOFF_Msk;
+    UART0->FIFO |= UART_FIFO_RXOFF_Msk;
 
     /* Set RS485-NMM Mode */
 
-    UART_SelectRS485Mode(UART1, UART_ALTCTL_RS485NMM_Msk | UART_ALTCTL_ADDRDEN_Msk | UART_ALTCTL_RS485AUD_Msk, 0);
+    UART_SelectRS485Mode(UART0, UART_ALTCTL_RS485NMM_Msk | UART_ALTCTL_ADDRDEN_Msk | UART_ALTCTL_RS485AUD_Msk, 0);
 
 #else
     printf("Auto Address Match Operation Mode\n");
@@ -299,26 +300,26 @@ void RS485_9bitModeSlave()
     printf("+-----------------------------------------------------------+\n");
 
     /* Set RS485-AAD Mode and address match is 0xC0 */
-    UART_SelectRS485Mode(UART1, UART_ALTCTL_RS485AAD_Msk | UART_ALTCTL_ADDRDEN_Msk | UART_ALTCTL_RS485AUD_Msk, MATCH_ADDRSS1);
+    UART_SelectRS485Mode(UART0, UART_ALTCTL_RS485AAD_Msk | UART_ALTCTL_ADDRDEN_Msk | UART_ALTCTL_RS485AUD_Msk, MATCH_ADDRSS1);
 #endif
 
     /* Enable RDA\RLS\Time-out Interrupt  */
-    UART_ENABLE_INT(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RLSIEN_Msk | UART_INTEN_RXTOIEN_Msk));
-    NVIC_EnableIRQ(UART1_IRQn);
+    UART_ENABLE_INT(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RLSIEN_Msk | UART_INTEN_RXTOIEN_Msk));
+    NVIC_EnableIRQ(UART0_IRQn);
 
     printf("Ready to receive data...(Press any key to stop test)\n");
     getchar();
 
     /* Flush FIFO */
-    while (UART_GET_RX_EMPTY(UART1) == 0)
+    while (UART_GET_RX_EMPTY(UART0) == 0)
     {
-        UART_READ(UART1);
+        UART_READ(UART0);
     }
 
-    UART_DISABLE_INT(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RLSIEN_Msk | UART_INTEN_RXTOIEN_Msk));
+    UART_DISABLE_INT(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RLSIEN_Msk | UART_INTEN_RXTOIEN_Msk));
 
     /* Set UART Function */
-    UART_Open(UART1, 115200);
+    UART_Open(UART0, 115200);
     printf("\n\nEnd test\n");
 }
 
@@ -335,8 +336,8 @@ void RS485_FunctionTest()
     printf("+-------------------------------------------------------------+\n");
     printf("|  ______                                 _______             |\n");
     printf("| |      |                               |       |            |\n");
-    printf("| |Master|---TXD(PA.3) <===> RXD(PA.2)---| Slave |            |\n");
-    printf("| |      |---RTS(PA.0) <===> RTS(PA.0)---|       |            |\n");
+    printf("| |Master|---TXD(PA.1) <===> RXD(PA.0)---| Slave |            |\n");
+    printf("| |      |---RTS(PA.4) <===> RTS(PA.4)---|       |            |\n");
     printf("| |______|                               |_______|            |\n");
     printf("|                                                             |\n");
     printf("+-------------------------------------------------------------+\n\n");

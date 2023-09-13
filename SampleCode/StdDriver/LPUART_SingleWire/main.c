@@ -29,7 +29,7 @@ volatile int32_t  g_i32RecOK  = FALSE;
 /* Define functions prototype                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
 int32_t main(void);
-void UART1_TEST_HANDLE(void);
+void UART0_TEST_HANDLE(void);
 void LPUART0_TEST_HANDLE(void);
 void UART_FunctionTest(void);
 
@@ -81,18 +81,18 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set PA multi-function pins for UART1 */
+    Uart1DefaultMPF();
 
-    /* Set PA multi-function pins for UART1 TXD, RXD */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA2MFP_Msk)) | SYS_GPA_MFP0_PA2MFP_UART1_RXD;
+    /* Set PA multi-function pins for UART0 RXD */
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(SYS_GPA_MFP1_PA6MFP_Msk)) | SYS_GPA_MFP1_PA6MFP_UART0_RXD;
 
-    /* Set PB multi-function pins for LPUART0 TXD and RXD */
+    /* Set PB multi-function pins for LPUART0 RXD */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk )) | SYS_GPA_MFP0_PA0MFP_LPUART0_RXD;
 
     /* The RX pin needs to pull-high for single-wire */
     /* If the external circuit doesn't pull-high, set GPIO pin as Quasi-directional mode for this purpose here */
-    PA->MODE &= (PA->MODE & ~GPIO_MODE_MODE2_Msk) | (GPIO_MODE_QUASI << GPIO_MODE_MODE2_Pos);
+    PA->MODE &= (PA->MODE & ~GPIO_MODE_MODE6_Msk) | (GPIO_MODE_QUASI << GPIO_MODE_MODE6_Pos);
 
     PA->MODE &= (PA->MODE & ~GPIO_MODE_MODE0_Msk) | (GPIO_MODE_QUASI << GPIO_MODE_MODE0_Pos);
 
@@ -106,8 +106,9 @@ void SYS_Init(void)
 void UART0_Init()
 {
 
-    /* Configure UART0 and set UART0 baud rate */
+    /* Configure Single Wire(UART0) and set Single Wire(UART0) baud rate */
     UART_Open(UART0, 115200);
+    UART_SelectSingleWireMode(UART0);
 
 }
 /*---------------------------------------------------------------------------------------------------------*/
@@ -116,11 +117,8 @@ void UART0_Init()
 
 void UART1_Init()
 {
-    /* Configure Single Wire(UART1) and set Single Wire(UART1) baud rate */
-    //UART_Open(UART0, 115200);
-    //UART_SelectSingleWireMode(UART0);
+    /* Configure UART1 and set UART1 baud rate */
     UART_Open(UART1, 115200);
-    UART_SelectSingleWireMode(UART1);
 }
 
 
@@ -131,9 +129,6 @@ void UART1_Init()
 void LPUART0_Init()
 {
     /* Configure Single Wire(LPUART0) and set Single Wire(LPUART0) baud rate */
-    //UART_Open(UART1, 115200);
-    //UART_SelectSingleWireMode(UART1);
-
     LPUART_Open(LPUART0, 115200);
     LPUART_SelectSingleWireMode(LPUART0);
 
@@ -142,8 +137,8 @@ void LPUART0_Init()
 /*---------------------------------------------------------------------------------------------------------*/
 /* UART Test Sample                                                                                        */
 /* Test Item                                                                                               */
-/* Debug port control the Single wire 1(UART1) send data to Single wire 2(LPUART0) or Single wire 2(LPUART0)*/
-/* send data to Single wire 1(UART1)                                                                       */
+/* Debug port control the Single wire 1(UART0) send data to Single wire 2(LPUART0) or Single wire 2(LPUART0)*/
+/* send data to Single wire 1(UART0)                                                                       */
 /*---------------------------------------------------------------------------------------------------------*/
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -154,9 +149,9 @@ int32_t main(void)
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART0 for printf */
+    /* Init UART0 and LPUART0 for Single Wire Test*/
     UART0_Init();
-    /* Init UART1 and LPUART0 for Single Wire Test*/
+    /* Init UART1 for printf */
     UART1_Init();
     LPUART0_Init();
 
@@ -177,24 +172,24 @@ int32_t main(void)
 /*---------------------------------------------------------------------------------------------------------*/
 /*                       ISR to handle UART Channel 1 interrupt event                                      */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART1_IRQHandler(void)
+void UART0_IRQHandler(void)
 {
-    UART1_TEST_HANDLE();
+    UART0_TEST_HANDLE();
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
-/*                                  UART1 Callback function                                                */
+/*                                  UART0 Callback function                                                */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART1_TEST_HANDLE()
+void UART0_TEST_HANDLE()
 {
 
-    if (UART_GET_INT_FLAG(UART1,UART_INTSTS_RDAIF_Msk))
+    if (UART_GET_INT_FLAG(UART0,UART_INTSTS_RDAIF_Msk))
     {
         /* Get all the input characters */
-        while (UART_IS_RX_READY(UART1))
+        while (UART_IS_RX_READY(UART0))
         {
             /* Get the character from UART Buffer */
-            g_u8RecData[g_u32RecLen] = UART_READ(UART1);
+            g_u8RecData[g_u32RecLen] = UART_READ(UART0);
 
             if (g_u32RecLen == BUFSIZE - 1)
             {
@@ -208,10 +203,10 @@ void UART1_TEST_HANDLE()
         }
     }
 
-    if (UART_GET_INT_FLAG(UART1,UART_INTSTS_SWBEIF_Msk))
+    if (UART_GET_INT_FLAG(UART0,UART_INTSTS_SWBEIF_Msk))
     {
         printf("Single-wire Bit Error Detection \n");
-        UART_ClearIntFlag(UART1, UART_INTSTS_SWBEINT_Msk);
+        UART_ClearIntFlag(UART0, UART_INTSTS_SWBEINT_Msk);
     }
 }
 
@@ -314,26 +309,26 @@ void UART_FunctionTest()
     printf("+-----------------------------------------------------------+\n");
     printf("|  Description :                                            |\n");
     printf("|    The sample code will print input char on terminal      |\n");
-    printf("|    The user must connect the UART1 RX pin(PA2) to         |\n");
+    printf("|    The user must connect the UART0 RX pin(PA6) to         |\n");
     printf("|    LPUART0 Rx Pin(PA0).                                   |\n");
-    printf("|    Single Wire 1(PA2)send data to Single Wire 2(PA0).     |\n");
-    printf("|    Single Wire 2(PA0)send data to Single Wire 1(PA2).     |\n");
+    printf("|    Single Wire 1(PA6)send data to Single Wire 2(PA0).     |\n");
+    printf("|    Single Wire 2(PA0)send data to Single Wire 1(PA6).     |\n");
     printf("|    Please enter any to start    (Press '0' to exit)       |\n");
     printf("+-----------------------------------------------------------+\n");
 
     /*
         Using a RS232 cable to connect UART0 and PC.UART0 is set to debug port.
-          UART1 and LPUART0 is enable RDA and RLS interrupt.
-          The user can use URT0 to control the transmission or reception of UART1(Single Wire mode)
-        When UART1(Single Wire 1)transfers data to LPUART0(Single Wire 2), if data is valid,
+          UART0 and LPUART0 is enable RDA and RLS interrupt.
+          The user can use URT0 to control the transmission or reception of UART0(Single Wire mode)
+        When UART0(Single Wire 1)transfers data to LPUART0(Single Wire 2), if data is valid,
           it will enter the interrupt and receive the data.And then check the received data.
-        When LPUART0(Single Wire 2)transfers data to UART1(Single Wire 1), if data is valid,
+        When LPUART0(Single Wire 2)transfers data to UART0(Single Wire 1), if data is valid,
           it will enter the interrupt and receive the data.And then check the received data.
       */
 
-    /* Enable UART1 RDA/Time-out/Single-wire Bit Error Detection interrupt */
-    NVIC_EnableIRQ(UART1_IRQn);
-    UART_EnableInt(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk | UART_INTEN_SWBEIEN_Msk));
+    /* Enable UART0 RDA/Time-out/Single-wire Bit Error Detection interrupt */
+    NVIC_EnableIRQ(UART0_IRQn);
+    UART_EnableInt(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk | UART_INTEN_SWBEIEN_Msk));
     /* Enable LPUART0 RDA/Time-out/Single-wire Bit Error Detection interrupt */
     NVIC_EnableIRQ(LPUART0_IRQn);
     LPUART_EnableInt(LPUART0, (LPUART_INTEN_RDAIEN_Msk | LPUART_INTEN_RXTOIEN_Msk | LPUART_INTEN_SWBEIEN_Msk));
@@ -343,8 +338,8 @@ void UART_FunctionTest()
         printf("+--------------------------------------------------------------+\n");
         printf("|                UART/LPUART Single Wire Test Item             |\n");
         printf("+--------------------------------------------------------------+\n");
-        printf("|    (1)Single Wire 1(PA2)send data to Single Wire 2(PA0).     |\n");
-        printf("|    (2)Single Wire 2(PA0)send data to Single Wire 1(PA2).     |\n");
+        printf("|    (1)Single Wire 1(PA6)send data to Single Wire 2(PA0).     |\n");
+        printf("|    (2)Single Wire 2(PA0)send data to Single Wire 1(PA6).     |\n");
         printf("|    (E)Exit                                                   |\n");
         printf("+--------------------------------------------------------------+\n");
 
@@ -354,14 +349,14 @@ void UART_FunctionTest()
         {
         case '1':
         {
-            printf("SW1(UART1) --> SW2(LPUART0)Test :");
+            printf("SW1(UART0) --> SW2(LPUART0)Test :");
             g_i32RecOK  = FALSE;
             Build_Src_Pattern((uint32_t)g_u8TxData, UART_WORD_LEN_8, BUFSIZE);
 
             /* Check the Rx status is Idel */
-            while (!UART_RX_IDLE(UART1)) {};
+            while (!UART_RX_IDLE(UART0)) {};
 
-            UART_Write(UART1, g_u8TxData, BUFSIZE);
+            UART_Write(UART0, g_u8TxData, BUFSIZE);
 
             while (g_i32RecOK != TRUE) {}
 
@@ -374,7 +369,7 @@ void UART_FunctionTest()
 
         case '2':
         {
-            printf("SW2(LPUART0) --> SW1(UART1)Test :");
+            printf("SW2(LPUART0) --> SW1(UART0)Test :");
             g_i32RecOK  = FALSE;
             Build_Src_Pattern((uint32_t)g_u8TxData, UART_WORD_LEN_8, BUFSIZE);
 
@@ -401,8 +396,8 @@ void UART_FunctionTest()
     }
     while ((cmmd != 'E') && (cmmd != 'e'));
 
-    /* Disable UART1 RDA/Time-out interrupt */
-    UART_DisableInt(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk | UART_INTEN_SWBEIEN_Msk));
+    /* Disable UART0 RDA/Time-out interrupt */
+    UART_DisableInt(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RXTOIEN_Msk | UART_INTEN_SWBEIEN_Msk));
     /* Disable LPUART0 RDA/Time-out interrupt */
     LPUART_DisableInt(LPUART0, (LPUART_INTEN_RDAIEN_Msk | LPUART_INTEN_RXTOIEN_Msk | LPUART_INTEN_SWBEIEN_Msk));
     printf("\nUART Sample Demo End.\n");
