@@ -2277,11 +2277,41 @@ typedef struct
     Constant Definitions for PWM Controller
 @{ */
 
-#define PWM_CTL0_CTRLDn_Pos              (0)                                               /*!< PWM_T::CTL0: CTRLDn Position           */
-#define PWM_CTL0_CTRLDn_Msk              (0x1ul << PWM_CTL0_CTRLDn_Pos)                    /*!< PWM_T::CTL0: CTRLDn Mask               */
+#define PWM_CTL0_CTRLD0_Pos              (0)                                               /*!< PWM_T::CTL0: CTRLD0 Position           */
+#define PWM_CTL0_CTRLD0_Msk              (0x1ul << PWM_CTL0_CTRLD0_Pos)                    /*!< PWM_T::CTL0: CTRLD0 Mask               */
 
-#define PWM_CTL0_IMMLDENn_Pos            (16)                                              /*!< PWM_T::CTL0: IMMLDENn Position         */
-#define PWM_CTL0_IMMLDENn_Msk            (0x1ul << PWM_CTL0_IMMLDENn_Pos)                  /*!< PWM_T::CTL0: IMMLDENn Mask             */
+#define PWM_CTL0_CTRLD1_Pos              (1)                                               /*!< PWM_T::CTL0: CTRLD1 Position           */
+#define PWM_CTL0_CTRLD1_Msk              (0x1ul << PWM_CTL0_CTRLD1_Pos)                    /*!< PWM_T::CTL0: CTRLD1 Mask               */
+
+#define PWM_CTL0_CTRLD2_Pos              (2)                                               /*!< PWM_T::CTL0: CTRLD2 Position           */
+#define PWM_CTL0_CTRLD2_Msk              (0x1ul << PWM_CTL0_CTRLD2_Pos)                    /*!< PWM_T::CTL0: CTRLD2 Mask               */
+
+#define PWM_CTL0_CTRLD3_Pos              (3)                                               /*!< PWM_T::CTL0: CTRLD3 Position           */
+#define PWM_CTL0_CTRLD3_Msk              (0x1ul << PWM_CTL0_CTRLD3_Pos)                    /*!< PWM_T::CTL0: CTRLD3 Mask               */
+
+#define PWM_CTL0_CTRLD4_Pos              (4)                                               /*!< PWM_T::CTL0: CTRLD4 Position           */
+#define PWM_CTL0_CTRLD4_Msk              (0x1ul << PWM_CTL0_CTRLD4_Pos)                    /*!< PWM_T::CTL0: CTRLD4 Mask               */
+
+#define PWM_CTL0_CTRLD5_Pos              (5)                                               /*!< PWM_T::CTL0: CTRLD5 Position           */
+#define PWM_CTL0_CTRLD5_Msk              (0x1ul << PWM_CTL0_CTRLD5_Pos)                    /*!< PWM_T::CTL0: CTRLD5 Mask               */
+
+#define PWM_CTL0_IMMLDEN0_Pos            (16)                                              /*!< PWM_T::CTL0: IMMLDEN0 Position         */
+#define PWM_CTL0_IMMLDEN0_Msk            (0x1ul << PWM_CTL0_IMMLDEN0_Pos)                  /*!< PWM_T::CTL0: IMMLDEN0 Mask             */
+
+#define PWM_CTL0_IMMLDEN1_Pos            (17)                                              /*!< PWM_T::CTL0: IMMLDEN1 Position         */
+#define PWM_CTL0_IMMLDEN1_Msk            (0x1ul << PWM_CTL0_IMMLDEN1_Pos)                  /*!< PWM_T::CTL0: IMMLDEN1 Mask             */
+
+#define PWM_CTL0_IMMLDEN2_Pos            (18)                                              /*!< PWM_T::CTL0: IMMLDEN2 Position         */
+#define PWM_CTL0_IMMLDEN2_Msk            (0x1ul << PWM_CTL0_IMMLDEN2_Pos)                  /*!< PWM_T::CTL0: IMMLDEN2 Mask             */
+
+#define PWM_CTL0_IMMLDEN3_Pos            (19)                                              /*!< PWM_T::CTL0: IMMLDEN3 Position         */
+#define PWM_CTL0_IMMLDEN3_Msk            (0x1ul << PWM_CTL0_IMMLDEN3_Pos)                  /*!< PWM_T::CTL0: IMMLDEN3 Mask             */
+
+#define PWM_CTL0_IMMLDEN4_Pos            (20)                                              /*!< PWM_T::CTL0: IMMLDEN4 Position         */
+#define PWM_CTL0_IMMLDEN4_Msk            (0x1ul << PWM_CTL0_IMMLDEN4_Pos)                  /*!< PWM_T::CTL0: IMMLDEN4 Mask             */
+
+#define PWM_CTL0_IMMLDEN5_Pos            (21)                                              /*!< PWM_T::CTL0: IMMLDEN5 Position         */
+#define PWM_CTL0_IMMLDEN5_Msk            (0x1ul << PWM_CTL0_IMMLDEN5_Pos)                  /*!< PWM_T::CTL0: IMMLDEN5 Mask             */
 
 #define PWM_CTL0_DBGHALT_Pos             (30)                                              /*!< PWM_T::CTL0: DBGHALT Position          */
 #define PWM_CTL0_DBGHALT_Msk             (0x1ul << PWM_CTL0_DBGHALT_Pos)                   /*!< PWM_T::CTL0: DBGHALT Mask              */
