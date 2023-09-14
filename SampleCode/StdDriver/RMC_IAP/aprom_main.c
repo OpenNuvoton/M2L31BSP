@@ -47,16 +47,16 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins */
+    Uart1DefaultMPF();
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -69,7 +69,7 @@ void UART_Init()
     /*---------------------------------------------------------------------------------------------------------*/
 
     /* Configure UART and set UART Baudrate */
-    UART_Open(UART0, 115200);
+    UART_Open(UART1, 115200);
 }
 
 
@@ -184,7 +184,7 @@ int main()
 
     SYS_Init();
 
-    /* Init UART0 for printf */
+    /* Init UART1 for printf */
     UART_Init();
 
     printf("\r\n\n\n");
@@ -261,7 +261,7 @@ int main()
         printf("| [1] Run IAP program (in LDROM)         |\n");
         printf("+----------------------------------------+\n");
         printf("Please select...");
-        u8Item = getchar();            /* block waiting to receive any one character from UART0 */
+        u8Item = getchar();            /* block waiting to receive any one character from UART1 */
         printf("%c\n", u8Item);        /* print out the selected item */
 
         switch (u8Item)

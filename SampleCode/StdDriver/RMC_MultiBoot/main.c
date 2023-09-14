@@ -40,7 +40,7 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART clock */
     CLK_EnableModuleClock(UART0_MODULE);
@@ -48,23 +48,23 @@ void SYS_Init(void)
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins */
+    Uart1DefaultMPF();
 
     /* Lock protected registers */
     SYS_LockReg();
 }
 
 /*----------------------------------------------------------------------*/
-/* Init UART0                                                           */
+/* Init UART1                                                           */
 /*----------------------------------------------------------------------*/
-void UART0_Init(void)
+void UART1_Init(void)
 {
-    /* Reset UART0 */
-    SYS_ResetModule(UART0_RST);
+    /* Reset UART1 */
+    SYS_ResetModule(UART1_RST);
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 /**
@@ -77,9 +77,9 @@ static char GetChar(void)
 {
     while(1)
     {
-        if ((UART0->FIFOSTS & UART_FIFOSTS_RXEMPTY_Msk) == 0)
+        if ((UART1->FIFOSTS & UART_FIFOSTS_RXEMPTY_Msk) == 0)
         {
-            return (UART0->DAT);
+            return (UART1->DAT);
         }
     }
 }
@@ -90,13 +90,13 @@ static char GetChar(void)
  */
 static void SendChar_ToUART(int ch)
 {
-    while (UART0->FIFOSTS & UART_FIFOSTS_TXFULL_Msk);
+    while (UART1->FIFOSTS & UART_FIFOSTS_TXFULL_Msk);
 
-    UART0->DAT = ch;
+    UART1->DAT = ch;
     if(ch == '\n')
     {
-        while (UART0->FIFOSTS & UART_FIFOSTS_TXFULL_Msk);
-        UART0->DAT = '\r';
+        while (UART1->FIFOSTS & UART_FIFOSTS_TXFULL_Msk);
+        UART1->DAT = '\r';
     }
 }
 
@@ -153,8 +153,8 @@ int32_t main(void)
     /* Init System, IP clock and multi-function I/O. */
     SYS_Init();
 
-    /* Init UART0 for printf */
-    UART0_Init();
+    /* Init UART1 for printf */
+    UART1_Init();
 
     /* Unlock protected registers to operate RMC ISP function */
     SYS_UnlockReg();

@@ -31,7 +31,7 @@ uint16_t g_u16CtrlSignal1 = 0;     /* BIT0: DTR(Data Terminal Ready) , BIT1: RTS
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
-/* UART0 */
+/* UART1 */
 static volatile uint8_t s_au8ComRbuf0[RXBUFSIZE];
 volatile uint16_t g_u16ComRbytes0 = 0;
 volatile uint16_t g_u16ComRhead0 = 0;
@@ -134,6 +134,7 @@ void SYS_Init(void)
 
     /* Enable UART1 module clock */
     CLK_EnableModuleClock(UART1_MODULE);
+    
     /* Select UART1 module clock source as HIRC and UART1 module clock divider as 1 */
     CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
@@ -143,11 +144,11 @@ void SYS_Init(void)
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins */
+    Uart1DefaultMPF();
 
-    /* Set multi-function pins for UART1 RXD and TXD */
-    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(SYS_GPB_MFP0_PB2MFP_Msk|SYS_GPB_MFP0_PB3MFP_Msk)) | (SYS_GPB_MFP0_PB2MFP_UART1_RXD | SYS_GPB_MFP0_PB3MFP_UART1_TXD);
+    /* Set multi-function pins for UART0 RXD and TXD */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk|SYS_GPA_MFP0_PA1MFP_Msk)) | (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD);
 
 }
 

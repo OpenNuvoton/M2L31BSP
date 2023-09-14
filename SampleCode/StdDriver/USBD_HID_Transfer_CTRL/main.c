@@ -17,7 +17,7 @@
 #define TRIM_INIT           (SYS_BASE+0x10C)
 
 void SYS_Init(void);
-void UART0_Init(void);
+void UART1_Init(void);
 void PowerDown(void);
 
 void SYS_Init(void)
@@ -69,26 +69,26 @@ void SYS_Init(void)
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 
-    /* Enable UART0 module clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    /* Enable UART1 module clock */
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins */
+    Uart1DefaultMPF();
 }
 
 /*----------------------------------------------------------------------*/
-/* Init UART0                                                           */
+/* Init UART1                                                           */
 /*----------------------------------------------------------------------*/
-void UART0_Init(void)
+void UART1_Init(void)
 {
-    /* Reset UART0 */
-    SYS_ResetModule(UART0_RST);
+    /* Reset UART1 */
+    SYS_ResetModule(UART1_RST);
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 void PowerDown(void)
@@ -121,7 +121,7 @@ int32_t main(void)
     SYS_Init();
 
     /* Init UART for printf */
-    UART0_Init();
+    UART1_Init();
 
     printf("NuMicro USB HID Transfer via Control Transfer\n");
     printf("Windows tool will Read and Write one pair of reports(periodic exchanges of reports).\n");

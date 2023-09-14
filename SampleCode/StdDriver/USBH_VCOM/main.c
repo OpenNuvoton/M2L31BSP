@@ -32,7 +32,7 @@ void vcom_rx_callback(CDC_DEV_T *cdev, uint8_t *pu8RData, int u8DataLen);
 void show_line_coding(LINE_CODING_T *lc);
 int init_cdc_device(CDC_DEV_T *cdev);
 void SYS_Init(void);
-void UART0_Init(void);
+void UART1_Init(void);
 
 void SysTick_Handler(void)
 {
@@ -246,23 +246,23 @@ void SYS_Init(void)
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 
-    /* Enable UART0 module clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    /* Enable UART1 module clock */
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins */
+    Uart1DefaultMPF();
 }
 
-void UART0_Init(void)
+void UART1_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Configure UART and set UART Baudrate */
-    UART_Open(UART0, 115200);
+    UART_Open(UART1, 115200);
 }
 
 /*----------------------------------------------------------------------------
@@ -275,7 +275,7 @@ int32_t main(void)
 
     SYS_Init();                        /* Init System, IP clock and multi-function I/O */
 
-    UART0_Init();
+    UART1_Init();
 
     enable_sys_tick(100);
 

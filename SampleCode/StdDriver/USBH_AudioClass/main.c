@@ -28,7 +28,7 @@ static volatile uint32_t s_u32TickCnt;
 void SysTick_Handler(void);
 void enable_sys_tick(int ticks_per_second);
 void SYS_Init(void);
-void UART0_Init(void);
+void UART1_Init(void);
 int audio_in_callback(UAC_DEV_T *dev, uint8_t *pu8Data, int i8Len);
 int audio_out_callback(UAC_DEV_T *dev, uint8_t *pu8Data, int i8Len);
 void uac_control_example(UAC_DEV_T *uac_dev);
@@ -103,23 +103,23 @@ void SYS_Init(void)
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 
-    /* Enable UART0 module clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    /* Enable UART1 module clock */
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins */
+    Uart1DefaultMPF();
 }
 
-void UART0_Init(void)
+void UART1_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Configure UART and set UART Baudrate */
-    UART_Open(UART0, 115200);
+    UART_Open(UART1, 115200);
 }
 
 /**
@@ -482,7 +482,7 @@ int32_t main(void)
 
     SYS_Init();                        /* Init System, IP clock and multi-function I/O */
 
-    UART0_Init();
+    UART1_Init();
 
     printf("\n\n");
     printf("+--------------------------------------------+\n");
