@@ -67,9 +67,9 @@ void Configure_EBI_16BIT_Pins(void)
     SYS->GPD_MFP2 &= ~(SYS_GPD_MFP2_PD11MFP_Msk | SYS_GPD_MFP2_PD10MFP_Msk);
     SYS->GPD_MFP2 |= (SYS_GPD_MFP2_PD11MFP_EBI_nCS1 | SYS_GPD_MFP2_PD10MFP_EBI_nCS2);
 
-    /* ALE and MCLK pins on PA.8 and PA.9 */
-    SYS->GPA_MFP2 &= ~(SYS_GPA_MFP2_PA9MFP_Msk | SYS_GPA_MFP2_PA8MFP_Msk);
-    SYS->GPA_MFP2 |= (SYS_GPA_MFP2_PA9MFP_EBI_MCLK | SYS_GPA_MFP2_PA8MFP_EBI_ALE);
+    /* ALE and MCLK pins on PE.2 and PE.3 */
+    SYS->GPE_MFP0 &= ~(SYS_GPE_MFP0_PE2MFP_Msk | SYS_GPE_MFP0_PE3MFP_Msk);
+    SYS->GPE_MFP0 |= (SYS_GPE_MFP0_PE2MFP_EBI_ALE | SYS_GPE_MFP0_PE3MFP_EBI_MCLK);
 }
 
 void SYS_Init(void)
@@ -93,10 +93,10 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Enable EBI peripheral clock */
     CLK_EnableModuleClock(EBI_MODULE);
@@ -110,18 +110,17 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PA multi-function pins for UART0 RXD=PA.4 and TXD=PA.5 */
-    SYS->GPA_MFP1 &= ~(SYS_GPA_MFP1_PA5MFP_Msk | SYS_GPA_MFP1_PA4MFP_Msk);
-    SYS->GPA_MFP1 |= SYS_GPA_MFP1_PA5MFP_UART0_TXD | SYS_GPA_MFP1_PA4MFP_UART0_RXD;
+    Uart1DefaultMPF();
+
 }
 
-void UART0_Init(void)
+void UART1_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Configure UART0 and set UART0 Baudrate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 Baudrate */
+    UART_Open(UART1, 115200);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -142,8 +141,8 @@ int main(void)
     /* Lock protected registers */
     SYS_LockReg();
 
-    /* Init UART0 for printf */
-    UART0_Init();
+    /* Init UART1 for printf */
+    UART1_Init();
 
     printf("\n\nCPU @ %d Hz\n", SystemCoreClock);
     printf("+-----------------------------------------+\n");
@@ -169,8 +168,8 @@ int main(void)
     printf("*   - nCS0          on PD.12                                           *\n");
     printf("*   - nCS1          on PD.11                                           *\n");
     printf("*   - nCS2          on PD.10                                           *\n");
-    printf("*   - ALE           on PA.8                                            *\n");
-    printf("*   - MCLK          on PA.9                                            *\n");
+    printf("*   - ALE           on PE.2                                            *\n");
+    printf("*   - MCLK          on PE.3                                            *\n");
     printf("*                                                                      *\n");
     printf("**********************************************************************\n\n");
 

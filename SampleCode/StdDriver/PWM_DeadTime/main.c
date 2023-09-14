@@ -3,7 +3,7 @@
  * @version  V1.00
  * $Revision: 9 $
  * $Date: 18/07/19 2:16p $
- * @brief    Demonstrate how to use PWM Dead Zone function.
+ * @brief    Demonstrate how to use PWM Dead Time function.
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2018 Nuvoton Technology Corp. All rights reserved.
@@ -70,13 +70,13 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Enable PWM0 module clock */
     CLK_EnableModuleClock(PWM0_MODULE);
@@ -95,8 +95,8 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set PA multi-function pins for UART1 RXD=PA.8 and TXD=PA.9 */
+    Uart1DefaultMPF();
 
     /* Set PA multi-function pins for PWM0 Channel0~5 */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & (~SYS_GPA_MFP0_PA0MFP_Msk)) | SYS_GPA_MFP0_PA0MFP_PWM0_CH0;
@@ -105,16 +105,16 @@ void SYS_Init(void)
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & (~SYS_GPA_MFP0_PA3MFP_Msk)) | SYS_GPA_MFP0_PA3MFP_PWM0_CH3;
 }
 
-void UART0_Init()
+void UART1_Init()
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Reset UART module */
-    SYS_ResetModule(UART0_RST);
+    SYS_ResetModule(UART1_RST);
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 
@@ -139,7 +139,7 @@ int32_t main(void)
     SYS_LockReg();
 
     /* Init UART to 115200-8n1 for print message */
-    UART0_Init();
+    UART1_Init();
 
     printf("\n\nCPU @ %dHz(PLL@ %dHz)\n", SystemCoreClock, PllClock);
     printf("PWM0 clock is from %s\n", (CLK->CLKSEL3 & CLK_CLKSEL3_PWM0SEL_Msk) ? "PCLK" : "PLL");
@@ -148,7 +148,7 @@ int32_t main(void)
     printf("|                                                                        |\n");
     printf("+------------------------------------------------------------------------+\n");
     printf("  This sample code will output PWM0 channel 0~3 with different \n");
-    printf("  frequency and duty, enable dead zone function of all PWM0 pairs.\n");
+    printf("  frequency and duty, enable dead time function of all PWM0 pairs.\n");
     printf("  And also enable/disable PWM output every 1 second.\n");
     printf("  I/O configuration:\n");
     printf("    waveform output pin: PWM0_CH0(PA.0), PWM0_CH1(PA.1), PWM0_CH2(PA.2), PWM0_CH3(PA.3)\n");

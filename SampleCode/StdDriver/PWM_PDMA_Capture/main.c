@@ -135,13 +135,13 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Enable PWM0 module clock */
     CLK_EnableModuleClock(PWM0_MODULE);
@@ -166,24 +166,24 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set PA multi-function pins for UART1 RXD=PA.8 and TXD=PA.9 */
+    Uart1DefaultMPF();
 
     /* Set PA multi-function pins for PWM0 Channel0~5 */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & (~SYS_GPA_MFP0_PA0MFP_Msk)) | SYS_GPA_MFP0_PA0MFP_PWM0_CH0;
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & (~SYS_GPA_MFP0_PA2MFP_Msk)) | SYS_GPA_MFP0_PA2MFP_PWM0_CH2;
 }
 
-void UART0_Init()
+void UART1_Init()
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Reset UART module */
-    SYS_ResetModule(UART0_RST);
+    SYS_ResetModule(UART1_RST);
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -209,7 +209,7 @@ int32_t main(void)
     SYS_LockReg();
 
     /* Init UART to 115200-8n1 for print message */
-    UART0_Init();
+    UART1_Init();
 
     printf("\n\nCPU @ %dHz(PLL@ %dHz)\n", SystemCoreClock, PllClock);
     printf("PWM0 clock is from %s\n", (CLK->CLKSEL3 & CLK_CLKSEL3_PWM0SEL_Msk) ? "PCLK" : "PLL");
@@ -232,19 +232,6 @@ int32_t main(void)
         /* Set the PWM0 Channel 0 as PWM output function.                                       */
         /*--------------------------------------------------------------------------------------*/
 
-////        /* Assume PWM output frequency is 250Hz and duty ratio is 30%, user can calculate PWM settings by follows.
-////           duty ratio = (CMR+1)/(CNR+1)
-////           cycle time = CNR+1
-////           High level = CMR+1
-////           PWM clock source frequency from PLL is 48,000,000
-////           (CNR+1) = PWM clock source frequency/prescaler/PWM output frequency
-////                   = 48,000,000/3/250 = 64,000
-////           (Note: CNR is 16 bits, so if calculated value is larger than 65536, user should increase prescale value.)
-////           CNR = 64,000
-////           duty ratio = 30% ==> (CMR+1)/(CNR+1) = 30%
-////           CMR = 19,200
-////           Prescale value is 4 : prescaler= 5
-////        */
         /* Assume PWM output frequency is 250Hz and duty ratio is 30%, user can calculate PWM settings by follows.(up counter type)
            duty ratio = (CMR)/(CNR+1)
            cycle time = CNR+1

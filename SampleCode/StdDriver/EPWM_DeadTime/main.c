@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     main.c
  * @version  V3.00
- * @brief    Demonstrate how to use EPWM Dead Zone function.
+ * @brief    Demonstrate how to use EPWM Dead Time function.
  *
  * @note
  * SPDX-License-Identifier: Apache-2.0
@@ -23,7 +23,7 @@
 
 void EPWM0P0_IRQHandler(void);
 void SYS_Init(void);
-void UART0_Init(void);
+void UART1_Init(void);
 
 /**
  * @brief       EPWM0 IRQ Handler
@@ -74,13 +74,13 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Enable EPWM0 module clock */
     CLK_EnableModuleClock(EPWM0_MODULE);
@@ -99,8 +99,8 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set PA multi-function pins for UART1 RXD=PA.8 and TXD=PA.9 */
+    Uart1DefaultMPF();
 
     /* Set PE multi-function pins for EPWM0 Channel0~5 */
     SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE7MFP_Msk)) | SYS_GPE_MFP1_PE7MFP_EPWM0_CH0;
@@ -109,14 +109,14 @@ void SYS_Init(void)
     SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE4MFP_Msk)) | SYS_GPE_MFP1_PE4MFP_EPWM0_CH3;
 }
 
-void UART0_Init()
+void UART1_Init()
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 
@@ -140,8 +140,8 @@ int32_t main(void)
     /* Lock protected registers */
     SYS_LockReg();
 
-    /* Init UART0 for printf */
-    UART0_Init();
+    /* Init UART1 for printf */
+    UART1_Init();
 
     printf("\n\nCPU @ %dHz(PLL@ %dHz)\n", SystemCoreClock, PllClock);
     printf("+------------------------------------------------------------------------+\n");
@@ -149,7 +149,7 @@ int32_t main(void)
     printf("|                                                                        |\n");
     printf("+------------------------------------------------------------------------+\n");
     printf("  This sample code will output EPWM0 channel 0~3 with different\n");
-    printf("  frequency and duty, enable dead zone function of all EPWM0 pairs.\n");
+    printf("  frequency and duty, enable dead time function of all EPWM0 pairs.\n");
     printf("  And also enable/disable EPWM output every 1 second.\n");
     printf("  I/O configuration:\n");
     printf("    waveform output pin: EPWM0_CH0(PE.7), EPWM0_CH1(PE.6), EPWM0_CH2(PE.5), EPWM0_CH3(PE.4)\n");

@@ -59,13 +59,13 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Enable DAC module clock */
     CLK_EnableModuleClock(DAC_MODULE);
@@ -92,21 +92,20 @@ void SYS_Init(void)
     /* Disable digital input path of analog pin DAC01_OUT to prevent leakage */
     GPIO_DISABLE_DIGITAL_PATH(PB, (1ul << 12));
 
-    /* Set PA multi-function pins for UART0 RXD=PA.4 and TXD=PA.5 */
-    SYS->GPA_MFP1 &= ~(SYS_GPA_MFP1_PA5MFP_Msk | SYS_GPA_MFP1_PA4MFP_Msk);
-    SYS->GPA_MFP1 |= SYS_GPA_MFP1_PA5MFP_UART0_TXD | SYS_GPA_MFP1_PA4MFP_UART0_RXD;
+    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
+    Uart1DefaultMPF();
 
     /* Lock protected registers */
     SYS_LockReg();
 }
 
-void UART0_Init(void)
+void UART1_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Configure UART0 and set UART0 Baudrate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 Baudrate */
+    UART_Open(UART1, 115200);
 }
 
 int32_t main(void)
@@ -115,8 +114,8 @@ int32_t main(void)
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART0 for printf */
-    UART0_Init();
+    /* Init UART1 for printf */
+    UART1_Init();
 
     /* This sample code uses semihost as the debug port */
     printf("+----------------------------------------------------------+\n");
