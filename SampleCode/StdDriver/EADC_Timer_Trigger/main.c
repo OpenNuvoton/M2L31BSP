@@ -37,10 +37,10 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Enable EADC peripheral clock */
     CLK_SetModuleClock(EADC0_MODULE, CLK_CLKSEL0_EADC0SEL_HIRC, CLK_CLKDIV0_EADC0(2));
@@ -48,8 +48,8 @@ void SYS_Init(void)
     /* Enable EADC module clock */
     CLK_EnableModuleClock(EADC0_MODULE);
 
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins for UART */
+    Uart1DefaultMPF();
 
     /* Select timer 0 module clock source as HIRC */
     CLK_SetModuleClock(TMR0_MODULE, CLK_CLKSEL1_TMR0SEL_HIRC, 0);
@@ -78,26 +78,19 @@ void SYS_Init(void)
 }
 
 /*----------------------------------------------------------------------*/
-/* Init UART0                                                           */
+/* Init UART1                                                           */
 /*----------------------------------------------------------------------*/
-void UART0_Init(void)
+void UART1_Init(void)
 {
-    /* Reset UART0 */
-    SYS_ResetModule(UART0_RST);
+    /* Reset UART1 */
+    SYS_ResetModule(UART1_RST);
 
-    /* Configure UART0 and set UART0 baud rate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 baud rate */
+    UART_Open(UART1, 115200);
 }
 
 void TIMER0_Init()
 {
-    /* Set timer0 periodic time-out period is 3us if timer clock is 48 MHz */
-//    TIMER_SET_CMP_VALUE(TIMER0, 48*3);
-
-//    /* Start timer counter in periodic mode and enable timer interrupt trigger EADC */
-//    TIMER0->CTL = TIMER_PERIODIC_MODE;
-//    TIMER0->TRGCTL |= TIMER_TRGCTL_TRGEADC_Msk;
-
     TIMER_SetTriggerTarget(TIMER0, TIMER_TRG_TO_EADC);
     TIMER_Open(TIMER0, TIMER_PERIODIC_MODE, 1);
 }
@@ -228,8 +221,8 @@ int32_t main(void)
     /* Init System, IP clock and multi-function I/O. */
     SYS_Init();
 
-    /* Init UART0 for printf */
-    UART0_Init();
+    /* Init UART1 for printf */
+    UART1_Init();
 
     /* Init TIMER0 for EADC */
     TIMER0_Init();

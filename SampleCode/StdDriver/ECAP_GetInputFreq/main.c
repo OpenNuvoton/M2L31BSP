@@ -100,10 +100,10 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Enable ECAP0 module clock */
     CLK_EnableModuleClock(ECAP0_MODULE);
@@ -117,8 +117,8 @@ void SYS_Init(void)
     /* Enable GPIO Port C module clock */
     CLK_EnableModuleClock(GPC_MODULE);
 
-    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
-    Uart0DefaultMPF();
+    /* Set multi-function pins for UART */
+    Uart1DefaultMPF();
 
     /* Set PE.8 for ECAP0_IC0*/
     SYS->GPE_MFP2 = (SYS->GPE_MFP2 & ~(SYS_GPE_MFP2_PE8MFP_Msk)) |
@@ -128,13 +128,13 @@ void SYS_Init(void)
     SYS_LockReg();
 }
 
-void UART0_Init(void)
+void UART1_Init(void)
 {
-    /* Reset UART0 */
-    SYS_ResetModule(UART0_RST);
+    /* Reset UART1 */
+    SYS_ResetModule(UART1_RST);
 
-    /* Configure UART0 and set UART0 Baudrate */
-    UART_Open(UART0, 115200);
+    /* Configure UART1 and set UART1 Baudrate */
+    UART_Open(UART1, 115200);
 }
 
 void ECAP0_Init(void)
@@ -178,8 +178,8 @@ int32_t main(void)
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART0 for printf */
-    UART0_Init();
+    /* Init UART1 for printf */
+    UART1_Init();
 
     printf("\n");
     printf("+----------------------------------------------------------+\n");
