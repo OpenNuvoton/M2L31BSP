@@ -29,8 +29,8 @@ int main()
     /* Init System, IP clock and multi-function I/O. */
     SYS_Init();
 
-    /* Configure UART0: 115200, 8-bit word, no parity bit, 1 stop bit. */
-    UART_Open(UART0, 115200);
+    /* Configure UART1: 115200, 8-bit word, no parity bit, 1 stop bit. */
+    UART_Open(UART1, 115200);
 
     /* Init USCI_SPI0 */
     USCI_SPI_Init();
@@ -43,7 +43,7 @@ int main()
     printf("Configure USCI_SPI0 as a slave.\n");
     printf("Bit length of a transaction: 16\n");
     printf("The I/O connection for USCI_SPI0:\n");
-    printf("    USCI_SPI0_SS (PD.4)\n    USCI_SPI0_CLK (PD.0)\n");
+    printf("    USCI_SPI0_SS (PB.0)\n    USCI_SPI0_CLK (PD.0)\n");
     printf("    USCI_SPI0_MISO (PD.2)\n    USCI_SPI0_MOSI (PD.1)\n\n");
     printf("USCI_SPI controller will transfer %d data to a off-chip master device.\n", TEST_COUNT);
     printf("In the meanwhile the USCI_SPI controller will receive %d data from the off-chip master device.\n", TEST_COUNT);
@@ -107,27 +107,27 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable peripheral clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
     CLK_EnableModuleClock(USCI0_MODULE);
 
     /* Enable GPIO clock */
     CLK_EnableModuleClock(GPD_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Update System Core Clock */
     /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     SystemCoreClockUpdate();
 
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    Uart0DefaultMPF();
+    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
+    Uart1DefaultMPF();
 
     /* Set USCI0_SPI multi-function pins */
     SYS->GPD_MFP0 = SYS->GPD_MFP0 & ~(SYS_GPD_MFP0_PD0MFP_Msk|SYS_GPD_MFP0_PD1MFP_Msk|SYS_GPD_MFP0_PD2MFP_Msk);
     SYS->GPD_MFP0 = SYS->GPD_MFP0 | (SYS_GPD_MFP0_PD0MFP_USCI0_CLK | SYS_GPD_MFP0_PD1MFP_USCI0_DAT0 | SYS_GPD_MFP0_PD2MFP_USCI0_DAT1);
-    SYS->GPD_MFP1 = SYS->GPD_MFP1 & ~(SYS_GPD_MFP1_PD4MFP_Msk);
-    SYS->GPD_MFP1 = SYS->GPD_MFP1 | (SYS_GPD_MFP1_PD4MFP_USCI0_CTL0);
+    SYS->GPB_MFP0 = SYS->GPB_MFP0 & ~(SYS_GPB_MFP0_PB0MFP_Msk);
+    SYS->GPB_MFP0 = SYS->GPB_MFP0 | (SYS_GPB_MFP0_PB0MFP_USCI0_CTL0);
 
     /* USCI_SPI clock pin enable schmitt trigger */
     PD->SMTEN |= GPIO_SMTEN_SMTEN0_Msk;

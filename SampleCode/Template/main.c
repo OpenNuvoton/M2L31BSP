@@ -30,10 +30,10 @@ void SYS_Init(void)
     CLK_SetHCLK(CLK_CLKSEL0_HCLKSEL_HIRC, CLK_CLKDIV0_HCLK(1));
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART0_MODULE);
+    CLK_EnableModuleClock(UART1_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
+    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
 
     /* Update System Core Clock */
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock. */
@@ -42,7 +42,7 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    Uart0DefaultMPF();
+    Uart1DefaultMPF();
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -61,7 +61,7 @@ int main()
     SYS_Init();
 
     /* Init UART to 115200-8n1 for print message */
-    UART_Open(UART0, 115200);
+    UART_Open(UART1, 115200);
 
     /* Connect UART to PC, and open a terminal tool to receive following message */
     printf("Hello World\n");
