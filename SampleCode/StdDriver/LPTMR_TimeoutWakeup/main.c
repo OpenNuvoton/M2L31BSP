@@ -57,7 +57,7 @@ void SYS_Init(void)
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART */
+    /* Set multi-function pins for UART1 */
     Uart1DefaultMPF();
 
     /* Lock protected registers */
