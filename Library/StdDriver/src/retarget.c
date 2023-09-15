@@ -27,7 +27,7 @@
 #endif
 
 #ifndef DEBUG_PORT
-    #define DEBUG_PORT   UART0
+    #define DEBUG_PORT   UART1
 #endif
 # define BUF_SIZE     512
 
