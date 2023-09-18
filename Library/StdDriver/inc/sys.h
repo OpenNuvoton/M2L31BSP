@@ -825,6 +825,7 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPC_MFP0_PC1MFP_ACMP0_O         (0xEUL<<SYS_GPC_MFP0_PC1MFP_Pos)    /*!< GPC_MFP0 PC1 setting for ACMP0_O           */
 #define SYS_GPC_MFP0_PC1MFP_EADC0_ST        (0xFUL<<SYS_GPC_MFP0_PC1MFP_Pos)    /*!< GPC_MFP0 PC1 setting for EADC0_ST          */
 #define SYS_GPC_MFP0_PC1MFP_UTCPD0_CC2      (0x11UL<<SYS_GPC_MFP0_PC1MFP_Pos)   /*!< GPC_MFP0 PC1 setting for UTCPD0_CC2        */
+#define SYS_GPC_MFP0_PC1MFP_LPADC0_ST       (0x15UL<<SYS_GPC_MFP0_PC1MFP_Pos)   /*!< GPC_MFP0 PC1 setting for LPADC0_ST         */
 #define SYS_GPC_MFP0_PC1MFP_LPI2C0_SCL      (0x16UL<<SYS_GPC_MFP0_PC1MFP_Pos)   /*!< GPC_MFP0 PC1 setting for LPI2C0_SCL        */
 #define SYS_GPC_MFP0_PC1MFP_LPIO5           (0x17UL<<SYS_GPC_MFP0_PC1MFP_Pos)   /*!< GPC_MFP0 PC1 setting for LPIO5             */
 
@@ -1390,6 +1391,7 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPF_MFP1_PF5MFP_X32_IN          (0xAUL<<SYS_GPF_MFP1_PF5MFP_Pos)    /*!< GPF_MFP1 PF5 setting for X32_IN            */
 #define SYS_GPF_MFP1_PF5MFP_EADC0_ST        (0xBUL<<SYS_GPF_MFP1_PF5MFP_Pos)    /*!< GPF_MFP1 PF5 setting for EADC0_ST          */
 #define SYS_GPF_MFP1_PF5MFP_UTCPD0_VBSNKEN  (0x11UL<<SYS_GPF_MFP1_PF5MFP_Pos)   /*!< GPF_MFP1 PF5 setting for UTCPD0_VBSNKEN    */
+#define SYS_GPF_MFP1_PF5MFP_LPADC0_ST       (0x17UL<<SYS_GPF_MFP1_PF5MFP_Pos)   /*!< GPC_MFP1 PF5 setting for LPADC0_ST         */
 
 /* PF.6 MFP */
 #define SYS_GPF_MFP1_PF6MFP_GPIO            (0x0UL<<SYS_GPF_MFP1_PF6MFP_Pos)    /*!< GPF_MFP1 PF6 setting for GPIO              */
@@ -1404,7 +1406,6 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPF_MFP1_PF6MFP_PWM1_BRAKE0     (0xDUL<<SYS_GPF_MFP1_PF6MFP_Pos)    /*!< GPF_MFP1 PF6 setting for PWM1_BRAKE0       */
 #define SYS_GPF_MFP1_PF6MFP_PWM0_BRAKE0     (0xEUL<<SYS_GPF_MFP1_PF6MFP_Pos)    /*!< GPF_MFP1 PF6 setting for PWM0_BRAKE0       */
 #define SYS_GPF_MFP1_PF6MFP_CLKO            (0xFUL<<SYS_GPF_MFP1_PF6MFP_Pos)    /*!< GPF_MFP1 PF6 setting for CLKO              */
-#define SYS_GPF_MFP1_PF6MFP_LPSPI0_MOSI     (0x14UL<<SYS_GPF_MFP1_PF6MFP_Pos)   /*!< GPF_MFP1 PF6 setting for LPSPI0_MOSI       */
 
 /* PF.7 MFP */
 #define SYS_GPF_MFP1_PF7MFP_GPIO            (0x0UL<<SYS_GPF_MFP1_PF7MFP_Pos)    /*!< GPF_MFP1 PF7 setting for GPIO              */
@@ -1414,7 +1415,6 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPF_MFP1_PF7MFP_TAMPER1         (0xAUL<<SYS_GPF_MFP1_PF7MFP_Pos)    /*!< GPF_MFP1 PF7 setting for TAMPER1           */
 #define SYS_GPF_MFP1_PF7MFP_TM3             (0xEUL<<SYS_GPF_MFP1_PF7MFP_Pos)    /*!< GPF_MFP1 PF7 setting for TM3               */
 #define SYS_GPF_MFP1_PF7MFP_INT5            (0xFUL<<SYS_GPF_MFP1_PF7MFP_Pos)    /*!< GPF_MFP1 PF7 setting for INT5              */
-#define SYS_GPF_MFP1_PF7MFP_LPSPI0_MISO     (0x14UL<<SYS_GPF_MFP1_PF7MFP_Pos)   /*!< GPF_MFP1 PF7 setting for LPSPI0_MISO       */
 
 /* PF.8 MFP */
 #define SYS_GPF_MFP2_PF8MFP_GPIO            (0x0UL<<SYS_GPF_MFP2_PF8MFP_Pos)    /*!< GPF_MFP2 PF8 setting for GPIO              */
@@ -1423,7 +1423,6 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPF_MFP2_PF8MFP_UART5_nCTS      (0x6UL<<SYS_GPF_MFP2_PF8MFP_Pos)    /*!< GPF_MFP2 PF8 setting for UART5_nCTS        */
 #define SYS_GPF_MFP2_PF8MFP_CANFD1_RXD      (0x8UL<<SYS_GPF_MFP2_PF8MFP_Pos)    /*!< GPF_MFP2 PF8 setting for CANFD1_RXD        */
 #define SYS_GPF_MFP2_PF8MFP_TAMPER2         (0xAUL<<SYS_GPF_MFP2_PF8MFP_Pos)    /*!< GPF_MFP2 PF8 setting for TAMPER2           */
-#define SYS_GPF_MFP2_PF8MFP_LPSPI0_CLK      (0x14UL<<SYS_GPF_MFP2_PF8MFP_Pos)   /*!< GPF_MFP2 PF8 setting for LPSPI0_CLK        */
 
 /* PF.9 MFP */
 #define SYS_GPF_MFP2_PF9MFP_GPIO            (0x0UL<<SYS_GPF_MFP2_PF9MFP_Pos)    /*!< GPF_MFP2 PF9 setting for GPIO              */
@@ -1431,7 +1430,6 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPF_MFP2_PF9MFP_SPI0_SS         (0x5UL<<SYS_GPF_MFP2_PF9MFP_Pos)    /*!< GPF_MFP2 PF9 setting for SPI0_SS           */
 #define SYS_GPF_MFP2_PF9MFP_UART5_nRTS      (0x6UL<<SYS_GPF_MFP2_PF9MFP_Pos)    /*!< GPF_MFP2 PF9 setting for UART5_nRTS        */
 #define SYS_GPF_MFP2_PF9MFP_CANFD1_TXD      (0x8UL<<SYS_GPF_MFP2_PF9MFP_Pos)    /*!< GPF_MFP2 PF9 setting for CANFD1_TXD        */
-#define SYS_GPF_MFP2_PF9MFP_LPSPI0_SS       (0x14UL<<SYS_GPF_MFP2_PF9MFP_Pos)   /*!< GPF_MFP2 PF9 setting for LPSPI0_SS         */
 
 /* PF.10 MFP */
 #define SYS_GPF_MFP2_PF10MFP_GPIO           (0x0UL<<SYS_GPF_MFP2_PF10MFP_Pos)   /*!< GPF_MFP2 PF10 setting for GPIO             */
