@@ -20,7 +20,6 @@
 #define ADC_INIT
 //#define ACMP_INIT
 
-
 void UTCPD_IRQHandler(void)
 {
     uint32_t port = 0;
@@ -50,23 +49,27 @@ void SYS_Init(void)
     CLK_WaitClockReady(CLK_STATUS_HIRCSTB_Msk);
 
     /* Switch HCLK clock source to Internal RC and HCLK source divide 1 */
-
-    //CLK_SetHCLK(CLK_CLKSEL0_HCLKSEL_HIRC, CLK_CLKDIV0_HCLK(1));
     CLK_SetHCLK(CLK_CLKSEL0_HCLKSEL_HXT, CLK_CLKDIV0_HCLK(1));
-    //CLK_SetCoreClock(FREQ_72MHZ);
 
-    CLK->AHBCLK0 |= 0xFF000000;     /* Enable GPIOA ~ GPIOH */
+    /* Enable GPIO Clock */
+	CLK_EnableModuleClock(GPA_MODULE);
+	CLK_EnableModuleClock(GPB_MODULE);
+	CLK_EnableModuleClock(GPC_MODULE);
+	CLK_EnableModuleClock(GPD_MODULE);
+	CLK_EnableModuleClock(GPE_MODULE);
+	CLK_EnableModuleClock(GPF_MODULE);
+	CLK_EnableModuleClock(GPG_MODULE);
+	CLK_EnableModuleClock(GPH_MODULE);
+
 
     /* Enable UART clock */
     CLK_EnableModuleClock(UART0_MODULE);
 
     /* Select UART clock source from HIRC */
-#if 1
     CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
-#else
-    outp32(0x40000248, (inp32(0x40000248) & 0xFFFFFFF0) | 0x03);  // HIRC
-#endif
-    //outp32(0x40000248, (inp32(0x40000248) & 0xFFFFFFF0) );  // HXT
+
+	/* Enable UTCPD clock */
+    CLK_EnableModuleClock(UTCPD0_MODULE);
 
     /* === Enable IP clock === */
 
@@ -88,30 +91,6 @@ void SYS_Init(void)
     CLK_SetModuleClock(EADC0_MODULE, CLK_CLKSEL0_EADC0SEL_HIRC, CLK_CLKDIV0_EADC0(8));
     CLK_EnableModuleClock(EADC0_MODULE);
 
-
-    /* Enable TK clock */
-    //outp32(LPSCC_CLKEN0, inp32(LPSCC_CLKEN0) | BIT31);
-    outp32(0x40038040, inp32(0x40038040) | BIT31);
-    outp32(0x40038004, inp32(0x40038004) | BIT31);
-    outp32(0x40038004, inp32(0x40038004) & ~BIT31);
-
-    //GPIO Clock enable
-    //CLK->AHBCLK0 |= 0xFF000000;
-
-    //CLK->APBCLK0 = 0xFFFFFFFF;
-    /* For TC8260, MUST enable GPIO Clock Enable Bit first. */
-
-    /* Enable UTCPD clock */
-    CLK->APBCLK2 |= BIT15;
-    /* Reset UTCPD  */
-    SYS->IPRST3 |= BIT15;
-    SYS->IPRST3 &= ~BIT15;
-
-    /* TK clock SEL */
-    //outp32(LPSCC_CLKEN0, inp32(LPSCC_CLKEN0) | BIT31);
-    //CLK->CLKSEL2 =  (CLK->CLKSEL2 | BIT7);        /* Clock from MIRC */
-    CLK->CLKSEL2 =  (CLK->CLKSEL2 & ~BIT7);     /* Clock from HIRC */
-    CLK->AHBCLK0 |= CLK_AHBCLK0_GPBCKEN_Msk;
     /* Update System Core Clock */
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock. */
     SystemCoreClockUpdate();
@@ -120,15 +99,8 @@ void SYS_Init(void)
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Set GPB multi-function pins for UART0 RXD and TXD */
-#if 0//TK_UTCPD_MOTOR
-    SYS->GPB_MFP2 = (SYS->GPB_MFP2 & ~(SYS_GPB_MFP2_PB8MFP_Msk | SYS_GPB_MFP2_PB9MFP_Msk)) |
-                    (SYS_GPB_MFP2_PB8MFP_UART0_RXD | SYS_GPB_MFP2_PB9MFP_UART0_TXD);
-#else
-    /* Set GPB multi-function pins for UART0 RXD and TXD */
     SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB12MFP_Msk | SYS_GPB_MFP3_PB13MFP_Msk)) |
-                    (SYS_GPB_MFP3_PB12MFP_UART0_RXD | SYS_GPB_MFP3_PB13MFP_UART0_TXD);
-#endif
-
+                    (SYS_GPB_MFP3_PB12MFP_UART0_RXD | SYS_GPB_MFP3_PB13MFP_UART0_TXD); 
 
     printf("PLL 64MHz --> HCLK --> CLKO / 4 = 16MHz on PB.14\n");
     //CLK_EnableCKO(CLK_CLKSEL1_CLKOSEL_HCLK, 1, 0);
@@ -137,14 +109,6 @@ void SYS_Init(void)
 
     /* Configure UUTCPD CC1/CC2 */
     SYS->GPC_MFP0 = (SYS->GPC_MFP0 & ~(SYS_GPC_MFP0_PC0MFP_Msk | SYS_GPC_MFP0_PC1MFP_Msk)) | (SYS_GPC_MFP0_PC0MFP_UTCPD0_CC1 | SYS_GPC_MFP0_PC1MFP_UTCPD0_CC2);
-
-#ifdef FRS_WORKAROUND
-    /* Initialize FRSCC1 and FRS_CC2 to default Low */
-    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(0xFFUL << (0*8))) | (17UL << (0*8)); //FRSCC1
-    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(0xFFUL << (1*8))) | (17UL << (1*8)); //FRSCC2
-    frs_mux_selection(1, 1);
-#endif
-
 
 #ifdef ADC_INIT
     /* Set PB.2 - PB.3 to input mode For EADC pin to measure VBUS and VCONN */
@@ -173,21 +137,30 @@ void SYS_Init(void)
     SYS->GPB_MFP1 = (SYS->GPB_MFP1 & ~(SYS_GPB_MFP1_PB5MFP_Msk | SYS_GPB_MFP1_PB4MFP_Msk)) |
                     (SYS_GPB_MFP1_PB5MFP_INT0 | SYS_GPB_MFP1_PB4MFP_INT1);
 
-    /* Lock protected registers */
-    //SYS_LockReg();
+	/* UTCPD VBSRCEN Multiple Function Pin */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~SYS_GPA_MFP0_PA2MFP_Msk) | SYS_GPA_MFP0_PA2MFP_UTCPD0_VBSRCEN;
 
-    /* Set GPB[1:0] multi-function pins debug port */
-    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(SYS_GPB_MFP0_PB0MFP_Msk | SYS_GPB_MFP0_PB1MFP_Msk));
+    /* UTCPD VBSNKEN Multiple Function Pin */
+	SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~SYS_GPA_MFP0_PA3MFP_Msk) | SYS_GPA_MFP0_PA3MFP_UTCPD0_VBSNKEN;
 
-	/* Initialize FRSCC1 and FRS_CC2 to default Low */
-    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(0xFFUL << (0*8))) | (17UL << (0*8)); //FRSCC1
-    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(0xFFUL << (1*8))) | (17UL << (1*8)); //FRSCC2
-    frs_mux_selection(1, 1);
-	frs_tx_polarity_active_high(); 
+	/* UTCPD FRSCC1 and FRS_CC2  Multiple Function Pin */
+    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(SYS_GPC_MFP1_PC4MFP_Msk | SYS_GPC_MFP1_PC5MFP_Msk)) | 
+						(SYS_GPC_MFP1_PC4MFP_UTCPD0_FRSTX1 | SYS_GPC_MFP1_PC5MFP_UTCPD0_FRSTX2); 
+
+	/* UTCPD VCONN Enable: VCEN0:PA0, VCEN1:PB0, Multiple Function Pin */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~SYS_GPA_MFP0_PA0MFP_Msk) | SYS_GPA_MFP0_PA0MFP_UTCPD0_VCNEN1;
+	SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~SYS_GPB_MFP0_PB0MFP_Msk) | SYS_GPB_MFP0_PB0MFP_UTCPD0_VCNEN2;
+
+
+	/* UTCPD VCONN Discharge: Don't force VCONN Discharge First */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk));
+    GPIO_SetMode(PA, BIT1, GPIO_MODE_OUTPUT);
 
 #ifdef ACMP_INIT
     ACMP_Pin_Open();
 #endif
+	/* Lock protected registers */
+//    SYS_LockReg();
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -327,7 +300,26 @@ void pd_task(void)
     }
 }
 
+void UTCPD_Init(int port)
+{
 
+    UTCPD_Open(port);
+	
+    /* Didn't Force VCONN Discharge */
+    PA1 = 0;
+
+    /* VBSRCEN Polarity */
+    UTCPD_vbus_srcen_polarity_active_high(port);
+
+    /* VBSNKEN Polarity */
+    UTCPD_vbus_snken_polarity_active_high(port);	
+	
+    /* FRSTXCC1 and FRSTXCC2 Polarity */
+    UTCPD_frs_tx_polarity_active_high(port);
+
+    UTCPD_vconn_polarity_active_low(port);
+
+}
 int main()
 {
     int32_t port = 0;
@@ -344,14 +336,8 @@ int main()
     UART_Open(UART0, 115200);
     printf("UART Initial\n");
 
-    /* VBSRCEN */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(0xFFUL << (2*8))) | (17UL << (2*8));
-    outp32(UTCPD0_BASE+TCPC_REG_PINPL, inp32(UTCPD0_BASE+TCPC_REG_PINPL) | TCPC_REG_PINPL_SRCEN);
-
-    /* VBSNKEN */
-    outp32(UTCPD0_BASE+TCPC_REG_PINPL, inp32(UTCPD0_BASE+TCPC_REG_PINPL) | TCPC_REG_PINPL_SNKEN);
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(0xFFUL << (3*8))) | (17UL << (3*8));
-
+	/* Init UTCPD */
+	UTCPD_Init(port);
 
 #if (CONFIG_COMMAND_SHELL == 1)
     /* Enable UART RDA interrupt for command */
@@ -366,27 +352,6 @@ int main()
     /* Set timer frequency to 1000HZ for system time base */
     TIMER0_Init();
 
-    /* VCONN Discharge: Don't force VCONN Discharge First */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk));
-    PA1 = 0;
-    GPIO_SetMode(PA, BIT1, GPIO_MODE_OUTPUT);
-
-#if 1   /* VCONN Enable: VCEN0:PA0, VCEN1:PB0, Active Low */
-    /* VCEN0 PA0 */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(0xFFUL << (0*8))) | (17UL << (0*8));
-    /* VCEN1 PB0 */
-    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(0xFFUL << (0*8))) | (17UL << (0*8));
-
-    //vconn_mux_selection(1, 1);        /* CC1VCENS, CC2VCENS */
-    outp32(UTCPD0_BASE+UTCPD_MUXSEL, (inp32(UTCPD0_BASE+UTCPD_MUXSEL) &~(CC2VCENS|CC1VCENS)) |
-           ((1<<24) | (1<<28)));
-
-    vconn_polarity_active_low();//VCENx active low
-#endif
-
-
-    SYS->UTCPDCTL = SYS->UTCPDCTL | 0x02;
-    i2c_write32(port, 0, UTCPD_PHYCTL, 3);
 
 #ifdef ADC_INIT
     /* Set timer frequency to 100HZ for measuring VBUS/VCONN*/

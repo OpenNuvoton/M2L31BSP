@@ -336,7 +336,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--specs=nosys.specs</MiscControls>
-              <Define>OPT_DRP=1</Define>
+              <Define>OPT_DRP=1 DEBUG_PORT=UART0</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\..\Library\CMSIS\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\PowerDeliveryLib\Include</IncludePath>
             </VariousControls>
@@ -441,6 +441,11 @@
               <FileName>PD_DRP.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\Library\PowerDeliveryLib\PD_DRP.lib</FilePath>
+            </File>
+            <File>
+              <FileName>utcpd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Library\StdDriver\src\utcpd.c</FilePath>
             </File>
           </Files>
         </Group>

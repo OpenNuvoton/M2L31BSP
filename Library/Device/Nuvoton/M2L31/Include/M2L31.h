@@ -820,6 +820,7 @@ typedef volatile unsigned short vu16;
 #include "usci_i2c.h"
 #include "usci_spi.h"
 #include "usci_uart.h"
+#include "utcpd.h"
 #include "wdt.h"
 #include "wwdt.h"
 

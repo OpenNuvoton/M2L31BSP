@@ -336,7 +336,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--specs=nosys.specs</MiscControls>
-              <Define>OPT_SNK_ONLY=1, OPT_SRC_ONLY=0,</Define>
+              <Define>OPT_SNK_ONLY=1, OPT_SRC_ONLY=0, DEBUG_PORT=UART0</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\..\..\Library\CMSIS\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\PowerDeliveryLib\Include</IncludePath>
             </VariousControls>
@@ -431,6 +431,11 @@
               <FileName>eadc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Library\StdDriver\src\eadc.c</FilePath>
+            </File>
+            <File>
+              <FileName>utcpd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\Library\StdDriver\src\utcpd.c</FilePath>
             </File>
             <File>
               <FileName>acmp.c</FileName>

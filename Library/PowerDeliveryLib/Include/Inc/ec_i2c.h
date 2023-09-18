@@ -321,7 +321,7 @@ void i2c_set_timeout(int port, uint32_t timeout);
  */
 int i2c_read32(const int port,
                const uint16_t addr_flags,
-               int offset, uint32_t *data);
+               int offset, int *data);
 
 /**
  * Write a 32-bit register to the peripheral at 7-bit peripheral address
