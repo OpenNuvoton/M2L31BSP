@@ -110,6 +110,11 @@
 			<locationURI>PARENT-4-PROJECT_LOC/Library/StdDriver/src/uart.c</locationURI>
 		</link>
 		<link>
+			<name>Driver/src/utcpd.c</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Library/StdDriver/src/utcpd.c</locationURI>
+		</link>
+		<link>
 			<name>Source/UTCPD_DualRole/commandshell.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/commandshell.c</locationURI>

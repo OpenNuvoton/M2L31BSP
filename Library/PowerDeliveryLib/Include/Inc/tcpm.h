@@ -59,6 +59,18 @@ static inline int tcpc_addr_read16(int port, int i2c_addr, int reg, int *val)
                       i2c_addr, reg, val);
 }
 
+static inline int tcpc_addr_write32(int port, int i2c_addr, int reg, int val)
+{
+    return i2c_write32(tcpc_config[port].i2c_info.port,
+                       i2c_addr, reg, val);
+}
+
+static inline int tcpc_addr_read32(int port, int i2c_addr, int reg, int *val)
+{
+    return i2c_read32(tcpc_config[port].i2c_info.port,
+                      i2c_addr, reg, val);
+}
+
 /*
  * The *_no_lpm_exit() routines are intende to be used where the TCPC
  * needs to be accessed without being being taken out of LPM. The main

@@ -225,6 +225,7 @@
                 <option>
                     <name>CCDefines</name>
                     <state>OPT_DRP=1</state>
+                    <state>DEBUG_PORT=UART0</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -1076,6 +1077,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\..\..\..\Library\StdDriver\src\uart.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\Library\StdDriver\src\utcpd.c</name>
         </file>
     </group>
     <group>
