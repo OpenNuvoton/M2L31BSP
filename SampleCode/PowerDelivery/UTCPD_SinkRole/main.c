@@ -18,7 +18,6 @@
 #include "utcpdlib.h"
 
 #define ADC_INIT
-//#define ACMP_INIT
 
 void UTCPD_IRQHandler(void)
 {
@@ -39,17 +38,11 @@ void SYS_Init(void)
     /* Enable Internal RC 32KHz clock */
     CLK_EnableXtalRC(CLK_PWRCTL_LIRCEN_Msk);
 
-    /* Enable External RC 32KHz clock */
-    //CLK_EnableXtalRC(CLK_PWRCTL_LXTEN_Msk);
-
     /* Enable Internal RC 12MHz clock */
     CLK_EnableXtalRC(CLK_PWRCTL_HIRCEN_Msk);
 
     /* Waiting for Internal RC clock ready */
     CLK_WaitClockReady(CLK_STATUS_HIRCSTB_Msk);
-
-    /* Switch HCLK clock source to Internal RC and HCLK source divide 1 */
-    CLK_SetHCLK(CLK_CLKSEL0_HCLKSEL_HXT, CLK_CLKDIV0_HCLK(1));
 
     /* Enable GPIO Clock */
 	CLK_EnableModuleClock(GPA_MODULE);
@@ -60,7 +53,6 @@ void SYS_Init(void)
 	CLK_EnableModuleClock(GPF_MODULE);
 	CLK_EnableModuleClock(GPG_MODULE);
 	CLK_EnableModuleClock(GPH_MODULE);
-
 
     /* Enable UART clock */
     CLK_EnableModuleClock(UART0_MODULE);
@@ -81,34 +73,24 @@ void SYS_Init(void)
     /* Enable TIMER 1 module clock */
     CLK_EnableModuleClock(TMR1_MODULE);
     CLK_SetModuleClock(TMR1_MODULE, CLK_CLKSEL1_TMR1SEL_HIRC, 0);
-    //CLK_SetModuleClock(TMR1_MODULE, CLK_CLKSEL1_TMR1SEL_LIRC, 0);
-
 
     /* Enable EADC peripheral clock */
-    CLK->CLKDIV0 = (CLK->CLKDIV0 & ~(CLK_CLKDIV0_EADC0DIV_Msk)) |
-                   (0x08 << CLK_CLKDIV0_EADC0DIV_Pos);
-    CLK->APBCLK0 |= CLK_APBCLK0_EADC0CKEN_Msk ;
     CLK_SetModuleClock(EADC0_MODULE, CLK_CLKSEL0_EADC0SEL_HIRC, CLK_CLKDIV0_EADC0(8));
     CLK_EnableModuleClock(EADC0_MODULE);
+
+    CLK_EnablePLL(CLK_PLLCTL_PLLSRC_HIRC, 72000000);
+    CLK_SetHCLK(CLK_CLKSEL0_HCLKSEL_PLL, CLK_CLKDIV0_HCLK(1));
 
     /* Update System Core Clock */
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock. */
     SystemCoreClockUpdate();
 
-    /*---------------------------------------------------------------------------------------------------------*/
+	/*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Set GPB multi-function pins for UART0 RXD and TXD */
     SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB12MFP_Msk | SYS_GPB_MFP3_PB13MFP_Msk)) |
                     (SYS_GPB_MFP3_PB12MFP_UART0_RXD | SYS_GPB_MFP3_PB13MFP_UART0_TXD); 
-
-    printf("PLL 64MHz --> HCLK --> CLKO / 4 = 16MHz on PB.14\n");
-    //CLK_EnableCKO(CLK_CLKSEL1_CLKOSEL_HCLK, 1, 0);
-    CLK_EnablePLL(CLK_PLLCTL_PLLSRC_HIRC, 72000000);
-    CLK_SetHCLK(CLK_CLKSEL0_HCLKSEL_PLL, CLK_CLKDIV0_HCLK(1));
-
-    /* Configure UUTCPD CC1/CC2 */
-    SYS->GPC_MFP0 = (SYS->GPC_MFP0 & ~(SYS_GPC_MFP0_PC0MFP_Msk | SYS_GPC_MFP0_PC1MFP_Msk)) | (SYS_GPC_MFP0_PC0MFP_UTCPD0_CC1 | SYS_GPC_MFP0_PC1MFP_UTCPD0_CC2);
 
 #ifdef ADC_INIT
     /* Set PB.2 - PB.3 to input mode For EADC pin to measure VBUS and VCONN */
@@ -134,6 +116,9 @@ void SYS_Init(void)
 #endif
 #endif
 
+    /* Configure UUTCPD CC1/CC2 */
+    SYS->GPC_MFP0 = (SYS->GPC_MFP0 & ~(SYS_GPC_MFP0_PC0MFP_Msk | SYS_GPC_MFP0_PC1MFP_Msk)) | (SYS_GPC_MFP0_PC0MFP_UTCPD0_CC1 | SYS_GPC_MFP0_PC1MFP_UTCPD0_CC2);
+
     SYS->GPB_MFP1 = (SYS->GPB_MFP1 & ~(SYS_GPB_MFP1_PB5MFP_Msk | SYS_GPB_MFP1_PB4MFP_Msk)) |
                     (SYS_GPB_MFP1_PB5MFP_INT0 | SYS_GPB_MFP1_PB4MFP_INT1);
 
@@ -156,9 +141,6 @@ void SYS_Init(void)
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk));
     GPIO_SetMode(PA, BIT1, GPIO_MODE_OUTPUT);
 
-#ifdef ACMP_INIT
-    ACMP_Pin_Open();
-#endif
 	/* Lock protected registers */
 //    SYS_LockReg();
 }
