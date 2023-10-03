@@ -384,6 +384,21 @@ extern "C"
  */
 #define TK_SET_INITIAL_POTENTIAL_LEVEL(u32Level) (TK->REFC = (TK->REFC & ~TK_POLC_POL_INIT_Msk) | (u32Level))
 
+
+#define TK_CAPACITOR_BANK_SEL_MODE0                     (0UL << TK_EXTCBC_EXT_CBSEL_Pos)
+#define TK_CAPACITOR_BANK_SEL_MODE1 					(1UL << TK_EXTCBC_EXT_CBSEL_Pos)
+#define TK_CAPACITOR_BANK_SEL_MODE2 					(2UL << TK_EXTCBC_EXT_CBSEL_Pos)
+/**
+ * @brief Set TK Capacitor Bank Select Mode
+ * @param[in] u32Level Capacitor Bank Select Mode
+ *              - \ref TK_CAPACITOR_BANK_SEL_MODE0
+ *              - \ref TK_CAPACITOR_BANK_SEL_MODE1
+ *              - \ref TK_CAPACITOR_BANK_SEL_MODE2
+ * @return None
+ * \hideinitializer
+ */
+#define TK_EXTEND_CAPACITOR_BANK_SEL(u32CapBankSel) (TK->EXTCBC = (TK->EXTCBC & ~TK_EXTCBC_EXT_CBSEL_Msk) | (u32CapBankSel))
+
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define TK functions prototype                                                                          */
 /*---------------------------------------------------------------------------------------------------------*/

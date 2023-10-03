@@ -322,7 +322,13 @@ int32_t main(void)
 
     /* Init TK Controller */
     TK_Init();
-
+		
+    /* CAPACITOR_BANK_SEL to MODE0 8 bits */
+    //TK_EXTEND_CAPACITOR_BANK_SEL(TK_CAPACITOR_BANK_SEL_MODE0); 
+		
+    /* CAPACITOR_BANK_SEL to MODE1 8 bits --> 9 bit (Analog) */
+    TK_EXTEND_CAPACITOR_BANK_SEL(TK_CAPACITOR_BANK_SEL_MODE1); 
+		
     /* Initialize Multiple Function Pins for TK */
     SetTkMultiFun(u32ChanelMsk);
 
@@ -355,6 +361,12 @@ int32_t main(void)
           */
         TK_Init();
 
+        /* CAPACITOR_BANK_SEL to MODE0 8 bits */
+        //TK_EXTEND_CAPACITOR_BANK_SEL(TK_CAPACITOR_BANK_SEL_MODE0); 
+		
+        /* CAPACITOR_BANK_SEL to MODE1 8 bits --> 9 bit (Analog) */
+        TK_EXTEND_CAPACITOR_BANK_SEL(TK_CAPACITOR_BANK_SEL_MODE1); 
+
         /* Initialize Multiple Function Pins for TK again */
         SetTkMultiFun(u32ChanelMsk);
 
@@ -373,6 +385,12 @@ int32_t main(void)
 
     /* Init TK Controller */
     TK_Init();
+
+    /* CAPACITOR_BANK_SEL to MODE0 8 bits */
+    //TK_EXTEND_CAPACITOR_BANK_SEL(TK_CAPACITOR_BANK_SEL_MODE0); 
+		
+    /* CAPACITOR_BANK_SEL to MODE1 8 bits --> 9 bit (Analog) */
+    TK_EXTEND_CAPACITOR_BANK_SEL(TK_CAPACITOR_BANK_SEL_MODE1); 
 
     /* Initialize Multiple Function Pins for TK */
     SetTkMultiFun(u32ChanelMsk);
