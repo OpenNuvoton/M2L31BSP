@@ -16,6 +16,8 @@
 uint8_t volatile g_u8Suspend = 0;
 static uint8_t s_u8Idle = 0, s_u8Protocol = 0;
 
+uint8_t Led_Status[8];
+
 void USBD_IRQHandler(void);
 
 void USBD_IRQHandler(void)
@@ -264,8 +266,8 @@ void HID_ClassRequest(void)
             {
                 /* Request Type = Output */
                 USBD_SET_DATA1(EP1);
-                USBD_SET_PAYLOAD_LEN(EP1, au8Buf[6]);
-
+                /* Data stage */
+                USBD_PrepareCtrlOut(Led_Status, au8Buf[6]);
                 /* Status stage */
                 USBD_PrepareCtrlIn(0, 0);
             }
