@@ -9,6 +9,7 @@
  * Copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 /*!<Includes */
+#include <stdio.h>
 #include <string.h>
 #include "NuMicro.h"
 #include "hid_mousekeyboard.h"
@@ -16,6 +17,9 @@
 static int8_t s_ai8MouseTable[] = { -16, -16, -16, 0, 16, 16, 16, 0};
 static uint8_t s_u8MouseIdx = 0;
 static uint8_t s_u8MoveLen, s_u8MouseMode = 1;
+
+uint32_t LED_SATUS = 0;
+uint8_t Led_Status[8];
 
 static uint8_t volatile s_u8EP2Ready = 0;
 static uint8_t volatile s_u8EP3Ready = 0;
@@ -293,8 +297,8 @@ void HID_ClassRequest(void)
             {
                 /* Request Type = Output */
                 USBD_SET_DATA1(EP1);
-                USBD_SET_PAYLOAD_LEN(EP1, au8Buf[6]);
-
+                /* Data stage */
+                USBD_PrepareCtrlOut(Led_Status, au8Buf[6]);
                 /* Status stage */
                 USBD_PrepareCtrlIn(0, 0);
             }
@@ -395,6 +399,37 @@ void HID_UpdateKbData(void)
             USBD_SET_PAYLOAD_LEN(EP3, 8);
         }
     }
+    if(Led_Status[0] != LED_SATUS)
+    {
+        if((Led_Status[0] & HID_LED_ALL) != (LED_SATUS & HID_LED_ALL))
+        {
+            if(Led_Status[0] & HID_LED_NumLock)
+                printf("NmLK  ON, ");
+            else
+                printf("NmLK OFF, ");
+
+            if(Led_Status[0] & HID_LED_CapsLock)
+                printf("CapsLock  ON, ");
+            else
+                printf("CapsLock OFF, ");
+
+            if(Led_Status[0] & HID_LED_ScrollLock)
+                printf("ScrollLock  ON, ");
+            else
+                printf("ScrollLock OFF, ");
+            
+            if(Led_Status[0] & HID_LED_Compose)
+                printf("Compose  ON, ");
+            else
+                printf("Compose OFF, ");   
+            
+            if(Led_Status[0] & HID_LED_Kana)
+                printf("Kana  ON\n");
+            else
+                printf("Kana OFF\n");  
+        }
+        LED_SATUS = Led_Status[0];
+    }   
 }
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/
