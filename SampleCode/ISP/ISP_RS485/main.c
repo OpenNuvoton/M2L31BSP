@@ -11,7 +11,7 @@
 #include "targetdev.h"
 #include "uart_transfer.h"
 
-#define nRTSPin                 (PB10)
+#define nRTSPin                 (PA0)
 #define RECEIVE_MODE            (0)
 #define TRANSMIT_MODE           (1)
 
@@ -32,22 +32,22 @@ void SYS_Init(void)
     CLK->CLKSEL0 = (CLK->CLKSEL0 & (~CLK_CLKSEL0_HCLK0SEL_Msk)) | CLK_CLKSEL0_HCLKSEL_HIRC;
     CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_HCLK0DIV_Msk)) | CLK_CLKDIV0_HCLK(1);
 
-    /* Enable PB clock */
-    CLK->AHBCLK0 |=  CLK_AHBCLK0_GPBCKEN_Msk;
+    /* Enable PA clock */
+    CLK->AHBCLK0 |=  CLK_AHBCLK0_GPACKEN_Msk;
 
     /* Enable UART module clock */
-    CLK->APBCLK0 |= CLK_APBCLK0_UART0CKEN_Msk;
-    /* Select UART module clock source as HXT and UART module clock divider as 1 */
-    CLK->CLKSEL1 = (CLK->CLKSEL1 & (~CLK_CLKSEL4_UART0SEL_Msk)) | CLK_CLKSEL4_UART0SEL_HIRC;
-    CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_UART0DIV_Msk)) | CLK_CLKDIV0_UART0(1);
+    CLK->APBCLK0 |= CLK_APBCLK0_UART1CKEN_Msk;
+    /* Select UART module clock source as HIRC and UART module clock divider as 1 */
+    CLK->CLKSEL1 = (CLK->CLKSEL1 & (~CLK_CLKSEL4_UART1SEL_Msk)) | CLK_CLKSEL4_UART1SEL_HIRC;
+    CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_UART1DIV_Msk)) | CLK_CLKDIV0_UART1(1);
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
-    SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB12MFP_Msk | SYS_GPB_MFP3_PB13MFP_Msk)) |  \
-                    (SYS_GPB_MFP3_PB12MFP_UART0_RXD | SYS_GPB_MFP3_PB13MFP_UART0_TXD);
+    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
+    SYS->GPA_MFP2 = (SYS->GPA_MFP2 & ~(SYS_GPA_MFP2_PA8MFP_Msk | SYS_GPA_MFP2_PA9MFP_Msk)) |   \
+                    (SYS_GPA_MFP2_PA8MFP_UART1_RXD | SYS_GPA_MFP2_PA9MFP_UART1_TXD); 
 
-    PB->MODE = (PB->MODE & ~(0x3ul << (10 << 1))) | (GPIO_MODE_OUTPUT << (10 << 1));
+    PA->MODE = (PA->MODE & ~(0x3ul << (0 << 1))) | (GPIO_MODE_OUTPUT << (0 << 1));
 
     nRTSPin = RECEIVE_MODE;
 }
@@ -101,21 +101,21 @@ _ISP:
         {
             bUartDataReady = FALSE;
             ParseCmd(uart_rcvbuf, 64);
-            NVIC_DisableIRQ(UART0_IRQn);
+            NVIC_DisableIRQ(UART1_IRQn);
             nRTSPin = TRANSMIT_MODE;
             PutString();
 
-            while ((UART0->FIFOSTS & UART_FIFOSTS_TXEMPTYF_Msk) == 0);
+            while ((UART1->FIFOSTS & UART_FIFOSTS_TXEMPTYF_Msk) == 0);
 
             nRTSPin = RECEIVE_MODE;
-            NVIC_EnableIRQ(UART0_IRQn);
+            NVIC_EnableIRQ(UART1_IRQn);
         }
     }
 
 _APROM:
-    SYS->RSTSTS = (SYS_RSTSTS_PORF_Msk | SYS_RSTSTS_PINRF_Msk);
-    RMC->ISPCTL &= ~(RMC_ISPCTL_ISPEN_Msk | RMC_ISPCTL_BS_Msk);
-    SCB->AIRCR = (V6M_AIRCR_VECTKEY_DATA | V6M_AIRCR_SYSRESETREQ);
+    RMC_SetVectorAddr(RMC_APROM_BASE);
+    RMC_SET_APROM_BOOT();
+    NVIC_SystemReset();  
 
     /* Trap the CPU */
     while (1);

@@ -27,18 +27,18 @@ uint8_t volatile bufhead = 0;
 /* please check "targetdev.h" for chip specifc define option */
 
 /*---------------------------------------------------------------------------------------------------------*/
-/* INTSTS to handle UART Channel 0 interrupt event                                                            */
+/* INTSTS to handle UART Channel 1 interrupt event                                                            */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART0_IRQHandler(void)
+void UART1_IRQHandler(void)
 {
     /*----- Determine interrupt source -----*/
-    uint32_t u32IntSrc = UART0->INTSTS;
+    uint32_t u32IntSrc = UART1->INTSTS;
 
     if (u32IntSrc & 0x11)   //RDA FIFO interrupt & RDA timeout interrupt
     {
-        while (((UART0->FIFOSTS & UART_FIFOSTS_RXEMPTY_Msk) == 0) && (bufhead < MAX_PKT_SIZE))      //RX fifo not empty
+        while (((UART1->FIFOSTS & UART_FIFOSTS_RXEMPTY_Msk) == 0) && (bufhead < MAX_PKT_SIZE))      //RX fifo not empty
         {
-            uart_rcvbuf[bufhead++] = UART0->DAT;
+            uart_rcvbuf[bufhead++] = UART1->DAT;
         }
     }
 
@@ -64,9 +64,9 @@ void PutString(void)
 
     for (i = 0; i < MAX_PKT_SIZE; i++)
     {
-        while ((UART0->FIFOSTS & UART_FIFOSTS_TXFULL_Msk));
+        while ((UART1->FIFOSTS & UART_FIFOSTS_TXFULL_Msk));
 
-        UART0->DAT = response_buff[i];
+        UART1->DAT = response_buff[i];
     }
 }
 
@@ -76,16 +76,16 @@ void UART_Init()
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Select UART function mode */
-    UART0->FUNCSEL = ((UART0->FUNCSEL & (~UART_FUNCSEL_FUNCSEL_Msk)) | UART_FUNCSEL_MODE);
+    UART1->FUNCSEL = ((UART1->FUNCSEL & (~UART_FUNCSEL_FUNCSEL_Msk)) | UART_FUNCSEL_MODE);
     /* Set UART line configuration */
-    UART0->LINE = UART_WORD_LEN_8 | UART_PARITY_NONE | UART_STOP_BIT_1;
+    UART1->LINE = UART_WORD_LEN_8 | UART_PARITY_NONE | UART_STOP_BIT_1;
     /* Set UART baud rate */
-    UART0->BAUD = (UART_BAUD_MODE2 | UART_BAUD_MODE2_DIVIDER(__HIRC, 115200));
+    UART1->BAUD = (UART_BAUD_MODE2 | UART_BAUD_MODE2_DIVIDER(__HIRC, 115200));
     /* Set time-out interrupt comparator */
-    UART0->TOUT = (UART0->TOUT & ~UART_TOUT_TOIC_Msk) | (0x40);
-    NVIC_SetPriority(UART0_IRQn, 2);
-    NVIC_EnableIRQ(UART0_IRQn);
+    UART1->TOUT = (UART1->TOUT & ~UART_TOUT_TOIC_Msk) | (0x40);
+    NVIC_SetPriority(UART1_IRQn, 2);
+    NVIC_EnableIRQ(UART1_IRQn);
     /* 0x0811 */
-    UART0->INTEN = (UART_INTEN_TOCNTEN_Msk | UART_INTEN_RXTOIEN_Msk | UART_INTEN_RDAIEN_Msk);
+    UART1->INTEN = (UART_INTEN_TOCNTEN_Msk | UART_INTEN_RXTOIEN_Msk | UART_INTEN_RDAIEN_Msk);
 }
 
