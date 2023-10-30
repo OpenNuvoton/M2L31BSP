@@ -5,6 +5,7 @@
  * @date     14, June, 2017
  *
  * @note
+ * SPDX-License-Identifier: Apache-2.0
  * Copyright (C) 2017-2018 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 #include <stdio.h>
@@ -58,7 +59,7 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
     outpw(response + 4, 0);
     pSrc += 8;
     srclen -= 8;
-    ReadData(Config0, Config0 + 16, (uint32_t *)(response + 8)); /*read config */
+    ReadData(Config0, Config0 + 40, (uint32_t *)(response + 8)); /*read config */
     regcnf0 = *(uint32_t *)(response + 8);
     security = regcnf0 & 0x2;
 
@@ -113,18 +114,29 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
     }
     else if ((lcmd == CMD_UPDATE_APROM) || (lcmd == CMD_ERASE_ALL))
     {
-        EraseAP(RMC_APROM_BASE, (g_apromSize < g_dataFlashAddr) ? g_apromSize : g_dataFlashAddr); /* erase APROM */
-
         if (lcmd == CMD_ERASE_ALL)
         {
-            EraseAP(g_dataFlashAddr, g_dataFlashSize);
+            memset((uint32_t *)aprom_buf,0xFF,RMC_FLASH_PAGE_SIZE);
+            TotalLen = g_apromSize;
+            StartAddress = 0;
+            do {
+                WriteData(StartAddress, StartAddress+ RMC_FLASH_PAGE_SIZE, (uint32_t *)&aprom_buf);
+                TotalLen -= RMC_FLASH_PAGE_SIZE;
+                StartAddress += RMC_FLASH_PAGE_SIZE;
+                
+            } while ( TotalLen >0);  
             *(uint32_t *)(response + 8) = regcnf0 | 0x02;
             UpdateConfig((uint32_t *)(response + 8), NULL);
         }
 
         bUpdateApromCmd = TRUE;
-    }
-
+    }  
+    else if (lcmd == CMD_GET_FLASHMODE)
+    {
+        //return 1: APROM, 2: LDROM
+        outpw(response + 8, (RMC->ISPCTL & 0x2) ? 2 : 1);
+    }    
+    
     if ((lcmd == CMD_UPDATE_APROM) || (lcmd == CMD_UPDATE_DATAFLASH))
     {
         if (lcmd == CMD_UPDATE_DATAFLASH)
@@ -133,7 +145,7 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
 
             if (g_dataFlashSize)   /*g_dataFlashAddr*/
             {
-                EraseAP(g_dataFlashAddr, g_dataFlashSize);
+
             }
             else
             {
@@ -173,12 +185,11 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
         }
 
         ReadData(PageAddress, StartAddress, (uint32_t *)aprom_buf);
-        RMC_Erase_User(PageAddress);
         WriteData(PageAddress, StartAddress, (uint32_t *)aprom_buf);
 
         if ((StartAddress % RMC_FLASH_PAGE_SIZE) >= (RMC_FLASH_PAGE_SIZE - LastDataLen))
         {
-            RMC_Erase_User(PageAddress + RMC_FLASH_PAGE_SIZE);
+
         }
 
         goto out;
