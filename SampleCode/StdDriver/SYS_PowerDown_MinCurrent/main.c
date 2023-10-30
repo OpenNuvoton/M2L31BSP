@@ -119,7 +119,7 @@ int main(void)
     printf("| Operating sequence                                                      |\n");
     printf("|  1. Remove all continuous load, e.g. LED.                               |\n");
     printf("|  2. Configure all GPIO as Quasi-bidirectional Mode                      |\n");
-    printf("|  3. Must disable LVR                                                     |\n");
+    printf("|  3. Must enable LVR                                                     |\n");
     printf("|  4. Disable analog function, e.g. ADC, ACMP, and POR module.            |\n");
     printf("|  5. Enter to Power-Down                                                 |\n");
     printf("|  6. Wait for PB.3 falling-edge interrupt event to wakeup the MCU        |\n");
@@ -150,8 +150,8 @@ int main(void)
     /* Unlock protected registers before entering Power-down mode */
     SYS_UnlockReg();
 
-    /* LVR must be disabled */
-    SYS_DISABLE_LVR();
+    /* LVR must be enabled and the POR will be enabled automatically */
+    SYS_ENABLE_LVR();
 
     /* BOD must be disabled */
     SYS_DISABLE_BOD();
