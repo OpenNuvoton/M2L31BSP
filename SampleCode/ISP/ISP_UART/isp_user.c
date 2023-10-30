@@ -59,7 +59,7 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
     outpw(response + 4, 0);
     pSrc += 8;
     srclen -= 8;
-    ReadData(Config0, Config0 + 40, (uint32_t *)(response + 8)); /*read config */
+    ReadData(Config0, Config0 + 44, (uint32_t *)(response + 8)); /*read config */
     regcnf0 = *(uint32_t *)(response + 8);
     security = regcnf0 & 0x2;
 
