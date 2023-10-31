@@ -36,6 +36,10 @@ void SYS_Init(void)
     CLK_WaitClockReady(CLK_STATUS_HIRC48MSTB_Msk);
 
     CLK_SetModuleClock(USBD_MODULE, CLK_CLKSEL0_USBSEL_HIRC48M, CLK_CLKDIV0_USB(1));
+    
+    /* Enable GPA module clock */
+    CLK_EnableModuleClock(GPA_MODULE);    
+    
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 

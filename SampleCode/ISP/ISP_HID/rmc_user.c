@@ -15,7 +15,7 @@ int RMC_Proc(uint32_t u32Cmd, uint32_t addr_start, uint32_t addr_end, uint32_t *
 
     for (u32Addr = addr_start; u32Addr < addr_end;)
     {
-        if (u32Cmd == RMC_ISPCMD_PROGRAM)
+        if (u32Cmd == RMC_ISPCMD_PROGRAM || u32Cmd == CMD_ERASE_ALL)
         {
             RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
             RMC->ISPADDR = 0x00000000;
@@ -34,7 +34,12 @@ int RMC_Proc(uint32_t u32Cmd, uint32_t addr_start, uint32_t addr_end, uint32_t *
 
             RMC->ISPCMD = RMC_ISPCMD_LOAD_DATA_BUFFER;
             RMC->ISPADDR = u32Addr;
-            RMC->ISPDAT = *data;
+            
+            if (u32Cmd == CMD_ERASE_ALL)
+                RMC->ISPDAT = 0xFFFFFFFF;
+            else
+                RMC->ISPDAT = *data;
+            
             RMC->ISPTRG = 0x1;
             __ISB();
 
@@ -48,13 +53,20 @@ int RMC_Proc(uint32_t u32Cmd, uint32_t addr_start, uint32_t addr_end, uint32_t *
                 return -1;
             }
         }
-
-        RMC->ISPCMD = u32Cmd;
+        if (u32Cmd == CMD_ERASE_ALL)
+            RMC->ISPCMD = RMC_ISPCMD_PROGRAM;
+        else
+            RMC->ISPCMD = u32Cmd;
+        
         RMC->ISPADDR = u32Addr;
 
         if (u32Cmd == RMC_ISPCMD_PROGRAM)
         {
             RMC->ISPDAT = *data;
+        }
+        else if (u32Cmd == CMD_ERASE_ALL)
+        {
+            RMC->ISPDAT = 0xFFFFFFFF;
         }
 
         RMC->ISPTRG = 0x1;
@@ -160,7 +172,10 @@ void UpdateConfig(uint32_t *data, uint32_t *res)
     uint32_t u32Size = 16;
     RMC_ENABLE_CFG_UPDATE();
     RMC_Proc(RMC_ISPCMD_PROGRAM, Config0, Config0 + u32Size, data);
-    RMC_Proc(RMC_ISPCMD_READ, Config0, Config0 + u32Size, res);
+    if (res)
+    {    
+        RMC_Proc(RMC_ISPCMD_READ, Config0, Config0 + u32Size, res);
+    }
     RMC_DISABLE_CFG_UPDATE();
 }
 
