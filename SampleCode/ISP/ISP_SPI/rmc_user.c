@@ -134,7 +134,7 @@ void WriteData(uint32_t addr_start, uint32_t addr_end, uint32_t *data)  // Write
 
 void UpdateConfig(uint32_t *data, uint32_t *res)
 {
-    uint32_t u32Size = 16;
+    uint32_t u32Size = 44;  //M2L31 support CONFIG10
     RMC_ENABLE_CFG_UPDATE();
 
     RMC_Proc(RMC_ISPCMD_PROGRAM, Config0, Config0 + u32Size, data);
