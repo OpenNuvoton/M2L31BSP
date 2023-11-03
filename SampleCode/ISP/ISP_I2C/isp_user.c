@@ -54,7 +54,7 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
     outpw(response + 4, 0);
     pSrc += 8;
     srclen -= 8;
-    ReadData(Config0, Config0 + 16, (uint32_t *)(response + 8)); /*read config */
+    ReadData(Config0, Config0 + 44, (uint32_t *)(response + 8)); /*read config */
     regcnf0 = *(uint32_t *)(response + 8);
     security = regcnf0 & 0x2;
 
@@ -111,13 +111,27 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
     {
         if (lcmd == CMD_ERASE_ALL)
         {
+            memset((uint32_t *)aprom_buf,0xFF,RMC_FLASH_PAGE_SIZE);
+            TotalLen = g_apromSize;
+            StartAddress = 0;
+            do {
+                WriteData(StartAddress, StartAddress+ RMC_FLASH_PAGE_SIZE, (uint32_t *)&aprom_buf);
+                TotalLen -= RMC_FLASH_PAGE_SIZE;
+                StartAddress += RMC_FLASH_PAGE_SIZE;
+                
+            } while ( TotalLen >0);  
             *(uint32_t *)(response + 8) = regcnf0 | 0x02;
             UpdateConfig((uint32_t *)(response + 8), NULL);
         }
 
         bUpdateApromCmd = TRUE;
-    }
-
+    }  
+    else if (lcmd == CMD_GET_FLASHMODE)
+    {
+        //return 1: APROM, 2: LDROM
+        outpw(response + 8, (RMC->ISPCTL & 0x2) ? 2 : 1);
+    }    
+    
     if ((lcmd == CMD_UPDATE_APROM) || (lcmd == CMD_UPDATE_DATAFLASH))
     {
         if (lcmd == CMD_UPDATE_DATAFLASH)
