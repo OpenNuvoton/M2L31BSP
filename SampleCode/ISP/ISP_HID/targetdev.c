@@ -12,15 +12,23 @@
 
 uint32_t GetApromSize()
 {
-    //the smallest of APROM size is 2K
-    uint32_t size, did;
+    uint32_t size = 0x4000, data;
+    int result;
 
-    did = RMC_ReadDID();
+    do
+    {
+        result = RMC_Read_User(size, (unsigned int *)&data);
 
-    if(did == 0x6C90)
-        return 0x20000;
-    else
-        return 0x20000;
+        if (result < 0)
+        {
+            return size;
+        }
+        else
+        {
+            size *= 2;
+        }
+    }
+    while (1);
 }
 
 // Data Flash is shared with APROM.
@@ -28,7 +36,9 @@ uint32_t GetApromSize()
 void GetDataFlashInfo(uint32_t *addr, uint32_t *size)
 {
     uint32_t uData;
+    
     *size = 0;
+    
     RMC_Read_User(Config0, &uData);
 
     if ((uData & 0x01) == 0)   //DFEN enable

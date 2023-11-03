@@ -123,6 +123,7 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
     {
         if (lcmd == CMD_ERASE_ALL)   //erase data flash
         {
+            RMC_Proc(CMD_ERASE_ALL, RMC_APROM_BASE, g_apromSize, 0xFFFFFFFF);
             *(uint32_t *)(response + 8) = regcnf0 | 0x02;
             UpdateConfig((uint32_t *)(response + 8), NULL);
         }
@@ -141,10 +142,7 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
         {
             StartAddress = g_dataFlashAddr;
 
-            if (g_dataFlashSize)   //g_dataFlashAddr
-            {
-            }
-            else
+            if (g_dataFlashSize == 0)
             {
                 goto out;
             }
@@ -154,7 +152,6 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
             StartAddress = 0;
         }
 
-        //StartAddress = inpw(pSrc);
         TotalLen = inpw(pSrc + 4);
         pSrc += 8;
         srclen -= 8;
@@ -186,10 +183,6 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
 
         ReadData(PageAddress, StartAddress, (uint32_t *)aprom_buf);
         WriteData(PageAddress, StartAddress, (uint32_t *)aprom_buf);
-
-        if ((StartAddress % RMC_FLASH_PAGE_SIZE) >= (RMC_FLASH_PAGE_SIZE - LastDataLen))
-        {
-        }
 
         goto out;
     }
