@@ -234,7 +234,7 @@ void LPSPI_Init(void)
     /* Enable Full RX (data recived in TX phase) */
     LPSPI_ENABLE_AUTO_FULLRX(LPSPI0);
 
-    /* Enable TCNT (=0, no RX phase) in RX phase */
+    /* Enable TCNT in RX phase */
     LPSPI_SET_AUTO_RX_TCNT(LPSPI0, RX_PHASE_TCNT);
 
     /* Enable Auto CNT match wake up */
