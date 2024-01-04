@@ -47,7 +47,6 @@ void LPADC_Open(LPADC_T *lpadc,
                 uint32_t u32ChMask)
 {
     uint32_t u32Delay = SystemCoreClock;    /* 1 second */
-    volatile uint32_t tmp;
 
     /* select LPADC0 as LPADC controller, not EADC0. */
     SYS->IVSCTL |= SYS_IVSCTL_ADCCSEL_Msk;
@@ -91,13 +90,6 @@ void LPADC_Open(LPADC_T *lpadc,
             }
         }
     }
-
-    /* Read channel 0 ADDR to clear Valid flag of channel 0 that set by calibration. */
-    tmp = LPADC0->ADDR[0];
-
-    /* Workaround solution for LPADC0->DEBUG */
-    outp32(LPADC0_BASE + 0xFF4, inp32(LPADC0_BASE + 0xFF4) | (BIT5|BIT4|BIT1));
-    outp32(LPADC0_BASE + 0xFF0, inp32(LPADC0_BASE + 0xFF0) | (BIT8));
 
     lpadc->ADCR = (lpadc->ADCR & (~(LPADC_ADCR_DIFFEN_Msk | LPADC_ADCR_ADMD_Msk))) |
                   (u32InputMode) | (u32OpMode);
