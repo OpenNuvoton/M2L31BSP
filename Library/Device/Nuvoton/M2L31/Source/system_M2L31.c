@@ -119,11 +119,10 @@ void AssertError(uint8_t *file, uint32_t line)
 #else
     __attribute__((weak))
 #endif
-void Uart1DefaultMPF(void)
+void Uart0DefaultMPF(void)
 {
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    SYS->GPA_MFP2 = (SYS->GPA_MFP2 & ~(SYS_GPA_MFP2_PA8MFP_Msk | SYS_GPA_MFP2_PA9MFP_Msk)) |   \
-                    (SYS_GPA_MFP2_PA8MFP_UART1_RXD | SYS_GPA_MFP2_PA9MFP_UART1_TXD);
-
+    /* Set GPB multi-function pins for UART0 RXD and TXD */
+    SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~SYS_GPB_MFP3_PB12MFP_Msk) | SYS_GPB_MFP3_PB12MFP_UART0_RXD;
+    SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~SYS_GPB_MFP3_PB13MFP_Msk) | SYS_GPB_MFP3_PB13MFP_UART0_TXD;
 }
 #endif

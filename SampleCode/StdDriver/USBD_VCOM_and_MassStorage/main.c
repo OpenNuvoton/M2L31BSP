@@ -36,7 +36,7 @@ uint16_t gCtrlSignal = 0;     /* BIT0: DTR(Data Terminal Ready) , BIT1: RTS(Requ
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
-/* UART1 */
+/* UART0 */
 volatile uint8_t comRbuf[RXBUFSIZE];
 volatile uint16_t comRbytes = 0;
 volatile uint16_t comRhead = 0;
@@ -107,8 +107,8 @@ void SYS_Init(void)
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 
-    /* Enable UART1 module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    /* Enable UART0 module clock */
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable GPB module clock */
     CLK_EnableModuleClock(GPB_MODULE);
@@ -117,44 +117,44 @@ void SYS_Init(void)
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
     /* Set multi-function pins */
-    Uart1DefaultMPF();
+    Uart0DefaultMPF();
 }
-void UART1_Init(void)
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Reset IP */
-    SYS->IPRST1 |=  SYS_IPRST1_UART1RST_Msk;
-    SYS->IPRST1 &= ~SYS_IPRST1_UART1RST_Msk;
+    SYS->IPRST1 |=  SYS_IPRST1_UART0RST_Msk;
+    SYS->IPRST1 &= ~SYS_IPRST1_UART0RST_Msk;
 
-    /* Configure UART1 and set UART1 Baudrate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 Baudrate */
+    UART_Open(UART0, 115200);
 
-    /* Enable UART1 RX Time-Out Interrupt and RX Data Available Interrupt */
-    UART_EnableInt(UART1, UART_INTEN_TOCNTEN_Msk | UART_INTEN_RDAIEN_Msk);
+    /* Enable UART0 RX Time-Out Interrupt and RX Data Available Interrupt */
+    UART_EnableInt(UART0, UART_INTEN_TOCNTEN_Msk | UART_INTEN_RDAIEN_Msk);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* UART Callback function                                                                                  */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART1_IRQHandler(void)
+void UART0_IRQHandler(void)
 {
     uint32_t u32IntStatus;
     uint8_t bInChar;
     int32_t size;
 
-    u32IntStatus = UART1->INTSTS;
+    u32IntStatus = UART0->INTSTS;
 
     if((u32IntStatus & UART_INTSTS_RDAIF_Msk) || (u32IntStatus & UART_INTSTS_RXTOIF_Msk))
     {
         /* Receiver FIFO threshold level is reached or Rx time out */
 
         /* Get all the input characters */
-        while((UART1->FIFOSTS & UART_FIFOSTS_RXEMPTY_Msk) == 0)
+        while((UART0->FIFOSTS & UART_FIFOSTS_RXEMPTY_Msk) == 0)
         {
             /* Get the character from UART Buffer */
-            bInChar = UART1->DAT;
+            bInChar = UART0->DAT;
 
             /* Check if buffer full */
             if(comRbytes < RXBUFSIZE)
@@ -175,7 +175,7 @@ void UART1_IRQHandler(void)
     if(u32IntStatus & UART_INTSTS_THREIF_Msk)
     {
 
-        if (comTbytes && (UART1->INTEN & UART_INTEN_THREIEN_Msk))
+        if (comTbytes && (UART0->INTEN & UART_INTEN_THREIEN_Msk))
         {
             /* Fill the Tx FIFO */
             size = comTbytes;
@@ -187,7 +187,7 @@ void UART1_IRQHandler(void)
             while(size)
             {
                 bInChar = comTbuf[comThead++];
-                UART1->DAT = bInChar;
+                UART0->DAT = bInChar;
                 if(comThead >= TXBUFSIZE)
                     comThead = 0;
                 comTbytes--;
@@ -197,7 +197,7 @@ void UART1_IRQHandler(void)
         else
         {
             /* No more data, just stop Tx (Stop work) */
-            UART1->INTEN &= (~UART_INTEN_THREIEN_Msk);
+            UART0->INTEN &= (~UART_INTEN_THREIEN_Msk);
         }
     }
 
@@ -267,17 +267,17 @@ void VCOM_TransferData(void)
     if(comTbytes)
     {
         /* Check if Tx is working */
-        if((UART1->INTEN & UART_INTEN_THREIEN_Msk) == 0)
+        if((UART0->INTEN & UART_INTEN_THREIEN_Msk) == 0)
         {
             /* Send one bytes out */
-            UART1->DAT = comTbuf[comThead++];
+            UART0->DAT = comTbuf[comThead++];
             if(comThead >= TXBUFSIZE)
                 comThead = 0;
 
             comTbytes--;
 
             /* Enable Tx Empty Interrupt. (Trigger first one) */
-            UART1->INTEN |= UART_INTEN_THREIEN_Msk;
+            UART0->INTEN |= UART_INTEN_THREIEN_Msk;
         }
     }
 }
@@ -295,7 +295,7 @@ int32_t main(void)
 
     SYS_Init();
 
-    UART1_Init();
+    UART0_Init();
 
     printf("\n\n");
     printf("+-------------------------------------------------------------+\n");
@@ -326,7 +326,7 @@ int32_t main(void)
     USBD_Start();
 
     NVIC_EnableIRQ(USBD_IRQn);
-    NVIC_EnableIRQ(UART1_IRQn);
+    NVIC_EnableIRQ(UART0_IRQn);
 
 #if CRYSTAL_LESS
     /* Backup init trim */

@@ -23,7 +23,7 @@ extern uint8_t volatile bufhead;
 
 /*-------------------------------------------------------------*/
 void UART_Init(void);
-void UART1_IRQHandler(void);
+void UART0_IRQHandler(void);
 void PutString(void);
 
 #include "clk.h"

@@ -21,7 +21,7 @@ extern "C" {
 /* Macro Definition                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
 #ifndef DEBUG_PORT
-#define DEBUG_PORT      UART1       /*!< Select Debug Port which is used for retarget.c to output debug message to UART */
+#define DEBUG_PORT      UART0       /*!< Select Debug Port which is used for retarget.c to output debug message to UART */
 #endif
 
 /*----------------------------------------------------------------------------
@@ -70,7 +70,7 @@ extern void SystemCoreClockUpdate(void);
  *
  * @brief  The initialization of uart0 default multiple-function pin.
  */
-extern void Uart1DefaultMPF(void);
+extern void Uart0DefaultMPF(void);
 
 /**
  * Check if debug message finished

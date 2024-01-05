@@ -31,8 +31,8 @@ int main()
     /* Init System, IP clock and multi-function I/O. */
     SYS_Init();
 
-    /* Configure UART1: 115200, 8-bit word, no parity bit, 1 stop bit. */
-    UART_Open(UART1, 115200);
+    /* Configure UART0: 115200, 8-bit word, no parity bit, 1 stop bit. */
+    UART_Open(UART0, 115200);
 
     /* Init USCI_SPI0 */
     USCI_SPI_Init();
@@ -112,21 +112,21 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable peripheral clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
     CLK_EnableModuleClock(USCI0_MODULE);
 
     /* Enable GPIO clock */
     CLK_EnableModuleClock(GPD_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Update System Core Clock */
     /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CyclesPerUs automatically. */
     SystemCoreClockUpdate();
 
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
     /* Set USCI0_SPI multi-function pins */
     SYS->GPD_MFP0 = SYS->GPD_MFP0 & ~(SYS_GPD_MFP0_PD0MFP_Msk|SYS_GPD_MFP0_PD1MFP_Msk|SYS_GPD_MFP0_PD2MFP_Msk);

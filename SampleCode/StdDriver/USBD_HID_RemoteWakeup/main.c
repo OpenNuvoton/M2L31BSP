@@ -20,7 +20,7 @@
 static uint8_t volatile s_u8RemouteWakeup = 0;
 
 void SYS_Init(void);
-void UART1_Init(void);
+void UART0_Init(void);
 void GPIO_Init(void);
 void GPA_IRQHandler(void);
 void PowerDown(void);
@@ -74,8 +74,8 @@ void SYS_Init(void)
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 
-    /* Enable UART1 module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    /* Enable UART0 module clock */
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable GPA module clock */
     CLK_EnableModuleClock(GPA_MODULE);
@@ -84,19 +84,19 @@ void SYS_Init(void)
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
     /* Set multi-function pins */
-    Uart1DefaultMPF();
+    Uart0DefaultMPF();
 }
 
 /*----------------------------------------------------------------------*/
-/* Init UART1                                                           */
+/* Init UART0                                                           */
 /*----------------------------------------------------------------------*/
-void UART1_Init(void)
+void UART0_Init(void)
 {
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 void GPIO_Init(void)
@@ -160,7 +160,7 @@ int32_t main(void)
     SYS_Init();
 
     /* Init UART for printf */
-    UART1_Init();
+    UART0_Init();
 
     GPIO_Init();
 

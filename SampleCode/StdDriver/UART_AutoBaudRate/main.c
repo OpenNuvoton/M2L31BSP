@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include "NuMicro.h"
 
-#define UART_TEST_PORT   UART0
+#define UART_TEST_PORT   UART1
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global variables                                                                                        */
@@ -68,13 +68,12 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
-    /* Set PA multi-function pins for UART0 TXD and RXD */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk)) |    \
-                    (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD);
-
+    /* Set PA multi-function pins for UART1 TXD and RXD */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA2MFP_Msk | SYS_GPA_MFP0_PA3MFP_Msk)) |    \
+                    (SYS_GPA_MFP0_PA2MFP_UART1_RXD | SYS_GPA_MFP0_PA3MFP_UART1_TXD);
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -148,7 +147,7 @@ void AutoBaudRate_Test(void)
     printf("+-----------------------------------------------------------+\n");
     printf("|  ______                                            _____  |\n");
     printf("| |      |                                          |     | |\n");
-    printf("| |Master|--UART0_TXD(PA.1) <====> UART0_RXD(PA.0)--|Slave| |\n");
+    printf("| |Master|--UART1_TXD(PA.3) <====> UART1_RXD(PA.2)--|Slave| |\n");
     printf("| |      |                                          |     | |\n");
     printf("| |______|                                          |_____| |\n");
     printf("|                                                           |\n");

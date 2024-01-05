@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     main.c
  * @version  V3.00
- * @brief    Demonstrate PDMA0 channel 1 get/clear timeout flag with UART0.
+ * @brief    Demonstrate PDMA0 channel 1 get/clear timeout flag with UART1.
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
@@ -65,12 +65,12 @@ void SYS_Init(void)
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock. */
     SystemCoreClockUpdate();
 
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
-    /* Set GPA multi-function pins for UART0 TXD, RXD */
-    SYS->GPA_MFP0 &= ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk);
-    SYS->GPA_MFP0 |= (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD);
+    /* Set GPA multi-function pins for UART1 TXD, RXD */
+    SYS->GPA_MFP0 &= ~(SYS_GPA_MFP0_PA2MFP_Msk | SYS_GPA_MFP0_PA3MFP_Msk);
+    SYS->GPA_MFP0 |= (SYS_GPA_MFP0_PA2MFP_UART1_RXD | SYS_GPA_MFP0_PA3MFP_UART1_TXD);
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -89,17 +89,17 @@ void UART1_Init(void)
 void PDMA_Init(void)
 {
     /* Open PDMA0 Channel */
-    PDMA_Open(PDMA0, 1 << 0); // Channel 0 for UART0 TX
-    PDMA_Open(PDMA0, 1 << 1); // Channel 1 for UART0 RX
+    PDMA_Open(PDMA0, 1 << 0); // Channel 0 for UART1 TX
+    PDMA_Open(PDMA0, 1 << 1); // Channel 1 for UART1 RX
     // Select basic mode
-    PDMA_SetTransferMode(PDMA0, 0, PDMA_UART0_TX, 0, 0);
-    PDMA_SetTransferMode(PDMA0, 1, PDMA_UART0_RX, 0, 0);
+    PDMA_SetTransferMode(PDMA0, 0, PDMA_UART1_TX, 0, 0);
+    PDMA_SetTransferMode(PDMA0, 1, PDMA_UART1_RX, 0, 0);
     // Set data width and transfer count
     PDMA_SetTransferCnt(PDMA0, 0, PDMA_WIDTH_8, PDMA_TEST_LENGTH);
     PDMA_SetTransferCnt(PDMA0, 1, PDMA_WIDTH_8, PDMA_TEST_LENGTH + 1);
     //Set PDMA Transfer Address
-    PDMA_SetTransferAddr(PDMA0, 0, ((uint32_t)(&g_u8Tx_Buffer[0])), PDMA_SAR_INC, UART0_BASE, PDMA_DAR_FIX);
-    PDMA_SetTransferAddr(PDMA0, 1, UART0_BASE, PDMA_SAR_FIX, ((uint32_t)(&g_u8Rx_Buffer[0])), PDMA_DAR_INC);
+    PDMA_SetTransferAddr(PDMA0, 0, ((uint32_t)(&g_u8Tx_Buffer[0])), PDMA_SAR_INC, UART1_BASE, PDMA_DAR_FIX);
+    PDMA_SetTransferAddr(PDMA0, 1, UART1_BASE, PDMA_SAR_FIX, ((uint32_t)(&g_u8Rx_Buffer[0])), PDMA_DAR_INC);
     //Select Single Request
     PDMA_SetBurstType(PDMA0, 0, PDMA_REQ_SINGLE, 0);
     PDMA_SetBurstType(PDMA0, 1, PDMA_REQ_SINGLE, 0);
@@ -119,11 +119,11 @@ int main(void)
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART1 for printf */
-    UART1_Init();
-
-    /* Init UART0 */
+    /* Init UART0 for printf */
     UART0_Init();
+
+    /* Init UART1 */
+    UART1_Init();
 
     printf("\n\nCPU @ %dHz\n", SystemCoreClock);
 
@@ -201,17 +201,17 @@ void UART_PDMATest(void)
     printf("+-----------------------------------------------------------+\n");
     printf("|  Description :                                            |\n");
     printf("|    The sample code will demo PDMA timeout function.       |\n");
-    printf("|    Please connect UART0_TX and UART0_RX pin.              |\n");
+    printf("|    Please connect UART1_TX and UART1_RX pin.              |\n");
     printf("+-----------------------------------------------------------+\n");
     printf("Please press any key to start test. \n\n");
 
     getchar();
 
     /*
-        Using UART0 external loop back.
-        This code will send data from UART0_TX and receive data from UART0_RX.
-        UART0_TX :  Total transfer length =  (PDMA_TEST_LENGTH  ) * 8 bits
-        UART0_RX :  Total transfer length =  (PDMA_TEST_LENGTH+1) * 8 bits
+        Using UART1 external loop back.
+        This code will send data from UART1_TX and receive data from UART1_RX.
+        UART1_TX :  Total transfer length =  (PDMA_TEST_LENGTH  ) * 8 bits
+        UART1_RX :  Total transfer length =  (PDMA_TEST_LENGTH+1) * 8 bits
     */
 
     for (i=0; i<PDMA_TEST_LENGTH; i++)
@@ -224,29 +224,29 @@ void UART_PDMATest(void)
     {
         PDMA_Init();
 
-        UART_PDMA_ENABLE(UART0, UART_INTEN_TXPDMAEN_Msk | UART_INTEN_RXPDMAEN_Msk);
+        UART_PDMA_ENABLE(UART1, UART_INTEN_TXPDMAEN_Msk | UART_INTEN_RXPDMAEN_Msk);
 
         while(u32IsTxTestOver == 0);
 
         if (u32IsTxTestOver == 1)
-            printf("UART0 TX transfer done...\n");
+            printf("UART1 TX transfer done...\n");
         else if (u32IsTxTestOver == 2)
-            printf("UART0 TX transfer abort...\n");
+            printf("UART1 TX transfer abort...\n");
         else if (u32IsTxTestOver == 3)
-            printf("UART0 TX timeout...\n");
+            printf("UART1 TX timeout...\n");
 
         while(u32IsRxTestOver == 0);
 
         if (u32IsRxTestOver == 1)
-            printf("UART0 RX transfer done...\n");
+            printf("UART1 RX transfer done...\n");
         else if (u32IsRxTestOver == 2)
-            printf("UART0 RX transfer abort...\n");
+            printf("UART1 RX transfer abort...\n");
         else if (u32IsRxTestOver == 3)
         {
-            printf("UART0 RX timeout...\n");
+            printf("UART1 RX timeout...\n");
         }
 
-        UART_PDMA_DISABLE(UART0, UART_INTEN_TXPDMAEN_Msk | UART_INTEN_RXPDMAEN_Msk);
+        UART_PDMA_DISABLE(UART1, UART_INTEN_TXPDMAEN_Msk | UART_INTEN_RXPDMAEN_Msk);
 
         printf("PDMA timeout test Pass, Please press any key to next time. \n\n");
         getchar();

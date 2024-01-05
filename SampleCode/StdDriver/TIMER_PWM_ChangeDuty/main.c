@@ -69,15 +69,15 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Enable peripheral clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
     CLK_EnableModuleClock(TMR0_MODULE);
 
     /* Peripheral clock source */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
     CLK_SetModuleClock(TMR0_MODULE, CLK_CLKSEL1_TMR0SEL_PCLK0, 0);
 
-    /* Set multi-function pins for UART1 */
-    Uart1DefaultMPF();
+    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
+    Uart0DefaultMPF();
 
     /* Set Timer0 PWM CH0(T0) pin (PB.5)*/
     SYS->GPB_MFP1 |= SYS_GPB_MFP1_PB5MFP_TM0;
@@ -98,8 +98,8 @@ int main(void)
        to unlock protected register if necessary */
     SYS_Init();
 
-    /* Configure UART1 and set UART1 Baudrate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 Baudrate */
+    UART_Open(UART0, 115200);
 
     printf("+-----------------------------------------------+\n");
     printf("|    Timer PWM Change Duty Cycle Sample Code    |\n");

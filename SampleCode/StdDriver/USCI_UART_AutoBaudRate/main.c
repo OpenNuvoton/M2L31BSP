@@ -17,7 +17,7 @@ void USCI_AutoBaudRate_Test(void);
 void USCI_AutoBaudRate_TxTest(void);
 void USCI_AutoBaudRate_RxTest(void);
 void SYS_Init(void);
-void UART1_Init(void);
+void UART0_Init(void);
 void USCI0_Init(void);
 uint32_t GetUuartBaudrate(UUART_T *uuart);
 
@@ -44,33 +44,33 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART and USCI module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
     CLK_EnableModuleClock(USCI0_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
-    /* Set PB multi-function pins for USCI0_DAT0(PB.13) and USCI0_DAT1(PB.14) */
-    SYS->GPB_MFP3 &= ~(SYS_GPB_MFP3_PB13MFP_Msk | SYS_GPB_MFP3_PB14MFP_Msk);
-    SYS->GPB_MFP3 |= (SYS_GPB_MFP3_PB14MFP_USCI0_DAT1 | SYS_GPB_MFP3_PB13MFP_USCI0_DAT0);
+    /* Set PA multi-function pins for USCI0_DAT0(PA.10) and USCI0_DAT1(PA.9) */
+    SYS->GPA_MFP2 &= ~(SYS_GPA_MFP2_PA9MFP_Msk | SYS_GPA_MFP2_PA10MFP_Msk);
+    SYS->GPA_MFP2 |= (SYS_GPA_MFP2_PA9MFP_USCI0_DAT1 |SYS_GPA_MFP2_PA10MFP_USCI0_DAT0);
 
     /* Lock protected registers */
     SYS_LockReg();
 }
 
-void UART1_Init(void)
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 void USCI0_Init(void)
@@ -93,8 +93,8 @@ int32_t main(void)
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     /* Init USCI0 */
     USCI0_Init();
@@ -131,7 +131,7 @@ void USCI_AutoBaudRate_Test(void)
     printf("|  ______                                             _____  |\n");
     printf("| |      |                                           |     | |\n");
     printf("| |Master|                                           |Slave| |\n");
-    printf("| |    TX|--USCI0_DAT1(PB.14) <=> USCI0_DAT0(PB.13)--|RX   | |\n");
+    printf("| |    TX|--USCI0_DAT1(PA.10) <==> USCI0_DAT0(PA.9)--|RX   | |\n");
     printf("| |______|                                           |_____| |\n");
     printf("|                                                            |\n");
     printf("+------------------------------------------------------------+\n");

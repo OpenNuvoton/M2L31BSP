@@ -39,7 +39,7 @@ static volatile uint32_t s_u32TickCnt;
 void SysTick_Handler(void);
 void enable_sys_tick(int ticks_per_second);
 void SYS_Init(void);
-void UART1_Init(void);
+void UART0_Init(void);
 void dump_buff_hex(uint8_t *pu8Buff, int i8Bytes);
 int is_a_new_hid_device(HID_DEV_T *hdev);
 void update_hid_device_list(HID_DEV_T *hdev);
@@ -562,23 +562,23 @@ void SYS_Init(void)
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 
-    /* Enable UART1 module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    /* Enable UART0 module clock */
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
     /* Set multi-function pins */
-    Uart1DefaultMPF();
+    Uart0DefaultMPF();
 }
 
-void UART1_Init(void)
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Configure UART and set UART Baudrate */
-    UART_Open(UART1, 115200);
+    UART_Open(UART0, 115200);
 }
 
 int32_t main(void)
@@ -590,7 +590,7 @@ int32_t main(void)
 
     SYS_Init();                        /* Init System, IP clock and multi-function I/O */
 
-    UART1_Init();
+    UART0_Init();
 
     printf("\n\n");
     printf("+--------------------------------------------+\n");

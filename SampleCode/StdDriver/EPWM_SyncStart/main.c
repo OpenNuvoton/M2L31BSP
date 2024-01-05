@@ -22,7 +22,7 @@
 
 
 void SYS_Init(void);
-void UART1_Init(void);
+void UART0_Init(void);
 
 
 void SYS_Init(void)
@@ -46,13 +46,13 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable EPWM0 and EPWM1 module clock */
     CLK_EnableModuleClock(EPWM0_MODULE);
@@ -74,8 +74,8 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PA multi-function pins for UART1 RXD=PA.8 and TXD=PA.9 */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
     /* Set PE multi-function pins for EPWM0 Channel0~5 */
     SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE7MFP_Msk)) | SYS_GPE_MFP1_PE7MFP_EPWM0_CH0;
@@ -94,13 +94,13 @@ void SYS_Init(void)
     SYS->GPC_MFP0 = (SYS->GPC_MFP0 & (~SYS_GPC_MFP0_PC0MFP_Msk)) | SYS_GPC_MFP0_PC0MFP_EPWM1_CH5;
 }
 
-void UART1_Init()
+void UART0_Init()
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 
@@ -125,7 +125,7 @@ int32_t main(void)
     SYS_LockReg();
 
     /* Init UART to 115200-8n1 for print message */
-    UART1_Init();
+    UART0_Init();
 
     printf("\n\nCPU @ %dHz(PLL@ %dHz)\n", SystemCoreClock, PllClock);
     printf("+------------------------------------------------------------------------+\n");

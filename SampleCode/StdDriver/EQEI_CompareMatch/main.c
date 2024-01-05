@@ -47,11 +47,11 @@ void SYS_Init(void)
     CLK->AHBCLK0 |= CLK_AHBCLK0_GPACKEN_Msk | CLK_AHBCLK0_GPBCKEN_Msk | CLK_AHBCLK0_GPCCKEN_Msk | CLK_AHBCLK0_GPDCKEN_Msk |
                     CLK_AHBCLK0_GPECKEN_Msk | CLK_AHBCLK0_GPFCKEN_Msk | CLK_AHBCLK0_GPGCKEN_Msk | CLK_AHBCLK0_GPHCKEN_Msk;
 
-    /* Enable UART module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    /* Enable UART0 module clock */
+    CLK_EnableModuleClock(UART0_MODULE);
 
-    /* Select UART module clock source as HIRC and UART0 module clock divider as 1 */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    /* Select UART0 module clock source as HIRC and UART0 module clock divider as 1 */
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable EQEI0 module clock */
     CLK_EnableModuleClock(EQEI0_MODULE);
@@ -61,7 +61,7 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
 
     /* Set GPB multi-function pins for UART0 RXD and TXD */
-    Uart1DefaultMPF();
+    Uart0DefaultMPF();
 
     /* Set PA multi-function pins for EQEI0_A, EQEI0_B, EQEI0_INDEX */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~SYS_GPA_MFP0_PA3MFP_Msk) |  SYS_GPA_MFP0_PA3MFP_EQEI0_B;
@@ -70,11 +70,11 @@ void SYS_Init(void)
 
 }
 
-void UART1_Init()
+void UART0_Init()
 {
 
-    /* Configure UART1 and set UART1 Baudrate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 Baudrate */
+    UART_Open(UART0, 115200);
 }
 
 int32_t main(void)
@@ -86,8 +86,8 @@ int32_t main(void)
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     printf("\n\nCPU @ %dHz\n", SystemCoreClock);
 

@@ -44,8 +44,8 @@ int main(void)
     /* Lock protected registers */
     SYS_LockReg();
 
-    /* Configure UART1: 115200, 8-bit word, no parity bit, 1 stop bit. */
-    UART_Open(UART1, 115200);
+    /* Configure UART0: 115200, 8-bit word, no parity bit, 1 stop bit. */
+    UART_Open(UART0, 115200);
 
     /* Init SPI */
     SPI_Init();
@@ -151,16 +151,16 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Select PCLK1 as the clock source of SPI0 */
     CLK_SetModuleClock(SPI0_MODULE, CLK_CLKSEL2_SPI0SEL_PCLK1, MODULE_NoMsk);
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable SPI0 peripheral clock */
     CLK_EnableModuleClock(SPI0_MODULE);
@@ -168,8 +168,8 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PA multi-function pins for UART1 RXD=PA.8 and TXD=PA.9 */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
     /* Setup SPI0 multi-function pins */
     /* PA.3 is SPI0_SS,   PA.2 is SPI0_CLK,

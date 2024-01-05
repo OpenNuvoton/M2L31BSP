@@ -144,13 +144,13 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Select UART module clock source as HIRC and UART module clock divider as 1 */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable UART module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
-    /* Set multi-function pins for UART */
-    Uart1DefaultMPF();
+    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
+    Uart0DefaultMPF();
 
     /* Select WDT module clock source */
     CLK_SetModuleClock(WDT_MODULE, LPSCC_CLKSEL0_WDTSEL_LIRC, 0);
@@ -172,8 +172,8 @@ int32_t main(void)
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
 
-    /* Configure UART1 and set UART1 Baudrate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 Baudrate */
+    UART_Open(UART0, 115200);
 
     printf("\n\nCPU @ %dHz\n", SystemCoreClock);
     printf("+---------------------------------------+\n");

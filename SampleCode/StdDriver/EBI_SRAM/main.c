@@ -19,55 +19,68 @@ void AccessEBIWithPDMA(void);
 
 void Configure_EBI_16BIT_Pins(void)
 {
-    /* EBI AD[5:0]=PC[5:0] */
-    SYS->GPC_MFP0 &= ~(SYS_GPC_MFP0_PC3MFP_Msk | SYS_GPC_MFP0_PC2MFP_Msk
-                       | SYS_GPC_MFP0_PC1MFP_Msk | SYS_GPC_MFP0_PC0MFP_Msk);
-    SYS->GPC_MFP1 &= ~(SYS_GPC_MFP1_PC4MFP_Msk | SYS_GPC_MFP1_PC5MFP_Msk);
-    SYS->GPC_MFP0 |= SYS_GPC_MFP0_PC3MFP_EBI_AD3 | SYS_GPC_MFP0_PC2MFP_EBI_AD2
-                     | SYS_GPC_MFP0_PC1MFP_EBI_AD1 | SYS_GPC_MFP0_PC0MFP_EBI_AD0;
-    SYS->GPC_MFP1 |= SYS_GPC_MFP1_PC5MFP_EBI_AD5 | SYS_GPC_MFP1_PC4MFP_EBI_AD4;
+    /* AD[5:0]=PG[14:9] */
+    printf("AD[05:00] @PG[14:09]\n");
+    SYS->GPG_MFP2 &= ~(SYS_GPG_MFP2_PG9MFP_Msk | SYS_GPG_MFP2_PG10MFP_Msk
+                       | SYS_GPG_MFP2_PG11MFP_Msk);
+    SYS->GPG_MFP2 |= SYS_GPG_MFP2_PG9MFP_EBI_AD0 | SYS_GPG_MFP2_PG10MFP_EBI_AD1
+                     | SYS_GPG_MFP2_PG11MFP_EBI_AD2;
+    SYS->GPG_MFP3 &= ~(SYS_GPG_MFP3_PG12MFP_Msk | SYS_GPG_MFP3_PG13MFP_Msk | SYS_GPG_MFP3_PG14MFP_Msk);
+    SYS->GPG_MFP3 |= SYS_GPG_MFP3_PG12MFP_EBI_AD3 | SYS_GPG_MFP3_PG13MFP_EBI_AD4 | SYS_GPG_MFP3_PG14MFP_EBI_AD5;
 
-    /* AD[7:6]=PA[7:6] */
-    SYS->GPA_MFP1 &= ~(SYS_GPA_MFP1_PA6MFP_Msk | SYS_GPA_MFP1_PA7MFP_Msk);
-    SYS->GPA_MFP1 |= SYS_GPA_MFP1_PA7MFP_EBI_AD7 | SYS_GPA_MFP1_PA6MFP_EBI_AD6;
+    /* AD[7:6]=PD[9:8] */
+    printf("AD[07:06] @PD[09:08]\n");
+    SYS->GPD_MFP2 &= ~(SYS_GPD_MFP2_PD8MFP_Msk | SYS_GPD_MFP2_PD9MFP_Msk);
+    SYS->GPD_MFP2 |= SYS_GPD_MFP2_PD8MFP_EBI_AD6 | SYS_GPD_MFP2_PD9MFP_EBI_AD7;
 
-    /* AD[9:8]=PC[7:6] */
-    SYS->GPC_MFP1 &= ~(SYS_GPC_MFP1_PC6MFP_Msk | SYS_GPC_MFP1_PC7MFP_Msk);
-    SYS->GPC_MFP1 |= SYS_GPC_MFP1_PC7MFP_EBI_AD9 | SYS_GPC_MFP1_PC6MFP_EBI_AD8;
+    /* AD[9:8]=PE[15:14] */
+    printf("AD[09:08] @PE[15:14]\n");
+    SYS->GPE_MFP3 &= ~(SYS_GPE_MFP3_PE14MFP_Msk | SYS_GPE_MFP3_PE15MFP_Msk);
+    SYS->GPE_MFP3 |= SYS_GPE_MFP3_PE14MFP_EBI_AD8 | SYS_GPE_MFP3_PE15MFP_EBI_AD9;
 
-    /* AD[13:10]=PD[0:3] */
-    SYS->GPD_MFP0 &= ~(SYS_GPD_MFP0_PD3MFP_Msk | SYS_GPD_MFP0_PD2MFP_Msk
-                       | SYS_GPD_MFP0_PD1MFP_Msk | SYS_GPD_MFP0_PD0MFP_Msk);
-    SYS->GPD_MFP0 |= (SYS_GPD_MFP0_PD1MFP_EBI_AD12 | SYS_GPD_MFP0_PD0MFP_EBI_AD13
-                      | SYS_GPD_MFP0_PD2MFP_EBI_AD11 | SYS_GPD_MFP0_PD3MFP_EBI_AD10);
+    /* AD[11:10]=PE[0:1] */
+    printf("AD[11:10] @PE[00:01]\n");
+    SYS->GPE_MFP0 &= ~(SYS_GPE_MFP0_PE0MFP_Msk | SYS_GPE_MFP0_PE1MFP_Msk);
+    SYS->GPE_MFP0 |= SYS_GPE_MFP0_PE1MFP_EBI_AD10 | SYS_GPE_MFP0_PE0MFP_EBI_AD11;
 
-    /* AD[15:14]=PB[12:13] */
-    SYS->GPB_MFP3 &= ~(SYS_GPB_MFP3_PB12MFP_Msk | SYS_GPB_MFP3_PB13MFP_Msk);
-    SYS->GPB_MFP3 |= SYS_GPB_MFP3_PB13MFP_EBI_AD14 | SYS_GPB_MFP3_PB12MFP_EBI_AD15;
+    /* AD[15:12]=PH[11:8] */
+    printf("AD[15:12] @PH[11:08]\n");
+    SYS->GPH_MFP2 &= ~(SYS_GPH_MFP2_PH8MFP_Msk | SYS_GPH_MFP2_PH9MFP_Msk
+                       | SYS_GPH_MFP2_PH10MFP_Msk | SYS_GPH_MFP2_PH11MFP_Msk);
+    SYS->GPH_MFP2 |= SYS_GPH_MFP2_PH8MFP_EBI_AD12 | SYS_GPH_MFP2_PH9MFP_EBI_AD13
+                     | SYS_GPH_MFP2_PH10MFP_EBI_AD14 | SYS_GPH_MFP2_PH11MFP_EBI_AD15;
 
-    /* ADR[19:16]=PB[8:11] */
-    SYS->GPB_MFP2 &= ~(SYS_GPB_MFP2_PB8MFP_Msk | SYS_GPB_MFP2_PB9MFP_Msk
-                       | SYS_GPB_MFP2_PB10MFP_Msk | SYS_GPB_MFP2_PB11MFP_Msk);
-    SYS->GPB_MFP2 |= (SYS_GPB_MFP2_PB11MFP_EBI_ADR16 | SYS_GPB_MFP2_PB10MFP_EBI_ADR17
-                      | SYS_GPB_MFP2_PB9MFP_EBI_ADR18 | SYS_GPB_MFP2_PB8MFP_EBI_ADR19);
+    /* ADR[18:16]=PB[9:11] */
+    printf("ADR[18:16] @PB[09:11]\n");
+    SYS->GPB_MFP2 &= ~(SYS_GPB_MFP2_PB9MFP_Msk | SYS_GPB_MFP2_PB10MFP_Msk
+                       | SYS_GPB_MFP2_PB11MFP_Msk);
+    SYS->GPB_MFP2 |= SYS_GPB_MFP2_PB11MFP_EBI_ADR16 | SYS_GPB_MFP2_PB10MFP_EBI_ADR17
+                     | SYS_GPB_MFP2_PB9MFP_EBI_ADR18;
 
-    /* #WRL and #WRH pins on PB.7 and PB.6 */
+    printf("nCS0 @PF.03\n");
+    printf("nCS1 @PF.02\n");
+    printf("nWRL @PB.07\n");
+    printf("nWRH @PB.06\n");
+    /* CS0=PF3, CS1=PF2; nWRL=PB7, nWRH=PB6 */
+    SYS->GPF_MFP0 &= ~(SYS_GPF_MFP0_PF3MFP_Msk | SYS_GPF_MFP0_PF2MFP_Msk);
+    SYS->GPF_MFP0 |= SYS_GPF_MFP0_PF3MFP_EBI_nCS0 | SYS_GPF_MFP0_PF2MFP_EBI_nCS1;
     SYS->GPB_MFP1 &= ~(SYS_GPB_MFP1_PB7MFP_Msk | SYS_GPB_MFP1_PB6MFP_Msk);
     SYS->GPB_MFP1 |= SYS_GPB_MFP1_PB7MFP_EBI_nWRL | SYS_GPB_MFP1_PB6MFP_EBI_nWRH;
 
-    /* #RD and #WR pins on PA.11 and PA.10 */
-    SYS->GPA_MFP2 &= ~(SYS_GPA_MFP2_PA11MFP_Msk  | SYS_GPA_MFP2_PA10MFP_Msk);
-    SYS->GPA_MFP2 |= (SYS_GPA_MFP2_PA11MFP_EBI_nRD  | SYS_GPA_MFP2_PA10MFP_EBI_nWR);
+    printf("nCS2 @PD.10\n");
+    /* CS2=PD10 */
+    SYS->GPD_MFP2 &= ~(SYS_GPD_MFP2_PD10MFP_Msk);
+    SYS->GPD_MFP2 |= SYS_GPD_MFP2_PD10MFP_EBI_nCS2;
 
-    /* #CS[0:2]=PD[12:10] */
-    SYS->GPD_MFP3 &= ~(SYS_GPD_MFP3_PD12MFP_Msk);
-    SYS->GPD_MFP3 |= SYS_GPD_MFP3_PD12MFP_EBI_nCS0;
-    SYS->GPD_MFP2 &= ~(SYS_GPD_MFP2_PD11MFP_Msk | SYS_GPD_MFP2_PD10MFP_Msk);
-    SYS->GPD_MFP2 |= (SYS_GPD_MFP2_PD11MFP_EBI_nCS1 | SYS_GPD_MFP2_PD10MFP_EBI_nCS2);
-
-    /* ALE and MCLK pins on PE.2 and PE.3 */
-    SYS->GPE_MFP0 &= ~(SYS_GPE_MFP0_PE2MFP_Msk | SYS_GPE_MFP0_PE3MFP_Msk);
-    SYS->GPE_MFP0 |= (SYS_GPE_MFP0_PE2MFP_EBI_ALE | SYS_GPE_MFP0_PE3MFP_EBI_MCLK);
+    printf("nRD  @PA.11\n");
+    printf("nWR  @PA.10\n");
+    printf("MCLK @PA.09\n");
+    printf("ALE  @PA.08\n");
+    /* #RD=PA11, #WR=PA10, MCLK=PA9, ALE=PA8 */
+    SYS->GPA_MFP2 &= ~(SYS_GPA_MFP2_PA11MFP_Msk  | SYS_GPA_MFP2_PA10MFP_Msk
+                       | SYS_GPA_MFP2_PA9MFP_Msk | SYS_GPA_MFP2_PA8MFP_Msk);
+    SYS->GPA_MFP2 |= SYS_GPA_MFP2_PA11MFP_EBI_nRD  | SYS_GPA_MFP2_PA10MFP_EBI_nWR
+                     | SYS_GPA_MFP2_PA9MFP_EBI_MCLK | SYS_GPA_MFP2_PA8MFP_EBI_ALE;
 }
 
 void SYS_Init(void)
@@ -91,10 +104,10 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable EBI peripheral clock */
     CLK_EnableModuleClock(EBI_MODULE);
@@ -108,17 +121,19 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    Uart1DefaultMPF();
+    /* Set PA multi-function pins for UART0 RXD=PA.4 and TXD=PA.5 */
+    SYS->GPA_MFP1 &= ~(SYS_GPA_MFP1_PA5MFP_Msk | SYS_GPA_MFP1_PA4MFP_Msk);
+    SYS->GPA_MFP1 |= SYS_GPA_MFP1_PA5MFP_UART0_TXD | SYS_GPA_MFP1_PA4MFP_UART0_RXD;
 }
 
-void UART1_Init(void)
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    /* Configure UART1 and set UART1 Baudrate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 Baudrate */
+    UART_Open(UART0, 115200);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -135,8 +150,8 @@ int main(void)
     /* Lock protected registers */
     SYS_LockReg();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     printf("\n\nCPU @ %d Hz\n", SystemCoreClock);
     printf("+--------------------------------------------------------+\n");
@@ -162,8 +177,8 @@ int main(void)
     printf("*   - nCS0          on PD.12                                           *\n");
     printf("*   - nCS1          on PD.11                                           *\n");
     printf("*   - nCS2          on PD.10                                           *\n");
-    printf("*   - ALE           on PE.2                                            *\n");
-    printf("*   - MCLK          on PE.3                                            *\n");
+    printf("*   - ALE           on PA.8                                            *\n");
+    printf("*   - MCLK          on PA.9                                            *\n");
     printf("*                                                                      *\n\n");
     printf("************************************************************************\n\n");
 

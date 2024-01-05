@@ -230,11 +230,11 @@ void LPPDMA0_IRQHandler(void)
 /*---------------------------------------------------------------------------------------------------------*/
 /* ISR to handle UART Channel 0 interrupt event                                                            */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART1_IRQHandler(void)
+void UART0_IRQHandler(void)
 {
-    /* Get UART1 Rx data and send the data to LPUART0 Tx */
-    if(UART_GET_INT_FLAG(UART1, UART_INTSTS_RDAIF_Msk))
-        LPUART_WRITE(LPUART0,UART_READ(UART1));
+    /* Get UART0 Rx data and send the data to LPUART0 Tx */
+    if(UART_GET_INT_FLAG(UART0, UART_INTSTS_RDAIF_Msk))
+        LPUART_WRITE(LPUART0,UART_READ(UART0));
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -302,11 +302,11 @@ void LPPDMA_LPUART(int32_t i32option)
     IsTestOver = FALSE;
     NVIC_EnableIRQ(LPPDMA0_IRQn);
 
-    /* Enable UART1 RDA interrupt */
+    /* Enable UART0 RDA interrupt */
     if(g_u32TwoChannelLpPdmaTest == 0)
     {
-        NVIC_EnableIRQ(UART1_IRQn);
-        UART_EnableInt(UART1, UART_INTEN_RDAIEN_Msk);
+        NVIC_EnableIRQ(UART0_IRQn);
+        UART_EnableInt(UART0, UART_INTEN_RDAIEN_Msk);
     }
 
     /* Enable LPUART Tx and Rx LPPDMA function */
@@ -335,8 +335,8 @@ void LPPDMA_LPUART(int32_t i32option)
     LPPDMA_DisableInt(LPPDMA0, LPUART_TX_DMA_CH, LPPDMA_INT_TRANS_DONE);
     NVIC_DisableIRQ(LPPDMA0_IRQn);
 
-    /* Disable UART1 RDA interrupt */
-    UART_DisableInt(UART1, UART_INTEN_RDAIEN_Msk);
+    /* Disable UART0 RDA interrupt */
+    UART_DisableInt(UART0, UART_INTEN_RDAIEN_Msk);
 }
 
 void SYS_Init(void)
@@ -367,13 +367,13 @@ void SYS_Init(void)
     CLK_EnableModuleClock(HCLK1_MODULE);
 
     /* Select IP clock source */
-    /* Select UART1 clock source is HIRC and UART module clock divider as 1 */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    /* Select UART0 clock source is HIRC and UART module clock divider as 1 */
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
     /* Select Low Power UART0 clock source is HIRC and Low Power UART module clock divider as 1*/
     CLK_SetModuleClock(LPUART0_MODULE, LPSCC_CLKSEL0_LPUART0SEL_HIRC, LPSCC_CLKDIV0_LPUART0(1));
 
-    /* Enable UART1 peripheral clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    /* Enable UART0 peripheral clock */
+    CLK_EnableModuleClock(UART0_MODULE);
     /* Enable Low Power UART0 peripheral clock */
     CLK_EnableModuleClock(LPUART0_MODULE);
     /* Enable LPPDMA module clock */
@@ -387,8 +387,8 @@ void SYS_Init(void)
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    /* Set PA multi-function pins for UART1 */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
     /* Set PA multi-function pins for Low Power UART0 TXD and RXD */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk)) |    \
@@ -398,16 +398,16 @@ void SYS_Init(void)
     SYS_LockReg();
 }
 
-void UART1_Init()
+void UART0_Init()
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 void LPUART0_Init(void)
@@ -439,8 +439,8 @@ int32_t main(void)
     /* Lock protected registers */
     SYS_LockReg();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     /* Init LPUART0 */
     LPUART0_Init();

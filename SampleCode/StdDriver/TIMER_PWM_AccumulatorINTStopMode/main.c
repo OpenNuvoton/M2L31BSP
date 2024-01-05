@@ -44,17 +44,17 @@ void SYS_Init(void)
     CLK->AHBCLK0 |= CLK_AHBCLK0_GPACKEN_Msk | CLK_AHBCLK0_GPBCKEN_Msk | CLK_AHBCLK0_GPCCKEN_Msk | CLK_AHBCLK0_GPDCKEN_Msk |
                     CLK_AHBCLK0_GPECKEN_Msk | CLK_AHBCLK0_GPFCKEN_Msk | CLK_AHBCLK0_GPGCKEN_Msk | CLK_AHBCLK0_GPHCKEN_Msk;
 
-    /* Enable UART1 module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    /* Enable UART0 module clock */
+    CLK_EnableModuleClock(UART0_MODULE);
 
-    /* Select UART1 module clock source as HIRC and UART1 module clock divider as 1 */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    /* Select UART0 module clock source as HIRC and UART0 module clock divider as 1 */
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set multi-function pins for UART1 RXD and TXD */
-    Uart1DefaultMPF();
+    /* Set multi-function pins for UART0 RXD and TXD */
+    Uart0DefaultMPF();
 
 
     /*---------------------------------------------------------------------------------------------------------*/
@@ -75,10 +75,10 @@ void UART_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
+    /* Configure UART0 and set UART0 baud rate */
     UART_Open(DEBUG_PORT, 115200);
 }
 

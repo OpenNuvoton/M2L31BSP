@@ -162,16 +162,16 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART */
-    Uart1DefaultMPF();
+    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
+    Uart0DefaultMPF();
 
     /* Set PB multi-function pins for CLKO (PB.14) */
     SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB14MFP_Msk)) |
@@ -182,15 +182,15 @@ void SYS_Init(void)
 }
 
 /*----------------------------------------------------------------------*/
-/* Init UART1                                                           */
+/* Init UART0                                                           */
 /*----------------------------------------------------------------------*/
-void UART1_Init(void)
+void UART0_Init(void)
 {
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 int32_t main(void)
@@ -200,8 +200,8 @@ int32_t main(void)
     /* Init System, IP clock and multi-function I/O. */
     SYS_Init();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     printf("\n\nCPU @ %dHz\n", SystemCoreClock);
     printf("+---------------------------------------+\n");
@@ -253,7 +253,7 @@ int32_t main(void)
     printf("\n\n  >>> Reset CPU <<<\n");
 
     /* Wait for message send out */
-    UART_WAIT_TX_EMPTY(UART1);
+    UART_WAIT_TX_EMPTY(UART0);
 
     /* Select HCLK clock source as HIRC and HCLK source divider as 1 */
     CLK_SetHCLK(CLK_CLKSEL0_HCLKSEL_HIRC, CLK_CLKDIV0_HCLK(1));

@@ -305,7 +305,7 @@ void SYS_Init(void)
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
 
     /* Enable UART module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable IP clock */
     CLK_EnableModuleClock(USCI0_MODULE);
@@ -316,14 +316,14 @@ void SYS_Init(void)
     CLK_EnableModuleClock(GPB_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Update System Core Clock */
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock and cyclesPerUs automatically. */
     SystemCoreClockUpdate();
 
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
     /* Set UI2C0 multi-function pins */
     SYS->GPA_MFP2 = (SYS->GPA_MFP2 & ~(SYS_GPA_MFP2_PA11MFP_Msk | SYS_GPA_MFP2_PA10MFP_Msk)) |
@@ -444,7 +444,7 @@ int main(void)
     SYS_Init();
 
     /* Init UART for print message */
-    UART_Open(UART1, 115200);
+    UART_Open(UART0, 115200);
 
     /*
         This sample code sets USCI_I2C bus clock to 100kHz. Then, Master accesses Slave with Byte Write

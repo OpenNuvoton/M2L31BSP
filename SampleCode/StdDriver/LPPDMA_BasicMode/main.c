@@ -79,10 +79,10 @@ void SYS_Init(void)
     CLK_EnableModuleClock(HCLK1_MODULE);
 
     /* Enable UART module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable LPPDMA clock source */
     CLK_EnableModuleClock(LPPDMA0_MODULE);
@@ -91,17 +91,17 @@ void SYS_Init(void)
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock. */
     SystemCoreClockUpdate();
 
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
     /* Lock protected registers */
     SYS_LockReg();
 }
 
-void UART1_Init()
+void UART0_Init()
 {
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 
@@ -112,7 +112,7 @@ int main(void)
     SYS_Init();
 
     /* Init UART for printf */
-    UART1_Init();
+    UART0_Init();
 
     printf("\n\nCPU @ %dHz\n", SystemCoreClock);
     printf("+------------------------------------------------------+ \n");

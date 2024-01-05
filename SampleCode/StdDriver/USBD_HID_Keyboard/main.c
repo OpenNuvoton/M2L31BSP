@@ -21,7 +21,7 @@ uint8_t volatile g_u8EP2Ready = 0;
 
 /*--------------------------------------------------------------------------*/
 void SYS_Init(void);
-void UART1_Init(void);
+void UART0_Init(void);
 void HID_UpdateKbData(void);
 void PowerDown(void);
 
@@ -78,7 +78,7 @@ void SYS_Init(void)
     CLK_EnableModuleClock(USBD_MODULE);
 
     /* Enable UART1 module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable GPB module clock */
     CLK_EnableModuleClock(GPB_MODULE);
@@ -87,19 +87,19 @@ void SYS_Init(void)
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
     /* Set multi-function pins */
-    Uart1DefaultMPF();
+    Uart0DefaultMPF();
 }
 
 /*----------------------------------------------------------------------*/
-/* Init UART1                                                           */
+/* Init UART0                                                           */
 /*----------------------------------------------------------------------*/
-void UART1_Init(void)
+void UART0_Init(void)
 {
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 void HID_UpdateKbData(void)
@@ -199,8 +199,8 @@ int32_t main(void)
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     printf("\n");
     printf("+--------------------------------------------------------+\n");

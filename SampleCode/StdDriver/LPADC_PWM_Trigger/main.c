@@ -38,10 +38,10 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Select UART clock source from HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable UART clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Set HCLK1 to HIRC/1 */
     CLK_SetModuleClock(HCLK1_MODULE, CLK_CLKSEL0_HCLK1SEL_HIRC, LPSCC_CLKDIV0_HCLK1(1));
@@ -68,8 +68,8 @@ void SYS_Init(void)
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART */
-    Uart1DefaultMPF();
+    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
+    Uart0DefaultMPF();
 
     /* Set PB.2 - PB.3 to input mode */
     GPIO_SetMode(PB, BIT2|BIT3, GPIO_MODE_INPUT);
@@ -229,15 +229,15 @@ void LPADC0_IRQHandler(void)
 }
 
 /*----------------------------------------------------------------------*/
-/* Init UART1                                                           */
+/* Init UART0                                                           */
 /*----------------------------------------------------------------------*/
-void UART1_Init(void)
+void UART0_Init(void)
 {
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 int32_t main(void)
@@ -245,8 +245,8 @@ int32_t main(void)
     /* Init System, IP clock and multi-function I/O. */
     SYS_Init();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     /* Init PWM for LPADC */
     PWM0_Init();

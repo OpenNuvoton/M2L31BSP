@@ -58,14 +58,14 @@ void SYS_Init(void)
     /* Enable HCLK1 clock */
     CLK_EnableModuleClock(HCLK1_MODULE);
 
-    /* Enable UART1 peripheral clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    /* Enable UART0 peripheral clock */
+    CLK_EnableModuleClock(UART0_MODULE);
     /* Enable Low Power UART0 peripheral clock */
     CLK_EnableModuleClock(LPUART0_MODULE);
 
     /* Select IP clock source */
-    /* Select UART1 clock source is HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    /* Select UART0 clock source is HIRC */
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
     /* Select Low Power UART0 clock source is HIRC and Low Power UART module clock divider as 1*/
     CLK_SetModuleClock(LPUART0_MODULE, LPSCC_CLKSEL0_LPUART0SEL_HIRC, LPSCC_CLKDIV0_LPUART0(1));
 
@@ -76,8 +76,8 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PA multi-function pins for UART1 */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
     /* Set PA multi-function pins for Low Power UART0 TXD and RXD */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk)) |    \
@@ -89,12 +89,12 @@ void SYS_Init(void)
 
 }
 
-void UART1_Init(void)
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
-    UART_Open(UART1, 115200);
+    UART_Open(UART0, 115200);
 }
 
 void LPUART0_Init(void)
@@ -113,8 +113,8 @@ int32_t main(void)
 {
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     /* Init LPUART0 */
     LPUART0_Init();

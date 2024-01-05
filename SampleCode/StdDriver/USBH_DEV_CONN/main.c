@@ -24,7 +24,7 @@ void enable_sys_tick(int ticks_per_second);
 void connect_func(struct udev_t *udev, int i8Param);
 void disconnect_func(struct udev_t *udev, int i8Param);
 void SYS_Init(void);
-void UART1_Init(void);
+void UART0_Init(void);
 
 void SysTick_Handler(void)
 {
@@ -155,30 +155,30 @@ void SYS_Init(void)
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 
-    /* Enable UART1 module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    /* Enable UART0 module clock */
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
     /* Set multi-function pins */
-    Uart1DefaultMPF();
+    Uart0DefaultMPF();
 }
 
-void UART1_Init(void)
+void UART0_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init UART                                                                                               */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Configure UART and set UART Baudrate */
-    UART_Open(UART1, 115200);
+    UART_Open(UART0, 115200);
 }
 
 int32_t main(void)
 {
     SYS_Init();                        /* Init System, IP clock and multi-function I/O */
 
-    UART1_Init();
+    UART0_Init();
 
     enable_sys_tick(100);
 

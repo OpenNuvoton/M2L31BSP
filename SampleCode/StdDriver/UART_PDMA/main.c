@@ -87,10 +87,10 @@ void PDMA_UART_TxTest(void)
     PDMA_SetTransferCnt(PDMA, UART_TX_DMA_CH, PDMA_WIDTH_8, UART_TEST_LENGTH);
 
     /* Set source/destination address and attributes */
-    PDMA_SetTransferAddr(PDMA, UART_TX_DMA_CH, (uint32_t)SrcArray, PDMA_SAR_INC, (uint32_t)&UART0->DAT, PDMA_DAR_FIX);
+    PDMA_SetTransferAddr(PDMA, UART_TX_DMA_CH, (uint32_t)SrcArray, PDMA_SAR_INC, (uint32_t)&UART1->DAT, PDMA_DAR_FIX);
 
     /* Set request source; set basic mode. */
-    PDMA_SetTransferMode(PDMA, UART_TX_DMA_CH, PDMA_UART0_TX, FALSE, 0);
+    PDMA_SetTransferMode(PDMA, UART_TX_DMA_CH, PDMA_UART1_TX, FALSE, 0);
 
     /* Single request type */
     PDMA_SetBurstType(PDMA, UART_TX_DMA_CH, PDMA_REQ_SINGLE, 0);
@@ -109,10 +109,10 @@ void PDMA_UART_RxTest(void)
     PDMA_SetTransferCnt(PDMA, UART_RX_DMA_CH, PDMA_WIDTH_8, UART_TEST_LENGTH);
 
     /* Set source/destination address and attributes */
-    PDMA_SetTransferAddr(PDMA, UART_RX_DMA_CH, (uint32_t)&UART0->DAT, PDMA_SAR_FIX, (uint32_t)DestArray, PDMA_DAR_INC);
+    PDMA_SetTransferAddr(PDMA, UART_RX_DMA_CH, (uint32_t)&UART1->DAT, PDMA_SAR_FIX, (uint32_t)DestArray, PDMA_DAR_INC);
 
     /* Set request source; set basic mode. */
-    PDMA_SetTransferMode(PDMA, UART_RX_DMA_CH, PDMA_UART0_RX, FALSE, 0);
+    PDMA_SetTransferMode(PDMA, UART_RX_DMA_CH, PDMA_UART1_RX, FALSE, 0);
 
     /* Single request type */
     PDMA_SetBurstType(PDMA, UART_RX_DMA_CH, PDMA_REQ_SINGLE, 0);
@@ -136,7 +136,7 @@ void PDMA_Callback_0(void)
         PDMA_UART_RxTest();
 
         /* Enable UART Tx and Rx PDMA function */
-        UART_ENABLE_INT(UART0, (UART_INTEN_RXPDMAEN_Msk | UART_INTEN_TXPDMAEN_Msk));
+        UART_ENABLE_INT(UART1, (UART_INTEN_RXPDMAEN_Msk | UART_INTEN_TXPDMAEN_Msk));
     }
     else
     {
@@ -163,7 +163,7 @@ void PDMA_Callback_1(void)
         PDMA_UART_RxTest();
 
         /* Enable UART Rx PDMA function */
-        UART_ENABLE_INT(UART0, UART_INTEN_RXPDMAEN_Msk);
+        UART_ENABLE_INT(UART1, UART_INTEN_RXPDMAEN_Msk);
     }
     else
     {
@@ -193,7 +193,7 @@ void PDMA0_IRQHandler(void)
             PDMA_CLR_TD_FLAG(PDMA, (1 << UART_TX_DMA_CH));
 
             /* Disable UART Tx PDMA function */
-            UART_DISABLE_INT(UART0, UART_INTEN_TXPDMAEN_Msk);
+            UART_DISABLE_INT(UART1, UART_INTEN_TXPDMAEN_Msk);
         }
 
         /* UART Rx PDMA transfer done interrupt flag */
@@ -203,7 +203,7 @@ void PDMA0_IRQHandler(void)
             PDMA_CLR_TD_FLAG(PDMA, (1 << UART_RX_DMA_CH));
 
             /* Disable UART Rx PDMA function */
-            UART_DISABLE_INT(UART0, UART_INTEN_RXPDMAEN_Msk);
+            UART_DISABLE_INT(UART1, UART_INTEN_RXPDMAEN_Msk);
 
             /* Handle PDMA transfer done interrupt event */
             if(g_u32TwoChannelPdmaTest == 1)
@@ -223,19 +223,19 @@ void PDMA0_IRQHandler(void)
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
-/* ISR to handle UART Channel 1 interrupt event                                                            */
+/* ISR to handle UART Channel 0 interrupt event                                                            */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART1_IRQHandler(void)
+void UART0_IRQHandler(void)
 {
-    /* Get UART0 Rx data and send the data to UART0 Tx */
-    if(UART_GET_INT_FLAG(UART1, UART_INTSTS_RDAIF_Msk))
-        UART_WRITE(UART0,UART_READ(UART1));
+    /* Get UART0 Rx data and send the data to UART1 Tx */
+    if(UART_GET_INT_FLAG(UART0, UART_INTSTS_RDAIF_Msk))
+        UART_WRITE(UART1,UART_READ(UART0));
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* PDMA Sample Code:                                                                                       */
-/*         i32option : ['1'] UART0 TX/RX PDMA Loopback                                                     */
-/*                     [Others] UART0 RX PDMA test                                                         */
+/*         i32option : ['1'] UART1 TX/RX PDMA Loopback                                                     */
+/*                     [Others] UART1 RX PDMA test                                                         */
 /*---------------------------------------------------------------------------------------------------------*/
 void PDMA_UART(int32_t i32option)
 {
@@ -249,9 +249,9 @@ void PDMA_UART(int32_t i32option)
     if(i32option == '1')
     {
         printf("  [Using TWO PDMA channel].\n");
-        printf("  This sample code will use PDMA to do UART0 loopback test 10 times.\n");
-        printf("  Please connect UART0_RXD(PA.0) <--> UART0_TXD(PA.1) before testing.\n");
-        printf("  After connecting PA.0 <--> PA.1, press any key to start transfer.\n");
+        printf("  This sample code will use PDMA to do UART1 loopback test 10 times.\n");
+        printf("  Please connect UART1_RXD(PB.2) <--> UART1_TXD(PB.3) before testing.\n");
+        printf("  After connecting PB.2 <--> PB.3, press any key to start transfer.\n");
         g_u32TwoChannelPdmaTest = 1;
         getchar();
     }
@@ -259,9 +259,9 @@ void PDMA_UART(int32_t i32option)
     {
         UART_TEST_LENGTH = 2;      /* Test Length */
         printf("  [Using ONE PDMA channel].\n");
-        printf("  This sample code will use PDMA to do UART0 Rx test 10 times.\n");
-        printf("  Please connect UART1_RXD(PA.0) <--> UART1_TXD(PA.1) before testing.\n");
-        printf("  After connecting PA.0 <--> PA.1, press any key to start transfer.\n");
+        printf("  This sample code will use PDMA to do UART1 Rx test 10 times.\n");
+        printf("  Please connect UART1_RXD(PB.2) <--> UART1_TXD(PB.3) before testing.\n");
+        printf("  After connecting PB.2 <--> PB.3, press any key to start transfer.\n");
         g_u32TwoChannelPdmaTest = 0;
         getchar();
         printf("  Please input %d bytes to trigger PDMA one time.(Ex: Press 'a''b')\n", UART_TEST_LENGTH);
@@ -297,20 +297,20 @@ void PDMA_UART(int32_t i32option)
     IsTestOver = FALSE;
     NVIC_EnableIRQ(PDMA0_IRQn);
 
-    /* Enable UART1 RDA interrupt */
+    /* Enable UART0 RDA interrupt */
     if(g_u32TwoChannelPdmaTest == 0)
     {
-        NVIC_EnableIRQ(UART1_IRQn);
-        UART_EnableInt(UART1, UART_INTEN_RDAIEN_Msk);
+        NVIC_EnableIRQ(UART0_IRQn);
+        UART_EnableInt(UART0, UART_INTEN_RDAIEN_Msk);
     }
 
     /* Enable UART Tx and Rx PDMA function */
     if(g_u32TwoChannelPdmaTest == 1)
-        UART_ENABLE_INT(UART0,UART_INTEN_TXPDMAEN_Msk );
+        UART_ENABLE_INT(UART1,UART_INTEN_TXPDMAEN_Msk );
     else
-        UART_DISABLE_INT(UART0, UART_INTEN_TXPDMAEN_Msk);
+        UART_DISABLE_INT(UART1, UART_INTEN_TXPDMAEN_Msk);
 
-    UART_ENABLE_INT(UART0,UART_INTEN_RXPDMAEN_Msk );
+    UART_ENABLE_INT(UART1,UART_INTEN_RXPDMAEN_Msk );
 
     /* Wait for PDMA operation finish */
     while(IsTestOver == FALSE);
@@ -320,7 +320,7 @@ void PDMA_UART(int32_t i32option)
         printf("target abort...\n");
 
     /* Disable UART Tx and Rx PDMA function */
-    UART_DISABLE_INT(UART0, (UART_INTEN_TXPDMAEN_Msk | UART_INTEN_RXPDMAEN_Msk));
+    UART_DISABLE_INT(UART1, (UART_INTEN_TXPDMAEN_Msk | UART_INTEN_RXPDMAEN_Msk));
 
     /* Disable PDMA channel */
     PDMA_Close(PDMA);
@@ -376,12 +376,12 @@ void SYS_Init(void)
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
-    /* Set PA multi-function pins for UART0 TXD and RXD */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk)) |    \
-                    (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD);
+    /* Set PB multi-function pins for UART1 RXD(PB.2) and TXD(PB.3) */
+    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(SYS_GPB_MFP0_PB2MFP_Msk | SYS_GPB_MFP0_PB3MFP_Msk))    |       \
+                    (SYS_GPB_MFP0_PB2MFP_UART1_RXD | SYS_GPB_MFP0_PB3MFP_UART1_TXD);
 
     /* Lock protected registers */
     SYS_LockReg();

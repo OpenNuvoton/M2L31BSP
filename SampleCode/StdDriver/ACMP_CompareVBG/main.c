@@ -47,11 +47,11 @@ void SYS_Init(void)
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock and CyclesPerUs automatically. */
     SystemCoreClockUpdate();
 
-    /* Switch UART1 clock source to HIRC */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    /* Switch UART0 clock source to HIRC */
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable UART peripheral clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable ACMP01 peripheral clock */
     CLK_EnableModuleClock(ACMP01_MODULE);
@@ -59,8 +59,8 @@ void SYS_Init(void)
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
-    /* Set multi-function pins for UART */
-    Uart1DefaultMPF();
+    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
+    Uart0DefaultMPF();
 
     /* Set PB.4 multi-function pin for ACMP1 positive input pin and PB6 multi-function pin for ACMP1 output pin */
     SYS->GPB_MFP1 = (SYS->GPB_MFP1 & ~(SYS_GPB_MFP1_PB4MFP_Msk | SYS_GPB_MFP1_PB6MFP_Msk)) |
@@ -75,15 +75,15 @@ void SYS_Init(void)
 }
 
 /*----------------------------------------------------------------------*/
-/* Init UART1                                                           */
+/* Init UART0                                                           */
 /*----------------------------------------------------------------------*/
-void UART1_Init(void)
+void UART0_Init(void)
 {
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 /*
@@ -98,8 +98,8 @@ int32_t main(void)
     /* Init System, IP clock and multi-function I/O. */
     SYS_Init();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     printf("\nThis sample code demonstrates ACMP1 function. Using ACMP1_P1 (PB4) as ACMP1\n");
     printf("positive input and using internal band-gap voltage as the negative input.\n");

@@ -12,7 +12,7 @@
 
 void SYS_Init(void);
 int32_t RTC_Init(void);
-void UART1_Init(void);
+void UART0_Init(void);
 extern uint32_t __Enter_SPD(void);
 
 static volatile uint32_t s_u32RTCTickINT=0;
@@ -45,7 +45,7 @@ void PowerDownFunction(void)
     {
         SYS_UnlockReg();                            /* Unlock protected registers */
         SYS_Init();                                 /* Init System, peripheral clock and multi-function I/O */
-        UART1_Init();                               /* Init UART1 for printf */
+        UART0_Init();                               /* Init UART0 for printf */
         GPIO_SetMode(PA, BIT10, GPIO_MODE_OUTPUT);  /* Set PA.10 as output mode */
         CLK->IOPDCTL = 1;                           /* Release I/O hold status */
         RTC_Init();                                 /* Init RTC */
@@ -158,13 +158,13 @@ void SYS_Init(void)
     SystemCoreClockUpdate();
 
     /* Select UART module clock source as HIRC and UART module clock divider as 1 */
-    CLK_SetModuleClock(UART1_MODULE, CLK_CLKSEL4_UART1SEL_HIRC, CLK_CLKDIV0_UART1(1));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
     /* Enable UART module clock */
-    CLK_EnableModuleClock(UART1_MODULE);
+    CLK_EnableModuleClock(UART0_MODULE);
 
-    /* Set multi-function pins for UART */
-    Uart1DefaultMPF();
+    /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
+    Uart0DefaultMPF();
 
     /* Enable GPIO Port A module clock */
     CLK_EnableModuleClock(GPA_MODULE);
@@ -173,13 +173,13 @@ void SYS_Init(void)
     SYS_LockReg();
 }
 
-void UART1_Init(void)
+void UART0_Init(void)
 {
-    /* Reset UART1 */
-    SYS_ResetModule(UART1_RST);
+    /* Reset UART0 */
+    SYS_ResetModule(UART0_RST);
 
-    /* Configure UART1 and set UART1 baud rate */
-    UART_Open(UART1, 115200);
+    /* Configure UART0 and set UART0 baud rate */
+    UART_Open(UART0, 115200);
 }
 
 int main( void )
@@ -190,8 +190,8 @@ int main( void )
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART1 for printf */
-    UART1_Init();
+    /* Init UART0 for printf */
+    UART0_Init();
 
     /* LED toggle in RTC interrupt */
     GPIO_SetMode(PA, BIT10, GPIO_MODE_OUTPUT);

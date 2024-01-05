@@ -28,17 +28,17 @@ void SYS_Init(void)
     CLK->CLKSEL0 = (CLK->CLKSEL0 & (~CLK_CLKSEL0_HCLK0SEL_Msk)) | CLK_CLKSEL0_HCLKSEL_HIRC;
     CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_HCLK0DIV_Msk)) | CLK_CLKDIV0_HCLK(1);
     /* Enable UART module clock */
-    CLK->APBCLK0 |= CLK_APBCLK0_UART1CKEN_Msk;
+    CLK->APBCLK0 |= CLK_APBCLK0_UART0CKEN_Msk;
     /* Select UART module clock source as HIRC and UART module clock divider as 1 */
-    CLK->CLKSEL1 = (CLK->CLKSEL1 & (~CLK_CLKSEL4_UART1SEL_Msk)) | CLK_CLKSEL4_UART1SEL_HIRC;
-    CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_UART1DIV_Msk)) | CLK_CLKDIV0_UART1(1);
+    CLK->CLKSEL1 = (CLK->CLKSEL1 & (~CLK_CLKSEL4_UART0SEL_Msk)) | CLK_CLKSEL4_UART0SEL_HIRC;
+    CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_UART0DIV_Msk)) | CLK_CLKDIV0_UART0(1);
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
 
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    SYS->GPA_MFP2 = (SYS->GPA_MFP2 & ~(SYS_GPA_MFP2_PA8MFP_Msk | SYS_GPA_MFP2_PA9MFP_Msk)) |   \
-                    (SYS_GPA_MFP2_PA8MFP_UART1_RXD | SYS_GPA_MFP2_PA9MFP_UART1_TXD);                    
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB12MFP_Msk | SYS_GPB_MFP3_PB13MFP_Msk)) |  \
+                    (SYS_GPB_MFP3_PB12MFP_UART0_RXD | SYS_GPB_MFP3_PB13MFP_UART0_TXD);
 }
 
 /*---------------------------------------------------------------------------------------------------------*/

@@ -66,15 +66,14 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set GPA multi-function pins for UART1 RXD(PA.8) and TXD(PA.9) */
-    Uart1DefaultMPF();
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
+    Uart0DefaultMPF();
 
-    /* Set PA multi-function pins for UART0 TXD, RXD, CTS and RTS */
-    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk )) |    \
-                    (SYS_GPA_MFP0_PA0MFP_UART0_RXD | SYS_GPA_MFP0_PA1MFP_UART0_TXD );
-    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(SYS_GPA_MFP1_PA4MFP_Msk | SYS_GPA_MFP1_PA5MFP_Msk)) |    \
-                    (SYS_GPA_MFP1_PA4MFP_UART0_nRTS | SYS_GPA_MFP1_PA5MFP_UART0_nCTS);
-
+    /* Set PA multi-function pins for UART1 TXD, RXD, CTS and RTS */
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk |          \
+                                       SYS_GPA_MFP0_PA2MFP_Msk | SYS_GPA_MFP0_PA3MFP_Msk) ) |                                          \
+                    (SYS_GPA_MFP0_PA0MFP_UART1_nRTS | SYS_GPA_MFP0_PA1MFP_UART1_nCTS |                  \
+                     SYS_GPA_MFP0_PA2MFP_UART1_RXD | SYS_GPA_MFP0_PA3MFP_UART1_TXD);
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -150,8 +149,8 @@ void AutoFlow_FunctionTest(void)
     printf("+-----------------------------------------------------------+\n");
     printf("|  ______                                            _____  |\n");
     printf("| |      |                                          |     | |\n");
-    printf("| |Master|--UART0_TXD(PA.1)  <==>  UART0_RXD(PA.0)--|Slave| |\n");
-    printf("| |      |--UART0_nCTS(PA.5) <==> UART0_nRTS(PA.4)--|     | |\n");
+    printf("| |Master|--UART1_TXD(PA.3)  <==>  UART1_RXD(PA.2)--|Slave| |\n");
+    printf("| |      |--UART1_nCTS(PA.1) <==> UART1_nRTS(PA.0)--|     | |\n");
     printf("| |______|                                          |_____| |\n");
     printf("|                                                           |\n");
     printf("+-----------------------------------------------------------+\n");
@@ -184,16 +183,16 @@ void AutoFlow_FunctionTxTest(void)
     uint32_t u32i;
 
     /* Enable RTS and CTS autoflow control */
-    UART_EnableFlowCtrl(UART0);
+    UART_EnableFlowCtrl(UART1);
 
     /* Send 1k bytes data */
     for(u32i = 0; u32i < RXBUFSIZE; u32i++)
     {
         /* Send 1 byte data */
-        UART_WRITE(UART0, u32i & 0xFF);
+        UART_WRITE(UART1, u32i & 0xFF);
 
         /* Wait if Tx FIFO is full */
-        while(UART_IS_TX_FULL(UART0));
+        while(UART_IS_TX_FULL(UART1));
     }
 
     printf("\n Transmit Done\n");
@@ -207,24 +206,24 @@ void AutoFlow_FunctionRxTest(void)
     uint32_t u32i;
 
     /* Reset RX FIFO Before Test */
-    UART0->FIFO |= UART_FIFO_RXRST_Msk;
-    UART0->FIFO &= ~UART_FIFO_RXRST_Msk;
+    UART1->FIFO |= UART_FIFO_RXRST_Msk;
+    UART1->FIFO &= ~UART_FIFO_RXRST_Msk;
 
     /* Enable RTS and CTS autoflow control */
-    UART_EnableFlowCtrl(UART0);
+    UART_EnableFlowCtrl(UART1);
 
     /* Set RTS Trigger Level as 8 bytes */
-    UART0->FIFO = (UART0->FIFO & (~UART_FIFO_RTSTRGLV_Msk)) | UART_FIFO_RTSTRGLV_8BYTES;
+    UART1->FIFO = (UART1->FIFO & (~UART_FIFO_RTSTRGLV_Msk)) | UART_FIFO_RTSTRGLV_8BYTES;
 
     /* Set RX Trigger Level as 8 bytes */
-    UART0->FIFO = (UART0->FIFO & (~UART_FIFO_RFITL_Msk)) | UART_FIFO_RFITL_8BYTES;
+    UART1->FIFO = (UART1->FIFO & (~UART_FIFO_RFITL_Msk)) | UART_FIFO_RFITL_8BYTES;
 
     /* Set Timeout time 0x3E bit-time and time-out counter enable */
-    UART_SetTimeoutCnt(UART0, 0x3E);
+    UART_SetTimeoutCnt(UART1, 0x3E);
 
     /* Enable RDA and RTO Interrupt */
-    NVIC_EnableIRQ(UART0_IRQn);
-    UART_EnableInt(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RLSIEN_Msk | UART_INTEN_RXTOIEN_Msk));
+    NVIC_EnableIRQ(UART1_IRQn);
+    UART_EnableInt(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RLSIEN_Msk | UART_INTEN_RXTOIEN_Msk));
 
     printf("\n Starting to receive data...\n");
 
@@ -243,31 +242,31 @@ void AutoFlow_FunctionRxTest(void)
     printf("\n Receive OK & Check OK\n");
 
     /* Disable RDA and RTO Interrupt */
-    UART_DisableInt(UART0, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RLSIEN_Msk | UART_INTEN_RXTOIEN_Msk));
+    UART_DisableInt(UART1, (UART_INTEN_RDAIEN_Msk | UART_INTEN_RLSIEN_Msk | UART_INTEN_RXTOIEN_Msk));
 
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* ISR to handle UART Channel 1 interrupt event                                                            */
 /*---------------------------------------------------------------------------------------------------------*/
-void UART0_IRQHandler(void)
+void UART1_IRQHandler(void)
 {
     uint8_t u8InChar = 0xFF;
 
     /* Rx Ready or Time-out INT */
-    if(UART_GET_INT_FLAG(UART0, UART_INTSTS_RDAINT_Msk | UART_INTSTS_RXTOINT_Msk))
+    if(UART_GET_INT_FLAG(UART1, UART_INTSTS_RDAINT_Msk | UART_INTSTS_RXTOINT_Msk))
     {
         /* Read data until RX FIFO is empty */
-        while(UART_GET_RX_EMPTY(UART0) == 0)
+        while(UART_GET_RX_EMPTY(UART1) == 0)
         {
-            u8InChar = UART_READ(UART0);
+            u8InChar = UART_READ(UART1);
             g_u8RecData[g_i32pointer++] = u8InChar;
         }
     }
 
-    if(UART0->FIFOSTS & (UART_FIFOSTS_BIF_Msk | UART_FIFOSTS_FEF_Msk | UART_FIFOSTS_PEF_Msk | UART_FIFOSTS_RXOVIF_Msk))
+    if(UART1->FIFOSTS & (UART_FIFOSTS_BIF_Msk | UART_FIFOSTS_FEF_Msk | UART_FIFOSTS_PEF_Msk | UART_FIFOSTS_RXOVIF_Msk))
     {
-        UART_ClearIntFlag(UART0, (UART_INTSTS_RLSINT_Msk| UART_INTSTS_BUFERRINT_Msk));
+        UART_ClearIntFlag(UART1, (UART_INTSTS_RLSINT_Msk| UART_INTSTS_BUFERRINT_Msk));
     }
 }
 
