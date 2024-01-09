@@ -824,8 +824,8 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPC_MFP0_PC1MFP_ECAP0_IC1       (0xDUL<<SYS_GPC_MFP0_PC1MFP_Pos)    /*!< GPC_MFP0 PC1 setting for ECAP0_IC1         */
 #define SYS_GPC_MFP0_PC1MFP_ACMP0_O         (0xEUL<<SYS_GPC_MFP0_PC1MFP_Pos)    /*!< GPC_MFP0 PC1 setting for ACMP0_O           */
 #define SYS_GPC_MFP0_PC1MFP_EADC0_ST        (0xFUL<<SYS_GPC_MFP0_PC1MFP_Pos)    /*!< GPC_MFP0 PC1 setting for EADC0_ST          */
+#define SYS_GPC_MFP0_PC1MFP_LPADC0_ST       (0xFUL<<SYS_GPC_MFP0_PC1MFP_Pos)    /*!< GPC_MFP0 PC1 setting for LPADC0_ST         */
 #define SYS_GPC_MFP0_PC1MFP_UTCPD0_CC2      (0x11UL<<SYS_GPC_MFP0_PC1MFP_Pos)   /*!< GPC_MFP0 PC1 setting for UTCPD0_CC2        */
-#define SYS_GPC_MFP0_PC1MFP_LPADC0_ST       (0x15UL<<SYS_GPC_MFP0_PC1MFP_Pos)   /*!< GPC_MFP0 PC1 setting for LPADC0_ST         */
 #define SYS_GPC_MFP0_PC1MFP_LPI2C0_SCL      (0x16UL<<SYS_GPC_MFP0_PC1MFP_Pos)   /*!< GPC_MFP0 PC1 setting for LPI2C0_SCL        */
 #define SYS_GPC_MFP0_PC1MFP_LPIO5           (0x17UL<<SYS_GPC_MFP0_PC1MFP_Pos)   /*!< GPC_MFP0 PC1 setting for LPIO5             */
 
@@ -985,8 +985,8 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPC_MFP3_PC13MFP_PWM0_CH4       (0x9UL<<SYS_GPC_MFP3_PC13MFP_Pos)   /*!< GPC_MFP3 PC13 setting for PWM0_CH4         */
 #define SYS_GPC_MFP3_PC13MFP_CLKO           (0xDUL<<SYS_GPC_MFP3_PC13MFP_Pos)   /*!< GPC_MFP3 PC13 setting for CLKO             */
 #define SYS_GPC_MFP3_PC13MFP_EADC0_ST       (0xEUL<<SYS_GPC_MFP3_PC13MFP_Pos)   /*!< GPC_MFP3 PC13 setting for EADC0_ST         */
+#define SYS_GPC_MFP3_PC13MFP_LPADC0_ST      (0xEUL<<SYS_GPC_MFP3_PC13MFP_Pos)   /*!< GPC_MFP3 PC13 setting for LPADC0_ST        */
 #define SYS_GPC_MFP3_PC13MFP_TK_SE          (0x10UL<<SYS_GPC_MFP3_PC13MFP_Pos)  /*!< GPC_MFP3 PC13 setting for TK_SE            */
-#define SYS_GPC_MFP3_PC13MFP_LPADC0_ST      (0x17UL<<SYS_GPC_MFP3_PC13MFP_Pos)  /*!< GPC_MFP3 PC13 setting for LPADC0_ST        */
 
 /* PC.14 MFP */
 #define SYS_GPC_MFP3_PC14MFP_GPIO           (0x0UL<<SYS_GPC_MFP3_PC14MFP_Pos)   /*!< GPC_MFP3 PC14 setting for GPIO             */
@@ -1119,9 +1119,9 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPD_MFP3_PD12MFP_EQEI0_INDEX    (0xAUL<<SYS_GPD_MFP3_PD12MFP_Pos)   /*!< GPD_MFP3 PD12 setting for EQEI0_INDEX      */
 #define SYS_GPD_MFP3_PD12MFP_CLKO           (0xDUL<<SYS_GPD_MFP3_PD12MFP_Pos)   /*!< GPD_MFP3 PD12 setting for CLKO             */
 #define SYS_GPD_MFP3_PD12MFP_EADC0_ST       (0xEUL<<SYS_GPD_MFP3_PD12MFP_Pos)   /*!< GPD_MFP3 PD12 setting for EADC0_ST         */
+#define SYS_GPD_MFP3_PD12MFP_LPADC0_ST      (0xEUL<<SYS_GPD_MFP3_PD12MFP_Pos)   /*!< GPD_MFP3 PD12 setting for LPADC0_ST        */
 #define SYS_GPD_MFP3_PD12MFP_INT5           (0xFUL<<SYS_GPD_MFP3_PD12MFP_Pos)   /*!< GPD_MFP3 PD12 setting for INT5             */
 #define SYS_GPD_MFP3_PD12MFP_TK_SE          (0x10UL<<SYS_GPD_MFP3_PD12MFP_Pos)  /*!< GPD_MFP3 PD12 setting for TK_SE            */
-#define SYS_GPD_MFP3_PD12MFP_LPADC0_ST      (0x17UL<<SYS_GPD_MFP3_PD12MFP_Pos)  /*!< GPD_MFP3 PD12 setting for LPADC0_ST        */
 
 /* PD.13 MFP */
 #define SYS_GPD_MFP3_PD13MFP_GPIO           (0x0UL<<SYS_GPD_MFP3_PD13MFP_Pos)   /*!< GPD_MFP3 PD13 setting for GPIO             */
@@ -1131,8 +1131,8 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPD_MFP3_PD13MFP_PWM0_CH0       (0xBUL<<SYS_GPD_MFP3_PD13MFP_Pos)   /*!< GPD_MFP3 PD13 setting for PWM0_CH0         */
 #define SYS_GPD_MFP3_PD13MFP_CLKO           (0xEUL<<SYS_GPD_MFP3_PD13MFP_Pos)   /*!< GPD_MFP3 PD13 setting for CLKO             */
 #define SYS_GPD_MFP3_PD13MFP_EADC0_ST       (0xFUL<<SYS_GPD_MFP3_PD13MFP_Pos)   /*!< GPD_MFP3 PD13 setting for EADC0_ST         */
+#define SYS_GPD_MFP3_PD13MFP_LPADC0_ST      (0xFUL<<SYS_GPD_MFP3_PD13MFP_Pos)   /*!< GPD_MFP3 PD13 setting for LPADC0_ST        */
 #define SYS_GPD_MFP3_PD13MFP_TK_SE          (0x10UL<<SYS_GPD_MFP3_PD13MFP_Pos)  /*!< GPD_MFP3 PD13 setting for TK_SE            */
-#define SYS_GPD_MFP3_PD13MFP_LPADC0_ST      (0x17UL<<SYS_GPD_MFP3_PD13MFP_Pos)  /*!< GPD_MFP3 PD13 setting for LPADC0_ST        */
 
 /* PD.14 MFP */
 #define SYS_GPD_MFP3_PD14MFP_GPIO           (0x0UL<<SYS_GPD_MFP3_PD14MFP_Pos)   /*!< GPD_MFP3 PD14 setting for GPIO             */
@@ -1390,8 +1390,8 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPF_MFP1_PF5MFP_EPWM0_SYNC_OUT  (0x9UL<<SYS_GPF_MFP1_PF5MFP_Pos)    /*!< GPF_MFP1 PF5 setting for EPWM0_SYNC_OUT    */
 #define SYS_GPF_MFP1_PF5MFP_X32_IN          (0xAUL<<SYS_GPF_MFP1_PF5MFP_Pos)    /*!< GPF_MFP1 PF5 setting for X32_IN            */
 #define SYS_GPF_MFP1_PF5MFP_EADC0_ST        (0xBUL<<SYS_GPF_MFP1_PF5MFP_Pos)    /*!< GPF_MFP1 PF5 setting for EADC0_ST          */
+#define SYS_GPF_MFP1_PF5MFP_LPADC0_ST       (0xBUL<<SYS_GPF_MFP1_PF5MFP_Pos)    /*!< GPC_MFP1 PF5 setting for LPADC0_ST         */
 #define SYS_GPF_MFP1_PF5MFP_UTCPD0_VBSNKEN  (0x11UL<<SYS_GPF_MFP1_PF5MFP_Pos)   /*!< GPF_MFP1 PF5 setting for UTCPD0_VBSNKEN    */
-#define SYS_GPF_MFP1_PF5MFP_LPADC0_ST       (0x17UL<<SYS_GPF_MFP1_PF5MFP_Pos)   /*!< GPC_MFP1 PF5 setting for LPADC0_ST         */
 
 /* PF.6 MFP */
 #define SYS_GPF_MFP1_PF6MFP_GPIO            (0x0UL<<SYS_GPF_MFP1_PF6MFP_Pos)    /*!< GPF_MFP1 PF6 setting for GPIO              */
@@ -1508,8 +1508,8 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPG_MFP3_PG15MFP_GPIO           (0x0UL<<SYS_GPG_MFP3_PG15MFP_Pos)   /*!< GPG_MFP3 PG15 setting for GPIO             */
 #define SYS_GPG_MFP3_PG15MFP_CLKO           (0xEUL<<SYS_GPG_MFP3_PG15MFP_Pos)   /*!< GPG_MFP3 PG15 setting for CLKO             */
 #define SYS_GPG_MFP3_PG15MFP_EADC0_ST       (0xFUL<<SYS_GPG_MFP3_PG15MFP_Pos)   /*!< GPG_MFP3 PG15 setting for EADC0_ST         */
+#define SYS_GPG_MFP3_PG15MFP_LPADC0_ST      (0xFUL<<SYS_GPG_MFP3_PG15MFP_Pos)   /*!< GPG_MFP3 PG15 setting for LPADC0_ST        */
 #define SYS_GPG_MFP3_PG15MFP_TK_SE          (0x10UL<<SYS_GPG_MFP3_PG15MFP_Pos)  /*!< GPG_MFP3 PG15 setting for TK_SE            */
-#define SYS_GPG_MFP3_PG15MFP_LPADC0_ST      (0x17UL<<SYS_GPG_MFP3_PG15MFP_Pos)  /*!< GPG_MFP3 PG15 setting for LPADC0_ST        */
 
 /* PH.4 MFP */
 #define SYS_GPH_MFP1_PH4MFP_GPIO            (0x0UL<<SYS_GPH_MFP1_PH4MFP_Pos)    /*!< GPH_MFP1 PH4 setting for GPIO              */
