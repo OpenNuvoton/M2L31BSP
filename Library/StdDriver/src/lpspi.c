@@ -140,13 +140,11 @@ uint32_t LPSPI_Open(LPSPI_T *lpspi,
   */
 void LPSPI_Close(LPSPI_T *lpspi)
 {
-    //mhkuo
     if(lpspi == LPSPI0)
     {
         /* Reset LPSPI */
         LPSCC->IPRST0 |= LPSCC_IPRST0_LPSPI0RST_Msk;
         LPSCC->IPRST0 &= ~LPSCC_IPRST0_LPSPI0RST_Msk;
-        while( ((LPSCC->IPRST0)&LPSCC_IPRST0_LPSPI0RST_Msk)!=0 );
     }
 }
 
