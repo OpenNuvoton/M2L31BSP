@@ -556,13 +556,16 @@ uint32_t  RMC_GetChkSum(uint32_t u32addr, uint32_t u32count)
   * @retval   READ_ALLONE_YES      The contents of verified flash area are 0xFFFFFFFF.
   * @retval   READ_ALLONE_NOT  Some contents of verified flash area are not 0xFFFFFFFF.
   * @retval   READ_ALLONE_CMD_FAIL  Unexpected error occurred.
+  * @note     Global error code g_RMC_i32ErrCode
+  *           -1  RUN_ALL_ONE or CHECK_ALL_ONE commands time-out
   */
 uint32_t  RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count)
 {
     uint32_t  ret = READ_ALLONE_CMD_FAIL;
-    uint32_t  tout;
+    int32_t   i32TimeOutCnt0, i32TimeOutCnt1;
+
     g_RMC_i32ErrCode = 0;
-    RMC->ISPCTL = RMC->ISPCTL & ~BIT8;
+
     RMC->ISPSTS = 0x80UL;   /* clear check all one bit */
 
     RMC->ISPCMD   = RMC_ISPCMD_RUN_ALL1;
@@ -570,37 +573,51 @@ uint32_t  RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count)
     RMC->ISPDAT   = u32count;
     RMC->ISPTRG   = RMC_ISPTRG_ISPGO_Msk;
 
-    tout = RMC_TIMEOUT_CHKALLONE;
-    while ((--tout > 0) && (RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)) {}
-    if (tout == 0)
+    i32TimeOutCnt0 = RMC_TIMEOUT_CHKALLONE;
+    while(RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)
     {
-        g_RMC_i32ErrCode = -1;
-        return READ_ALLONE_CMD_FAIL;
-    }
-
-    tout = RMC_TIMEOUT_CHKALLONE;
-    do
-    {
-        RMC->ISPCMD = RMC_ISPCMD_READ_ALL1;
-        RMC->ISPADDR    = u32addr;
-        RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-        while ((--tout > 0) && (RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)) {}
-        if (tout == 0)
+        if( i32TimeOutCnt0-- <= 0)
         {
             g_RMC_i32ErrCode = -1;
-            return READ_ALLONE_CMD_FAIL;
+            break;
         }
     }
-    while (RMC->ISPDAT == 0UL);
 
-    if (RMC->ISPDAT == READ_ALLONE_YES)
+    if(g_RMC_i32ErrCode == 0)
     {
-        ret = RMC->ISPDAT;
+        i32TimeOutCnt1 = RMC_TIMEOUT_CHKALLONE;
+        do
+        {
+            RMC->ISPCMD = RMC_ISPCMD_READ_ALL1;
+            RMC->ISPADDR = u32addr;
+            RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+
+            i32TimeOutCnt0 = RMC_TIMEOUT_CHKALLONE;
+            while(RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)
+            {
+                if( i32TimeOutCnt0-- <= 0)
+                {
+                    g_RMC_i32ErrCode = -1;
+                    break;
+                }
+            }
+
+            if( i32TimeOutCnt1-- <= 0)
+            {
+                g_RMC_i32ErrCode = -1;
+            }
+        }
+        while( (RMC->ISPDAT == 0UL) && (g_RMC_i32ErrCode == 0) );
     }
 
-    if (RMC->ISPDAT == READ_ALLONE_NOT)
+    if( g_RMC_i32ErrCode == 0 )
     {
-        ret = RMC->ISPDAT;
+        if(RMC->ISPDAT == READ_ALLONE_YES)
+            ret = READ_ALLONE_YES;
+        else if(RMC->ISPDAT == READ_ALLONE_NOT)
+            ret = READ_ALLONE_NOT;
+        else
+            g_RMC_i32ErrCode = -1;
     }
 
     return ret;
