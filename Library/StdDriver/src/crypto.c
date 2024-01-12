@@ -72,15 +72,23 @@ void PRNG_Open(CRPT_T *crpt, uint32_t u32KeySize, uint32_t u32SeedReload, uint32
 /**
   * @brief  Start to generate one PRNG key.
   * @param[in]  crpt         The pointer of CRPT module
-  * @return None
+  * @retval  0 Generate PRNG key success.
+  * @retval -1 Generate PRNG key time-out.
   */
-void PRNG_Start(CRPT_T *crpt)
+int32_t PRNG_Start(CRPT_T *crpt)
 {
+	  int32_t i32TimeOutCnt = SystemCoreClock; 
     crpt->PRNG_CTL |= CRPT_PRNG_CTL_START_Msk;
 
     /* Waiting for PRNG Busy */
-    while(crpt->PRNG_CTL & CRPT_PRNG_CTL_BUSY_Msk) {}
-
+    while(crpt->PRNG_CTL & CRPT_PRNG_CTL_BUSY_Msk)
+    {
+        if( i32TimeOutCnt-- <= 0)
+        {
+            return -1;
+        }
+    }
+    return 0;
 }
 
 /**
