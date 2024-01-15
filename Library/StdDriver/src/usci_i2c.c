@@ -16,6 +16,7 @@
   @{
 */
 
+int32_t g_UI2C_i32ErrCode = 0;       /*!< UI2C global error code */
 
 /** @addtogroup USCI_I2C_EXPORTED_FUNCTIONS USCI_I2C Exported Functions
   @{
@@ -621,12 +622,23 @@ uint8_t UI2C_WriteByte(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t data)
 {
     uint8_t u8Xfering = 1U, u8Err = 0U, u8Ctrl = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+    uint32_t u32TimeOutCount = 0U;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -694,13 +706,23 @@ uint8_t UI2C_WriteByte(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t data)
 uint32_t UI2C_WriteMultiBytes(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t *data, uint32_t u32wLen)
 {
     uint8_t u8Xfering = 1U, u8Ctrl = 0U;
-    uint32_t u32txLen = 0U;
+    uint32_t u32txLen = 0U, u32TimeOutCount = 0U;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -763,13 +785,23 @@ uint32_t UI2C_WriteMultiBytes(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t *data, 
 uint8_t UI2C_WriteByteOneReg(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, uint8_t data)
 {
     uint8_t u8Xfering = 1U, u8Err = 0U, u8Ctrl = 0U;
-    uint32_t u32txLen = 0U;
+    uint32_t u32txLen = 0U, u32TimeOutCount = 0U;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -843,14 +875,24 @@ uint8_t UI2C_WriteByteOneReg(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t u8DataAd
 uint32_t UI2C_WriteMultiBytesOneReg(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, uint8_t *data, uint32_t u32wLen)
 {
     uint8_t u8Xfering = 1U, u8Ctrl = 0U;
-    uint32_t u32txLen = 0U;
+    uint32_t u32txLen = 0U, u32TimeOutCount = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -922,13 +964,23 @@ uint32_t UI2C_WriteMultiBytesOneReg(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t u
 uint8_t UI2C_WriteByteTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t data)
 {
     uint8_t u8Xfering = 1U, u8Err = 0U, u8Ctrl = 0U;
-    uint32_t u32txLen = 0U;
+    uint32_t u32txLen = 0U, u32TimeOutCount = 0U;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                           /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -1007,14 +1059,24 @@ uint8_t UI2C_WriteByteTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t u16Dat
 uint32_t UI2C_WriteMultiBytesTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t *data, uint32_t u32wLen)
 {
     uint8_t u8Xfering = 1U, u8Addr = 1U, u8Ctrl = 0U;
-    uint32_t u32txLen = 0U;
+    uint32_t u32txLen = 0U, u32TimeOutCount = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                           /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -1093,12 +1155,23 @@ uint8_t UI2C_ReadByte(UI2C_T *ui2c, uint8_t u8SlaveAddr)
 {
     uint8_t u8Xfering = 1U, u8Err = 0U, rdata = 0U, u8Ctrl = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+    uint32_t u32TimeOutCount = 0U;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -1170,14 +1243,24 @@ uint8_t UI2C_ReadByte(UI2C_T *ui2c, uint8_t u8SlaveAddr)
 uint32_t UI2C_ReadMultiBytes(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t *rdata, uint32_t u32rLen)
 {
     uint8_t u8Xfering = 1U, u8Ctrl = 0U;
-    uint32_t u32rxLen = 0U;
+    uint32_t u32rxLen = 0U, u32TimeOutCount = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -1254,12 +1337,23 @@ uint8_t UI2C_ReadByteOneReg(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t u8DataAdd
 {
     uint8_t u8Xfering = 1U, u8Err = 0U, rdata = 0U, u8Ctrl = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+    uint32_t u32TimeOutCount = 0U;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -1359,14 +1453,24 @@ uint8_t UI2C_ReadByteOneReg(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t u8DataAdd
 uint32_t UI2C_ReadMultiBytesOneReg(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, uint8_t *rdata, uint32_t u32rLen)
 {
     uint8_t u8Xfering = 1U, u8Ctrl = 0U;
-    uint32_t u32rxLen = 0U;
+    uint32_t u32rxLen = 0U, u32TimeOutCount = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -1464,12 +1568,23 @@ uint8_t UI2C_ReadByteTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t u16Data
 {
     uint8_t u8Xfering = 1U, u8Err = 0U, rdata = 0U, u8Addr = 1U, u8Ctrl = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+    uint32_t u32TimeOutCount = 0U;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
@@ -1576,14 +1691,24 @@ uint8_t UI2C_ReadByteTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t u16Data
 uint32_t UI2C_ReadMultiBytesTwoRegs(UI2C_T *ui2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t *rdata, uint32_t u32rLen)
 {
     uint8_t u8Xfering = 1U, u8Addr = 1U, u8Ctrl = 0U;
-    uint32_t u32rxLen = 0U;
+    uint32_t u32rxLen = 0U, u32TimeOutCount = 0U;
     enum UI2C_MASTER_EVENT eEvent = MASTER_SEND_START;
+
+    g_UI2C_i32ErrCode = 0;
 
     UI2C_START(ui2c);                                                       /* Send START */
 
     while (u8Xfering)
     {
-        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U));                     /* Wait UI2C new status occur */
+        u32TimeOutCount = UI2C_TIMEOUT;
+        while (!(UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U))                     /* Wait UI2C new status occur */
+        {
+            if(--u32TimeOutCount == 0)
+            {
+                g_UI2C_i32ErrCode = UI2C_ERR_TIMEOUT;
+                break;
+            }
+        }
 
         switch (UI2C_GET_PROT_STATUS(ui2c) & 0x3F00U)
         {
