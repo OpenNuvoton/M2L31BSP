@@ -22,6 +22,7 @@ extern "C"
   @{
 */
 
+int32_t g_SYS_i32ErrCode = 0;   /*!< SYS global error code */
 
 /** @addtogroup SYS_EXPORTED_FUNCTIONS SYS Exported Functions
   @{
@@ -261,12 +262,13 @@ void SYS_DisableBOD(void)
   * @param[in]  u32PowerLevel is power level setting. Including :
   *             - \ref SYS_PLCTL_PLSEL_PL1
   *             - \ref SYS_PLCTL_PLSEL_PL2
-  *             - \ref SYS_PLCTL_PLSEL_PL3
-  * @return     None
+  * @return     Setting success or not
+  * @retval     0                   Success
+  * @retval     SYS_TIMEOUT_ERR     Failed due to Power level register is busy
   * @details    This function select power level.
   *             The register write-protection function should be disabled before using this function.
   */
-void SYS_SetPowerLevel(uint32_t u32PowerLevel)
+int32_t SYS_SetPowerLevel(uint32_t u32PowerLevel)
 {
     int32_t i32TimeOutCnt = 400;
 
@@ -276,9 +278,10 @@ void SYS_SetPowerLevel(uint32_t u32PowerLevel)
     {
         if(i32TimeOutCnt-- <= 0)
         {
-            break;
+            return SYS_TIMEOUT_ERR;
         }
     }
+    return 0;
 }
 
 /**
@@ -313,11 +316,13 @@ void SYS_SetVRef(uint32_t u32VRefCTL)
   *             - \ref SYS_SRAMPC0_SRAM_NORMAL
   *             - \ref SYS_SRAMPC0_SRAM_RETENTION
   *             - \ref SYS_SRAMPC0_SRAM_SHUT_DOWN
-  * @return     None
+  * @return     Setting success or not
+  * @retval     0                   Success
+  * @retval     SYS_TIMEOUT_ERR     Failed due to SRAM power register is busy
   * @details    This function set system SRAM power mode.
   *             The register write-protection function should be disabled before using this function.
   */
-void SYS_SetSSRAMPowerMode(uint32_t u32SRAMSel, uint32_t u32PowerMode)
+int32_t SYS_SetSSRAMPowerMode(uint32_t u32SRAMSel, uint32_t u32PowerMode)
 {
     int32_t i32TimeOutCnt;
     uint32_t u32SRAMSelPos = SYS_SRAMPC0_SRAM0PM_Pos;
@@ -342,9 +347,10 @@ void SYS_SetSSRAMPowerMode(uint32_t u32SRAMSel, uint32_t u32PowerMode)
     {
         if(i32TimeOutCnt-- <= 0)
         {
-            break;
+            return SYS_TIMEOUT_ERR;
         }
     }
+    return 0;
 }
 
 /*@}*/ /* end of group SYS_EXPORTED_FUNCTIONS */

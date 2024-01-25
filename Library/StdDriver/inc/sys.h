@@ -166,11 +166,9 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 #define SYS_PLCTL_PLSEL_PL1     (0x1UL<<SYS_PLCTL_PLSEL_Pos)    /*!< Set power level to power level 1 */
 #define SYS_PLCTL_PLSEL_PL2     (0x2UL<<SYS_PLCTL_PLSEL_Pos)    /*!< Set power level to power level 2 */
-#define SYS_PLCTL_PLSEL_PL3     (0x3UL<<SYS_PLCTL_PLSEL_Pos)    /*!< Set power level to power level 3 */
 
 #define SYS_PLSTS_PLSTATUS_PL1  (0x1UL<<SYS_PLSTS_PLSTATUS_Pos)
 #define SYS_PLSTS_PLSTATUS_PL2  (0x2UL<<SYS_PLSTS_PLSTATUS_Pos)
-#define SYS_PLSTS_PLSTATUS_PL3  (0x3UL<<SYS_PLSTS_PLSTATUS_Pos)
 
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -1575,9 +1573,11 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 #define SYS_GPH_MFP2_PH11MFP_EPWM0_CH5      (0xBUL<<SYS_GPH_MFP2_PH11MFP_Pos)   /*!< GPH_MFP2 PH11 setting for EPWM0_CH5        */
 #define SYS_GPH_MFP2_PH11MFP_LPUART0_RXD    (0x15UL<<SYS_GPH_MFP2_PH11MFP_Pos)  /*!< GPH_MFP2 PH11 setting for LPUART0_RXD      */
 
+#define SYS_TIMEOUT_ERR             (-1)    /*!< SYS timeout error value \hideinitializer */
 
 /*@}*/ /* end of group SYS_EXPORTED_CONSTANTS */
 
+extern int32_t g_SYS_i32ErrCode;
 
 /** @addtogroup SYS_EXPORTED_FUNCTIONS SYS Exported Functions
   @{
@@ -1860,19 +1860,19 @@ __STATIC_INLINE void SYS_LockReg(void)
 }
 
 
-void SYS_ClearResetSrc(uint32_t u32Src);
+void     SYS_ClearResetSrc(uint32_t u32Src);
 uint32_t SYS_GetBODStatus(void);
 uint32_t SYS_GetResetSrc(void);
 uint32_t SYS_IsRegLocked(void);
 uint32_t SYS_ReadPDID(void);
-void SYS_ResetChip(void);
-void SYS_ResetCPU(void);
-void SYS_ResetModule(uint32_t u32ModuleIndex);
-void SYS_EnableBOD(int32_t i32Mode, uint32_t u32BODLevel);
-void SYS_DisableBOD(void);
-void SYS_SetPowerLevel(uint32_t u32PowerLevel);
-void SYS_SetVRef(uint32_t u32VRefCTL);
-void SYS_SetSSRAMPowerMode(uint32_t u32SRAMSel, uint32_t u32PowerMode);
+void     SYS_ResetChip(void);
+void     SYS_ResetCPU(void);
+void     SYS_ResetModule(uint32_t u32ModuleIndex);
+void     SYS_EnableBOD(int32_t i32Mode, uint32_t u32BODLevel);
+void     SYS_DisableBOD(void);
+int32_t  SYS_SetPowerLevel(uint32_t u32PowerLevel);
+void     SYS_SetVRef(uint32_t u32VRefCTL);
+int32_t  SYS_SetSSRAMPowerMode(uint32_t u32SRAMSel, uint32_t u32PowerMode);
 
 /*@}*/ /* end of group SYS_EXPORTED_FUNCTIONS */
 
