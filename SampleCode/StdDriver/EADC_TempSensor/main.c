@@ -115,7 +115,7 @@ void EADC_FunctionTest()
      *      where Vtemp_os, Tc, and Ta can be got from the data sheet document.
      *            ADC_Vref is the ADC Vref that according to the configuration of SYS and EADC.
      */
-    printf("Current Temperature = %2.1f degrees Celsius if EADC Vref = 3300mV\n\n", (0+(((float)i32ConversionData/4095*3300)-749)/(-1.698)));
+    printf("Current Temperature = %2.1f degrees Celsius if EADC Vref = 3300mV\n\n", (25+(((float)i32ConversionData/4095*3300)-1008)/(-2.7)));
 }
 
 
