@@ -68,14 +68,14 @@ void SYS_Init(void)
     LPSCC->CLKDIV0 = (LPSCC->CLKDIV0 & ~(LPSCC_CLKDIV0_APB2DIV_Msk)) |
                      (LPSCC_CLKDIV0_APB2DIV_DIV2);
 
-    /* LPADC clock source is PCLK2 = 24MHz, set divider to 2, LPADC clock is 24/2 MHz */
+    /* LPADC clock source is PCLK2 = 6MHz, set divider to 2, LPADC clock is 6/2 MHz */
     CLK_SetModuleClock(LPADC0_MODULE, LPSCC_CLKSEL0_LPADC0SEL_PCLK2, LPSCC_CLKDIV0_LPADC0(2));
 
     /* Enable LPADC module clock */
     CLK_EnableModuleClock(LPADC0_MODULE);
 
-    /* Select LPTMR0 module clock source as HIRC */
-    CLK_SetModuleClock(LPTMR0_MODULE, LPSCC_CLKSEL0_LPTMR0SEL_HIRC, 0);
+    /* Select LPTMR0 module clock source as LIRC */
+    CLK_SetModuleClock(LPTMR0_MODULE, LPSCC_CLKSEL0_LPTMR0SEL_LIRC, 0);
 
     /* Enable LPTMR0 module clock */
     CLK_EnableModuleClock(LPTMR0_MODULE);
@@ -140,7 +140,7 @@ void LPTPWM_Init(void)
         printf("LPTPWM: Set the frequency %d different from the user !\n", freq);
     }
 
-    /* LPTMR0 PWM mode trigger all Low Power IPs but LPPDMA */
+    /* LPTMR0 PWM mode trigger all Low Power IPs except LPPDMA */
     LPTPWM_EnableTrigger(LPTMR0, LPTMR_PWMTRGCTL_TRGEN_Msk, LPTPWM_TRIGGER_AT_PERIOD_POINT);
 
     /* Enable LPTMR clock in power-down mode */
