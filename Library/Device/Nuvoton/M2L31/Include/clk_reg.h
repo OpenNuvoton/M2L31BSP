@@ -131,9 +131,9 @@ typedef struct
  * |[1]     |PDMA0CKEN |PDMA0 Controller Clock Enable Bit
  * |        |          |0 = PDMA0 peripheral clock Disabled.
  * |        |          |1 = PDMA0 peripheral clock Enabled.
- * |[2]     |ISPCKEN   |Flash ISP Controller Clock Enable Bit
- * |        |          |0 = Flash ISP peripheral clock Disabled.
- * |        |          |1 = Flash ISP peripheral clock Enabled.
+ * |[2]     |ISPCKEN   |RRAM ISP Controller Clock Enable Bit
+ * |        |          |0 = RRAM ISP peripheral clock Disabled.
+ * |        |          |1 = RRAM ISP peripheral clock Enabled.
  * |[3]     |EBICKEN   |EBI Controller Clock Enable Bit
  * |        |          |0 = EBI peripheral clock Disabled.
  * |        |          |1 = EBI peripheral clock Enabled.
@@ -149,16 +149,16 @@ typedef struct
  * |[13]    |KSCKEN    |Key Store Clock Enable Bit
  * |        |          |0 = Key Store clock Disabled.
  * |        |          |1 = Key Store clock Enabled.
- * |[15]    |FMCIDLE   |Flash Memory Controller Clock Enable Bit in IDLE Mode
- * |        |          |0 = FMC clock Disabled when chip is under IDLE mode.
- * |        |          |1 = FMC clock Enabled when chip is under IDLE mode.
+ * |[15]    |RMCIDLE   |RRAM Memory Controller Clock Enable Bit in IDLE Mode
+ * |        |          |0 = RMC clock Disabled when chip is under IDLE mode.
+ * |        |          |1 = RMC clock Enabled when chip is under IDLE mode.
  * |[16]    |USBHCKEN  |USB HOST Controller Clock Enable Bit
  * |        |          |0 = USB HOST peripheral clock Disabled.
  * |        |          |1 = USB HOST peripheral clock Enabled.
- * |[23]    |FMCFDIS   |FMC Clock Force Disable Bit
- * |        |          |0 = FMC clock Enabled.
- * |        |          |1 = FMC clock force Disable to save power.
- * |        |          |Note: User should make sure program no FLASH access during this bit is 1
+ * |[23]    |RMCFDIS   |RMC Clock Force Disable Bit
+ * |        |          |0 = RMC clock Enabled.
+ * |        |          |1 = RMC clock force Disable to save power.
+ * |        |          |Note: User should make sure program no RRAM access during this bit is 1
  * |[24]    |GPACKEN   |GPIOA Clock Enable Bit
  * |        |          |0 = GPIOA port clock Disabled.
  * |        |          |1 = GPIOA port clock Enabled.
@@ -1606,14 +1606,14 @@ typedef struct
 #define CLK_AHBCLK0_KSCKEN_Pos           (13)                                              /*!< CLK_T::AHBCLK0: KSCKEN Position        */
 #define CLK_AHBCLK0_KSCKEN_Msk           (0x1ul << CLK_AHBCLK0_KSCKEN_Pos)                 /*!< CLK_T::AHBCLK0: KSCKEN Mask            */
 
-#define CLK_AHBCLK0_FMCIDLE_Pos          (15)                                              /*!< CLK_T::AHBCLK0: FMCIDLE Position       */
-#define CLK_AHBCLK0_FMCIDLE_Msk          (0x1ul << CLK_AHBCLK0_FMCIDLE_Pos)                /*!< CLK_T::AHBCLK0: FMCIDLE Mask           */
+#define CLK_AHBCLK0_RMCIDLE_Pos          (15)                                              /*!< CLK_T::AHBCLK0: RMCIDLE Position       */
+#define CLK_AHBCLK0_RMCIDLE_Msk          (0x1ul << CLK_AHBCLK0_RMCIDLE_Pos)                /*!< CLK_T::AHBCLK0: RMCIDLE Mask           */
 
 #define CLK_AHBCLK0_USBHCKEN_Pos         (16)                                              /*!< CLK_T::AHBCLK0: USBHCKEN Position      */
 #define CLK_AHBCLK0_USBHCKEN_Msk         (0x1ul << CLK_AHBCLK0_USBHCKEN_Pos)               /*!< CLK_T::AHBCLK0: USBHCKEN Mask          */
 
-#define CLK_AHBCLK0_FMCFDIS_Pos          (23)                                              /*!< CLK_T::AHBCLK0: FMCFDIS Position       */
-#define CLK_AHBCLK0_FMCFDIS_Msk          (0x1ul << CLK_AHBCLK0_FMCFDIS_Pos)                /*!< CLK_T::AHBCLK0: FMCFDIS Mask           */
+#define CLK_AHBCLK0_RMCFDIS_Pos          (23)                                              /*!< CLK_T::AHBCLK0: RMCFDIS Position       */
+#define CLK_AHBCLK0_RMCFDIS_Msk          (0x1ul << CLK_AHBCLK0_RMCFDIS_Pos)                /*!< CLK_T::AHBCLK0: RMCFDIS Mask           */
 
 #define CLK_AHBCLK0_GPACKEN_Pos          (24)                                              /*!< CLK_T::AHBCLK0: GPACKEN Position       */
 #define CLK_AHBCLK0_GPACKEN_Msk          (0x1ul << CLK_AHBCLK0_GPACKEN_Pos)                /*!< CLK_T::AHBCLK0: GPACKEN Mask           */

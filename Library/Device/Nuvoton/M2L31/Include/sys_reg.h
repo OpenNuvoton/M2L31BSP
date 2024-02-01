@@ -808,9 +808,9 @@ typedef struct
  * |        |          |1 = Reset from HRESET.
  * |        |          |Note: Write 1 to clear this bit to 0.
  * |[7]     |CPURF     |CPU Reset Flag
- * |        |          |The CPU reset flag is set by hardware if software writes CPURST (SYS_IPRST0[1]) 1 to reset Cortex-M23 core and Flash Memory Controller (FMC).
+ * |        |          |The CPU reset flag is set by hardware if software writes CPURST (SYS_IPRST0[1]) 1 to reset Cortex-M23 core and RRAM Memory Controller (RMC).
  * |        |          |0 = No reset from CPU.
- * |        |          |1 = The Cortex-M23 core and FMC are reset by software setting CPURST to 1.
+ * |        |          |1 = The Cortex-M23 core and RMC are reset by software setting CPURST to 1.
  * |        |          |Note: Write 1 to clear this bit to 0.
  * |[8]     |CPULKRF   |CPU Lockup Reset Flag
  * |        |          |0 = No reset from CPU lockup happened.
@@ -824,13 +824,13 @@ typedef struct
  * | :----: | :----:   | :---- |
  * |[0]     |CHIPRST   |Chip One-shot Reset (Write Protect)
  * |        |          |Setting this bit will reset the whole chip, including Processor core and all peripherals, and this bit will automatically return to 0 after the 2 clock cycles.
- * |        |          |The CHIPRST is same as the POR reset, all the chip controllers is reset and the chip setting from Flash are also reload.
+ * |        |          |The CHIPRST is same as the POR reset, all the chip controllers is reset and the chip setting from RRAM are also reload.
  * |        |          |About the difference between CHIPRST and SYSRESETREQ(AIRCR[2]), please refer to section 7.2.2
  * |        |          |0 = Chip normal operation.
  * |        |          |1 = Chip one-shot reset.
  * |        |          |Note: This bit is write protected. Refer to the SYS_REGLCTL register.
  * |[1]     |CPURST    |Processor Core One-shot Reset (Write Protect)
- * |        |          |Setting this bit will only reset the processor core and Flash Memory Controller(FMC), and this bit will automatically return to 0 after the 2 clock cycles.
+ * |        |          |Setting this bit will only reset the processor core and RRAM Memory Controller (RMC), and this bit will automatically return to 0 after the 2 clock cycles.
  * |        |          |0 = Processor core normal operation.
  * |        |          |1 = Processor core one-shot reset.
  * |        |          |Note: This bit is write protected. Refer to the SYS_REGLCTL register.
@@ -1004,12 +1004,12 @@ typedef struct
  * |Bits    |Field     |Descriptions
  * | :----: | :----:   | :---- |
  * |[0]     |BODEN     |Brown-out Detector Enable Bit (Write Protect)
- * |        |          |The default value is set by Flash controller user configuration register CBODEN (CONFIG0 [19]).
+ * |        |          |The default value is set by RRAM controller user configuration register CBODEN (CONFIG0 [19]).
  * |        |          |0 = Brown-out Detector function Disabled.
  * |        |          |1 = Brown-out Detector function Enabled.
  * |        |          |Note: This bit is write protected. Refer to the SYS_REGLCTL register.
  * |[3]     |BODRSTEN  |Brown-out Reset Enable Bit (Write Protect)
- * |        |          |The default value is set by Flash controller user configuration register CBORST(CONFIG0[20]) bit.
+ * |        |          |The default value is set by RRAM controller user configuration register CBORST(CONFIG0[20]) bit.
  * |        |          |0 = Brown-out "INTERRUPT" function Enabled.
  * |        |          |1 = Brown-out "RESET" function Enabled.
  * |        |          |Note 1: While the Brown-out Detector function is enabled (BODEN high) and BOD reset function is enabled (BODRSTEN high), BOD will assert a signal to reset chip when the detected voltage is lower than the threshold (BODOUT high).
@@ -1065,7 +1065,7 @@ typedef struct
  * |        |          |0 = LVR disabled and not ready.
  * |        |          |1 = LVR enabled and ready.
  * |[19:16] |BODVL     |Brown-out Detector Threshold Voltage Selection (Write Protect)
- * |        |          |The default value is set by Flash controller user configuration register CBOV ({1'b1, CONFIG0 [23:21]}).
+ * |        |          |The default value is set by RRAM controller user configuration register CBOV ({1'b1, CONFIG0 [23:21]}).
  * |        |          |0000 = Brown-Out Detector threshold voltage is 1.5V.
  * |        |          |1000 = Brown-Out Detector threshold voltage is 1.6V.
  * |        |          |1001 = Brown-Out Detector threshold voltage is 1.8V.
