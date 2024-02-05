@@ -48,9 +48,9 @@ extern "C"
 #define RMC_USER_CONFIG_3       0x0F30000CUL         /*!< User Config 3 address       \hideinitializer */
 #define RMC_OTP_BASE            0x0F310000UL         /*!< OTP flash base address      \hideinitializer */
 
-#define RMC_FLASH_PAGE_SIZE     0x1000UL        /*!< Flash Page Size (4K bytes)  \hideinitializer */
-#define RMC_PAGE_ADDR_MASK      0xFFFFF000UL    /*!< Flash page address mask     \hideinitializer */
-#define RMC_MULTI_WORD_PROG_LEN 512             /*!< The maximum length of a multi-word program.  */
+#define RMC_FLASH_PAGE_SIZE          0x1000UL        /*!< Flash Page Size (4K bytes)  \hideinitializer */
+#define RMC_PAGE_ADDR_MASK           0xFFFFF000UL    /*!< Flash page address mask     \hideinitializer */
+#define RMC_MULTI_WORD_PROG_MAX_LEN  512             /*!< The maximum length of a multi-word program.  */
 
 #define RMC_APROM_SIZE          RMC_APROM_END         /*!< APROM Size                  \hideinitializer */
 #define RMC_BANK_SIZE           (RMC_APROM_SIZE/2UL)  /*!< APROM Bank Size             \hideinitializer */
@@ -510,6 +510,7 @@ extern int32_t  RMC_ReadOTP(uint32_t otp_num, uint32_t *low_word, uint32_t *high
 extern int32_t  RMC_WriteOTP(uint32_t otp_num, uint32_t low_word, uint32_t high_word);
 extern int32_t  RMC_IsOTPLocked(uint32_t otp_num);
 extern int32_t  RMC_LockOTP(uint32_t otp_num);
+extern int32_t  RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len);
 
 /*@}*/ /* end of group RMC_EXPORTED_FUNCTIONS */
 

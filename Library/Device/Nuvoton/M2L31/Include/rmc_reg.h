@@ -642,13 +642,16 @@ typedef struct
     __IO uint32_t ISPSTS;                /*!< [0x0040] ISP Status Register                                              */
     __I  uint32_t RESERVE1[2];
     __IO uint32_t CYCCTL;                /*!< [0x004c] RRAM Access Cycle Control Register                               */
-    __I  uint32_t RESERVE2[32];
+    __I  uint32_t RESERVE2[12];
+    __IO uint32_t MPDAT0;                /*!< [0x0080] ISP Data0 Register                                               */
+    __IO uint32_t MPDAT1;                /*!< [0x0084] ISP Data1 Register                                               */
+    __I  uint32_t RESERVE3[18];
     __I  uint32_t XOMR0STS;              /*!< [0x00d0] XOM Region 0 Status Register                                     */
     __I  uint32_t XOMR1STS;              /*!< [0x00d4] XOM Region 1 Status Register                                     */
     __I  uint32_t XOMR2STS;              /*!< [0x00d8] XOM Region 2 Status Register                                     */
     __I  uint32_t XOMR3STS;              /*!< [0x00dc] XOM Region 3 Status Register                                     */
     __I  uint32_t XOMSTS;                /*!< [0x00e0] XOM Status Register                                              */
-    __I  uint32_t RESERVE3[11];
+    __I  uint32_t RESERVE4[11];
     __IO uint32_t APWPROT0;              /*!< [0x0110] APROM Write Protect Register0                                    */
     __IO uint32_t APWPROT1;              /*!< [0x0114] APROM Write Protect Register1                                    */
     __IO uint32_t APWPKEEP;              /*!< [0x0118] APROM Write Protect Keep Register                                */
@@ -678,6 +681,9 @@ typedef struct
 
 #define RMC_ISPCTL_ISPFF_Pos             (6)                                               /*!< RMC_T::ISPCTL: ISPFF Position          */
 #define RMC_ISPCTL_ISPFF_Msk             (0x1ul << RMC_ISPCTL_ISPFF_Pos)                   /*!< RMC_T::ISPCTL: ISPFF Mask              */
+
+#define RMC_ISPCTL_MPEN_Pos              (8)                                               /*!< RMC_T::ISPCTL: MPEN Position           */
+#define RMC_ISPCTL_MPEN_Msk              (0x1ul << RMC_ISPCTL_MPEN_Pos)                    /*!< RMC_T::ISPCTL: MPEN Mask               */
 
 #define RMC_ISPCTL_INTEN_Pos             (24)                                              /*!< RMC_T::ISPCTL: INTEN Position          */
 #define RMC_ISPCTL_INTEN_Msk             (0x1ul << RMC_ISPCTL_INTEN_Pos)                   /*!< RMC_T::ISPCTL: INTEN Mask              */

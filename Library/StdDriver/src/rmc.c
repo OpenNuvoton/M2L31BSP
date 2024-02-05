@@ -46,10 +46,10 @@ void RMC_Close(void)
   * @brief     Config XOM Region
   * @param[in] u32XomNum    The XOM number(0~3)
   * @param[in] u32XomBase   The XOM region base address.
-  * @param[in] u8XomPage   The XOM page number of region size.
+  * @param[in] u8XomPage    The XOM page number of region size.
   *
-  * @retval   0   Success
-  * @retval   1   XOM is has already actived.
+  * @retval    0  Success
+  * @retval    1  XOM is has already actived.
   * @retval   -1  Program failed.
   * @retval   -2  Invalid XOM number.
   *
@@ -111,7 +111,7 @@ int32_t RMC_EraseXOM(uint32_t u32XomNum)
     {
         i32Active = RMC_GetXOMState(u32XomNum);
 
-        RMC->ISPCTL = RMC->ISPCTL & ~BIT8;
+        RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
         if(i32Active)
         {
             switch(u32XomNum)
@@ -173,11 +173,11 @@ test:
   *
   * @param[in] u32XomNum    The xom number(0~3).
   *
-  * @retval   1   XOM is actived.
-  * @retval   0   XOM is not actived.
-  * @retval   -2  Invalid XOM number.
+  * @retval    1   XOM is actived.
+  * @retval    0   XOM is not actived.
+  * @retval   -2   Invalid XOM number.
   *
-  * @details To get specify XOMRn(n=0~3) active status
+  * @details To get specify XOMRn(n = 0 ~ 3) active status
   */
 int32_t RMC_GetXOMState(uint32_t u32XomNum)
 {
@@ -218,12 +218,14 @@ uint32_t RMC_Read(uint32_t u32Addr)
     uint32_t  tout;
 
     g_RMC_i32ErrCode = 0;
-    RMC->ISPCTL = RMC->ISPCTL & ~BIT8;
+    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
     RMC->ISPCMD = RMC_ISPCMD_READ;
     RMC->ISPADDR = u32Addr;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_READ;
+	
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+			
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -232,7 +234,6 @@ uint32_t RMC_Read(uint32_t u32Addr)
     if(RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk)
     {
         RMC->ISPCTL |= RMC_ISPCTL_ISPFF_Msk;
-//        printf(" * ISPFF is set\n");
         g_RMC_i32ErrCode = -1;
         return 0xFFFFFFFF;
     }
@@ -289,7 +290,7 @@ int32_t RMC_GetBootSource (void)
 }
 
 /**
-  * @brief Execute ISP RMC_ISPCMD_PROGRAM to program a word to flash.
+  * @brief Execute ISP RRAM program flow to program a word to flash.
   * @param[in]  u32Addr Address of the flash location to be programmed.
   *             It must be a word aligned address.
   * @param[in]  u32Data The word data to be programmed.
@@ -300,13 +301,14 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     uint32_t  tout;
 
     g_RMC_i32ErrCode = 0;
-    RMC->ISPCTL = RMC->ISPCTL & ~BIT8;
+    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
     RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
     RMC->ISPADDR = 0x00000000;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-
     tout = RMC_TIMEOUT_WRITE;
+	
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+			
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -323,9 +325,10 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     RMC->ISPADDR = u32Addr;
     RMC->ISPDAT = u32Data;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-
     tout = RMC_TIMEOUT_WRITE;
+		
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+			
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -343,9 +346,10 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     RMC->ISPADDR = u32Addr;
     RMC->ISPDAT = u32Data;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-
     tout = RMC_TIMEOUT_WRITE;
+		
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+			
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -362,67 +366,115 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
 }
 
 /**
-  * @brief Execute RMC_ISPCMD_PAGE_ERASE command to erase a flash page. The page size is 4096 bytes.
+  * @brief Execute erase operation to erase a flash page (Use Word Line Program). The page size is 4096 bytes.
   * @param[in]  u32PageAddr Address of the flash page to be erased.
-  *             It must be a 4096 bytes aligned address.
+  *             It must be a 512 bytes aligned address.
   * @return ISP page erase success or not.
-  * @retval   0  Success
+  * @retval    0  Success
   * @retval   -1  Erase failed
+  *           -2  Invalid parameter
   */
 int32_t RMC_Erase(uint32_t u32PageAddr)
 {
-    uint32_t  addr = 0;
-    int32_t  ret = 0;
-    for(addr =0; addr<RMC_FLASH_PAGE_SIZE; addr+=4)
-        ret = ret | RMC_Write(u32PageAddr + addr, 0xFFFFFFFF);
-
-    return ret;
-}
-
-
-/**
-  * @brief Execute RMC_ISPCMD_PAGE_ERASE command to erase a flash page. The page size is 4096 bytes.
-  * @param[in]  u32PageAddr Address of the flash page to be erased.
-  *             It must be a 4096 bytes aligned address.
-  * @return ISP page erase success or not.
-  * @retval   0  Success
-  * @retval   -1  Erase failed
-  */
-int32_t RMC_MassErase(void)
-{
-    int32_t  ret = 0;
-
-    uint32_t  tout;
+    int   idx;
+    uint32_t  tout, u32Len, u32Addr;
 
     g_RMC_i32ErrCode = 0;
-    RMC->ISPCMD = 0x26;
-    RMC->ISPADDR = 0;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-
-    tout = 0xFFFFFFFF;
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-    if (tout == 0)
+	
+    u32Addr = u32PageAddr;
+    
+    if((u32Addr % 256) != 0)
+        return -2;	
+		
+    if (u32Addr < RMC_APROM_END)
     {
-        g_RMC_i32ErrCode = -1;
-        return -1;
+        if((u32Addr + RMC_FLASH_PAGE_SIZE) > RMC_APROM_END)
+            return -2;
     }
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    else if ((u32Addr >= RMC_LDROM_BASE) && (u32Addr < RMC_LDROM_END))
     {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        g_RMC_i32ErrCode = -1;
-        return -1;
-    }
+        if((u32Addr + RMC_FLASH_PAGE_SIZE) > RMC_LDROM_END)
+            return -2;
+    }	
+		else
+        return -2;
 
-    return ret;
+    while(u32Addr < u32PageAddr + RMC_FLASH_PAGE_SIZE)
+    {
+        u32Len = RMC_MULTI_WORD_PROG_MAX_LEN;
+        RMC->ISPCTL = RMC->ISPCTL | RMC_ISPCTL_MPEN_Msk; 
+        RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
+        RMC->ISPADDR = 0x00000000;
+        RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+        tout = RMC_TIMEOUT_WRITE;
+		
+        while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+			
+        if (tout == 0)
+            goto erase_fail;
+
+        if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+        {
+            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+					  goto erase_fail;
+        }
+				idx = 0;
+        while (u32Len > 0)
+        {
+            RMC->ISPCMD = RMC_ISPCMD_LOAD_DATA_BUFFER;
+            RMC->ISPADDR = u32Addr + idx * 4;
+            RMC->ISPDAT = 0xFFFFFFFF;
+            RMC->MPDAT1 = 0xFFFFFFFF;
+            RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+            idx += 2;
+            tout = RMC_TIMEOUT_WRITE;
+					
+            while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+            
+            if (tout == 0)
+                goto erase_fail;
+
+            if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+            {
+                RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+                goto erase_fail;
+            }
+            u32Len -= 8;
+        }
+
+        RMC->ISPCMD = RMC_ISPCMD_PROGRAM;
+        RMC->ISPADDR = u32Addr;
+        RMC->ISPDAT = 0xFFFFFFFF;
+        RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+        tout = RMC_TIMEOUT_WRITE;
+				
+        while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+			
+        if (tout == 0)
+            goto erase_fail;
+
+        if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+        {
+            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+            goto erase_fail;
+        }
+        u32Addr = u32Addr + RMC_MULTI_WORD_PROG_MAX_LEN;
+    }
+    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk; 
+    return 0;
+erase_fail:
+    g_RMC_i32ErrCode = -1;
+    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk; 
+    return -1;
 }
+
 /**
   * @brief Execute RMC_ISPCMD_READ command to read User Configuration.
   * @param[out]  u32Config A two-word array.
   *              u32Config[0] holds CONFIG0, while u32Config[1] holds CONFIG1.
   * @param[in] u32Count Available word count in u32Config.
   * @return Success or not.
-  * @retval   0  Success.
+  * @retval    0  Success.
   * @retval   -1  Invalid parameter.
   */
 int32_t RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count)
@@ -445,11 +497,11 @@ int32_t RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count)
 
 /**
   * @brief Execute ISP commands to erase then write User Configuration.
-  * @param[in] u32Config   A two-word array.
+  * @param[in] u32Config    A two-word array.
   *            u32Config[0] holds CONFIG0, while u32Config[1] holds CONFIG1.
-  * @param[in] u32Count    The number of User Configuration words to be written.
+  * @param[in] u32Count     The number of User Configuration words to be written.
   * @return Success or not.
-  * @retval   0   Success
+  * @retval    0  Success
   * @retval   -1  Failed
   */
 int32_t RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count)
@@ -458,7 +510,7 @@ int32_t RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count)
 
     RMC_ENABLE_CFG_UPDATE();
 
-    RMC->ISPCTL = RMC->ISPCTL & ~BIT8;
+    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
 
     for (i = 0; i < u32Count; i++)
     {
@@ -483,6 +535,104 @@ int32_t RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count)
     return 0;
 }
 
+/**
+ * @brief      Write Multi-Word bytes to flash
+ *
+ * @param[in]  u32Addr    Start flash address in APROM where the data chunk to be programmed into.
+ *                        This address must be 8-bytes aligned to flash address.
+ * @param[in]  pu32Buf    Buffer that carry the data chunk.
+ * @param[in]  u32Len     Length of the data chunk in bytes.
+ *
+ * @retval   >=0  Number of data bytes were programmed.
+ * @return   -1   Program failed.
+ * @return   -2   Invalid address or length
+ *
+ * @detail     Program Multi-Word data into specified address of flash.
+ * @note     Global error code g_RMC_i32ErrCode
+ *           -1  Program failed or time-out
+ *           -2  Invalid address or length
+ */
+int32_t RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len)
+{
+    int   idx;
+    uint32_t  tout;
+
+    g_RMC_i32ErrCode = 0;	
+
+    if(((u32Addr % 256) != 0) || ((u32Len % 2) != 0) || (u32Len > RMC_MULTI_WORD_PROG_MAX_LEN))
+        return -2;	
+		
+    if (u32Addr < RMC_APROM_END)
+    {
+        if((u32Addr + u32Len) > RMC_APROM_END)
+            return -2;
+    }
+    else if ((u32Addr >= RMC_LDROM_BASE) && (u32Addr < RMC_LDROM_END))
+    {
+        if((u32Addr + u32Len) > RMC_LDROM_END)
+            return -2;
+    }
+    RMC->ISPCTL = RMC->ISPCTL | RMC_ISPCTL_MPEN_Msk; 
+    idx = 0;
+    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
+    RMC->ISPADDR = 0x00000000;
+    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+    tout = RMC_TIMEOUT_WRITE;
+		
+    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+			
+    if (tout == 0)
+        goto prog_fail;
+
+    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    {
+        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;        
+        goto prog_fail;
+    }
+    while (u32Len > 0)
+    {
+        RMC->ISPCMD = RMC_ISPCMD_LOAD_DATA_BUFFER;
+        RMC->ISPADDR = u32Addr + idx * 4;
+        RMC->ISPDAT = pu32Buf[idx++];
+        RMC->MPDAT1 = pu32Buf[idx++];
+        RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+        tout = RMC_TIMEOUT_WRITE;
+			
+        while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+					
+        if (tout == 0)
+            goto prog_fail;
+
+        if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+        {
+            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+            goto prog_fail;
+        }
+        u32Len -= 8;
+    }
+
+    RMC->ISPCMD = RMC_ISPCMD_PROGRAM;
+    RMC->ISPADDR = u32Addr;
+    RMC->ISPDAT = pu32Buf[0];
+    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+    tout = RMC_TIMEOUT_WRITE;
+		
+    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+			
+    if (tout == 0)
+        goto prog_fail;
+
+    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    {
+        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+        goto prog_fail;
+    }
+    return idx * 4;
+prog_fail:
+    g_RMC_i32ErrCode = -1;
+    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk; 
+    return -1;
+}
 
 /**
   * @brief Run CRC32 checksum calculation and get result.
@@ -504,14 +654,15 @@ uint32_t  RMC_GetChkSum(uint32_t u32addr, uint32_t u32count)
     }
     else
     {
-        RMC->ISPCTL = RMC->ISPCTL & ~BIT8;
+        RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
         RMC->ISPCMD  = RMC_ISPCMD_RUN_CKS;
         RMC->ISPADDR = u32addr;
         RMC->ISPDAT  = u32count;
         RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
-
         tout = RMC_TIMEOUT_CHKSUM;
+        
         while ((--tout > 0) && (RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)) {}
+        
         if (tout == 0)
         {
             g_RMC_i32ErrCode = -1;
@@ -553,8 +704,8 @@ uint32_t  RMC_GetChkSum(uint32_t u32addr, uint32_t u32count)
   * @brief Run flash all one verification and get result.
   * @param[in] u32addr   Starting flash address. It must be a page aligned address.
   * @param[in] u32count  Byte count of flash to be calculated. It must be multiple of 512 bytes.
-  * @retval   READ_ALLONE_YES      The contents of verified flash area are 0xFFFFFFFF.
-  * @retval   READ_ALLONE_NOT  Some contents of verified flash area are not 0xFFFFFFFF.
+  * @retval   READ_ALLONE_YES       The contents of verified flash area are 0xFFFFFFFF.
+  * @retval   READ_ALLONE_NOT       Some contents of verified flash area are not 0xFFFFFFFF.
   * @retval   READ_ALLONE_CMD_FAIL  Unexpected error occurred.
   * @note     Global error code g_RMC_i32ErrCode
   *           -1  RUN_ALL_ONE or CHECK_ALL_ONE commands time-out
@@ -646,9 +797,10 @@ int32_t RMC_RemapBank(uint32_t u32BankAddr)
     RMC->ISPADDR = u32BankAddr;
     RMC->ISPDAT = 0x5AA55AA5UL;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-
     tout = RMC_TIMEOUT_WRITE;
+    
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+    
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
