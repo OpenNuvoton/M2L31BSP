@@ -176,6 +176,7 @@ __STATIC_INLINE int32_t OPA_Calibration(OPA_T *opa, uint32_t u32OpaNum, uint32_t
   * @brief This macro is used to set OPA gain
   * @param[in] opa The pointer of the specified OPA module
   * @param[in] u32OpaNum The OPA number. 0 for OPA0; 1 for OPA1; 2 for OPA2.
+  * @param[in] opa_gain The gain setting. 3'b000 ~ 3'b110.
   * @return None
   * @details This macro will set OPA gain.
   * \hideinitializer

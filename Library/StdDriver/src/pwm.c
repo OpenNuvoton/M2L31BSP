@@ -58,7 +58,7 @@ uint32_t PWM_ConfigCaptureChannel(PWM_T *pwm, uint32_t u32ChannelNum, uint32_t u
         {
             u32PWMClockSrc = CLK_GetPCLK0Freq();
         }
-        else     /* (epwm == EPWM1) */
+        else     /* (pwm == PWM1) */
         {
             u32PWMClockSrc = CLK_GetPCLK1Freq();
         }
@@ -854,27 +854,6 @@ uint32_t PWM_GetZeroIntFlag(PWM_T *pwm, uint32_t u32ChannelNum)
 {
     return ((((pwm)->INTSTS0 & (PWM_INTSTS0_ZIF0_Msk << ((u32ChannelNum>>1)<<1)))) ? 1 : 0);
 }
-
-/**
- * @brief Enable interrupt flag accumulator of selected channel
- * @param[in] pwm The pointer of the specified PWM module
- *                - PWM0 : PWM Group 0
- *                - PWM1 : PWM Group 1
- * @param[in] u32ChannelNum PWM channel number. Valid values are between 0~5
- * @param[in] u32IntFlagCnt Interrupt flag counter. Valid values are between 0~15.
- * @param[in] u32IntAccSrc Interrupt flag accumulator source selection.
- *              - \ref PWM_IFA_EVEN_ZERO_POINT
- *              - \ref PWM_IFA_EVEN_PERIOD_POINT
- *              - \ref PWM_IFA_EVEN_COMPARE_UP_COUNT_POINT
- *              - \ref PWM_IFA_EVEN_COMPARE_DOWN_COUNT_POINT
- *              - \ref PWM_IFA_ODD_ZERO_POINT
- *              - \ref PWM_IFA_ODD_PERIOD_POINT
- *              - \ref PWM_IFA_ODD_COMPARE_UP_COUNT_POINT
- *              - \ref PWM_IFA_ODD_COMPARE_DOWN_COUNT_POINT
- * @return None
- * @details This function is used to enable interrupt flag accumulator of selected channel.
- * @note Every two channels share the same setting.
- */
 
 /**
  * @brief Enable load mode of selected channel
