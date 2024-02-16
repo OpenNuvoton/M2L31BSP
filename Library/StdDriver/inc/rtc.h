@@ -228,7 +228,7 @@ typedef struct
 /**
   * @brief      Set I/O Control By GPIO
   *
-  * @param[in]  rtc         The pointer of RTC module.
+  * @param      None
   *
   * @return     None
   *
@@ -240,7 +240,7 @@ typedef struct
 /**
   * @brief      Set I/O Control By RTC
   *
-  * @param[in]  rtc         The pointer of RTC module.
+  * @param      None
   *
   * @return     None
   *
@@ -252,7 +252,7 @@ typedef struct
 /**
   * @brief      Get I/O Control Property
   *
-  * @param[in]  rtc         The pointer of RTC module.
+  * @param      None
   *
   * @retval     0   PF.4~11 pin I/O is controlled by GPIO module
   * @retval     1   PF.4~11 pin I/O is controlled by RTC module
@@ -292,7 +292,7 @@ typedef struct
 /**
   * @brief      Enable RTC Tick Wake-up Function
   *
-  * @param[in]  rtc         The pointer of RTC module.
+  * @param      None
   *
   * @return     None
   *
@@ -304,7 +304,7 @@ typedef struct
 /**
   * @brief      Disable RTC Tick Wake-up Function
   *
-  * @param[in]  rtc         The pointer of RTC module.
+  * @param      None
   *
   * @return     None
   *

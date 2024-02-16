@@ -279,40 +279,8 @@ typedef struct
      * |        |          |1 = Spare register content is cleared.
      * |        |          |Note 1: Write 1 to clear this bit.
      * |        |          |Note 2: This bit keeps 1 when RTC_INTSTS[10:8] is not equal to 0.
-     * @var RTC_T::SPR0
-     * Offset: 0x40  RTC Spare Register 0
-     * ---------------------------------------------------------------------------------------------------
-     * |Bits    |Field     |Descriptions
-     * | :----: | :----:   | :---- |
-     * |[31:0]  |SPARE     |Spare Register
-     * |        |          |This field is used to store back-up information defined by user.
-     * |        |          |This field will be cleared by hardware automatically in the following conditions, a tamper pin event is detected, or after RRAM mass operation.
-     * @var RTC_T::SPR1
-     * Offset: 0x44  RTC Spare Register 1
-     * ---------------------------------------------------------------------------------------------------
-     * |Bits    |Field     |Descriptions
-     * | :----: | :----:   | :---- |
-     * |[31:0]  |SPARE     |Spare Register
-     * |        |          |This field is used to store back-up information defined by user.
-     * |        |          |This field will be cleared by hardware automatically in the following conditions, a tamper pin event is detected, or after RRAM mass operation.
-     * @var RTC_T::SPR2
-     * Offset: 0x48  RTC Spare Register 2
-     * ---------------------------------------------------------------------------------------------------
-     * |Bits    |Field     |Descriptions
-     * | :----: | :----:   | :---- |
-     * |[31:0]  |SPARE     |Spare Register
-     * |        |          |This field is used to store back-up information defined by user.
-     * |        |          |This field will be cleared by hardware automatically in the following conditions, a tamper pin event is detected, or after RRAM mass operation.
-     * @var RTC_T::SPR3
-     * Offset: 0x4C  RTC Spare Register 3
-     * ---------------------------------------------------------------------------------------------------
-     * |Bits    |Field     |Descriptions
-     * | :----: | :----:   | :---- |
-     * |[31:0]  |SPARE     |Spare Register
-     * |        |          |This field is used to store back-up information defined by user.
-     * |        |          |This field will be cleared by hardware automatically in the following conditions, a tamper pin event is detected, or after RRAM mass operation.
-     * @var RTC_T::SPR4
-     * Offset: 0x50  RTC Spare Register 4
+     * @var RTC_T::SPR[5]
+     * Offset: 0x40 ~ 0x50 RTC Spare Register 0 ~ 4
      * ---------------------------------------------------------------------------------------------------
      * |Bits    |Field     |Descriptions
      * | :----: | :----:   | :---- |
@@ -324,9 +292,9 @@ typedef struct
      * ---------------------------------------------------------------------------------------------------
      * |Bits    |Field     |Descriptions
      * | :----: | :----:   | :---- |
-         * |[0]     |LIRC32KEN |Enable LIRC32K Source
-         * |        |          |0 = LIRC32K Disabled.
-         * |        |          |1 = LIRC32K Enabled.
+     * |[0]     |LIRC32KEN |Enable LIRC32K Source
+     * |        |          |0 = LIRC32K Disabled.
+     * |        |          |1 = LIRC32K Enabled.
      * |[4:1]   |GAIN      |Oscillator Gain Option
      * |        |          |User can select oscillator gain according to crystal external loading and operating temperature range
      * |        |          |The larger gain value corresponding to stronger driving capability and higher power consumption.
@@ -346,10 +314,9 @@ typedef struct
      * |        |          |1101 = L13 mode.
      * |        |          |1110 = L14 mode.
      * |        |          |1111 = L15 mode.
-         * |[6]     |C32KSEL   |Clock 32K Source Selection
-         * |        |          |0 = Clock source from external low speed crystal oscillator (LXT).
-         * |        |          |1 = Clock source from internal low speed RC 32K oscillator (LIRC32K).
-
+     * |[6]     |C32KSEL   |Clock 32K Source Selection
+     * |        |          |0 = Clock source from external low speed crystal oscillator (LXT).
+     * |        |          |1 = Clock source from internal low speed RC 32K oscillator (LIRC32K).
      * |[7]     |RTCCKSEL  |RTC Clock Source Selection
      * |        |          |0 = Clock source from external low speed crystal oscillator (LXT)
      * |        |          |1 = Clock source from internal low speed RC oscillator (LIRC).
