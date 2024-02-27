@@ -369,9 +369,9 @@ typedef struct
      * |        |          |1 = Timestamp counter wrapped around.
      * |[17]    |MRAF      |Message RAM Access Failure
      * |        |          |The flag is set, when the Rx Handler
-     * |        |          |¡EHas not completed acceptance filtering or storage of an accepted message until the arbitration field of the following message has been received
+     * |        |          |Has not completed acceptance filtering or storage of an accepted message until the arbitration field of the following message has been received
      * |        |          |In this case acceptance filtering or message storage is aborted and the Rx Handler starts processing of the following message.
-     * |        |          |¡EWas not able to write a message to the Message RAM. In this case message storage is aborted.
+     * |        |          |Was not able to write a message to the Message RAM. In this case message storage is aborted.
      * |        |          |In both cases the FIFO put index is not updated resp
      * |        |          |The New Data flag for a dedicated Rx Buffer is not set, a partly stored message is overwritten when the next message is stored to this location.
      * |        |          |The flag is also set when the Tx Handler was not able to read a message from the Message RAM in time
@@ -861,10 +861,10 @@ typedef struct
      * |        |          |In case a transmission has already been started when a cancellation is requested, this is done at the end of the transmission, regardless whether the transmission was successful or not
      * |        |          |The cancellation request bits are reset directly after the corresponding CANFD_TXBRP bit has been reset.
      * |        |          |After a cancellation has been requested, a finished cancellation is signaled via CANFD_TXBCF
-     * |        |          |¡Eafter successful transmission together with the corresponding CANFD_TXBTO bit
-     * |        |          |¡Ewhen the transmission has not yet been started at the point of cancellation
-     * |        |          |¡Ewhen the transmission has been aborted due to lost arbitration
-     * |        |          |¡Ewhen an error occurred during frame transmission
+     * |        |          |- after successful transmission together with the corresponding CANFD_TXBTO bit
+     * |        |          |- when the transmission has not yet been started at the point of cancellation
+     * |        |          |- when the transmission has been aborted due to lost arbitration
+     * |        |          |- when an error occurred during frame transmission
      * |        |          |In DAR mode all transmissions are automatically cancelled if they are not successful
      * |        |          |The corresponding CANFD_TXBCF bit is set for all unsuccessful transmissions.
      * |        |          |0 = No transmission request pending.

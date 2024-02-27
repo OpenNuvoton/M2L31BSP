@@ -1,7 +1,7 @@
 /****************************************************************************
  * @file     canfd.h
  * @version  V1.00
- * @brief    CAN FD driver source file
+ * @brief    CANFD driver header file
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
@@ -23,16 +23,16 @@ extern "C"
   @{
 */
 
-/** @addtogroup CANFD_Driver CAN_FD Driver
+/** @addtogroup CANFD_Driver CANFD Driver
   @{
 */
 
-/** @addtogroup CANFD_EXPORTED_CONSTANTS CAN_FD Exported Constants
+/** @addtogroup CANFD_EXPORTED_CONSTANTS CANFD Exported Constants
   @{
 */
 
-#define CANFD_OP_CAN_MODE     0
-#define CANFD_OP_CAN_FD_MODE  1
+#define CANFD_OP_CAN_MODE     0 /*!< CAN Mode */
+#define CANFD_OP_CAN_FD_MODE  1 /*!< CAN FD Mode */
 
 /* Reserved number of elements in Message RAM - used for calculation of start addresses within RAM Configuration
    some element_numbers set to less than max, to stay altogether below 256 words of MessageRAM requirement*/
@@ -52,16 +52,16 @@ extern "C"
 #define CANFD_SRAM_BASE_ADDR(psCanfd)  ((uint32_t)psCanfd + CANFD_SRAM_OFFSET)
 
 /* CAN FD  Mask all interrupt */
-#define CANFD_INT_ALL_SIGNALS         0x3FFFFFFFul
+#define CANFD_INT_ALL_SIGNALS         0x3FFFFFFFul /*!< Mask all interrupt */
 
 /* Maximum size of a CAN FD frame. Must be a valid CAN FD value */
-#define CANFD_MAX_MESSAGE_BYTES     64
+#define CANFD_MAX_MESSAGE_BYTES     64 /*!< Maximum size of a CAN FD frame */
 
 /* Maximum size of a CAN FD frame. Must be a valid CAN FD value */
-#define CANFD_MAX_MESSAGE_WORDS     (CANFD_MAX_MESSAGE_BYTES/4)
+#define CANFD_MAX_MESSAGE_WORDS     (CANFD_MAX_MESSAGE_BYTES/4) /*!< Maximum size of a CAN FD frame */
 
 /* Receive message buffer helper macro */
-#define CANFD_RX_BUFFER_STD(id, mbIdx)               ((7UL << 27) | ((id & 0x7FF) << 16) | (mbIdx & 0x3F))
+#define CANFD_RX_BUFFER_STD(id, mbIdx)               ((7UL << 27) | ((id & 0x7FF) << 16) | (mbIdx & 0x3F)) /*!< Receive message buffer helper macro */
 
 /* Receive message buffer extended helper macro - low */
 #define CANFD_RX_BUFFER_EXT_LOW(id, mbIdx)           ((7UL << 29) | (id & 0x1FFFFFFFUL))
@@ -87,22 +87,6 @@ extern "C"
 /* CANFD Rx FIFO 1 extended Mask helper macro - high. */
 #define CANFD_RX_FIFO1_EXT_MASK_HIGH(mask)           ((2UL << 30) | (mask & 0x1FFFFFFF))
 
-/**
- *    @brief        Get the CAN Communication State Flag
- *
- *    @param[in]    canfd    The pointer of the specified CANFD module
- *
- *    @retval       0 Synchronizing - node is synchronizing on CANFD communication.
- *    @retval       1 Idle - node is neither receiver nor transmitter.
- *    @retval       2 Receiver - node is operating as receiver.
- *    @retval       3 Transmitter - node is operating as transmitter.
- *
- *    @details      This macro gets the CANFD communication state.
- *    \hideinitializer
- */
-#define CANFD_GET_COMMUNICATION_STATE(canfd)    (((canfd)->PSR  & CANFD_PSR_ACT_Msk) >> CANFD_PSR_ACT_Pos)
-
-
 /* CAN FD frame data field size. */
 typedef enum
 {
@@ -122,6 +106,87 @@ typedef enum
     eCANFD_QUEUE_MODE = 0, /*!< Tx FIFO operation. */
     eCANFD_FIFO_MODE = 1   /*!< Tx Queue operation. */
 } E_CANFD_MODE;
+
+/* CAN FD Message ID Type */
+typedef enum
+{
+    eCANFD_SID = 0,  /*!< Standard frame format attribute. */
+    eCANFD_XID = 1   /*!< Extend frame format attribute. */
+} E_CANFD_ID_TYPE;
+
+/* CAN FD Rx Message Type */
+typedef enum
+{
+    eCANFD_RX_FIFO_0 = 0, /*!< RX FIFO 0 */
+    eCANFD_RX_FIFO_1 = 1, /*!< RX FIFO 1 */
+    eCANFD_RX_DBUF = 2    /*!< RX Debug Buffer */
+} E_CANFD_RX_BUF_TYPE;
+
+/* CAN FD communication state.*/
+typedef enum
+{
+    eCANFD_SYNC         = 0, /*!< CANFD State SYNC */
+    eCANFD_IDLE         = 1, /*!< CANFD State Idle */
+    eCANFD_RECEIVER     = 2, /*!< CANFD State Receive */
+    eCANFD_TRANSMITTER  = 3  /*!< CANFD State Transmit */
+} E_CANFD_COMMUNICATION_STATE;
+
+/* CAN FD frame type. */
+typedef enum
+{
+    eCANFD_DATA_FRM = 0,      /*!< Data frame type attribute. */
+    eCANFD_REMOTE_FRM = 1     /*!< Remote frame type attribute. */
+} E_CANFD_FRM_TYPE;
+
+/* Standard ID Filter Element Type */
+typedef enum
+{
+    eCANFD_SID_FLTR_TYPE_RANGE     = 0x0, /*!< Range filter from SFID1 to SFID2. */
+    eCANFD_SID_FLTR_TYPE_DUAL      = 0x1, /*!< Dual ID filter for SFID1 or SFID2. */
+    eCANFD_SID_FLTR_TYPE_CLASSIC   = 0x2, /*!< Classic filter: SFID1 = filter, SFID2 = mask. */
+    eCANFD_SID_FLTR_TYPE_DIS       = 0x3  /*!< Filter element disabled */
+} E_CANFD_SID_FLTR_ELEM_TYPE;
+
+/* Extended ID Filter Element Type */
+typedef enum
+{
+    eCANFD_XID_FLTR_TYPE_RANGE      = 0x0,  /*!< Range filter from EFID1 to EFID2. */
+    eCANFD_XID_FLTR_TYPE_DUAL       = 0x1,  /*!< Dual ID filter for EFID1 or EFID2. */
+    eCANFD_XID_FLTR_TYPE_CLASSIC    = 0x2,  /*!< Classic filter: EFID1=filter, EFID2=mask */
+    eCANFD_XID_FLTR_TYPE_RANGE_XIDAM_NOT_APP     = 0x3   /*!< XID range filter from EFID1 to EFID2(EFID2 > EFID1), XIDAM not applied */
+}  E_CANFD_XID_FLTR_ELEM_TYPE;
+
+/* Filter Element Configuration - Can be used for SFEC(Standard Id filter configuration) and EFEC(Extended Id filter configuration) */
+typedef enum
+{
+    eCANFD_FLTR_ELEM_DIS         = 0x0,            /*!< Filter Element Disable  */
+    eCANFD_FLTR_ELEM_STO_FIFO0   = 0x1,            /*!< Filter Element Store In Fifo0  */
+    eCANFD_FLTR_ELEM_STO_FIFO1   = 0x2,            /*!< Filter Element Store In Fifo1  */
+    eCANFD_FLTR_ELEM_REJ_ID      = 0x3,            /*!< Filter Element RejectId  */
+    eCANFD_FLTR_ELEM_SET_PRI     = 0x4,            /*!< Filter Element Set Priority */
+    eCANFD_FLTR_ELEM_SET_PRI_STO_FIFO0 = 0x5,      /*!< Filter Element Set Priority And Store In Fifo0  */
+    eCANFD_FLTR_ELEM_SET_PRI_STO_FIFO1 = 0x6,      /*!< Filter Element Set Priority And Store In Fifo1  */
+    eCANFD_FLTR_ELEM_STO_RX_BUF_OR_DBG_MSG = 0x7   /*!< Filter Element Store In Rx Buf Or Debug Msg  */
+} E_CANFD_FLTR_CONFIG;
+
+/* Accept Non-matching Frames (GFC Register) */
+typedef enum
+{
+    eCANFD_ACC_NON_MATCH_FRM_RX_FIFO0 = 0x0,  /*!< Accept Non-Masking Frames in Rx FIFO 0. */
+    eCANFD_ACC_NON_MATCH_FRM_RX_FIFO1 = 0x1,  /*!< Accept Non-Masking Frames in Rx FIFO 1. */
+    eCANFD_REJ_NON_MATCH_FRM   = 0x3          /*!< Reject Non-Matching Frames. */
+} E_CANFD_ACC_NON_MATCH_FRM;
+
+#define CANFD_TIMEOUT        SystemCoreClock    /*!< CANFD time-out counter (1 second time-out) */
+#define CANFD_OK             ( 0L)              /*!< CANFD operation OK */
+#define CANFD_ERR_FAIL       (-1L)              /*!< CANFD operation failed */
+#define CANFD_ERR_TIMEOUT    (-2L)              /*!< CANFD operation abort due to timeout error */
+
+/*@}*/ /* end of group CANFD_EXPORTED_CONSTANTS */
+
+/** @addtogroup CANFD_EXPORTED_STRUCTS CANFD Exported Structs
+  @{
+*/
 
 /* TX Buffer Configuration Parameters  */
 typedef struct
@@ -214,30 +279,6 @@ typedef struct
     uint32_t                u32MRamSize;      /*!< Size of the Message RAM: number of words */
 } CANFD_FD_T;
 
-/* CAN FD Message ID Type */
-typedef enum
-{
-    eCANFD_SID = 0,  /*!< Standard frame format attribute. */
-    eCANFD_XID = 1   /*!< Extend frame format attribute. */
-} E_CANFD_ID_TYPE;
-
-/* CAN FD Rx Message Type */
-typedef enum
-{
-    eCANFD_RX_FIFO_0 = 0,
-    eCANFD_RX_FIFO_1 = 1,
-    eCANFD_RX_DBUF = 2
-} E_CANFD_RX_BUF_TYPE;
-
-/* CAN FD communication state.*/
-typedef enum
-{
-    eCANFD_SYNC         = 0,
-    eCANFD_IDLE         = 1,
-    eCANFD_RECEIVER     = 2,
-    eCANFD_TRANSMITTER  = 3
-} E_CANFD_COMMUNICATION_STATE;
-
 /* CAN FD Message receive Information: via which RX Buffers, etc. */
 typedef struct
 {
@@ -245,31 +286,24 @@ typedef struct
     uint32_t            u32BufIdx;       /*!< RX Buffer: buffer index, if RX FIFO: GetIndex */
 } CANFD_RX_INFO_T;
 
-/* CAN FD frame type. */
-typedef enum
-{
-    eCANFD_DATA_FRM = 0,      /*!< Data frame type attribute. */
-    eCANFD_REMOTE_FRM = 1     /*!< Remote frame type attribute. */
-} E_CANFD_FRM_TYPE;
-
 /* CAN FD Message Struct */
 typedef struct
 {
-    E_CANFD_ID_TYPE   eIdType;                         /*! Standard ID or Extended ID */
-    CANFD_RX_INFO_T   sRxInfo;                         /*! Information regarding the reception of the frame */
-    E_CANFD_FRM_TYPE  eFrmType;                        /*! eCANFD_DATA_FRM/eCANFD_REMOTE_FRM */
-    uint32_t          u32Id;                           /*! Standard ID (11bits) or Extended ID (29bits) */
-    uint32_t          u32DLC;                          /*! Data Length */
+    E_CANFD_ID_TYPE   eIdType;                         /*!< Standard ID or Extended ID */
+    CANFD_RX_INFO_T   sRxInfo;                         /*!< Information regarding the reception of the frame */
+    E_CANFD_FRM_TYPE  eFrmType;                        /*!< eCANFD_DATA_FRM/eCANFD_REMOTE_FRM */
+    uint32_t          u32Id;                           /*!< Standard ID (11bits) or Extended ID (29bits) */
+    uint32_t          u32DLC;                          /*!< Data Length */
     union
     {
         uint32_t au32Data[CANFD_MAX_MESSAGE_WORDS];    /*!< Word access to buffer data. */
         uint8_t  au8Data[CANFD_MAX_MESSAGE_BYTES];     /*!< Byte access to buffer data. */
     };
-    uint8_t           u8MsgMarker;                     /*! Message marker (will be copied to TX Event FIFO element) */
-    uint8_t           bFDFormat;                       /*! FD Format (1 = FD Format) */
-    uint8_t           bBitRateSwitch;                  /*! Bit Rate Switch (1 = with Bit Rate Switch) */
-    uint8_t           bErrStaInd;                      /*! Error State Indicator */
-    uint8_t           bEvntFifoCon;                    /*! Event FIFO Control (1 = Store TX Event FIFO element after transmission)*/
+    uint8_t           u8MsgMarker;                     /*!< Message marker (will be copied to TX Event FIFO element) */
+    uint8_t           bFDFormat;                       /*!< FD Format (1 = FD Format) */
+    uint8_t           bBitRateSwitch;                  /*!< Bit Rate Switch (1 = with Bit Rate Switch) */
+    uint8_t           bErrStaInd;                      /*!< Error State Indicator */
+    uint8_t           bEvntFifoCon;                    /*!< Event FIFO Control (1 = Store TX Event FIFO element after transmission)*/
 } CANFD_FD_MSG_T;
 
 
@@ -326,46 +360,6 @@ typedef struct
     };
 } CANFD_EXT_FILTER_T;
 
-/* Accept Non-matching Frames (GFC Register) */
-typedef enum
-{
-    eCANFD_ACC_NON_MATCH_FRM_RX_FIFO0 = 0x0,  /*!< Accept Non-Masking Frames in Rx FIFO 0. */
-    eCANFD_ACC_NON_MATCH_FRM_RX_FIFO1 = 0x1,  /*!< Accept Non-Masking Frames in Rx FIFO 1. */
-    eCANFD_REJ_NON_MATCH_FRM   = 0x3          /*!< Reject Non-Matching Frames. */
-} E_CANFD_ACC_NON_MATCH_FRM;
-
-
-/* Standard ID Filter Element Type */
-typedef enum
-{
-    eCANFD_SID_FLTR_TYPE_RANGE     = 0x0, /*!< Range filter from SFID1 to SFID2. */
-    eCANFD_SID_FLTR_TYPE_DUAL      = 0x1, /*!< Dual ID filter for SFID1 or SFID2. */
-    eCANFD_SID_FLTR_TYPE_CLASSIC   = 0x2, /*!< Classic filter: SFID1 = filter, SFID2 = mask. */
-    eCANFD_SID_FLTR_TYPE_DIS       = 0x3  /*!< Filter element disabled */
-} E_CANFD_SID_FLTR_ELEM_TYPE;
-
-/* Extended ID Filter Element Type */
-typedef enum
-{
-    eCANFD_XID_FLTR_TYPE_RANGE      = 0x0,  /*!< Range filter from EFID1 to EFID2. */
-    eCANFD_XID_FLTR_TYPE_DUAL       = 0x1,  /*!< Dual ID filter for EFID1 or EFID2. */
-    eCANFD_XID_FLTR_TYPE_CLASSIC    = 0x2,  /*!< Classic filter: EFID1=filter, EFID2=mask */
-    eCANFD_XID_FLTR_TYPE_RANGE_XIDAM_NOT_APP     = 0x3   /*!< XID range filter from EFID1 to EFID2(EFID2 > EFID1), XIDAM not applied */
-}  E_CANFD_XID_FLTR_ELEM_TYPE;
-
-/* Filter Element Configuration - Can be used for SFEC(Standard Id filter configuration) and EFEC(Extended Id filter configuration) */
-typedef enum
-{
-    eCANFD_FLTR_ELEM_DIS         = 0x0,            /*!< Filter Element Disable  */
-    eCANFD_FLTR_ELEM_STO_FIFO0   = 0x1,            /*!< Filter Element Store In Fifo0  */
-    eCANFD_FLTR_ELEM_STO_FIFO1   = 0x2,            /*!< Filter Element Store In Fifo1  */
-    eCANFD_FLTR_ELEM_REJ_ID      = 0x3,            /*!< Filter Element RejectId  */
-    eCANFD_FLTR_ELEM_SET_PRI     = 0x4,            /*!< Filter Element Set Priority */
-    eCANFD_FLTR_ELEM_SET_PRI_STO_FIFO0 = 0x5,      /*!< Filter Element Set Priority And Store In Fifo0  */
-    eCANFD_FLTR_ELEM_SET_PRI_STO_FIFO1 = 0x6,      /*!< Filter Element Set Priority And Store In Fifo1  */
-    eCANFD_FLTR_ELEM_STO_RX_BUF_OR_DBG_MSG = 0x7   /*!< Filter Element Store In Rx Buf Or Debug Msg  */
-} E_CANFD_FLTR_CONFIG;
-
 /* TX Event FIFO Element Struct */
 typedef struct
 {
@@ -380,12 +374,26 @@ typedef struct
     uint8_t             bBitRateSwitch;  /*!< Bit Rate Switch */
 } CANFD_TX_EVNT_ELEM_T;
 
+/*@}*/ /* end of group CANFD_EXPORTED_STRUCTS */
 
-#define CANFD_TIMEOUT        SystemCoreClock    /*!< CANFD time-out counter (1 second time-out) */
-#define CANFD_OK             ( 0L)              /*!< CANFD operation OK */
-#define CANFD_ERR_FAIL       (-1L)              /*!< CANFD operation failed */
-#define CANFD_ERR_TIMEOUT    (-2L)              /*!< CANFD operation abort due to timeout error */
+/** @addtogroup CANFD_EXPORTED_FUNCTIONS CANFD Exported Functions
+  @{
+*/
 
+/**
+ *    @brief        Get the CAN Communication State Flag
+ *
+ *    @param[in]    canfd    The pointer of the specified CANFD module
+ *
+ *    @retval       0 Synchronizing - node is synchronizing on CANFD communication.
+ *    @retval       1 Idle - node is neither receiver nor transmitter.
+ *    @retval       2 Receiver - node is operating as receiver.
+ *    @retval       3 Transmitter - node is operating as transmitter.
+ *
+ *    @details      This macro gets the CANFD communication state.
+ *    \hideinitializer
+ */
+#define CANFD_GET_COMMUNICATION_STATE(canfd)    (((canfd)->PSR  & CANFD_PSR_ACT_Msk) >> CANFD_PSR_ACT_Pos)
 
 void CANFD_Open(CANFD_T *canfd, CANFD_FD_T *psCanfdStr);
 void CANFD_Close(CANFD_T *canfd);

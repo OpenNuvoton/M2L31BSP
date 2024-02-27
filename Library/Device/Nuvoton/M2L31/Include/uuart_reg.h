@@ -332,8 +332,7 @@ typedef struct
      * |        |          |These bits field indicate how many clock cycle selected by fPDS_CNT do the slave can get the 1st bit (START bit) when the device is wake-up from Power-down mode.
      * |[24:16] |BRDETITV  |Baud Rate Detection Interval
      * |        |          |This bit fields indicate how many clock cycle selected by TMCNTSRC (UUART_BRGEN[5]) does the slave calculates the baud rate in one bits
-     * |        |          |The order of the bus shall be 1 and 0 step by step (e.g
-     * |        |          |the input data pattern shall be 0x55)
+     * |        |          |The order of the bus shall be 1 and 0 step by step (e.g. the input data pattern shall be 0x55)
      * |        |          |The user can read the value to know the current input baud rate of the bus whenever the ABRDETIF (UUART_PROTCTL[9]) is set.
      * |        |          |Note: This bit can be cleared to 0 by software writing '0' to the BRDETITV.
      * |[26]    |STICKEN   |Stick Parity Enable Bit

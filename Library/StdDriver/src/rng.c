@@ -25,8 +25,8 @@
 /**
  *  @brief      Open random number generator
  *
- *  @return      0  Successful
- *              -1  Failed
+ *  @retval      0  Successful
+ *  @retval     -1  Failed
  *
  *  @details    The function is used to disable rng interrupt.
  */
@@ -116,8 +116,8 @@ int32_t RNG_Random(uint32_t *pu32Buf, int32_t i32WordCnt)
  *
  *  @param[in]  pu8Out     Output buffer for the entropy
  *  @param[in]  i32Len     Entropy length in bytes
- *  @return     -1       Failed
- *               Others  The bytes in pu8Out buffer
+ *  @retval     -1       Failed
+ *  @retval     Others   The bytes in pu8Out buffer
  *
  *  @details    The function is used to generate entropy from TRNG.
  */

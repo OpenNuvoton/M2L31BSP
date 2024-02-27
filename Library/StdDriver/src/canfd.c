@@ -1,7 +1,7 @@
 /****************************************************************************
  * @file     canfd.c
  * @version  V1.00
- * @brief    CAN FD driver source file
+ * @brief    CANFD driver source file
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
@@ -166,11 +166,11 @@
   @{
 */
 
-/** @addtogroup CANFD_Driver CAN_FD Driver
+/** @addtogroup CANFD_Driver CANFD Driver
   @{
 */
 
-/** @addtogroup CANFD_EXPORTED_FUNCTIONS CAN_FD Exported Functions
+/** @addtogroup CANFD_EXPORTED_FUNCTIONS CANFD Exported Functions
   @{
 */
 
@@ -259,8 +259,8 @@ static void CANFD_CalculateRamAddress(CANFD_RAM_PART_T *psConfigAddr, CANFD_ELEM
  *              u32DataBaudRate     = 0(CAN mode) or 1000000(CAN FD mode) ;
  *              u32MRamSize         = 6144 bytes (1536 words);
  *              bEnableLoopBack     = FALSE;
- *              bBitRateSwitch      = FALSE(CAN Mode) or TRUE(CAN FD Mode);
- *              bFDEn               = FALSE(CAN Mode) or TRUE(CAN FD Mode);
+ *              bBitRateSwitch      = FALSE (CAN Mode) or TRUE (CAN FD Mode);
+ *              bFDEn               = FALSE (CAN Mode) or TRUE (CAN FD Mode);
 */
 void CANFD_GetDefaultConfig(CANFD_FD_T *psConfig, uint8_t u8OpMode)
 {
