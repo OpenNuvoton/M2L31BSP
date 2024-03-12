@@ -347,36 +347,10 @@ Reset_Handler:
 
 
 
-
-/*  Unlock Register */
-	ldr	r0, =0x40000100
-	movw r1, 0x00000059
-	str	r1, [r0]
-	movw r1, 0x00000016
-	str	r1, [r0]
-	movw r1, 0x00000088
-	str	r1, [r0]
-
-
 #ifndef __NO_SYSTEM_INIT
 	bl	SystemInit
 #endif
 
-/* Init POR */
-#if 1
-
-	ldr	r0, =0x40000024
-	movw r1, 0x00005AA5
-	str	r1, [r0]
-
-	ldr	r0, =0x400001EC
-	str	r1, [r0]
-#endif
-
-/* Lock register */
-	ldr	r0, =0x40000100
-	movw r1, 0x00000000
-	str	r1, [r0]
 
 #ifndef __START
 #define __START _start

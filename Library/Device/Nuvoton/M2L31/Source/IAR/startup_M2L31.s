@@ -207,30 +207,8 @@ __Vectors_Size  EQU   __Vectors_End - __Vectors
         PUBWEAK Reset_Handler
         SECTION .text:CODE:REORDER:NOROOT(2)
 Reset_Handler
-        ; Unlock Register
-        LDR     R0, =0x40000100
-        LDR     R1, =0x59
-        STR     R1, [R0]
-        LDR     R1, =0x16
-        STR     R1, [R0]
-        LDR     R1, =0x88
-        STR     R1, [R0]
-
         LDR     R0, =SystemInit
         BLX     R0
-
-        ; Init POR
-        LDR     R2, =0x40000024
-        LDR     R1, =0x00005AA5
-        STR     R1, [R2]
-
-	    LDR     R2, =0x400001EC
-        STR     R1, [R2]
-
-        ; Lock register
-        LDR     R0, =0x40000100
-        MOVS    R1, #0
-        STR     R1, [R0]
 
         LDR     R0, =__iar_program_start
         BX      R0
