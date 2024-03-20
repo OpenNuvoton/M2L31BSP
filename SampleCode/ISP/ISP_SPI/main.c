@@ -64,9 +64,16 @@ void SYS_Init(void)
     /* Wait for HIRC clock ready */
     while ((CLK->STATUS & CLK_STATUS_HIRC48MSTB_Msk) != CLK_STATUS_HIRC48MSTB_Msk);
 
+    /* Switch RMC access cycle to maximum value for safe */
+    RMC->CYCCTL = 4;
+
     /* Select HCLK clock source as HIRC48 and HCLK clock divider as 1 */
     CLK->CLKSEL0 = (CLK->CLKSEL0 & (~CLK_CLKSEL0_HCLK0SEL_Msk)) | CLK_CLKSEL0_HCLKSEL_HIRC48M;
     CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_HCLK0DIV_Msk)) | CLK_CLKDIV0_HCLK(1);
+
+    /* Switch RMC access cycle to suitable value base on HCLK */
+    RMC->CYCCTL = 3;
+
     /* Set both PCLK0 and PCLK1 as HCLK/2 */
     CLK->PCLKDIV = (CLK_PCLKDIV_APB0DIV_DIV2 | CLK_PCLKDIV_APB1DIV_DIV2);
     /* Select PCLK1 as the clock source of SPI0 */

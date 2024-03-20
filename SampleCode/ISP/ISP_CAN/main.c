@@ -22,6 +22,9 @@
 #define CMD_RUN_APROM                     0xAB000000
 #define CMD_GET_DEVICEID                  0xB1000000
 
+#define SCB_VTOR_ADDR                     0xE000ED08UL
+#define LDROM_ADDR                        0x0F100000
+
 /*---------------------------------------------------------------------------*/
 /*  Function Declare                                                         */
 /*---------------------------------------------------------------------------*/
@@ -74,11 +77,15 @@ void SYS_Init(void)
     /* Wait for HIRC clock ready */
     while ((CLK->STATUS & CLK_STATUS_HIRC48MSTB_Msk) != CLK_STATUS_HIRC48MSTB_Msk);
 
+    /* Switch RMC access cycle to maximum value for safe */
+    RMC->CYCCTL = 4;
+
     /* Select HCLK clock source as HIRC48 and HCLK clock divider as 1 */
     CLK->CLKSEL0 = (CLK->CLKSEL0 & (~CLK_CLKSEL0_HCLK0SEL_Msk)) | CLK_CLKSEL0_HCLKSEL_HIRC48M;
     CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_HCLK0DIV_Msk)) | CLK_CLKDIV0_HCLK(1);
-    /* Update System Core Clock */
-    /* User can use SystemCoreClockUpdate() to calculate PllClock, SystemCoreClock and CycylesPerUs automatically. */
+
+    /* Switch RMC access cycle to suitable value base on HCLK */
+    RMC->CYCCTL = 3;
 
     SystemCoreClock = __HIRC48; // HCLK
     CyclesPerUs = SystemCoreClock / 1000000; // For SYS_SysTickDelay()
@@ -193,6 +200,11 @@ int main(void)
 
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
+
+    __DMB() {}
+    /* Set VTOR */
+    outp32(SCB_VTOR_ADDR, (uint32_t)LDROM_ADDR);
+    __DSB() {}
 
     /* Enable FMC ISP AP CFG function & clear ISPFF */
     RMC->ISPCTL |= RMC_ISPCTL_ISPEN_Msk | RMC_ISPCTL_APUEN_Msk | RMC_ISPCTL_CFGUEN_Msk | RMC_ISPCTL_ISPFF_Msk;
