@@ -2366,6 +2366,25 @@ typedef struct
  * |        |          |0 = Write-protection Enabled for writing protected registers.
  * |        |          |Any write to the protected register is ignored.
  * |        |          |1 = Write-protection Disabled for writing protected registers.
+ * @var SYS_T::PMLDOCTL
+ * Offset: 0x168  MEGPM LDO Control Register
+ * ---------------------------------------------------------------------------------------------------
+ * |Bits    |Field     |Descriptions
+ * | :----: | :----:   | :---- |
+ * |[1:0]   |LDO_CS    |LDO bias current option
+ * |        |          |For LDO IQ current better setting during CHIP in NPDx/SPDx power down mode,
+ * |        |          |Setting LDO_CS = 10 and LDO_OPCS = 0 before enter SPDx power down mode.
+ * |        |          |Setting LDO_CS = 11 and LDO_OPCS = 1 before enter NPDx power down mode.
+ * |        |          |Note: Read after write to keep other bits value in SYS_PMLDOCTL.
+ * |        |          |Note: These bits are write protected. Refer to the SYS_REGLCTL register.
+ * |        |          |Note: This field only reset by POR reset.
+ * |[13]    |LDO_OPCS  |LDO OP current option
+ * |        |          |For LDO IQ current better setting during CHIP in NPDx/SPDx power down mode,
+ * |        |          |Setting LDO_CS = 10 and LDO_OPCS = 0 before enter SPDx power down mode.
+ * |        |          |Setting LDO_CS = 11 and LDO_OPCS = 1 before enter NPDx power down mode.
+ * |        |          |Note: Read after write to keep other bits value in SYS_PMLDOCTL.
+ * |        |          |Note: These bits are write protected. Refer to the SYS_REGLCTL register.
+ * |        |          |Note: This field only reset by POR reset.
  * @var SYS_T::PORDISAN
  * Offset: 0x1EC  Analog POR Disable Control Register
  * ---------------------------------------------------------------------------------------------------
@@ -3658,15 +3677,17 @@ typedef struct
     __IO uint32_t IRCTISTS;              /*!< [0x00f8] HIRC Trim Interrupt Status Register                              */
     __IO uint32_t RAMPGCTL;              /*!< [0x00fc] RRAM Power Gating Contol Register                                */
     __O  uint32_t REGLCTL;               /*!< [0x0100] Register Lock Control Register                                   */
-    __I  uint32_t RESERVE8[58];
+    __I  uint32_t RESERVE8[25];
+    __IO uint32_t PMLDOCTL;              /*!< [0x0168] MEGPM LDO Control Register                                       */
+    __I  uint32_t RESERVE9[32];
     __IO uint32_t PORDISAN;              /*!< [0x01ec] Analog POR Disable Control Register                              */
-    __I  uint32_t RESERVE9[1];
+    __I  uint32_t RESERVE10[1];
     __I  uint32_t CSERVER;               /*!< [0x01f4] Chip Series Version Register                                     */
     __IO uint32_t PLCTL;                 /*!< [0x01f8] Power Level Control Register                                     */
     __IO uint32_t PLSTS;                 /*!< [0x01fc] Power Level Status Register                                      */
-    __I  uint32_t RESERVE10[68];
+    __I  uint32_t RESERVE11[68];
     __IO uint32_t INIVTOR;               /*!< [0x0310] Initial VTOR Control Register                                    */
-    __I  uint32_t RESERVE11[123];
+    __I  uint32_t RESERVE12[123];
     __IO uint32_t GPA_MFP0;              /*!< [0x0500] GPIOA Multiple Function Control Register 0                       */
     __IO uint32_t GPA_MFP1;              /*!< [0x0504] GPIOA Multiple Function Control Register 1                       */
     __IO uint32_t GPA_MFP2;              /*!< [0x0508] GPIOA Multiple Function Control Register 2                       */
@@ -3690,12 +3711,12 @@ typedef struct
     __IO uint32_t GPF_MFP0;              /*!< [0x0550] GPIOF Multiple Function Control Register 0                       */
     __IO uint32_t GPF_MFP1;              /*!< [0x0554] GPIOF Multiple Function Control Register 1                       */
     __IO uint32_t GPF_MFP2;              /*!< [0x0558] GPIOF Multiple Function Control Register 2                       */
-    __I  uint32_t RESERVE12[1];
+    __I  uint32_t RESERVE13[1];
     __IO uint32_t GPG_MFP0;              /*!< [0x0560] GPIOG Multiple Function Control Register 0                       */
     __IO uint32_t GPG_MFP1;              /*!< [0x0564] GPIOG Multiple Function Control Register 1                       */
     __IO uint32_t GPG_MFP2;              /*!< [0x0568] GPIOG Multiple Function Control Register 2                       */
     __IO uint32_t GPG_MFP3;              /*!< [0x056c] GPIOG Multiple Function Control Register 3                       */
-    __I  uint32_t RESERVE13[1];
+    __I  uint32_t RESERVE14[1];
     __IO uint32_t GPH_MFP1;              /*!< [0x0574] GPIOH Multiple Function Control Register 1                       */
     __IO uint32_t GPH_MFP2;              /*!< [0x0578] GPIOH Multiple Function Control Register 2                       */
 
@@ -4581,6 +4602,12 @@ typedef struct
 
 #define SYS_REGLCTL_REGLCTL_Pos          (0)                                               /*!< SYS_T::REGLCTL: REGLCTL Position       */
 #define SYS_REGLCTL_REGLCTL_Msk          (0xfful << SYS_REGLCTL_REGLCTL_Pos)               /*!< SYS_T::REGLCTL: REGLCTL Mask           */
+
+#define SYS_PMLDOCTL_LDO_CS_Pos          (0)                                               /*!< SYS_T::PMLDOCTL: LDO_CS Position       */
+#define SYS_PMLDOCTL_LDO_CS_Msk          (0x3ul << SYS_PMLDOCTL_LDO_CS_Pos)                /*!< SYS_T::PMLDOCTL: LDO_CS Mask           */
+
+#define SYS_PMLDOCTL_LDO_OPCS_Pos        (13)                                              /*!< SYS_T::PMLDOCTL: LDO_OPCS Position     */
+#define SYS_PMLDOCTL_LDO_OPCS_Msk        (0x1ul << SYS_PMLDOCTL_LDO_OPCS_Pos)              /*!< SYS_T::PMLDOCTL: LDO_OPCS Mask         */
 
 #define SYS_PORDISAN_POROFFAN_Pos        (0)                                               /*!< SYS_T::PORDISAN: POROFFAN Position     */
 #define SYS_PORDISAN_POROFFAN_Msk        (0xfffful << SYS_PORDISAN_POROFFAN_Pos)           /*!< SYS_T::PORDISAN: POROFFAN Mask         */

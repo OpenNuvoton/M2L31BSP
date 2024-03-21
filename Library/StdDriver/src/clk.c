@@ -1243,6 +1243,25 @@ void CLK_DisableSysTick(void)
 
 void CLK_SetPowerDownMode(uint32_t u32PDMode)
 {
+    switch(u32PDMode)
+    {
+        case CLK_PMUCTL_PDMSEL_NPD0:
+        case CLK_PMUCTL_PDMSEL_NPD1:
+        case CLK_PMUCTL_PDMSEL_NPD2:
+        case CLK_PMUCTL_PDMSEL_NPD3:
+        case CLK_PMUCTL_PDMSEL_NPD4:
+        case CLK_PMUCTL_PDMSEL_NPD5:
+            SYS->PMLDOCTL = (SYS->PMLDOCTL & ~(SYS_PMLDOCTL_LDO_CS_Msk | SYS_PMLDOCTL_LDO_OPCS_Msk)) |
+                            ((0x3 << SYS_PMLDOCTL_LDO_CS_Pos)|(0x1 << SYS_PMLDOCTL_LDO_OPCS_Pos));
+            break;
+        case CLK_PMUCTL_PDMSEL_SPD0:
+        case CLK_PMUCTL_PDMSEL_SPD1:
+        case CLK_PMUCTL_PDMSEL_SPD2:
+            SYS->PMLDOCTL = (SYS->PMLDOCTL & ~(SYS_PMLDOCTL_LDO_CS_Msk | SYS_PMLDOCTL_LDO_OPCS_Msk)) |
+                            ((0x2 << SYS_PMLDOCTL_LDO_CS_Pos)|(0x0 << SYS_PMLDOCTL_LDO_OPCS_Pos));
+            break;
+    }
+
     CLK->PMUCTL = (CLK->PMUCTL & ~(CLK_PMUCTL_PDMSEL_Msk)) | u32PDMode;
 }
 
