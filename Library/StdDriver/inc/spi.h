@@ -122,7 +122,7 @@ extern "C"
   * @details    Clear SLV3WIRE bit of SPI_SSCTL register to disable Slave 3-wire mode.
   * \hideinitializer
   */
-#define SPI_DISABLE_3WIRE_MODE(spi)   ( (spi)->SSCTL &= ~SPI_SSCTL_SLV3WIRE_Msk )
+#define SPI_DISABLE_3WIRE_MODE(spi)   ((spi)->SSCTL &= ~SPI_SSCTL_SLV3WIRE_Msk)
 
 /**
   * @brief      Enable Slave 3-wire mode.
@@ -131,7 +131,7 @@ extern "C"
   * @details    Set SLV3WIRE bit of SPI_SSCTL register to enable Slave 3-wire mode.
   * \hideinitializer
   */
-#define SPI_ENABLE_3WIRE_MODE(spi)   ( (spi)->SSCTL |= SPI_SSCTL_SLV3WIRE_Msk )
+#define SPI_ENABLE_3WIRE_MODE(spi)   ((spi)->SSCTL |= SPI_SSCTL_SLV3WIRE_Msk)
 
 /**
   * @brief      Trigger RX PDMA function.
