@@ -1569,7 +1569,7 @@ void CANFD_CopyTxEvntFifoToUsrBuf(CANFD_T *psCanfd, uint32_t u32TxEvntNum, CANFD
 {
     uint32_t *pu32TxEvnt;
     /*Get the Tx Event FIFO Address*/
-    pu32TxEvnt = (uint32_t *)CANFD_GetTxBufferElementAddress(psCanfd, u32TxEvntNum);
+    pu32TxEvnt = (uint32_t *)(CANFD_SRAM_BASE_ADDR(psCanfd) + CANFD_GetTxBufferElementAddress(psCanfd, u32TxEvntNum));
 
     /*Get the Error State Indicator*/
     if ((pu32TxEvnt[0] & TX_FIFO_E0_EVENT_ESI_Msk) > 0)
