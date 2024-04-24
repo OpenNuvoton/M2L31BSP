@@ -131,6 +131,22 @@ typedef enum
     eCANFD_TRANSMITTER  = 3  /*!< CANFD State Transmit */
 } E_CANFD_COMMUNICATION_STATE;
 
+/* CAN FD transmission state */
+typedef enum
+{
+    eCANFD_TRANSMIT_FAIL    = 0,
+    eCANFD_TRANSMIT_SUCCESS = 1,
+    eCANFD_TRANSMIT_TIMEOUT = 2
+} E_CANFD_TRANSMIT_STATE;
+
+/* CAN FD receiving state */
+typedef enum
+{
+    eCANFD_RECEIVE_EMPTY                   = 0,
+    eCANFD_RECEIVE_SUCCESS                 = 1,
+    eCANFD_RECEIVE_SUCCESS_AND_BUFFER_FULL = 2
+} E_CANFD_RECEIVE_STATE;
+
 /* CAN FD frame type. */
 typedef enum
 {
