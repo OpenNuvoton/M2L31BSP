@@ -33,6 +33,9 @@
   */
 void EADC_Open(EADC_T *eadc, uint32_t u32InputMode)
 {
+    /* Enable ADC decode add one cycle feature to improve ADC accuracy. */
+    eadc->TEST |= EADC_TEST_DECADD_Msk;
+
     /* Enable EADC Boost mode */
     outpw(EADC0_BASE+0xFF4, inpw(EADC0_BASE+0xFF4) | BIT1);
 

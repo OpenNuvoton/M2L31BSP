@@ -425,7 +425,7 @@ typedef struct
     __IO uint32_t AUTOSTS;               /*!< [0x0810] ADC Auto Operation Status Register                               */
     __I  uint32_t RESERVE6[502];
     __IO uint32_t ALDOCTL;               /*!< [0x0fec] ADC ALDO Control Register                                        */
-
+    __IO uint32_t MTEST;                 /*!< [0x0ff0] ADC Macro Test Mode Control Register                             */
 } LPADC_T;
 
 /**
@@ -909,6 +909,9 @@ typedef struct
 
 #define LPADC_ALDOCTL_IGENEN_Pos         (23)                                              /*!< LPADC_T::ALDOCTL: IGENEN Position      */
 #define LPADC_ALDOCTL_IGENEN_Msk         (0x1ul << LPADC_ALDOCTL_IGENEN_Pos)               /*!< LPADC_T::ALDOCTL: IGENEN Mask          */
+
+#define LPADC_MTEST_DECADD_Pos           (8)                                               /*!< LPADC_T::MTEST: DECADD Position        */
+#define LPADC_MTEST_DECADD_Msk           (0x1UL << LPADC_MTEST_DECADD_Pos)                 /*!< LPADC_T::MTEST: DECADD Mask            */
 
 /**@}*/ /* LPADC_CONST */
 /**@}*/ /* end of LPADC register group */

@@ -905,7 +905,8 @@ typedef struct
     __I  uint32_t DAT19[12];             /*!< [0x0200-0x022c] EADC Data Register 19~30 for Sample Module 19~30          */
     __IO uint32_t SCTL19[12];            /*!< [0x0230-0x025c] EADC Sample Module 19~30 Control Register                 */
     __IO uint32_t M19CTL1[12];           /*!< [0x0260-0x028c] EADC Sample Module 19~30 Control Register 1               */
-
+    __I  uint32_t RESERVE6[856];
+    __IO uint32_t TEST;                  /*!< [0x0ff0] EADC Test Mode Control Register                                  */
 } EADC_T;
 
 /**
@@ -2926,6 +2927,9 @@ typedef struct
 
 #define EADC_M30CTL1_EXTSTDIV_Pos        (16)                                              /*!< EADC_T::M30CTL1: EXTSTDIV Position     */
 #define EADC_M30CTL1_EXTSTDIV_Msk        (0x3ul << EADC_M30CTL1_EXTSTDIV_Pos)              /*!< EADC_T::M30CTL1: EXTSTDIV Mask         */
+
+#define EADC_TEST_DECADD_Pos             (8)                                               /*!< EADC_T::TEST: DECADD Position          */
+#define EADC_TEST_DECADD_Msk             (0x1UL << EADC_TEST_DECADD_Pos)                   /*!< EADC_T::TEST: DECADD Mask              */
 
 /**@}*/ /* EADC_CONST */
 /**@}*/ /* end of EADC register group */

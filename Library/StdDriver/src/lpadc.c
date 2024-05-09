@@ -51,6 +51,9 @@ void LPADC_Open(LPADC_T *lpadc,
     /* select LPADC0 as LPADC controller, not EADC0. */
     SYS->IVSCTL |= SYS_IVSCTL_ADCCSEL_Msk;
 
+    /* Enable ADC decode add one cycle feature to improve ADC accuracy. */
+    lpadc->MTEST |= LPADC_MTEST_DECADD_Msk;
+
     g_LPADC_i32ErrCode = 0;
 
     /*Wait the LPADC Power On Ready  */
