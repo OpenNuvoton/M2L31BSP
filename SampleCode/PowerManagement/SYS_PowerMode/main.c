@@ -183,16 +183,6 @@ int32_t main(void)
     /* Unlock protected registers before setting power level. */
     SYS_UnlockReg();
 
-    /* Set core clock as 48MHz from PLL */
-    CLK_SetCoreClock(48000000);
-
-    /* Set power level to 1.2V */
-    printf("Set power level to PL2 ");
-    SYS_SetPowerLevel(SYS_PLCTL_PLSEL_PL2);
-
-    /* Check system work */
-    CheckSystemWork();
-
     printf("Set power level to PL1 ");
     SYS_SetPowerLevel(SYS_PLCTL_PLSEL_PL1);
 

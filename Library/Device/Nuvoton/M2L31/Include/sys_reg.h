@@ -2413,8 +2413,6 @@ typedef struct
  * |[2:0]   |PLSEL     |Power Level Select (Write Protect)
  * |        |          |These bits indicate the status of power level.
  * |        |          |001 = Power level is PL1.
- * |        |          |010 = Power level is PL2.
- * |        |          |011 = Power level is PL3.
  * |        |          |Others = Reserved.
  * |        |          |Note : Write ignore when wtire reserved setting.
  * |        |          |Note: These bits are write protected. Refer to the SYS_REGLCTL register.
@@ -2435,8 +2433,6 @@ typedef struct
  * |[10:8]  |PLSTATUS  |Power Level Status (Read Only)
  * |        |          |This bit indicates the status of power level.
  * |        |          |001 = Power level is PL1.
- * |        |          |010 = Power level is PL2.
- * |        |          |011 = Power level is PL3.
  * |        |          |Others = Reserved.
  * @var SYS_T::INIVTOR
  * Offset: 0x310  Initial VTOR Control Register

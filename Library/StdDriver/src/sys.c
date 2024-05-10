@@ -261,7 +261,6 @@ void SYS_DisableBOD(void)
   * @brief      Set Power Level
   * @param[in]  u32PowerLevel is power level setting. Including :
   *             - \ref SYS_PLCTL_PLSEL_PL1
-  *             - \ref SYS_PLCTL_PLSEL_PL2
   * @return     Setting success or not
   * @retval     0                   Success
   * @retval     SYS_TIMEOUT_ERR     Failed due to Power level register is busy

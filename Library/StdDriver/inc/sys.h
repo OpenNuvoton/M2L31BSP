@@ -165,10 +165,8 @@ extern "C"
 /*  PLCTL constant definitions. (Write-Protection Register)                                                */
 /*---------------------------------------------------------------------------------------------------------*/
 #define SYS_PLCTL_PLSEL_PL1     (0x1UL<<SYS_PLCTL_PLSEL_Pos)    /*!< Set power level to power level 1 */
-#define SYS_PLCTL_PLSEL_PL2     (0x2UL<<SYS_PLCTL_PLSEL_Pos)    /*!< Set power level to power level 2 */
 
 #define SYS_PLSTS_PLSTATUS_PL1  (0x1UL<<SYS_PLSTS_PLSTATUS_Pos)
-#define SYS_PLSTS_PLSTATUS_PL2  (0x2UL<<SYS_PLSTS_PLSTATUS_Pos)
 
 
 /*---------------------------------------------------------------------------------------------------------*/
