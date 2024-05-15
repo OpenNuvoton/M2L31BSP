@@ -651,7 +651,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state>LPADC_600ksps_ContinuousScanMode.bin</state>
+                    <state>LPADC_MaxSps_ContinuousScanMode.bin</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -706,7 +706,7 @@
                 </option>
                 <option>
                     <name>IlinkOutputFile</name>
-                    <state>LPADC_600ksps_ContinuousScanMode.out</state>
+                    <state>LPADC_MaxSps_ContinuousScanMode.out</state>
                 </option>
                 <option>
                     <name>IlinkDebugInfoEnable</name>
@@ -1003,7 +1003,7 @@
                 </option>
                 <option>
                     <name>IlinkTrustzoneImportLibraryOut</name>
-                    <state>LPADC_600ksps_ContinuousScanMode_import_lib.o</state>
+                    <state>LPADC_MaxSps_ContinuousScanMode_import_lib.o</state>
                 </option>
                 <option>
                     <name>OILinkExtraOption</name>

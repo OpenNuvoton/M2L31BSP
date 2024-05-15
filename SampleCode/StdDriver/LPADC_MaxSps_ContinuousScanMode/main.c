@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     main.c
  * @version  V3.00
- * @brief    Demonstrate how to use PCLK2 as LPADC clock source to achieve 600 ksps LPADC conversion rate.
+ * @brief    Demonstrate how to use PCLK2 as LPADC clock source to achieve maximum kSPS LPADC conversion rate.
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
@@ -86,7 +86,7 @@ void LPADC_FunctionTest()
 
     printf("\n");
     printf("+----------------------------------------------------------------------+\n");
-    printf("|           LPADC 600 ksps continuous scan mode sample code            |\n");
+    printf("|           LPADC Maximum kSPS continuous scan mode sample code        |\n");
     printf("+----------------------------------------------------------------------+\n\n");
 
     printf("+----------------------------------------------------------------------+\n");
@@ -94,8 +94,8 @@ void LPADC_FunctionTest()
     printf("|   LPADC clock divider          = 2                                   |\n");
     printf("|   LPADC clock                  = 24 MHz / 2 = 12 MHz                 |\n");
     printf("|   LPADC extended sampling time = 0                                   |\n");
-    printf("|   LPADC conversion time = 20 + LPADC extended sampling time = 20     |\n");
-    printf("|   LPADC conversion rate = 12 MHz / 20 = 600 kSPS                     |\n");
+    printf("|   LPADC conversion time = 21 + LPADC extended sampling time = 21     |\n");
+    printf("|   LPADC conversion rate = 12 MHz / 21 = 571 kSPS                     |\n");
     printf("+----------------------------------------------------------------------+\n");
 
     /* Enable LPADC converter */
