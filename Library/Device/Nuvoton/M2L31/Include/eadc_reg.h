@@ -1122,17 +1122,17 @@ typedef struct
 #define EADC_CTL_DMOF_Pos                (9)                                               /*!< EADC_T::CTL: DMOF Position             */
 #define EADC_CTL_DMOF_Msk                (0x1ul << EADC_CTL_DMOF_Pos)                      /*!< EADC_T::CTL: DMOF Mask                 */
 
-#define EADC_CTL_INTDELAY0_Pos           (16)                                              /*!< EADC_T::CTL: INTDELAY0 Position        */
-#define EADC_CTL_INTDELAY0_Msk           (0xful << EADC_CTL_INTDELAY0_Pos)                 /*!< EADC_T::CTL: INTDELAY0 Mask            */
+#define EADC_CTL_INTDEL0_Pos             (16)                                              /*!< EADC_T::CTL: INTDEL0 Position          */
+#define EADC_CTL_INTDEL0_Msk             (0xful << EADC_CTL_INTDEL0_Pos)                   /*!< EADC_T::CTL: INTDEL0 Mask              */
 
-#define EADC_CTL_INTDELAY1_Pos           (20)                                              /*!< EADC_T::CTL: INTDELAY1 Position        */
-#define EADC_CTL_INTDELAY1_Msk           (0xful << EADC_CTL_INTDELAY1_Pos)                 /*!< EADC_T::CTL: INTDELAY1 Mask            */
+#define EADC_CTL_INTDEL1_Pos             (20)                                              /*!< EADC_T::CTL: INTDEL1 Position          */
+#define EADC_CTL_INTDEL1_Msk             (0xful << EADC_CTL_INTDEL1_Pos)                   /*!< EADC_T::CTL: INTDEL1 Mask              */
 
-#define EADC_CTL_INTDELAY2_Pos           (24)                                              /*!< EADC_T::CTL: INTDELAY2 Position        */
-#define EADC_CTL_INTDELAY2_Msk           (0xful << EADC_CTL_INTDELAY2_Pos)                 /*!< EADC_T::CTL: INTDELAY2 Mask            */
+#define EADC_CTL_INTDEL2_Pos             (24)                                              /*!< EADC_T::CTL: INTDEL2 Position          */
+#define EADC_CTL_INTDEL2_Msk             (0xful << EADC_CTL_INTDEL2_Pos)                   /*!< EADC_T::CTL: INTDEL2 Mask              */
 
-#define EADC_CTL_INTDELAY3_Pos           (28)                                              /*!< EADC_T::CTL: INTDELAY3 Position        */
-#define EADC_CTL_INTDELAY3_Msk           (0xful << EADC_CTL_INTDELAY3_Pos)                 /*!< EADC_T::CTL: INTDELAY3 Mask            */
+#define EADC_CTL_INTDEL3_Pos             (28)                                              /*!< EADC_T::CTL: INTDEL3 Position          */
+#define EADC_CTL_INTDEL3_Msk             (0xful << EADC_CTL_INTDEL3_Pos)                   /*!< EADC_T::CTL: INTDEL3 Mask              */
 
 #define EADC_SWTRG_SWTRG_Pos             (0)                                               /*!< EADC_T::SWTRG: SWTRG Position          */
 #define EADC_SWTRG_SWTRG_Msk             (0x7ffffffful << EADC_SWTRG_SWTRG_Pos)            /*!< EADC_T::SWTRG: SWTRG Mask              */
