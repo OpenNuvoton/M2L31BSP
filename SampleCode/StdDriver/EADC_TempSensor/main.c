@@ -51,7 +51,7 @@ void SYS_Init(void)
     /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
     Uart0DefaultMPF();
 
-    /* Enable temperature sensor */
+    /* Enable temperature sensor and select positive temperature coefficient slope. */
     SYS->IVSCTL |= (SYS_IVSCTL_VTEMPEN_Msk | SYS_IVSCTL_VTEMPSEL_Msk);
 
     /* Set reference voltage to external pin */
