@@ -182,7 +182,7 @@ extern "C"
 /**
  * @brief       Clear Alignment Interrupt Status
   *
- * @param[in]   lppdma        The pointer of the specified LPPDMA module
+ * @param[in]   lppdma      The pointer of the specified LPPDMA module
  * @param[in]   u32Mask     The channel mask
  *
  * @return      None
@@ -195,7 +195,7 @@ extern "C"
 /**
  * @brief       Check Channel Status
   *
- * @param[in]   lppdma      The pointer of the specified LPPDMA module
+ * @param[in]   lppdma    The pointer of the specified LPPDMA module
  * @param[in]   u32Ch     The selected channel
  *
  * @retval      0 Idle state
@@ -209,7 +209,7 @@ extern "C"
 /**
  * @brief       Set Source Address
   *
- * @param[in]   lppdma      The pointer of the specified LPPDMA module
+ * @param[in]   lppdma    The pointer of the specified LPPDMA module
  * @param[in]   u32Ch     The selected channel
  * @param[in]   u32Addr   The selected address
  *
@@ -223,7 +223,7 @@ extern "C"
 /**
  * @brief       Set Destination Address
  *
- * @param[in]   lppdma      The pointer of the specified LPPDMA module
+ * @param[in]   lppdma    The pointer of the specified LPPDMA module
  * @param[in]   u32Ch     The selected channel
  * @param[in]   u32Addr   The selected address
  *
@@ -237,7 +237,7 @@ extern "C"
 /**
  * @brief       Set Transfer Count
   *
- * @param[in]   lppdma           The pointer of the specified LPPDMA module
+ * @param[in]   lppdma         The pointer of the specified LPPDMA module
  * @param[in]   u32Ch          The selected channel
  * @param[in]   u32TransCount  Transfer Count
  *
@@ -251,7 +251,7 @@ extern "C"
 /**
  * @brief       Set Scatter-gather descriptor Address
  *
- * @param[in]   lppdma      The pointer of the specified LPPDMA module
+ * @param[in]   lppdma    The pointer of the specified LPPDMA module
  * @param[in]   u32Ch     The selected channel
  * @param[in]   u32Addr   The descriptor address
  *
@@ -265,7 +265,7 @@ extern "C"
 /**
  * @brief       Stop the channel
  *
- * @param[in]   lppdma      The pointer of the specified LPPDMA module
+ * @param[in]   lppdma    The pointer of the specified LPPDMA module
  *
  * @param[in]   u32Ch     The selected channel
  *
@@ -279,7 +279,7 @@ extern "C"
 /**
  * @brief       Pause the channel
  *
- * @param[in]   lppdma      The pointer of the specified LPPDMA module
+ * @param[in]   lppdma    The pointer of the specified LPPDMA module
  *
  * @param[in]   u32Ch     The selected channel
  *
@@ -289,6 +289,19 @@ extern "C"
  * \hideinitializer
  */
 #define LPPDMA_PAUSE(lppdma,u32Ch) ((uint32_t)(lppdma->PAUSE = (1UL << (u32Ch))))
+
+/**
+ * @brief       Reset the channel
+ *
+ * @param[in]   lppdma    The pointer of the specified LPPDMA module
+ * @param[in]   u32Ch     The selected channel
+ *
+ * @return      None
+ *
+ * @details     This macro reset the selected channel.
+ * \hideinitializer 
+ */
+#define LPPDMA_RESET(lppdma, u32Ch) ((uint32_t)((lppdma)->CHRST = (1UL << (u32Ch))))
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define PDMA functions prototype                                                                          */
