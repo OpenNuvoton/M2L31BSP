@@ -545,7 +545,7 @@ typedef struct
     __I  uint32_t FN;                    /*!< [0x008c] USB Frame Number Register                                        */
     __IO uint32_t SE0;                   /*!< [0x0090] USB Device Drive SE0 Control Register                            */
     __I  uint32_t RESERVE2[283];
-    USBD_EP_T     EP[19];                /*!< [0x500~0x5bc] USB End Point 0 ~ 11 Configuration Register                 */
+    USBD_EP_T     EP[19];                /*!< [0x500~0x5bc] USB Endpoint 0 ~ 19 Configuration Register                 */
 
 } USBD_T;
 
