@@ -1095,10 +1095,6 @@ typedef struct
  * |        |          |0 = AVDD divide 4 function Disabled (default).
  * |        |          |1 = AVDD divide 4 function Enabled.
  * |        |          |Note: After this bit is set to 1, the value of AVDD divide 4 output voltage can be obtained from ADC conversion result
- * |[4]     |VTEMPSEL  |Temperature Sensor Slope Select Bit
- * |        |          |This bit is used to select temperature sensor slope trend.
- * |        |          |0 = Temperature sensor negative temperature coefficient slope.
- * |        |          |1 = Temperature sensor positive temperature coefficient slope.
  * |[7]     |ADCCSEL   |ADC Controller Select Bit
  * |        |          |This bit is used to select ADC controller.
  * |        |          |0 = EADC0 controlled is active.
@@ -3932,9 +3928,6 @@ typedef struct
 
 #define SYS_IVSCTL_AVDDDIV4EN_Pos        (2)                                               /*!< SYS_T::IVSCTL: AVDDDIV4EN Position     */
 #define SYS_IVSCTL_AVDDDIV4EN_Msk        (0x1ul << SYS_IVSCTL_AVDDDIV4EN_Pos)              /*!< SYS_T::IVSCTL: AVDDDIV4EN Mask         */
-
-#define SYS_IVSCTL_VTEMPSEL_Pos          (4)                                               /*!< SYS_T::IVSCTL: VTEMPSEL Position       */
-#define SYS_IVSCTL_VTEMPSEL_Msk          (0x1ul << SYS_IVSCTL_VTEMPSEL_Pos)                /*!< SYS_T::IVSCTL: VTEMPSEL Mask           */
 
 #define SYS_IVSCTL_ADCCSEL_Pos           (7)                                               /*!< SYS_T::IVSCTL: ADCCSEL Position        */
 #define SYS_IVSCTL_ADCCSEL_Msk           (0x1ul << SYS_IVSCTL_ADCCSEL_Pos)                 /*!< SYS_T::IVSCTL: ADCCSEL Mask            */

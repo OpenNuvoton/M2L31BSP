@@ -51,8 +51,8 @@ void SYS_Init(void)
     /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
     Uart0DefaultMPF();
 
-    /* Enable temperature sensor and select positive temperature coefficient slope. */
-    SYS->IVSCTL |= (SYS_IVSCTL_VTEMPEN_Msk | SYS_IVSCTL_VTEMPSEL_Msk);
+    /* Enable temperature sensor */
+    SYS->IVSCTL |= SYS_IVSCTL_VTEMPEN_Msk;
 
     /* Set reference voltage to external pin */
     SYS_SetVRef(SYS_VREFCTL_VREF_PIN);
@@ -115,7 +115,7 @@ void EADC_FunctionTest()
      *      where Vtemp_os, Tc, and Ta can be got from the data sheet document.
      *            ADC_Vref is the ADC Vref that according to the configuration of SYS and EADC.
      */
-    printf("Current Temperature = %2.1f degrees Celsius if EADC Vref = 3300mV\n\n", (25+(((float)i32ConversionData/4095*3300)-923)/(3.03)));
+    printf("Current Temperature = %2.1f degrees Celsius if EADC Vref = 3300mV\n\n", (25+(((float)i32ConversionData/4095*3300)-1008)/(-2.7)));
 }
 
 
