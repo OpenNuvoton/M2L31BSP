@@ -95,6 +95,11 @@ void EADC_FunctionTest()
     printf("|   EADC for calculate AVdd by using band-gap test  |\n");
     printf("+---------------------------------------------------+\n\n");
 
+    /* Force to enable internal voltage band-gap. */
+    SYS_UnlockReg();
+    SYS->VREFCTL |= SYS_VREFCTL_VBGFEN_Msk;
+    SYS_LockReg();
+
     /* Set input mode as single-end and enable the A/D converter */
     EADC_Open(EADC, EADC_CTL_DIFFEN_SINGLE_END);
 

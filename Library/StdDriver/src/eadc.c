@@ -16,6 +16,8 @@
   @{
 */
 
+int32_t g_EADC_i32ErrCode = 0;   /*!< EADC global error code */
+
 /** @addtogroup EADC_EXPORTED_FUNCTIONS EADC Exported Functions
   @{
 */
@@ -33,11 +35,43 @@
   */
 void EADC_Open(EADC_T *eadc, uint32_t u32InputMode)
 {
+    uint32_t u32Delay = SystemCoreClock;
+
+    /* select EADC0 as ADC controller, not LPADC0. */
+    SYS->IVSCTL &= ~SYS_IVSCTL_ADCCSEL_Msk;
+
     /* Enable ADC decode add one cycle feature to improve ADC accuracy. */
     eadc->TEST |= EADC_TEST_DECADD_Msk;
 
     /* Enable EADC Boost mode */
     outpw(EADC0_BASE+0xFF4, inpw(EADC0_BASE+0xFF4) | BIT1);
+
+    /* Do calibration for EADC to decrease the effect of electrical random noise. */
+    if ((eadc->CALSR & EADC_CALSR_CALIF_Msk) == 0)
+    {
+        /* Must reset EADC before EADC calibration */
+        EADC_CONV_RESET(eadc);
+        while((eadc->CTL & EADC_CTL_ADCRST_Msk) == EADC_CTL_ADCRST_Msk)
+        {
+            if (--u32Delay == 0)
+            {
+                g_EADC_i32ErrCode = EADC_TIMEOUT_ERR;
+                break;
+            }
+        }
+
+        eadc->CALSR |= EADC_CALSR_CALIF_Msk;        /* Clear Calibration Finish Interrupt Flag */
+        eadc->CALCTL |= EADC_CALCTL_CAL_Msk;        /* Enable Calibration function */
+        u32Delay = SystemCoreClock/20;
+        while((eadc->CALSR & EADC_CALSR_CALIF_Msk) != EADC_CALSR_CALIF_Msk) /* Wait calibration finish */
+        {
+            if (--u32Delay == 0)
+            {
+                g_EADC_i32ErrCode = EADC_TIMEOUT_ERR;
+                break;
+            }
+        }
+    }
 
     eadc->CTL &= (~EADC_CTL_DIFFEN_Msk);
 

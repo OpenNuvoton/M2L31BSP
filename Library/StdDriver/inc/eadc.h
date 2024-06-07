@@ -109,7 +109,14 @@ extern "C"
 #define EADC_MCTL1_ACU_128                  (0x7UL<<EADC_MCTL1_ACU_Pos)     /*!< Accumulated 128 times \hideinitializer */
 #define EADC_MCTL1_ACU_256                  (0x8UL<<EADC_MCTL1_ACU_Pos)     /*!< Accumulated 256 times \hideinitializer */
 
+/*--------------------------------------------------------------------------------------------------*/
+/* Define Error Code                                                                                */
+/*--------------------------------------------------------------------------------------------------*/
+#define EADC_TIMEOUT_ERR    (-1)    /*!< EADC operation abort due to timeout error \hideinitializer */
+
 /*@}*/ /* end of group EADC_EXPORTED_CONSTANTS */
+
+extern int32_t g_EADC_i32ErrCode;
 
 /** @addtogroup EADC_EXPORTED_FUNCTIONS EADC Exported Functions
   @{
