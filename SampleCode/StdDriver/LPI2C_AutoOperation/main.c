@@ -94,7 +94,7 @@ void LPTMR_Trigger_Init(void)
     LPTMR_SetTriggerSource(LPTMR0, TIMER_TRGSRC_TIMEOUT_EVENT);
 
     /* Enable LPTMR0 to trigger Low Power IP */
-    LPTMR_SetTriggerTarget(LPTMR0, (LPTMR_TRG_TO_LPPDMA | LPTMR_TRGEN));
+    LPTMR_SetTriggerTarget(LPTMR0, LPTMR_TRGEN);
 }
 
 void LPPDMA_TX_Init(uint8_t u8TestCh, uint32_t u32TabNum, uint32_t u32TestLen)
