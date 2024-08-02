@@ -112,7 +112,7 @@ int32_t main(void)
     /* Set OPA0 inverting input from internal Vf_int */
     OPA->MODE0 = (OPA->MODE0&~OPA_MODE_NEGCHEN_Msk) | OPA_MODE_NEGCHEN_VF_INT;
 
-    /* Set OPA0 end switch to OPA0_N0 */
+    /* Set OPA0 resistor end switch to OPA0_N0 */
     OPA->MODE0 = (OPA->MODE0&~OPA_MODE_SWSEL_Msk) | OPA_MODE_SWSEL_N0;
 
     /* Enable OPA0 output */
