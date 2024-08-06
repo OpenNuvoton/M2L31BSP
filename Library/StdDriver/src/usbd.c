@@ -79,11 +79,8 @@ void USBD_Open(const S_USBD_INFO_T *param, CLASS_REQ pfnClassReq, SET_INTERFACE_
     g_usbd_CtrlMaxPktSize = g_usbd_sInfo->gu8DevDesc[7];
 
     /* Initial USB engine */
-#ifdef SUPPORT_LPM
-    USBD->ATTR = 0x7D0 | USBD_LPMACK;
-#else
-    USBD->ATTR = 0x6D0ul;
-#endif
+    USBD->ATTR = 0x7D0ul;
+
     /* Force SE0 */
     USBD_SET_SE0();
 }
@@ -410,11 +407,6 @@ void USBD_StandardRequest(void)
         {
         case CLEAR_FEATURE:
         {
-            if(g_usbd_SetupPacket[2] == 3)
-            {
-                USBD_SET_EP_STALL(0);
-                USBD_SET_EP_STALL(1);
-            }
             if(g_usbd_SetupPacket[2] == FEATURE_ENDPOINT_HALT)
             {
                 uint32_t epNum, i;
@@ -466,9 +458,9 @@ void USBD_StandardRequest(void)
         }
         case SET_FEATURE:
         {
-            if( (g_usbd_SetupPacket[0] & 0xFul) == 0ul )   /* 0: device */
+            if((g_usbd_SetupPacket[0] & 0xFul) == 0ul)     /* 0: device */
             {
-                if((g_usbd_SetupPacket[2] == 2) && (g_usbd_SetupPacket[3] == 0))    /* 2:test mode */
+                if((g_usbd_SetupPacket[2] == 3ul) && (g_usbd_SetupPacket[3] == 0ul))   /* 3: HNP enable */
                 {
                     OTG->CTL |= (OTG_CTL_HNPREQEN_Msk | OTG_CTL_BUSREQ_Msk);
                 }
@@ -638,26 +630,18 @@ void USBD_CtrlOut(void)
     uint32_t u32Size;
     uint32_t addr;
 
-    if (g_usbd_CtrlOutToggle != (USBD->EPSTS0 & USBD_EPSTS0_EPSTS1_Msk))
+    if(g_usbd_CtrlOutSize < g_usbd_CtrlOutSizeLimit)
     {
-        g_usbd_CtrlOutToggle = USBD->EPSTS0 & USBD_EPSTS0_EPSTS1_Msk;
-        if (g_usbd_CtrlOutSize < g_usbd_CtrlOutSizeLimit)
-        {
-            u32Size = USBD_GET_PAYLOAD_LEN(EP1);
-            addr = USBD_BUF_BASE + USBD_GET_EP_BUF_ADDR(EP1);
-            USBD_MemCopy((uint8_t *)g_usbd_CtrlOutPointer, (uint8_t *)addr, u32Size);
-            g_usbd_CtrlOutPointer += u32Size;
-            g_usbd_CtrlOutSize += u32Size;
+        u32Size = USBD_GET_PAYLOAD_LEN(EP1);
+        addr = USBD_BUF_BASE + USBD_GET_EP_BUF_ADDR(EP1);
+        USBD_MemCopy((uint8_t *)g_usbd_CtrlOutPointer, (uint8_t *)addr, u32Size);
+        g_usbd_CtrlOutPointer += u32Size;
+        g_usbd_CtrlOutSize += u32Size;
 
-            if(g_usbd_CtrlOutSize < g_usbd_CtrlOutSizeLimit)
-            {
-                USBD_SET_PAYLOAD_LEN(EP1, g_usbd_CtrlMaxPktSize);
-            }
+        if(g_usbd_CtrlOutSize < g_usbd_CtrlOutSizeLimit)
+        {
+            USBD_SET_PAYLOAD_LEN(EP1, g_usbd_CtrlMaxPktSize);
         }
-    }
-    else
-    {
-        USBD_SET_PAYLOAD_LEN(EP1, g_usbd_CtrlMaxPktSize);
     }
 }
 

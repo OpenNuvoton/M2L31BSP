@@ -259,6 +259,8 @@ void HID_Init(void)
     USBD_CONFIG_EP(EP5, USBD_CFG_EPMODE_IN | INT_IN_EP_NUM_1);
     /* Buffer range for EP5 */
     USBD_SET_EP_BUF_ADDR(EP5, EP5_BUF_BASE);
+
+    s_u8EP5Ready = 1;
 }
 
 void HID_ClassRequest(void)
@@ -350,13 +352,13 @@ void HID_ClassRequest(void)
         case SET_REPORT:
         {
             if(au8Buf[3] == 2)
-            {                
+            {
                 /* Request Type = Output */
                 USBD_SET_DATA1(EP1);
                 /* Data stage */
                 USBD_PrepareCtrlOut(Led_Status, au8Buf[6]);
                 /* Status stage */
-                USBD_PrepareCtrlIn(0, 0);  
+                USBD_PrepareCtrlIn(0, 0);
             }
             break;
         }
@@ -466,8 +468,8 @@ void HID_UpdateKbData(void)
     {
         pu8Buf = (uint8_t *)(USBD_BUF_BASE + USBD_GET_EP_BUF_ADDR(EP5));
 
-        /* If PB.15 = 0, just report it is key 'a' */
-        u32Key = (PB->PIN & (1 << 15)) ? 0 : 1;
+        /* If PB.3 = 0, just report it is key 'a' */
+        u32Key = (PB->PIN & (1 << 3)) ? 0 : 1;
 
         if(u32Key == 0)
         {
@@ -497,29 +499,25 @@ void HID_UpdateKbData(void)
                 printf("NmLK  ON, ");
             else
                 printf("NmLK OFF, ");
-
             if(Led_Status[0] & HID_LED_CapsLock)
                 printf("CapsLock  ON, ");
             else
                 printf("CapsLock OFF, ");
-
             if(Led_Status[0] & HID_LED_ScrollLock)
                 printf("ScrollLock  ON, ");
             else
                 printf("ScrollLock OFF, ");
-            
             if(Led_Status[0] & HID_LED_Compose)
                 printf("Compose  ON, ");
             else
-                printf("Compose OFF, ");   
-            
+                printf("Compose OFF, ");
             if(Led_Status[0] & HID_LED_Kana)
                 printf("Kana  ON\n");
             else
-                printf("Kana OFF\n");  
+                printf("Kana OFF\n");
         }
         LED_SATUS = Led_Status[0];
-    }    
+    }
 }
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

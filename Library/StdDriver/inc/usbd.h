@@ -9,12 +9,12 @@
 #ifndef __USBD_H__
 #define __USBD_H__
 
-//#define SUPPORT_LPM     // define to support LPM
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
+#define VBUS_DIVIDER
 
 /** @addtogroup Standard_Driver Standard Driver
   @{

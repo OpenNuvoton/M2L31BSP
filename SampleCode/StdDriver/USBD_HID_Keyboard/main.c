@@ -16,17 +16,28 @@
 #define CRYSTAL_LESS        1
 #define TRIM_INIT           (SYS_BASE+0x10C)
 
-/*--------------------------------------------------------------------------*/
-uint8_t volatile g_u8EP2Ready = 0;
-
-/*--------------------------------------------------------------------------*/
 void SYS_Init(void);
 void UART0_Init(void);
-void HID_UpdateKbData(void);
 void PowerDown(void);
 
-extern uint8_t Led_Status[8];
-uint32_t LED_SATUS = 0;
+#ifdef VBUS_DIVIDER
+
+#include "utcpd.c"
+#include "i2c_controller.c"
+
+int port = 0;
+int alert;
+uint32_t u32VBUSDetEn, u32VBUSPresent = 0, u32VBUSPrevious = 0, u32VCONNPresent, u32SnkVBUS;
+
+void GPIO_Init(void)
+{
+    /* Enable PA13~14 (D+ / D-) interrupt for wakeup */
+    GPIO_CLR_INT_FLAG(PA, BIT13 | BIT14);
+    GPIO_EnableInt(PA, 13, GPIO_INT_BOTH_EDGE);
+    GPIO_EnableInt(PA, 14, GPIO_INT_BOTH_EDGE);
+    GPIO_ENABLE_DEBOUNCE(PA, BIT13 | BIT14);   /* Enable key debounce */
+}
+#endif
 
 void SYS_Init(void)
 {
@@ -74,10 +85,17 @@ void SYS_Init(void)
     CLK_SetModuleClock(USBD_MODULE, CLK_CLKSEL0_USBSEL_HIRC48M, CLK_CLKDIV0_USB(1));
 #endif
 
+#ifdef VBUS_DIVIDER
+    /* Enable UTCPD module clock */
+    CLK_EnableModuleClock(UTCPD0_MODULE);
+
+    /* Enable GPA module clock */
+    CLK_EnableModuleClock(GPA_MODULE);
+#endif
     /* Enable USBD module clock */
     CLK_EnableModuleClock(USBD_MODULE);
 
-    /* Enable UART1 module clock */
+    /* Enable UART module clock */
     CLK_EnableModuleClock(UART0_MODULE);
 
     /* Enable GPB module clock */
@@ -102,72 +120,35 @@ void UART0_Init(void)
     UART_Open(UART0, 115200);
 }
 
-void HID_UpdateKbData(void)
+#ifdef VBUS_DIVIDER
+void UTCPD_IRQHandler(void)
 {
-    int32_t i;
-    uint8_t *pu8Buf;
-    uint32_t u32Key = 0xF;
-    static uint32_t u32PreKey;
+    UTCPD_GetAlertStatus(0, &alert);
 
-    if(g_u8EP2Ready)
+    if(alert & UTCPD_ALERT_PWRSCHIS)
     {
-        pu8Buf = (uint8_t *)(USBD_BUF_BASE + USBD_GET_EP_BUF_ADDR(EP2));
+        UTCPD_GetPwrSts(port, &u32VBUSDetEn, &u32VBUSPresent, &u32VCONNPresent, &u32SnkVBUS);
 
-        /* If PB.15 = 0, just report it is key 'a' */
-        u32Key = (PB->PIN & (1 << 15)) ? 0 : 1;
-
-        if(u32Key == 0)
+        if(u32VBUSPresent != u32VBUSPrevious)
         {
-            for(i = 0; i < 8; i++)
+            if(u32VBUSPresent)
             {
-                pu8Buf[i] = 0;
+                /* USB Plug In */
+                USBD_ENABLE_USB();
+                printf("Plug\n");
             }
-
-            if(u32Key != u32PreKey)
+            else
             {
-                /* Trigger to note key release */
-                USBD_SET_PAYLOAD_LEN(EP2, 8);
+                /* USB Un-plug */
+                USBD_DISABLE_USB();
+                printf("Un-Plug\n");
             }
-        }
-        else
-        {
-            u32PreKey = u32Key;
-            pu8Buf[2] = 0x04; /* Key a */
-            USBD_SET_PAYLOAD_LEN(EP2, 8);
+            u32VBUSPrevious = u32VBUSPresent;
         }
     }
-    if(Led_Status[0] != LED_SATUS)
-    {
-        if((Led_Status[0] & HID_LED_ALL) != (LED_SATUS & HID_LED_ALL))
-        {
-            if(Led_Status[0] & HID_LED_NumLock)
-                printf("NmLK  ON, ");
-            else
-                printf("NmLK OFF, ");
-
-            if(Led_Status[0] & HID_LED_CapsLock)
-                printf("CapsLock  ON, ");
-            else
-                printf("CapsLock OFF, ");
-
-            if(Led_Status[0] & HID_LED_ScrollLock)
-                printf("ScrollLock  ON, ");
-            else
-                printf("ScrollLock OFF, ");
-            
-            if(Led_Status[0] & HID_LED_Compose)
-                printf("Compose  ON, ");
-            else
-                printf("Compose OFF, ");   
-            
-            if(Led_Status[0] & HID_LED_Kana)
-                printf("Kana  ON\n");
-            else
-                printf("Kana OFF\n");  
-        }
-        LED_SATUS = Led_Status[0];
-    }
+    UTCPD_ClearAlertStatus(0, alert);
 }
+#endif
 
 void PowerDown(void)
 {
@@ -177,7 +158,26 @@ void PowerDown(void)
     /* Wakeup Enable */
     USBD_ENABLE_INT(USBD_INTEN_WKEN_Msk);
 
+    UART_WAIT_TX_EMPTY(DEBUG_PORT);
+
+#ifdef VBUS_DIVIDER
+    /* Change USBD multi-function pins (D+, D-) to GPIO */
+    SYS->GPA_MFP3 &= ~(SYS_GPA_MFP3_PA12MFP_Msk | SYS_GPA_MFP3_PA13MFP_Msk | SYS_GPA_MFP3_PA14MFP_Msk);
+
+    GPIO_CLR_INT_FLAG(PA, BIT13 | BIT14);
+#endif
+
     CLK_PowerDown();
+
+#ifdef VBUS_DIVIDER
+    GPIO_CLR_INT_FLAG(PA, BIT13 | BIT14);
+
+    /* Change PA13 & PA14 to USBD multi-function pins (D+, D-) */
+    SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P);
+#else
+    /* Change PA13 & PA14 to USBD multi-function pins (D+, D-) */
+    SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA12MFP_USB_VBUS | SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
+#endif
 
     /* Clear PWR_DOWN_EN if it is not clear by itself */
     if(CLK->PWRCTL & CLK_PWRCTL_PDEN_Msk)
@@ -187,7 +187,6 @@ void PowerDown(void)
     SYS_LockReg();
 }
 
-
 /*---------------------------------------------------------------------------------------------------------*/
 /*  Main Function                                                                                          */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -196,33 +195,65 @@ int32_t main(void)
 #if CRYSTAL_LESS
     uint32_t u32TrimInit;
 #endif
+
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
 
-    /* Init UART0 for printf */
+    /* Init UART for printf */
     UART0_Init();
 
     printf("\n");
     printf("+--------------------------------------------------------+\n");
     printf("|          NuMicro USB HID Keyboard Sample Code          |\n");
     printf("+--------------------------------------------------------+\n");
-    printf("If PB.15 = 0, just report it is key 'a'.\n");
+    printf("If PB.3 = 0, just report it is key 'a'.\n");
 
-    GPIO_SetMode(PB, BIT15, GPIO_MODE_QUASI);
+    GPIO_SetMode(PB, BIT3, GPIO_MODE_QUASI);
 
-    PB15 = 1; /* Pull-high */
+    PB3 = 1; /* Pull-high */
 
     /* Select USBD */
     SYS->USBPHY = (SYS->USBPHY & ~SYS_USBPHY_USBROLE_Msk) | SYS_USBPHY_USBEN_Msk | SYS_USBPHY_SBO_Msk;
 
-    /* USBD multi-function pins for VBUS, D+, D-, and ID pins */
+#ifdef VBUS_DIVIDER
+    SYS->GPA_MFP3 &= ~(SYS_GPA_MFP3_PA13MFP_Msk | SYS_GPA_MFP3_PA14MFP_Msk | SYS_GPA_MFP3_PA15MFP_Msk);
+
+    /* USBD multi-function pins for D+, D-, and ID pins */
+    SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
+
+    GPIO_DISABLE_DIGITAL_PATH(PA, BIT12);
+
+    UTCPD->MUXSEL = (UTCPD->MUXSEL & ~(UTCPD_MUXSEL_ADCSELVB_Msk | UTCPD_MUXSEL_ADCSELVC_Msk)) | ((2 << UTCPD_MUXSEL_ADCSELVB_Pos) | (3 << UTCPD_MUXSEL_ADCSELVC_Pos));
+
+    UTCPD->VBVOL = (UTCPD->VBVOL & ~UTCPD_VBVOL_VBSCALE_Msk) | (2 << UTCPD_VBVOL_VBSCALE_Pos);
+
+    UTCPD_Open(port);
+
+    UTCPD_SetRoleCtrl(port, (uint32_t)NULL, UTCPD_ROLECTL_RPVALUE_1P5A, UTCPD_ROLECTL_CC2_RD, UTCPD_ROLECTL_CC1_RD);
+
+    UTCPD_DisablePowerCtrl (port, UTCPD_PWRCTL_VBMONI_DIS);
+
+    UTCPD_IsssueCmd(port, UTCPD_CMD_ENABLE_VBUS_DETECT);
+
+    UTCPD_EnableAlertMask(0, UTCPD_ALERTM_PWRSCHIE);
+
+    UTCPD_EnablePowerStatusMask(0, UTCPD_PWRSM_VBPSIE);
+
+    NVIC_EnableIRQ(UTCPD_IRQn);
+
+    GPIO_Init();
+#else
     SYS->GPA_MFP3 &= ~(SYS_GPA_MFP3_PA12MFP_Msk | SYS_GPA_MFP3_PA13MFP_Msk | SYS_GPA_MFP3_PA14MFP_Msk | SYS_GPA_MFP3_PA15MFP_Msk);
+
+    /* USBD multi-function pins for VBUS, D+, D-, and ID pins */
     SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA12MFP_USB_VBUS | SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
+#endif
 
     USBD_Open(&gsInfo, HID_ClassRequest, NULL);
 
     /* Endpoint configuration */
     HID_Init();
+
     USBD_Start();
 
     NVIC_EnableIRQ(USBD_IRQn);
@@ -234,9 +265,6 @@ int32_t main(void)
 
     /* Clear SOF */
     USBD->INTSTS = USBD_INTSTS_SOFIF_Msk;
-
-    /* start to IN data */
-    g_u8EP2Ready = 1;
 
     while(1)
     {

@@ -9,16 +9,16 @@
  * Copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 /*!<Includes */
+#include <stdio.h>
 #include <string.h>
 #include "NuMicro.h"
 #include "hid_kb.h"
 
+uint8_t volatile g_u8EP2Ready = 0;
 uint8_t volatile g_u8Suspend = 0;
 static uint8_t s_u8Idle = 0, s_u8Protocol = 0;
-
+uint32_t LED_SATUS = 0;
 uint8_t Led_Status[8];
-
-void USBD_IRQHandler(void);
 
 void USBD_IRQHandler(void)
 {
@@ -211,6 +211,8 @@ void HID_Init(void)
     /* Buffer range for EP2 */
     USBD_SET_EP_BUF_ADDR(EP2, EP2_BUF_BASE);
 
+    /* start to IN data */
+    g_u8EP2Ready = 1;
 }
 
 void HID_ClassRequest(void)
@@ -301,4 +303,66 @@ void HID_ClassRequest(void)
     }
 }
 
+void HID_UpdateKbData(void)
+{
+    int32_t i;
+    uint8_t *pu8Buf;
+    uint32_t u32Key = 0xF;
+    static uint32_t u32PreKey;
+
+    if(g_u8EP2Ready)
+    {
+        pu8Buf = (uint8_t *)(USBD_BUF_BASE + USBD_GET_EP_BUF_ADDR(EP2));
+
+        /* If PB.3 = 0, just report it is key 'a' */
+        u32Key = (PB->PIN & (1 << 3)) ? 0 : 1;
+
+        if(u32Key == 0)
+        {
+            for(i = 0; i < 8; i++)
+            {
+                pu8Buf[i] = 0;
+            }
+
+            if(u32Key != u32PreKey)
+            {
+                /* Trigger to note key release */
+                USBD_SET_PAYLOAD_LEN(EP2, 8);
+            }
+        }
+        else
+        {
+            u32PreKey = u32Key;
+            pu8Buf[2] = 0x04; /* Key a */
+            USBD_SET_PAYLOAD_LEN(EP2, 8);
+        }
+    }
+    if(Led_Status[0] != LED_SATUS)
+    {
+        if((Led_Status[0] & HID_LED_ALL) != (LED_SATUS & HID_LED_ALL))
+        {
+            if(Led_Status[0] & HID_LED_NumLock)
+                printf("NmLK  ON, ");
+            else
+                printf("NmLK OFF, ");
+            if(Led_Status[0] & HID_LED_CapsLock)
+                printf("CapsLock  ON, ");
+            else
+                printf("CapsLock OFF, ");
+            if(Led_Status[0] & HID_LED_ScrollLock)
+                printf("ScrollLock  ON, ");
+            else
+                printf("ScrollLock OFF, ");
+            if(Led_Status[0] & HID_LED_Compose)
+                printf("Compose  ON, ");
+            else
+                printf("Compose OFF, ");
+            if(Led_Status[0] & HID_LED_Kana)
+                printf("Kana  ON\n");
+            else
+                printf("Kana OFF\n");
+        }
+        LED_SATUS = Led_Status[0];
+    }
+}
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

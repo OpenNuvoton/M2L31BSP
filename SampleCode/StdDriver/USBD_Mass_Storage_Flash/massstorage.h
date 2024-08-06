@@ -141,6 +141,7 @@ extern uint32_t g_au32StorageBlock[];
 #define STORAGE_DATA_BUF   ((uint32_t)&g_au32StorageBlock[0])
 
 /*-------------------------------------------------------------*/
+extern uint8_t volatile g_u8Suspend;
 
 /*-------------------------------------------------------------*/
 void DataFlashWrite(uint32_t u32Addr, uint32_t u32Size, uint32_t u32Buffer);

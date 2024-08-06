@@ -114,6 +114,8 @@ void MSC_ReadMedia(uint32_t addr, uint32_t size, uint8_t *buffer);
 void MSC_WriteMedia(uint32_t addr, uint32_t size, uint8_t *buffer);
 
 /*-------------------------------------------------------------*/
+extern uint8_t volatile g_u8Suspend;
+/*-------------------------------------------------------------*/
 void MSC_AckCmd(void);
 void MSC_ProcessCmd(void);
 

@@ -139,7 +139,6 @@ void USBD_IRQHandler(void)
             USBD_ENABLE_USB();
             USBD_SwReset();
             g_u8Suspend = 0;
-            DBG_PRINTF("Bus reset\n");
         }
         if(u32State & USBD_STATE_SUSPEND)
         {
@@ -148,34 +147,18 @@ void USBD_IRQHandler(void)
 
             /* Enable USB but disable PHY */
             USBD_DISABLE_PHY();
-            DBG_PRINTF("Suspend\n");
         }
         if(u32State & USBD_STATE_RESUME)
         {
             /* Enable USB and enable PHY */
             USBD_ENABLE_USB();
             g_u8Suspend = 0;
-            DBG_PRINTF("Resume\n");
         }
     }
 
 //------------------------------------------------------------------
     if(u32IntSts & USBD_INTSTS_USB)
     {
-        // USB event
-        if(u32IntSts & USBD_INTSTS_SETUP)
-        {
-            // Setup packet
-            /* Clear event flag */
-            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
-
-            /* Clear the data IN/OUT ready flag of control end-points */
-            USBD_STOP_TRANSACTION(EP0);
-            USBD_STOP_TRANSACTION(EP1);
-
-            USBD_ProcessSetupPacket();
-        }
-
         // EP events
         if(u32IntSts & USBD_INTSTS_EP0)
         {
@@ -191,6 +174,19 @@ void USBD_IRQHandler(void)
             USBD_CLR_INT_FLAG(USBD_INTSTS_EP1);
             // control OUT
             USBD_CtrlOut();
+        }
+        // USB event
+        if(u32IntSts & USBD_INTSTS_SETUP)
+        {
+            // Setup packet
+            /* Clear event flag */
+            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
+
+            /* Clear the data IN/OUT ready flag of control end-points */
+            USBD_STOP_TRANSACTION(EP0);
+            USBD_STOP_TRANSACTION(EP1);
+
+            USBD_ProcessSetupPacket();
         }
 
         if(u32IntSts & USBD_INTSTS_EP2)

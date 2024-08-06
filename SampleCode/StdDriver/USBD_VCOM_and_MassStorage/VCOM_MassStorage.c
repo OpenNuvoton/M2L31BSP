@@ -24,6 +24,9 @@
 /*--------------------------------------------------------------------------*/
 /* Global variables for Control Pipe */
 int32_t g_TotalSectors = 0;
+
+uint8_t volatile g_u8Suspend = 0;
+
 uint32_t volatile g_u32OutToggle0 = 0;
 uint32_t volatile g_u32OutToggle = 0, g_u32OutSkip = 0;
 
@@ -134,19 +137,19 @@ void USBD_IRQHandler(void)
             USBD_ENABLE_USB();
             USBD_SwReset();
             g_u32OutToggle0 = g_u32OutToggle = g_u32OutSkip = 0;
-            DBG_PRINTF("Bus reset\n");
+            g_u8Suspend = 0;
         }
         if(u32State & USBD_STATE_SUSPEND)
         {
+            /* Enter power down to wait USB attached */
+            g_u8Suspend = 1;
             /* Enable USB but disable PHY */
             USBD_DISABLE_PHY();
-            DBG_PRINTF("Suspend\n");
         }
         if(u32State & USBD_STATE_RESUME)
         {
             /* Enable USB and enable PHY */
             USBD_ENABLE_USB();
-            DBG_PRINTF("Resume\n");
         }
     }
 

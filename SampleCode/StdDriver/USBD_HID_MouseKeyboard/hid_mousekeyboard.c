@@ -75,7 +75,6 @@ void USBD_IRQHandler(void)
         {
             /* Enter power down to wait USB attached */
             g_u8Suspend = 1;
-
             /* Enable USB but disable PHY */
             USBD_DISABLE_PHY();
         }
@@ -90,20 +89,6 @@ void USBD_IRQHandler(void)
 //------------------------------------------------------------------
     if(u32IntSts & USBD_INTSTS_USB)
     {
-        // USB event
-        if(u32IntSts & USBD_INTSTS_SETUP)
-        {
-            // Setup packet
-            /* Clear event flag */
-            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
-
-            /* Clear the data IN/OUT ready flag of control end-points */
-            USBD_STOP_TRANSACTION(EP0);
-            USBD_STOP_TRANSACTION(EP1);
-
-            USBD_ProcessSetupPacket();
-        }
-
         // EP events
         if(u32IntSts & USBD_INTSTS_EP0)
         {
@@ -120,7 +105,19 @@ void USBD_IRQHandler(void)
             // control OUT
             USBD_CtrlOut();
         }
+        // USB event
+        if(u32IntSts & USBD_INTSTS_SETUP)
+        {
+            // Setup packet
+            /* Clear event flag */
+            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
 
+            /* Clear the data IN/OUT ready flag of control end-points */
+            USBD_STOP_TRANSACTION(EP0);
+            USBD_STOP_TRANSACTION(EP1);
+
+            USBD_ProcessSetupPacket();
+        }
         if(u32IntSts & USBD_INTSTS_EP2)
         {
             /* Clear event flag */
@@ -376,8 +373,8 @@ void HID_UpdateKbData(void)
     {
         pu8Buf = (uint8_t *)(USBD_BUF_BASE + USBD_GET_EP_BUF_ADDR(EP3));
 
-        /* If PB.15 = 0, just report it is key 'a' */
-        u32Key = (PB->PIN & (1 << 15)) ? 0 : 1;
+        /* If PB.3 = 0, just report it is key 'a' */
+        u32Key = (PB->PIN & (1 << 3)) ? 0 : 1;
 
         if(u32Key == 0)
         {
@@ -407,29 +404,25 @@ void HID_UpdateKbData(void)
                 printf("NmLK  ON, ");
             else
                 printf("NmLK OFF, ");
-
             if(Led_Status[0] & HID_LED_CapsLock)
                 printf("CapsLock  ON, ");
             else
                 printf("CapsLock OFF, ");
-
             if(Led_Status[0] & HID_LED_ScrollLock)
                 printf("ScrollLock  ON, ");
             else
                 printf("ScrollLock OFF, ");
-            
             if(Led_Status[0] & HID_LED_Compose)
                 printf("Compose  ON, ");
             else
-                printf("Compose OFF, ");   
-            
+                printf("Compose OFF, ");
             if(Led_Status[0] & HID_LED_Kana)
                 printf("Kana  ON\n");
             else
-                printf("Kana OFF\n");  
+                printf("Kana OFF\n");
         }
         LED_SATUS = Led_Status[0];
-    }   
+    }
 }
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

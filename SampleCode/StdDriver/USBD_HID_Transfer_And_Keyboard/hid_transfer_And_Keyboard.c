@@ -85,19 +85,6 @@ void USBD_IRQHandler(void)
 //------------------------------------------------------------------
     if(u32IntSts & USBD_INTSTS_USB)
     {
-        // USB event
-        if(u32IntSts & USBD_INTSTS_SETUP)
-        {
-            // Setup packet
-            /* Clear event flag */
-            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
-
-            /* Clear the data IN/OUT ready flag of control end-points */
-            USBD_STOP_TRANSACTION(EP0);
-            USBD_STOP_TRANSACTION(EP1);
-
-            USBD_ProcessSetupPacket();
-        }
 
         // EP events
         if(u32IntSts & USBD_INTSTS_EP0)
@@ -114,6 +101,19 @@ void USBD_IRQHandler(void)
             USBD_CLR_INT_FLAG(USBD_INTSTS_EP1);
             // control OUT
             USBD_CtrlOut();
+        }
+        // USB event
+        if(u32IntSts & USBD_INTSTS_SETUP)
+        {
+            // Setup packet
+            /* Clear event flag */
+            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
+
+            /* Clear the data IN/OUT ready flag of control end-points */
+            USBD_STOP_TRANSACTION(EP0);
+            USBD_STOP_TRANSACTION(EP1);
+
+            USBD_ProcessSetupPacket();
         }
 
         if(u32IntSts & USBD_INTSTS_EP2)
@@ -244,6 +244,8 @@ void HID_Init(void)
     USBD_CONFIG_EP(EP4, USBD_CFG_EPMODE_IN | HID_KB_EP_NUM);
     /* Buffer range for EP4 */
     USBD_SET_EP_BUF_ADDR(EP4, EP4_BUF_BASE);
+
+    s_u8EP4Ready = 1;
 }
 
 void HID_ClassRequest(void)
@@ -302,14 +304,14 @@ void HID_ClassRequest(void)
                 USBD_SET_PAYLOAD_LEN(EP1, 0);
             }
             else if(au8Buf[3] == 2)
-            {               
+            {
                 /* Request Type = Output */
                 USBD_SET_DATA1(EP1);
                 /* Data stage */
                 USBD_PrepareCtrlOut(Led_Status, au8Buf[6]);
                 /* Status stage */
-                USBD_PrepareCtrlIn(0, 0);                
-                
+                USBD_PrepareCtrlIn(0, 0);
+
             }
             break;
         }
@@ -649,8 +651,8 @@ void HID_UpdateKbData(void)
     {
         pu8Buf = (uint8_t *)(USBD_BUF_BASE + USBD_GET_EP_BUF_ADDR(EP4));
 
-        /* If PB.15 = 0, just report it is key 'a' */
-        u32Key = (PB->PIN & (1 << 15)) ? 0 : 1;
+        /* If PB.3 = 0, just report it is key 'a' */
+        u32Key = (PB->PIN & (1 << 3)) ? 0 : 1;
 
         if(u32Key == 0)
         {
@@ -690,19 +692,19 @@ void HID_UpdateKbData(void)
                 printf("ScrollLock  ON, ");
             else
                 printf("ScrollLock OFF, ");
-            
+
             if(Led_Status[0] & HID_LED_Compose)
                 printf("Compose  ON, ");
             else
-                printf("Compose OFF, ");   
-            
+                printf("Compose OFF, ");
+
             if(Led_Status[0] & HID_LED_Kana)
                 printf("Kana  ON\n");
             else
-                printf("Kana OFF\n");  
+                printf("Kana OFF\n");
         }
         LED_SATUS = Led_Status[0];
-    }    
+    }
 }
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

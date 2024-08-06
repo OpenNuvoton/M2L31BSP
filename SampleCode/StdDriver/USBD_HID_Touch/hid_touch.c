@@ -81,20 +81,6 @@ void USBD_IRQHandler(void)
 //------------------------------------------------------------------
     if(u32IntSts & USBD_INTSTS_USB)
     {
-        // USB event
-        if(u32IntSts & USBD_INTSTS_SETUP)
-        {
-            // Setup packet
-            /* Clear event flag */
-            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
-
-            /* Clear the data IN/OUT ready flag of control end-points */
-            USBD_STOP_TRANSACTION(EP0);
-            USBD_STOP_TRANSACTION(EP1);
-
-            USBD_ProcessSetupPacket();
-        }
-
         // EP events
         if(u32IntSts & USBD_INTSTS_EP0)
         {
@@ -110,6 +96,19 @@ void USBD_IRQHandler(void)
             USBD_CLR_INT_FLAG(USBD_INTSTS_EP1);
             // control OUT
             USBD_CtrlOut();
+        }
+        // USB event
+        if(u32IntSts & USBD_INTSTS_SETUP)
+        {
+            // Setup packet
+            /* Clear event flag */
+            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
+
+            /* Clear the data IN/OUT ready flag of control end-points */
+            USBD_STOP_TRANSACTION(EP0);
+            USBD_STOP_TRANSACTION(EP1);
+
+            USBD_ProcessSetupPacket();
         }
 
         if(u32IntSts & USBD_INTSTS_EP2)

@@ -76,41 +76,11 @@ void USBD_IRQHandler(void)
             USBD_ENABLE_USB();
             g_u8Suspend = 0;
         }
-#ifdef SUPPORT_LPM
-        if(u32State & USBD_STATE_L1SUSPEND)
-        {
-            /* Enter power down to wait USB attached */
-            g_u8Suspend = 1;
-
-            /* Enable USB but disable PHY */
-            USBD_DISABLE_PHY();
-        }
-        if(u32State & USBD_STATE_L1RESUME)
-        {
-            /* Enable USB and enable PHY */
-            USBD_ENABLE_USB();
-            g_u8Suspend = 0;
-        }
-#endif
     }
 
 //------------------------------------------------------------------
     if(u32IntSts & USBD_INTSTS_USB)
     {
-        // USB event
-        if(u32IntSts & USBD_INTSTS_SETUP)
-        {
-            // Setup packet
-            /* Clear event flag */
-            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
-
-            /* Clear the data IN/OUT ready flag of control end-points */
-            USBD_STOP_TRANSACTION(EP0);
-            USBD_STOP_TRANSACTION(EP1);
-
-            USBD_ProcessSetupPacket();
-        }
-
         // EP events
         if(u32IntSts & USBD_INTSTS_EP0)
         {
@@ -127,6 +97,20 @@ void USBD_IRQHandler(void)
             // control OUT
             USBD_CtrlOut();
         }
+        // USB event
+        if(u32IntSts & USBD_INTSTS_SETUP)
+        {
+            // Setup packet
+            /* Clear event flag */
+            USBD_CLR_INT_FLAG(USBD_INTSTS_SETUP);
+
+            /* Clear the data IN/OUT ready flag of control end-points */
+            USBD_STOP_TRANSACTION(EP0);
+            USBD_STOP_TRANSACTION(EP1);
+
+            USBD_ProcessSetupPacket();
+        }
+
 
         if(u32IntSts & USBD_INTSTS_EP2)
         {
@@ -318,31 +302,31 @@ void HID_ClassRequest(void)
 void HID_UpdateMouseData(void)
 {
     uint8_t *pu8Buf;
-    uint32_t u32Reg;
+    uint32_t u32RegA, u32RegB, u32RegC;
     static int32_t i32X = 0, i32Y = 0;
     uint8_t u8MouseKey;
 
     /*
        Key definition:
-           PA0 Down
-           PA1 right
-           PA2 up
-           PA3 right key
-           PA4 left
-           PA5 left key
+           PC5  Down
+           PA10 right
+           PA6  up
+           PA7  left
+           PB3  right key
+           PB2  left key
     */
-
-
     if(s_u8EP2Ready)
     {
         pu8Buf = (uint8_t *)(USBD_BUF_BASE + USBD_GET_EP_BUF_ADDR(EP2));
 
-        u32Reg = PA->PIN & 0x3F;
+        u32RegA = PA->PIN & (BIT10|BIT6|BIT7);
+        u32RegB = PB->PIN & (BIT2|BIT3);
+        u32RegC = PC->PIN & BIT5;
 
         /* To control Y axis */
-        if((u32Reg & 1) == 0)
+        if((u32RegC & BIT5) == 0)
             i32Y += 1;
-        else if((u32Reg & 4) == 0)
+        else if((u32RegA & BIT6) == 0)
             i32Y += -1;
         else
             i32Y = 0;
@@ -350,9 +334,9 @@ void HID_UpdateMouseData(void)
         if(i32Y < -48) i32Y = -48;
 
         /* To control X axis */
-        if((u32Reg & 2) == 0)
+        if((u32RegA & BIT10) == 0)
             i32X += 1;
-        else if((u32Reg & 0x10) == 0)
+        else if((u32RegA & BIT7) == 0)
             i32X += -1;
         else
             i32X = 0;
@@ -361,9 +345,9 @@ void HID_UpdateMouseData(void)
 
         /* Mouse key */
         u8MouseKey = 0;
-        if((u32Reg & 0x20) == 0)
+        if((u32RegB & BIT3) == 0)
             u8MouseKey |= 1; /* Left key */
-        if((u32Reg & 0x8) == 0)
+        if((u32RegB & BIT2) == 0)
             u8MouseKey |= 2; /* Right key */
 
         /* Update new report data */
