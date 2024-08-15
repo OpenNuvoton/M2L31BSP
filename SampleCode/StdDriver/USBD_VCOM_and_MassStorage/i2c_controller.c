@@ -36,7 +36,6 @@ void i2c_check_ready(int port)
 
 int i2c_read32(const int port, const uint16_t addr_flags, int offset, int *data)
 {
-    uint32_t i;
     uint32_t BaseAddr;
     if(port == 0)
         BaseAddr = UTCPD0_BASE;
@@ -64,7 +63,6 @@ int i2c_write32(const int port, const uint16_t addr_flags, int offset, int data)
 
 int i2c_read16(const int port, const uint16_t addr_flags, int offset, int *data)
 {
-    uint32_t i;
     uint32_t BaseAddr;
     if(port == 0)
         BaseAddr = UTCPD0_BASE;
@@ -77,9 +75,6 @@ int i2c_read16(const int port, const uint16_t addr_flags, int offset, int *data)
 
 int i2c_write16(const int port, const uint16_t addr_flags, int offset, int data)
 {
-    uint8_t buf[1 + sizeof(uint16_t)];
-
-    uint32_t i;
     uint32_t BaseAddr;
     if(port == 0)
         BaseAddr = UTCPD0_BASE;
@@ -95,11 +90,6 @@ int i2c_write16(const int port, const uint16_t addr_flags, int offset, int data)
 
 int i2c_read8(const int port, const uint16_t addr_flags, int offset, int *data)
 {
-    int rv;
-    uint8_t reg = offset;
-    uint8_t buf;
-
-    uint32_t i;
     uint32_t BaseAddr;
     if(port == 0)
         BaseAddr = UTCPD0_BASE;
@@ -112,7 +102,6 @@ int i2c_read8(const int port, const uint16_t addr_flags, int offset, int *data)
 
 int i2c_write8(const int port, const uint16_t addr_flags, int offset, int data)
 {
-    uint32_t i;
     uint32_t BaseAddr;
     if(port == 0)
         BaseAddr = UTCPD0_BASE;
