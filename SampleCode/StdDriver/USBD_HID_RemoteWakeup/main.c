@@ -27,6 +27,9 @@ void PowerDown(void);
 
 #ifdef VBUS_DIVIDER
 
+#ifndef __ICCARM__
+#pragma GCC diagnostic ignored "-Wint-conversion"
+#endif
 #include "utcpd.c"
 #include "i2c_controller.c"
 
