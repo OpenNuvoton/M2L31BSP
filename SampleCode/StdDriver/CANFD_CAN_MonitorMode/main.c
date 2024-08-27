@@ -121,6 +121,12 @@ void SYS_Init(void)
     /* Waiting for HIRC clock ready */
     CLK_WaitClockReady(CLK_STATUS_HIRCSTB_Msk);
 
+    /* Enable HXT */
+    CLK_EnableXtalRC(CLK_PWRCTL_HXTEN_Msk);
+
+    /* Waiting for HXT clock ready */
+    CLK_WaitClockReady(CLK_STATUS_HXTSTB_Msk);
+
     /* Set core clock as 72MHz from PLL */
     CLK_SetCoreClock(FREQ_72MHZ);
 
@@ -136,8 +142,8 @@ void SYS_Init(void)
     /* Select UART clock source from HIRC */
     CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
-    /* Select CAN FD0 clock source is HCLK */
-    CLK_SetModuleClock(CANFD0_MODULE, CLK_CLKSEL0_CANFD0SEL_HCLK, CLK_CLKDIV5_CANFD0(1));
+    /* Select CAN FD0 clock source is HXT */
+    CLK_SetModuleClock(CANFD0_MODULE, CLK_CLKSEL0_CANFD0SEL_HXT, CLK_CLKDIV5_CANFD0(1));
 
     /* Update System Core Clock */
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock and cyclesPerUs automatically. */
