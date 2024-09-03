@@ -617,13 +617,6 @@ void CANFD_CalculateTimingValues(CANFD_T *psCanfd,
                                  uint32_t u32NominalBaudRate, uint32_t u32DataBaudRate,
                                  uint32_t u32SourceClock_Hz, CANFD_TIMEING_CONFIG_T *psConfig)
 {
-    int i32Nclk;
-    int i32Nclk2;
-    int i32Ntq;
-    int i32Dclk;
-    int i32Dclk2;
-    int i32Dtq;
-
     /* observe baud rate maximums */
     if (u32NominalBaudRate > MAX_NOMINAL_BAUDRATE) u32NominalBaudRate = MAX_NOMINAL_BAUDRATE;
     if (u32DataBaudRate    > MAX_DATA_BAUDRATE   ) u32DataBaudRate    = MAX_DATA_BAUDRATE   ;
