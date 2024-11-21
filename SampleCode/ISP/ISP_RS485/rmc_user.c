@@ -17,6 +17,21 @@ int RMC_Proc(uint32_t u32Cmd, uint32_t addr_start, uint32_t addr_end, uint32_t *
     {
         if (u32Cmd == RMC_ISPCMD_PROGRAM)
         {
+            RMC->ISPCMD = RMC_ISPCMD_READ_CID;
+            RMC->ISPADDR = 0x00000000;
+            RMC->ISPTRG = 0x1;
+            __ISB();
+
+            while (RMC->ISPTRG & 0x1) ;  /* Wait for ISP command done. */
+
+            Reg = RMC->ISPCTL;
+
+            if (Reg & RMC_ISPCTL_ISPFF_Msk)
+            {
+                RMC->ISPCTL = Reg;
+                return -1;
+            }
+
             RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
             RMC->ISPADDR = 0x00000000;
             RMC->ISPTRG = 0x1;
