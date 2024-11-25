@@ -223,9 +223,9 @@ uint32_t RMC_Read(uint32_t u32Addr)
     RMC->ISPADDR = u32Addr;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_READ;
-
+	
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
+			
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -302,34 +302,13 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
 
     g_RMC_i32ErrCode = 0;
     RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
-
-    RMC->ISPCMD = RMC_ISPCMD_READ_CID;
-    RMC->ISPADDR = 0x00000000;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
-
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (tout == 0)
-    {
-        g_RMC_i32ErrCode = -1;
-        return -1;
-    }
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
-    {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        g_RMC_i32ErrCode = -1;
-        return -1;
-    }
-
     RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
     RMC->ISPADDR = 0x00000000;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-
+	
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
+			
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -347,9 +326,9 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     RMC->ISPDAT = u32Data;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-
+		
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
+			
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -368,9 +347,9 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     RMC->ISPDAT = u32Data;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-
+		
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
+			
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;

@@ -81,22 +81,6 @@ void RMC_ISP(uint32_t u32Cmd, uint32_t u32Addr, uint32_t u32Data)
 
     if (u32Cmd == RMC_ISPCMD_PROGRAM)
     {
-
-        RMC->ISPCMD = RMC_ISPCMD_READ_CID;
-        RMC->ISPADDR = u32Addr;
-        RMC->ISPDAT = u32Data;
-        RMC->ISPTRG = 0x1;
-
-        //__ISB();
-        //while(RMC->ISPTRG);
-        while (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk) { }
-
-        if (RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk)
-        {
-            RMC->ISPCTL |= RMC_ISPCTL_ISPFF_Msk;
-            while (1);
-        }
-
         RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
         RMC->ISPADDR = 0x00000000;
         RMC->ISPTRG = 0x1;
