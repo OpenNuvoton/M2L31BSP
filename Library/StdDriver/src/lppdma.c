@@ -163,8 +163,8 @@ void LPPDMA_SetTransferMode(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Periph
 
     if(u32ScatterEn)
     {
-        lppdma->LPDSCT[u32Ch].CTL = (lppdma->LPDSCT[u32Ch].CTL & ~LPPDMA_DSCT_CTL_OPMODE_Msk) | LPPDMA_OP_SCATTER;
         lppdma->LPDSCT[u32Ch].NEXT = u32DescAddr - (lppdma->SCATBA);
+        lppdma->LPDSCT[u32Ch].CTL = (lppdma->LPDSCT[u32Ch].CTL & ~LPPDMA_DSCT_CTL_OPMODE_Msk) | LPPDMA_OP_SCATTER;
     }
     else
     {
