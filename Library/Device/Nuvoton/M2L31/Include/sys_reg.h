@@ -2325,29 +2325,6 @@ typedef struct
  * |        |          |0 = Over boundary coundition did not occur.
  * |        |          |1 = Over boundary coundition occurred.
  * |        |          |Note: Write 1 to clear this flag.
- * @var SYS_T::RAMPGCTL
- * Offset: 0xFC  RRAM Power Gating Contol Register
- * ---------------------------------------------------------------------------------------------------
- * |Bits    |Field     |Descriptions
- * | :----: | :----:   | :---- |
- * |[0]     |RRAMPGEN0 |RRAM Bank0 Power Gating Enable Bit
- * |        |          |0 = RRAM bank0 power gating disabled.
- * |        |          |1 = RRAM bank0 power gating enabled.
- * |[1]     |RRAMPGDN0 |RRAM Bank0 Power Gating Done Flag(Read Only)
- * |        |          |0 = RRAM bank0 power switch is openoing.
- * |        |          |1 = RRAM bank0 power gating done.
- * |[2]     |RRAMBUSY0 |RRAM Bank0 Busy Flag (Read Only)
- * |        |          |0 = RRAM bank0 in stand by mode.
- * |        |          |1 = RRAM bank0 is busy.
- * |[4]     |RRAMPGEN1 |RRAM Bank1 Power Gating Enable Bit
- * |        |          |0 = RRAM bank1 power gating disabled.
- * |        |          |1 = RRAM bank1 power gating enabled.
- * |[5]     |RRAMPGDN1 |RRAM Bank1 Power Gating Done Flag(Read Only)
- * |        |          |0 = RRAM bank1 power switch is openoing.
- * |        |          |1 = RRAM bank1 power gating done.
- * |[6]     |RRAMBUSY1 |RRAM Bank1 Busy Flag(Read Only)
- * |        |          |0 = RRAM bank1 in stand by mode.
- * |        |          |1 = RRAM bank1 is busy.
  * @var SYS_T::REGLCTL
  * Offset: 0x100  Register Lock Control Register
  * ---------------------------------------------------------------------------------------------------
@@ -3667,19 +3644,19 @@ typedef struct
     __IO uint32_t IRCTCTL;               /*!< [0x00f0] HIRC Trim Control Register                                       */
     __IO uint32_t IRCTIEN;               /*!< [0x00f4] HIRC Trim Interrupt Enable Register                              */
     __IO uint32_t IRCTISTS;              /*!< [0x00f8] HIRC Trim Interrupt Status Register                              */
-    __IO uint32_t RAMPGCTL;              /*!< [0x00fc] RRAM Power Gating Contol Register                                */
+    __I  uint32_t RESERVE8[1];
     __O  uint32_t REGLCTL;               /*!< [0x0100] Register Lock Control Register                                   */
-    __I  uint32_t RESERVE8[25];
+    __I  uint32_t RESERVE9[25];
     __IO uint32_t PMLDOCTL;              /*!< [0x0168] MEGPM LDO Control Register                                       */
-    __I  uint32_t RESERVE9[32];
+    __I  uint32_t RESERVE10[32];
     __IO uint32_t PORDISAN;              /*!< [0x01ec] Analog POR Disable Control Register                              */
-    __I  uint32_t RESERVE10[1];
+    __I  uint32_t RESERVE11[1];
     __I  uint32_t CSERVER;               /*!< [0x01f4] Chip Series Version Register                                     */
     __IO uint32_t PLCTL;                 /*!< [0x01f8] Power Level Control Register                                     */
     __IO uint32_t PLSTS;                 /*!< [0x01fc] Power Level Status Register                                      */
-    __I  uint32_t RESERVE11[68];
+    __I  uint32_t RESERVE12[68];
     __IO uint32_t INIVTOR;               /*!< [0x0310] Initial VTOR Control Register                                    */
-    __I  uint32_t RESERVE12[123];
+    __I  uint32_t RESERVE13[123];
     __IO uint32_t GPA_MFP0;              /*!< [0x0500] GPIOA Multiple Function Control Register 0                       */
     __IO uint32_t GPA_MFP1;              /*!< [0x0504] GPIOA Multiple Function Control Register 1                       */
     __IO uint32_t GPA_MFP2;              /*!< [0x0508] GPIOA Multiple Function Control Register 2                       */
@@ -3703,12 +3680,12 @@ typedef struct
     __IO uint32_t GPF_MFP0;              /*!< [0x0550] GPIOF Multiple Function Control Register 0                       */
     __IO uint32_t GPF_MFP1;              /*!< [0x0554] GPIOF Multiple Function Control Register 1                       */
     __IO uint32_t GPF_MFP2;              /*!< [0x0558] GPIOF Multiple Function Control Register 2                       */
-    __I  uint32_t RESERVE13[1];
+    __I  uint32_t RESERVE14[1];
     __IO uint32_t GPG_MFP0;              /*!< [0x0560] GPIOG Multiple Function Control Register 0                       */
     __IO uint32_t GPG_MFP1;              /*!< [0x0564] GPIOG Multiple Function Control Register 1                       */
     __IO uint32_t GPG_MFP2;              /*!< [0x0568] GPIOG Multiple Function Control Register 2                       */
     __IO uint32_t GPG_MFP3;              /*!< [0x056c] GPIOG Multiple Function Control Register 3                       */
-    __I  uint32_t RESERVE14[1];
+    __I  uint32_t RESERVE15[1];
     __IO uint32_t GPH_MFP1;              /*!< [0x0574] GPIOH Multiple Function Control Register 1                       */
     __IO uint32_t GPH_MFP2;              /*!< [0x0578] GPIOH Multiple Function Control Register 2                       */
 
@@ -4570,24 +4547,6 @@ typedef struct
 
 #define SYS_IRCTISTS_OVBDIF_Pos          (3)                                               /*!< SYS_T::IRCTISTS: OVBDIF Position       */
 #define SYS_IRCTISTS_OVBDIF_Msk          (0x1ul << SYS_IRCTISTS_OVBDIF_Pos)                /*!< SYS_T::IRCTISTS: OVBDIF Mask           */
-
-#define SYS_RAMPGCTL_RRAMPGEN0_Pos       (0)                                               /*!< SYS_T::RAMPGCTL: RRAMPGEN0 Position    */
-#define SYS_RAMPGCTL_RRAMPGEN0_Msk       (0x1ul << SYS_RAMPGCTL_RRAMPGEN0_Pos)             /*!< SYS_T::RAMPGCTL: RRAMPGEN0 Mask        */
-
-#define SYS_RAMPGCTL_RRAMPGDN0_Pos       (1)                                               /*!< SYS_T::RAMPGCTL: RRAMPGDN0 Position    */
-#define SYS_RAMPGCTL_RRAMPGDN0_Msk       (0x1ul << SYS_RAMPGCTL_RRAMPGDN0_Pos)             /*!< SYS_T::RAMPGCTL: RRAMPGDN0 Mask        */
-
-#define SYS_RAMPGCTL_RRAMBUSY0_Pos       (2)                                               /*!< SYS_T::RAMPGCTL: RRAMBUSY0 Position    */
-#define SYS_RAMPGCTL_RRAMBUSY0_Msk       (0x1ul << SYS_RAMPGCTL_RRAMBUSY0_Pos)             /*!< SYS_T::RAMPGCTL: RRAMBUSY0 Mask        */
-
-#define SYS_RAMPGCTL_RRAMPGEN1_Pos       (4)                                               /*!< SYS_T::RAMPGCTL: RRAMPGEN1 Position    */
-#define SYS_RAMPGCTL_RRAMPGEN1_Msk       (0x1ul << SYS_RAMPGCTL_RRAMPGEN1_Pos)             /*!< SYS_T::RAMPGCTL: RRAMPGEN1 Mask        */
-
-#define SYS_RAMPGCTL_RRAMPGDN1_Pos       (5)                                               /*!< SYS_T::RAMPGCTL: RRAMPGDN1 Position    */
-#define SYS_RAMPGCTL_RRAMPGDN1_Msk       (0x1ul << SYS_RAMPGCTL_RRAMPGDN1_Pos)             /*!< SYS_T::RAMPGCTL: RRAMPGDN1 Mask        */
-
-#define SYS_RAMPGCTL_RRAMBUSY1_Pos       (6)                                               /*!< SYS_T::RAMPGCTL: RRAMBUSY1 Position    */
-#define SYS_RAMPGCTL_RRAMBUSY1_Msk       (0x1ul << SYS_RAMPGCTL_RRAMBUSY1_Pos)             /*!< SYS_T::RAMPGCTL: RRAMBUSY1 Mask        */
 
 #define SYS_REGLCTL_REGLCTL_Pos          (0)                                               /*!< SYS_T::REGLCTL: REGLCTL Position       */
 #define SYS_REGLCTL_REGLCTL_Msk          (0xfful << SYS_REGLCTL_REGLCTL_Pos)               /*!< SYS_T::REGLCTL: REGLCTL Mask           */
