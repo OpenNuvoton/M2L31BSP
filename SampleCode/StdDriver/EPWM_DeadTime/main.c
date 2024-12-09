@@ -102,11 +102,11 @@ void SYS_Init(void)
     /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
     Uart0DefaultMPF();
 
-    /* Set PE multi-function pins for EPWM0 Channel0~5 */
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE7MFP_Msk)) | SYS_GPE_MFP1_PE7MFP_EPWM0_CH0;
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE6MFP_Msk)) | SYS_GPE_MFP1_PE6MFP_EPWM0_CH1;
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE5MFP_Msk)) | SYS_GPE_MFP1_PE5MFP_EPWM0_CH2;
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE4MFP_Msk)) | SYS_GPE_MFP1_PE4MFP_EPWM0_CH3;
+    /* Set PA multi-function pins for EPWM0 Channel0~3 */
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & (~SYS_GPA_MFP1_PA5MFP_Msk)) | SYS_GPA_MFP1_PA5MFP_EPWM0_CH0;
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & (~SYS_GPA_MFP1_PA4MFP_Msk)) | SYS_GPA_MFP1_PA4MFP_EPWM0_CH1;
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & (~SYS_GPA_MFP0_PA3MFP_Msk)) | SYS_GPA_MFP0_PA3MFP_EPWM0_CH2;
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & (~SYS_GPA_MFP0_PA2MFP_Msk)) | SYS_GPA_MFP0_PA2MFP_EPWM0_CH3;
 }
 
 void UART0_Init()
@@ -152,7 +152,7 @@ int32_t main(void)
     printf("  frequency and duty, enable dead time function of all EPWM0 pairs.\n");
     printf("  And also enable/disable EPWM output every 1 second.\n");
     printf("  I/O configuration:\n");
-    printf("    waveform output pin: EPWM0_CH0(PE.7), EPWM0_CH1(PE.6), EPWM0_CH2(PE.5), EPWM0_CH3(PE.4)\n");
+    printf("    waveform output pin: EPWM0_CH0(PA.5), EPWM0_CH1(PA.4), EPWM0_CH2(PA.3), EPWM0_CH3(PA.2)\n");
 
     /* Set Pwm mode as complementary mode */
     EPWM_ENABLE_COMPLEMENTARY_MODE(EPWM0);

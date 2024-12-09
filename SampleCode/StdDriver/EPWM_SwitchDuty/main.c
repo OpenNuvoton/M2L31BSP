@@ -90,13 +90,8 @@ void SYS_Init(void)
     /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
     Uart0DefaultMPF();
 
-    /* Set PE multi-function pins for EPWM0 Channel0~5 */
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE7MFP_Msk)) | SYS_GPE_MFP1_PE7MFP_EPWM0_CH0;
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE6MFP_Msk)) | SYS_GPE_MFP1_PE6MFP_EPWM0_CH1;
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE5MFP_Msk)) | SYS_GPE_MFP1_PE5MFP_EPWM0_CH2;
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE4MFP_Msk)) | SYS_GPE_MFP1_PE4MFP_EPWM0_CH3;
-    SYS->GPE_MFP0 = (SYS->GPE_MFP0 & (~SYS_GPE_MFP0_PE3MFP_Msk)) | SYS_GPE_MFP0_PE3MFP_EPWM0_CH4;
-    SYS->GPE_MFP0 = (SYS->GPE_MFP0 & (~SYS_GPE_MFP0_PE2MFP_Msk)) | SYS_GPE_MFP0_PE2MFP_EPWM0_CH5;
+    /* Set PA5 multi-function pins for EPWM0 Channel0 */
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & (~SYS_GPA_MFP1_PA5MFP_Msk)) | SYS_GPA_MFP1_PA5MFP_EPWM0_CH0;
 
 }
 
@@ -161,7 +156,7 @@ int32_t main(void)
     printf("+-----------------------------------------------------------------------------------+\n");
     printf("  This sample code will use EPWM0 channel 0 to output waveform, and switch duty cycle.\n");
     printf("  I/O configuration:\n");
-    printf("    waveform output pin: EPWM0 channel 0(PE.7)\n");
+    printf("    waveform output pin: EPWM0 channel 0(PA.5)\n");
     printf("\nOutput waveform is 1800Hz and it's duty is 50%%.\n");
 
     /* EPWM0 channel 0 frequency is 1800Hz, duty 50%, */

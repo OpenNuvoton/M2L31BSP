@@ -96,11 +96,11 @@ void SYS_Init(void)
     /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
     Uart0DefaultMPF();
 
-    /* Set PE multi-function pins for EPWM0 Channel 0 */
-    SYS->GPE_MFP1 = (SYS->GPE_MFP1 & (~SYS_GPE_MFP1_PE7MFP_Msk)) | SYS_GPE_MFP1_PE7MFP_EPWM0_CH0;
+    /* Set PA5 multi-function pin for EPWM0 Channel 0 */
+    SYS->GPA_MFP1 = (SYS->GPA_MFP1 & (~SYS_GPA_MFP1_PA5MFP_Msk)) | SYS_GPA_MFP1_PA5MFP_EPWM0_CH0;
 
-    /* Set PE multi-function pin for EPWM0 brake pin 0 */
-    SYS->GPE_MFP2 = (SYS->GPE_MFP2 & ~SYS_GPE_MFP2_PE8MFP_Msk) | SYS_GPE_MFP2_PE8MFP_EPWM0_BRAKE0;
+    /* Set PB1 multi-function pin for EPWM0 brake pin 0 */
+    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~SYS_GPB_MFP0_PB1MFP_Msk) | SYS_GPB_MFP0_PB1MFP_EPWM0_BRAKE0;
 }
 
 void UART0_Init()
@@ -130,8 +130,8 @@ int main(void)
     /* Init UART0 for printf */
     UART0_Init();
 
-    printf("\nPE.7 is EPWM0 channel 0.\n");
-    printf("\nConnet PE.8 (EPWM0 brake pin 0) to PD.3.\n");
+    printf("\nPA.5 is EPWM0 channel 0.\n");
+    printf("\nConnet PB.1 (EPWM0 brake pin 0) to PD.3.\n");
     printf("It will generate brake interrupt and EPWM0 channel 0 output stop toggling.\n");
 
     GPIO_SetMode(PD, BIT3, GPIO_MODE_OUTPUT);
