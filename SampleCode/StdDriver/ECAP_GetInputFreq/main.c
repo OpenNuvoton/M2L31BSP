@@ -121,8 +121,8 @@ void SYS_Init(void)
     Uart0DefaultMPF();
 
     /* Set PE.8 for ECAP0_IC0*/
-    SYS->GPE_MFP2 = (SYS->GPE_MFP2 & ~(SYS_GPE_MFP2_PE8MFP_Msk)) |
-                    (SYS_GPE_MFP2_PE8MFP_ECAP0_IC0);
+    SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB14MFP_Msk)) |
+                    (SYS_GPB_MFP3_PB14MFP_ECAP0_IC0);
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -187,7 +187,7 @@ int32_t main(void)
     printf("+----------------------------------------------------------+\n");
     printf("\n");
     printf("  !! GPIO PC.2 toggle periodically with 5000Hz !!\n");
-    printf("  !! Connect PC.2 --> PE.8 (ECAP0_IC0) !!\n\n");
+    printf("  !! Connect PC.2 --> PB.14 (ECAP0_IC0) !!\n\n");
     printf("     Press any key to start test\n\n");
 
     getchar();

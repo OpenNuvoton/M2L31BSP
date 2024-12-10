@@ -10,7 +10,7 @@
 #include "NuMicro.h"
 
 #define SIGNATURE       0x125AB234
-#define FLAG_ADDR       (0x20010000-4)  // For 64KB (0x10000) SRAM
+#define FLAG_ADDR       (SRAM_BASE+0xA000-4)    // For 40KB (0xA000) SRAM
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  Brown Out Detector IRQ Handler                                                                         */
