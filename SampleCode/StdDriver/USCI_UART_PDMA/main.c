@@ -112,8 +112,8 @@ void USCI0_Init(void)
 void PDMA_Init(void)
 {
     /* Open PDMA Channel */
-    PDMA_Open(PDMA0,1 << 0); // Channel 0 for UART1 TX
-    PDMA_Open(PDMA0,1 << 1); // Channel 1 for UART1 RX
+    PDMA_Open(PDMA0,1 << 0); // Channel 0 for UUART0 TX
+    PDMA_Open(PDMA0,1 << 1); // Channel 1 for UUART0 RX
     // Select basic mode
     PDMA_SetTransferMode(PDMA0,0, PDMA_USCI0_TX, 0, 0);
     PDMA_SetTransferMode(PDMA0,1, PDMA_USCI0_RX, 0, 0);
