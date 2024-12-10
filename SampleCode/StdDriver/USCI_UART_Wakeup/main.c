@@ -78,11 +78,11 @@ void SYS_Init(void)
     /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
     Uart0DefaultMPF();
 
-    /* Set multi-function pins for USCI0_DAT0(PA.10), USCI0_DAT1(PA.9), USCI0_CTL0(PC.13) and USCI0_CTL1(PA.8) */
+    /* Set multi-function pins for USCI0_DAT0(PA.10), USCI0_DAT1(PA.9), USCI0_CTL0(PB.0) and USCI0_CTL1(PA.8) */
     SYS->GPA_MFP2 &= ~(SYS_GPA_MFP2_PA8MFP_Msk | SYS_GPA_MFP2_PA9MFP_Msk | SYS_GPA_MFP2_PA10MFP_Msk);
     SYS->GPA_MFP2 |= (SYS_GPA_MFP2_PA8MFP_USCI0_CTL1 | SYS_GPA_MFP2_PA9MFP_USCI0_DAT1 |SYS_GPA_MFP2_PA10MFP_USCI0_DAT0);
-    SYS->GPC_MFP3 &= ~(SYS_GPC_MFP3_PC13MFP_Msk);
-    SYS->GPC_MFP3 |= (SYS_GPC_MFP3_PC13MFP_USCI0_CTL0);
+    SYS->GPB_MFP0 &= ~(SYS_GPB_MFP0_PB0MFP_Msk);
+    SYS->GPB_MFP0 |= (SYS_GPB_MFP0_PB0MFP_USCI0_CTL0);
 
     /* Lock protected registers */
     SYS_LockReg();
