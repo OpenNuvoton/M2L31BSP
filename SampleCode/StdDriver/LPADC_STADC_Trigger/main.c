@@ -74,11 +74,11 @@ void SYS_Init(void)
     /* Disable the PB.2 - PB.3 digital input path to avoid the leakage current. */
     GPIO_DISABLE_DIGITAL_PATH(PB, BIT2|BIT3);
 
-    /* Set PC.13 to input mode */
-    GPIO_SetMode(PC, BIT13, GPIO_MODE_INPUT);
-    /* Configure the PC.13 LPADC trigger pins. */
-    SYS->GPC_MFP3 = (SYS->GPC_MFP3 & ~(SYS_GPC_MFP3_PC13MFP_Msk)) |
-                    (SYS_GPC_MFP3_PC13MFP_LPADC0_ST);
+    /* Set PC.1 to input mode */
+    GPIO_SetMode(PC, BIT1, GPIO_MODE_INPUT);
+    /* Configure the PC.1 LPADC trigger pins. */
+    SYS->GPC_MFP0 = (SYS->GPC_MFP0 & ~(SYS_GPC_MFP0_PC1MFP_Msk)) |
+                    (SYS_GPC_MFP0_PC1MFP_LPADC0_ST);
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -95,7 +95,7 @@ void LPADC_FunctionTest()
     printf("+----------------------------------------------------------------------+\n");
 
     printf("\nIn this test, software will get 6 conversion result from the specified channel\n");
-    printf("   that triggered by STADC pin (PC.13).\n");
+    printf("   that triggered by STADC pin (PC.1).\n");
 
     /* Enable LPADC converter */
     LPADC_POWER_ON(LPADC0);
@@ -122,7 +122,7 @@ void LPADC_FunctionTest()
             LPADC_ENABLE_INT(LPADC0, LPADC_ADF_INT);
             NVIC_EnableIRQ(LPADC0_IRQn);
 
-            printf("Wait falling edge from STADC pin (PC.13) ...\n");
+            printf("Wait falling edge from STADC pin (PC.1) ...\n");
 
             /* Reset the LPADC indicator and wait falling edge on STADC pin */
             g_u32LpadcIntFlag = 0;
@@ -165,7 +165,7 @@ void LPADC_FunctionTest()
             LPADC_ENABLE_INT(LPADC0, LPADC_ADF_INT);
             NVIC_EnableIRQ(LPADC0_IRQn);
 
-            printf("Wait falling edge from STADC pin (PC.13) ...\n");
+            printf("Wait falling edge from STADC pin (PC.1) ...\n");
 
             /* Reset the LPADC indicator and wait falling edge on STADC pin */
             g_u32LpadcIntFlag = 0;

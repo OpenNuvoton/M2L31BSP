@@ -9,7 +9,13 @@
 #include <stdio.h>
 #include "NuMicro.h"
 
-#define SRAM_REGION_NUMBER  (7)
+#define __M2L31_40KB_SRM__
+
+#ifdef __M2L31_40KB_SRM__
+    #define SRAM_REGION_NUMBER  (3)
+#else
+    #define SRAM_REGION_NUMBER  (7)
+#endif
 
 static volatile uint8_t s_u8IsINTEvent;
 
@@ -99,7 +105,11 @@ int32_t main(void)
 {
     uint32_t au32SRAMCheckSum[SRAM_REGION_NUMBER] = {0};
     uint32_t au32SRAMCheckSum2[SRAM_REGION_NUMBER] = {0};
+#if (SRAM_REGION_NUMBER == 7)
     uint32_t au32SRAMSize[SRAM_REGION_NUMBER] = { 8192, 16384, 16384, 32768, 32768, 65536, 8192};
+#else
+    uint32_t au32SRAMSize[SRAM_REGION_NUMBER] = { 8192, 16384, 16384};
+#endif
     uint32_t u32Idx, u32Addr, u32SRAMStartAddr = 0;
     uint32_t u32TimeOutCnt;
 
@@ -175,21 +185,24 @@ int32_t main(void)
     printf("SRAM Region 0 Checksum [0x%08X]\n", au32SRAMCheckSum[0]);
     printf("SRAM Region 1 Checksum [0x%08X]\n", au32SRAMCheckSum[1]);
     printf("SRAM Region 2 Checksum [0x%08X]\n", au32SRAMCheckSum[2]);
-    printf("SRAM Region 3 Checksum [0x%08X]\n", au32SRAMCheckSum[3]);
-    printf("SRAM Region 4 Checksum [0x%08X]\n", au32SRAMCheckSum[4]);
-    printf("SRAM Region 5 Checksum [0x%08X]\n", au32SRAMCheckSum[5]);
-    printf("SRAM Region 6 Checksum [0x%08X]\n", au32SRAMCheckSum[6]);
-
     /* Select SRAM power mode in system Power-down Mode */
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM0PM_Msk, SYS_SRAMPC0_SRAM_NORMAL);
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM1PM_Msk, SYS_SRAMPC0_SRAM_NORMAL);
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM2PM_Msk, SYS_SRAMPC0_SRAM_RETENTION);
+
+#if (SRAM_REGION_NUMBER == 7)
+    printf("SRAM Region 3 Checksum [0x%08X]\n", au32SRAMCheckSum[3]);
+    printf("SRAM Region 4 Checksum [0x%08X]\n", au32SRAMCheckSum[4]);
+    printf("SRAM Region 5 Checksum [0x%08X]\n", au32SRAMCheckSum[5]);
+    printf("SRAM Region 6 Checksum [0x%08X]\n", au32SRAMCheckSum[6]);
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM3PM_Msk, SYS_SRAMPC0_SRAM_RETENTION);
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM4PM_Msk, SYS_SRAMPC0_SRAM_SHUT_DOWN);
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM5PM_Msk, SYS_SRAMPC0_SRAM_SHUT_DOWN);
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM6PM_Msk, SYS_SRAMPC0_SRAM_NORMAL);
+#endif
 
     /* Enter to Power-down mode and wake-up by WDT interrupt */
+    printf("\n");
     printf("Enter to Power-down mode ... ");
 
     /* Enable WDT NVIC */
@@ -208,7 +221,9 @@ int32_t main(void)
     PowerDownFunction();
 
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM2PM_Msk, SYS_SRAMPC0_SRAM_NORMAL);
+#if (SRAM_REGION_NUMBER == 7)
     SYS_SetSSRAMPowerMode(SYS_SRAMPC0_SRAM3PM_Msk, SYS_SRAMPC0_SRAM_NORMAL);
+#endif
 
     /* Check if WDT time-out interrupt and wake-up occurred or not */
     u32TimeOutCnt = SystemCoreClock; /* 1 second time-out */
@@ -220,7 +235,7 @@ int32_t main(void)
             break;
         }
     }
-    printf("wake-up!\n\n");
+    printf("wake-up by WDT!\n\n");
 
     /* Calculate SRAM checksum after wake-up from Power-down mode */
     printf("Calculate SRAM CheckSum after wake-up:\n");
@@ -259,6 +274,7 @@ int32_t main(void)
            (au32SRAMCheckSum[1]==au32SRAMCheckSum2[1]) ? "Same" : "Diff");
     printf("SRAM Region 2 Checksum [0x%08X] (%s) (Retention mode)\n",       au32SRAMCheckSum2[2],
            (au32SRAMCheckSum[2]==au32SRAMCheckSum2[2]) ? "Same" : "Diff");
+#if (SRAM_REGION_NUMBER == 7)
     printf("SRAM Region 3 Checksum [0x%08X] (%s) (Retention mode)\n",       au32SRAMCheckSum2[3],
            (au32SRAMCheckSum[3]==au32SRAMCheckSum2[3]) ? "Same" : "Diff");
     printf("SRAM Region 4 Checksum [0x%08X] (%s) (Shut down mode)\n",       au32SRAMCheckSum2[4],
@@ -267,6 +283,7 @@ int32_t main(void)
            (au32SRAMCheckSum[5]==au32SRAMCheckSum2[5]) ? "Same" : "Diff");
     printf("SRAM Region 6 Checksum [0x%08X] (%s) (Normal mode)\n",          au32SRAMCheckSum2[6],
            (au32SRAMCheckSum[6]==au32SRAMCheckSum2[6]) ? "Same" : "Diff");
+#endif
 
     while(1);
 }
