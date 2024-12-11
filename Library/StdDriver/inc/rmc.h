@@ -335,6 +335,7 @@ extern int32_t  g_RMC_i32ErrCode;
 /*---------------------------------------------------------------------------------------------------------*/
 /* inline functions                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
+__STATIC_INLINE uint32_t RMC_DummyReadCID(void);
 __STATIC_INLINE uint32_t RMC_ReadCID(void);
 __STATIC_INLINE uint32_t RMC_ReadPID(void);
 __STATIC_INLINE uint32_t RMC_ReadUID(uint8_t u8Index);
@@ -360,12 +361,12 @@ __STATIC_INLINE uint32_t RMC_GetVECMAP(void)
 
 
 /**
-  * @brief    Read company ID for System Level issue
+  * @brief    Dummy Read company ID for System Level issue
   * @param    None
   * @return   The company ID (32-bit)
   * @details  The company ID of Nuvoton is fixed to be 0xDA
   */
-__STATIC_INLINE uint32_t _RMC_ReadCID(void)
+__STATIC_INLINE uint32_t RMC_DummyReadCID(void)
 {
     uint32_t  tout = RMC_TIMEOUT_READ;
 
@@ -377,17 +378,19 @@ __STATIC_INLINE uint32_t _RMC_ReadCID(void)
 #if ISBEN
     __ISB();
 #endif                                           /* To make sure ISP/CPU be Synchronized */
-    while (tout-- > 0)
+    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+
+    if (tout == 0)
     {
-        if (!(RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk))  /* Waiting for ISP Done */
-        {
-            if (RMC->ISPDAT != 0x530000DA)
-                g_RMC_i32ErrCode = -1;
-            return RMC->ISPDAT;
-        }
+        g_RMC_i32ErrCode = -1;
+        return 0xFFFFFFFF;
     }
-    g_RMC_i32ErrCode = -1;
-    return 0xFFFFFFFF;
+    if(RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk)
+    {
+        RMC->ISPCTL |= RMC_ISPCTL_ISPFF_Msk;
+    }
+
+    return 0xDA;
 }
 
 
@@ -405,7 +408,7 @@ __STATIC_INLINE uint32_t RMC_ReadCID(void)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -442,7 +445,7 @@ __STATIC_INLINE uint32_t RMC_ReadPID(void)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -475,7 +478,7 @@ __STATIC_INLINE uint32_t RMC_ReadUID(uint8_t u8Index)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -509,7 +512,7 @@ __STATIC_INLINE uint32_t RMC_ReadUCID(uint32_t u32Index)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -544,7 +547,7 @@ __STATIC_INLINE int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 

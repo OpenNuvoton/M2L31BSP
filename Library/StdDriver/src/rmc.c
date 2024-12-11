@@ -63,7 +63,7 @@ int32_t RMC_ConfigXOM(uint32_t u32XomNum, uint32_t u32XomBase, uint8_t u8XomPage
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -112,7 +112,7 @@ int32_t RMC_EraseXOM(uint32_t u32XomNum)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -235,7 +235,7 @@ uint32_t RMC_Read(uint32_t u32Addr)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
     RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
@@ -324,7 +324,7 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
     RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
@@ -409,7 +409,7 @@ int32_t RMC_Erase(uint32_t u32PageAddr)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -517,7 +517,7 @@ int32_t RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     u32Config[0] = RMC_Read(RMC_CONFIG_BASE);
 
@@ -550,7 +550,7 @@ int32_t RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     RMC_ENABLE_CFG_UPDATE();
 
@@ -605,7 +605,7 @@ int32_t RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -700,7 +700,7 @@ uint32_t  RMC_GetChkSum(uint32_t u32addr, uint32_t u32count)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -775,7 +775,7 @@ uint32_t  RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -858,7 +858,7 @@ int32_t RMC_RemapBank(uint32_t u32BankAddr)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     g_RMC_i32ErrCode = 0;
     RMC->ISPCMD = RMC_ISPCMD_BANK_REMAP;
@@ -903,7 +903,7 @@ int32_t RMC_ReadOTP(uint32_t otp_num, uint32_t *low_word, uint32_t *high_word)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     if (otp_num > 255UL)
     {
@@ -932,7 +932,7 @@ int32_t RMC_LockOTP(uint32_t otp_num)
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     if (otp_num > 255UL)
     {
@@ -963,7 +963,7 @@ int32_t RMC_IsOTPLocked(uint32_t otp_num)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     if (otp_num > 255UL)
     {
@@ -998,7 +998,7 @@ int32_t RMC_WriteOTP(uint32_t otp_num, uint32_t low_word, uint32_t high_word)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        _RMC_ReadCID();
+        RMC_DummyReadCID();
 
     if (otp_num > 255UL)
     {
