@@ -120,7 +120,7 @@ void SYS_Init(void)
     /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
     Uart0DefaultMPF();
 
-    /* Set PE.8 for ECAP0_IC0*/
+    /* Set PB.14 for ECAP0_IC0*/
     SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB14MFP_Msk)) |
                     (SYS_GPB_MFP3_PB14MFP_ECAP0_IC0);
 
