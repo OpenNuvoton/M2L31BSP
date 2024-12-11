@@ -59,6 +59,12 @@ int32_t RMC_ConfigXOM(uint32_t u32XomNum, uint32_t u32XomBase, uint8_t u8XomPage
 {
     int32_t  ret = 0;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     g_RMC_i32ErrCode = 0;
 
     if(u32XomNum >= 4UL)
@@ -101,7 +107,15 @@ int32_t RMC_EraseXOM(uint32_t u32XomNum)
     uint32_t u32Addr;
     int32_t i32Active, err = 0;
     uint32_t  tout;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     g_RMC_i32ErrCode = 0;
+
     if(u32XomNum >= 5UL)
     {
         err = -2;
@@ -217,15 +231,21 @@ uint32_t RMC_Read(uint32_t u32Addr)
 {
     uint32_t  tout;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     g_RMC_i32ErrCode = 0;
     RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
     RMC->ISPCMD = RMC_ISPCMD_READ;
     RMC->ISPADDR = u32Addr;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_READ;
-	
+
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-			
+
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -300,15 +320,21 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
 {
     uint32_t  tout;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     g_RMC_i32ErrCode = 0;
     RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
     RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
     RMC->ISPADDR = 0x00000000;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-	
+
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-			
+
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -326,9 +352,9 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     RMC->ISPDAT = u32Data;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-		
+
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-			
+
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -347,9 +373,9 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     RMC->ISPDAT = u32Data;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-		
+
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-			
+
     if (tout == 0)
     {
         g_RMC_i32ErrCode = -1;
@@ -379,13 +405,19 @@ int32_t RMC_Erase(uint32_t u32PageAddr)
     int   idx;
     uint32_t  tout, u32Len, u32Addr;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     g_RMC_i32ErrCode = 0;
-	
+
     u32Addr = u32PageAddr;
     
     if((u32Addr % 256) != 0)
-        return -2;	
-		
+        return -2;
+
     if (u32Addr < RMC_APROM_END)
     {
         if((u32Addr + RMC_FLASH_PAGE_SIZE) > RMC_APROM_END)
@@ -395,8 +427,8 @@ int32_t RMC_Erase(uint32_t u32PageAddr)
     {
         if((u32Addr + RMC_FLASH_PAGE_SIZE) > RMC_LDROM_END)
             return -2;
-    }	
-		else
+    }
+    else
         return -2;
 
     while(u32Addr < u32PageAddr + RMC_FLASH_PAGE_SIZE)
@@ -407,18 +439,18 @@ int32_t RMC_Erase(uint32_t u32PageAddr)
         RMC->ISPADDR = 0x00000000;
         RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
         tout = RMC_TIMEOUT_WRITE;
-		
+
         while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-			
+
         if (tout == 0)
             goto erase_fail;
 
         if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
         {
             RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-					  goto erase_fail;
+            goto erase_fail;
         }
-				idx = 0;
+        idx = 0;
         while (u32Len > 0)
         {
             RMC->ISPCMD = RMC_ISPCMD_LOAD_DATA_BUFFER;
@@ -428,7 +460,7 @@ int32_t RMC_Erase(uint32_t u32PageAddr)
             RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
             idx += 2;
             tout = RMC_TIMEOUT_WRITE;
-					
+
             while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
             
             if (tout == 0)
@@ -447,9 +479,9 @@ int32_t RMC_Erase(uint32_t u32PageAddr)
         RMC->ISPDAT = 0xFFFFFFFF;
         RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
         tout = RMC_TIMEOUT_WRITE;
-				
+
         while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-			
+
         if (tout == 0)
             goto erase_fail;
 
@@ -481,6 +513,12 @@ int32_t RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count)
 {
     int32_t   ret = 0;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     u32Config[0] = RMC_Read(RMC_CONFIG_BASE);
 
     if (u32Count < 2UL)
@@ -507,6 +545,12 @@ int32_t RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count)
 int32_t RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count)
 {
     int   i;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
 
     RMC_ENABLE_CFG_UPDATE();
 
@@ -557,11 +601,17 @@ int32_t RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len)
     int   idx;
     uint32_t  tout;
 
-    g_RMC_i32ErrCode = 0;	
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
+    g_RMC_i32ErrCode = 0;
 
     if(((u32Addr % 256) != 0) || ((u32Len % 2) != 0) || (u32Len > RMC_MULTI_WORD_PROG_MAX_LEN))
-        return -2;	
-		
+        return -2;
+
     if (u32Addr < RMC_APROM_END)
     {
         if((u32Addr + u32Len) > RMC_APROM_END)
@@ -578,9 +628,9 @@ int32_t RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len)
     RMC->ISPADDR = 0x00000000;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-		
+
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-			
+
     if (tout == 0)
         goto prog_fail;
 
@@ -597,9 +647,9 @@ int32_t RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len)
         RMC->MPDAT1 = pu32Buf[idx++];
         RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
         tout = RMC_TIMEOUT_WRITE;
-			
+
         while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-					
+
         if (tout == 0)
             goto prog_fail;
 
@@ -616,9 +666,9 @@ int32_t RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len)
     RMC->ISPDAT = pu32Buf[0];
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-		
+
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-			
+
     if (tout == 0)
         goto prog_fail;
 
@@ -645,6 +695,12 @@ prog_fail:
 uint32_t  RMC_GetChkSum(uint32_t u32addr, uint32_t u32count)
 {
     uint32_t   ret, tout;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -714,6 +770,12 @@ uint32_t  RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count)
 {
     uint32_t  ret = READ_ALLONE_CMD_FAIL;
     int32_t   i32TimeOutCnt0, i32TimeOutCnt1;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -792,6 +854,12 @@ int32_t RMC_RemapBank(uint32_t u32BankAddr)
     int32_t  ret = 0;
     uint32_t  tout;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     g_RMC_i32ErrCode = 0;
     RMC->ISPCMD = RMC_ISPCMD_BANK_REMAP;
     RMC->ISPADDR = u32BankAddr;
@@ -831,6 +899,12 @@ int32_t RMC_ReadOTP(uint32_t otp_num, uint32_t *low_word, uint32_t *high_word)
 {
     int32_t  ret = 0;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     if (otp_num > 255UL)
     {
         ret = -2;
@@ -856,6 +930,10 @@ int32_t RMC_LockOTP(uint32_t otp_num)
 {
     int32_t  ret = 0;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     if (otp_num > 255UL)
     {
         ret = -2;
@@ -880,6 +958,12 @@ int32_t RMC_IsOTPLocked(uint32_t otp_num)
 {
     int32_t  ret = 0;
     uint32_t  u32data = 0;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
 
     if (otp_num > 255UL)
     {
@@ -909,6 +993,12 @@ int32_t RMC_IsOTPLocked(uint32_t otp_num)
 int32_t RMC_WriteOTP(uint32_t otp_num, uint32_t low_word, uint32_t high_word)
 {
     int32_t  ret = 0;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
 
     if (otp_num > 255UL)
     {

@@ -94,6 +94,8 @@ extern "C"
 #define RMC_ISPCMD_RUN_CKS      0x2DUL          /*!< ISP Command: Run checksum calculation \hideinitializer */
 #define RMC_ISPCMD_VECMAP       0x2EUL          /*!< ISP Command: Vector Page Remap       \hideinitializer */
 
+#define RMC_ISPADDR_MAGIC_NUM   (0x20241126)
+
 #define READ_ALLONE_YES         0xA11FFFFFUL    /*!< Check-all-one result is all one.     \hideinitializer */
 #define READ_ALLONE_NOT         0xA1100000UL    /*!< Check-all-one result is not all one. \hideinitializer */
 #define READ_ALLONE_CMD_FAIL    0xFFFFFFFFUL    /*!< Check-all-one command failed.        \hideinitializer */
@@ -272,7 +274,7 @@ extern "C"
  * @details    This function will enable ISP action interrupt.
  *
  */
-#define RMC_ENABLE_ISP_INT()     (RMC_ISP->ISPCTL |=  RMC_ISPCTL_INTEN_Msk) /*!< Enable ISP interrupt */
+#define RMC_ENABLE_ISP_INT()     (RMC->ISPCTL |=  RMC_ISPCTL_INTEN_Msk) /*!< Enable ISP interrupt */
 
 /**
  * @brief      Disable ISP Interrupt
@@ -284,7 +286,7 @@ extern "C"
  * @details    This function will disable ISP action interrupt.
  *
  */
-#define RMC_DISABLE_ISP_INT()     (RMC_ISP->ISPCTL &= ~RMC_ISPCTL_INTEN_Msk) /*!< Disable ISP interrupt */
+#define RMC_DISABLE_ISP_INT()     (RMC->ISPCTL &= ~RMC_ISPCTL_INTEN_Msk) /*!< Disable ISP interrupt */
 
 /**
  * @brief      Get ISP Interrupt Flag
@@ -296,7 +298,7 @@ extern "C"
  * @details    This function will get ISP action interrupt status
  *
  */
-#define RMC_GET_ISP_INT_FLAG()     ((RMC_ISP->ISPSTS & RMC_ISPSTS_INTFLAG_Msk) ? 1UL : 0UL) /*!< Get ISP interrupt flag Status */
+#define RMC_GET_ISP_INT_FLAG()     ((RMC->ISPSTS & RMC_ISPSTS_INTFLAG_Msk) ? 1UL : 0UL) /*!< Get ISP interrupt flag Status */
 
 /**
  * @brief      Clear ISP Interrupt Flag
@@ -308,7 +310,19 @@ extern "C"
  * @details    This function will clear ISP interrupt flag
  *
  */
-#define RMC_CLEAR_ISP_INT_FLAG()     (RMC_ISP->ISPSTS = RMC_ISPSTS_INTFLAG_Msk) /*!< Clear ISP interrupt flag*/
+#define RMC_CLEAR_ISP_INT_FLAG()     (RMC->ISPSTS = RMC_ISPSTS_INTFLAG_Msk) /*!< Clear ISP interrupt flag*/
+
+/**
+ * @brief      Check if wakeup from pwoer-down mode
+ *
+ * @param      None
+ *
+ * @return     None
+ *
+ * @details    This function will check ISPADDR to know that if wakeup from pwoer-down mode or not.
+ *
+ */
+#define RMC_CHECK_MAGICNUM()         ((RMC->ISPADDR == RMC_ISPADDR_MAGIC_NUM)? 1UL : 0UL)  /*!< Check if wakeup from pwoer-down mode */
 
 /*@}*/ /* end of group RMC_EXPORTED_MACROS */
 
@@ -338,11 +352,44 @@ __STATIC_INLINE uint32_t RMC_GetVECMAP(void);
  */
 __STATIC_INLINE uint32_t RMC_GetVECMAP(void)
 {
-	  if((RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk) & 0x100000)
-		    return (RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk) | 0xF000000;
-		else
+    if((RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk) & 0x100000)
+        return (RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk) | 0xF000000;
+    else
         return (RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk); 
 }
+
+
+/**
+  * @brief    Read company ID for System Level issue
+  * @param    None
+  * @return   The company ID (32-bit)
+  * @details  The company ID of Nuvoton is fixed to be 0xDA
+  */
+__STATIC_INLINE uint32_t _RMC_ReadCID(void)
+{
+    uint32_t  tout = RMC_TIMEOUT_READ;
+
+    g_RMC_i32ErrCode = 0;
+
+    RMC->ISPCMD = RMC_ISPCMD_READ_CID;           /* Set ISP Command Code */
+    RMC->ISPADDR = 0x0u;                         /* Must keep 0x0 when read CID */
+    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;          /* Trigger to start ISP procedure */
+#if ISBEN
+    __ISB();
+#endif                                           /* To make sure ISP/CPU be Synchronized */
+    while (tout-- > 0)
+    {
+        if (!(RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk))  /* Waiting for ISP Done */
+        {
+            if (RMC->ISPDAT != 0x530000DA)
+                g_RMC_i32ErrCode = -1;
+            return RMC->ISPDAT;
+        }
+    }
+    g_RMC_i32ErrCode = -1;
+    return 0xFFFFFFFF;
+}
+
 
 /**
   * @brief    Read company ID
@@ -353,6 +400,12 @@ __STATIC_INLINE uint32_t RMC_GetVECMAP(void)
 __STATIC_INLINE uint32_t RMC_ReadCID(void)
 {
     uint32_t  tout = RMC_TIMEOUT_READ;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -385,6 +438,12 @@ __STATIC_INLINE uint32_t RMC_ReadPID(void)
 {
     uint32_t  tout = RMC_TIMEOUT_READ;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     g_RMC_i32ErrCode = 0;
 
     RMC->ISPCMD = RMC_ISPCMD_READ_DID;          /* Set ISP Command Code */
@@ -411,6 +470,12 @@ __STATIC_INLINE uint32_t RMC_ReadPID(void)
 __STATIC_INLINE uint32_t RMC_ReadUID(uint8_t u8Index)
 {
     uint32_t  tout = RMC_TIMEOUT_READ;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
 
     g_RMC_i32ErrCode = 0;
 
@@ -440,6 +505,12 @@ __STATIC_INLINE uint32_t RMC_ReadUCID(uint32_t u32Index)
 {         
     uint32_t  tout = RMC_TIMEOUT_READ;
 
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
+
     g_RMC_i32ErrCode = 0;
 
     RMC->ISPCMD = RMC_ISPCMD_READ_UID;            /* Set ISP Command Code */
@@ -468,6 +539,12 @@ __STATIC_INLINE uint32_t RMC_ReadUCID(uint32_t u32Index)
 __STATIC_INLINE int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr)
 {
     uint32_t  tout = RMC_TIMEOUT_WRITE;
+
+    /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
+       If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
+     */
+    if(RMC_CHECK_MAGICNUM())
+        _RMC_ReadCID();
 
     g_RMC_i32ErrCode = 0;
 

@@ -85,6 +85,11 @@ void CLK_PowerDown(void)
     /* Set system Power-down enabled */
     CLK->PWRCTL |= (CLK_PWRCTL_PDEN_Msk);
 
+    /* Workaround solution: write a magic number to ISPADDR to notify RMC driver
+       that the CPU will enter power-down mode. */
+    RMC->ISPCTL |=  RMC_ISPCTL_ISPEN_Msk;
+    RMC->ISPADDR = RMC_ISPADDR_MAGIC_NUM;
+
     /* Store HIRC control register */
     u32HIRCTRIMCTL = SYS->IRCTCTL;
 
