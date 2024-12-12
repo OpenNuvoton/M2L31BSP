@@ -17,7 +17,7 @@
 #include "ff.h"
 #include "diskio.h"
 
-#define BUFF_SIZE       (4*1024)
+#define BUFF_SIZE       (2*1024)
 
 static UINT g_u8Len = BUFF_SIZE;
 static DWORD s_u32AccSize;                         /* Work register for fs command */
