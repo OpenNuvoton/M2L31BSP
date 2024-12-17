@@ -257,16 +257,6 @@ typedef struct
      * |[10]    |BYTEM     |CPU Access USB SRAM Size Mode Selection
      * |        |          |0 = Word mode: The size of the transfer from CPU to USB SRAM can be Word only.
      * |        |          |1 = Byte mode: The size of the transfer from CPU to USB SRAM can be Byte only.
-     * |[11]    |LPMACK    |LPM Token Acknowledge Enable Bit
-     * |        |          |The NYET/ACK will be returned only on a successful LPM transaction if no errors in both the EXT token and the LPM token and a valid bLinkState = 0001 (L1) is received, else ERROR and STALL will be returned automatically, respectively.
-     * |        |          |0= The valid LPM Token will be NYET.
-     * |        |          |1= The valid LPM Token will be ACK.
-     * |[12]    |L1SUSPEND |LPM L1 Suspend (Read Only)
-     * |        |          |0 = Bus no L1 state suspend.
-     * |        |          |1 = This bit is set by the hardware when LPM command to enter the L1 state is successfully received and acknowledged
-     * |[13]    |L1RESUME  |LPM L1 Resume (Read Only)
-     * |        |          |0 = Bus no LPM L1 state resume.
-     * |        |          |1 = LPM L1 state resume from LPM L1 state suspend.
      * @var USBD_T::VBUSDET
      * Offset: 0x14  USB Device VBUS Detection Register
      * ---------------------------------------------------------------------------------------------------
@@ -499,17 +489,6 @@ typedef struct
      * |        |          |0 = No event occurred in endpoint 18.
      * |        |          |1 = USB event occurred on Endpoint 18
      * |        |          |Check USBD_EPSTS2[11:8] to know which kind of USB event was occurred, cleared by writing 1 to USBD_EPINTSTS[18] or USBD_INTSTS[1].
-     * @var USBD_T::LPMATTR
-     * Offset: 0x88  USB LPM Attribution Register
-     * ---------------------------------------------------------------------------------------------------
-     * |Bits    |Field     |Descriptions
-     * | :----: | :----:   | :---- |
-     * |[3:0]   |LPMLINKSTS|LPM Link State
-     * |        |          |These bits contain the bLinkState received with last ACK LPM Token
-     * |[7:4]   |LPMBESL   |LPM Best Effort Service Latency
-     * |        |          |These bits contain the BESL value received with last ACK LPM Token
-     * |[8]     |LPMRWAKUP |LPM Remote Wakeup
-     * |        |          |This bit contains the bRemoteWake value received with last ACK LPM Token
      * @var USBD_T::FN
      * Offset: 0x8C  USB Frame Number Register
      * ---------------------------------------------------------------------------------------------------
@@ -540,8 +519,7 @@ typedef struct
     __I  uint32_t EPSTS2;                /*!< [0x0028] USB Device Endpoint Status Register 2                            */
     __I  uint32_t EPSTS3;                /*!< [0x002c] USB Device Endpoint Status Register 3                            */
     __IO uint32_t EPINTSTS;              /*!< [0x0030] USB Device Endpoint Interrupt Event Status Register              */
-    __I  uint32_t RESERVE1[21];
-    __I  uint32_t LPMATTR;               /*!< [0x0088] USB LPM Attribution Register                                     */
+    __I  uint32_t RESERVE1[22];
     __I  uint32_t FN;                    /*!< [0x008c] USB Frame Number Register                                        */
     __IO uint32_t SE0;                   /*!< [0x0090] USB Device Drive SE0 Control Register                            */
     __I  uint32_t RESERVE2[283];
@@ -665,20 +643,12 @@ typedef struct
 #define USBD_ATTR_BYTEM_Pos              (10)                                              /*!< USBD_T::ATTR: BYTEM Position           */
 #define USBD_ATTR_BYTEM_Msk              (0x1ul << USBD_ATTR_BYTEM_Pos)                    /*!< USBD_T::ATTR: BYTEM Mask               */
 
-#define USBD_ATTR_LPMACK_Pos             (11)                                              /*!< USBD_T::ATTR: LPMACK Position          */
-#define USBD_ATTR_LPMACK_Msk             (0x1ul << USBD_ATTR_LPMACK_Pos)                   /*!< USBD_T::ATTR: LPMACK Mask              */
-
-#define USBD_ATTR_L1SUSPEND_Pos          (12)                                              /*!< USBD_T::ATTR: L1SUSPEND Position       */
-#define USBD_ATTR_L1SUSPEND_Msk          (0x1ul << USBD_ATTR_L1SUSPEND_Pos)                /*!< USBD_T::ATTR: L1SUSPEND Mask           */
-
-#define USBD_ATTR_L1RESUME_Pos           (13)                                              /*!< USBD_T::ATTR: L1RESUME Position        */
-#define USBD_ATTR_L1RESUME_Msk           (0x1ul << USBD_ATTR_L1RESUME_Pos)                 /*!< USBD_T::ATTR: L1RESUME Mask            */
-
 #define USBD_VBUSDET_VBUSDET_Pos         (0)                                               /*!< USBD_T::VBUSDET: VBUSDET Position      */
 #define USBD_VBUSDET_VBUSDET_Msk         (0x1ul << USBD_VBUSDET_VBUSDET_Pos)               /*!< USBD_T::VBUSDET: VBUSDET Mask          */
 
 #define USBD_STBUFSEG_STBUFSEG_Pos       (3)                                               /*!< USBD_T::STBUFSEG: STBUFSEG Position    */
 #define USBD_STBUFSEG_STBUFSEG_Msk       (0xfful << USBD_STBUFSEG_STBUFSEG_Pos)            /*!< USBD_T::STBUFSEG: STBUFSEG Mask        */
+
 #define USBD_EPSTS0_EPSTS0_Pos           (0)                                               /*!< USBD_T::EPSTS0: EPSTS0 Position        */
 #define USBD_EPSTS0_EPSTS0_Msk           (0xful << USBD_EPSTS0_EPSTS0_Pos)                 /*!< USBD_T::EPSTS0: EPSTS0 Mask            */
 
@@ -793,15 +763,6 @@ typedef struct
 #define USBD_EPINTSTS_EPEVT18_Pos        (18)                                              /*!< USBD_T::EPINTSTS: EPEVT18 Position     */
 #define USBD_EPINTSTS_EPEVT18_Msk        (0x1ul << USBD_EPINTSTS_EPEVT18_Pos)              /*!< USBD_T::EPINTSTS: EPEVT18 Mask         */
 
-#define USBD_LPMATTR_LPMLINKSTS_Pos      (0)                                               /*!< USBD_T::LPMATTR: LPMLINKSTS Position   */
-#define USBD_LPMATTR_LPMLINKSTS_Msk      (0xful << USBD_LPMATTR_LPMLINKSTS_Pos)            /*!< USBD_T::LPMATTR: LPMLINKSTS Mask       */
-
-#define USBD_LPMATTR_LPMBESL_Pos         (4)                                               /*!< USBD_T::LPMATTR: LPMBESL Position      */
-#define USBD_LPMATTR_LPMBESL_Msk         (0xful << USBD_LPMATTR_LPMBESL_Pos)               /*!< USBD_T::LPMATTR: LPMBESL Mask          */
-
-#define USBD_LPMATTR_LPMRWAKUP_Pos       (8)                                               /*!< USBD_T::LPMATTR: LPMRWAKUP Position    */
-#define USBD_LPMATTR_LPMRWAKUP_Msk       (0x1ul << USBD_LPMATTR_LPMRWAKUP_Pos)             /*!< USBD_T::LPMATTR: LPMRWAKUP Mask        */
-
 #define USBD_FN_FN_Pos                   (0)                                               /*!< USBD_T::FN: FN Position                */
 #define USBD_FN_FN_Msk                   (0x7fful << USBD_FN_FN_Pos)                       /*!< USBD_T::FN: FN Mask                    */
 
@@ -812,7 +773,7 @@ typedef struct
 #define USBD_BUFSEG_BUFSEG_Msk           (0x3ful << USBD_BUFSEG_BUFSEG_Pos)                /*!< USBD_EP_T::BUFSEG: BUFSEG Mask         */
 
 #define USBD_MXPLD_MXPLD_Pos             (0)                                               /*!< USBD_EP_T::MXPLD: MXPLD Position       */
-
+#define USBD_MXPLD_MXPLD_Msk             (0x1fful << USBD_MXPLD_MXPLD_Pos)                 /*!< USBD_EP_T::MXPLD: MXPLD Mask           */
 
 #define USBD_BUFSEG0_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG0: BUFSEG Position       */
 #define USBD_BUFSEG0_BUFSEG_Msk          (0xfful << USBD_BUFSEG0_BUFSEG_Pos)               /*!< USBD_T::BUFSEG0: BUFSEG Mask           */

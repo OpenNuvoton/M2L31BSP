@@ -147,9 +147,6 @@ extern const S_USBD_INFO_T gsInfo;
 #define USBD_WAKEUP_EN          USBD_INTEN_WKEN_Msk         /*!< USB Wake-up Enable \hideinitializer */
 #define USBD_DRVSE0             USBD_SE0_SE0_Msk            /*!< Drive SE0 \hideinitializer */
 
-#define USBD_L1RESUME		    USBD_ATTR_L1RESUME_Msk
-#define USBD_L1SUSPEND		    USBD_ATTR_L1SUSPEND_Msk
-#define USBD_LPMACK             USBD_ATTR_LPMACK_Msk        /*!< LPM Enable \hideinitializer */
 #define USBD_BYTEM              USBD_ATTR_BYTEM_Msk         /*!< Access Size Mode Selection \hideinitializer */
 #define USBD_PWRDN              USBD_ATTR_PWRDN_Msk         /*!< PHY Turn-On \hideinitializer */
 #define USBD_DPPU_EN            USBD_ATTR_DPPUEN_Msk        /*!< USB D+ Pull-up Enable \hideinitializer */
@@ -441,8 +438,6 @@ extern const S_USBD_INFO_T gsInfo;
   *           Bit 1 indicates USB bus suspend status.
   *           Bit 2 indicates USB bus resume status.
   *           Bit 3 indicates USB bus time-out status.
-  *           Bit 12 indicates USB bus LPM L1 suspend status.
-  *           Bit 13 indicates USB bus LPM L1 resume status.
   *
   * @details  Return USB_ATTR[13:12] and USB_ATTR[3:0] for USB bus events.
   * \hideinitializer
