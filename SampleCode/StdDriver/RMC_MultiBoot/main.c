@@ -263,14 +263,14 @@ int32_t main(void)
     NVIC_SystemReset();
 
     /* Disable ISP function */
-    RMC_Close();
+//    RMC_Close();
 
     /* Lock protected registers */
-    SYS_LockReg();
+//    SYS_LockReg();
 
-    PutString("\nDone\n");
+//    PutString("\nDone\n");
 
-    while (SYS->PDID) __WFI();
+//    while (SYS->PDID) __WFI();
 
 }
 

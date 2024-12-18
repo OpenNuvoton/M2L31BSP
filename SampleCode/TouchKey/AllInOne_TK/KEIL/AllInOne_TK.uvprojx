@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>DEMO_FREERUN,DEMO_USE_LED, DEBUG_PORT=UART3</Define>
               <Undefine></Undefine>
-              <IncludePath>..\TouchKey;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\TKLib\Include;..\..\..\..\Library\CMSIS\Include</IncludePath>
+              <IncludePath>..\TouchKey;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\TKLib\Include;..\..\..\..\Library\CMSIS\Core\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1029,7 +1029,7 @@
               <MiscControls></MiscControls>
               <Define>DEMO_LED DEMO_CALIBRATION DEBUG_PORT=UART3 _DEBUG_ENABLE_SEMIHOST LIB_CALIBRATION</Define>
               <Undefine></Undefine>
-              <IncludePath>..\TouchKey;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\TKLib\Include;..\..\..\..\Library\CMSIS\Include</IncludePath>
+              <IncludePath>..\TouchKey;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\TKLib\Include;..\..\..\..\Library\CMSIS\Core\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

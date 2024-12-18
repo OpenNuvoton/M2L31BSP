@@ -338,7 +338,7 @@
               <MiscControls>--specs=nosys.specs</MiscControls>
               <Define>OPT_SRC_ONLY=1, OPT_SNK_ONLY=0 DEBUG_PORT=UART0</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Library\CMSIS\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\PowerDeliveryLib\Include</IncludePath>
+              <IncludePath>..\..\..\..\Library\CMSIS\Core\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\PowerDeliveryLib\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

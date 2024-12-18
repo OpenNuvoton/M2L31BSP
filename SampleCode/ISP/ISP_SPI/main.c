@@ -11,6 +11,8 @@
 #include "targetdev.h"
 #include "spi_transfer.h"
 
+int32_t RMC_SetVectorAddr(uint32_t u32PageAddr);
+
 __WEAK uint32_t TIMER_Open(TIMER_T *timer, uint32_t u32Mode, uint32_t u32Freq)
 {
     uint32_t u32Clk = __HXT; // TIMER_GetModuleClock(timer);

@@ -15,6 +15,7 @@ __attribute__((aligned(4))) uint8_t response_buff[64];
 __attribute__((aligned(4))) static uint8_t aprom_buf[RMC_FLASH_PAGE_SIZE];
 uint32_t bUpdateApromCmd;
 uint32_t g_apromSize, g_dataFlashAddr, g_dataFlashSize;
+int RMC_Proc(uint32_t u32Cmd, uint32_t addr_start, uint32_t addr_end, uint32_t *data);
 
 static uint16_t Checksum(unsigned char *buf, int len)
 {
@@ -123,7 +124,7 @@ int ParseCmd(unsigned char *buffer, uint8_t len)
     {
         if (lcmd == CMD_ERASE_ALL)   //erase data flash
         {
-            RMC_Proc(CMD_ERASE_ALL, RMC_APROM_BASE, g_apromSize, 0xFFFFFFFF);
+            RMC_Proc(CMD_ERASE_ALL, RMC_APROM_BASE, g_apromSize, (uint32_t *)0xFFFFFFFF);
             *(uint32_t *)(response + 8) = regcnf0 | 0x02;
             UpdateConfig((uint32_t *)(response + 8), NULL);
         }

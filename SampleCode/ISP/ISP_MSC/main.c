@@ -12,6 +12,9 @@
 
 #define TRIM_INIT           (SYS_BASE+0x10C)
 
+void USBD_Start(void);
+int32_t RMC_SetVectorAddr(uint32_t u32PageAddr);
+
 /*--------------------------------------------------------------------------*/
 void SYS_Init(void)
 {

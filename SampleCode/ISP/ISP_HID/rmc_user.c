@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include "rmc_user.h"
 
+int RMC_Proc(uint32_t u32Cmd, uint32_t addr_start, uint32_t addr_end, uint32_t *data);
+
 int RMC_Proc(uint32_t u32Cmd, uint32_t addr_start, uint32_t addr_end, uint32_t *data)
 {
     uint32_t u32Addr, Reg;

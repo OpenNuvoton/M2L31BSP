@@ -44,6 +44,7 @@ struct CSW g_sCSW;
 uint32_t MassBlock[MASS_BUFFER_SIZE / 4];
 uint32_t Storage_Block[STORAGE_BUFFER_SIZE / 4];
 
+uint32_t RMC_Init(void);
 /*--------------------------------------------------------------------------*/
 uint8_t g_au8InquiryID[36] =
 {
