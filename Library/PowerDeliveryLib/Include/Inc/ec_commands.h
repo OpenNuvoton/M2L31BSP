@@ -6356,6 +6356,25 @@ struct ec_params_pd_chip_info
     uint8_t live;
 } __ec_align1;
 
+#if 1
+struct ec_response_pd_chip_info
+{
+    uint16_t vendor_id;
+    uint16_t product_id;
+    uint16_t device_id;
+	uint64_t fw_version_number;
+} __ec_align2;
+
+struct ec_response_pd_chip_info_v1
+{
+    uint16_t vendor_id;
+    uint16_t product_id;
+    uint16_t device_id;
+	uint64_t fw_version_number;
+	uint64_t min_req_fw_version_number;
+} __ec_align2;
+
+#else
 struct ec_response_pd_chip_info
 {
     uint16_t vendor_id;
@@ -6384,6 +6403,7 @@ struct ec_response_pd_chip_info_v1
         uint64_t min_req_fw_version_number;
     };
 } __ec_align2;
+#endif
 
 #ifdef SW_3
 /* Run RW signature verification and get status */

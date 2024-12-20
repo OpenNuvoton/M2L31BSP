@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\CMSIS\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\PowerDeliveryLib\Include;..\..\..\..\Library\StdDriver\src</IncludePath>
+              <IncludePath>..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\CMSIS\Core\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\Library\PowerDeliveryLib\Include;..\..\..\..\Library\StdDriver\src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

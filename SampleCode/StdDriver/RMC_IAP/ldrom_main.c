@@ -165,7 +165,7 @@ int main()
     /* Software reset to boot to APROM */
     NVIC_SystemReset();
 
-    while (1);
+//    while (1);
 }
 
 /*** (C) COPYRIGHT 2018 Nuvoton Technology Corp. ***/

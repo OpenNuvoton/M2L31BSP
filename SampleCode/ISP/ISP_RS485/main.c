@@ -15,6 +15,8 @@
 #define RECEIVE_MODE            (0)
 #define TRANSMIT_MODE           (1)
 
+int32_t RMC_SetVectorAddr(uint32_t u32PageAddr);
+
 void SYS_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/

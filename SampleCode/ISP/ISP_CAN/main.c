@@ -201,11 +201,6 @@ int main(void)
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
 
-    __DMB() {}
-    /* Set VTOR */
-    outp32(SCB_VTOR_ADDR, (uint32_t)LDROM_ADDR);
-    __DSB() {}
-
     /* Enable FMC ISP AP CFG function & clear ISPFF */
     RMC->ISPCTL |= RMC_ISPCTL_ISPEN_Msk | RMC_ISPCTL_APUEN_Msk | RMC_ISPCTL_CFGUEN_Msk | RMC_ISPCTL_ISPFF_Msk;
 

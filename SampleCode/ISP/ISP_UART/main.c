@@ -11,6 +11,8 @@
 #include "targetdev.h"
 #include "uart_transfer.h"
 
+int32_t RMC_SetVectorAddr(uint32_t u32PageAddr);
+
 void SYS_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/

@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\..\Library\CMSIS\Include;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\ThirdParty\FreeRTOS\Source\include;..\..\..\..\ThirdParty\FreeRTOS\Demo\Common\include;..\..\..\..\ThirdParty\FreeRTOS\Source\portable\GCC\ARM_CM23_NTZ\non_secure;..\..\Blinky</IncludePath>
+              <IncludePath>..\..\..\..\Library\CMSIS\Core\Include;..\..\..\..\Library\Device\Nuvoton\M2L31\Include;..\..\..\..\Library\StdDriver\inc;..\..\..\..\ThirdParty\FreeRTOS\Source\include;..\..\..\..\ThirdParty\FreeRTOS\Demo\Common\include;..\..\..\..\ThirdParty\FreeRTOS\Source\portable\GCC\ARM_CM23_NTZ\non_secure;..\..\Blinky</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
