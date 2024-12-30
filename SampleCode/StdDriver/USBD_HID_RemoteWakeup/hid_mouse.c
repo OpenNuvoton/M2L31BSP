@@ -304,7 +304,8 @@ void HID_UpdateMouseData(void)
     uint8_t *pu8Buf;
     uint32_t u32RegA, u32RegB, u32RegC;
     static int32_t i32X = 0, i32Y = 0;
-    uint8_t u8MouseKey;
+    uint8_t u8MouseKey;                     
+    static uint8_t u8MousePreKey = 0xFF;
 
     /*
        Key definition:
@@ -356,9 +357,13 @@ void HID_UpdateMouseData(void)
         pu8Buf[2] = (uint8_t)(i32Y >> 2);
         pu8Buf[3] = 0x00;
 
-        s_u8EP2Ready = 0;
-        /* Set transfer length and trigger IN transfer */
-        USBD_SET_PAYLOAD_LEN(EP2, 4);
+        if(i32X | i32Y | (u8MousePreKey != u8MouseKey))
+        {
+            u8MousePreKey = u8MouseKey;
+            s_u8EP2Ready = 0;
+            /* Set transfer length and trigger IN transfer */
+            USBD_SET_PAYLOAD_LEN(EP2, 4);
+        }
     }
 }
 
