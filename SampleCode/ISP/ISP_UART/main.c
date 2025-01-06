@@ -32,7 +32,7 @@ void SYS_Init(void)
     /* Enable UART module clock */
     CLK->APBCLK0 |= CLK_APBCLK0_UART0CKEN_Msk;
     /* Select UART module clock source as HIRC and UART module clock divider as 1 */
-    CLK->CLKSEL1 = (CLK->CLKSEL1 & (~CLK_CLKSEL4_UART0SEL_Msk)) | CLK_CLKSEL4_UART0SEL_HIRC;
+    CLK->CLKSEL1 = (CLK->CLKSEL4 & (~CLK_CLKSEL4_UART0SEL_Msk)) | CLK_CLKSEL4_UART0SEL_HIRC;
     CLK->CLKDIV0 = (CLK->CLKDIV0 & (~CLK_CLKDIV0_UART0DIV_Msk)) | CLK_CLKDIV0_UART0(1);
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */

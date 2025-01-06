@@ -234,35 +234,35 @@ uint32_t GetUartBaudrate(UART_T *uart)
     switch((uint32_t)uart)
     {
     case UART0_BASE:
-        u8UartClkSrcSel = (CLK->CLKSEL1 & CLK_CLKSEL4_UART0SEL_Msk) >> CLK_CLKSEL4_UART0SEL_Pos;
+        u8UartClkSrcSel = (CLK->CLKSEL4 & CLK_CLKSEL4_UART0SEL_Msk) >> CLK_CLKSEL4_UART0SEL_Pos;
         u8UartClkDivNum = (CLK->CLKDIV0 & CLK_CLKDIV0_UART0DIV_Msk) >> CLK_CLKDIV0_UART0DIV_Pos;
         break;
     case UART1_BASE:
-        u8UartClkSrcSel = (CLK->CLKSEL1 & CLK_CLKSEL4_UART1SEL_Msk) >> CLK_CLKSEL4_UART1SEL_Pos;
+        u8UartClkSrcSel = (CLK->CLKSEL4 & CLK_CLKSEL4_UART1SEL_Msk) >> CLK_CLKSEL4_UART1SEL_Pos;
         u8UartClkDivNum = (CLK->CLKDIV0 & CLK_CLKDIV0_UART1DIV_Msk) >> CLK_CLKDIV0_UART1DIV_Pos;
         break;
     case UART2_BASE:
-        u8UartClkSrcSel = (CLK->CLKSEL3 & CLK_CLKSEL4_UART2SEL_Msk) >> CLK_CLKSEL4_UART2SEL_Pos;
+        u8UartClkSrcSel = (CLK->CLKSEL4 & CLK_CLKSEL4_UART2SEL_Msk) >> CLK_CLKSEL4_UART2SEL_Pos;
         u8UartClkDivNum = (CLK->CLKDIV4 & CLK_CLKDIV4_UART2DIV_Msk) >> CLK_CLKDIV4_UART2DIV_Pos;
         break;
     case UART3_BASE:
-        u8UartClkSrcSel = (CLK->CLKSEL3 & CLK_CLKSEL4_UART3SEL_Msk) >> CLK_CLKSEL4_UART3SEL_Pos;
+        u8UartClkSrcSel = (CLK->CLKSEL4 & CLK_CLKSEL4_UART3SEL_Msk) >> CLK_CLKSEL4_UART3SEL_Pos;
         u8UartClkDivNum = (CLK->CLKDIV4 & CLK_CLKDIV4_UART3DIV_Msk) >> CLK_CLKDIV4_UART3DIV_Pos;
         break;
     case UART4_BASE:
-        u8UartClkSrcSel = (CLK->CLKSEL3 & CLK_CLKSEL4_UART4SEL_Msk) >> CLK_CLKSEL4_UART4SEL_Pos;
+        u8UartClkSrcSel = (CLK->CLKSEL4 & CLK_CLKSEL4_UART4SEL_Msk) >> CLK_CLKSEL4_UART4SEL_Pos;
         u8UartClkDivNum = (CLK->CLKDIV4 & CLK_CLKDIV4_UART4DIV_Msk) >> CLK_CLKDIV4_UART4DIV_Pos;
         break;
     case UART5_BASE:
-        u8UartClkSrcSel = (CLK->CLKSEL3 & CLK_CLKSEL4_UART5SEL_Msk) >> CLK_CLKSEL4_UART5SEL_Pos;
+        u8UartClkSrcSel = (CLK->CLKSEL4 & CLK_CLKSEL4_UART5SEL_Msk) >> CLK_CLKSEL4_UART5SEL_Pos;
         u8UartClkDivNum = (CLK->CLKDIV4 & CLK_CLKDIV4_UART5DIV_Msk) >> CLK_CLKDIV4_UART5DIV_Pos;
         break;
     case UART6_BASE:
-        u8UartClkSrcSel = (CLK->CLKSEL3 & CLK_CLKSEL4_UART6SEL_Msk) >> CLK_CLKSEL4_UART6SEL_Pos;
+        u8UartClkSrcSel = (CLK->CLKSEL4 & CLK_CLKSEL4_UART6SEL_Msk) >> CLK_CLKSEL4_UART6SEL_Pos;
         u8UartClkDivNum = (CLK->CLKDIV4 & CLK_CLKDIV4_UART6DIV_Msk) >> CLK_CLKDIV4_UART6DIV_Pos;
         break;
     case UART7_BASE:
-        u8UartClkSrcSel = (CLK->CLKSEL3 & CLK_CLKSEL4_UART7SEL_Msk) >> CLK_CLKSEL4_UART7SEL_Pos;
+        u8UartClkSrcSel = (CLK->CLKSEL4 & CLK_CLKSEL4_UART7SEL_Msk) >> CLK_CLKSEL4_UART7SEL_Pos;
         u8UartClkDivNum = (CLK->CLKDIV4 & CLK_CLKDIV4_UART7DIV_Msk) >> CLK_CLKDIV4_UART7DIV_Pos;
         break;
     default:
