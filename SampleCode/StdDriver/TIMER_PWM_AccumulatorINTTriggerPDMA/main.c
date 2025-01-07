@@ -150,7 +150,7 @@ int main(void)
     TPWM_ENABLE_OUTPUT(TIMER0, TPWM_CH0);
 
     /* Enable Timer0 PWM accumulator function, interrupt count 10, accumulator source select to zero point */
-    TPWM_EnableAcc(TIMER0, 10, LPTPWM_IFA_PERIOD_POINT);
+    TPWM_EnableAcc(TIMER0, 10, TPWM_IFA_PERIOD_POINT);
 
     /* Enable Timer0 PWM accumulator interrupt trigger PDMA */
     TPWM_EnableAccPDMA(TIMER0);
