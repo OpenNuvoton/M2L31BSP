@@ -142,7 +142,8 @@ int main()
     /* Unlock protected registers to operate RMC ISP function */
     SYS_UnlockReg();
 
-    RMC_Open();                        /* Enable RMC ISP function */
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
+    RMC_Open();
 
     PutString("\n\nPress any key to branch to APROM...\n");
     GetChar();                         /* block on waiting for any one character input from UART0 */

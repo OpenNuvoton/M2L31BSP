@@ -53,6 +53,10 @@ void SYS_Init(void)
     /*----------------------------------------------------------------------*/
     /* Set multi-function pins */
     Uart0DefaultMPF();
+
+    /* Lock protected registers */
+    SYS_LockReg();
+
 }
 
 /*----------------------------------------------------------------------*/
@@ -73,8 +77,6 @@ int32_t main(void)
 #if PROGRAM_OTP
     int32_t     i32Ret, i32GetCh;
 #endif
-    /* Unlock protected registers */
-    SYS_UnlockReg();
 
     /* Init System, IP clock and multi-function I/O. */
     SYS_Init();
@@ -86,9 +88,11 @@ int32_t main(void)
     printf("|        RMC OTP Sample Demo        |\n");
     printf("+-----------------------------------+\n");
 
-    SYS_UnlockReg();                   /* Unlock protected registers */
+    /* Unlock protected registers */
+    SYS_UnlockReg();
 
-    RMC_Open();                        /* Enable RMC ISP function */
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
+    RMC_Open();
 
     for(u32i = 0; u32i < RMC_OTP_ENTRY_CNT; u32i++)
     {

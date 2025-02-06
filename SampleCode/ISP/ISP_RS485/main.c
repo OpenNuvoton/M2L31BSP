@@ -24,6 +24,7 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Unlock protected registers */
     SYS_UnlockReg();
+
     /* Enable HIRC clock (Internal RC 48MHz) */
     CLK->PWRCTL |= CLK_PWRCTL_HIRCEN_Msk;
 
@@ -52,6 +53,9 @@ void SYS_Init(void)
     PB->MODE = (PB->MODE & ~(0x3ul << (10 << 1))) | (GPIO_MODE_OUTPUT << (10 << 1));
 
     nRTSPin = RECEIVE_MODE;
+
+    /* Lock protected registers */
+    SYS_LockReg();
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -61,11 +65,18 @@ int32_t main(void)
 {
     /* Init System, peripheral clock and multi-function I/O */
     SYS_Init();
+
     /* Init UART to 115200-8n1 */
     UART_Init();
 
     CLK->AHBCLK0 |= CLK_AHBCLK0_ISPCKEN_Msk;
+
+    /* Unlock protected registers */
+    SYS_UnlockReg();
+
+    /* Enable FMC ISP function. Before using FMC function, it should unlock system register first. */
     RMC->ISPCTL |= (RMC_ISPCTL_ISPEN_Msk | RMC_ISPCTL_APUEN_Msk);
+
     g_apromSize = GetApromSize();
     GetDataFlashInfo(&g_dataFlashAddr, &g_dataFlashSize);
     SysTick->LOAD = 300000 * CyclesPerUs;

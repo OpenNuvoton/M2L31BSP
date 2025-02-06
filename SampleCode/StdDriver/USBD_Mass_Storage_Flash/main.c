@@ -99,6 +99,9 @@ void SYS_Init(void)
     /*----------------------------------------------------------------------*/
     /* Set multi-function pins */
     Uart0DefaultMPF();
+
+    /* Lock protected registers */
+    SYS_LockReg();
 }
 
 /*----------------------------------------------------------------------*/
@@ -236,8 +239,10 @@ int32_t main(void)
     SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA12MFP_USB_VBUS | SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
 #endif
 
+    /* Unlock protected registers */
+    SYS_UnlockReg();
 
-    /* Enable FMC ISP function */
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
     RMC_Open();
 
     /* Enable Read/Write flash function */

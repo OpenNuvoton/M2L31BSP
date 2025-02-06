@@ -196,7 +196,8 @@ int main()
     /* Unlock protected registers to operate RMC ISP function */
     SYS_UnlockReg();
 
-    RMC_Open();                        /* Enable RMC ISP function */
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
+    RMC_Open();
 
     /*
      *  Check if User Configuration CBS is boot with IAP mode.
