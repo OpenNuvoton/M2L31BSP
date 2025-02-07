@@ -71,9 +71,6 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init System Clock */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Unlock protected registers */
-    SYS_UnlockReg();
-
     /* Enable HIRC clock (Internal RC 48MHz) */
     CLK->PWRCTL |= CLK_PWRCTL_HIRC48MEN_Msk;
 
@@ -97,9 +94,6 @@ void SYS_Init(void)
 
     /* Select CAN FD0 clock source is HCLK */
     CLK_SetModuleClock(CANFD0_MODULE, CLK_CLKSEL0_CANFD0SEL_HCLK, CLK_CLKDIV5_CANFD0(1));
-
-    /* Lock protected registers */
-    SYS_LockReg();
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -200,13 +194,14 @@ void CAN_Init(void)
 /*---------------------------------------------------------------------------------------------------------*/
 int main(void)
 {
-    /* Init System, IP clock and multi-function I/O */
-    SYS_Init();
 
     /* Unlock protected registers */
     SYS_UnlockReg();
 
-    /* Enable FMC ISP AP CFG function & clear ISPFF. Before using FMC function, it should unlock system register first. */          
+    /* Init System, IP clock and multi-function I/O */
+    SYS_Init();
+
+    /* Enable FMC ISP AP CFG function & clear ISPFF */
     RMC->ISPCTL |= RMC_ISPCTL_ISPEN_Msk | RMC_ISPCTL_APUEN_Msk | RMC_ISPCTL_CFGUEN_Msk | RMC_ISPCTL_ISPFF_Msk;
 
     /* Init CAN port */

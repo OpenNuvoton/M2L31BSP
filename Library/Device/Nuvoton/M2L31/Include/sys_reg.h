@@ -3611,7 +3611,7 @@ typedef struct
     __IO uint32_t BODCTL;                /*!< [0x0018] Brown-out Detector Control Register                              */
     __IO uint32_t IVSCTL;                /*!< [0x001c] Internal Voltage Source Control Register                         */
     __IO uint32_t IPRST3;                /*!< [0x0020] Peripheral Reset Control Register 3                              */
-    __I  uint32_t RESERVE1[1];
+    __IO uint32_t PORCTL;                /*!< [0x0024] Power-On-reset Controller Register                              */
     __IO uint32_t VREFCTL;               /*!< [0x0028] VREF Control Register                                            */
     __IO uint32_t USBPHY;                /*!< [0x002c] USB PHY Control Register                                         */
     __IO uint32_t UTCPDCTL;              /*!< [0x0030] UTCPD Control Register                                           */

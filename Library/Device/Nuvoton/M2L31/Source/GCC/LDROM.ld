@@ -1,8 +1,9 @@
 /* Linker script to configure memory regions. */
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x00100000, LENGTH = 0x1000    /* 4K */
-  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 0x2000    /* 8K */
+  FLASH (rx) : ORIGIN = 0x0F100000, LENGTH = 0x2000    /* 8k */
+  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 0x2A000   /* 168k */
+  LPRAM (rwx): ORIGIN = 0x28000000, LENGTH = 0x2000    /* 8k   */  
 }
 
 /* Library configurations */
@@ -156,6 +157,15 @@ SECTIONS
 		__data_end__ = .;
 
 	} > RAM
+
+	.lpSram :
+	{
+		. = ALIGN(4);
+		__lpSram_start__ = .;
+		*(.lpSram*)
+		. = ALIGN(4);
+		__lpSram_end__ = .;
+	} > LPRAM
 
 	.bss :
 	{
