@@ -42,6 +42,9 @@ void DataFlashWrite(uint32_t u32Addr, uint32_t u32Size, uint32_t u32Buffer)
     uint32_t i;
     uint32_t *pu32;
 
+    /* Before using RMC function, it should unlock system register first. */
+    SYS_UnlockReg();
+
     /* Source buffer */
     pu32 = (uint32_t *)u32Buffer;
 
@@ -50,6 +53,8 @@ void DataFlashWrite(uint32_t u32Addr, uint32_t u32Size, uint32_t u32Buffer)
 
     for(i = 0; i < u32Size / 4; i++)
         RMC_Write(u32Addr + i * 4, pu32[i]);
+
+    SYS_LockReg();
 }
 
 

@@ -77,9 +77,11 @@ int32_t main(void)
     printf("|       RMC CRC32 Sample Demo       |\n");
     printf("+-----------------------------------+\n");
 
-    SYS_UnlockReg();                   /* Unlock protected registers */
+    /* Unlock protected registers */
+    SYS_UnlockReg();
 
-    RMC_Open();                        /* Enable RMC ISP function */
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
+    RMC_Open();
 
     u32Data = RMC_ReadCID();           /* Read company ID. Should be 0xDA. */
     if (g_RMC_i32ErrCode != 0)

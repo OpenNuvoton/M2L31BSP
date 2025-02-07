@@ -295,7 +295,7 @@ int32_t main(void)
     /* Unlock register lock protect */
     SYS_UnlockReg();
 
-    /* Enable RMC ISP function */
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
     RMC_Open();
 
     /* Enable RMC erase/program APROM */

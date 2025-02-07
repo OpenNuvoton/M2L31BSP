@@ -21,6 +21,9 @@ int32_t RMC_SetVectorAddr(uint32_t u32PageAddr);
 /*--------------------------------------------------------------------------*/
 void SYS_Init(void)
 {
+    /* Unlock write-protected registers to operate SYS_Init and RMC ISP function */
+    SYS_UnlockReg();
+
     /* Set core clock as 72MHz from PLL */
     CLK_SetCoreClock(FREQ_72MHZ);
 
@@ -51,6 +54,9 @@ void SYS_Init(void)
     /* USBD multi-function pins for VBUS, D+, D-, and ID pins */
     SYS->GPA_MFP3 &= ~(SYS_GPA_MFP3_PA12MFP_Msk | SYS_GPA_MFP3_PA13MFP_Msk | SYS_GPA_MFP3_PA14MFP_Msk | SYS_GPA_MFP3_PA15MFP_Msk);
     SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA12MFP_USB_VBUS | SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
+
+    /* Lock protected registers */
+    SYS_LockReg();
 }
 
 void USBD_IRQHandler(void);
@@ -61,12 +67,13 @@ int32_t main(void)
 {
     uint32_t u32TrimInit;
 
-    /* Unlock write-protected registers to operate SYS_Init and RMC ISP function */
-    SYS_UnlockReg();
-
     /* Init system and multi-function I/O */
     SYS_Init();
 
+    /* Unlock write-protected registers to operate SYS_Init and RMC ISP function */
+    SYS_UnlockReg();
+
+    /* Enable FMC ISP function. Before using FMC function, it should unlock system register first. */
     RMC->ISPCTL |= RMC_ISPCTL_ISPEN_Msk;
 
     RMC_ENABLE_AP_UPDATE();

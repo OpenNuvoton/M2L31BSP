@@ -85,8 +85,9 @@ int32_t main(void)
     /* Unlock protected registers */
     SYS_UnlockReg();
 
-    /* Enable RMC ISP function and enable APROM active */
+    /* Enable RMC ISP function and enable APROM active. Before using RMC function, it should unlock system register first. */
     RMC_Open();
+
     RMC_ENABLE_AP_UPDATE();
 
     /* Read User Configuration */

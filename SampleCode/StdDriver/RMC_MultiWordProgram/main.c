@@ -20,7 +20,7 @@ void FlashTest(uint32_t u32Addr)
 {
     uint32_t i, maddr;
     int32_t result;
-	
+
     printf("   - Erase ...");
 
     result = RMC_Erase(u32Addr);
@@ -46,9 +46,9 @@ void FlashTest(uint32_t u32Addr)
             printf("\n     [FAILED] RMC_Read address 0x%x failed!\n", u32Addr+i);
             return;
         }
-    }		
+    }
     printf("  [OK]\n");
-		
+
     printf("   - Program...\n");
 
     for(maddr = u32Addr; maddr < u32Addr + RMC_FLASH_PAGE_SIZE; maddr += RMC_MULTI_WORD_PROG_MAX_LEN)
@@ -58,7 +58,7 @@ void FlashTest(uint32_t u32Addr)
             page_buff[i / 4] = maddr + i;
 
         result = RMC_WriteMultiple(maddr, page_buff, RMC_MULTI_WORD_PROG_MAX_LEN);
-			
+
         if(result <= 0)
         {
             printf("\n     [FAILED] RMC_WriteMultiple failed: %d\n", result);
@@ -72,7 +72,7 @@ void FlashTest(uint32_t u32Addr)
 
     for(i = 0; i < RMC_FLASH_PAGE_SIZE; i += 4)
         page_buff[i / 4] = u32Addr + i;
-		
+
     for(i = 0; i < RMC_FLASH_PAGE_SIZE; i += 4)
     {
         if(RMC_Read(u32Addr + i) != page_buff[i / 4])
@@ -153,27 +153,27 @@ int32_t main(void)
     printf("+------------------------------------------------------+\n");
     printf("|     RMC_MultiWord (Word Line) Program Sample Code    |\n");
     printf("+------------------------------------------------------+\n");
-	
+
     /* Unlock protected registers */
     SYS_UnlockReg();
 
-    /* Enable RMC ISP function */
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
     RMC_Open();
 
     printf(" * Multiword (Word Line) program APROM 0x%x =>\n", APROM_TEST_BASE);
-	
+
     RMC_ENABLE_AP_UPDATE();
 
     FlashTest(APROM_TEST_BASE);
-		
+
     RMC_DISABLE_AP_UPDATE();
 
     printf(" * Multiword (Word Line) program LDROM 0x%x =>\n", (uint32_t) LDROM_TEST_BASE);
-	
+
     RMC_ENABLE_LD_UPDATE();
-	
+
     FlashTest(LDROM_TEST_BASE);
-		
+
     RMC_DISABLE_LD_UPDATE();
 
     /* Disable RMC ISP function */

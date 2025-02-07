@@ -159,7 +159,7 @@ int32_t main(void)
     /* Unlock protected registers to operate RMC ISP function */
     SYS_UnlockReg();
 
-    /* Enable RMC ISP function */
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
     RMC_Open();
 
     /*
