@@ -23,10 +23,10 @@ void PowerDownFunction(void)
     CLK_SetPowerDownMode(CLK_PMUCTL_PDMSEL_SPD0);
 
     /* Set the processor uses deep sleep as its low power mode */
-    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+//    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 
     /* Set system Power-down enabled */
-    CLK->PWRCTL |= CLK_PWRCTL_PDEN_Msk;
+//    CLK->PWRCTL |= CLK_PWRCTL_PDEN_Msk;
 
     /* Reserve R0-R7, LR and enter to Power-down mode */
     __set_PRIMASK(1);
@@ -204,6 +204,8 @@ int main( void )
     printf("|   SPD Power-down Mode Wake-up and Return Sample Code   |\n");
     printf("+--------------------------------------------------------+\n");
 
+    printf(" Press any key wwen is ready !!! \n\n");
+    
     /* Init RTC */
     if( RTC_Init() < 0 ) goto lexit;
 

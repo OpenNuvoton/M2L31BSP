@@ -1,0 +1,64 @@
+project:
+  packs:
+    - pack: Nuvoton::NuMicro_DFP
+    - pack: ARM::CMSIS@5.9.0
+  setups:
+    - output:
+        # bin, elf, hex, lib
+        type: bin
+    - setup: Options for ISPMSC
+      processor:
+        endian: little
+      add-path:
+        - ../../../../Library/Device/Nuvoton/M2L31/Include
+        - ../../../../Library/CMSIS/Core/Include
+        - ../../../../Library/StdDriver/inc
+      misc:
+        - for-compiler: AC6
+          C:
+            - -D__MICROLIB
+            - -std=c99
+          C-CPP:
+            - -fno-rtti
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -ffunction-sections
+          CPP:
+            - -xc++
+            - -std=c++98
+          ASM:
+            - -masm=auto
+            - -D__MICROLIB
+          Link:
+            - --library_type=microlib
+            - --map
+            - --load_addr_map_info
+            - --symbols
+            - --info sizes
+            - --info totals
+            - --map --datacompressor=off --info=inline --entry Reset_Handler
+            - --strict
+            - --summary_stderr
+            - --info summarysizes
+  linker:
+    - script: ../../../../Library/Device/Nuvoton/M2L31/Source/ARM/LDROM.sct
+      for-compiler: AC6
+  groups:
+    - group: CMSIS
+      files:
+        - file: ../system_M2L31_user.c
+        - file: ../startup_M2L31_user.c
+          for-compiler: AC6
+    - group: User
+      files:
+        - file: ../usbd_user.c
+        - file: ../MassStorage.c
+        - file: ../descriptors.c
+        - file: ../DataFlashProg.c
+        - file: ../main.c
+    - group: Library
+      files:
+        - file: ../../../../Library/StdDriver/src/clk.c
+  components:
+    - component: ARM::CMSIS:CORE

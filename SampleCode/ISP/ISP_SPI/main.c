@@ -60,7 +60,6 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Unlock protected registers */
     SYS_UnlockReg();
-
     /* Enable HIRC clock (Internal RC 48MHz) */
     CLK->PWRCTL |= CLK_PWRCTL_HIRC48MEN_Msk;
 
@@ -105,27 +104,17 @@ void SYS_Init(void)
 
     /* Enable SPI1 clock pin (PA2) schmitt trigger */
     PA->SMTEN |= GPIO_SMTEN_SMTEN2_Msk;
-
-    /* Lock protected registers */
-    SYS_LockReg();
 }
 
 int main(void)
 {
     uint32_t cmd_buff[16];
-
     SYS_Init();
 
     CLK->AHBCLK0 |= CLK_AHBCLK0_ISPCKEN_Msk;
-
-    /* Unlock protected registers */
-    SYS_UnlockReg();
-
-    /* Enable FMC ISP function. Before using FMC function, it should unlock system register first. */
     RMC->ISPCTL |= (RMC_ISPCTL_ISPEN_Msk | RMC_ISPCTL_APUEN_Msk);
 
     g_apromSize = GetApromSize();
-
     GetDataFlashInfo(&g_dataFlashAddr, &g_dataFlashSize);
 
     SPI_Init();
