@@ -14,17 +14,13 @@ project:
         - ../../../../Library/StdDriver/inc
         - ../../../../ThirdParty/FatFs/src
         - ../../../../Library/UsbHostLib/inc
-      define:
-        - Stack_Size: "0x800"
-        - Heap_Size: "0x4000"
-      define-asm:
-        - Stack_Size: "0x800"
-        - Heap_Size: "0x4000"
       misc:
         - for-compiler: AC6
           C:
             - -D__MICROLIB
             - -std=c99
+            - -DStack_Size=0x800  # Add Stack_Size definition for AC6 in C
+            - -DHeap_Size=0x4000  # Add Heap_Size definition for AC6 in C
           C-CPP:
             - -fno-rtti
             - -funsigned-char
@@ -37,6 +33,8 @@ project:
           ASM:
             - -masm=auto
             - -D__MICROLIB
+            - -DStack_Size=0x800  # Add Stack_Size definition for AC6 in Assembly
+            - -DHeap_Size=0x4000  # Add Heap_Size definition for AC6 in Assembly
           Link:
             - --library_type=microlib
             - --map

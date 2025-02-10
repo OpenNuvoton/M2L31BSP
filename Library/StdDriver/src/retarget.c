@@ -69,6 +69,8 @@ FILE __stdin;
     #endif
 
     uint32_t ProcessHardFault(uint32_t lr, uint32_t msp, uint32_t psp);
+#else
+    extern int32_t SH_DoCommand(int32_t n32In_R0, int32_t n32In_R1, int32_t *pn32Out_R0);
 #endif
 
 int kbhit(void);
@@ -398,7 +400,7 @@ char GetChar(void)
 #if defined (__ICCARM__)
         int nRet;
 
-        while (SH_DoCommand(0x7, 0, &nRet) != 0)
+        while (SH_DoCommand(0x7, 0, (int32_t *) &nRet) != 0)
         {
             if (nRet != 0)
                 return (char)nRet;
@@ -407,11 +409,11 @@ char GetChar(void)
 #else
         int nRet;
 
-        while (SH_DoCommand(0x101, 0, &nRet) != 0)
+        while (SH_DoCommand(0x101, 0, (int32_t *) &nRet) != 0)
         {
             if (nRet != 0)
             {
-                SH_DoCommand(0x07, 0, &nRet);
+                SH_DoCommand(0x07, 0, (int32_t *) &nRet);
                 return (char)nRet;
             }
         }
