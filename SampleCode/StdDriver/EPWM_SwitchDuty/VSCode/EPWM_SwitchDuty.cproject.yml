@@ -70,5 +70,3 @@ project:
     - group: User
       files:
         - file: ../main.c
-  components:
-    - component: ARM::CMSIS:CORE

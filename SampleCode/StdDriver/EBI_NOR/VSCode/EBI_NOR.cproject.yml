@@ -71,5 +71,3 @@ project:
       files:
         - file: ../main.c
         - file: ../nor_MX29LV320T.c
-  components:
-    - component: ARM::CMSIS:CORE

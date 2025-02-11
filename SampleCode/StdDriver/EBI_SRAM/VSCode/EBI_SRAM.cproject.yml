@@ -72,5 +72,3 @@ project:
       files:
         - file: ../main.c
         - file: ../ebi_sram.c
-  components:
-    - component: ARM::CMSIS:CORE

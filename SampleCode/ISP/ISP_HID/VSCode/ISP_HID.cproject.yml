@@ -64,5 +64,3 @@ project:
     - group: Library
       files:
         - file: ../../../../Library/StdDriver/src/clk.c
-  components:
-    - component: ARM::CMSIS:CORE
