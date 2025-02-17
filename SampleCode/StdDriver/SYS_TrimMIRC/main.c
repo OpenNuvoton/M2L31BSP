@@ -144,8 +144,8 @@ int main(void)
     /* Trim MIRC */
     TrimMIRC();
 
-    /* Disable IRC Trim */
-    SYS->IRCTCTL = 0;
+    /* Disable MIRC Trim */
+    SYS->MIRCTCTL = 0;
     printf("Disable MIRC Trim\n");
 
     while (1);
