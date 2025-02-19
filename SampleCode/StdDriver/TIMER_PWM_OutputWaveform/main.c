@@ -59,7 +59,7 @@ void SYS_Init(void)
     SYS->GPB_MFP0 =  (SYS->GPB_MFP0 & ~(SYS_GPB_MFP0_PB3MFP_Msk | SYS_GPB_MFP0_PB2MFP_Msk)) | \
                      (SYS_GPB_MFP0_PB3MFP_TM2 | SYS_GPB_MFP0_PB2MFP_TM3);
 
-    SYS->GPB_MFP1 = (SYS->GPB_MFP1 & (SYS_GPB_MFP1_PB5MFP_Msk | SYS_GPB_MFP1_PB4MFP_Msk)) | \
+    SYS->GPB_MFP1 = (SYS->GPB_MFP1 & ~(SYS_GPB_MFP1_PB5MFP_Msk | SYS_GPB_MFP1_PB4MFP_Msk)) | \
                     (SYS_GPB_MFP1_PB5MFP_TM0 | SYS_GPB_MFP1_PB4MFP_TM1);
 
     /* Lock protected registers */
