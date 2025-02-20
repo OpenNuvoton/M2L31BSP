@@ -89,7 +89,7 @@ void SYS_Init(void)
 
     /* The RX pin needs to pull-high for single-wire */
     /* If the external circuit doesn't pull-high, set GPIO pin as Quasi-directional mode for this purpose here */
-    PA->MODE &= (PA->MODE & ~GPIO_MODE_MODE2_Msk) | (GPIO_MODE_QUASI << GPIO_MODE_MODE2_Pos);
+    PA->MODE = (PA->MODE & ~GPIO_MODE_MODE2_Msk) | (GPIO_MODE_QUASI << GPIO_MODE_MODE2_Pos);
 
     PB->MODE = (PB->MODE & ~GPIO_MODE_MODE0_Msk) | (GPIO_MODE_QUASI << GPIO_MODE_MODE0_Pos);
 
