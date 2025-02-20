@@ -37,14 +37,41 @@ uint32_t TPWM_ConfigOutputFreqAndDuty(TIMER_T *timer, uint32_t u32Frequency, uin
 {
     uint32_t u32PWMClockFreq, u32TargetFreq;
     uint32_t u32Prescaler = 0x100UL, u32Period, u32CMP;
+    uint32_t u32Src;    
+    const uint32_t au32Clk[] = {__HXT, __LXT, 0UL, 0UL, 0UL, __LIRC, 0UL, __HIRC};
+    
 
-    if ((timer == TIMER0) || (timer == TIMER1))
+    if(timer == TIMER0)
     {
-        u32PWMClockFreq = CLK_GetPCLK0Freq();
+        u32Src = (CLK->CLKSEL1 & CLK_CLKSEL1_TMR0SEL_Msk) >> CLK_CLKSEL1_TMR0SEL_Pos;
+    }
+    else if(timer == TIMER1)
+    {
+        u32Src = (CLK->CLKSEL1 & CLK_CLKSEL1_TMR1SEL_Msk) >> CLK_CLKSEL1_TMR1SEL_Pos;
+    }
+    else if(timer == TIMER2)
+    {
+        u32Src = (CLK->CLKSEL1 & CLK_CLKSEL1_TMR2SEL_Msk) >> CLK_CLKSEL1_TMR2SEL_Pos;
+    }
+    else      /* Timer 3 */
+    {
+        u32Src = (CLK->CLKSEL1 & CLK_CLKSEL1_TMR3SEL_Msk) >> CLK_CLKSEL1_TMR3SEL_Pos;
+    }
+    
+    if(u32Src == 2UL)
+    {
+        if ((timer == TIMER0) || (timer == TIMER1))
+        {
+            u32PWMClockFreq = CLK_GetPCLK0Freq();
+        }
+        else
+        {
+            u32PWMClockFreq = CLK_GetPCLK1Freq();
+        }
     }
     else
     {
-        u32PWMClockFreq = CLK_GetPCLK1Freq();
+        u32PWMClockFreq = au32Clk[u32Src];
     }
 
     /* Calculate u8PERIOD and u8PSC */
