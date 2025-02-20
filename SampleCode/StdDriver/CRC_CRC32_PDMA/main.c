@@ -175,6 +175,7 @@ int main(void)
     /* Unlock protected registers */
     SYS_UnlockReg();
 
+    /* Enable RMC ISP function. Before using RMC function, it should unlock system register first. */
     /*  Case a. */
     u32RMCChecksum = GetRMCChecksum(0x0, size);
 
