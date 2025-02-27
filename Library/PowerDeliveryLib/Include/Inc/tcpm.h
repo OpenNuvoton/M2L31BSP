@@ -23,6 +23,8 @@
 #include "util.h"
 #endif
 
+#include "utcpd_config.h"
+
 #if defined(CONFIG_USB_PD_DUAL_ROLE_AUTO_TOGGLE) && \
     !defined(CONFIG_USB_PD_DUAL_ROLE)
 #error "DRP auto toggle requires board to have DRP support"

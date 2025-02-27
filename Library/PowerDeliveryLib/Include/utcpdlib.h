@@ -93,7 +93,7 @@ extern void UART_Commandshell(int port);
 extern void cpu_dump(uint32_t start_addr, uint32_t end_addr);
 extern void VBUS_Source_Level(int port, char i8Level);
 extern void VBUS_Sink_Enable(int32_t port, bool bIsEnable);
-
+extern void UTCPD_NotifyEvent(int port, uint32_t event, uint32_t op);
 /*@}*/ /* end of group UTCPDLIB_EXPORTED_FUNCTIONS */
 
 

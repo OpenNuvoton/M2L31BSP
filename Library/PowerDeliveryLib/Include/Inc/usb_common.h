@@ -232,8 +232,8 @@ static inline int MIN(int a, int b)
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
 #if 1
-#define PD_POWER_SUPPLY_TURN_ON_DELAY       30000
-#define PD_POWER_SUPPLY_TURN_OFF_DELAY    30000
+#define PD_POWER_SUPPLY_TURN_ON_DELAY     (50*MSEC)//By Zinger board
+#define PD_POWER_SUPPLY_TURN_OFF_DELAY    (50*MSEC)//By Zinger board
 #else
 #define PD_POWER_SUPPLY_TURN_ON_DELAY       100000      //DEBUG_ONLY
 #define PD_POWER_SUPPLY_TURN_OFF_DELAY    100000        //DEBUG_ONLY

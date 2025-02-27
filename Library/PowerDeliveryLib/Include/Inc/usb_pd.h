@@ -168,17 +168,18 @@ enum pd_rx_errors
 #define RDO_BATT_OP_POWER(mw)      ((((mw) / 250) & 0x3FF) << 10)
 #define RDO_BATT_MAX_POWER(mw)     ((((mw) / 250) & 0x3FF) << 10)
 
-#if 1  /* SPR Fixed PDO with chunked message supportting (Software) */
+#if 1
 #define RDO_FIXED(n, op_ma, max_ma, flags) \
-                (RDO_OBJ_POS(n) | (flags) | \
-                RDO_FIXED_VAR_OP_CURR(op_ma) | \
-                RDO_FIXED_VAR_MAX_CURR(max_ma))
-#else  /* EPR fixed PDO with unchunked message supporting (Hardware support 260 bytes FIFO) */
-#define RDO_FIXED(n, op_ma, max_ma, flags) \
-                (RDO_OBJ_POS(n) | (flags) | \
-                RDO_FIXED_VAR_OP_CURR(op_ma) | \
-                RDO_UNCHUNKED_EXTENDED | \
-                RDO_FIXED_VAR_MAX_CURR(max_ma))
+				(RDO_OBJ_POS(n) | (flags) | \
+				RDO_FIXED_VAR_OP_CURR(op_ma) | \
+				RDO_FIXED_VAR_MAX_CURR(max_ma))
+#else
+/* TEST.PD.PROT.ALL.3.2 Get ManuFacturer_Info Response will be wrong */
+//#define RDO_FIXED(n, op_ma, max_ma, flags) \
+//				(RDO_OBJ_POS(n) | (flags) | \
+//				RDO_FIXED_VAR_OP_CURR(op_ma) | \
+//				RDO_UNCHUNKED_EXTENDED | \	
+//				RDO_FIXED_VAR_MAX_CURR(max_ma))
 #endif
 
 /* SW ADD { */
@@ -252,16 +253,16 @@ enum pd_rx_errors
 #if 0
 #define PD_T_SENDER_RESPONSE        (30*MSEC) /* between 24ms and 30ms */
 #else //DEBUG_ONLY
-#define PD_T_SENDER_RESPONSE        (24*MSEC) /* between 24ms and 30ms */
+#define PD_T_SENDER_RESPONSE        (27*MSEC) /* between 24ms and 30ms */
 #endif
 #else
 #define PD_T_SENDER_RESPONSE        (24*MSEC) /* between 24ms and 30ms */
 //#define PD_T_SENDER_RESPONSE        (500*MSEC) /* DEBUG_ONLY */
 #endif
 #define PD_T_PS_TRANSITION         (500*MSEC) /* between 450ms and 550ms */
-#define PD_T_PS_SOURCE_ON          (480*MSEC) /* between 390ms and 480ms */
+#define PD_T_PS_SOURCE_ON          (460*MSEC) ///(480*MSEC) /* between 390ms and 480ms */
 #define PD_T_PS_SOURCE_OFF         (835*MSEC) /* between 750ms and 920ms */
-#define PD_T_PS_HARD_RESET          (25*MSEC) /* between 25ms and 35ms */
+#define PD_T_PS_HARD_RESET          (27*MSEC) /* between 25ms and 35ms */
 #define PD_T_ERROR_RECOVERY        (240*MSEC) /* min 240ms if sourcing VConn */
 #define PD_T_CC_DEBOUNCE           (100*MSEC) /* between 100ms and 200ms */
 /* DRP_SNK + DRP_SRC must be between 50ms and 100ms with 30%-70% duty cycle */
@@ -1232,15 +1233,19 @@ enum pd_ctrl_msg_type
     PD_CTRL_VCONN_SWAP = 11,
     PD_CTRL_WAIT = 12,
     PD_CTRL_SOFT_RESET = 13,
-    /* 14-15 Reserved */
-
-    /* Used for REV 3.0 */
+	/* Used for REV 3.0 */
+	PD_CTRL_DATA_RESET = 14,
+	PD_CTRL_DATA_RESET_COMPLETE = 15,
     PD_CTRL_NOT_SUPPORTED = 16,
     PD_CTRL_GET_SOURCE_CAP_EXT = 17,
     PD_CTRL_GET_STATUS = 18,
     PD_CTRL_FR_SWAP = 19,
     PD_CTRL_GET_PPS_STATUS = 20,
     PD_CTRL_GET_COUNTRY_CODES = 21,
+	PD_CTRL_GET_SINK_CAP_EXT = 22,
+	/* Used for REV 3.1 */
+	PD_CTRL_GET_SOURCE_INFO = 23,
+	PD_CTRL_GET_REVISION = 24,
     /* 22-31 Reserved */
 };
 
@@ -1279,9 +1284,45 @@ enum pd_ctrl_msg_type
  */
 #define BATT_CAP_REF(n)  (((n) >> 16) & 0xff)
 
-/* Extended message type for REV 3.0 */
-enum pd_ext_msg_type
-{
+/* SOP SDB fields for PD Rev 3.0 Section 6.5.2.1 */
+enum pd_sdb_temperature_status {
+	PD_SDB_TEMPERATURE_STATUS_NOT_SUPPORTED = 0,
+	PD_SDB_TEMPERATURE_STATUS_NORMAL = 2,
+	PD_SDB_TEMPERATURE_STATUS_WARNING = 4,
+	PD_SDB_TEMPERATURE_STATUS_OVER_TEMPERATURE = 6,
+};
+
+struct pd_sdb {
+	/* SDB Fields for PD REV 3.0 */
+	uint8_t internal_temp;
+	uint8_t present_input;
+	uint8_t present_battery_input;
+	uint8_t event_flags;
+	enum pd_sdb_temperature_status temperature_status;
+	uint8_t power_status;
+	/* SDB Fields for PD REV 3.1 */
+	uint8_t power_state_change;
+};
+
+enum pd_sdb_power_state {
+	PD_SDB_POWER_STATE_NOT_SUPPORTED = 0,
+	PD_SDB_POWER_STATE_S0 = 1,
+	PD_SDB_POWER_STATE_MODERN_STANDBY = 2,
+	PD_SDB_POWER_STATE_S3 = 3,
+	PD_SDB_POWER_STATE_S4 = 4,
+	PD_SDB_POWER_STATE_S5 = 5,
+	PD_SDB_POWER_STATE_G3 = 6,
+};
+
+enum pd_sdb_power_indicator {
+	PD_SDB_POWER_INDICATOR_OFF = (0 << 3),
+	PD_SDB_POWER_INDICATOR_ON = (1 << 3),
+	PD_SDB_POWER_INDICATOR_BLINKING = (2 << 3),
+	PD_SDB_POWER_INDICATOR_BREATHING = (3 << 3),
+};
+
+/* Extended message type for REV 3.0 - USB-PD Spec 3.0, Ver 1.1, Table 6-42 */
+enum pd_ext_msg_type {
     /* 0 Reserved */
     PD_EXT_SOURCE_CAP = 1,
     PD_EXT_STATUS = 2,
@@ -1297,6 +1338,13 @@ enum pd_ext_msg_type
     PD_EXT_PPS_STATUS = 12,
     PD_EXT_COUNTRY_INFO = 13,
     PD_EXT_COUNTRY_CODES = 14,
+	/* Used for REV 3.1 */
+	PD_EXT_SINK_CAP = 15,
+	PD_EXT_CONTROL = 16,
+	PD_EXT_EPR_SOURCE_CAP = 17,
+	PD_EXT_EPR_SINK_CAP = 18,
+	/* 19-29 Reserved */
+	PD_EXT_VENDOR_DEF = 30,
     /* 15-31 Reserved */
 };
 
@@ -1324,7 +1372,13 @@ enum pd_data_msg_type
     PD_DATA_GET_COUNTRY_INFO = 7,
     /* 8-14 Reserved for REV 3.0 */
     PD_DATA_ENTER_USB = 8,
-    PD_DATA_VENDOR_DEF = 15,
+    /* SW ADD { */
+	PD_DATA_REVISION = 12,
+	/* SW ADD } */
+
+	PD_DATA_VENDOR_DEF = 15,
+
+	
 };
 
 

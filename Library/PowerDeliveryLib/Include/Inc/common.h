@@ -39,8 +39,8 @@
 //#define NULL      (0)
 
 #define BASIC_PRINTF
-
-#define DBG_TC_PRINTF           /* Turn on it to debug type-c layer */
+#define SSR_PRINTF  printf
+//#define DBG_TC_PRINTF           /* Turn on it to debug type-c layer */
 //#define DBG_PRL_PRINTF        /* Turn on it to debug protocol layer */
 //#define DBG_PE_PRINTF         /* Turn on it to debug pe layer */
 //#define DBG_TIME_PRINTF       /* Turn on it to debug system timer */
