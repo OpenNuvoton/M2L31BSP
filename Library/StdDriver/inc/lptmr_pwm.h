@@ -393,7 +393,7 @@ void LPTPWM_DisableTrigger(LPTMR_T *lptmr, uint32_t u32TargetMask);
   *
   * @details    This function is used to enable specified counter compare event to trigger LPPDMA.
   */
-#define LPTPWM_EnableTriggerLPPDMA(lptmr, u32Condition) LPTPWM_EnableTrigger(lptmr, LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk, u32Condition)
+#define LPTPWM_EnableTriggerLPPDMA(lptmr, u32Condition) LPTPWM_EnableTrigger(lptmr, (LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk | LPTMR_PWMTRGCTL_TRGEN_Msk), u32Condition)
 
 /**
   * @brief      Disable Trigger LPPDMA
