@@ -404,7 +404,7 @@ void LPTPWM_DisableTrigger(LPTMR_T *lptmr, uint32_t u32TargetMask);
   *
   * @details    This function is used to disable counter compare event to trigger LPPDMA.
   */
-#define LPTPWM_DisableTriggerLPPDMA(lptmr)              LPTPWM_DisableTrigger(lptmr, LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk)
+#define LPTPWM_DisableTriggerLPPDMA(lptmr)              LPTPWM_DisableTrigger(lptmr, (LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk | LPTMR_PWMTRGCTL_TRGEN_Msk))
 
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
 __STATIC_INLINE void LPTPWM_EnableWakeup(LPTMR_T *lptmr);
