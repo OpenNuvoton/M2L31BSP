@@ -122,11 +122,12 @@ void LPTPWM_DisableCounter(LPTMR_T *lptmr)
 }
 
 /**
-  * @brief      Enable LPTPWM Trigger LPPDMA
+  * @brief      Enable LPTPWM Trigger Low power IP or LPPDMA
   *
   * @param[in]  lptmr           The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1
-  * @param[in]  u32TargetMask   The mask of modules (LPPDMA) trigger by LPTPWM, the combination of:
-  *                                 - \ref LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk
+  * @param[in]  u32TargetMask   The mask of modules (Low power IP or LPPDMA) trigger by LPTPWM, the combination of:
+  *                                 - \ref LPTMR_PWMTRGCTL_TRGSEL_Msk
+  *                                 - \ref (LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk  | LPTMR_PWMTRGCTL_TRGSEL_Msk)
   * @param[in]  u32Condition    The condition to trigger LPPDMA. It could be one of following conditions:
   *                                 - \ref LPTPWM_TRIGGER_AT_PERIOD_POINT
   *                                 - \ref LPTPWM_TRIGGER_AT_COMPARE_POINT
