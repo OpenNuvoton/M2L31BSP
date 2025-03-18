@@ -170,7 +170,17 @@ test:
             if(RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk)
             {
                 RMC->ISPCTL |= RMC_ISPCTL_ISPFF_Msk;
-                printf(" * ISPFF is set\n");
+                RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
+                RMC->ISPADDR = 0x00000000;
+                RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+                tout = RMC_TIMEOUT_WRITE;
+
+                while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+
+                if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+                {
+                    RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+                }
                 err = -1;
             }
         }
@@ -336,16 +346,12 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
 
     if (tout == 0)
-    {
-        g_RMC_i32ErrCode = -1;
-        return -1;
-    }
+        goto program_fail;
 
     if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
     {
         RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        g_RMC_i32ErrCode = -1;
-        return -1;
+        goto program_fail;
     }
     RMC->ISPCMD = RMC_ISPCMD_LOAD_DATA_BUFFER;
     RMC->ISPADDR = u32Addr;
@@ -356,16 +362,12 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
 
     if (tout == 0)
-    {
-        g_RMC_i32ErrCode = -1;
-        return -1;
-    }
+        goto program_fail;
 
     if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
     {
         RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        g_RMC_i32ErrCode = -1;
-        return -1;
+        goto program_fail;
     }
 
     RMC->ISPCMD = RMC_ISPCMD_PROGRAM;
@@ -377,18 +379,29 @@ int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
     while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
 
     if (tout == 0)
-    {
-        g_RMC_i32ErrCode = -1;
-        return -1;
-    }
+        goto program_fail;
 
     if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
     {
         RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        g_RMC_i32ErrCode = -1;
-        return -1;
+        goto program_fail;
     }
     return 0;
+program_fail:
+    g_RMC_i32ErrCode = -1;
+
+    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
+    RMC->ISPADDR = 0x00000000;
+    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+    tout = RMC_TIMEOUT_WRITE;
+
+    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+
+    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    {
+        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+    }
+    return -1;
 }
 
 /**
@@ -497,6 +510,18 @@ int32_t RMC_Erase(uint32_t u32PageAddr)
 erase_fail:
     g_RMC_i32ErrCode = -1;
     RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk; 
+
+    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
+    RMC->ISPADDR = 0x00000000;
+    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+    tout = RMC_TIMEOUT_WRITE;
+
+    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+
+    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    {
+        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+    }
     return -1;
 }
 
@@ -681,6 +706,18 @@ int32_t RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len)
 prog_fail:
     g_RMC_i32ErrCode = -1;
     RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk; 
+
+    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
+    RMC->ISPADDR = 0x00000000;
+    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
+    tout = RMC_TIMEOUT_WRITE;
+
+    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+
+    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    {
+        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+    }
     return -1;
 }
 
