@@ -36,8 +36,8 @@ void PowerDownFunction(void)
     {
         SCB->VTOR = 0;                              /* Restore VTOR setting */
         SYS->INIVTOR = 0;                           /* Restore INIVTOR setting */
-        SYS_UnlockReg();                            /* Unlock protected registers */
         SYS_Init();                                 /* Init System, peripheral clock and multi-function I/O */
+        SYS_UnlockReg();                            /* Unlock protected registers */
         UART0_Init();                               /* Init UART0 for printf */
         GPIO_SetMode(PA, BIT10, GPIO_MODE_OUTPUT);  /* Set PA.10 as output mode */
         CLK->IOPDCTL = 1;                           /* Release I/O hold status */
