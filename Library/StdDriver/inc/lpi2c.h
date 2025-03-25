@@ -27,8 +27,6 @@ extern "C"
   @{
 */
 
-#define LPI2C_TIMEOUT_ERR    (-1L)          /*!< LPI2C operation abort due to timeout error \hideinitializer */
-
 /*---------------------------------------------------------------------------------------------------------*/
 /*  LPI2C_CTL constant definitions.                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -68,6 +66,14 @@ extern "C"
 #define LPI2C_TRGSRC_WKIOC0         6UL    /*!< LPI2C Auto-operation trigger source from WKIOC0                               \hideinitializer */
 #define LPI2C_TRGSRC_WKIOD0         7UL    /*!< LPI2C Auto-operation trigger source from WKIOD0                               \hideinitializer */
 #define LPI2C_TRGSRC_SWTRG          8UL    /*!< LPI2C Auto-operation trigger source from SWTRG                                \hideinitializer */
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* LPI2C Define Error Code                                                                                 */
+/*---------------------------------------------------------------------------------------------------------*/
+#define LPI2C_TIMEOUT     SystemCoreClock  /*!< LPI2C time-out counter (1 second time-out)                                 \hideinitializer */
+#define LPI2C_OK          ( 0L)            /*!< LPI2C operation OK                                                         \hideinitializer */
+#define LPI2C_ERR_FAIL    (-1L)            /*!< LPI2C operation failed                                                     \hideinitializer */
+#define LPI2C_TIMEOUT_ERR (-2L)            /*!< LPI2C operation abort due to timeout error                                 \hideinitializer */
 
 /*@}*/ /* end of group LPI2C_EXPORTED_CONSTANTS */
 

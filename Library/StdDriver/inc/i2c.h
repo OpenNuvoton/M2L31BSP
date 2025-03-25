@@ -27,8 +27,6 @@ extern "C"
   @{
 */
 
-#define I2C_TIMEOUT_ERR    (-1L)          /*!< I2C operation abort due to timeout error \hideinitializer */
-
 /*---------------------------------------------------------------------------------------------------------*/
 /*  I2C_CTL constant definitions.                                                                          */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -62,6 +60,14 @@ extern "C"
 #define I2C_DATA_PHASE_BIT_6        (0x1UL << I2C_CTL0_DPBITSEL_Pos) /*!< Setting data phase bit count to 6 bit           \hideinitializer */
 #define I2C_DATA_PHASE_BIT_7        (0x2UL << I2C_CTL0_DPBITSEL_Pos) /*!< Setting data phase bit count to 7 bit           \hideinitializer */
 #define I2C_DATA_PHASE_BIT_8        (0x3UL << I2C_CTL0_DPBITSEL_Pos) /*!< Setting data phase bit count to 8 bit           \hideinitializer */
+
+/*---------------------------------------------------------------------------------------------------------*/
+/* I2C Define Error Code                                                                                   */
+/*---------------------------------------------------------------------------------------------------------*/
+#define I2C_TIMEOUT     SystemCoreClock  /*!< I2C time-out counter (1 second time-out)                                    \hideinitializer */
+#define I2C_OK          ( 0L)            /*!< I2C operation OK                                                            \hideinitializer */
+#define I2C_ERR_FAIL    (-1L)            /*!< I2C operation failed                                                        \hideinitializer */
+#define I2C_TIMEOUT_ERR (-2L)            /*!< I2C operation abort due to timeout error                                    \hideinitializer */
 
 /*@}*/ /* end of group I2C_EXPORTED_CONSTANTS */
 
