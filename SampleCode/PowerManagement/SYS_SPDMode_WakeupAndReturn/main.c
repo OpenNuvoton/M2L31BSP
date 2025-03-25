@@ -23,10 +23,10 @@ void PowerDownFunction(void)
     CLK_SetPowerDownMode(CLK_PMUCTL_PDMSEL_SPD0);
 
     /* Set the processor uses deep sleep as its low power mode */
-//    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 
     /* Set system Power-down enabled */
-//    CLK->PWRCTL |= CLK_PWRCTL_PDEN_Msk;
+    CLK->PWRCTL |= CLK_PWRCTL_PDEN_Msk;
 
     /* Reserve R0-R7, LR and enter to Power-down mode */
     __set_PRIMASK(1);
@@ -43,8 +43,8 @@ void PowerDownFunction(void)
     /* Initialization after wake-up from SPD */
     if(CLK->PMUSTS&CLK_PMUSTS_RTCWK_Msk)
     {
-        SYS_UnlockReg();                            /* Unlock protected registers */
         SYS_Init();                                 /* Init System, peripheral clock and multi-function I/O */
+        SYS_UnlockReg();                            /* Unlock protected registers */
         UART0_Init();                               /* Init UART0 for printf */
         GPIO_SetMode(PA, BIT10, GPIO_MODE_OUTPUT);  /* Set PA.10 as output mode */
         CLK->IOPDCTL = 1;                           /* Release I/O hold status */
