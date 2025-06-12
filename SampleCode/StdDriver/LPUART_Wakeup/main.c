@@ -3,7 +3,7 @@
  * @version  V3.00
  * $Revision: 3 $
  * $Date: 20/08/06 5:45p $
- * @brief    Show how to wake up system form Power-down mode by LPUART interrupt.
+ * @brief    Show how to wake up system from Power-down mode by LPUART interrupt.
  * @note
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -194,7 +194,7 @@ void LPUART0_IRQHandler(void)
 /*---------------------------------------------------------------------------------------------------------*/
 void LPUART_CTSWakeUp(void)
 {
-    /* Enable LPUART nCTS wake-up frunction */
+    /* Enable LPUART nCTS wake-up function */
     LPUART0->WKCTL |= LPUART_WKCTL_WKCTSEN_Msk;
 
     printf("System enter to Power-down mode NPD%d.\n", (int)(CLK->PMUCTL & CLK_PMUCTL_PDMSEL_Msk));
@@ -207,7 +207,7 @@ void LPUART_CTSWakeUp(void)
 /*---------------------------------------------------------------------------------------------------------*/
 void LPUART_DataWakeUp(void)
 {
-    /* Enable LPUART data wake-up frunction */
+    /* Enable LPUART data wake-up function */
     LPUART0->WKCTL |= LPUART_WKCTL_WKDATEN_Msk;
 
     /* Set LPUART data wake-up start bit compensation value.
@@ -238,7 +238,7 @@ void LPUART_RxThresholdWakeUp(void)
     LPUART_Open(LPUART0, 9600);
     LPUART0->BRCOMP = 0xA5;
 
-    /* Enable LPUART Rx Threshold and Rx time-out wake-up frunction */
+    /* Enable LPUART Rx Threshold and Rx time-out wake-up function */
     LPUART0->WKCTL |= LPUART_WKCTL_WKRFRTEN_Msk | LPUART_WKCTL_WKTOUTEN_Msk;
 
     /* Set Rx FIFO interrupt trigger level */
@@ -272,7 +272,7 @@ void LPUART_RS485WakeUp(void)
     /* Enable parity source selection function */
     LPUART0->LINE |= (LPUART_LINE_PSS_Msk | LPUART_LINE_PBE_Msk);
 
-    /* Enable LPUART RS485 address match, Rx Threshold and Rx time-out wake-up frunction */
+    /* Enable LPUART RS485 address match, Rx Threshold and Rx time-out wake-up function */
     LPUART0->WKCTL |= LPUART_WKCTL_WKRFRTEN_Msk | LPUART_WKCTL_WKRS485EN_Msk | LPUART_WKCTL_WKTOUTEN_Msk;
 
     /* Enable LPUART Rx time-out function */

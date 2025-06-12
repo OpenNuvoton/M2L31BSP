@@ -84,10 +84,10 @@ void SYS_Init(void)
     /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13 */
     Uart0DefaultMPF();
 
-    /* Set PA multi-function pins for UART1 TXD, RXD */
+    /* Set PA multi-function pins for UART1 RXD */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA2MFP_Msk)) | SYS_GPA_MFP0_PA2MFP_UART1_RXD;
 
-    /* Set PB multi-function pins for LPUART0 TXD and RXD */
+    /* Set PB multi-function pins for LPUART0 RXD */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk )) | SYS_GPA_MFP0_PA0MFP_LPUART0_RXD;
 
     /* The RX pin needs to pull-high for single-wire */

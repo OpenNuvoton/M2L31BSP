@@ -820,13 +820,13 @@ uint32_t I2C_WriteMultiBytes(I2C_T *i2c, uint8_t u8SlaveAddr, uint8_t data[], ui
             u8Err = 1u;
             break;
         case 0x38u:                                                       /* Arbitration Lost */
-        default:                                                          /* Unknow status */
+        default:                                                          /* Unknown status */
             I2C_SET_CONTROL_REG(i2c, I2C_CTL_STO_SI);                     /* Clear SI and send STOP */
             u8Ctrl = I2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write controlbit to I2C_CTL register */
+        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write control bit to I2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -938,13 +938,13 @@ uint32_t I2C_WriteMultiBytesOneReg(I2C_T *i2c, uint8_t u8SlaveAddr, uint8_t u8Da
             }
             break;
         case 0x38u:                                                       /* Arbitration Lost */
-        default:                                                          /* Unknow status */
+        default:                                                          /* Unknown status */
             I2C_SET_CONTROL_REG(i2c, I2C_CTL_STO_SI);                     /* Clear SI and send STOP */
             u8Ctrl = I2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write controlbit to I2C_CTL register */
+        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write control bit to I2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -1061,13 +1061,13 @@ uint32_t I2C_WriteMultiBytesTwoRegs(I2C_T *i2c, uint8_t u8SlaveAddr, uint16_t u1
             }
             break;
         case 0x38u:                                                       /* Arbitration Lost */
-        default:                                                          /* Unknow status */
+        default:                                                          /* Unknown status */
             I2C_SET_CONTROL_REG(i2c, I2C_CTL_STO_SI);                     /* Clear SI and send STOP */
             u8Ctrl = I2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write controlbit to I2C_CTL register */
+        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write control bit to I2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -1187,13 +1187,13 @@ uint32_t I2C_ReadMultiBytes(I2C_T *i2c, uint8_t u8SlaveAddr, uint8_t rdata[], ui
             u8Xfering = 0u;
             break;
         case 0x38u:                                                       /* Arbitration Lost */
-        default:                                                          /* Unknow status */
+        default:                                                          /* Unknown status */
             I2C_SET_CONTROL_REG(i2c, I2C_CTL_STO_SI);                     /* Clear SI and send STOP */
             u8Ctrl = I2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write controlbit to I2C_CTL register */
+        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write control bit to I2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -1331,13 +1331,13 @@ uint32_t I2C_ReadMultiBytesOneReg(I2C_T *i2c, uint8_t u8SlaveAddr, uint8_t u8Dat
             u8Xfering = 0u;
             break;
         case 0x38u:                                                       /* Arbitration Lost */
-        default:                                                          /* Unknow status */
+        default:                                                          /* Unknown status */
             I2C_SET_CONTROL_REG(i2c, I2C_CTL_STO_SI);                     /* Clear SI and send STOP */
             u8Ctrl = I2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write controlbit to I2C_CTL register */
+        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write control bit to I2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -1482,13 +1482,13 @@ uint32_t I2C_ReadMultiBytesTwoRegs(I2C_T *i2c, uint8_t u8SlaveAddr, uint16_t u16
             u8Xfering = 0u;
             break;
         case 0x38u:                                                       /* Arbitration Lost */
-        default:                                                          /* Unknow status */
+        default:                                                          /* Unknown status */
             I2C_SET_CONTROL_REG(i2c, I2C_CTL_STO_SI);                     /* Clear SI and send STOP */
             u8Ctrl = I2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write controlbit to I2C_CTL register */
+        I2C_SET_CONTROL_REG(i2c, u8Ctrl);                                 /* Write control bit to I2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;

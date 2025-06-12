@@ -566,13 +566,13 @@ uint32_t LPI2C_WriteMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t data
             u8Err = 1u;
             break;
         case 0x38u:                                                            /* Arbitration Lost */
-        default:                                                               /* Unknow status */
+        default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
             u8Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write controlbit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -683,13 +683,13 @@ uint32_t LPI2C_WriteMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_
             }
             break;
         case 0x38u:                                                            /* Arbitration Lost */
-        default:                                                               /* Unknow status */
+        default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
             u8Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write controlbit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -805,13 +805,13 @@ uint32_t LPI2C_WriteMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint1
             }
             break;
         case 0x38u:                                                            /* Arbitration Lost */
-        default:                                                               /* Unknow status */
+        default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
             u8Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write controlbit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -931,13 +931,13 @@ uint32_t LPI2C_ReadMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t rdata
             u8Xfering = 0u;
             break;
         case 0x38u:                                                            /* Arbitration Lost */
-        default:                                                               /* Unknow status */
+        default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
             u8Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write controlbit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -1075,13 +1075,13 @@ uint32_t LPI2C_ReadMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t
             u8Xfering = 0u;
             break;
         case 0x38u:                                                            /* Arbitration Lost */
-        default:                                                               /* Unknow status */
+        default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
             u8Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write controlbit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
@@ -1226,13 +1226,13 @@ uint32_t LPI2C_ReadMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16
             u8Xfering = 0u;
             break;
         case 0x38u:                                                            /* Arbitration Lost */
-        default:                                                               /* Unknow status */
+        default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
             u8Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write controlbit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
     }
 
     u32TimeOutCount = SystemCoreClock;
