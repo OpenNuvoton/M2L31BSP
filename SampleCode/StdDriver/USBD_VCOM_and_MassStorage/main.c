@@ -133,9 +133,20 @@ void SYS_Init(void)
     /* Enable GPB module clock */
     CLK_EnableModuleClock(GPB_MODULE);
 
+    /* Select USBD */
+    SYS->USBPHY = (SYS->USBPHY & ~SYS_USBPHY_USBROLE_Msk) | SYS_USBPHY_USBEN_Msk | SYS_USBPHY_SBO_Msk;
+
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
+
+#ifdef VBUS_DIVIDER
+    SYS->GPA_MFP3 &= ~(SYS_GPA_MFP3_PA13MFP_Msk | SYS_GPA_MFP3_PA14MFP_Msk | SYS_GPA_MFP3_PA15MFP_Msk);
+
+    /* USBD multi-function pins for D+, D-, and ID pins */
+    SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
+#endif
+
     /* Set multi-function pins */
     Uart0DefaultMPF();
 
@@ -392,14 +403,7 @@ int32_t main(void)
     printf("|     NuMicro USB Virtual COM and MassStorage Sample Code     |\n");
     printf("+-------------------------------------------------------------+\n");
 
-    /* Select USBD */
-    SYS->USBPHY = (SYS->USBPHY & ~SYS_USBPHY_USBROLE_Msk) | SYS_USBPHY_USBEN_Msk | SYS_USBPHY_SBO_Msk;
-
 #ifdef VBUS_DIVIDER
-    SYS->GPA_MFP3 &= ~(SYS_GPA_MFP3_PA13MFP_Msk | SYS_GPA_MFP3_PA14MFP_Msk | SYS_GPA_MFP3_PA15MFP_Msk);
-
-    /* USBD multi-function pins for D+, D-, and ID pins */
-    SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
 
     GPIO_DISABLE_DIGITAL_PATH(PA, BIT12);
 
@@ -438,6 +442,9 @@ int32_t main(void)
     /* Check User Configuration. If not match, to re-define Data Flash size and to enable Data Flash function. */
     RMC_ENABLE_AP_UPDATE();
 
+    /* Lock protected registers */
+    SYS_LockReg();
+
     printf("NuMicro USB MassStorage Start!\n");
 
     USBD_Open(&gsInfo, VCOM_MSC_ClassRequest, NULL);
@@ -453,11 +460,12 @@ int32_t main(void)
     NVIC_EnableIRQ(UART0_IRQn);
 
 #if CRYSTAL_LESS
-    /* Backup init trim */
+    /* Backup default trim */
     u32TrimInit = M32(TRIM_INIT);
 
     /* Waiting for USB bus stable */
     USBD->INTSTS = USBD_INTSTS_SOFIF_Msk;
+
     while((USBD->INTSTS & USBD_INTSTS_SOFIF_Msk) == 0);
 
     /* Enable USB crystal-less */

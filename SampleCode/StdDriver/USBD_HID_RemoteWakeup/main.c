@@ -143,11 +143,25 @@ void SYS_Init(void)
     /* Enable GPC module clock */
     CLK_EnableModuleClock(GPC_MODULE);
 
+    /* Select USBD */
+    SYS->USBPHY = (SYS->USBPHY & ~SYS_USBPHY_USBROLE_Msk) | SYS_USBPHY_USBEN_Msk | SYS_USBPHY_SBO_Msk;
+
     /*----------------------------------------------------------------------*/
     /* Init I/O Multi-function                                              */
     /*----------------------------------------------------------------------*/
+
+#ifdef VBUS_DIVIDER
+    SYS->GPA_MFP3 &= ~(SYS_GPA_MFP3_PA13MFP_Msk | SYS_GPA_MFP3_PA14MFP_Msk | SYS_GPA_MFP3_PA15MFP_Msk);
+
+    /* USBD multi-function pins for D+, D-, and ID pins */
+    SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
+#endif
+
     /* Set multi-function pins */
     Uart0DefaultMPF();
+
+    /* Lock protected registers */
+    SYS_LockReg();
 }
 
 /*----------------------------------------------------------------------*/
@@ -294,14 +308,8 @@ int32_t main(void)
     /* This sample code is used to simulate a mouse with suspend and remote wakeup supported.
        User can use GPIO key to control the movement of mouse.
     */
-    /* Select USBD */
-    SYS->USBPHY = (SYS->USBPHY & ~SYS_USBPHY_USBROLE_Msk) | SYS_USBPHY_USBEN_Msk | SYS_USBPHY_SBO_Msk;
 
 #ifdef VBUS_DIVIDER
-    SYS->GPA_MFP3 &= ~(SYS_GPA_MFP3_PA13MFP_Msk | SYS_GPA_MFP3_PA14MFP_Msk | SYS_GPA_MFP3_PA15MFP_Msk);
-
-    /* USBD multi-function pins for D+, D-, and ID pins */
-    SYS->GPA_MFP3 |= (SYS_GPA_MFP3_PA13MFP_USB_D_N | SYS_GPA_MFP3_PA14MFP_USB_D_P | SYS_GPA_MFP3_PA15MFP_USB_OTG_ID);
 
     GPIO_DISABLE_DIGITAL_PATH(PA, BIT12);
 
@@ -343,10 +351,15 @@ int32_t main(void)
 #if CRYSTAL_LESS
     /* Backup default trim */
     u32TrimInit = M32(TRIM_INIT);
-#endif
 
-    /* Clear SOF */
+    /* Waiting for USB bus stable */
     USBD->INTSTS = USBD_INTSTS_SOFIF_Msk;
+
+    while((USBD->INTSTS & USBD_INTSTS_SOFIF_Msk) == 0);
+
+    /* Enable USB crystal-less */
+    SYS->HIRCTCTL |= (SYS_HIRCTCTL_REFCKSEL_Msk | 0x1);
+#endif
 
     while(1)
     {
