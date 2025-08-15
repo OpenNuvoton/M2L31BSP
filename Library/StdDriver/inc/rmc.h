@@ -591,6 +591,7 @@ extern int32_t  RMC_WriteOTP(uint32_t otp_num, uint32_t low_word, uint32_t high_
 extern int32_t  RMC_IsOTPLocked(uint32_t otp_num);
 extern int32_t  RMC_LockOTP(uint32_t otp_num);
 extern int32_t  RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len);
+extern int32_t  RMC_RemapBank(uint32_t u32BankAddr);
 
 /*@}*/ /* end of group RMC_EXPORTED_FUNCTIONS */
 
