@@ -4,7 +4,7 @@
  * @brief    M2L31 Series RRAM Memory Controller Driver Header File
  *
  * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2016-2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 #ifndef __RMC_H__
 #define __RMC_H__
@@ -605,4 +605,4 @@ extern int32_t  RMC_RemapBank(uint32_t u32BankAddr);
 
 #endif   /* __RMC_H__ */
 
-/*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/
+/*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

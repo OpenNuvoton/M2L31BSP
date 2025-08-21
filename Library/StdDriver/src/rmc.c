@@ -4,7 +4,7 @@
  * @brief    M2L31 series RRAM Memory Controller driver source file
  *
  * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2016-2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
 #include <stdio.h>
@@ -916,7 +916,6 @@ int32_t RMC_RemapBank(uint32_t u32BankAddr)
     {
         RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
         g_RMC_i32ErrCode = -1;
-        printf("ispff is set!!\n");
         return -1;
     }
 
@@ -1062,6 +1061,6 @@ int32_t RMC_WriteOTP(uint32_t otp_num, uint32_t low_word, uint32_t high_word)
 
 /*@}*/ /* end of group Standard_Driver */
 
-/*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/
+/*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/
 
 
