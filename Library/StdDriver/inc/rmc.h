@@ -52,14 +52,13 @@ extern "C"
 #define RMC_PAGE_ADDR_MASK           0xFFFFF000UL    /*!< Flash page address mask     \hideinitializer */
 #define RMC_MULTI_WORD_PROG_MAX_LEN  512             /*!< The maximum length of a multi-word program.  */
 
-#define RMC_APROM_SIZE          RMC_APROM_END         /*!< APROM Size                  \hideinitializer */
-#define RMC_BANK_SIZE           (RMC_APROM_SIZE/2UL)  /*!< APROM Bank Size             \hideinitializer */
-#define RMC_LDROM_SIZE          0x1000UL              /*!< LDROM Size (4 Kbytes)       \hideinitializer */
-#define RMC_OTP_ENTRY_CNT       256UL                 /*!< OTP entry number            \hideinitializer */
+#define RMC_APROM_SIZE          RMC_APROM_END        /*!< APROM Size                  \hideinitializer */
+#define RMC_BANK_SIZE           (RMC_APROM_SIZE/2UL) /*!< APROM Bank Size             \hideinitializer */
+#define RMC_LDROM_SIZE          0x1000UL             /*!< LDROM Size (4 Kbytes)       \hideinitializer */
+#define RMC_OTP_ENTRY_CNT       256UL                /*!< OTP entry number            \hideinitializer */
 
 #define XOM_OFF_MARK            0x5A
 #define XOM_DEBUG_MARK          0x50
-
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  XOM region number constant definitions                                                                 */
@@ -88,11 +87,10 @@ extern "C"
 #define RMC_ISPCMD_LOAD_DATA_BUFFER      0x27UL          /*!< ISP Command: Load Data Buffer        \hideinitializer */
 #define RMC_ISPCMD_CLEAR_DATA_BUFFER     0x2FUL          /*!< ISP Command: Clear Data Buffer        \hideinitializer */
 #define RMC_ISPCMD_BANK_REMAP            0x2CUL          /*!< ISP Command: Bank Remap                \hideinitializer */
-
-#define RMC_ISPCMD_PAGE_ERASE   0x22UL          /*!< ISP Command: Page Erase Flash        \hideinitializer */
-#define RMC_ISPCMD_RUN_ALL1     0x28UL          /*!< ISP Command: Run all-one verification \hideinitializer */
-#define RMC_ISPCMD_RUN_CKS      0x2DUL          /*!< ISP Command: Run checksum calculation \hideinitializer */
-#define RMC_ISPCMD_VECMAP       0x2EUL          /*!< ISP Command: Vector Page Remap       \hideinitializer */
+#define RMC_ISPCMD_PAGE_ERASE            0x22UL          /*!< ISP Command: Page Erase Flash        \hideinitializer */
+#define RMC_ISPCMD_RUN_ALL1              0x28UL          /*!< ISP Command: Run all-one verification \hideinitializer */
+#define RMC_ISPCMD_RUN_CKS               0x2DUL          /*!< ISP Command: Run checksum calculation \hideinitializer */
+#define RMC_ISPCMD_VECMAP                0x2EUL          /*!< ISP Command: Vector Page Remap       \hideinitializer */
 
 #define RMC_ISPADDR_MAGIC_NUM   (0x20241126)
 
@@ -571,26 +569,26 @@ __STATIC_INLINE int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr)
 /*  Functions                                                                                              */
 /*---------------------------------------------------------------------------------------------------------*/
 
+extern void     RMC_Open(void);
 extern void     RMC_Close(void);
 extern int32_t  RMC_ConfigXOM(uint32_t xom_num, uint32_t xom_base, uint8_t xom_page);
 extern int32_t  RMC_Erase(uint32_t u32PageAddr);
 extern int32_t  RMC_EraseXOM(uint32_t xom_num);
 extern int32_t  RMC_GetXOMState(uint32_t xom_num);
 extern int32_t  RMC_GetBootSource(void);
-extern void     RMC_Open(void);
 extern uint32_t RMC_Read(uint32_t u32Addr);
 extern uint32_t RMC_ReadDataFlashBaseAddr(void);
 extern void     RMC_SetBootSource(int32_t i32BootSrc);
 extern int32_t  RMC_Write(uint32_t u32Addr, uint32_t u32Data);
 extern int32_t  RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count);
-extern int32_t  RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count);
+extern int32_t  RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count);       
+extern int32_t  RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len);
 extern uint32_t RMC_GetChkSum(uint32_t u32addr, uint32_t u32count);
 extern uint32_t RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count);
 extern int32_t  RMC_ReadOTP(uint32_t otp_num, uint32_t *low_word, uint32_t *high_word);
 extern int32_t  RMC_WriteOTP(uint32_t otp_num, uint32_t low_word, uint32_t high_word);
 extern int32_t  RMC_IsOTPLocked(uint32_t otp_num);
 extern int32_t  RMC_LockOTP(uint32_t otp_num);
-extern int32_t  RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len);
 extern int32_t  RMC_RemapBank(uint32_t u32BankAddr);
 
 /*@}*/ /* end of group RMC_EXPORTED_FUNCTIONS */

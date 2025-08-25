@@ -890,7 +890,6 @@ int32_t RMC_RemapBank(uint32_t u32BankAddr)
 {
     int32_t  ret = 0;
     uint32_t  tout;
-
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
