@@ -14,6 +14,12 @@
 
 #define TRIM_INIT           (SYS_BASE+0x10C)
 
+/* Add implementations to fix linker warnings from the newlib-nano C library in VSCode-GCC14.3.1 */
+void _close(void) {}
+void _lseek(void) {}
+void _read_r(void) {}
+void _write_r(void) {}
+
 void SYS_Init(void)
 {
     /* Set core clock as 72MHz from PLL */

@@ -1,9 +1,9 @@
 /* Linker script to configure memory regions. */
 MEMORY
 {
-  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x8000    /* 32k */
-  FLASH1 (rx) : ORIGIN = 0x0001f800, LENGTH = 0x200  /* 512 */
-  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 0x2000    /* 8k  */
+  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x80000    /* 512k */
+  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 0x2A000    /* 168k */
+  LPRAM (rwx): ORIGIN = 0x28000000, LENGTH = 0x2000     /* 8k   */  
 }
 
 /* Library configurations */
@@ -45,14 +45,6 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
-	. = 0x1f800;
-    .text1 :
-	{
-		KEEP(*TK_Data.c.obj (.rodata*))
-	} > FLASH1
-		
-	.= 0;
-	
 	.text :
 	{
 		KEEP(*(.vectors))
@@ -79,9 +71,9 @@ SECTIONS
  		*(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
  		*(SORT(.dtors.*))
  		*(.dtors)
-       
+        
 		*(.rodata*)
- 
+
 		KEEP(*(.eh_frame*))
 	} > FLASH
 
@@ -133,7 +125,6 @@ SECTIONS
 
 	__etext = .;
 
-	
 	.data : AT (__etext)
 	{
 		__data_start__ = .;
@@ -167,6 +158,15 @@ SECTIONS
 		__data_end__ = .;
 
 	} > RAM
+    
+	.lpSram :
+	{
+		. = ALIGN(4);
+		__lpSram_start__ = .;
+		*(.lpSram*)
+		. = ALIGN(4);
+		__lpSram_end__ = .;
+	} > LPRAM
 
 	.bss :
 	{
@@ -200,7 +200,7 @@ SECTIONS
 	__StackTop = ORIGIN(RAM) + LENGTH(RAM);
 	__StackLimit = __StackTop - SIZEOF(.stack_dummy);
 	PROVIDE(__stack = __StackTop);
-	
+
 	/* Check if data + heap + stack exceeds RAM limit */
 	ASSERT(__StackLimit >= __HeapLimit, "region RAM overflowed with stack")
 }

@@ -10,6 +10,13 @@
 #include <stdio.h>
 #include "NuMicro.h"
 
+/* Add implementations to fix linker warnings from the newlib-nano C library in VSCode-GCC14.3.1 */
+void _close(void) {}
+void _lseek(void) {}
+void _read_r(void) {}
+void _write_r(void) {}
+
+
 #define GPIO_SETMODE(port, pin, u32Mode) ((port)->MODE = ((port)->MODE & ~(0x3ul << ((pin) << 1))) | ((u32Mode) << ((pin) << 1)))
 
 #define CAN_BAUD_RATE                     500000

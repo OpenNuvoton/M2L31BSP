@@ -17,7 +17,7 @@ uint32_t GetApromSize()
 
     do
     {
-        result = RMC_Read_User(size, (unsigned int *)&data);
+        result = RMC_Read_User(size, &data);
 
         if (result < 0)
         {
