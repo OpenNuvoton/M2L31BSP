@@ -11,6 +11,36 @@
 
 #define DBG_PRINTF(...)
 
+#define MAD025_UTCPD  0
+#define MAD026_UTCPD  1
+
+#if (MAD025_UTCPD == 1)
+#define SOURCEDC_PORT		PE
+#define SOURCEDC_PIN		BIT11
+#define SOURCEDC            PE11        
+
+#define GPIO0_PORT		    PE
+#define GPIO0_PIN           BIT13
+#define GPIO0               PE13 
+
+#define GPIO1_PORT		    PE
+#define GPIO1_PIN           BIT12
+#define GPIO1               PE12 
+#endif
+
+#if (MAD026_UTCPD == 1)
+#define SOURCEDC_PORT		PB
+#define SOURCEDC_PIN		BIT6
+#define SOURCEDC            PB6        
+
+#define GPIO0_PORT		    PF
+#define GPIO0_PIN           BIT6
+#define GPIO0               PF6 
+
+#define GPIO1_PORT		    PD
+#define GPIO1_PIN           BIT15
+#define GPIO1               PD15 
+#endif
 /*******************************************************************************
  * Base on TC8260_UTCPD_BOARD_V1                                                *
  * Design by MS50 THWang                                                       *
@@ -26,16 +56,18 @@ static void VBUS_Enable_Output(int port)
 {
     if(port == 0)
     {
-        PE11 = 1;
-        GPIO_SetMode(PE, BIT11, GPIO_MODE_OUTPUT);
+        SOURCEDC = 1;
+        //GPIO_SetMode(PE, BIT11, GPIO_MODE_OUTPUT);
+		GPIO_SetMode(SOURCEDC_PORT, SOURCEDC_PIN, GPIO_MODE_OUTPUT);
     }
 }
 static void VBUS_Disable_Output(int port)
 {
     if(port == 0)
     {
-        PE11 = 0;
-        GPIO_SetMode(PE, BIT11, GPIO_MODE_OUTPUT);
+        SOURCEDC = 0;
+       // GPIO_SetMode(PE, BIT11, GPIO_MODE_OUTPUT);
+		GPIO_SetMode(SOURCEDC_PORT, SOURCEDC_PIN, GPIO_MODE_OUTPUT);
     }
 }
 
@@ -123,7 +155,7 @@ void vbus_force_discharge(uint32_t u32IsEnable)
         outp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL) & ~TCPC_REG_POWER_CTRL_FORCE_DISCHARGE));
 }
 
-static char i8RecLevel = 0;
+static char i8RecLevel = 0xFF;
 
 void VBUS_Source_Level(int port, char i8Level)
 {
@@ -136,19 +168,19 @@ void VBUS_Source_Level(int port, char i8Level)
     {
         //0V
         VBUS_Disable_Output(port);
-        printf("Buck output disable\n");
+        DBG_PRINTF("Buck output disable\n");
         VBUS_CMD_Disable_Source_VBus(port);
-        printf("VBSRCEN Disable\n");
-        i8RecLevel = 0;
+        DBG_PRINTF("VBSRCEN Disable\n");
+        i8RecLevel = 0;	
     }
     else if(i8Level  == 1)
     {
         //5V
         //VBUS_Disable_Output(port);
-        GPIO_SetPullCtl(PE, BIT13, GPIO_PUSEL_DISABLE);
-        GPIO_SetPullCtl(PE, BIT12, GPIO_PUSEL_DISABLE);
-        GPIO_SetMode(PE, BIT13, GPIO_MODE_INPUT);
-        GPIO_SetMode(PE, BIT12, GPIO_MODE_INPUT);
+        GPIO_SetPullCtl(GPIO0_PORT, GPIO0_PIN, GPIO_PUSEL_DISABLE);
+        GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_DISABLE);
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);
+        GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_INPUT);
         delay(3);
         VBUS_Enable_Output(port);
         DBG_PRINTF("Buck output 5V\n");
@@ -160,14 +192,14 @@ void VBUS_Source_Level(int port, char i8Level)
     {
         //9V
         //VBUS_Disable_Output(port);
-        GPIO_SetPullCtl(PE, BIT13, GPIO_PUSEL_DISABLE);
-        GPIO_SetMode(PE, BIT13, GPIO_MODE_INPUT);
+        GPIO_SetPullCtl(GPIO0_PORT, GPIO0_PIN, GPIO_PUSEL_DISABLE);	//GPIO0
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);         
 
-        GPIO_SetPullCtl(PE, BIT12, GPIO_PUSEL_PULL_UP);
-        GPIO_SetMode(PE, BIT12, GPIO_MODE_OUTPUT);
-        PE12 = 0;
+        GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_PULL_UP);	//GPIO1
+        GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_OUTPUT);
+        GPIO1 = 0;
 
-        VBUS_Enable_Output(port);
+        VBUS_Enable_Output(port); 
         DBG_PRINTF("Buck output 9V\n");
         VBUS_CMD_Enable_Source_VBus(port);
         DBG_PRINTF("VBSRCEN Enable\n");
@@ -178,18 +210,20 @@ void VBUS_Source_Level(int port, char i8Level)
         //20V
         //VBUS_Disable_Output(port);
 #if 1    /* Two steps adjust VBUS to 20V OK */
-        GPIO_SetPullCtl(PE, BIT13, GPIO_PUSEL_DISABLE);
-        GPIO_SetMode(PE, BIT13, GPIO_MODE_INPUT);
-        GPIO_SetPullCtl(PE, BIT12, GPIO_PUSEL_PULL_UP);
-        GPIO_SetMode(PE, BIT12, GPIO_MODE_OUTPUT);
-        PE12 = 0;
+        GPIO_SetPullCtl(GPIO0_PORT, GPIO0_PIN, GPIO_PUSEL_DISABLE);	//GPIO0
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);
+		
+        GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_PULL_UP);	//GPIO1
+        GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_OUTPUT);
+        GPIO1 = 0;
 
         delay(3);   //if remove the delay, the protocol will generate error due to sink not to reply GoodCRC.
 
-        GPIO_SetMode(PE, BIT13, GPIO_MODE_OUTPUT);
-        PE13 = 0;
-        GPIO_SetPullCtl(PE, BIT12, GPIO_PUSEL_DISABLE);
-        GPIO_SetMode(PE, BIT12, GPIO_MODE_INPUT);
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_OUTPUT);	//GPIO0
+        GPIO0 = 0;
+		
+        GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_DISABLE);	//GPIO1
+        GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_INPUT);
         VBUS_Enable_Output(port);
 #else
         /* One step to adjust VBUS to 20V ==> Protocol error generate hard reset */
