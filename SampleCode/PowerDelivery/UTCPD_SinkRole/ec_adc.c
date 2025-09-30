@@ -32,9 +32,9 @@ void EADC_ConfigPins(void)
 
 
     /* Configure the PB.2 - PB.3 ADC analog input pins. */
-    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~( SYS_GPB_MFP0_PB2MFP_Msk|SYS_GPB_MFP0_PB3MFP_Msk)) |
+    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~( SYS_GPB_MFP0_PB2MFP_Msk | SYS_GPB_MFP0_PB3MFP_Msk)) |
                     (SYS_GPB_MFP0_PB2MFP_EADC0_CH2 | SYS_GPB_MFP0_PB3MFP_EADC0_CH3 );
-    GPIO_DISABLE_DIGITAL_PATH(PB, BIT2|BIT3);
+    GPIO_DISABLE_DIGITAL_PATH(PB, BIT2 | BIT3);
 }
 void EADC_Init(void)
 {

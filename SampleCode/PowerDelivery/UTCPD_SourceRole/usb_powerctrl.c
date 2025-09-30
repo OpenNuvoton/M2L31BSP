@@ -17,29 +17,29 @@
 #if (MAD025_UTCPD == 1)
 #define SOURCEDC_PORT		PE
 #define SOURCEDC_PIN		BIT11
-#define SOURCEDC            PE11        
+#define SOURCEDC            PE11
 
 #define GPIO0_PORT		    PE
 #define GPIO0_PIN           BIT13
-#define GPIO0               PE13 
+#define GPIO0               PE13
 
 #define GPIO1_PORT		    PE
 #define GPIO1_PIN           BIT12
-#define GPIO1               PE12 
+#define GPIO1               PE12
 #endif
 
 #if (MAD026_UTCPD == 1)
 #define SOURCEDC_PORT		PB
 #define SOURCEDC_PIN		BIT6
-#define SOURCEDC            PB6        
+#define SOURCEDC            PB6
 
 #define GPIO0_PORT		    PF
 #define GPIO0_PIN           BIT6
-#define GPIO0               PF6 
+#define GPIO0               PF6
 
 #define GPIO1_PORT		    PD
 #define GPIO1_PIN           BIT15
-#define GPIO1               PD15 
+#define GPIO1               PD15
 #endif
 /*******************************************************************************
  * Base on TC8260_UTCPD_BOARD_V1                                                *
@@ -58,7 +58,7 @@ static void VBUS_Enable_Output(int port)
     {
         SOURCEDC = 1;
         //GPIO_SetMode(PE, BIT11, GPIO_MODE_OUTPUT);
-		GPIO_SetMode(SOURCEDC_PORT, SOURCEDC_PIN, GPIO_MODE_OUTPUT);
+        GPIO_SetMode(SOURCEDC_PORT, SOURCEDC_PIN, GPIO_MODE_OUTPUT);
     }
 }
 static void VBUS_Disable_Output(int port)
@@ -66,8 +66,8 @@ static void VBUS_Disable_Output(int port)
     if(port == 0)
     {
         SOURCEDC = 0;
-       // GPIO_SetMode(PE, BIT11, GPIO_MODE_OUTPUT);
-		GPIO_SetMode(SOURCEDC_PORT, SOURCEDC_PIN, GPIO_MODE_OUTPUT);
+        // GPIO_SetMode(PE, BIT11, GPIO_MODE_OUTPUT);
+        GPIO_SetMode(SOURCEDC_PORT, SOURCEDC_PIN, GPIO_MODE_OUTPUT);
     }
 }
 
@@ -79,7 +79,7 @@ static void VBUS_CMD_Enable_Source_VBus(int port)
 {
     DBG_PRINTF("E SRC VBUS\n");
 #if 1
-    outp32(UTCPD0_BASE+TCPC_REG_COMMAND, TCPC_REG_COMMAND_ENABLE_SRC_VBUS);
+    outp32(UTCPD0_BASE + TCPC_REG_COMMAND, TCPC_REG_COMMAND_ENABLE_SRC_VBUS);
 #else
     GPIO_SetMode(PA, BIT2, GPIO_MODE_OUTPUT);
     PA2 = 1;
@@ -89,7 +89,7 @@ static void VBUS_CMD_Disable_Source_VBus(int port)
 {
     DBG_PRINTF("D SRC VBUS\n");
 #if 1
-    outp32(UTCPD0_BASE+TCPC_REG_COMMAND, TCPC_REG_COMMAND_DISABLE_SRC_VBUS);
+    outp32(UTCPD0_BASE + TCPC_REG_COMMAND, TCPC_REG_COMMAND_DISABLE_SRC_VBUS);
 #else
     GPIO_SetMode(PA, BIT2, GPIO_MODE_OUTPUT);
     PA2 = 0;
@@ -102,7 +102,7 @@ static void VBUS_CMD_Disable_Source_VBus(int port)
 static void VBUS_CMD_Enable_Sink_VBus(int port)
 {
 #if 1
-    outp32(UTCPD0_BASE+TCPC_REG_COMMAND, TCPC_REG_COMMAND_ENABLE_SNK_VBUS);
+    outp32(UTCPD0_BASE + TCPC_REG_COMMAND, TCPC_REG_COMMAND_ENABLE_SNK_VBUS);
 #else
     GPIO_SetMode(PA, BIT2, GPIO_MODE_OUTPUT);
     PA2 = 1;
@@ -111,7 +111,7 @@ static void VBUS_CMD_Enable_Sink_VBus(int port)
 static void VBUS_CMD_Disable_Sink_VBus(int port)
 {
 #if 1
-    outp32(UTCPD0_BASE+TCPC_REG_COMMAND, TCPC_REG_COMMAND_DISABLE_SNK_VBUS);
+    outp32(UTCPD0_BASE + TCPC_REG_COMMAND, TCPC_REG_COMMAND_DISABLE_SNK_VBUS);
 #else
     GPIO_SetMode(PA, BIT2, GPIO_MODE_OUTPUT);
     PA2 = 0;
@@ -134,25 +134,25 @@ void VBUS_Sink_Enable(int32_t port, bool bIsEnable)
 void vbus_auto_discharge(uint32_t u32IsEnable)
 {
     if(u32IsEnable == 1)
-        outp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL) | TCPC_REG_POWER_CTRL_AUTO_DISCHARGE_DISCONNECT));
+        outp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL) | TCPC_REG_POWER_CTRL_AUTO_DISCHARGE_DISCONNECT));
     else
-        outp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL) & ~TCPC_REG_POWER_CTRL_AUTO_DISCHARGE_DISCONNECT));
+        outp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL) & ~TCPC_REG_POWER_CTRL_AUTO_DISCHARGE_DISCONNECT));
 }
 
 void vbus_bleed_discharge(uint32_t u32IsEnable)
 {
     if(u32IsEnable == 1)
-        outp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL) | TCPC_REG_POWER_CTRL_BLEED_DISCHARGE));
+        outp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL) | TCPC_REG_POWER_CTRL_BLEED_DISCHARGE));
     else
-        outp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL) & ~TCPC_REG_POWER_CTRL_BLEED_DISCHARGE));
+        outp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL) & ~TCPC_REG_POWER_CTRL_BLEED_DISCHARGE));
 }
 
 void vbus_force_discharge(uint32_t u32IsEnable)
 {
     if(u32IsEnable == 1)
-        outp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL) | TCPC_REG_POWER_CTRL_FORCE_DISCHARGE));
+        outp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL) | TCPC_REG_POWER_CTRL_FORCE_DISCHARGE));
     else
-        outp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE+TCPC_REG_POWER_CTRL) & ~TCPC_REG_POWER_CTRL_FORCE_DISCHARGE));
+        outp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL, (inp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL) & ~TCPC_REG_POWER_CTRL_FORCE_DISCHARGE));
 }
 
 static char i8RecLevel = 0xFF;
@@ -171,7 +171,7 @@ void VBUS_Source_Level(int port, char i8Level)
         DBG_PRINTF("Buck output disable\n");
         VBUS_CMD_Disable_Source_VBus(port);
         DBG_PRINTF("VBSRCEN Disable\n");
-        i8RecLevel = 0;	
+        i8RecLevel = 0;
     }
     else if(i8Level  == 1)
     {
@@ -193,13 +193,13 @@ void VBUS_Source_Level(int port, char i8Level)
         //9V
         //VBUS_Disable_Output(port);
         GPIO_SetPullCtl(GPIO0_PORT, GPIO0_PIN, GPIO_PUSEL_DISABLE);	//GPIO0
-        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);         
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);
 
         GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_PULL_UP);	//GPIO1
         GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_OUTPUT);
         GPIO1 = 0;
 
-        VBUS_Enable_Output(port); 
+        VBUS_Enable_Output(port);
         DBG_PRINTF("Buck output 9V\n");
         VBUS_CMD_Enable_Source_VBus(port);
         DBG_PRINTF("VBSRCEN Enable\n");
@@ -212,7 +212,7 @@ void VBUS_Source_Level(int port, char i8Level)
 #if 1    /* Two steps adjust VBUS to 20V OK */
         GPIO_SetPullCtl(GPIO0_PORT, GPIO0_PIN, GPIO_PUSEL_DISABLE);	//GPIO0
         GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);
-		
+
         GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_PULL_UP);	//GPIO1
         GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_OUTPUT);
         GPIO1 = 0;
@@ -221,7 +221,7 @@ void VBUS_Source_Level(int port, char i8Level)
 
         GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_OUTPUT);	//GPIO0
         GPIO0 = 0;
-		
+
         GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_DISABLE);	//GPIO1
         GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_INPUT);
         VBUS_Enable_Output(port);
@@ -249,6 +249,7 @@ void VBUS_Source_Level(int port, char i8Level)
         i8RecLevel = 3;
     }
 }
+
 #if 0
 void VBUS_Source_Level_Item(int port)
 {
@@ -267,7 +268,7 @@ void VBUS_Source_Level_Item(int port)
             ch = getchar();
 
         }
-        while( ((ch<'0') || (ch>'4')) && ((ch != 'q') && (ch != 'Q')));
+        while( ((ch < '0') || (ch > '4')) && ((ch != 'q') && (ch != 'Q')));
 
         switch(ch)
         {
@@ -315,7 +316,7 @@ void VBUS_SRC_Control(int port)
             ch = getchar();
 
         }
-        while( ((ch<'0') || (ch>'1')) && ((ch != 'q') && (ch != 'Q')));
+        while( ((ch < '0') || (ch > '1')) && ((ch != 'q') && (ch != 'Q')));
 
         switch(ch)
         {
@@ -325,7 +326,7 @@ void VBUS_SRC_Control(int port)
             VBUS_CMD_Disable_Source_VBus(port);
 
             /* The force discharge function will work if a Valid "Source-to-Sink connection" */
-            SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(0xFFUL << (1*8))) | (17UL << (1*8));
+            SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(0xFFUL << (1 * 8))) | (17UL << (1 * 8));
             vbus_discharge_polarity_active_high();
             vbus_force_discharge(0);    //Force discharge bit won't be cleaned to 0 by hardware auto. Clear it first
             vbus_force_discharge(1);    //Enable force discharge
@@ -357,7 +358,7 @@ void VBUS_SNK_Control(void)
             ch = getchar();
 
         }
-        while( ((ch<'0') || (ch>'1')) && ((ch != 'q') && (ch != 'Q')));
+        while( ((ch < '0') || (ch > '1')) && ((ch != 'q') && (ch != 'Q')));
 
         switch(ch)
         {
@@ -383,20 +384,29 @@ void VBUS_SNK_Control(void)
 void  vconn_disable_discharge(void)
 {
     /* Disable VCONN discharge */
-    outp32(UTCPD0_BASE+UTCPD_VCDGCTL, inp32(UTCPD0_BASE+UTCPD_VCDGCTL) & ~VCDGEN);
+    outp32(UTCPD0_BASE + UTCPD_VCDGCTL, inp32(UTCPD0_BASE + UTCPD_VCDGCTL) & ~VCDGEN);
 }
 void  vconn_enable_discharge(void)
 {
     /* Enable VCONN discharge */
-    outp32(UTCPD0_BASE+UTCPD_VCDGCTL, inp32(UTCPD0_BASE+UTCPD_VCDGCTL) | VCDGEN);
+    outp32(UTCPD0_BASE + UTCPD_VCDGCTL, inp32(UTCPD0_BASE + UTCPD_VCDGCTL) | VCDGEN);
 }
 void  vconn_discharge_polarity_active_low(void)
 {
     /* VCONN discharge active low */
-    outp32(UTCPD0_BASE+TCPC_REG_PINPL, inp32(UTCPD0_BASE+TCPC_REG_PINPL) & ~TCPC_REG_PINPL_VCDCHG);
+    outp32(UTCPD0_BASE + TCPC_REG_PINPL, inp32(UTCPD0_BASE + TCPC_REG_PINPL) & ~TCPC_REG_PINPL_VCDCHG);
 }
 void  vconn_discharge_polarity_active_high(void)
 {
     /* VCONN discharge active low */
-    outp32(UTCPD0_BASE+TCPC_REG_PINPL, inp32(UTCPD0_BASE+TCPC_REG_PINPL) | TCPC_REG_PINPL_VCDCHG);
+    outp32(UTCPD0_BASE + TCPC_REG_PINPL, inp32(UTCPD0_BASE + TCPC_REG_PINPL) | TCPC_REG_PINPL_VCDCHG);
+}
+
+#define PIN_VBUS_DISCHG     PB1
+void vbus_discharge(int enable)
+{
+    if(enable)
+        PIN_VBUS_DISCHG = 1;
+    else
+        PIN_VBUS_DISCHG = 0;
 }

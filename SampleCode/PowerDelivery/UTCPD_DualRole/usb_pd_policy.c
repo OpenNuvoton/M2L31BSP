@@ -19,38 +19,42 @@
 #define CPRINTF(format, args...) cprintf(CC_USBPD, format, ## args)
 #define CPRINTS(format, args...) cprints(CC_USBPD, format, ## args)
 
+
+/**
+  * PDO_FIXED_UNCONSTRAINED: The power source is not limited by power constraints
+  * PDO_FIXED_DUAL_ROLE: The device can operate as both a power source and a power sink
+  * PDO_FIXED_DATA_SWAP: The device supports swapping data roles
+  **/
 #define SRC_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DUAL_ROLE | PDO_FIXED_DATA_SWAP)
 
-const uint32_t pd_src_pdo[] =
+/**
+  * USB PD Source Power Data Objects (PDOs) configuration
+  * Each PDO entry defines a voltage/current capability that this device can provide
+  * Recommendation: Maximum 7 PDOs (per USB PD specification), and each voltage/current should not exceed hardware capability
+  *
+  * Since the source PDO may be changed based on cable capability going forward, we declare it as a array on SRAM area.
+  **/
+uint32_t pd_src_pdo[] =
 {
-#if 1
-    PDO_FIXED(5000,  3000, SRC_PDO_FIXED_FLAGS),/* 0~3 */
-    PDO_FIXED(9000,  3000, 0),/* 4~7 */
-//    PDO_FIXED(12000, 3000, 0),/* 8~11 */
-//    PDO_FIXED(15000, 3000, 0),/* 12~15 */
-//    PDO_FIXED(12000, 3000, 0),
-    PDO_FIXED(20000, 3000, 0),
-#else
-    PDO_FIXED(5000,  3000, PDO_FIXED_FLAGS),
-    PDO_FIXED(7000,  3000, PDO_FIXED_FLAGS),
-    PDO_FIXED(9000,  3000, PDO_FIXED_FLAGS),
-    PDO_FIXED(11000, 3000, PDO_FIXED_FLAGS),
-    PDO_FIXED(15000,  3000, PDO_FIXED_FLAGS),
-    PDO_FIXED(18000,  3000, PDO_FIXED_FLAGS),
-    PDO_FIXED(20000, 3000, PDO_FIXED_FLAGS),
-#endif
+    PDO_FIXED(5000, 3000, SRC_PDO_FIXED_FLAGS),
+    PDO_FIXED(9000, 3000, 0),
 };
 const int pd_src_pdo_cnt = ARRAY_SIZE(pd_src_pdo);
+
+#if defined(__clang__) && (defined(__ARMCOMPILER) || defined(__arm__))
+/* Optional: Compile-time check for PDO count (C11) */
+_Static_assert( pd_src_pdo_cnt <= 7, "SPR PDO count exceeds USB PD specification limit (7)");
+#endif
 
 #define SNK_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DUAL_ROLE | PDO_FIXED_DATA_SWAP )
 
 const uint32_t pd_snk_pdo[] =
 {
-      PDO_FIXED(5000, 3000, SNK_PDO_FIXED_FLAGS),
-      PDO_FIXED(9000, 3000, 0),
-//    PDO_FIXED(12000, 3000, SNK_PDO_FIXED_FLAGS),
-//    PDO_FIXED(15000, 3000, SNK_PDO_FIXED_FLAGS),
-//    PDO_FIXED(20000, 3000, SNK_PDO_FIXED_FLAGS),
+    PDO_FIXED(5000, 3000, SNK_PDO_FIXED_FLAGS),
+//      PDO_FIXED(9000, 3000, SNK_PDO_FIXED_FLAGS),
+//      PDO_FIXED(12000, 3000, SNK_PDO_FIXED_FLAGS),
+//      PDO_FIXED(15000, 3000, SNK_PDO_FIXED_FLAGS),
+    PDO_FIXED(20000, 3000, SNK_PDO_FIXED_FLAGS),
 
 //      PDO_BATT(4750, 21000, 15000),
 //      PDO_VAR(4750, 21000, 3000),
@@ -73,6 +77,7 @@ void pd_set_input_current_limit(int port, uint32_t max_ma,
 }
 #endif
 
+extern void VBUS_Source_Level(int port, char i8Level);
 int pd_set_power_supply_ready(int port)
 {
     VBUS_Source_Level(port, 1);         /* Enable Buck output 5V and issue SRC EN command */
@@ -173,12 +178,7 @@ void pd_set_input_current_limit(int port, uint32_t max_ma,
 /* Copy from board/ambassador/usb_pd_policy.c */
 int pd_check_vconn_swap(int port)
 {
-    /* Only allow vconn swap if pp5000_A rail is enabled */
-#ifdef SW
-    return gpio_get_level(GPIO_EN_PP5000_A);
-#else
-    return 1;
-#endif
+    return 0;
 }
 
 /*
@@ -197,40 +197,17 @@ __overridable bool port_discovery_dr_swap_policy(int port,
     return false;
 }
 
-/*
- * Default Port Discovery VCONN Swap Policy.
- *
- * 1) If vconn_swap_to_on_flag == true, and vconn is currently off,
- * 2) Sourcing VCONN is possible
- *    then transition to pe_vcs_send_swap
- */
+/**
+  * Default Port Discovery VCONN Swap Policy.
+  *
+  * 1) If vconn_swap_to_on_flag == true, and vconn is currently off,
+  * 2) Sourcing VCONN is possible
+  *    then transition to pe_vcs_send_swap
+  **/
 __overridable bool port_discovery_vconn_swap_policy(int port,
         bool vconn_swap_flag)
 {
-#ifdef SW
-    if (IS_ENABLED(CONFIG_USBC_VCONN) && vconn_swap_flag &&
-            !tc_is_vconn_src(port) && tc_check_vconn_swap(port))
-        return true;
-
-    /* Do not perform a VCONN swap */
     return false;
-#else
-#if 0
-    if (CONFIG_USBC_VCONN == 1)
-    {
-        if( (vconn_swap_flag && !tc_is_vconn_src(port)) && tc_check_vconn_swap(port))
-            return true;
-        else
-            return false;
-    }
-    else
-    {
-        return false;
-    }
-#else
-    return false;
-#endif
-#endif
 }
 
 
@@ -248,7 +225,7 @@ const uint32_t vdo_idh = VDO_IDH(0, /* data caps as USB host */
                                  IDH_PTYPE_AMA, /* Alternate mode */
                                  1, /* supports alt modes */
                                  USB_VID_GOOGLE);
-#if 1
+
 const uint32_t vdo_product = VDO_PRODUCT(CONFIG_USB_PID, CONFIG_USB_BCD_DEV);
 
 const uint32_t vdo_ama = VDO_AMA(CONFIG_USB_PD_IDENTITY_HW_VERS,
@@ -258,7 +235,7 @@ const uint32_t vdo_ama = VDO_AMA(CONFIG_USB_PD_IDENTITY_HW_VERS,
                                  0, /* Vconn power required */
                                  1, /* Vbus power required */
                                  AMA_USBSS_BBONLY /* USB SS support */);
-#endif
+
 static int svdm_response_identity(int port, uint32_t *payload)
 {
     payload[VDO_I(IDH)] = vdo_idh;
@@ -282,11 +259,11 @@ static int svdm_response_svids(int port, uint32_t *payload)
 const uint32_t vdo_dp_modes[1] =
 {
     VDO_MODE_DP(0,         /* UFP pin cfg supported : none */
-    MODE_DP_PIN_C, /* DFP pin cfg supported */
-    1,         /* no usb2.0 signalling in AMode */
-    CABLE_PLUG,    /* its a plug */
-    MODE_DP_V13,   /* DPv1.3 Support, no Gen2 */
-    MODE_DP_SNK)   /* Its a sink only */
+    MODE_DP_PIN_C,         /* DFP pin cfg supported */
+    1,                     /* no usb2.0 signalling in AMode */
+    CABLE_PLUG,            /* its a plug */
+    MODE_DP_V13,           /* DPv1.3 Support, no Gen2 */
+    MODE_DP_SNK)           /* Its a sink only */
 };
 
 const uint32_t vdo_goog_modes[1] =
@@ -311,38 +288,17 @@ static int svdm_response_modes(int port, uint32_t *payload)
         return 0; /* nak */
     }
 }
-#if 1
+
 static int fdp_status(int port, uint32_t *payload)
 {
-#if 0
-    int opos = PD_VDO_OPOS(payload[0]);
-    int hpd = gpio_get_level(GPIO_DP_HPD);
-    if (opos != OPOS_DP)
-        return 0; /* nak */
-
-    payload[1] = VDO_DP_STATUS(0,                /* IRQ_HPD */
-                               (hpd == 1),       /* HPD_HI|LOW */
-                               0,            /* request exit DP */
-                               0,            /* request exit USB */
-                               0,            /* MF pref */
-                               gpio_get_level(GPIO_PD_SBU_ENABLE),
-                               0,            /* power low */
-                               0x2);
     return 2;
-#else
-    return 2;
-#endif
 }
 
 static int fdp_config(int port, uint32_t *payload)
 {
-#if 0
-    if (PD_DP_CFG_DPON(payload[1]))
-        gpio_set_level(GPIO_PD_SBU_ENABLE, 1);
-#endif
     return 1;
 }
-#endif
+
 static int svdm_enter_mode(int port, uint32_t *payload)
 {
     int rv = 0; /* will generate a NAK */
@@ -371,22 +327,6 @@ static int svdm_enter_mode(int port, uint32_t *payload)
 #endif
     return rv;
 }
-#if 0
-//int pd_alt_mode(int port, enum tcpm_transmit_type type, uint16_t svid)
-int pd_alt_mode(int port, enum tcpci_msg_type type, uint16_t svid)
-{
-
-    if (type != TCPC_TX_SOP)
-        return 0;
-
-    if (svid == USB_SID_DISPLAYPORT)
-        return alt_mode[PD_AMODE_DISPLAYPORT];
-    else if (svid == USB_VID_GOOGLE)
-        return alt_mode[PD_AMODE_GOOGLE];
-    return 0;
-
-}
-#endif
 
 static int svdm_exit_mode(int port, uint32_t *payload)
 {
@@ -424,36 +364,71 @@ const struct svdm_response svdm_rsp =
     .amode = &dp_fx,
     .exit_mode = &svdm_exit_mode,
 };
-#if 0
-int pd_custom_vdm(int port, int cnt, uint32_t *payload,
-                  uint32_t **rpayload)
-{
-    int rsize;
 
-    if (PD_VDO_VID(payload[0]) != USB_VID_GOOGLE ||
-            !alt_mode[PD_AMODE_GOOGLE])
-        return 0;
-
-    *rpayload = payload;
-
-    rsize = pd_custom_flash_vdm(port, cnt, payload);
-    if (!rsize)
-    {
-        int cmd = PD_VDO_CMD(payload[0]);
-        switch (cmd)
-        {
-        case VDO_CMD_GET_LOG:
-            rsize = pd_vdm_get_log_entry(payload);
-            break;
-        default:
-            /* Unknown : do not answer */
-            return 0;
-        }
-    }
-
-    /* respond (positively) to the request */
-    payload[0] |= VDO_SRC_RESPONDER;
-
-    return rsize;
-}
+/**
+  * Both ext_src_cap[] and ext_snk_cap[] arrays should be specified according to the device features.
+  * They just for pass following test items.
+  *				Test.PD.PROT.SRC3.3 Get_Source_Cap_Extended
+  *				Test.PD.PROT.SNK3.1 Get_Sink_Cap_Extended
+  *       Test.PD.PROT.PORT3.1 Get Battery Status Response
+  *				Test.PD.PROT.PORT3.2 Invalid Battery Status
+  **/
+/* Source Capabilities Extended Data Block */
+const uint8_t ext_src_cap[] = { //====> Programmer needs to modify the content 
+    0x16, 0x04, 								//VID
+    0x60, 0x82, 								//PID
+    0x00, 0x00, 0x00, 0x00, 		//XID
+    0x01, 											//FW Version
+    0x01,												//HW Version
+    0x01, 											//Voltage Regulation
+    0x01, 											//Holdup Time
+    0x00, 											//Compliance
+    0x00, 											//Touch Current
+    0x00, 0x00,									//Peak Current1
+    0x00, 0x00,									//Peak Current2
+    0x00, 0x00,									//Peak Current3
+    0x00,												//Touch Temp
+    0x00, 											//Source Inputs
+    0x10, 											//Number of Hot Swapable Batteries(High)/Fixed Battery(Low) Slots
+#if 1
+    0x0F,   //SPR Source PDP Rating  15W, It needs to meet VIF file and pd_src_pdo[] 
+    0x00	//Didn't support EPR
+#else
+    0x64, //SPR Source PDP, up to 100W. It needs to meet with pd_src_pdo[]
+    0xF0	//EPR Source PDP, up to 240W. It needs to meet with pd_src_epr_pdo[]
 #endif
+};
+
+/* Sink Capabilities Extended Data Block */
+const uint8_t ext_snk_cap[] = {//====> Programmer needs to modify the content 
+    0x16, 0x04, 0x60, 0x82, 0x00, 0x00, 0x00, 0x00,
+    0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x0A, 0x05, 0x05, 0x64, 0x00, 0x00, 0x00,
+};
+
+const uint8_t battery_capabilities_rom[] = {
+  0x16, 0x04,       // VID = 0x0416                                                   ====> Programmer needs to modify the content 
+  0x60, 0x82,       // PID = 0x8260                                                   ====> Programmer needs to modify the content 
+  0xED, 0x00,       // 0x77, 0x00,       // Design Capacity = 11.9 Wh (0.1Wh units)   ====> Programmer needs to modify the content 
+  0xFF, 0xFF,       // 0xFF, 0xFF,       // Last Full Charge is unknown (0.1Wh units) 
+  0x01              // Battery Type: valid                                ====> Program need to modify 
+};
+
+uint8_t battery_capabilities[9] = {0x0};
+
+/**
+  * Battery Present Capacity[31:16] 0.1 WH increments (Program need to modify)
+  * Battery Info[15:8]
+  *      bit 8 : Invalid Battery reference
+  *      bit 9 : Battery is present when set
+  *      bit [11:10] : Battery Status                 (Program need to modify)
+  *             00b : Battery is Charging.
+  *             01b : Battery is Discharging.
+  *             10b : Battery is Idle.
+  *             11b : Reserved, Shall Not be used
+  *      bit [15:12]  : Reserved
+  * Reserved [7:0]  : Reserved
+  **/
+uint32_t battery_status[] = {//Battery non-present
+    0x00000900,
+};

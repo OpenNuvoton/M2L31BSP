@@ -1,132 +1,196 @@
-/* Copyright 2014 The Chromium OS Authors. All rights reserved.
+/* Copyright 2012 The ChromiumOS Authors
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
 
-/* Atomic operations for ARMv6-M */
+/* Atomic operations for ARMv7 */
 
 #ifndef __CROS_EC_ATOMIC_H
 #define __CROS_EC_ATOMIC_H
-#include "NuMicro.h"
+
+//#include "atomic_t.h"
 #include "common.h"
 
-//#include "core_cm23.h"
-#if 0
-typedef int atomic_t;
-typedef atomic_t atomic_val_t;
-#else
-typedef uint32_t atomic_t;
-typedef uint32_t atomic_val_t; //atomic_t atomic_val_t;
+#include <stdbool.h>
 
-typedef uint64_t atomic_64_t;
-typedef uint64_t atomic_val_64_t; //atomic_t atomic_val_t;
+
+typedef long atomic_t;
+typedef long atomic_val_t;
+
+#if defined(__ICCARM__)
+typedef unsigned int irq_state_t;
+
+static inline irq_state_t get_PRIMASK(void)
+{
+    uint32_t r;
+    __asm volatile ("MRS %0, PRIMASK" : "=r"(r));
+    return r;
+}
+
+static inline void set_PRIMASK(uint32_t v)
+{
+    __asm volatile ("MSR PRIMASK, %0" :: "r"(v));
+}
+
+static inline void disable_irq(void)
+{
+    __asm volatile ("CPSID i");
+}
+
+static inline irq_state_t irq_save(void)
+{
+    irq_state_t s = get_PRIMASK();
+    disable_irq();
+    return s;
+}
+
+static inline void irq_restore(irq_state_t s)
+{
+    set_PRIMASK(s);
+}
 #endif
 
-/**
- * Implements atomic arithmetic operations on 32-bit integers.
- *
- * There is no load/store exclusive on ARMv6-M, just disable interrupts
- */
-#define bic 0
-#define orr 1
-#define add 2
-#define sub 3
-
-
-static inline uint64_t ATOMIC_OP(uint32_t operation, atomic_t *addr, atomic_val_t value)
+static inline atomic_val_t atomic_clear_bits(atomic_t *addr, atomic_val_t bits)
 {
-//    int was_masked = __disable_irq();				//We are not in RTOS environment
-    switch(operation)
-    {
-    case orr:
-        *addr |= value;
-        break;
-    case add:
-        *addr += value;
-        break;
-    case sub:
-        *addr -= value;
-        break;
-    case bic:
-        *addr &= ~value;
-        break;
-    }
-
-//    if (!was_masked)								//We are not in RTOS environment
-//        __enable_irq();
-    return *addr;
-
-}
-//#endif
-
-static inline uint64_t ATOMIC_OP64(uint32_t operation, atomic_64_t *addr, atomic_val_64_t value)
-{
-//    int was_masked = __disable_irq();				//We are not in RTOS environment
-    switch(operation)
-    {
-    case orr:
-        *addr |= value;
-        break;
-    case add:
-        *addr += value;
-        break;
-    case sub:
-        *addr -= value;
-        break;
-    case bic:
-        *addr &= ~value;
-        break;
-    }
-
-//    if (!was_masked)								//We are not in RTOS environment
-//        __enable_irq();
-    return *addr;
-
-}
-
-static inline void atomic_clear_bits(atomic_t *addr, atomic_val_t bits)
-{
-    ATOMIC_OP(bic, addr, bits);
-}
-static inline void atomic_clear_64bits(atomic_64_t *addr, atomic_val_t bits)
-{
-    ATOMIC_OP64(bic, addr, bits);
+#if defined(__ICCARM__)
+    atomic_val_t old;
+    __DMB();
+    irq_state_t key = irq_save();
+    old = *addr;
+    *addr = old & ~bits;
+    irq_restore(key);
+    __DMB();
+    return old;
+#else
+    return __atomic_fetch_and(addr, ~bits, __ATOMIC_SEQ_CST);
+#endif
 }
 
 static inline atomic_val_t atomic_or(atomic_t *addr, atomic_val_t bits)
 {
-    return ATOMIC_OP(orr, addr, bits);
-}
-static inline atomic_val_t atomic_or64(atomic_64_t *addr, atomic_val_t bits)
-{
-    return ATOMIC_OP64(orr, addr, bits);
+#if defined(__ICCARM__)
+		__DMB();
+    irq_state_t key = irq_save();
+    atomic_val_t old = *addr;
+    *addr = old | bits;
+    irq_restore(key);
+		__DMB();
+    return old; 
+#else    
+    return __atomic_fetch_or(addr, bits, __ATOMIC_SEQ_CST);
+#endif    
 }
 
 static inline atomic_val_t atomic_add(atomic_t *addr, atomic_val_t value)
 {
-    return ATOMIC_OP(add, addr, value);
+#if defined(__ICCARM__)	
+		__DMB();
+		irq_state_t key = irq_save();
+		atomic_val_t old = *addr;
+		*addr = old + value;
+		irq_restore(key);
+		__DMB();
+		return old;
+#else	
+    return __atomic_fetch_add(addr, value, __ATOMIC_SEQ_CST);
+#endif	
 }
 
 static inline atomic_val_t atomic_sub(atomic_t *addr, atomic_val_t value)
 {
-    return ATOMIC_OP(sub, addr, value);
+#if defined(__ICCARM__)	
+		__DMB();
+		irq_state_t key = irq_save();
+		atomic_val_t old = *addr;
+		*addr = old - value;
+		irq_restore(key);
+		__DMB();
+		return old;
+#else	
+    return __atomic_fetch_sub(addr, value, __ATOMIC_SEQ_CST);
+#endif	
 }
 
 static inline atomic_val_t atomic_clear(atomic_t *addr)
 {
-    atomic_t ret;
-
-//    int was_masked = __disable_irq();			//We are not in RTOS environment
-
-    ret = *addr;
-    *addr = 0;
-
-    /* ... */
-//    if (!was_masked)                          //We are not in RTOS environment
-//        __enable_irq();
-    return ret;
+#if defined(__ICCARM__)	
+		__DMB();
+		irq_state_t key = irq_save();
+		atomic_val_t old = *addr;
+		*addr = 0;
+		irq_restore(key);
+		__DMB();
+		return old;
+#else	
+    return __atomic_exchange_n(addr, 0, __ATOMIC_SEQ_CST);
+#endif	
 }
-//#endif
 
+static inline atomic_val_t atomic_and(atomic_t *addr, atomic_val_t bits)
+{
+#if defined(__ICCARM__)		
+		__DMB();
+		irq_state_t key = irq_save();
+		atomic_val_t old = *addr;
+		*addr = old & bits;
+		irq_restore(key);
+		__DMB();
+	  return old;
+#else	
+    return __atomic_fetch_and(addr, bits, __ATOMIC_SEQ_CST);
+#endif	
+}
 
-#endif  /* __CROS_EC_ATOMIC_H */
+static inline bool atomic_compare_exchange(atomic_t *addr,
+        atomic_val_t *expected,
+        atomic_val_t desired)
+{
+#if defined(__ICCARM__)		
+		__DMB();
+		irq_state_t key = irq_save();
+		atomic_val_t cur = *addr;
+		if (cur == *expected) {
+				*addr = desired;
+				irq_restore(key);
+				__DMB();
+				return true;
+		} else {
+				*expected = cur; // ????????
+				irq_restore(key);
+				__DMB();
+				return false;
+		}
+#else		
+    return __atomic_compare_exchange_n(addr, expected, desired, false,
+                                       __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST);
+#endif		
+}
+
+static inline atomic_val_t atomic_exchange(atomic_t *addr, atomic_val_t value)
+{
+#if defined(__ICCARM__)	
+		__DMB();
+		irq_state_t key = irq_save();
+		atomic_val_t old = *addr;
+		*addr = value;
+		irq_restore(key);
+		__DMB();
+		return old;
+#else	
+    return __atomic_exchange_n(addr, value, __ATOMIC_SEQ_CST);
+#endif	
+}
+
+static inline atomic_val_t atomic_load(atomic_t *addr)
+{
+#if defined(__ICCARM__)	
+		__DMB();
+		atomic_val_t v = *addr;
+		__DMB();
+		return v;
+#else		
+    return __atomic_load_n(addr, __ATOMIC_SEQ_CST);
+#endif	
+}
+
+#endif /* __CROS_EC_ATOMIC_H */

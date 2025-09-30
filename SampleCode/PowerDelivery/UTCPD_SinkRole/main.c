@@ -45,14 +45,14 @@ void SYS_Init(void)
     CLK_WaitClockReady(CLK_STATUS_HIRCSTB_Msk);
 
     /* Enable GPIO Clock */
-	CLK_EnableModuleClock(GPA_MODULE);
-	CLK_EnableModuleClock(GPB_MODULE);
-	CLK_EnableModuleClock(GPC_MODULE);
-	CLK_EnableModuleClock(GPD_MODULE);
-	CLK_EnableModuleClock(GPE_MODULE);
-	CLK_EnableModuleClock(GPF_MODULE);
-	CLK_EnableModuleClock(GPG_MODULE);
-	CLK_EnableModuleClock(GPH_MODULE);
+    CLK_EnableModuleClock(GPA_MODULE);
+    CLK_EnableModuleClock(GPB_MODULE);
+    CLK_EnableModuleClock(GPC_MODULE);
+    CLK_EnableModuleClock(GPD_MODULE);
+    CLK_EnableModuleClock(GPE_MODULE);
+    CLK_EnableModuleClock(GPF_MODULE);
+    CLK_EnableModuleClock(GPG_MODULE);
+    CLK_EnableModuleClock(GPH_MODULE);
 
     /* Enable UART clock */
     CLK_EnableModuleClock(UART0_MODULE);
@@ -60,7 +60,7 @@ void SYS_Init(void)
     /* Select UART clock source from HIRC */
     CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL4_UART0SEL_HIRC, CLK_CLKDIV0_UART0(1));
 
-	/* Enable UTCPD clock */
+    /* Enable UTCPD clock */
     CLK_EnableModuleClock(UTCPD0_MODULE);
 
     /* === Enable IP clock === */
@@ -85,12 +85,12 @@ void SYS_Init(void)
     /* User can use SystemCoreClockUpdate() to calculate SystemCoreClock. */
     SystemCoreClockUpdate();
 
-	/*---------------------------------------------------------------------------------------------------------*/
+    /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
     /* Set GPB multi-function pins for UART0 RXD and TXD */
     SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(SYS_GPB_MFP3_PB12MFP_Msk | SYS_GPB_MFP3_PB13MFP_Msk)) |
-                    (SYS_GPB_MFP3_PB12MFP_UART0_RXD | SYS_GPB_MFP3_PB13MFP_UART0_TXD); 
+                    (SYS_GPB_MFP3_PB12MFP_UART0_RXD | SYS_GPB_MFP3_PB13MFP_UART0_TXD);
 
 #ifdef ADC_INIT
     /* Set PB.2 - PB.3 to input mode For EADC pin to measure VBUS and VCONN */
@@ -98,9 +98,9 @@ void SYS_Init(void)
     GPIO_SetMode(PB, BIT3, GPIO_MODE_INPUT);    //For VCONN Voltage
 
     /* Configure the PB.2 - PB.3 ADC analog input pins. */
-    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~( SYS_GPB_MFP0_PB2MFP_Msk|SYS_GPB_MFP0_PB3MFP_Msk)) |
+    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~( SYS_GPB_MFP0_PB2MFP_Msk | SYS_GPB_MFP0_PB3MFP_Msk)) |
                     (SYS_GPB_MFP0_PB2MFP_EADC0_CH2 | SYS_GPB_MFP0_PB3MFP_EADC0_CH3 );
-    GPIO_DISABLE_DIGITAL_PATH(PB, BIT2|BIT3);
+    GPIO_DISABLE_DIGITAL_PATH(PB, BIT2 | BIT3);
 
 #if 0  /* ADC comparator */
     GPIO_SetMode(PB, BIT4, GPIO_MODE_INPUT);    //For VBUS Over Curerent (ADC compaarator)
@@ -112,7 +112,7 @@ void SYS_Init(void)
     SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(SYS_GPB_MFP0_PB0MFP_Msk) |   SYS_GPB_MFP0_PB0MFP_EADC0_CH0);
 
     /* Disable the PB.2 - PB.3 digital input path to avoid the leakage current. */
-    GPIO_DISABLE_DIGITAL_PATH(PB, BIT2|BIT3|BIT4|BIT0);
+    GPIO_DISABLE_DIGITAL_PATH(PB, BIT2 | BIT3 | BIT4 | BIT0);
 #endif
 #endif
 
@@ -122,26 +122,26 @@ void SYS_Init(void)
     SYS->GPB_MFP1 = (SYS->GPB_MFP1 & ~(SYS_GPB_MFP1_PB5MFP_Msk | SYS_GPB_MFP1_PB4MFP_Msk)) |
                     (SYS_GPB_MFP1_PB5MFP_INT0 | SYS_GPB_MFP1_PB4MFP_INT1);
 
-	/* UTCPD VBSRCEN Multiple Function Pin */
+    /* UTCPD VBSRCEN Multiple Function Pin */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~SYS_GPA_MFP0_PA2MFP_Msk) | SYS_GPA_MFP0_PA2MFP_UTCPD0_VBSRCEN;
 
     /* UTCPD VBSNKEN Multiple Function Pin */
-	SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~SYS_GPA_MFP0_PA3MFP_Msk) | SYS_GPA_MFP0_PA3MFP_UTCPD0_VBSNKEN;
+    SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~SYS_GPA_MFP0_PA3MFP_Msk) | SYS_GPA_MFP0_PA3MFP_UTCPD0_VBSNKEN;
 
-	/* UTCPD FRSCC1 and FRS_CC2  Multiple Function Pin */
-    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(SYS_GPC_MFP1_PC4MFP_Msk | SYS_GPC_MFP1_PC5MFP_Msk)) | 
-						(SYS_GPC_MFP1_PC4MFP_UTCPD0_FRSTX1 | SYS_GPC_MFP1_PC5MFP_UTCPD0_FRSTX2); 
+    /* UTCPD FRSCC1 and FRS_CC2  Multiple Function Pin */
+    SYS->GPC_MFP1 = (SYS->GPC_MFP1 & ~(SYS_GPC_MFP1_PC4MFP_Msk | SYS_GPC_MFP1_PC5MFP_Msk)) |
+                    (SYS_GPC_MFP1_PC4MFP_UTCPD0_FRSTX1 | SYS_GPC_MFP1_PC5MFP_UTCPD0_FRSTX2);
 
-	/* UTCPD VCONN Enable: VCEN0:PA0, VCEN1:PB0, Multiple Function Pin */
+    /* UTCPD VCONN Enable: VCEN0:PA0, VCEN1:PB0, Multiple Function Pin */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~SYS_GPA_MFP0_PA0MFP_Msk) | SYS_GPA_MFP0_PA0MFP_UTCPD0_VCNEN1;
-	SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~SYS_GPB_MFP0_PB0MFP_Msk) | SYS_GPB_MFP0_PB0MFP_UTCPD0_VCNEN2;
+    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~SYS_GPB_MFP0_PB0MFP_Msk) | SYS_GPB_MFP0_PB0MFP_UTCPD0_VCNEN2;
 
 
-	/* UTCPD VCONN Discharge: Don't force VCONN Discharge First */
+    /* UTCPD VCONN Discharge: Don't force VCONN Discharge First */
     SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(SYS_GPA_MFP0_PA0MFP_Msk | SYS_GPA_MFP0_PA1MFP_Msk));
     GPIO_SetMode(PA, BIT1, GPIO_MODE_OUTPUT);
 
-	/* Lock protected registers */
+    /* Lock protected registers */
 //    SYS_LockReg();
 }
 
@@ -223,11 +223,31 @@ void TMR1_IRQHandler(void)
 /**
  * @brief       UUTCPD Callback Function
  *
- * @param       event: UUTCPD_PD_ATTACHED = 0,           : Port partner attached or disattached
- *                     UUTCPD_PD_CONTRACT = 1,           : PD contract established
+ * @param       event: UUTCPD_PD_ATTACHED = 0,                 : Port partner attached or disattached
+ *                     UUTCPD_PD_CONTRACT = 1,                 : PD contract established
+ *                     UTCPD_PD_SNK_VOLTAGE = 2,               : SNK Role Contract voltage
+ *                     UTCPD_PD_CABLE_MAX_POWER = 3,           : M2L31 Didn't Support. NPD48: Cable Max Voltage and Max Current : ((max_vol<<16) | max_curr)
+ *                     UTCPD_PD_VCONN_DISCHARGE = 4,           : M2L31/NPD48 Didn't Support. To do VCONN Discharge
+ *                     UTCPD_PD_PS_TRANSITION = 5,             : M2L31 Didn't Support. NPD48: To Disable VIN OVP/UVP, RDO IDX
+ *                     UTCPD_PD_PS_READY = 6,                  : M2L31 Didn't Support. NPD48: To Enable VIN OVP/UVP
+ *                     UTCPD_PD_VIN_DISCHARGE_DONE = 7,        : M2L31 Didn't Support. NPD48: Inform Upper Layer VIN Discharge Done,
+ *                     UTCPD_PD_ACCEPT_REQUEST_PDO = 8,        : M2L31/NPD48 Inform Upper Layer to Provide the Requested PDO
+ *                     UTCPD_PD_VIN_DISCHAGE = 9, 	           : M2L31/NPD48 Didn't Support.
+ *                     UTCPD_PD_RECEIVE_HR = 10, 	             : M2L31 Didn't Support. NPD48: PD Receive Hard Reset
  *
- *              op: 0 = event flag set
- *                  1 = event flag clear
+ *                     UTCPD_PD_VBUS_DISCHARGE_START = 0x20,   : VBUS Discharge Start
+ *                     UTCPD_PD_VBUS_DISCHARGE_STOP = 0x21,    : VBUS Discharge End
+ *                     UTCPD_PD_TC_ASSERT_RD = 0x22,           : Assert Rd
+ *                     UTCPD_PD_TC_PD_DISCONNECTION = 0x23,    : Deattached
+ *                     UTCPD_PD_SRC_TC_PD_CONNECTION = 0x24,   : Acts As SRC Role
+ *                     UTCPD_PD_SNK_TC_PD_CONNECTION = 0x25,   : Acts As SNK Role
+ *                     UTCPD_PD_GET_BATTERY_CAP = 0x26         : GET_BAT_CAP Message From Port Partner
+ *                     UTCPD_PD_GET_BATTERY_STATUS = 0x27,     : GET_BAT_STATUS Message From Port Partner
+ *                     UTCPD_PD_SNK_REC_SOURCE_CAP = 0x28,     : SNK Role Receive SOURCE_CAP Message From Port Partner
+ *                     UTCPD_PD_SNK_REC_ACCEPT = 0x29,         : SNK Role Receive ACCEPT Message From Port Partner
+ *                     UTCPD_PD_SRC_SEND_ACCEPT = 0x2A,        : SRC Role Send ACCEPT Message to Accept Power Negotiation
+ *              op:    event flag set/clear or the 2nd parameter
+ *
  * @return      None
  *
  * @details     None
@@ -286,21 +306,31 @@ void UTCPD_Init(int port)
 {
 
     UTCPD_Open(port);
-	
-    /* Didn't Force VCONN Discharge */
+
+    /* Didn't Force VCONN Discharge PA1 */
     PA1 = 0;
 
     /* VBSRCEN Polarity */
     UTCPD_vbus_srcen_polarity_active_high(port);
 
     /* VBSNKEN Polarity */
-    UTCPD_vbus_snken_polarity_active_high(port);	
-	
+    UTCPD_vbus_snken_polarity_active_high(port);
+
     /* FRSTXCC1 and FRSTXCC2 Polarity */
     UTCPD_frs_tx_polarity_active_high(port);
 
     UTCPD_vconn_polarity_active_low(port);
 
+    /** Due to board connect Vref pin to AVDD33
+      * Set reference voltage to external pin
+      * Sink disconnection threshold base on 1/10 voltage
+      * will be 350/(3300/1024) ~= 108.6
+      **/
+    SYS_SetVRef(SYS_VREFCTL_VREF_PIN);
+    i2c_write16(port, (uint16_t)0, TCPC_REG_VBUS_SINK_DISCONNECT_THRESH, 108);
+
+    /* Set External Voltage Divider 1/10 */
+    UTCPD_SetExternalDivider(port, 10);
 }
 int main()
 {
@@ -318,8 +348,8 @@ int main()
     UART_Open(UART0, 115200);
     printf("UART Initial\n");
 
-	/* Init UTCPD */
-	UTCPD_Init(port);
+    /* Init UTCPD */
+    UTCPD_Init(port);
 
 #if (CONFIG_COMMAND_SHELL == 1)
     /* Enable UART RDA interrupt for command */
@@ -334,7 +364,6 @@ int main()
     /* Set timer frequency to 1000HZ for system time base */
     TIMER0_Init();
 
-
 #ifdef ADC_INIT
     /* Set timer frequency to 100HZ for measuring VBUS/VCONN*/
     TIMER1_Init();
@@ -346,6 +375,11 @@ int main()
 #ifdef ACMP_INIT
     ACMP_Init();
 #endif
+
+    /* Non-VBUS PB1 Discharge */
+    SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(0xFFUL << (1 * 8))) | (0UL << (1 * 8));
+    GPIO_ENABLE_DIGITAL_PATH(PB, BIT1);
+    GPIO_SetMode(PB, BIT1, GPIO_MODE_OUTPUT);
 
     /* Google EC need to enable interrupt */
     NVIC_EnableIRQ(UTCPD_IRQn);
@@ -393,7 +427,7 @@ void hard_fault_handler_c(unsigned int * hardfault_args, unsigned lr_value)
         printf("Stacked LR = %x\r\n", stacked_lr);
         printf("Stacked PC = %x\r\n", stacked_pc);
         printf("Stacked PSR = %x\r\n", stacked_psr);
-        printf("SCB_SHCSR=%x\r\n",SCB->SHCSR);
+        printf("SCB_SHCSR=%x\r\n", SCB->SHCSR);
         printf("Current LR = %x\r\n", lr_value);
     }
 #endif

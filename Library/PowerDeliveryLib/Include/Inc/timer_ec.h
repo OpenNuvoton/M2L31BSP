@@ -79,8 +79,8 @@ int timestamp_expired(timestamp_t deadline, const timestamp_t *now);
  *
  * @param us        Number of microseconds to delay.
  */
-void udelay(unsigned us);
-void delay(unsigned ms);
+void udelay(uint32_t us);
+void delay(uint32_t ms);
 
 /**
  * Sleep.
@@ -93,7 +93,7 @@ void delay(unsigned ms);
  *
  * @param us        Number of microseconds to sleep.
  */
-void usleep(unsigned us);
+void usleep(uint32_t us);
 
 /**
  * Sleep for milliseconds.

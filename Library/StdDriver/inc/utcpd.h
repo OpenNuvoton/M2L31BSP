@@ -346,7 +346,7 @@ void UTCPD_frs_tx_polarity_active_low(int port);
 void UTCPD_frs_tx_polarity_active_high(int port);
 void UTCPD_frs_mux_selection(int port, uint32_t cc1frssel, uint32_t cc2frssel);
 uint32_t UTCPD_Open(int port);
-
+uint32_t UTCPD_SetExternalDivider(int port, int div); 
 
 /*@}*/ /* end of group UTCPD_EXPORTED_FUNCTIONS */
 

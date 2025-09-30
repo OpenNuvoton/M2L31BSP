@@ -58,7 +58,7 @@ void UART_TEST_HANDLE()
 {
     uint8_t u8InChar = 0xFF;
 
-    if (UART_GET_INT_FLAG(UART0,UART_INTSTS_RDAINT_Msk))
+    if (UART_GET_INT_FLAG(UART0, UART_INTSTS_RDAINT_Msk))
     {
         //printf("\nInput:");
 
@@ -79,7 +79,7 @@ void UART_TEST_HANDLE()
             }
 
             /* Check if buffer full */
-            if(g_u32comRbytes < (RXBUFSIZE-1))
+            if(g_u32comRbytes < (RXBUFSIZE - 1))
             {
                 /* Enqueue the character */
                 if(u8InChar != 0x08)
@@ -90,7 +90,7 @@ void UART_TEST_HANDLE()
                 }
                 else
                 {
-                    if(g_u32comRtail!=0)
+                    if(g_u32comRtail != 0)
                         g_u32comRtail--;
                 }
 
@@ -123,7 +123,7 @@ void UART_TEST_HANDLE()
 #endif
     if(UART0->FIFOSTS & (UART_FIFOSTS_BIF_Msk | UART_FIFOSTS_FEF_Msk | UART_FIFOSTS_PEF_Msk | UART_FIFOSTS_RXOVIF_Msk))
     {
-        UART_ClearIntFlag(UART0, (UART_INTSTS_RLSINT_Msk| UART_INTSTS_BUFERRINT_Msk));
+        UART_ClearIntFlag(UART0, (UART_INTSTS_RLSINT_Msk | UART_INTSTS_BUFERRINT_Msk));
     }
 }
 
@@ -204,7 +204,7 @@ int32_t ParsingCommand(void)
     }
     printf("\n");
 
-    for(nIdx=0; nIdx<sizeof(PDCommads)/sizeof(PDCommads[0]); nIdx=nIdx+1)
+    for(nIdx = 0; nIdx < sizeof(PDCommads) / sizeof(PDCommads[0]); nIdx = nIdx + 1)
     {
         if (PDCommads[nIdx] == NULL)
             return -1;      /* command not found */
@@ -267,12 +267,12 @@ void UART_Commandshell(int port)
             case FR_SWAP:
                 printf("Issue Fast Role Swap\n");
 
-                outp32(UTCPD0_BASE+UTCPD_VNDIS, TXFRSIS); /* Clear TXFRXIS First, otherwise, FRS signal can't send out */
+                outp32(UTCPD0_BASE + UTCPD_VNDIS, TXFRSIS); /* Clear TXFRXIS First, otherwise, FRS signal can't send out */
 //                                  au32State[0] = 0xFFFFFFFF;
 //                                  au32State[1] = 0xFFFFFFFF;
                 pd_dpm_request(port, DPM_REQUEST_FR_SWAP);
                 /* Issue FRS TX */
-                outp32(UTCPD0_BASE+UTCPD_FRSRXCTL, inp32(UTCPD0_BASE+UTCPD_FRSRXCTL) | FRSTX);
+                outp32(UTCPD0_BASE + UTCPD_FRSRXCTL, inp32(UTCPD0_BASE + UTCPD_FRSRXCTL) | FRSTX);
                 break;
             case VCS_SWAP:
                 printf("Issue VCONN Source Swap\n");
@@ -336,17 +336,17 @@ void UART_Commandshell(int port)
                 break;
 #if (CONFIG_DUMP_REGISTER == 1)
             case DUMP0:
-                cpu_dump(Reg0, Reg0+0x180/4);
+                cpu_dump(Reg0, Reg0 + 0x180 / 4);
                 break;
             case DUMP1:
-                cpu_dump(Reg1, Reg1+0x180/4);
+                cpu_dump(Reg1, Reg1 + 0x180 / 4);
                 break;
 #else
             case DUMP0:
-                cpu_dump(UTCPD_BASE, UTCPD_BASE+0x100);
+                cpu_dump(UTCPD_BASE, UTCPD_BASE + 0x100);
                 break;
             case DUMP1:
-                cpu_dump(UTCPD_BASE+0x100, UTCPD_BASE+0x200);
+                cpu_dump(UTCPD_BASE + 0x100, UTCPD_BASE + 0x200);
                 break;
 #endif
 
@@ -356,7 +356,7 @@ void UART_Commandshell(int port)
                 if( (UTCPD_TC_get_cc_state(port) == PD_CC_UFP_ATTACHED) || (UTCPD_TC_get_cc_state(port) == PD_CC_DFP_ATTACHED) )
                     UTCPD_PE_get_src_caps(port, &u32SrcArray[0], &u32SrcCnt);
                 printf("================================\n");
-                for(i=0; i<u32SrcCnt; i=i+1)
+                for(i = 0; i < u32SrcCnt; i = i + 1)
                     printf("PDO[%d] = 0x%x\n", i, u32SrcArray[i]);
                 printf("================================\n\n");
             }
@@ -367,7 +367,7 @@ void UART_Commandshell(int port)
                 if( (UTCPD_TC_get_cc_state(port) == PD_CC_UFP_ATTACHED) || (UTCPD_TC_get_cc_state(port) == PD_CC_DFP_ATTACHED) )
                     UTCPD_PE_get_snk_caps(port, &u32SnkArray[0], &u32SnkCnt);
                 printf("================================\n");
-                for(i=0; i<u32SnkCnt; i=i+1)
+                for(i = 0; i < u32SnkCnt; i = i + 1)
                     printf("PDO[%d] = 0x%x\n", i, u32SnkArray[i]);
                 printf("================================\n\n");
             }
@@ -391,8 +391,8 @@ void UART_Commandshell(int port)
             break;
             case REQ_FIX:
             {
-                static uint32_t u32ReqIndex=0;
-                int32_t u32Req_mv=0;
+                static uint32_t u32ReqIndex = 0;
+                int32_t u32Req_mv = 0;
                 int32_t u32SrcCnt, u32SrcArray[7];
 
                 UTCPD_PE_get_src_caps(port, &u32SrcArray[0], &u32SrcCnt);
@@ -400,7 +400,7 @@ void UART_Commandshell(int port)
                 {
                     if( (u32SrcArray[u32ReqIndex] & PDO_TYPE_MASK) == PDO_TYPE_FIXED)
                     {
-                        u32Req_mv = ((u32SrcArray[u32ReqIndex] & 0xFFC00) >> 10)*50;
+                        u32Req_mv = ((u32SrcArray[u32ReqIndex] & 0xFFC00) >> 10) * 50;
                         /* Reqest Fixed PDO */
                         pd_request_source_voltage(port, u32Req_mv);
                     }
@@ -423,11 +423,11 @@ void UART_Commandshell(int port)
                 static uint32_t u32ReqIndex = 0, i;
                 static uint32_t u32ReqVol = 0;
                 uint32_t u32Req_mv;
-                uint32_t u32minmv =0, u32maxmv = 0, u32curr=0;
+                uint32_t u32minmv = 0, u32maxmv = 0, u32curr = 0;
                 int32_t u32SrcCnt, u32SrcArray[7];
 
                 UTCPD_PE_get_src_caps(port, &u32SrcArray[0], &u32SrcCnt);
-                for(i=0; i< u32SrcCnt; i=i+1)
+                for(i = 0; i < u32SrcCnt; i = i + 1)
                 {
                     if( (u32SrcArray[i] & PDO_TYPE_AUGMENTED) == PDO_TYPE_AUGMENTED )
                     {
@@ -438,8 +438,8 @@ void UART_Commandshell(int port)
                         printf("PPS MAX = %d\n", u32maxmv);
                         printf("PPS Min = %d\n", u32minmv);
                         printf("PPS Cur = %d\n", u32curr);
-                        u32ReqIndex = i+1;
-                        if( (u32ReqVol >= u32maxmv) || (u32ReqVol< u32minmv) )
+                        u32ReqIndex = i + 1;
+                        if( (u32ReqVol >= u32maxmv) || (u32ReqVol < u32minmv) )
                         {
                             u32Req_mv = u32minmv;
                             printf("Req mv = %d\n", u32Req_mv);
@@ -455,7 +455,7 @@ void UART_Commandshell(int port)
 
 
 
-                if( (u32SrcArray[u32ReqIndex-1] & PDO_TYPE_AUGMENTED) == PDO_TYPE_AUGMENTED)
+                if( (u32SrcArray[u32ReqIndex - 1] & PDO_TYPE_AUGMENTED) == PDO_TYPE_AUGMENTED)
                 {
                     /* Reqest Fixed PDO */
                     printf("req pps %d mv\n", u32Req_mv);
@@ -471,7 +471,7 @@ void UART_Commandshell(int port)
 #if 0
                 /* Request first FIX PDO */
                 UUTCPD_PE_get_src_caps(port, &u32SrcArray[0], &u32SrcCnt);
-                u32Req_mv = ((u32SrcArray[0] & 0xFFC00) >> 10)*50;
+                u32Req_mv = ((u32SrcArray[0] & 0xFFC00) >> 10) * 50;
                 /* Reqest Fixed PDO */
                 pd_request_source_voltage(port, u32Req_mv);
 #endif

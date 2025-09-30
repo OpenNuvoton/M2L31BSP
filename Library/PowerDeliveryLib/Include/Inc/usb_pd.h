@@ -119,38 +119,86 @@ enum pd_rx_errors
  *
  * Note: Some bits and decode macros are defined in ec_commands.h
  */
-#define PDO_FIXED_SUSPEND   BIT(28) /* USB Suspend supported */
-#define PDO_FIXED_FRS_CURR_NOT_SUPPORTED  (0 << 23)
+#define PDO_FIXED_SUSPEND BIT(28) /* USB Suspend supported */
+/* Higher capability in vSafe5V sink PDO */
+#define PDO_FIXED_SNK_HIGHER_CAP BIT(28)
+#define PDO_FIXED_FRS_CURR_NOT_SUPPORTED (0 << 23)
 #define PDO_FIXED_FRS_CURR_DFLT_USB_POWER (1 << 23)
-#define PDO_FIXED_FRS_CURR_1A5_AT_5V      (2 << 23)
-#define PDO_FIXED_FRS_CURR_3A0_AT_5V      (3 << 23)
+#define PDO_FIXED_FRS_CURR_1A5_AT_5V (2 << 23)
+#define PDO_FIXED_FRS_CURR_3A0_AT_5V (3 << 23)
+#define PDO_FIXED_UNCHUNKED_EXTENDED BIT(24)
+#define PDO_FIXED_EPR_MODE_CAPABLE BIT(23)
 #define PDO_FIXED_PEAK_CURR () /* [21..20] Peak current */
-#define PDO_FIXED_VOLT(mv)  (((mv)/50) << 10) /* Voltage in 50mV units */
-#define PDO_FIXED_CURR(ma)  (((ma)/10) << 0)  /* Max current in 10mA units */
 
-#define PDO_FIXED(mv, ma, flags) (PDO_FIXED_VOLT(mv) |\
-                  PDO_FIXED_CURR(ma) | (flags))
+#define PDO_FIXED_VOLT(mv) ((((mv) / 50)& 0x3FF) << 10) /* Voltage in 50mV units */
+#define PDO_FIXED_CURR(ma) ((((ma) / 10)& 0x3FF) << 0) /* Max current in 10mA units */
+#define PDO_FIXED_GET_VOLT(pdo) (((pdo >> 10) & 0x3FF) * 50)
+#define PDO_FIXED_GET_CURR(pdo) ((pdo & 0x3FF) * 10)
+#define PDO_FIXED(mv, ma, flags) \
+	(PDO_FIXED_VOLT(mv) | PDO_FIXED_CURR(ma) | (flags))
+//SW ADD {
+#define PDO_FIXED_FLAGS_MASK   (0xFFF <<20)
+#define PDO_FIXED_VOLT_MASK    (0x3FF << 10)
+#define PDO_FIXED_CURR_MASK    (0x3FF)
+//SW ADD }
+
 
 #define PDO_VAR_MAX_VOLT(mv) ((((mv) / 50) & 0x3FF) << 20)
 #define PDO_VAR_MIN_VOLT(mv) ((((mv) / 50) & 0x3FF) << 10)
-#define PDO_VAR_OP_CURR(ma)  ((((ma) / 10) & 0x3FF) << 0)
-
-#define PDO_VAR(min_mv, max_mv, op_ma) \
-                (PDO_VAR_MIN_VOLT(min_mv) | \
-                 PDO_VAR_MAX_VOLT(max_mv) | \
-                 PDO_VAR_OP_CURR(op_ma)   | \
-                 PDO_TYPE_VARIABLE)
+#define PDO_VAR_OP_CURR(ma) ((((ma) / 10) & 0x3FF) << 0)
+#define PDO_VAR(min_mv, max_mv, op_ma)                         \
+	(PDO_VAR_MIN_VOLT(min_mv) | PDO_VAR_MAX_VOLT(max_mv) | \
+	 PDO_VAR_OP_CURR(op_ma) | PDO_TYPE_VARIABLE)
+//SW ADD {
+#define PDO_VAR_GET_MAX_VOLT(pdo) (((pdo >> 20) & 0x3FF) * 50)
+#define PDO_VAR_GET_MIN_VOLT(pdo) (((pdo >> 10) & 0x3FF) * 50)
+#define PDO_VAR_GET_CURR(pdo) ((pdo & 0x3FF) * 10)
+//SW ADD }
 
 #define PDO_BATT_MAX_VOLT(mv) ((((mv) / 50) & 0x3FF) << 20)
 #define PDO_BATT_MIN_VOLT(mv) ((((mv) / 50) & 0x3FF) << 10)
 #define PDO_BATT_OP_POWER(mw) ((((mw) / 250) & 0x3FF) << 0)
+#define PDO_BATT(min_mv, max_mv, op_mw)                          \
+	(PDO_BATT_MIN_VOLT(min_mv) | PDO_BATT_MAX_VOLT(max_mv) | \
+	 PDO_BATT_OP_POWER(op_mw) | PDO_TYPE_BATTERY)
+//SW ADD {
+#define PDO_BATT_GET_MAX_VOLT(pdo) (((pdo >> 20) & 0x3FF) * 50)
+#define PDO_BATT_GET_MIN_VOLT(pdo) (((pdo >> 10) & 0x3FF) * 50)
+#define PDO_BATT_GET_WALT(pdo) ((pdo & 0x3FF) * 250)
+//SW ADD }
 
-#define PDO_BATT(min_mv, max_mv, op_mw) \
-                (PDO_BATT_MIN_VOLT(min_mv) | \
-                 PDO_BATT_MAX_VOLT(max_mv) | \
-                 PDO_BATT_OP_POWER(op_mw) | \
-                 PDO_TYPE_BATTERY)
+/* SPR PPS PDO */
+#define PDO_AUG_SPR_VOLT_SUPPLY	(0<<28)
+#define PDO_AUG_MAX_VOLT(mv) ((((mv) / 100) & 0xFF) << 17)
+#define PDO_AUG_MIN_VOLT(mv) ((((mv) / 100) & 0xFF) << 8)
+#define PDO_AUG_MAX_CURR(ma) ((((ma) / 50) & 0x7F) << 0)
+#define PDO_AUG(min_mv, max_mv, max_ma, flags)                        \
+	(PDO_AUG_MIN_VOLT(min_mv) | PDO_AUG_MAX_VOLT(max_mv) | \
+	 PDO_AUG_MAX_CURR(max_ma) | PDO_TYPE_AUGMENTED | flags)
+//SW ADD {
+#define PDO_AUG_GET_MAX_VOLT(pdo) (((pdo >> 17) & 0xFF) * 100)
+#define PDO_AUG_GET_MIN_VOLT(pdo) (((pdo >> 8) & 0xFF) * 100)
+#define PDO_AUG_GET_CURR(pdo) ((pdo & 0x7F) * 50)
+//SW ADD }
 
+/* EPR AVS PDO */
+/* SW ADD { */
+#define PDO_AVS_EPR_VOLT_SUPPLY	(1<<28)
+#define PDO_AVS_MAX_VOLT(mv) ((((mv) / 100) & 0x1FF) << 17)
+#define PDO_AVS_MIN_VOLT(mv) ((((mv) / 100) & 0xFF) << 8)
+#define PDO_AVS_WALT(walt) ((walt & 0xFF) << 0)
+#define PDO_AVS(min_mv, max_mv, walt, flags)                        \
+	(PDO_AVS_EPR_VOLT_SUPPLY | PDO_AVS_MIN_VOLT(min_mv) | PDO_AVS_MAX_VOLT(max_mv) | \
+	 PDO_AVS_WALT(walt) | PDO_TYPE_AUGMENTED | flags)
+
+#define PDO_AVS_GET_MAX_VOLT(pdo) (((pdo >> 17) & 0x1FF) * 100)
+#define PDO_AVS_GET_MIN_VOLT(pdo) (((pdo >> 8) & 0xFF) * 100)
+#define PDO_AVS_GET_WALT(pdo) (pdo & 0xFF)
+
+/* SW ADD } */
+
+
+#if 0
 /* RDO : Request Data Object */
 #define RDO_OBJ_POS(n)             (((n) & 0x7) << 28)
 #define RDO_POS(rdo)               (((rdo) >> 28) & 0x7)
@@ -161,41 +209,74 @@ enum pd_rx_errors
 /* SW Add { */
 #define RDO_UNCHUNKED_EXTENDED     BIT(23)
 /* SW Add } */
-
+#else	// EPR {
+/* RDO : Request Data Object */
+#define RDO_OBJ_POS(n) (((n)&0xF) << 28)
+#define RDO_POS(rdo) (((rdo) >> 28) & 0xF)
+#define RDO_GIVE_BACK BIT(27)
+#define RDO_CAP_MISMATCH BIT(26)
+#define RDO_COMM_CAP BIT(25)
+#define RDO_NO_SUSPEND BIT(24)
+#define RDO_EPR_MODE_CAPABLE BIT(22)
+#endif	// EPR }
 #define RDO_FIXED_VAR_OP_CURR(ma)  ((((ma) / 10) & 0x3FF) << 10)
 #define RDO_FIXED_VAR_MAX_CURR(ma) ((((ma) / 10) & 0x3FF) << 0)
 
 #define RDO_BATT_OP_POWER(mw)      ((((mw) / 250) & 0x3FF) << 10)
-#define RDO_BATT_MAX_POWER(mw)     ((((mw) / 250) & 0x3FF) << 10)
+#define RDO_BATT_MAX_POWER(mw)     (((mw) / 250) & 0x3FF)
 
-#if 1
+#define RDO_FIXED_UNCHUNKED_EXTENDED  BIT(23)
+#define RDO_FIXED_EPR_MODE_CAPABLE    BIT(22)
+
+#if 1  /* SPR Fixed PDO with chunked message supportting (Software) */
 #define RDO_FIXED(n, op_ma, max_ma, flags) \
-				(RDO_OBJ_POS(n) | (flags) | \
-				RDO_FIXED_VAR_OP_CURR(op_ma) | \
-				RDO_FIXED_VAR_MAX_CURR(max_ma))
-#else
-/* TEST.PD.PROT.ALL.3.2 Get ManuFacturer_Info Response will be wrong */
-//#define RDO_FIXED(n, op_ma, max_ma, flags) \
-//				(RDO_OBJ_POS(n) | (flags) | \
-//				RDO_FIXED_VAR_OP_CURR(op_ma) | \
-//				RDO_UNCHUNKED_EXTENDED | \	
-//				RDO_FIXED_VAR_MAX_CURR(max_ma))
+                (RDO_OBJ_POS(n) | (flags) | \
+                RDO_FIXED_VAR_OP_CURR(op_ma) | \
+                RDO_FIXED_VAR_MAX_CURR(max_ma))
+#else  /* EPR fixed PDO with unchunked message supporting (Hardware support 260 bytes FIFO) */
+#define RDO_FIXED(n, op_ma, max_ma, flags) \
+                (RDO_OBJ_POS(n) | (flags) | \
+                RDO_FIXED_VAR_OP_CURR(op_ma) | \
+                RDO_UNCHUNKED_EXTENDED | \
+                RDO_FIXED_VAR_MAX_CURR(max_ma))
 #endif
 
 /* SW ADD { */
-#define PDO_PPS_OUT_VOLT(mv) ((((mv) / 20) & 0x3FF) << 9)
-#define PDO_PPS_OP_CURR(ma) ((((ma) / 50) & 0xEF) << 0)
+#define RDO_AUG_OUT_VOLT(mv) ((((mv) / 20) & 0xFFF) << 9)
+#define RDO_AUG_OP_CURR(ma) ((((ma) / 50) & 0x7F) << 0)
 
 #define RDO_PPS(n, op_ma, max_mv, flags) \
                 (RDO_OBJ_POS(n) | (flags) | \
-                PDO_PPS_OUT_VOLT(max_mv) | \
-                PDO_PPS_OP_CURR(op_ma))
-/* SW ADD } */
+                RDO_AUG_OUT_VOLT(max_mv) | \
+                RDO_AUG_OP_CURR(op_ma))
+
+
+#define RDO_AVS_OUT_VOLT(mv) ((((mv) / 25) & 0xFFC) << 9)
+#define RDO_AVS_OP_CURR(ma) ((((ma) / 50) & 0x7F) << 0)
+
+#define RDO_AVS(n, op_ma, max_mv, flags) \
+                (RDO_OBJ_POS(n) | (flags) | \
+                RDO_AVS_OUT_VOLT(max_mv) | \
+                RDO_AVS_OP_CURR(op_ma))
 
 #define RDO_BATT(n, op_mw, max_mw, flags) \
                 (RDO_OBJ_POS(n) | (flags) | \
                 RDO_BATT_OP_POWER(op_mw) | \
                 RDO_BATT_MAX_POWER(max_mw))
+
+#define RDO_FIXED_VAR_GET_MAX_CURR(rod) 	(((rod) & 0x3FF) * 10)
+#define RDO_FIXED_VAR_GET_OP_CURR(rod) 		(((rod>>10) & 0x3FF) * 10)
+
+#define RDO_BATT_GET_OP_POWER(rod) 			(((rod>>10) & 0x3FF) * 250)
+#define RDO_BATT_GET_MAX_POWER(rod) 		(((rod) & 0x3FF) * 250)
+
+#define RDO_AUG_GET_OUT_VOLT(mv) 			(((rdo>>9) & 0xFFF) * 20)
+#define RDO_AUG_GET_OP_CURR(ma)  			((rdo & 0x7F) * 50)
+
+#define RDO_AVS_GET_OUT_VOLT(mv) 			(((rdo>>9) & 0xFFC) * 25)	/* Last 2 bits will be 0 */
+#define RDO_AVS_GET_OP_CURR(ma)  			((rdo & 0x7F) * 50)
+/* SW ADD } */
+
 
 /* BDO : BIST Data Object
  * 31:28 BIST Mode
@@ -235,10 +316,16 @@ enum pd_rx_errors
 #define PD_T_CHUNKING_NOT_SUPPORTED (45*MSEC) /* between 40ms and 50ms */
 #define PD_T_HARD_RESET_COMPLETE     (5*MSEC) /* between 4ms and 5ms*/
 #define PD_T_HARD_RESET_RETRY        (1*MSEC) /* 1ms */
-#define PD_T_SEND_SOURCE_CAP       (100*MSEC) /* between 100ms and 200ms */
+#if 1  
+#define PD_T_SEND_SOURCE_CAP       (150*MSEC) /* between 100ms and 200ms */
+#else  //DEBUG_CBL
+#define PD_T_SEND_SOURCE_CAP       (500*MSEC) /* between 100ms and 200ms */
+#endif
+
 #define PD_T_SINK_WAIT_CAP         (575*MSEC) /* between 310ms and 620ms */
 #define PD_T_SINK_TRANSITION        (35*MSEC) /* between 20ms and 35ms */
 #define PD_T_SOURCE_ACTIVITY        (45*MSEC) /* between 40ms and 50ms */
+#define PD_T_ENTER_EPR (500 * MSEC) /* between 450ms and 550ms */
 /*
  * Adjusting for TCPMv2 PD2 Compliance. In tests like TD.PD.SRC.E5 this
  * value is the duration before the Hard Reset can be sent. Setting the
@@ -252,15 +339,18 @@ enum pd_rx_errors
 #ifndef CONFIG_USB_PD_TCPMV2
 #if 0
 #define PD_T_SENDER_RESPONSE        (30*MSEC) /* between 24ms and 30ms */
-#else //DEBUG_ONLY
-#define PD_T_SENDER_RESPONSE        (27*MSEC) /* between 24ms and 30ms */
+#else
+#define PD_T_SENDER_RESPONSE        (27*MSEC) /* For pass TEST.PD.PROT.SRC.2 Get_Source_Cap_No_Response */
+                                              /* For pass TEST.PD.PROT.SNK.6 SenderResponseTimer Timeout */ 
+                                              /* For pass TEST.PD.PROT.SNK.13 PR_SWAP - SenderResponseTimer Timeout */ 
 #endif
 #else
 #define PD_T_SENDER_RESPONSE        (24*MSEC) /* between 24ms and 30ms */
 //#define PD_T_SENDER_RESPONSE        (500*MSEC) /* DEBUG_ONLY */
 #endif
 #define PD_T_PS_TRANSITION         (500*MSEC) /* between 450ms and 550ms */
-#define PD_T_PS_SOURCE_ON          (460*MSEC) ///(480*MSEC) /* between 390ms and 480ms */
+//#define PD_T_PS_SOURCE_ON          (480*MSEC) /* between 390ms and 480ms */
+#define PD_T_PS_SOURCE_ON          (460*MSEC) /* between 390ms and 480ms */
 #define PD_T_PS_SOURCE_OFF         (835*MSEC) /* between 750ms and 920ms */
 #define PD_T_PS_HARD_RESET          (27*MSEC) /* between 25ms and 35ms */
 #define PD_T_ERROR_RECOVERY        (240*MSEC) /* min 240ms if sourcing VConn */
@@ -271,7 +361,17 @@ enum pd_rx_errors
 #define PD_T_DEBOUNCE               (15*MSEC) /* between 10ms and 20ms */
 #define PD_T_TRY_CC_DEBOUNCE        (15*MSEC) /* between 10ms and 20ms */
 #define PD_T_SINK_ADJ               (55*MSEC) /* between tPDDebounce and 60ms */
+#if 0
+//<TID>TEST.PD.EPR.SRC3.11_Rev3ChkdSrc, TEST.PD.EPR.SRC3.14_Rev3ChkdSrc, TEST.PD.EPR.SRC3.14_Rev3UnchkdSrc</TID>
+//<comment>Err# 0x04C5: COMMON.CHECK.PD.14.1 The VBUS voltage did not remain below vSafe0V for between tSrcRecover min and max. Measured [ 5.732 sec to 6.332 sec]</comment>
+//<comment>Err# 0x04C5: COMMON.CHECK.PD.14.1 The VBUS voltage did not remain below vSafe0V for between tSrcRecover min and max. Measured [ 6.192 sec to 7.226 sec]</comment>
+//<comment>Err# 0x04C5: COMMON.CHECK.PD.14.1 The VBUS voltage did not remain below vSafe0V for between tSrcRecover min and max. Measured [ 5.884 sec to 6.918 sec]</comment>
 #define PD_T_SRC_RECOVER           (760*MSEC) /* between 660ms and 1000ms */
+#define PD_T_SRC_RECOVER_EPR      (1200*MSEC) /* between 1.085 and 1.425 s */
+#else
+#define PD_T_SRC_RECOVER           (930*MSEC) /* between 660ms and 1000ms */
+#define PD_T_SRC_RECOVER_EPR      (1330*MSEC) /* between 1.085 and 1.425 s */
+#endif
 #define PD_T_SRC_RECOVER_MAX      (1000*MSEC) /* 1000ms */
 #define PD_T_SRC_TURN_ON           (275*MSEC) /* 275ms */
 #define PD_T_SAFE_0V               (650*MSEC) /* 650ms */
@@ -294,25 +394,36 @@ enum pd_rx_errors
 #define PD_T_SWAP_SOURCE_START      (25*MSEC) /* Min of 20ms */
 #define PD_T_RP_VALUE_CHANGE        (20*MSEC) /* 20ms */
 #define PD_T_SRC_DISCONNECT         (15*MSEC) /* 15ms */
+
 #define PD_T_SRC_TRANSITION         (25*MSEC) /* 25ms to 35 ms */
+#define PD_T_SRC_TRANSITION_PS_RDY      (250*MSEC) /* 25ms to 35 ms */
+#define PD_T_SRC_TRANSITION_EPR_PS_RDY  (700*MSEC) //(550*MSEC) /* 25ms to 35 ms */
+//#define PD_T_SRC_TRANSITION         (1000*MSEC) /* NPD48 charge Powerbank issue */
+
 #define PD_T_VCONN_STABLE           (50*MSEC) /* 50ms */
 
-//#if SW    //DEBUG_ONLY
+//#if SW	//DEBUG_ONLY
 #define PD_T_DISCOVER_IDENTITY      (45*MSEC) /* between 40ms and 50ms */
-//#else
+//#else  
 //#define PD_T_DISCOVER_IDENTITY      (300*MSEC) /* between 40ms and 50ms */
 //#endif
 
 #define PD_T_SYSJUMP              (1000*MSEC) /* 1s */
 #define PD_T_PR_SWAP_WAIT          (100*MSEC) /* tPRSwapWait 100ms */
+#define PD_T_DATA_RESET (225 * MSEC) /* between 200ms and 250ms */
+#define PD_T_DATA_RESET_FAIL (300 * MSEC) /* 300ms */
+#define PD_T_VCONN_REAPPLIED (10 * MSEC) /* between 10ms and 20ms */
+#define PD_T_VCONN_DISCHARGE (240 * MSEC) /* between 160ms and 240ms */
+#define PD_T_SINK_EPR_KEEP_ALIVE (375 * MSEC) /* between 250ms and 500ms */
 
 #define PD_T_SNK_PPS_REQUEST       (5000*MSEC)              /* Max 10s */
 #define PD_T_SRC_PPS_TIMEROUT      (12500*MSEC)             /* 12s ~ 15s */
 
-#if (CONFIG_TC8260_FRS == 1)
+#if (CONFIG_USB_PD_FRS_TCPC == 1)
 #define PD_T_FRS_START_DELAY            (500*MSEC)  /* TC8260 workaround solution for FRS detection */
 #endif
 
+#define PD_T_VBUS_FALLING_TIME		(50*MSEC)
 
 /*
  * Non-spec timer to prevent going Unattached if Vbus drops before a partner FRS
@@ -320,6 +431,10 @@ enum pd_rx_errors
  * (40ms) to ensure we still transition out of Attached.SNK in time.
  */
 #define PD_T_FRS_VBUS_DEBOUNCE       (5*MSEC)
+
+
+#define PD_T_SNK_KEEP_ALIVE_TIMEOUT	(875*MSEC)	/* (0.75sec) and max(1sec)) */
+
 
 /* number of edges and time window to detect CC line is not idle */
 #define PD_RX_TRANSITION_COUNT  3
@@ -352,6 +467,12 @@ enum pd_rx_errors
 
 /* Maximum voltage in mV offered by PD 3.0 Version 2.0 Spec */
 #define PD_REV3_MAX_VOLTAGE 20000
+
+/* Maximum SPR voltage in mV */
+#define PD_MAX_SPR_VOLTAGE 20000
+
+/* Maximum EPR voltage in mV */
+#define PD_MAX_EPR_VOLTAGE 48000
 
 /* Power in mW at which we will automatically charge from a DRP partner */
 #define PD_DRP_CHARGE_POWER_MIN 27000
@@ -578,6 +699,22 @@ struct partner_active_modes
 #define CMDT_RSP_BUSY 3
 
 
+//SW ADD {
+/* Table 6-28 Structured VDM Header */
+#define SVDM_HEADER_SVID(svdm_header)             (svdm_header>>16)
+#define SVDM_HEADER_TYPE(svdm_header)			  ((svdm_header &BIT15) >> 15)
+#define SVDM_HEADER_VENDOR_USE(svdm_header)       ((svdm_header &0x6000) >> 13) 
+#define SVDM_HEADER_OBJ_POS(svdm_header)          ((svdm_header &0x700) >> 8) 
+#define SVDM_HEADER_CMD_TYPE(svdm_header)         ((svdm_header &0xC0) >> 6) 
+#define SVDM_HEADER_CMD(svdm_header)              (svdm_header &0x1F) 
+
+/* Table 6-40 Passive Cable VDO & Table 6-41 Active Cable VDO */
+#define SVDM_VDO_MAX_VBUS(vdo)                    (((vdo) >> 9) & 0x3)
+#define SVDM_VDO_MAX_CURRENT(vdo)                 (((vdo) >> 5) & 0x3)
+
+//SW ADD }
+
+
 /* reserved for SVDM ... for Google UVDM */
 #define VDO_SRC_INITIATOR (0 << 5)
 #define VDO_SRC_RESPONDER BIT(5)
@@ -664,6 +801,83 @@ struct partner_active_modes
 
 #define VDO_PRODUCT(pid, bcd) (((pid) & 0xffff) << 16 | ((bcd) & 0xffff))
 #define PD_PRODUCT_PID(vdo) (((vdo) >> 16) & 0xffff)
+#if 0
+
+#else //EPR {
+/* Max Attention length is header + 1 VDO */
+#define PD_ATTENTION_MAX_VDO 2
+
+/*
+ * 6.4.10 EPR_Mode Message (PD Rev 3.1)
+ */
+
+enum pd_eprmdo_action {
+	/* 0x00: Reserved */
+	PD_EPRMDO_ACTION_RESERVED = 0x00,	               /* 20250422 to fix TEST.PD.EPR.SRC3.5 */
+	PD_EPRMDO_ACTION_ENTER = 0x01,
+	PD_EPRMDO_ACTION_ENTER_ACK = 0x02,
+	PD_EPRMDO_ACTION_ENTER_SUCCESS = 0x03,
+	PD_EPRMDO_ACTION_ENTER_FAILED = 0x04,
+	PD_EPRMDO_ACTION_EXIT = 0x05,
+	/* 0x06 ... 0xFF: Reserved */
+} __packed;
+//BUILD_ASSERT(sizeof(enum pd_eprmdo_action) == 1);
+
+enum pd_eprmdo_enter_failed_data {
+	PD_EPRMDO_ENTER_FAILED_DATA_UNKNOWN = 0x00,
+	PD_EPRMDO_ENTER_FAILED_DATA_CABLE = 0x01,
+	PD_EPRMDO_ENTER_FAILED_DATA_VCONN = 0x02,
+	PD_EPRMDO_ENTER_FAILED_DATA_RDO = 0x03,
+	PD_EPRMDO_ENTER_FAILED_DATA_UNABLE = 0x04,
+	PD_EPRMDO_ENTER_FAILED_DATA_PDO = 0x05,
+} __packed;
+//BUILD_ASSERT(sizeof(enum pd_eprmdo_enter_failed_data) == 1);
+
+struct eprmdo {
+	uint16_t reserved;
+	enum pd_eprmdo_enter_failed_data data;
+	enum pd_eprmdo_action action;
+};
+//BUILD_ASSERT(sizeof(struct eprmdo) == 4);
+
+/*
+ * 6.5.14 Extended Control Message
+ */
+enum pd_ext_ctrl_msg_type {
+	/* 0: Reserved */
+	PD_EXT_CTRL_EPR_GET_SOURCE_CAP = 1,
+	PD_EXT_CTRL_EPR_GET_SINK_CAP = 2,
+	PD_EXT_CTRL_EPR_KEEPALIVE = 3,
+	PD_EXT_CTRL_EPR_KEEPALIVE_ACK = 4,
+	/* 5-255: Reserved */
+} __packed;
+//BUILD_ASSERT(sizeof(enum pd_ext_ctrl_msg_type) == 1);
+
+/* Extended Control Data Block (ECDB) */
+struct pd_ecdb {
+	uint8_t type;
+	uint8_t data;
+} __packed;
+
+/* PD Rev 3.1 Revision Message Data Object (RMDO) */
+struct rmdo {
+	uint32_t reserved : 16;
+	uint32_t minor_ver : 4;
+	uint32_t major_ver : 4;
+	uint32_t minor_rev : 4;
+	uint32_t major_rev : 4;
+};
+
+/* Confirm RMDO is 32 bits. */
+//BUILD_ASSERT(sizeof(struct rmdo) == 4);
+
+/*
+ * Message id starts from 0 to 7. If last_msg_id is initialized to 0,
+ * it will lead to repetitive message id with first received packet,
+ * so initialize it with an invalid value 0xff.
+ */
+#define INVALID_MSG_ID_COUNTER 0xff
+#endif	//EPR }
 
 /*
  * Message id starts from 0 to 7. If last_msg_id is initialized to 0,
@@ -1233,20 +1447,27 @@ enum pd_ctrl_msg_type
     PD_CTRL_VCONN_SWAP = 11,
     PD_CTRL_WAIT = 12,
     PD_CTRL_SOFT_RESET = 13,
-	/* Used for REV 3.0 */
+    /* 14-15 Reserved */
 	PD_CTRL_DATA_RESET = 14,
 	PD_CTRL_DATA_RESET_COMPLETE = 15,
+
+
+    /* Used for REV 3.0 */
     PD_CTRL_NOT_SUPPORTED = 16,
     PD_CTRL_GET_SOURCE_CAP_EXT = 17,
     PD_CTRL_GET_STATUS = 18,
     PD_CTRL_FR_SWAP = 19,
     PD_CTRL_GET_PPS_STATUS = 20,
     PD_CTRL_GET_COUNTRY_CODES = 21,
+#if 0
+    /* 22-31 Reserved */
+#else //EPR {
 	PD_CTRL_GET_SINK_CAP_EXT = 22,
 	/* Used for REV 3.1 */
 	PD_CTRL_GET_SOURCE_INFO = 23,
 	PD_CTRL_GET_REVISION = 24,
-    /* 22-31 Reserved */
+	/* 25-31 Reserved */
+#endif //EPR }
 };
 
 /* Control message types which always mark the start of an AMS */
@@ -1284,45 +1505,9 @@ enum pd_ctrl_msg_type
  */
 #define BATT_CAP_REF(n)  (((n) >> 16) & 0xff)
 
-/* SOP SDB fields for PD Rev 3.0 Section 6.5.2.1 */
-enum pd_sdb_temperature_status {
-	PD_SDB_TEMPERATURE_STATUS_NOT_SUPPORTED = 0,
-	PD_SDB_TEMPERATURE_STATUS_NORMAL = 2,
-	PD_SDB_TEMPERATURE_STATUS_WARNING = 4,
-	PD_SDB_TEMPERATURE_STATUS_OVER_TEMPERATURE = 6,
-};
-
-struct pd_sdb {
-	/* SDB Fields for PD REV 3.0 */
-	uint8_t internal_temp;
-	uint8_t present_input;
-	uint8_t present_battery_input;
-	uint8_t event_flags;
-	enum pd_sdb_temperature_status temperature_status;
-	uint8_t power_status;
-	/* SDB Fields for PD REV 3.1 */
-	uint8_t power_state_change;
-};
-
-enum pd_sdb_power_state {
-	PD_SDB_POWER_STATE_NOT_SUPPORTED = 0,
-	PD_SDB_POWER_STATE_S0 = 1,
-	PD_SDB_POWER_STATE_MODERN_STANDBY = 2,
-	PD_SDB_POWER_STATE_S3 = 3,
-	PD_SDB_POWER_STATE_S4 = 4,
-	PD_SDB_POWER_STATE_S5 = 5,
-	PD_SDB_POWER_STATE_G3 = 6,
-};
-
-enum pd_sdb_power_indicator {
-	PD_SDB_POWER_INDICATOR_OFF = (0 << 3),
-	PD_SDB_POWER_INDICATOR_ON = (1 << 3),
-	PD_SDB_POWER_INDICATOR_BLINKING = (2 << 3),
-	PD_SDB_POWER_INDICATOR_BREATHING = (3 << 3),
-};
-
-/* Extended message type for REV 3.0 - USB-PD Spec 3.0, Ver 1.1, Table 6-42 */
-enum pd_ext_msg_type {
+/* Extended message type for REV 3.0 Table 6-52*/
+enum pd_ext_msg_type
+{
     /* 0 Reserved */
     PD_EXT_SOURCE_CAP = 1,
     PD_EXT_STATUS = 2,
@@ -1338,6 +1523,9 @@ enum pd_ext_msg_type {
     PD_EXT_PPS_STATUS = 12,
     PD_EXT_COUNTRY_INFO = 13,
     PD_EXT_COUNTRY_CODES = 14,
+#if 0
+    /* 15-31 Reserved */
+#else //EPR {
 	/* Used for REV 3.1 */
 	PD_EXT_SINK_CAP = 15,
 	PD_EXT_CONTROL = 16,
@@ -1345,9 +1533,35 @@ enum pd_ext_msg_type {
 	PD_EXT_EPR_SINK_CAP = 18,
 	/* 19-29 Reserved */
 	PD_EXT_VENDOR_DEF = 30,
-    /* 15-31 Reserved */
+	/* 31 Reserved */
+#endif //EPR }
 };
 
+#if 1
+//EPR {
+/* Alert Data Object fields for REV 3.1 */
+#define ADO_EXTENDED_ALERT_EVENT (BIT(24) << 7)
+#define ADO_EXTENDED_ALERT_EVENT_TYPE 0xf
+/* Alert Data Object fields for REV 3.0 */
+#define ADO_OVP_EVENT (BIT(24) << 6)
+#define ADO_SOURCE_INPUT_CHANGE (BIT(24) << 5)
+#define ADO_OPERATING_CONDITION_CHANGE (BIT(24) << 4)
+#define ADO_OTP_EVENT (BIT(24) << 3)
+#define ADO_OCP_EVENT (BIT(24) << 2)
+#define ADO_BATTERY_STATUS_CHANGE (BIT(24) << 1)
+#define ADO_FIXED_BATTERIES(n) ((n & 0xf) << 20)
+#define ADO_HOT_SWAPPABLE_BATTERIES(n) ((n & 0xf) << 16)
+
+/* Extended alert event types for REV 3.1 */
+enum ado_extended_alert_event_type {
+	ADO_POWER_STATE_CHANGE = 0x1,
+	ADO_POWER_BUTTON_PRESS = 0x2,
+	ADO_POWER_BUTTON_RELEASE = 0x3,
+	ADO_CONTROLLER_INITIATED_WAKE = 0x4,
+};
+
+//EPR }
+#else
 /* Alert Data Object fields for REV 3.0 */
 #define ADO_OVP_EVENT                   BIT(30)
 #define ADO_SOURCE_INPUT_CHANGE         BIT(29)
@@ -1357,8 +1571,9 @@ enum pd_ext_msg_type {
 #define ADO_BATTERY_STATUS_CHANGE       BIT(25)
 #define ADO_FIXED_BATTERIES(n)          ((n & 0xf) << 20)
 #define ADO_HOT_SWAPPABLE_BATTERIES(n)  ((n & 0xf) << 16)
+#endif 
 
-/* Data message type */
+/* Data message type Table 6-6 */
 enum pd_data_msg_type
 {
     /* 0 Reserved */
@@ -1372,13 +1587,18 @@ enum pd_data_msg_type
     PD_DATA_GET_COUNTRY_INFO = 7,
     /* 8-14 Reserved for REV 3.0 */
     PD_DATA_ENTER_USB = 8,
-    /* SW ADD { */
+#if 0//EPR
+    PD_DATA_VENDOR_DEF = 15,
+#else//EPR {
+	/* Used for REV 3.1 */
+	PD_DATA_EPR_REQUEST = 9,
+	PD_DATA_EPR_MODE = 10,
+	PD_DATA_SOURCE_INFO = 11,
 	PD_DATA_REVISION = 12,
-	/* SW ADD } */
-
+	/* 13-14 Reserved */
 	PD_DATA_VENDOR_DEF = 15,
-
-	
+	/* 16-31 Reserved */
+#endif//EPR }
 };
 
 
@@ -2634,16 +2854,17 @@ bool pd_setup_vdm_request(int port, enum tcpci_msg_type tx_type,
                           uint32_t *vdm, uint32_t vdo_cnt);
 
 /* Power Data Objects for the source and the sink */
-__override_proto extern const uint32_t pd_src_pdo[];
+extern uint32_t pd_src_pdo[];
 extern const int pd_src_pdo_cnt;
+extern uint32_t pd_src_epr_pdo[];
+extern const int pd_src_epr_pdo_cnt;
+
+
 extern const uint32_t pd_src_pdo_max[];
 extern const int pd_src_pdo_max_cnt;
 extern const uint32_t pd_snk_pdo[];
-#if 0
-extern const int pd_snk_pdo_cnt;
-#else
-extern int pd_snk_pdo_cnt;
-#endif
+extern int pd_snk_pdo_cnt;	/* For change SNK PDO request */ 
+
 /**
  * Request that a host event be sent to notify the AP of a PD power event.
  *

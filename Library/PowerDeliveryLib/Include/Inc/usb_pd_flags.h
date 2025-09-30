@@ -10,6 +10,16 @@
 #define __CROS_EC_USB_PD_FLAGS_H
 
 #include "stdint.h"
+#include <stdbool.h>
+
+/*
+ * SW Add for checking events periodically
+ */
+enum usb_pd_flags
+{
+    USB_PD_DISCHARGE_FLAG = 1	
+};
+
 
 /*
  * USB PD VBUS detect (0-2)
@@ -90,4 +100,9 @@ void set_usb_pd_charger_otg(enum usb_pd_charger_otg charger_otg);
  * @return the USB PD charger OTG.
  */
 enum usb_pd_charger_otg get_usb_pd_charger_otg(void);
+
+void pd_set_flags(int port, uint32_t mask);
+void pd_clr_flags(int port, uint32_t mask);
+bool pd_chk_flags(int port, uint32_t mask); 
+
 #endif /* __CROS_EC_USB_PD_FLAGS_H */

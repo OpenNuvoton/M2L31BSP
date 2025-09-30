@@ -69,7 +69,7 @@ extern "C"
 #define CONFIG_USB_PD_DUAL_ROLE_AUTO_TOGGLE      0
 #define CONFIG_USB_PD_PPC                        1   /* Power path control */
 #define CONFIG_USB_PD_TCPC_LOW_POWER             0
-#define CONFIG_USB_PD_FRS_TCPC                   1
+#define CONFIG_USB_PD_FRS_TCPC                   0
 #define CONFIG_USB_PD_TCPC_VCONN                 1   /* For VCONN Power. tcpm.h - tcpm_set_vconn() */
 /* } */
 
@@ -130,6 +130,7 @@ extern "C"
 
 #define CONFIG_USB_PD_TCPC_RUNTIME_CONFIG
 #define CONFIG_SOP_PRIME_SOFT_RESET_SEND  0	/* YC Add */
+#define CONFIG_PE_SEND_SOP_VDM            0
 
 #if (OPT_SNK_ONLY == 1)
 #undef CONFIG_USB_PD_TRY_SRC
@@ -169,6 +170,8 @@ extern "C"
 #if (OPT_DRP == 1)
 #undef CONFIG_USB_PD_TRY_SRC
 #define CONFIG_USB_PD_TRY_SRC                    0
+#define CONFIG_USB_DRP_ACC_TRYSRC                0
+
 #undef CONFIG_USB_PD_DUAL_ROLE_AUTO_TOGGLE
 #define CONFIG_USB_PD_DUAL_ROLE_AUTO_TOGGLE      0
 #define CONFIG_COMMAND_SHELL                     1
