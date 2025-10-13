@@ -10,7 +10,7 @@
 #endif
 
 #ifndef SRAM_SIZE
-    #define SRAM_SIZE       0x0002A000
+    #define SRAM_SIZE       0x0000A000
 #endif
 
 #ifndef LPSRAM_SIZE

@@ -2,8 +2,8 @@
 MEMORY
 {
   FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 0x80000    /* 512k */
-  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 0x2A000    /* 168k */
-  LPRAM (rwx): ORIGIN = 0x28000000, LENGTH = 0x2000     /* 8k   */  
+  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 0x0A000    /*  40k */
+  LPRAM (rwx): ORIGIN = 0x28000000, LENGTH = 0x02000    /*   8k */  
 }
 
 /* Library configurations */
