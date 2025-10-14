@@ -29,7 +29,7 @@ project:
   groups:
     - group: CMSIS
       files:
-        - file: ../startup_M2L31_user.c
+        - file: ./startup_M2L31_user.c
           for-compiler: AC6
         - file: ../../../../Library/Device/Nuvoton/M2L31/Source/GCC/startup_M2L31.S
           for-compiler: GCC

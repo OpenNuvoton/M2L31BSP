@@ -14,8 +14,6 @@
 #include "DataFlashProg.h"
 #include "massstorage.h"
 
-static uint8_t g_u8LockBit = 1;
-
 extern uint32_t g_u32u32StorageSize;
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -146,8 +144,6 @@ uint32_t RMC_Init(void)
 #endif
     u32APSize = SIZE_APROM * 1024;
     RMC_ISP(RMC_ISPCMD_READ, RMC_CONFIG_BASE, 0);
-
-    g_u8LockBit = (RMC->ISPDAT & 0x02);
 
     return u32APSize;
 }

@@ -5,8 +5,6 @@ solution:
     - compiler: AC6@>=5.19.0
     - compiler: GCC@>=10.3.1
   build-types:
-    - type: debug
-      optimize: size
     - type: release
       optimize: size
   target-types:
