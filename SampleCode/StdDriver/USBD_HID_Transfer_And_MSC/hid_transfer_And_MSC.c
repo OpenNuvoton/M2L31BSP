@@ -1651,16 +1651,4 @@ void MSC_WriteMedia(uint32_t u32Addr, uint32_t u32Size, uint8_t *pu8Buffer)
     (void)pu8Buffer;
 }
 
-void DataFlashRead(uint32_t u32Addr, uint32_t u32Size, uint32_t u32Buffer)
-{
-    //DataFlashRead(u32Addr, u32Size, (uint32_t)u32Buffer);
-    USBD_MemCopy((uint8_t *)u32Buffer, (uint8_t *)(u32Addr + 0x20004000), u32Size);
-}
-
-
-void DataFlashWrite(uint32_t u32Addr, uint32_t u32Size, uint32_t u32Buffer)
-{
-    USBD_MemCopy((uint8_t *)(u32Addr + 0x20004000), (uint8_t *)u32Buffer, u32Size);
-}
-
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

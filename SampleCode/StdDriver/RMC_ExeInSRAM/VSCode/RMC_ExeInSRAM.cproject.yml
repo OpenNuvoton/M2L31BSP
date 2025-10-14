@@ -6,8 +6,6 @@ project:
         # bin, elf, hex, lib
         type: bin
     - setup: Options for RMCExeInSRAM
-      processor:
-        endian: little
       add-path:
         - ../../../../Library/Device/Nuvoton/M2L31/Include
         - ../../../../Library/CMSIS/Core/Include
@@ -43,13 +41,15 @@ project:
         - for-compiler: GCC
           C:
             - -std=gnu11 -mthumb -masm-syntax-unified -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections
+          ASM:
+            - -D__STARTUP_COPY_MULTIPLE
           Link:
             - -mthumb -fmessage-length=0 -fsigned-char --specs=nano.specs --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
   linker:
-    - script: ../../../../Library/Device/Nuvoton/M2L31/Source/ARM/APROM.sct
+    - script: RMC_ExeInSRAM.sct
       for-compiler: AC6
-    - script: ../../../../Library/Device/Nuvoton/M2L31/Source/GCC/gcc_arm.ld
+    - script: RMC_ExeInSRAM.ld
       for-compiler: GCC
   groups:
     - group: CMSIS

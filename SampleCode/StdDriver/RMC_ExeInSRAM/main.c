@@ -87,10 +87,12 @@ int32_t main(void)
     printf("|      RMC Write/Read code execute in SRAM Sample Code      |\n");
     printf("+-----------------------------------------------------------+\n");
 
+    printf("Check RMC function execution address\n");
+    printf("RMC_Write: 0x%X, RMC_Read: 0x%X\n",
+            (uint32_t)RMC_Write, (uint32_t)RMC_Read);
     /*
        This sample code is used to demonstrate how to implement a code to execute in SRAM.
        By setting scatter loading file (scatter.scf),
-       RO code is placed to 0x20000000 ~ 0x20001fff with RW is placed to 0x20002000 ~ 0x20003fff.
     */
 
     /* Unlock protected registers */

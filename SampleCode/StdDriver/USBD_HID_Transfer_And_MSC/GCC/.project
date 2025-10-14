@@ -50,6 +50,11 @@
 			<locationURI>PARENT-4-PROJECT_LOC/Library/StdDriver/src</locationURI>
 		</link>
 		<link>
+			<name>User/DataFlashProg.c</name>
+			<type>1</type>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/DataFlashProg.c</locationURI>
+		</link>
+		<link>
 			<name>User/descriptors.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/descriptors.c</locationURI>
@@ -76,7 +81,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1722827704678</id>
+			<id>1760453936266</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
@@ -85,7 +90,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1722827704684</id>
+			<id>1760453936282</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
@@ -94,7 +99,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1722827704690</id>
+			<id>1760453936298</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
@@ -103,7 +108,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1722827704695</id>
+			<id>1760453936312</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
@@ -112,7 +117,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1722827704701</id>
+			<id>1760453936328</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
@@ -121,7 +126,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1722827704707</id>
+			<id>1760453936343</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
@@ -130,12 +135,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1722827704713</id>
+			<id>1760453936358</id>
 			<name>Library/Library</name>
 			<type>5</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-gpio.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1760453936372</id>
+			<name>Library/Library</name>
+			<type>5</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-rmc.c</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>

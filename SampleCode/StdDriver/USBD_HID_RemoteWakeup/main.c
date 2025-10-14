@@ -250,6 +250,7 @@ void PowerDown(void)
     PC->INTSRC = PC->INTSRC;
 #endif
 
+    s_u8RemouteWakeup = 0;
     CLK_PowerDown();
 
 #ifdef VBUS_DIVIDER
@@ -277,8 +278,10 @@ void PowerDown(void)
         /* Keep remote wakeup for 1 ms */
         USBD->ATTR |= USBD_ATTR_RWAKEUP_Msk;
         CLK_SysTickDelay(1000); /* Delay 1ms */
-        USBD->ATTR ^= USBD_ATTR_RWAKEUP_Msk;
+        USBD->ATTR ^= USBD_ATTR_RWAKEUP_Msk;     
+        printf("RemoteWakeup\n");
         s_u8RemouteWakeup = 0;
+        g_u8Suspend = 0;
     }
 
     /* Lock protected registers */

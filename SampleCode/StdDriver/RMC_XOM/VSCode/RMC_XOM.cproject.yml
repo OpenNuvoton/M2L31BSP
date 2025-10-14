@@ -49,7 +49,7 @@ project:
   linker:
     - script: ./xom_scatter.sct
       for-compiler: AC6
-    - script: ../../../../Library/Device/Nuvoton/M2L31/Source/GCC/gcc_arm.ld
+    - script: ./xom_scatter.ld
       for-compiler: GCC
   groups:
     - group: CMSIS

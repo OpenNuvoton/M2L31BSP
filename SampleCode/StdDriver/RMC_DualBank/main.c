@@ -234,7 +234,7 @@ void UART0_Init(void)
 
 uint32_t  FuncCrc32(uint32_t u32Start, uint32_t u32Len)
 {
-    uint32_t  crc = CRC_SEED;
+    uint32_t volatile crc = CRC_SEED;
     uint32_t  u32Idx, u32Data32;
     uint8_t   u8Data8;
     int       i;

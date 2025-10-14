@@ -16,7 +16,6 @@
 /*---------------------------------------------------------------------------------------------------------*/
 static volatile uint32_t g_u32IsTamper = FALSE;
 
-void RTC_TAMPER_IRQHandler(void);
 void SYS_Init(void);
 void UART_Init(void);
 

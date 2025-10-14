@@ -19,7 +19,6 @@ project:
           C:
             - -D__MICROLIB
             - -std=c99
-            - -DStack_Size=0x800  # Add Stack_Size definition for AC6 in C
           C-CPP:
             - -fno-rtti
             - -funsigned-char
@@ -32,7 +31,6 @@ project:
           ASM:
             - -masm=auto
             - -D__MICROLIB
-            - -DStack_Size=0x800  # Add Stack_Size definition for AC6 in Assembly
           Link:
             - --library_type=microlib
             - --map
@@ -68,6 +66,7 @@ project:
         - file: ../main.c
         - file: ../descriptors.c
         - file: ../hid_transfer_And_MSC.c
+        - file: ../DataFlashProg.c
     - group: Library
       files:
         - file: ../../../../Library/StdDriver/src/clk.c
@@ -77,3 +76,4 @@ project:
         - file: ../../../../Library/StdDriver/src/timer.c
         - file: ../../../../Library/StdDriver/src/uart.c
         - file: ../../../../Library/StdDriver/src/usbd.c
+        - file: ../../../../Library/StdDriver/src/rmc.c

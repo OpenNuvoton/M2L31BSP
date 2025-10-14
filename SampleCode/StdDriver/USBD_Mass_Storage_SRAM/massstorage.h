@@ -130,16 +130,20 @@ struct CSW
 #endif
 
 /*-------------------------------------------------------------*/
-#define DATA_FLASH_STORAGE_SIZE    (64*1024)   /* Configure the DATA FLASH storage size */
+#define DATA_FLASH_STORAGE_SIZE    (24*1024)   /* Configure the DATA FLASH storage size */
 #define MASS_BUFFER_SIZE    256                /* Mass Storage command buffer size */
 #define STORAGE_BUFFER_SIZE 512                /* Data transfer buffer size in 512 bytes alignment */
 #define UDC_SECTOR_SIZE   512                  /* logic sector size */
 
 extern uint32_t g_au32MassBlock[];
 extern uint32_t g_au32StorageBlock[];
+extern uint32_t g_au32StorageMemory[];
+
+
 
 #define MassCMD_BUF        ((uint32_t)&g_au32MassBlock[0])
-#define STORAGE_DATA_BUF   ((uint32_t)&g_au32StorageBlock[0])
+#define STORAGE_DATA_BUF   ((uint32_t)&g_au32StorageBlock[0])       
+#define STORAGE_MEMORY_BUF ((uint32_t)&g_au32StorageMemory[0])
 
 /*-------------------------------------------------------------*/
 extern uint8_t volatile g_u8Suspend;

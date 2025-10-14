@@ -12,6 +12,7 @@
 #include "NuMicro.h"
 
 #define RELOAD_CONDITION  3
+
 /*---------------------------------------------------------------------------------------------------------*/
 /* Global Interface Variables Declarations                                                                 */
 /*---------------------------------------------------------------------------------------------------------*/
@@ -59,9 +60,9 @@ volatile uint8_t g_u32WWDTINTCounts;
  *
  * @return      None
  *
- * @details     The WDT_IRQHandler is default IRQ of WWDT
+ * @details     The WWDT_IRQHandler is default IRQ of WWDT
  */
-void WDT_IRQHandler(void)
+void WWDT_IRQHandler(void)
 {
     if(WWDT_GET_INT_FLAG() == 1)
     {
@@ -192,7 +193,7 @@ int main(void)
     PA0 = 1;
 
     /* Enable WWDT NVIC */
-    NVIC_EnableIRQ(WDT_IRQn);
+    NVIC_EnableIRQ(WWDT_IRQn);
 
     g_u32WWDTINTCounts = 0;
 

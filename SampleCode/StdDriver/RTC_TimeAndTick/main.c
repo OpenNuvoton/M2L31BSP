@@ -156,16 +156,9 @@ int main(void)
 
             /* Read current RTC date/time */
             RTC_GetDateAndTime(&sReadRTC);
-            if(u8IsNewDateTime == 0)
-            {
-                printf("    %d/%02d/%02d %02d:%02d:%02d\n",
+
+            printf("    %d/%02d/%02d %02d:%02d:%02d\n",
                        sReadRTC.u32Year, sReadRTC.u32Month, sReadRTC.u32Day, sReadRTC.u32Hour, sReadRTC.u32Minute, sReadRTC.u32Second);
-            }
-            else
-            {
-                printf("    %d/%02d/%02d %02d:%02d:%02d\r",
-                       sReadRTC.u32Year, sReadRTC.u32Month, sReadRTC.u32Day, sReadRTC.u32Hour, sReadRTC.u32Minute, sReadRTC.u32Second);
-            }
 
             if(u32Sec == sReadRTC.u32Second)
             {

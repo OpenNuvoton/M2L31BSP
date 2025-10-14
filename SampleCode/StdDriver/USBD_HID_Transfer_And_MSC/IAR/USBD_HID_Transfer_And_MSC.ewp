@@ -1061,6 +1061,9 @@
             <name>$PROJ_DIR$\..\..\..\..\Library\StdDriver\src\retarget.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\..\..\..\..\Library\StdDriver\src\rmc.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\..\..\..\..\Library\StdDriver\src\sys.c</name>
         </file>
         <file>
@@ -1072,6 +1075,9 @@
     </group>
     <group>
         <name>User</name>
+        <file>
+            <name>$PROJ_DIR$\..\DataFlashProg.c</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\descriptors.c</name>
         </file>
