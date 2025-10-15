@@ -5,16 +5,14 @@ solution:
     - compiler: AC6@>=5.19.0
     - compiler: GCC@>=10.3.1
   build-types:
-    - type: debug
-      optimize: debug
     - type: release
       optimize: balanced
   target-types:
     - type: ARMCLANG
       compiler: AC6
-      device: Nuvoton::M2L31SG4AE
+      device: Nuvoton::M2L31KIDAE
     - type: GNUC
       compiler: GCC
-      device: Nuvoton::M2L31SG4AE
+      device: Nuvoton::M2L31KIDAE
   projects:
     - project: BackupApp.cproject.yml

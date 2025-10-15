@@ -174,8 +174,11 @@ int main()
 
         /* Check CPU run at Bank0 or Bank1 */
         s_u32ExecBank = (uint32_t)((RMC->ISPSTS & RMC_ISPSTS_FBS_Msk) >> RMC_ISPSTS_FBS_Pos);
+#ifdef NewApp
+        printf("\n BANK%d APP processing (New firmware)\n", s_u32ExecBank);
+#else
         printf("\n BANK%d APP processing (Active firmware)\n", s_u32ExecBank);
-
+#endif
         /* Execute firmware self test */
         i32Ret = SelfTest();
 

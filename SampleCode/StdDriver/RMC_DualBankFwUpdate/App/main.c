@@ -226,8 +226,12 @@ int main()
         printf("+------------------------+\n");
 
         u32ExecBank = (uint32_t)((RMC->ISPSTS & RMC_ISPSTS_FBS_Msk) >> RMC_ISPSTS_FBS_Pos);
-        printf("\n BANK%d APP processing \n", u32ExecBank);
 
+#ifdef NewApp
+        printf("\n BANK%d APP processing (New Firmware!!!)\n", u32ExecBank);
+#else
+        printf("\n BANK%d APP processing \n", u32ExecBank);
+#endif
 
         printf("\n Download new FW?[y/n]\n");
         u32ch = (uint32_t)getchar();
