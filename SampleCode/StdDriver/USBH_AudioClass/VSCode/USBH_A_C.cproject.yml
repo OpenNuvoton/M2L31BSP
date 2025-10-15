@@ -18,8 +18,6 @@ project:
           C:
             - -D__MICROLIB
             - -std=c99
-            - -DStack_Size=0x800  # Add Stack_Size definition for AC6 in C
-            - -DHeap_Size=0x4000  # Add Heap_Size definition for AC6 in C
           C-CPP:
             - -fno-rtti
             - -funsigned-char
@@ -32,8 +30,6 @@ project:
           ASM:
             - -masm=auto
             - -D__MICROLIB
-            - -DStack_Size=0x800  # Add Stack_Size definition for AC6 in Assembly
-            - -DHeap_Size=0x4000  # Add Heap_Size definition for AC6 in Assembly
           Link:
             - --library_type=microlib
             - --map
@@ -52,7 +48,7 @@ project:
             - -mthumb -fmessage-length=0 -fsigned-char --specs=nano.specs --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
   linker:
-    - script: ../../../../Library/Device/Nuvoton/M2L31/Source/ARM/APROM.sct
+    - script: ./USBH_A_C.sct
       for-compiler: AC6
     - script: ../../../../Library/Device/Nuvoton/M2L31/Source/GCC/gcc_arm.ld
       for-compiler: GCC
