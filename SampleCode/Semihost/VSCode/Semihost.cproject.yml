@@ -42,6 +42,7 @@ project:
             - --strict
             - --summary_stderr
             - --info summarysizes
+            - --diag_suppress=6314
         - for-compiler: GCC
           C:
             - -std=gnu11 -mthumb -masm-syntax-unified -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -specs=rdimon.specs -lc -lrdimon
@@ -51,11 +52,6 @@ project:
             - -specs=rdimon.specs
             - -lc
             - -lrdimon
-  linker:
-    - script: ../../../Library/Device/Nuvoton/M2L31/Source/ARM/APROM.sct
-      for-compiler: AC6
-    - script: ../../../Library/Device/Nuvoton/M2L31/Source/GCC/gcc_arm.ld
-      for-compiler: GCC
   groups:
     - group: CMSIS
       files:
