@@ -13,7 +13,9 @@ project:
         - -Xlinker
         - --gc-sections
         - --specs=nano.specs
+        - --specs=nosys.specs
         - -Wl,-Map,"$OutDir()$/$Project$.map"
+        - -Wl,--no-warn-rwx-segments
   setups:
     - output:
         type: ["elf", "bin"]
