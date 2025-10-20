@@ -241,12 +241,12 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
     if(pdo_idx <= pd_src_pdo_cnt)
     {   //SPR
         pdo_idx = pdo_idx - 1;
-        if( (pd_src_pdo[pdo_idx] & PDO_TYPE_MASK) == PDO_TYPE_FIXED)
+        if( (uint32_t)(pd_src_pdo[pdo_idx] & (uint32_t)PDO_TYPE_MASK) == (uint32_t)PDO_TYPE_FIXED)
         {   //FIXED
             *u32volt = PDO_FIXED_GET_VOLT(pd_src_pdo[pdo_idx]);
             *u32curr = PDO_FIXED_GET_CURR(pd_src_pdo[pdo_idx]);
         }
-        else if( (pd_src_pdo[pdo_idx] & PDO_TYPE_MASK) == PDO_TYPE_AUGMENTED)
+        else if( (uint32_t)(pd_src_pdo[pdo_idx] & (uint32_t)PDO_TYPE_MASK) == (uint32_t)PDO_TYPE_AUGMENTED)
         {   //PPS
             pd_get_adjoutput_voltage_current(port, &pdopos, u32volt, u32curr);
         }
@@ -302,7 +302,7 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
  *
  */
 extern void vbus_discharge(int enable);
-static bool bIsConnection = FALSE;
+//static bool bIsConnection = FALSE;
 static uint32_t u32RecVolt = 0;
 extern void VBUS_Source_Level(int port, char i8Level);
 void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
@@ -319,11 +319,11 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
         printf("VBUS DISG E\n");
         vbus_discharge(0);	//Turn Off the power path to stop discharge
     }
-    else if(event == UTCPD_PD_TC_PD_DISCONNECTION)
-    {
-        u32RecVolt = 0; 						/* Disconnection --> VBUS to zero */
-        bIsConnection = FALSE;
-    }
+//    else if(event == UTCPD_PD_TC_PD_DISCONNECTION)
+//    {
+//        u32RecVolt = 0; 						/* Disconnection --> VBUS to zero */
+//        bIsConnection = FALSE;
+//    }
     else if(event == UTCPD_PD_ACCEPT_REQUEST_PDO)
     {   /* Inform Upper layer to Provide the Power of Requested PDO */
         uint32_t u32volt, u32curr;

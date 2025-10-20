@@ -187,23 +187,21 @@ volatile uint32_t gu32TimeBase = 0;
   * @details     The Timer0 default IRQ.
   *              Software Timer base for PD check time our mechanism
   **/
-static volatile bool bTask = 0; 
+static volatile bool bTask = 0;
 static volatile uint32_t pd_vbus_transition_tick = 0;
 void charger_discharge(int enable);
 void TMR0_IRQHandler(void)
 {
-		int port = 0;
-	
-    gu32TimeBase = gu32TimeBase + 1;    
-	  UTCPD_TimerBaseInc();
-		
-		if(pd_vbus_transition_tick != 0)
-		{/* VBUS Discharge if VBUS from High Level to Low Level */
-				pd_vbus_transition_tick -= 1;
-				if(pd_vbus_transition_tick == 0)
-						charger_discharge(0);		/* Stop VBUS Discharge */
-		}
-	
+    gu32TimeBase = gu32TimeBase + 1;
+    UTCPD_TimerBaseInc();
+
+    if(pd_vbus_transition_tick != 0)
+    {   /* VBUS Discharge if VBUS from High Level to Low Level */
+        pd_vbus_transition_tick -= 1;
+        if(pd_vbus_transition_tick == 0)
+            charger_discharge(0);		/* Stop VBUS Discharge */
+    }
+
     /* clear timer interrupt flag */
     TIMER_ClearIntFlag(TIMER0);
 }
@@ -228,9 +226,9 @@ void TMR1_IRQHandler(void)
 }
 
 /**
-  *	To get requested PDO's information then to set the power circuit. 
-	* If the requested PDO is Fixed PDO, user will parsing the pd_src_pdo[] array bases on request PDO index. 
-  * If the requested PDO is PPS PDO, user should call API pd_get_adjoutput_voltage_current() to get the requested information.  
+  *	To get requested PDO's information then to set the power circuit.
+	* If the requested PDO is Fixed PDO, user will parsing the pd_src_pdo[] array bases on request PDO index.
+  * If the requested PDO is PPS PDO, user should call API pd_get_adjoutput_voltage_current() to get the requested information.
   **/
 void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint32_t* u32curr)
 {
@@ -238,17 +236,17 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
     if(pdo_idx <= pd_src_pdo_cnt)
     {   //SPR
         pdo_idx = pdo_idx - 1;
-        if( (pd_src_pdo[pdo_idx] & PDO_TYPE_MASK) == PDO_TYPE_FIXED)
+        if( (uint32_t)(pd_src_pdo[pdo_idx] & (uint32_t)PDO_TYPE_MASK) == (uint32_t)PDO_TYPE_FIXED)
         {   //FIXED
             *u32volt = PDO_FIXED_GET_VOLT(pd_src_pdo[pdo_idx]);
             *u32curr = PDO_FIXED_GET_CURR(pd_src_pdo[pdo_idx]);
         }
-        else if( (pd_src_pdo[pdo_idx] & PDO_TYPE_MASK) == PDO_TYPE_AUGMENTED)
+        else if( (uint32_t)(pd_src_pdo[pdo_idx] & (uint32_t)PDO_TYPE_MASK) == (uint32_t)PDO_TYPE_AUGMENTED)
         {   //PPS
             pd_get_adjoutput_voltage_current(port, &pdopos, u32volt, u32curr);
         }
     }
-#if 0 /* M2L31 didn't support EPR */		
+#if 0 /* M2L31 didn't support EPR */
     else if(pdo_idx >= 8 )
     {   //EPR
         pdo_idx = pdo_idx - 8;
@@ -268,11 +266,31 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
 /**
  * @brief       UUTCPD Callback Function
  *
- * @param       event: UUTCPD_PD_ATTACHED = 0,           : Port partner attached or disattached
- *                     UUTCPD_PD_CONTRACT = 1,           : PD contract established
+ * @param       event: UUTCPD_PD_ATTACHED = 0,                 : Port partner attached or disattached
+ *                     UUTCPD_PD_CONTRACT = 1,                 : PD contract established
+ *                     UTCPD_PD_SNK_VOLTAGE = 2,               : SNK Role Contract voltage
+ *                     UTCPD_PD_CABLE_MAX_POWER = 3,           : M2L31 Didn't Support. NPD48: Cable Max Voltage and Max Current : ((max_vol<<16) | max_curr)
+ *                     UTCPD_PD_VCONN_DISCHARGE = 4,           : M2L31/NPD48 Didn't Support. To do VCONN Discharge
+ *                     UTCPD_PD_PS_TRANSITION = 5,             : M2L31 Didn't Support. NPD48: To Disable VIN OVP/UVP, RDO IDX
+ *                     UTCPD_PD_PS_READY = 6,                  : M2L31 Didn't Support. NPD48: To Enable VIN OVP/UVP
+ *                     UTCPD_PD_VIN_DISCHARGE_DONE = 7,        : M2L31 Didn't Support. NPD48: Inform Upper Layer VIN Discharge Done,
+ *                     UTCPD_PD_ACCEPT_REQUEST_PDO = 8,        : M2L31/NPD48 Inform Upper Layer to Provide the Requested PDO
+ *                     UTCPD_PD_VIN_DISCHAGE = 9,              : M2L31/NPD48 Didn't Support.
+ *                     UTCPD_PD_RECEIVE_HR = 10,               : M2L31 Didn't Support. NPD48: PD Receive Hard Reset
  *
- *              op: 0 = event flag set
- *                  1 = event flag clear
+ *                     UTCPD_PD_VBUS_DISCHARGE_START = 0x20,   : VBUS Discharge Start
+ *                     UTCPD_PD_VBUS_DISCHARGE_STOP = 0x21,    : VBUS Discharge End
+ *                     UTCPD_PD_TC_ASSERT_RD = 0x22,           : Assert Rd
+ *                     UTCPD_PD_TC_PD_DISCONNECTION = 0x23,    : Deattached
+ *                     UTCPD_PD_SRC_TC_PD_CONNECTION = 0x24,   : Acts As SRC Role
+ *                     UTCPD_PD_SNK_TC_PD_CONNECTION = 0x25,   : Acts As SNK Role
+ *                     UTCPD_PD_GET_BATTERY_CAP = 0x26         : GET_BAT_CAP Message From Port Partner
+ *                     UTCPD_PD_GET_BATTERY_STATUS = 0x27,     : GET_BAT_STATUS Message From Port Partner
+ *                     UTCPD_PD_SNK_REC_SOURCE_CAP = 0x28,     : SNK Role Receive SOURCE_CAP Message From Port Partner
+ *                     UTCPD_PD_SNK_REC_ACCEPT = 0x29,         : SNK Role Receive ACCEPT Message From Port Partner
+ *                     UTCPD_PD_SRC_SEND_ACCEPT = 0x2A,        : SRC Role Send ACCEPT Message to Accept Power Negotiation
+ *              op:    event flag set/clear or the 2nd parameter
+ *
  * @return      None
  *
  * @details     None
@@ -282,7 +300,7 @@ extern uint8_t battery_capabilities[];
 extern const uint8_t battery_capabilities_rom[];
 extern uint32_t battery_status[];
 static bool bIsConnection = FALSE;
-static uint32_t u32RecVolt = 0; 
+static uint32_t u32RecVolt = 0;
 extern void VBUS_Source_Level(int port, char i8Level);
 void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
 {
@@ -296,14 +314,14 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
     {
         charger_discharge(0);	//Turn Off the power path to stop discharge
     }
-    else if(event == UTCPD_PD_SRC_TC_PD_CONNECTION)
-    {   /* Enable Gate Driver */
-        bIsConnection = TRUE;
-//				void rt9492_enable_hw_ctrl_gatedrive(int chgnum);
+//    else if(event == UTCPD_PD_SRC_TC_PD_CONNECTION)
+//    {   /* Enable Gate Driver */
+//        bIsConnection = TRUE;
+//        void rt9492_enable_hw_ctrl_gatedrive(int chgnum);
 //        rt9492_enable_hw_ctrl_gatedrive(0);
-//				void rt9492_turnon_gatedrive(int chgnum);
-//				rt9492_turnon_gatedrive(0);
-    }
+//	  void rt9492_turnon_gatedrive(int chgnum);
+//	  rt9492_turnon_gatedrive(0);
+//    }
     else if (event == UTCPD_PD_TC_ASSERT_RD)
     {
         void rt9492_disable_hw_ctrl_gatedrive(int chgnum);
@@ -320,7 +338,7 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
     }
     else if(event == UTCPD_PD_TC_PD_DISCONNECTION)
     {
-				u32RecVolt = 0; 						/* Disconnection --> VBUS to zero */
+        u32RecVolt = 0; 						/* Disconnection --> VBUS to zero */
         bIsConnection = FALSE;
         void rt9492_disable_hw_ctrl_gatedrive(int chgnum);
         rt9492_disable_hw_ctrl_gatedrive(0);
@@ -344,9 +362,9 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
             battery_capabilities[6] = battery_capabilities[7] = 0x00;  /* Battery Not Present */
             battery_capabilities[8] = 0x1;  /* Invalid */
         }
-				/**
-          * PD Library will base on battery_capabilities to build BCDB
-          **/
+        /**
+        * PD Library will base on battery_capabilities to build BCDB
+        **/
         pd_set_battery_capabilities(port, battery_capabilities);
     }
     else if(event == UTCPD_PD_GET_BATTERY_STATUS)
@@ -396,26 +414,26 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
 #define LargeCap_Q3									PA9			//LargeCap_Q3(NMOS_Q3) control the Large Cap on Vbus. Set 0 to turn OFF
         LargeCap_Q3 = 1;
     }
-		else if(event == UTCPD_PD_PS_READY)
+    else if(event == UTCPD_PD_PS_READY)
     {   /* To Enable VIN OVP/UVP */
-				
+
     }
     else if(event == UTCPD_PD_VIN_DISCHARGE_DONE)
-    {   
-			
+    {
+
     }
     else if(event == UTCPD_PD_ACCEPT_REQUEST_PDO)
     {   /* Inform Upper layer to Provide the Power of Requested PDO */
         uint32_t u32volt, u32curr;
         uint32_t pdo_idx = op;
         pd_get_request_pdo_info(port, op, &u32volt, &u32curr);
-			  if (u32RecVolt > u32volt)
-				{/* Start up VBUS discharge */
-				    charger_discharge(1);
-						pd_vbus_transition_tick = 100;  /* Start up VBUS Discharge 100ms */ 
-				}
-				u32RecVolt = 	u32volt; 
-				VBUS_Source_Level(port, pdo_idx);
+        if (u32RecVolt > u32volt)
+        {   /* Start up VBUS discharge */
+            charger_discharge(1);
+            pd_vbus_transition_tick = 100;  /* Start up VBUS Discharge 100ms */
+        }
+        u32RecVolt = 	u32volt;
+        VBUS_Source_Level(port, pdo_idx);
     }
 }
 
@@ -450,34 +468,37 @@ void pd_task(void)
 
 
         while (1)
-				//while(bTask == TRUE)
+            //while(bTask == TRUE)
         {
-						static int u32taskTick = 0; 
-						int ret = 0;
-						if( u32taskTick != gu32TimeBase)
-						{	
-								u32taskTick = gu32TimeBase;
-								ret = pd_task_loop(port);
-								if(ret != true)
-										break; 
-						}
-						/* User Tasks:
-             * Please separate User Tasks code piece by piece.
-             * Suggestion not to over 100us for every piece code.
-             * pd_task_loop() needs to be called every 1ms
-             */
-					
-					
+            static int u32taskTick = 0;
+            int ret = 0;
+            if( u32taskTick != gu32TimeBase)
+            {
+                u32taskTick = gu32TimeBase;
+                ret = pd_task_loop(port);
+                if(ret != true)
+                    break;
+            }
+            /* User Tasks:
+            * Please separate User Tasks code piece by piece.
+            * Suggestion not to over 100us for every piece code.
+            * pd_task_loop() needs to be called every 1ms
+            */
+
+
 #if (CONFIG_COMMAND_SHELL == 1)
             UART_Commandshell(port);
 #endif
 
-//            if( (bIsConnection == TRUE) && ((pd_get_tick() % 10) == 0))
-//            {
+            if( (bIsConnection == TRUE) && ((pd_get_tick() % 10) == 0))
+            {
 //                void vbus_ocp_polling(int port);
 //                if (pd_get_power_role(port) == PD_ROLE_SOURCE)
 //                    vbus_ocp_polling(port);
-//            }
+                if((pd_get_tick() % 1000) == 0) 
+                    if(bIsConnection == TRUE)
+                        printf("Connect\n");                        
+            }
             continue;
         }
     }
@@ -509,10 +530,10 @@ void UTCPD_Init(int port)
     UTCPD_vbus_discharge_polarity_active_high(port);
 
     UTCPD_vbus_snken_polarity_active_high(port);
-		
-		/* VCONN Power Enable Active Low */
+
+    /* VCONN Power Enable Active Low */
     UTCPD_vconn_polarity_active_low(port);
-		
+
     /** Due to board connect Vref pin to AVDD33
       * Set reference voltage to external pin
       * Sink disconnection threshold base on 1/10 voltage
@@ -526,8 +547,8 @@ void UTCPD_Init(int port)
 
     /* Set 32*3.2226*10 = 1032mV to stop discharge */
     UTCPD_SetStopDischargeVolt(port, 0x20);
-		
-		NVIC_EnableIRQ(UTCPD_IRQn);
+
+    NVIC_EnableIRQ(UTCPD_IRQn);
 }
 
 void I2C0_Init(void)
@@ -604,16 +625,16 @@ int main()
     ACMP_Init();
 #endif
 
-   
+
     //void ina219_Init();
     //ina219_Init();
-		
-    printf("Init start\n");  
-		rt9492_init();
-		printf("Init done\n");  
-	
-		rt9492_read_vbat(0);
-		
+
+    printf("Init start\n");
+    rt9492_init();
+    printf("Init done\n");
+
+    rt9492_read_vbat(0);
+
 #if 0
     void VBUS_Source_Level_Item(int port);
     VBUS_Source_Level_Item(0);

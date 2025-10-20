@@ -820,7 +820,7 @@ enum pd_eprmdo_action {
 	PD_EPRMDO_ACTION_ENTER_FAILED = 0x04,
 	PD_EPRMDO_ACTION_EXIT = 0x05,
 	/* 0x06 ... 0xFF: Reserved */
-} __packed;
+}; //__packed; /* 20251020 */
 //BUILD_ASSERT(sizeof(enum pd_eprmdo_action) == 1);
 
 enum pd_eprmdo_enter_failed_data {
@@ -830,7 +830,7 @@ enum pd_eprmdo_enter_failed_data {
 	PD_EPRMDO_ENTER_FAILED_DATA_RDO = 0x03,
 	PD_EPRMDO_ENTER_FAILED_DATA_UNABLE = 0x04,
 	PD_EPRMDO_ENTER_FAILED_DATA_PDO = 0x05,
-} __packed;
+}; //__packed;  /* 20251020 */
 //BUILD_ASSERT(sizeof(enum pd_eprmdo_enter_failed_data) == 1);
 
 struct eprmdo {
@@ -850,7 +850,7 @@ enum pd_ext_ctrl_msg_type {
 	PD_EXT_CTRL_EPR_KEEPALIVE = 3,
 	PD_EXT_CTRL_EPR_KEEPALIVE_ACK = 4,
 	/* 5-255: Reserved */
-} __packed;
+}; //__packed;  /* 20251020 */
 //BUILD_ASSERT(sizeof(enum pd_ext_ctrl_msg_type) == 1);
 
 /* Extended Control Data Block (ECDB) */
