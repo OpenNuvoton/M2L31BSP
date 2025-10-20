@@ -32,11 +32,11 @@
                 </option>
                 <option>
                     <name>Input description</name>
-                    <state>Automatic choice of formatter, without multibyte support.</state>
+                    <state>No specifier n, no float nor long long, no scan set, no assignment suppressing, with multibyte support.</state>
                 </option>
                 <option>
                     <name>Output description</name>
-                    <state>Automatic choice of formatter, without multibyte support.</state>
+                    <state>No specifier a, A, no specifier n, no float nor long long, no flags, without multibyte support.</state>
                 </option>
                 <option>
                     <name>GOutputBinary</name>
@@ -62,11 +62,11 @@
                 </option>
                 <option>
                     <name>OGProductVersion</name>
-                    <state>7.80.2.11970</state>
+                    <state>5.50.0.51907</state>
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>8.42.1.23678</state>
+                    <state>8.32.1.18618</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -116,8 +116,8 @@
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
-                    <version>28</version>
-                    <state>39</state>
+                    <version>26</version>
+                    <state>58</state>
                 </option>
                 <option>
                     <name>OGUseCmsis</name>
@@ -133,8 +133,8 @@
                 </option>
                 <option>
                     <name>CoreVariant</name>
-                    <version>28</version>
-                    <state>39</state>
+                    <version>26</version>
+                    <state>58</state>
                 </option>
                 <option>
                     <name>GFPUDeviceSlave</name>
@@ -143,12 +143,12 @@
                 <option>
                     <name>FPU2</name>
                     <version>0</version>
-                    <state>4</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>NrRegs</name>
                     <version>0</version>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>NEON</name>
@@ -156,8 +156,8 @@
                 </option>
                 <option>
                     <name>GFPUCoreSlave2</name>
-                    <version>28</version>
-                    <state>39</state>
+                    <version>26</version>
+                    <state>58</state>
                 </option>
                 <option>
                     <name>OGCMSISPackSelectDevice</name>
@@ -173,7 +173,7 @@
                 <option>
                     <name>OGPrintfVariant</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>4</state>
                 </option>
                 <option>
                     <name>OGPrintfMultibyteSupport</name>
@@ -182,11 +182,11 @@
                 <option>
                     <name>OGScanfVariant</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>3</state>
                 </option>
                 <option>
                     <name>OGScanfMultibyteSupport</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>GenLocaleTags</name>
@@ -198,7 +198,7 @@
                 </option>
                 <option>
                     <name>DSPExtension</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>TrustZone</name>
@@ -207,7 +207,7 @@
                 <option>
                     <name>TrustZoneModes</name>
                     <version>0</version>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
             </data>
         </settings>
@@ -215,12 +215,16 @@
             <name>ICCARM</name>
             <archiveVersion>2</archiveVersion>
             <data>
-                <version>36</version>
+                <version>35</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
+                    <name>CCOptimizationNoSizeConstraints</name>
+                    <state>0</state>
+                </option>
+                <option>
                     <name>CCDefines</name>
-                    <state>NDEBUG</state>
+                    <state></state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -281,7 +285,7 @@
                 <option>
                     <name>CCAllowList</name>
                     <version>1</version>
-                    <state>11111110</state>
+                    <state>10010100</state>
                 </option>
                 <option>
                     <name>CCDebugInfo</name>
@@ -365,7 +369,7 @@
                 </option>
                 <option>
                     <name>CCOptLevel</name>
-                    <state>3</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>CCOptStrategy</name>
@@ -374,7 +378,7 @@
                 </option>
                 <option>
                     <name>CCOptLevelSlave</name>
-                    <state>3</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>CompilerMisraRules98</name>
@@ -416,7 +420,7 @@
                 </option>
                 <option>
                     <name>IccCppInlineSemantics</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IccCmsis</name>
@@ -424,10 +428,6 @@
                 </option>
                 <option>
                     <name>IccFloatSemantics</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>CCOptimizationNoSizeConstraints</name>
                     <state>0</state>
                 </option>
                 <option>
@@ -470,10 +470,6 @@
                 <option>
                     <name>OICompilerExtraOption</name>
                     <state>1</state>
-                </option>
-                <option>
-                    <name>CCStackProtection</name>
-                    <state>0</state>
                 </option>
             </data>
         </settings>
@@ -523,7 +519,7 @@
                 </option>
                 <option>
                     <name>ADebug</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>AltRegisterNames</name>
@@ -653,7 +649,7 @@
                 </option>
                 <option>
                     <name>OCOutputOverride</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
@@ -695,7 +691,7 @@
             <name>ILINK</name>
             <archiveVersion>0</archiveVersion>
             <data>
-                <version>23</version>
+                <version>22</version>
                 <wantNonLocal>1</wantNonLocal>
                 <debug>0</debug>
                 <option>
@@ -1015,22 +1011,6 @@
                     <name>OILinkExtraOption</name>
                     <state>1</state>
                 </option>
-                <option>
-                    <name>IlinkRawBinaryFile2</name>
-                    <state></state>
-                </option>
-                <option>
-                    <name>IlinkRawBinarySymbol2</name>
-                    <state></state>
-                </option>
-                <option>
-                    <name>IlinkRawBinarySegment2</name>
-                    <state></state>
-                </option>
-                <option>
-                    <name>IlinkRawBinaryAlign2</name>
-                    <state></state>
-                </option>
             </data>
         </settings>
         <settings>
@@ -1094,6 +1074,9 @@
         <name>User</name>
         <file>
             <name>$PROJ_DIR$\..\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\..\..\..\..\Library\NuMaker\common\xmodem.c</name>
         </file>
     </group>
 </project>
