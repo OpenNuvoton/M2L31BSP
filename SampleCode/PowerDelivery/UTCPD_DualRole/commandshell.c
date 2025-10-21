@@ -187,7 +187,7 @@ int32_t ParsingCommand(void)
     uint8_t nIdx = 0;
     uint8_t u8InChar = 0xFF;
     //pop char from buffer with "g_u32comRhead" pointer */
-    volatile uint32_t tmp;
+    uint32_t tmp;
     tmp = g_u32comRtail;
 
     printf("\n");

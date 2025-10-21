@@ -168,14 +168,14 @@ static int _i2c_write16(int slaveaddr, int reg, int val)
     return ret;
 }
 
-static enum ec_error_list rt9490_read8(int chgnum, int reg, int *val)
+//static enum ec_error_list rt9490_read8(int chgnum, int reg, int *val)
+static int rt9490_read8(int chgnum, int reg, int *val)
 {
-    int reg_val;
-
     return _i2c_read8(chg_chips[chgnum].i2c_addr_flags, reg, val);
 }
 
-static enum ec_error_list rt9490_write8(int chgnum, int reg, int val)
+//static enum ec_error_list rt9490_write8(int chgnum, int reg, int val)
+static int rt9490_write8(int chgnum, int reg, int val)
 {
     return _i2c_write8(chg_chips[chgnum].i2c_addr_flags, reg, val);
 }
@@ -187,7 +187,8 @@ uint16_t be16toh(uint16_t val)
     return 	swapval;
 }
 
-static enum ec_error_list rt9490_read16(int chgnum, int reg, int* val)
+//static enum ec_error_list rt9490_read16(int chgnum, int reg, int* val)
+static int rt9490_read16(int chgnum, int reg, int* val)
 {
     int reg_val;
 
@@ -204,7 +205,8 @@ uint16_t htobe16(uint16_t val)
     return swapval;
 }
 
-static enum ec_error_list rt9490_write16(int chgnum, int reg, int val)
+//static enum ec_error_list rt9490_write16(int chgnum, int reg, int val)
+static int rt9490_write16(int chgnum, int reg, int val)
 {
 #if 1
     int reg_val = htobe16(val);
@@ -276,7 +278,6 @@ static inline int rt9490_clr_bit(int chgnum, int reg, int mask)
 /* Enable ADC: set bit0 of CTRL3 = 1 */
 static void rt9492_enable_adc(int chgnum)
 {
-    uint8_t val;
     rt9490_set_bit(chgnum, RT9490_REG_ADC_CTRL, RT9490_ADC_EN);
 }
 
@@ -291,7 +292,8 @@ static const struct charger_info *rt9490_get_info(int chgnum)
     return &rt9490_charger_info;
 }
 
-static enum ec_error_list rt9490_get_current(int chgnum, int *current)
+//static enum ec_error_list rt9490_get_current(int chgnum, int *current)
+static int rt9490_get_current(int chgnum, int *current)
 {
     int val = 0;
     const struct charger_info *const info = rt9490_get_info(chgnum);
@@ -429,7 +431,8 @@ void rt9492_dump_register(void)//dump all register
 
 /* Clone from MB-Brian }*/
 
-static enum ec_error_list rt9490_set_current(int chgnum, int current)
+//static enum ec_error_list rt9490_set_current(int chgnum, int current)
+static int rt9490_set_current(int chgnum, int current)
 {
     uint16_t reg_ichg;
     const struct charger_info *const info = rt9490_get_info(chgnum);
@@ -447,7 +450,8 @@ static enum ec_error_list rt9490_set_current(int chgnum, int current)
     return rt9490_write16(chgnum, RT9490_REG_ICHG_CTRL, reg_ichg);
 }
 
-static enum ec_error_list rt9490_get_voltage(int chgnum, int *voltage)
+//static enum ec_error_list rt9490_get_voltage(int chgnum, int *voltage)
+static int rt9490_get_voltage(int chgnum, int *voltage)
 {
     int val = 0;
     const struct charger_info *const info = rt9490_get_info(chgnum);
@@ -461,7 +465,8 @@ static enum ec_error_list rt9490_get_voltage(int chgnum, int *voltage)
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_set_voltage(int chgnum, int voltage)
+//static enum ec_error_list rt9490_set_voltage(int chgnum, int voltage)
+static int rt9490_set_voltage(int chgnum, int voltage)
 {
     int reg_cv;
     const struct charger_info *const info = rt9490_get_info(chgnum);
@@ -477,9 +482,10 @@ static enum ec_error_list rt9490_set_voltage(int chgnum, int voltage)
 }
 
 #ifdef CONFIG_CHARGER_OTG
-static enum ec_error_list rt9490_enable_otg_power(int chgnum, int enabled)
+//static enum ec_error_list rt9490_enable_otg_power(int chgnum, int enabled)
+static int rt9490_enable_otg_power(int chgnum, int enabled)
 {
-    int32_t ret;
+    int ret;
 
     /* Disable Charger Mode */
 //	rt9492_read_byte(RT9492_REG0F, &rt9492_reg[RT9492_REG0F*2]);
@@ -510,7 +516,10 @@ static enum ec_error_list rt9490_enable_otg_power(int chgnum, int enabled)
     return ret;
 }
 
-enum ec_error_list rt9490_set_otg_current_voltage(int chgnum,
+//enum ec_error_list rt9490_set_otg_current_voltage(int chgnum,
+//        int output_current,
+//        int output_voltage)
+int rt9490_set_otg_current_voltage(int chgnum,
         int output_current,
         int output_voltage)
 {
@@ -602,13 +611,13 @@ static int rt9490_reset_chip(int chgnum)
 
     return rt9490_set_bit(chgnum, RT9490_REG_EOC_CTRL, RT9490_RST_ALL_MASK);
 }
-
+#if 0
 static inline int rt9490_enable_chgdet_flow(int chgnum, bool en)
 {
     return rt9490_update8(chgnum, RT9490_REG_CHG_CTRL2, RT9490_BC12_EN,
                           en ? MASK_SET : MASK_CLR);
 }
-
+#endif
 //static inline int rt9490_enable_wdt(int chgnum, bool en)
 int rt9490_enable_wdt(int chgnum, bool en)
 {
@@ -617,7 +626,7 @@ int rt9490_enable_wdt(int chgnum, bool en)
     return rt9490_field_update8(chgnum, RT9490_REG_CHG_CTRL1,
                                 RT9490_WATCHDOG_MASK, val);
 }
-
+#if 0
 static inline int rt9490_set_mivr(int chgnum, unsigned int mivr)
 {
     uint8_t reg_mivr = mivr / RT9490_MIVR_STEP;
@@ -638,13 +647,13 @@ static inline int rt9490_enable_jeita(int chgnum, bool en)
     return rt9490_update8(chgnum, RT9490_REG_JEITA_CTRL1, RT9490_JEITA_DIS,
                           en ? MASK_CLR : MASK_SET);
 }
-
+#endif
 int rt9490_enable_adc(int chgnum, bool en)
 {
     return rt9490_update8(chgnum, RT9490_REG_ADC_CTRL, RT9490_ADC_EN,
                           en ? MASK_SET : MASK_CLR);
 }
-
+#if 0
 static int rt9490_set_iprec(int chgnum, unsigned int iprec)
 {
     uint8_t reg_iprec = iprec / RT9490_IPRE_CHG_STEP;
@@ -653,8 +662,7 @@ static int rt9490_set_iprec(int chgnum, unsigned int iprec)
                                 RT9490_IPRE_CHG_MASK,
                                 reg_iprec << RT9490_IPREC_SHIFT);
 }
-static void dump_range(int chgnum, int from, int to);
-
+#endif
 
 /**
 	* Disable H/W or MCU to Control ACDRV1 and ACDRV2
@@ -808,7 +816,8 @@ static void rt9490_init(int chgnum)
     CPRINTS("init%d %s(%d)", chgnum, ret ? "fail" : "good", ret);
 }
 
-static enum ec_error_list rt9490_get_status(int chgnum, int *status)
+//static enum ec_error_list rt9490_get_status(int chgnum, int *status)
+static int rt9490_get_status(int chgnum, int *status)
 {
     int val = 0;
 
@@ -849,7 +858,8 @@ static int rt9490_reset_to_zero(int chgnum)
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_set_mode(int chgnum, int mode)
+//static enum ec_error_list rt9490_set_mode(int chgnum, int mode)
+static int rt9490_set_mode(int chgnum, int mode)
 {
     if (mode & CHARGE_FLAG_POR_RESET)
         RETURN_ERROR(rt9490_reset_chip(chgnum));
@@ -858,7 +868,8 @@ static enum ec_error_list rt9490_set_mode(int chgnum, int mode)
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_get_actual_current(int chgnum, int *current)
+//static enum ec_error_list rt9490_get_actual_current(int chgnum, int *current)
+static int rt9490_get_actual_current(int chgnum, int *current)
 {
     int reg_val;
 
@@ -867,7 +878,8 @@ static enum ec_error_list rt9490_get_actual_current(int chgnum, int *current)
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_get_actual_voltage(int chgnum, int *voltage)
+//static enum ec_error_list rt9490_get_actual_voltage(int chgnum, int *voltage)
+static int rt9490_get_actual_voltage(int chgnum, int *voltage)
 {
     int reg_val;
 
@@ -876,12 +888,15 @@ static enum ec_error_list rt9490_get_actual_voltage(int chgnum, int *voltage)
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_discharge_on_ac(int chgnum, int enable)
+//static enum ec_error_list rt9490_discharge_on_ac(int chgnum, int enable)
+static int rt9490_discharge_on_ac(int chgnum, int enable)
 {
     return rt9490_enable_hz(chgnum, enable);
 }
 
-static enum ec_error_list rt9490_get_vbus_voltage(int chgnum, int port,
+//static enum ec_error_list rt9490_get_vbus_voltage(int chgnum, int port,
+//        int *voltage)
+static int rt9490_get_vbus_voltage(int chgnum, int port,
         int *voltage)
 {
     int reg_val;
@@ -891,7 +906,9 @@ static enum ec_error_list rt9490_get_vbus_voltage(int chgnum, int port,
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_set_input_current_limit(int chgnum,
+//static enum ec_error_list rt9490_set_input_current_limit(int chgnum,
+//        int input_current)
+static int rt9490_set_input_current_limit(int chgnum,
         int input_current)
 {
     int reg_val;
@@ -901,7 +918,9 @@ static enum ec_error_list rt9490_set_input_current_limit(int chgnum,
     return rt9490_write16(chgnum, RT9490_REG_AICR_CTRL, reg_val);
 }
 
-static enum ec_error_list rt9490_get_input_current_limit(int chgnum,
+//static enum ec_error_list rt9490_get_input_current_limit(int chgnum,
+//        int *input_current)
+static int rt9490_get_input_current_limit(int chgnum,
         int *input_current)
 {
     int val = 0;
@@ -913,7 +932,9 @@ static enum ec_error_list rt9490_get_input_current_limit(int chgnum,
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_get_input_current(int chgnum,
+//static enum ec_error_list rt9490_get_input_current(int chgnum,
+//        int *input_current)
+static int rt9490_get_input_current(int chgnum,
         int *input_current)
 {
     int reg_val;
@@ -924,7 +945,8 @@ static enum ec_error_list rt9490_get_input_current(int chgnum,
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_device_id(int chgnum, int *id)
+//static enum ec_error_list rt9490_device_id(int chgnum, int *id)
+static int rt9490_device_id(int chgnum, int *id)
 {
     RETURN_ERROR(rt9490_read8(chgnum, RT9490_REG_DEVICE_INFO, id));
     *id &= RT9490_DEVICE_INFO_MASK;
@@ -932,7 +954,8 @@ static enum ec_error_list rt9490_device_id(int chgnum, int *id)
 }
 
 #ifdef CONFIG_CHARGE_RAMP_HW
-static enum ec_error_list rt9490_set_hw_ramp(int chgnum, int enable)
+//static enum ec_error_list rt9490_set_hw_ramp(int chgnum, int enable)
+static int rt9490_set_hw_ramp(int chgnum, int enable)
 {
     if (enable) {
         RETURN_ERROR(rt9490_set_bit(chgnum, RT9490_REG_CHG_CTRL0,
@@ -970,82 +993,20 @@ static int rt9490_ramp_get_current_limit(int chgnum)
 }
 #endif
 
-static enum ec_error_list rt9490_get_option(int chgnum, int *option)
+//static enum ec_error_list rt9490_get_option(int chgnum, int *option)
+static int rt9490_get_option(int chgnum, int *option)
 {
     /* Ignored: does not exist */
     *option = 0;
     return EC_SUCCESS;
 }
 
-static enum ec_error_list rt9490_set_option(int chgnum, int option)
+//static enum ec_error_list rt9490_set_option(int chgnum, int option)
+static int rt9490_set_option(int chgnum, int option)
 {
     /* Ignored: does not exist */
     return EC_SUCCESS;
 }
-
-#ifdef CONFIG_CMD_CHARGER_DUMP
-static void dump_range(int chgnum, int from, int to)
-{
-    for (int reg = from; reg <= to; ++reg) {
-        int val = 0;
-
-        if (!rt9490_read8(chgnum, reg, &val))
-            printf("    0x%02x: 0x%02x", reg, val);
-        else
-            printf("    0x%02x: (error)", reg);
-    }
-}
-
-
-
-#if 0
-static void rt9490_dump_registers(int chgnum)
-{
-    uint16_t ts, tdie;
-
-    printf("\nCHG_STATUS:\n\n");
-    dump_range(chgnum, RT9490_REG_CHG_STATUS0, RT9490_REG_CHG_STATUS4);
-    printf("\nFAULT_STATUS:\n\n");
-    dump_range(chgnum, RT9490_REG_FAULT_STATUS0, RT9490_REG_FAULT_STATUS1);
-    printf("\nIRQ_FLAG:\n\n");
-    dump_range(chgnum, RT9490_REG_CHG_IRQ_FLAG0, RT9490_REG_CHG_IRQ_FLAG5);
-
-    printf("\nCTRL:\n\n");
-    dump_range(chgnum, RT9490_REG_CHG_CTRL0, RT9490_REG_CHG_CTRL5);
-
-    rt9490_read16(chgnum, RT9490_REG_TS_ADC, &ts);
-    printf("TS_ADC: %d.%d%%\n\n", ts / 10, ts % 10);
-    rt9490_read16(chgnum, RT9490_REG_TDIE_ADC, &tdie);
-    printf("TDIE_ADC: %d deg C\n\n", tdie);
-}
-#else
-static void rt9490_dump_registers(int chgnum, int start_addr, int end_addr)
-{
-    uint32_t  u32Addr, u32Data;
-    uint32_t  u32Line = 0;
-    int val;
-    printf("\n[CPU DUMP: 0x%x ~ 0x%x]\n", start_addr, end_addr);
-    for (u32Addr = start_addr; u32Addr < end_addr; u32Addr += 1)
-    {
-        //u32Data = inp32(u32Addr);
-        u32Data = rt9490_read8(chgnum, u32Addr, &val);
-        if(u32Data != 0)
-        {
-            printf("Err\n");
-        }
-        if (u32Addr % 16 == 0)
-        {
-            printf("\n");
-            printf("0x%08x --     ", u32Line * 16);
-            u32Line = u32Line + 1;
-        }
-        printf("0x%02x ", val);
-    }
-    printf("\n\n");
-}
-#endif
-#endif
-
 
 /* Read VBAT (Volt) */
 int rt9492_read_vbat(int chgnum)

@@ -55,6 +55,7 @@ int rt9490_enable_wdt(int chgnum, bool en);
  * Control signal: SOURCE_DC/DC_EN (PE11)
  * The signal should be replaced by VBSRCEN
  *******************************************************************************/
+#if 0
 static void VBUS_Enable_Output(int port)
 {
     if(port == 0)
@@ -73,7 +74,7 @@ static void VBUS_Disable_Output(int port)
         GPIO_SetMode(SOURCEDC_PORT, SOURCEDC_PIN, GPIO_MODE_OUTPUT);
     }
 }
-
+#endif
 /*******************************************************************************
  * VBUS_SRC_EN: PA2 active high                                                *
  * VBUS can be measure on JP27.1                                               *

@@ -56,7 +56,8 @@ void vbus_ocp_polling(int port)
 {
 	if( (pd_get_tick()%10) == 0)
 	{
-			float fVolt, fCurr; 
+			//float fVolt; 
+            float fCurr; 
 			int16_t i16Curr, i16Threshold; 
 	//								float ina219_ReadShuntVoltage_mV(void); 
 	//								fVolt = ina219_ReadShuntVoltage_mV();

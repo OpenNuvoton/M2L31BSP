@@ -10,7 +10,7 @@
 	* Base on condition:
 	* Bus Voltage Range: 32V, VCurrent Range: 5A, Shunt Resistor: 10m Ohm, ADC Resolution: 12-bit, Mode: Continuous shunt + bus voltage
 	* ==>
-	* Current_LSB = 5 A / 32767 = 0.000152uA. Calibration = 0.04096 / (0.000152 × 0.01) ~= 26947
+	* Current_LSB = 5 A / 32767 = 0.000152uA. Calibration = 0.04096 / (0.000152 ?0.01) ~= 26947
 	*
   **/
 
@@ -27,7 +27,7 @@
 #define REG_CURRENT           0x04
 #define REG_CALIBRATION       0x05
 
-
+#if 0
 static int _i2c_read16(int slaveaddr, int reg, int *val)
 {
     uint8_t data[2];
@@ -42,12 +42,11 @@ static int _i2c_read16(int slaveaddr, int reg, int *val)
     printf("I2C Read err\n");
     return ret;
 }
-
+#endif
 
 uint32_t ina219_read16(int slaveaddr, int reg, int *val)
 {
     uint32_t rv;
-    uint16_t u16rdata;
     uint8_t u8rdata[2];
     I2C_WriteByte(I2C0, slaveaddr, (uint8_t)reg);
     printf("....");
@@ -80,7 +79,7 @@ static uint16_t htobe16(uint16_t val)
 }
 
 
-enum ec_error_list ina219_write16(int chgnum, int reg, uint16_t val)
+int ina219_write16(int chgnum, int reg, uint16_t val)
 {
     int reg_val = htobe16(val);
     return _i2c_write16(INA219_ADDRESS, reg, reg_val);
