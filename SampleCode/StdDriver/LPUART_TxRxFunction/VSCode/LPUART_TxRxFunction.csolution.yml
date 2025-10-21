@@ -22,4 +22,4 @@ solution:
       compiler: GCC
       device: Nuvoton::M2L31SG4AE
   projects:
-    - project: UART_TxRxFunction.cproject.yml
+    - project: LPUART_TxRxFunction.cproject.yml
