@@ -192,7 +192,7 @@ void LPUART_TEST_HANDLE()
 void LPUART_FunctionTest()
 {
     printf("+-----------------------------------------------------------+\n");
-    printf("|  LPUART Function Test                                       |\n");
+    printf("|  LPUART Function Test                                     |\n");
     printf("+-----------------------------------------------------------+\n");
     printf("|  Description :                                            |\n");
     printf("|    The sample code will print input char on terminal      |\n");

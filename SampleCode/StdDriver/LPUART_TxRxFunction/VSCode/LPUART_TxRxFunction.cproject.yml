@@ -5,7 +5,7 @@ project:
     - output:
         # bin, elf, hex, lib
         type: bin
-    - setup: Options for UARTTxRxFunction
+    - setup: Options for LPUARTTxRxFunction
       processor:
         endian: little
       add-path:
