@@ -1100,7 +1100,7 @@ uint32_t CLK_EnablePLL(uint32_t u32PllClkSrc, uint32_t u32PllFreq)
     CLK_WaitClockReady(CLK_STATUS_PLLSTB_Msk);
 
     /* Return actual PLL output clock frequency */
-    return (u32PllSrcClk / (u32NO * u32MinNR) * u32MinNF);
+    return (u32PllSrcClk / (u32NO * u32MinNR) * (2 * u32MinNF));
 
 lexit:
 
