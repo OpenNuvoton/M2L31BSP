@@ -9,9 +9,9 @@ project:
       processor:
         endian: little
       add-path:
-        - ../../../../Library/Device/Nuvoton/M2L31/Include
-        - ../../../../Library/CMSIS/Core/Include
-        - ../../../../Library/StdDriver/inc
+        - ../../../../../Library/Device/Nuvoton/M2L31/Include
+        - ../../../../../Library/CMSIS/Core/Include
+        - ../../../../../Library/StdDriver/inc
       misc:
         - for-compiler: AC6
           C:
@@ -50,19 +50,19 @@ project:
   groups:
     - group: CMSIS
       files:
-        - file: ../../../../Library/Device/Nuvoton/M2L31/Source/system_M2L31.c
-        - file: ../../../../Library/Device/Nuvoton/M2L31/Source/ARM/startup_M2L31.c
+        - file: ../../../../../Library/Device/Nuvoton/M2L31/Source/system_M2L31.c
+        - file: ../../../../../Library/Device/Nuvoton/M2L31/Source/ARM/startup_M2L31.c
           for-compiler: AC6
-        - file: ../../../../Library/Device/Nuvoton/M2L31/Source/GCC/startup_M2L31.S
+        - file: ../../../../../Library/Device/Nuvoton/M2L31/Source/GCC/startup_M2L31.S
           for-compiler: GCC
     - group: User
       files:
-        - file: ../aprom_main.c
+        - file: ../../aprom_main.c
         - file: ap_image.s
     - group: Library
       files:
-        - file: ../../../../Library/StdDriver/src/retarget.c
-        - file: ../../../../Library/StdDriver/src/uart.c
-        - file: ../../../../Library/StdDriver/src/sys.c
-        - file: ../../../../Library/StdDriver/src/rmc.c
-        - file: ../../../../Library/StdDriver/src/clk.c
+        - file: ../../../../../Library/StdDriver/src/retarget.c
+        - file: ../../../../../Library/StdDriver/src/uart.c
+        - file: ../../../../../Library/StdDriver/src/sys.c
+        - file: ../../../../../Library/StdDriver/src/rmc.c
+        - file: ../../../../../Library/StdDriver/src/clk.c
