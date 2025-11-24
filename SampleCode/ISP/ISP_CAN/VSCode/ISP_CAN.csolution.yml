@@ -6,15 +6,15 @@ solution:
     - compiler: GCC@>=10.3.1
   build-types:
     - type: debug
-      optimize: size
     - type: release
-      optimize: size
   target-types:
     - type: ARMCLANG
       compiler: AC6
       device: Nuvoton::M2L31SG4AE
+      optimize: none      
     - type: GNUC
       compiler: GCC
       device: Nuvoton::M2L31SG4AE
+      optimize: size      
   projects:
     - project: ISP_CAN.cproject.yml
