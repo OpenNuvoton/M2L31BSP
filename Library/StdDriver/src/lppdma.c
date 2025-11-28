@@ -234,17 +234,14 @@ void LPPDMA_Trigger(LPPDMA_T * lppdma,uint32_t u32Ch)
  */
 void LPPDMA_EnableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask)
 {
-    switch(u32Mask)
+    if (u32Mask & LPPDMA_INT_TRANS_DONE)
     {
-    case LPPDMA_INT_TRANS_DONE:
         lppdma->INTEN |= (1ul << u32Ch);
-        break;
-    case LPPDMA_INT_TEMPTY:
-        lppdma->LPDSCT[u32Ch].CTL &= ~LPPDMA_DSCT_CTL_TBINTDIS_Msk;
-        break;
+    }
 
-    default:
-        break;
+    if (u32Mask & LPPDMA_INT_TEMPTY)
+    {
+        lppdma->LPDSCT[u32Ch].CTL &= ~LPPDMA_DSCT_CTL_TBINTDIS_Msk;
     }
 }
 
@@ -263,17 +260,14 @@ void LPPDMA_EnableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask)
  */
 void LPPDMA_DisableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask)
 {
-    switch(u32Mask)
+    if (u32Mask & LPPDMA_INT_TRANS_DONE)
     {
-    case LPPDMA_INT_TRANS_DONE:
         lppdma->INTEN &= ~(1ul << u32Ch);
-        break;
-    case LPPDMA_INT_TEMPTY:
-        lppdma->LPDSCT[u32Ch].CTL |= LPPDMA_DSCT_CTL_TBINTDIS_Msk;
-        break;
+    }
 
-    default:
-        break;
+    if (u32Mask & LPPDMA_INT_TEMPTY)
+    {
+        lppdma->LPDSCT[u32Ch].CTL |= LPPDMA_DSCT_CTL_TBINTDIS_Msk;
     }
 }
 
