@@ -10,13 +10,13 @@
       <TargetName>UTCPD_SourceRole</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6220000::V6.22::ARMCLANG</pCCUsed>
+      <pCCUsed>6230000::V6.23::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>M2L31KIDAE</Device>
           <Vendor>Nuvoton</Vendor>
-          <PackID>Nuvoton.NuMicroM23_DFP.1.0.2</PackID>
+          <PackID>Nuvoton.NuMicroM23_DFP.1.0.4</PackID>
           <PackURL>https://github.com/OpenNuvoton/cmsis-packs/raw/master/Nuvoton_DFP/</PackURL>
           <Cpu>IRAM(0x20000000,0x2A000) IROM(0x00000000,0x80000) CPUTYPE("Cortex-M23") CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -440,9 +440,9 @@
               <FilePath>..\..\..\..\Library\StdDriver\src\acmp.c</FilePath>
             </File>
             <File>
-              <FileName>PD_SRC.lib</FileName>
+              <FileName>PD_SRC_Keil.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\PowerDeliveryLib\PD_SRC.lib</FilePath>
+              <FilePath>..\..\..\..\Library\PowerDeliveryLib\PD_SRC_Keil.lib</FilePath>
             </File>
             <File>
               <FileName>utcpd.c</FileName>

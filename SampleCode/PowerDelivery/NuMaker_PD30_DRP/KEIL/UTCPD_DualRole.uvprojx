@@ -10,13 +10,13 @@
       <TargetName>UTCPD_DualRole</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6220000::V6.22::ARMCLANG</pCCUsed>
+      <pCCUsed>6240000::V6.24::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>M2L31KIDAE</Device>
           <Vendor>Nuvoton</Vendor>
-          <PackID>Nuvoton.NuMicroM23_DFP.1.0.3</PackID>
+          <PackID>Nuvoton.NuMicroM23_DFP.1.0.4</PackID>
           <PackURL>https://github.com/OpenNuvoton/cmsis-packs/raw/master/Nuvoton_DFP/</PackURL>
           <Cpu>IRAM(0x20000000,0x2A000) IROM(0x00000000,0x80000) CPUTYPE("Cortex-M23") CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -134,7 +134,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4101</DriverSelection>
+            <DriverSelection>4102</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2V8M.DLL</Flash2>
@@ -325,12 +325,12 @@
             <Rwpi>0</Rwpi>
             <wLevel>3</wLevel>
             <uThumb>0</uThumb>
-            <uSurpInc>0</uSurpInc>
+            <uSurpInc>1</uSurpInc>
             <uC99>0</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>3</v6Lang>
-            <v6LangP>3</v6LangP>
+            <v6LangP>0</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -440,9 +440,9 @@
               <FilePath>..\..\..\..\Library\StdDriver\src\acmp.c</FilePath>
             </File>
             <File>
-              <FileName>PD_DRP.lib</FileName>
+              <FileName>PD_DRP_Keil.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\..\Library\PowerDeliveryLib\PD_DRP.lib</FilePath>
+              <FilePath>..\..\..\..\Library\PowerDeliveryLib\PD_DRP_Keil.lib</FilePath>
             </File>
             <File>
               <FileName>utcpd.c</FileName>
@@ -489,10 +489,15 @@
               <FileType>1</FileType>
               <FilePath>..\commandshell.c</FilePath>
             </File>
+            <File>
+              <FileName>usb_pd_deadbattery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\usb_pd_deadbattery.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Rt9492</GroupName>
+          <GroupName>Peripheral</GroupName>
           <Files>
             <File>
               <FileName>battery.c</FileName>

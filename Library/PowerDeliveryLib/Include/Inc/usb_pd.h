@@ -340,7 +340,7 @@ enum pd_rx_errors
 #if 0
 #define PD_T_SENDER_RESPONSE        (30*MSEC) /* between 24ms and 30ms */
 #else
-#define PD_T_SENDER_RESPONSE        (27*MSEC) /* For pass TEST.PD.PROT.SRC.2 Get_Source_Cap_No_Response */
+#define PD_T_SENDER_RESPONSE        (28*MSEC) /* For pass TEST.PD.PROT.SRC.2 Get_Source_Cap_No_Response */
                                               /* For pass TEST.PD.PROT.SNK.6 SenderResponseTimer Timeout */ 
                                               /* For pass TEST.PD.PROT.SNK.13 PR_SWAP - SenderResponseTimer Timeout */ 
 #endif
@@ -351,7 +351,7 @@ enum pd_rx_errors
 #define PD_T_PS_TRANSITION         (500*MSEC) /* between 450ms and 550ms */
 //#define PD_T_PS_SOURCE_ON          (480*MSEC) /* between 390ms and 480ms */
 #define PD_T_PS_SOURCE_ON          (460*MSEC) /* between 390ms and 480ms */
-#define PD_T_PS_SOURCE_OFF         (835*MSEC) /* between 750ms and 920ms */
+#define PD_T_PS_SOURCE_OFF         (770*MSEC) /* between 750ms and 920ms */
 #define PD_T_PS_HARD_RESET          (27*MSEC) /* between 25ms and 35ms */
 #define PD_T_ERROR_RECOVERY        (240*MSEC) /* min 240ms if sourcing VConn */
 #define PD_T_CC_DEBOUNCE           (100*MSEC) /* between 100ms and 200ms */
@@ -419,7 +419,7 @@ enum pd_rx_errors
 #define PD_T_SNK_PPS_REQUEST       (5000*MSEC)              /* Max 10s */
 #define PD_T_SRC_PPS_TIMEROUT      (12500*MSEC)             /* 12s ~ 15s */
 
-#if (CONFIG_USB_PD_FRS_TCPC == 1)
+#if (CONFIG_TC8260_FRS == 1)
 #define PD_T_FRS_START_DELAY            (500*MSEC)  /* TC8260 workaround solution for FRS detection */
 #endif
 

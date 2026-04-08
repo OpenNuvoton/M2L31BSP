@@ -125,10 +125,19 @@ extern void vconn_polarity_active_low();
 extern void VBUS_Sink_Enable(int32_t port, bool bIsEnable);
 extern void UART_Commandshell(int port);
 extern void cpu_dump(uint32_t start_addr, uint32_t end_addr);
+extern void VBUS_Source_Level(int port, char i8Level);
 extern void VBUS_Sink_Enable(int32_t port, bool bIsEnable);
 extern void UTCPD_NotifyEvent(int port, uint32_t event, uint32_t op);
+
+
 void pd_set_battery_status(int port, uint32_t u32BatStatus);
 void pd_set_battery_capabilities(int port, uint8_t* pu8BatCap);
+extern uint32_t pd_get_tick(void); 
+
+void pd_set_input_current_limit(int port, uint32_t max_ma, uint32_t supply_voltage);
+void pd_power_supply_reset(int port);
+int pd_set_power_supply_ready(int port); 
+void VBUS_Source_Level(int port, char i8Level);
 
 extern uint32_t pd_get_tick(void);
 /*@}*/ /* end of group UTCPDLIB_EXPORTED_FUNCTIONS */

@@ -35,12 +35,11 @@
 uint32_t pd_src_pdo[] =
 {
     PDO_FIXED(5000,  3000, SRC_PDO_FIXED_FLAGS),
-#if 1
     PDO_FIXED(9000,  1500, 0),
     PDO_FIXED(15000,  1000, 0),
 
     //PDO_AUG(3300, 15000, 1000, 0),
-#endif
+
 };
 const int pd_src_pdo_cnt = ARRAY_SIZE(pd_src_pdo);
 
@@ -54,13 +53,7 @@ _Static_assert( pd_src_pdo_cnt <= 7, "SPR PDO count exceeds USB PD specification
 const uint32_t pd_snk_pdo[] =
 {
     PDO_FIXED(5000, 3000, SNK_PDO_FIXED_FLAGS),
-//    PDO_FIXED(9000, 3000, NULL),
-//    PDO_FIXED(12000, 3000, NULL),
-//    PDO_FIXED(15000, 3000, NULL),
-//    PDO_FIXED(20000, 3000, NULL),
-
-//    PDO_BATT(4750, 21000, 15000),
-//    PDO_VAR(4750, 21000, 3000),
+    PDO_FIXED(9000, 3000, 0),
 };
 #if 1
 int pd_snk_pdo_cnt = ARRAY_SIZE(pd_snk_pdo);
@@ -423,21 +416,32 @@ const uint8_t battery_capabilities_rom[] = {
     0x01              // Battery Type: valid                                ====> Program need to modify
 };
 
-uint8_t battery_capabilities[9] = {0x0};
 
-/**
-  * Battery Present Capacity[31:16] 0.1 WH increments (Program need to modify)
-  * Battery Info[15:8]
-  *      bit 8 : Invalid Battery reference
-  *      bit 9 : Battery is present when set
-  *      bit [11:10] : Battery Status                 (Program need to modify)
-  *             00b : Battery is Charging.
-  *             01b : Battery is Discharging.
-  *             10b : Battery is Idle.
-  *             11b : Reserved, Shall Not be used
-  *      bit [15:12]  : Reserved
-  * Reserved [7:0]  : Reserved
-  **/
-uint32_t battery_status[] = {//15W, Battery Present
-    0x00960200,
-};
+
+/* Build BSDO: Battery Status Data Object */
+uint32_t build_battery_status_bdo(uint16_t capacity_01wh, bool battery_present, uint8_t charging_status, bool invalid_ref)
+{
+    uint32_t bsdo = 0;
+
+    /* Bits 31:16 - Battery Present Capacity (0.1Wh) */
+    bsdo |= ((uint32_t)capacity_01wh << 16);
+
+    /** Bits 11:10 - Battery Charging Status (00: charging, 01: discharging, 10: idle)
+    	  * 00b : Battery is Charging.
+      * 01b : Battery is Discharging.
+      * 10b : Battery is Idle.
+      * 11b : Reserved, Shall Not be used
+        **/
+    bsdo |= ((charging_status & 0x03) << 10);
+
+    /* Bit 9 - Battery Present */
+    if (battery_present)
+        bsdo |= (1 << 9);
+
+    /* Bit 8 - Invalid Battery Reference */
+    if (invalid_ref)
+        bsdo |= (1 << 8);
+
+    /* Bits 15:12 and 7:0 are reserved and keep to 0 */
+    return bsdo;
+}

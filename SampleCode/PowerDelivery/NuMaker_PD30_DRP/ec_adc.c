@@ -45,12 +45,12 @@ void EADC_SetReferenceVoltage(uint32_t u32RefmV)
     gu32RefVolmV = u32RefmV;
 }
 
-#if 0 
+#if 0
 /**
-	* It is Used to Measuure VBUS Current if MAD026 UTCPD_V1  
+	* It is Used to Measuure VBUS Current if MAD026 UTCPD_V1
   *   Vdiff : Vref = ADC : 4096
   *   Vdiff (mV) = 20*u32Current*20m Ohm
-  **/ 
+  **/
 uint32_t EADC_GetConsumptionCurr(int port)
 {
     uint32_t u32OpaOutmV, u32Current;

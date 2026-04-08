@@ -374,7 +374,7 @@ const struct svdm_response svdm_rsp =
   *				Test.PD.PROT.PORT3.2 Invalid Battery Status
   **/
 /* Source Capabilities Extended Data Block */
-const uint8_t ext_src_cap[] = { //====> Programmer needs to modify the content 
+const uint8_t ext_src_cap[] = { //====> Programmer needs to modify the content
     0x16, 0x04, 								//VID
     0x60, 0x82, 								//PID
     0x00, 0x00, 0x00, 0x00, 		//XID
@@ -391,7 +391,7 @@ const uint8_t ext_src_cap[] = { //====> Programmer needs to modify the content
     0x00, 											//Source Inputs
     0x10, 											//Number of Hot Swapable Batteries(High)/Fixed Battery(Low) Slots
 #if 1
-    0x0F,   //SPR Source PDP Rating  15W, It needs to meet VIF file and pd_src_pdo[] 
+    0x0F,   //SPR Source PDP Rating  15W, It needs to meet VIF file and pd_src_pdo[]
     0x00	//Didn't support EPR
 #else
     0x64, //SPR Source PDP, up to 100W. It needs to meet with pd_src_pdo[]
@@ -400,18 +400,18 @@ const uint8_t ext_src_cap[] = { //====> Programmer needs to modify the content
 };
 
 /* Sink Capabilities Extended Data Block */
-const uint8_t ext_snk_cap[] = {//====> Programmer needs to modify the content 
+const uint8_t ext_snk_cap[] = {//====> Programmer needs to modify the content
     0x16, 0x04, 0x60, 0x82, 0x00, 0x00, 0x00, 0x00,
     0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x0A, 0x05, 0x05, 0x64, 0x00, 0x00, 0x00,
 };
 
 const uint8_t battery_capabilities_rom[] = {
-  0x16, 0x04,       // VID = 0x0416                                                   ====> Programmer needs to modify the content 
-  0x60, 0x82,       // PID = 0x8260                                                   ====> Programmer needs to modify the content 
-  0xED, 0x00,       // 0x77, 0x00,       // Design Capacity = 11.9 Wh (0.1Wh units)   ====> Programmer needs to modify the content 
-  0xFF, 0xFF,       // 0xFF, 0xFF,       // Last Full Charge is unknown (0.1Wh units) 
-  0x01              // Battery Type: valid                                ====> Program need to modify 
+    0x16, 0x04,       // VID = 0x0416                                                   ====> Programmer needs to modify the content
+    0x60, 0x82,       // PID = 0x8260                                                   ====> Programmer needs to modify the content
+    0xED, 0x00,       // 0x77, 0x00,       // Design Capacity = 11.9 Wh (0.1Wh units)   ====> Programmer needs to modify the content
+    0xFF, 0xFF,       // 0xFF, 0xFF,       // Last Full Charge is unknown (0.1Wh units)
+    0x01              // Battery Type: valid                                ====> Program need to modify
 };
 
 uint8_t battery_capabilities[9] = {0x0};
