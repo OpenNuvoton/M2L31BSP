@@ -150,15 +150,6 @@ enum pd_task_timer {
 	 * the spec.
 	 */
 	PE_TIMER_SRC_TRANSITION,
-	
-	
-	/*
-	 * Used to wait for tSrcTransition between sending an Accept for a
-	 * Request or receiving a GoToMin and transitioning the power supply.
-	 * See PD 3.0, table 7-11 and table 7-22 This is not a named timer in
-	 * the spec.
-	 */
-	PE_TIMER_SRC_SETTLE,
 
 	/*
 	 * This timer is used by the new Source, after a Power Role Swap or

@@ -25,6 +25,7 @@ project:
             - -fno-rtti
             - -funsigned-char
             - -fshort-enums
+            - -fshort-wchar
             - -ffunction-sections
           CPP:
             - -xc++

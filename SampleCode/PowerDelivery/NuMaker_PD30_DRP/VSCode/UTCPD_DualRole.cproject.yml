@@ -24,6 +24,7 @@ project:
             - -fno-rtti
             - -funsigned-char
             - -fshort-enums
+            - -fshort-wchar
             - -ffunction-sections
           CPP:
             - -xc++
@@ -42,23 +43,14 @@ project:
             - --strict
             - --summary_stderr
             - --info summarysizes
+            - --diag_suppress=6314
         - for-compiler: GCC
           C:
-            - -std=gnu11
-            - -mthumb
-            - -masm-syntax-unified
-            - -fmessage-length=0
-            - -fsigned-char
-            - -ffunction-sections
-            - -fdata-sections 
+            - -std=gnu11 -mthumb -masm-syntax-unified -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections
           Link:
             - -mthumb -fmessage-length=0 -fsigned-char --specs=nano.specs --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
-  linker:
-    - script: ../../../../Library/Device/Nuvoton/M2L31/Source/ARM/APROM.sct
-      for-compiler: AC6
-    - script: ../../../../Library/Device/Nuvoton/M2L31/Source/GCC/gcc_arm.ld
-      for-compiler: GCC
+            - -Wl,--no-warn-rwx-segments
   groups:
     - group: CMSIS
       files:
@@ -75,8 +67,7 @@ project:
         - file: ../usb_MultipleFunction.c
         - file: ../usb_pd_policy.c
         - file: ../usb_powerctrl.c
-        - file: ../usb_pd_deadbattery.c
-    - group: Peripheral
+    - group: RT9492
       files:
         - file: ../battery.c
         - file: ../charger.c

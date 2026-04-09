@@ -24,6 +24,7 @@ project:
             - -fno-rtti
             - -funsigned-char
             - -fshort-enums
+            - -fshort-wchar
             - -ffunction-sections
           CPP:
             - -xc++
@@ -45,19 +46,9 @@ project:
             - --diag_suppress=6314
         - for-compiler: GCC
           C:
-            - -std=gnu11 
-            - -mthumb 
-            - -masm-syntax-unified 
-            - -fmessage-length=0 
-            - -fsigned-char 
-            - -ffunction-sections 
-            - -fdata-sections
+            - -std=gnu11 -mthumb -masm-syntax-unified -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections
           Link:
-            - -mthumb 
-            - -fmessage-length=0 
-            - -fsigned-char 
-            - --specs=nano.specs 
-            - --specs=nosys.specs
+            - -mthumb -fmessage-length=0 -fsigned-char --specs=nano.specs --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
             - -Wl,--no-warn-rwx-segments
   groups:

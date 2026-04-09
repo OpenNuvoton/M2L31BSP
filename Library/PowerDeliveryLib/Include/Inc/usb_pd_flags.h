@@ -17,22 +17,7 @@
  */
 enum usb_pd_flags
 {
-  USB_PD_DISCHARGE_FLAG = (1<<0),
-	USB_PD_MSG_AMS_FLAG = (1<<1),									/* GET_SNK_CAP AMS */
-	USB_PD_VBUS_FALLING_5V_UNDERSHOOT_FLAG = (1<<2),
-	
-	USB_PD_RDO_EPR_CAPABLE = (1<<3),
-
-	USB_PD_MSG_AMS_CONFLICT_FLAG = (1<<4),				/* AMS Conflict flag */		
-	
-	
-	USB_PD_MSG_EPR_GET_SOURCE_CAP_FLAG = (1<<5),        /* No matter SPR/EPR mode */ 
-																												/* TEST.PD.EPR.SRC3.10 SPR mode - EPR_Get_Source_Cap message */	
-	USB_PD_MSG_SPR_GET_SOURCE_CAP_FLAG = (1<<6),        /* No matter SPR/EPR mode */   
-																												/* TEST.PD.EPR.SRC3.12 EPR mode - Get_Source_Cap message */	
-																												
-	USB_PD_MSG_SNK_KEEP_ALIVE_FLAG = (1<<7),       
-																													
+    USB_PD_DISCHARGE_FLAG = 1	
 };
 
 

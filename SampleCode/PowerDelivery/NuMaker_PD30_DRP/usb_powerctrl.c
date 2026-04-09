@@ -127,18 +127,18 @@ void VBUS_Sink_Enable(int32_t port, bool bIsEnable)
     if(bIsEnable)
     {
         VBUS_CMD_Enable_Sink_VBus(port);
-        Charger_disable_otg_mode(0);
-        Charger_enable_charge_mode(0);
-        void rt9492_enable_hw_ctrl_gatedrive(int chgnum);
-        rt9492_enable_hw_ctrl_gatedrive(0);
-        void rt9492_turnon_gatedrive(int chgnum);
-        rt9492_turnon_gatedrive(0);
-
+		Charger_disable_otg_mode(0);
+		Charger_enable_charge_mode(0);
+		void rt9492_enable_hw_ctrl_gatedrive(int chgnum);
+		rt9492_enable_hw_ctrl_gatedrive(0); 
+		void rt9492_turnon_gatedrive(int chgnum);
+		rt9492_turnon_gatedrive(0);
+	
     }
     else
     {
         VBUS_CMD_Disable_Sink_VBus(port);
-        Charger_disable_charge_mode(0);
+		Charger_disable_charge_mode(0);	
     }
 }
 
@@ -192,29 +192,15 @@ static char i8RecLevel = 0xFF;
 #define	RT9492_ILIM_HZ	PA11								//PA11 is connected to RT9492_ILIM_HZ ==> Deprecated 
 #endif
 
-
-extern int32_t pd_get_deadbattry_threshold(int chgnum);
-
 void VBUS_Source_Level(int port, char i8Level)
 {
-    /* Judgement if dead battery mode */
-    int chgnum = port; 	/* Assume, one port for one charger manager */
-    if(rt9492_read_vbat(chgnum) < pd_get_deadbattry_threshold(chgnum))
-    {
-        /* Set RT9492 /CE to disable/Enable Charge Mode */
-        GPIO_SetMode(PA, BIT6, GPIO_MODE_QUASI);			//PA6 is wired to RT9492./CE pin ( /Charge Enable) with extrnal 10K pull-R
-        Charger_enable_charge_mode(chgnum);
-        PIN_RT9492_CE = 0; 		//Set 1 to disable Charge function
-        return;
-    }
-
     //printf("%s %d\n", __FUNCTION__, i8Level);
     VBUS_Sink_Enable(port, 0);      /* Disable VBSNNKEN pin */
     if(i8RecLevel == i8Level)
         return;
 
-    /* Set RT9492 /CE to disable/Enable Charge Mode */
-    GPIO_SetMode(PA, BIT6, GPIO_MODE_QUASI);			//PA0 is wired to RT9492./CE pin ( /Charge Enable) with extrnal 10K pull-R
+    /* Set RT9492./CE to disable/Enable Charge Mode */
+    GPIO_SetMode(PA, BIT0, GPIO_MODE_QUASI);			//PA0 is wired to RT9492./CE pin ( /Charge Enable) with extrnal 10K pull-R
     Charger_disable_charge_mode(0);
     PIN_RT9492_CE = 1; 		//Set 1 to disable Charge function
 
@@ -226,7 +212,7 @@ void VBUS_Source_Level(int port, char i8Level)
 
 
     /* Set RT9492./CE to disable/Enable Charge Mode */
-    GPIO_SetMode(PA, BIT6, GPIO_MODE_QUASI);			//PA0 is wired to RT9492./CE pin ( /Charge Enable) with extrnal 10K pull-R
+    GPIO_SetMode(PA, BIT0, GPIO_MODE_QUASI);			//PA0 is wired to RT9492./CE pin ( /Charge Enable) with extrnal 10K pull-R
     PIN_RT9492_CE = 1; 		//Set 1 to disable Charge function
 
     //--Setting for Q1 NMOS (Power path) ---//
@@ -240,44 +226,70 @@ void VBUS_Source_Level(int port, char i8Level)
     /* Set RT9492.STAT_OTG as Quasi-High */
     GPIO_SetMode(PA, BIT2, GPIO_MODE_QUASI);			//PA0 i2 wired to RT9492.STAT_OTG pin with extrnal 10K pull-R
     RT9492_STAT_OTG = 1; 		//Set 1 to keep Quasi-high state. enablt OTG mode
-
+    
     if(i8Level  == 0)
     {
         //0V
+#if 0
+        VBUS_Disable_Output(port);
+        DBG_PRINTF("Buck output disable\n");
+#else
         Charger_enable_otg_mode(0);
-
-        Charger_set_otg_current_voltage(0, 3200, 5000);
+			
+				Charger_set_otg_current_voltage(0, 3200, 5000);
         printf("OTG Enable\n");
         rt9490_enable_wdt(0, 0);
         printf("Power lvl 0\n");
-
-        void rt9492_disable_hw_ctrl_gatedrive(int chgnum);
+			
+				void rt9492_disable_hw_ctrl_gatedrive(int chgnum);
         rt9492_disable_hw_ctrl_gatedrive(0);
-
-        void rt9492_turnoff_gatedrive(int chgnum);
-        rt9492_turnoff_gatedrive(0);
-
+			
+				void rt9492_turnoff_gatedrive(int chgnum);
+				rt9492_turnoff_gatedrive(0);
+//				{
+//					uint8_t u8data; 
+//					rt9490_read8(0, RT9490_REG_CHG_CTRL3, &u8data);
+//					u8data &= (~0x40);				//Clear bit6 to stop OTG
+//					rt9490_write8(0, RT9490_REG_CHG_CTRL3, u8data);	
+//				}
+//			
+				//PIN_DISCHARGE_POWER_PATH = 1;		//Turn ON the power path to discharge the large capacitors.
+#endif
+			
+			
+			
         VBUS_CMD_Disable_Source_VBus(port);
         DBG_PRINTF("VBSRCEN Disable\n");
         i8RecLevel = 0;
-        //Charger_dump_register(0);
-
+		//Charger_dump_register(0);
+			
     }
     else if(i8Level  == 1)
     {
         //5V
-        /* Set OTG mode needs prior to enable hw control gatedriver */
+			  
+#if 0
+        //VBUS_Disable_Output(port);
+        GPIO_SetPullCtl(GPIO0_PORT, GPIO0_PIN, GPIO_PUSEL_DISABLE);
+        GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_DISABLE);
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);
+        GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_INPUT);
+        delay(3);
+        VBUS_Enable_Output(port);
+#else
+				/* Set OTG mode needs prior to enable hw control gatedriver */
         Charger_enable_otg_mode(0);
         Charger_set_otg_current_voltage(0, 3200, 5000);
         printf("OTG Enable\n");
         rt9490_enable_wdt(0, 0);
         printf("Power lvl 1\n");
-
-        void rt9492_enable_hw_ctrl_gatedrive(int chgnum);
-        rt9492_enable_hw_ctrl_gatedrive(0);
-        void rt9492_turnon_gatedrive(int chgnum);
-        rt9492_turnon_gatedrive(0);
-
+			
+				void rt9492_enable_hw_ctrl_gatedrive(int chgnum);
+        rt9492_enable_hw_ctrl_gatedrive(0); 
+				void rt9492_turnon_gatedrive(int chgnum);
+				rt9492_turnon_gatedrive(0);
+			
+#endif
         DBG_PRINTF("Buck output 5V\n");
         VBUS_CMD_Enable_Source_VBus(port);
         DBG_PRINTF("VBSRCEN Enable\n");
@@ -286,33 +298,64 @@ void VBUS_Source_Level(int port, char i8Level)
     else if(i8Level  == 2)
     {
         //9V
+#if 0
+        //VBUS_Disable_Output(port);
+        GPIO_SetPullCtl(GPIO0_PORT, GPIO0_PIN, GPIO_PUSEL_DISABLE);	//GPIO0
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);
+
+        GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_PULL_UP);	//GPIO1
+        GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_OUTPUT);
+        GPIO1 = 0;
+
+        VBUS_Enable_Output(port);
+        DBG_PRINTF("Buck output 9V\n");
+#else
         Charger_set_otg_current_voltage(0, 1600, 9000);
         Charger_enable_otg_mode(0);
         printf("OTG Enable\n");
         rt9490_enable_wdt(0, 0);
         printf("Power lvl 2\n");
-
+#endif
         VBUS_CMD_Enable_Source_VBus(port);
         DBG_PRINTF("VBSRCEN Enable\n");
         i8RecLevel = 2;
     }
     else if(i8Level  == 3)
     {
-        //15V
+        //20V
+        //VBUS_Disable_Output(port);
+#if 0
+        /* Two steps adjust VBUS to 20V OK */
+        GPIO_SetPullCtl(GPIO0_PORT, GPIO0_PIN, GPIO_PUSEL_DISABLE);	//GPIO0
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_INPUT);
+
+        GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_PULL_UP);	//GPIO1
+        GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_OUTPUT);
+        GPIO1 = 0;
+
+        delay(3);   //if remove the delay, the protocol will generate error due to sink not to reply GoodCRC.
+
+        GPIO_SetMode(GPIO0_PORT, GPIO0_PIN, GPIO_MODE_OUTPUT);	//GPIO0
+        GPIO0 = 0;
+
+        GPIO_SetPullCtl(GPIO1_PORT, GPIO1_PIN, GPIO_PUSEL_DISABLE);	//GPIO1
+        GPIO_SetMode(GPIO1_PORT, GPIO1_PIN, GPIO_MODE_INPUT);
+        VBUS_Enable_Output(port);
+#else
         Charger_set_otg_current_voltage(0, 1200, 15000);
         Charger_enable_otg_mode(0);
         printf("OTG Enable\n");
         rt9490_enable_wdt(0, 0);
         printf("Power lvl 3\n");
-			
+#endif
         DBG_PRINTF("Buck output 20V\n");
         VBUS_CMD_Enable_Source_VBus(port);
         DBG_PRINTF("VBSRCEN Enable\n");
         i8RecLevel = 3;
     }
-    else if(i8Level  == 4)
+		else if(i8Level  == 4)
     {
-        //PPS 3.3V ~ 15V
+        //PPS 3.3V ~ 15V 
         Charger_set_otg_current_voltage(0, 1200, 15000);
         Charger_enable_otg_mode(0);
         printf("OTG Enable\n");
@@ -324,9 +367,170 @@ void VBUS_Source_Level(int port, char i8Level)
         DBG_PRINTF("VBSRCEN Enable\n");
         i8RecLevel = 3;
     }
+		
+		
+		/* Set VBUS OCP Threshold */
+		void vbus_set_overcurrent_threshold(int port, uint32_t u32PdoIdx);
+		vbus_set_overcurrent_threshold(port, i8RecLevel); 
+}
+char GetChar(void);
+void VBUS_Source_Level_Item(int port)
+{
+    uint8_t ch;
+#if 0
+    VBUS_Disable_Output(port);  /* Disable VBUS output default */
+#else
+#if 0
+    Charger_disable_charge_mode(0);
+#endif
+#endif
+    while(1)
+    {
+        do
+        {
+            printf("[0] Disable VBUS Output                            \n");
+            printf("[1] VBUS Output 5V                                 \n");
+            printf("[2] VBUS Output 9V                                 \n");
+            printf("[3] VBUS Output 12V                                \n");
+            printf("[4] Dump RT9490 Registers                          \n");
+            ch = getchar();
+            printf("Input = %c\n", ch);
 
+        } while( ((ch < '0') || (ch > '4')) && ((ch != 'q') && (ch != 'Q')));
+#if 1
+        switch(ch)
+        {
+        case '0':
+            VBUS_Source_Level(port, 0);
+            break;
+        case '1':
+            VBUS_Source_Level(port, 1);
+            break;
+        case '2':
+            VBUS_Source_Level(port, 2);
+            break;
+        case '3':
+            VBUS_Source_Level(port, 3);
+            break;
+        case '4':
+            //Charger_dump_register(0, 0, 0x100);
+						Charger_dump_register(0);
+            break;
+        case 'Q':
+        case 'q':
+            return;
+        }
+#endif
+    }
+}
+#if 0
+/*******************************************************************************
+ * TC8260_UTCPD BOARD V1                                                        *
+ * If set VBUS_SOURCE = 20V, Even disable VB_SRC_EN                            *
+ * The VBUS_S+ Still up to 15.88V                                              *
+ * It seems not protect the VBUS will be = 0, if SNK device plug out           *
+ *                                                                             *
+ * Use VBSRC_EN to replace SOURC_DC/DC_EN signal should be better              *
+ *******************************************************************************/
 
-    /* Set VBUS OCP Threshold */
-    void vbus_set_overcurrent_threshold(int port, uint32_t u32PdoIdx);
-    vbus_set_overcurrent_threshold(port, i8RecLevel);
+void VBUS_SRC_Control(int port)
+{
+    uint8_t ch;
+
+    printf("Set SRC VBUS Level 20V\n");
+    VBUS_Source_Level(port, 3);
+
+    while(1)
+    {
+        do
+        {
+            DBG_PRINTF("[0] Disable Source VBUS                            \n");
+            DBG_PRINTF("[1] Enable  Source VBUS                            \n");
+            ch = getchar();
+
+        }
+        while( ((ch < '0') || (ch > '1')) && ((ch != 'q') && (ch != 'Q')));
+
+        switch(ch)
+        {
+        case '0':
+            printf("VBUS on JP27.1 will be about 0V\n");
+            VBUS_Disable_Output(port);
+            VBUS_CMD_Disable_Source_VBus(port);
+
+            /* The force discharge function will work if a Valid "Source-to-Sink connection" */
+            SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(0xFFUL << (1 * 8))) | (17UL << (1 * 8));
+            vbus_discharge_polarity_active_high();
+            vbus_force_discharge(0);    //Force discharge bit won't be cleaned to 0 by hardware auto. Clear it first
+            vbus_force_discharge(1);    //Enable force discharge
+
+            break;
+        case '1':
+            printf("VBUS on JP27.1 will be about 20V\n");
+            VBUS_Enable_Output(port);
+            VBUS_CMD_Enable_Source_VBus(port);
+            break;
+        case 'Q':
+        case 'q':
+            return;
+        }
+    }
+}
+
+void VBUS_SNK_Control(void)
+{
+    uint8_t ch;
+    int port  = 0;
+
+    while(1)
+    {
+        do
+        {
+            DBG_PRINTF("[0] Disable Sink VBUS                            \n");
+            DBG_PRINTF("[1] Enable  Sink VBUS                            \n");
+            ch = getchar();
+
+        }
+        while( ((ch < '0') || (ch > '1')) && ((ch != 'q') && (ch != 'Q')));
+
+        switch(ch)
+        {
+        case '0':
+            VBUS_CMD_Disable_Sink_VBus(port);
+            break;
+        case '1':
+            VBUS_CMD_Enable_Sink_VBus(port);
+            break;
+        case 'Q':
+        case 'q':
+            return;
+        }
+    }
+}
+#endif
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// VCONN
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Enable/Disable Discharge Signal for UUTCPD0_DISCHG for VCONN */
+void  vconn_disable_discharge(void)
+{
+    /* Disable VCONN discharge */
+    outp32(UTCPD0_BASE + UTCPD_VCDGCTL, inp32(UTCPD0_BASE + UTCPD_VCDGCTL) & ~VCDGEN);
+}
+void  vconn_enable_discharge(void)
+{
+    /* Enable VCONN discharge */
+    outp32(UTCPD0_BASE + UTCPD_VCDGCTL, inp32(UTCPD0_BASE + UTCPD_VCDGCTL) | VCDGEN);
+}
+void  vconn_discharge_polarity_active_low(void)
+{
+    /* VCONN discharge active low */
+    outp32(UTCPD0_BASE + TCPC_REG_PINPL, inp32(UTCPD0_BASE + TCPC_REG_PINPL) & ~TCPC_REG_PINPL_VCDCHG);
+}
+void  vconn_discharge_polarity_active_high(void)
+{
+    /* VCONN discharge active low */
+    outp32(UTCPD0_BASE + TCPC_REG_PINPL, inp32(UTCPD0_BASE + TCPC_REG_PINPL) | TCPC_REG_PINPL_VCDCHG);
 }

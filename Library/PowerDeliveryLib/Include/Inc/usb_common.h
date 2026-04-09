@@ -231,14 +231,12 @@ static inline int MIN(int a, int b)
 /* ./include/compile_time_macros.h */
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
-#if 0
+#if 1
 #define PD_POWER_SUPPLY_TURN_ON_DELAY     (50*MSEC)//By Zinger board
 #define PD_POWER_SUPPLY_TURN_OFF_DELAY    (50*MSEC)//By Zinger board
 #else
-//#define PD_POWER_SUPPLY_TURN_ON_DELAY       100000      //DEBUG_ONLY
-//#define PD_POWER_SUPPLY_TURN_OFF_DELAY    100000        //DEBUG_ONLY
-#define PD_POWER_SUPPLY_TURN_ON_DELAY     (50*MSEC)
-#define PD_POWER_SUPPLY_TURN_OFF_DELAY    (50*MSEC)
+#define PD_POWER_SUPPLY_TURN_ON_DELAY       100000      //DEBUG_ONLY
+#define PD_POWER_SUPPLY_TURN_OFF_DELAY    100000        //DEBUG_ONLY
 #endif
 #define CONFIG_USBC_VCONN_SWAP_DELAY_US   5000
 

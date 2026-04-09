@@ -27,6 +27,23 @@
 #define REG_CURRENT           0x04
 #define REG_CALIBRATION       0x05
 
+#if 0
+static int _i2c_read16(int slaveaddr, int reg, int *val)
+{
+    uint8_t data[2];
+    int ret = 0;
+
+    ret = I2C_ReadMultiBytesOneReg(I2C0, slaveaddr, reg, data, 2);
+    if(ret == 2)
+    {
+        *val = (data[1] << 8) | data[0];
+        return 0;
+    }
+    printf("I2C Read err\n");
+    return ret;
+}
+#endif
+
 uint32_t ina219_read16(int slaveaddr, int reg, int *val)
 {
     uint32_t rv;
@@ -69,14 +86,14 @@ int ina219_write16(int chgnum, int reg, uint16_t val)
 }
 
 // Calibration value, based on shunt and current range
-#define INA219_CALIBRATION_VALUE    20480  // This value should be computed according to your shunt resistor. 
+#define INA219_CALIBRATION_VALUE    20480  // This must be computed for your shunt
 #define INA219_CONFIG_VALUE        0x399F  // 320mV, Gain /8, 12-bit ADCs, Shunt and bus, continuous
 #define CURRENT_LSB                0.0002
 
 void ina219_Init()
 {
     /**
-    	* Configuration: 32V, 2A, 12-bit ADCs
+    		* Configuration: 32V, 2A, 12-bit ADCs
       * [15:13] BRNG = 0 (16V) or 1 (32V)
       * [12:11] PG = 00 to 11 (gain: /1 to /8)
       * [10:7] BADC = bus ADC resolution
@@ -136,24 +153,10 @@ float ina219_ReadShuntVoltage_mV(void) //OK
     return value * 0.01f;                // 1 LSB = 10uV = 0.01 mV
 }
 
-int16_t ina219_ReadShuntVoltage_uV(void) //OK
-{
-    int raw;
-    int16_t value;
-    ina219_read16(INA219_ADDRESS, REG_SHUNT_VOLTAGE, &raw);
-
-    value = raw;
-    value = value * 10;
-    //printf("Shunt %d\n", value);
-
-    return value;                // 1 LSB = 10uV
-}
-
-int ina219_ReadCurrent_mA(void)
+float ina219_ReadCurrent_mA(void)
 {
     int  raw;
     ina219_read16(INA219_ADDRESS, REG_CURRENT, &raw);
-    return raw * CURRENT_LSB * 1000;
-    //return raw * CURRENT_LSB * 1000.0f;  // convert
+    return raw * CURRENT_LSB * 1000.0f;  // convert
 }
 

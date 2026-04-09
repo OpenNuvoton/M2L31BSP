@@ -75,7 +75,7 @@ struct ocpc_data {
 #endif /* HAS_TASK_PD_C1 */
 };
 
-
+#if 0
 struct charger_drv {
 	/* Function to call during HOOK_INIT after i2c init */
 	void (*init)(int chgnum);
@@ -202,6 +202,135 @@ struct charger_drv {
 	int (*set_snk_vbus_currentlimit)(int chgnum, int curr);
 	
 };
+#else
+struct charger_drv {
+	/* Function to call during HOOK_INIT after i2c init */
+	void (*init)(int chgnum);
+
+	/* Power state machine post init */
+	int (*post_init)(int chgnum);
+
+	/* Get charger information */
+	const struct charger_info *(*get_info)(int chgnum);
+
+	/* Get smart battery charger status. Supported flags may vary. */
+	int (*get_status)(int chgnum, int *status);
+
+	/* Set smart battery charger mode. Supported modes may vary. */
+	int (*set_mode)(int chgnum, int mode);
+
+	/*
+	 * For chargers that are able to supply output power for OTG dongle,
+	 * this function enables or disables power output.
+	 */
+	int (*enable_otg_power)(int chgnum, int enabled);
+
+	/*
+	 * Sets OTG current limit and voltage (independent of whether OTG
+	 * power is currently enabled).
+	 */
+	int (*set_otg_current_voltage)(int chgnum,
+						      int output_current,
+						      int output_voltage);
+
+	/*
+	 * Is the charger sourcing VBUS / OTG power?
+	 */
+	int (*is_sourcing_otg_power)(int chgnum, int port);
+
+	/* Get/set charge current limit in mA */
+	int (*get_current)(int chgnum, int *current);
+	int (*set_current)(int chgnum, int current);
+
+	/* Get/set charge voltage limit in mV */
+	int (*get_voltage)(int chgnum, int *voltage);
+	int (*set_voltage)(int chgnum, int voltage);
+
+	/* Get the measured charge current and voltage in mA/mV */
+	int (*get_actual_current)(int chgnum, int *current);
+	int (*get_actual_voltage)(int chgnum, int *voltage);
+
+	/* Discharge battery when on AC power. */
+	int (*discharge_on_ac)(int chgnum, int enable);
+
+	/* Get the VBUS voltage (mV) from the charger */
+	int (*get_vbus_voltage)(int chgnum, int port,
+					       int *voltage);
+
+	/* Get the Vsys voltage (mV) from the charger */
+	int (*get_vsys_voltage)(int chgnum, int port,
+					       int *voltage);
+
+	/* Set desired input current value */
+	int (*set_input_current_limit)(int chgnum,
+						      int input_current);
+
+	/* Get input current limit */
+	int (*get_input_current_limit)(int chgnum,
+						      int *input_current);
+
+	/* Get actual input current value */
+	int (*get_input_current)(int chgnum, int *input_current);
+
+	int (*manufacturer_id)(int chgnum, int *id);
+	int (*device_id)(int chgnum, int *id);
+	int (*set_frequency)(int chgnum, int freq_khz);
+	int (*get_option)(int chgnum, int *option);
+	int (*set_option)(int chgnum, int option);
+
+	/* Charge ramp functions */
+	int (*set_hw_ramp)(int chgnum, int enable);
+	int (*ramp_is_stable)(int chgnum);
+	int (*ramp_is_detected)(int chgnum);
+	int (*ramp_get_current_limit)(int chgnum);
+
+	/* OCPC functions */
+	/*
+	 * Some chargers can perform VSYS output compensation.  Configure the
+	 * charger IC with the right parameters.
+	 *
+	 * Returns EC_ERROR_UNIMPLEMENTED if further action is required from the
+	 * OCPC control loop (which is typical), EC_SUCCESS if no further action
+	 * is required, or any other status on error.
+	 */
+	int (*set_vsys_compensation)(int chgnum,
+						    struct ocpc_data *o,
+						    int current_ma,
+						    int voltage_mv);
+
+	/* Is the input current limit reached? */
+	int (*is_icl_reached)(int chgnum, bool *reached);
+
+	/* Enable/disable linear charging */
+	int (*enable_linear_charge)(int chgnum, bool enable);
+
+	/*
+	 * Enable/disable bypass mode
+	 *
+	 * Callers are responsible for checking required conditions beforehand.
+	 * (e.g supplier == CHARGE_SUPPLIER_DEDICATED, 20 V < input_voltage)
+	 */
+	int (*enable_bypass_mode)(int chgnum, bool enable);
+
+	/*
+	 * Get the number of battery cells from charging mode set by sensing an
+	 * external resistor
+	 */
+	int (*get_battery_cells)(int chgnum, int *cells);
+
+	/* Dumps charger registers */
+	//void (*dump_registers)(int chgnum, int start, int end);
+	void (*dump_registers)(void);
+	
+	/* Dumps prochot status information */
+	void (*dump_prochot)(int chgnum);
+	
+	/* Set snk vbus current limit */
+	int (*set_snk_vbus_currentlimit)(int chgnum, int curr);
+	
+};
+
+#endif
 
 struct charger_config_t {
 	int i2c_port;

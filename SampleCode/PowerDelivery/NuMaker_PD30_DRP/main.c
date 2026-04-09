@@ -227,7 +227,7 @@ void TMR1_IRQHandler(void)
 
 /**
   *	To get requested PDO's information then to set the power circuit.
-  * If the requested PDO is Fixed PDO, user will parsing the pd_src_pdo[] array bases on request PDO index.
+	* If the requested PDO is Fixed PDO, user will parsing the pd_src_pdo[] array bases on request PDO index.
   * If the requested PDO is PPS PDO, user should call API pd_get_adjoutput_voltage_current() to get the requested information.
   **/
 void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint32_t* u32curr)
@@ -363,8 +363,8 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
             battery_capabilities[8] = 0x1;  /* Invalid */
         }
         /**
-          * PD Library will base on battery_capabilities to build BCDB
-          **/
+        * PD Library will base on battery_capabilities to build BCDB
+        **/
         pd_set_battery_capabilities(port, battery_capabilities);
     }
     else if(event == UTCPD_PD_GET_BATTERY_STATUS)
@@ -468,6 +468,7 @@ void pd_task(void)
 
 
         while (1)
+            //while(bTask == TRUE)
         {
             static int u32taskTick = 0;
             int ret = 0;
@@ -491,9 +492,12 @@ void pd_task(void)
 
             if( (bIsConnection == TRUE) && ((pd_get_tick() % 10) == 0))
             {
-                void vbus_ocp_polling(int port);
-                if (pd_get_power_role(port) == PD_ROLE_SOURCE)
-                    vbus_ocp_polling(port);
+//                void vbus_ocp_polling(int port);
+//                if (pd_get_power_role(port) == PD_ROLE_SOURCE)
+//                    vbus_ocp_polling(port);
+                if((pd_get_tick() % 1000) == 0) 
+                    if(bIsConnection == TRUE)
+                        printf("Connect\n");                        
             }
             continue;
         }
@@ -590,7 +594,7 @@ int main()
     SYS_Init();
 
     /* Init UART0 to 115200-8n1 for print message */
-    UART_Open(UART0, 460800);
+    UART_Open(UART0, 115200);
     printf("UART Initial\n");
 
     /* Init UTCPD */
@@ -621,16 +625,20 @@ int main()
     ACMP_Init();
 #endif
 
-    printf("Init rt9492 battery charger mamager\n");
+
+    //void ina219_Init();
+    //ina219_Init();
+
+    printf("Init start\n");
     rt9492_init();
     printf("Init done\n");
 
-    void ina219_Init();
-    ina219_Init();
-
-    int32_t pd_set_deadbattry_threshold(int chgnum, int32_t i32threshold);
-    pd_set_deadbattry_threshold(0, 6000);	/* For 2-s battery, set 6000mV as dead battery threshold */
     rt9492_read_vbat(0);
+
+#if 0
+    void VBUS_Source_Level_Item(int port);
+    VBUS_Source_Level_Item(0);
+#endif
 
     pd_task();
 }

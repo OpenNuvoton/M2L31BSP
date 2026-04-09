@@ -86,16 +86,16 @@ const struct battery_info *battery_get_info(void)
 }
 
 uint8_t phy_bat_composition[8] =
-{
-    0x0,	//Fixed batteries
-    0x0,
-    0x0,
-    0x0,
-
-    0x1, 	//Swapable batteries
-    0x0,
-    0x0,
-    0x0,
+{	
+		0x0,	//Fixed batteries
+		0x0,
+		0x0, 
+		0x0,
+	
+		0x1, 	//Swapable batteries 
+		0x0,
+		0x0, 
+		0x0,	
 };
-
+	
 //void physical_battery_info()

@@ -115,6 +115,11 @@
 			<locationURI>PARENT-4-PROJECT_LOC/Library/StdDriver/src/utcpd.c</locationURI>
 		</link>
 		<link>
+			<name>Driver/src/i2c.c</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Library/StdDriver/src/i2c.c</locationURI>
+		</link>
+		<link>
 			<name>Source/UTCPD_DualRole/commandshell.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/commandshell.c</locationURI>
@@ -143,6 +148,31 @@
 			<name>Source/UTCPD_DualRole/usb_powerctrl.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/usb_powerctrl.c</locationURI>
+		</link>
+		<link>
+			<name>Source/UTCPD_DualRole/battery.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/battery.c</locationURI>
+		</link>
+		<link>
+			<name>Source/UTCPD_DualRole/charger.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/charger.c</locationURI>
+		</link>
+		<link>
+			<name>Source/UTCPD_DualRole/rt9490.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/rt9490.c</locationURI>
+		</link>
+		<link>
+			<name>Source/UTCPD_DualRole/ina219.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/ina219.c</locationURI>
+		</link>
+		<link>
+			<name>Source/UTCPD_DualRole/ocp_handler.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/ocp_handler.c</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>

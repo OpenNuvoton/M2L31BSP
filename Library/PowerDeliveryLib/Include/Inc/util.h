@@ -26,30 +26,26 @@ extern "C" {
 #define GENERIC_MAX(x, y) ((x) > (y) ? (x) : (y))
 #define GENERIC_MIN(x, y) ((x) < (y) ? (x) : (y))
 #ifndef MAX
-	#if defined(__ICCARM__)
-		#define MAX(a,b) ((a) > (b) ? (a) : (b))
-	#else
-		#define MAX(a, b)                   \
-				({                      \
-						__typeof__(a) temp_a = (a);     \
-						__typeof__(b) temp_b = (b);     \
-																\
-						GENERIC_MAX(temp_a, temp_b);        \
-				})
-	#endif		
-#endif
-#ifndef MIN
-	#if defined(__ICCARM__)
-	  #define MIN(a,b) ((a) < (b) ? (a) : (b))
-	#else				
-	#define MIN(a, b)                   \
+#if defined(__ICCARM__)
+	#define MIN(a,b) ((a) < (b) ? (a) : (b))
+#else
+	#define MAX(a, b)                   \
 			({                      \
 					__typeof__(a) temp_a = (a);     \
 					__typeof__(b) temp_b = (b);     \
 															\
-					GENERIC_MIN(temp_a, temp_b);        \
+					GENERIC_MAX(temp_a, temp_b);        \
 			})
-	#endif	
+#endif		
+#endif
+#ifndef MIN
+#define MIN(a, b)                   \
+    ({                      \
+        __typeof__(a) temp_a = (a);     \
+        __typeof__(b) temp_b = (b);     \
+                            \
+        GENERIC_MIN(temp_a, temp_b);        \
+    })
 #endif
 #ifndef NULL
 #define NULL ((void *)0)
