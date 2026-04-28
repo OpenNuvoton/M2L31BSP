@@ -6,7 +6,7 @@ This BSP folder
 ## .\Document\
 
 - CMSIS.html<br>
-	Document of CMSIS version 5.1.1.
+	Document of CMSIS version 6.1.0.
 
 - NuMicro M2L31 Series CMSIS BSP Driver Reference Guide.chm<br>
 	This document describes the usage of drivers in M2L31 BSP.
