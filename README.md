@@ -18,7 +18,7 @@ This BSP folder
 ## .\Library\
 
 - CMSIS<br>
-	Cortex® Microcontroller Software Interface Standard (CMSIS) V5.1.1 definitions by Arm® Corp.
+	Cortex® Microcontroller Software Interface Standard (CMSIS) V6.1.0 definitions by Arm® Corp.
 
 - Device<br>
 	CMSIS compliant device header file.
