@@ -28,11 +28,12 @@ extern "C"
 
 #define OPT_NEIGHBOR                                       /*!< Using for neighboring keys as shielding */
 #define TKLIB_TOL_NUM_KEY           (18)                   /*!< TK0 ~ TK17 */
+#define TKLIB_TOL_NUM_CKO           (6)										 /*!<  */ 
 #define TKLIB_TOL_NUM_BUF           TKLIB_TOL_NUM_KEY
 
-#define TK_ADDR_PARAM_DFLASH        (0x0000F800)
+#define TK_ADDR_PARAM_DFLASH        (0x0008000)	//Page unit 
 #define TK_BLOCK_OFFSET             (128)
-#define TK_MAX_STOR_ADDR            TK_ADDR_PARAM_DFLASH
+#define TK_MAX_STOR_ADDR            (0x1F000)	
 
 #define TK_CCB_OFFSET               (0)
 #define TK_REFCB_OFFSET             (1)
@@ -130,7 +131,7 @@ typedef struct
 {
     uint8_t u8TKChanNum;
     int8_t  i8Count;
-} S_TKDEBOUCE;
+} S_TKDEBOUNCE;
 #define MAX_PRESSED_KEY_TK_QUEUE (6)                              /* To report pressed TK keys */
 
 extern uint8_t u8MaxScKeyNum;
@@ -165,7 +166,7 @@ int TK_Calibration_Untouch(void);                                   /*!< Calibra
 int TK_Calibration_Touch(uint8_t u8chan, uint8_t u8n, uint8_t u8m); /*!< Calibration Touch Key With Finger Touching       */
 uint8_t TK_DebounceChannel(uint8_t i);                              /*!< Report Touch Key Debounce State                  */
 
-
+int TK_GetDebounce(uint32_t i, int8_t* i8Count,  int8_t* State);
 
 /*@}*/ /* end of group TKLIB_EXPORTED_FUNCTIONS */
 

@@ -20,7 +20,7 @@
 extern S_TKINFO *psTkInfo;
 extern volatile int8_t i8SliderPercentage;
 extern volatile int8_t i8WheelPercentage;
-extern S_TKDEBOUCE sPressedTouchKeys[];                                       /* For reported pressed TK Channel Number to Application */
+extern S_TKDEBOUNCE asPressedTouchKeys[];                                       /* For reported pressed TK Channel Number to Application */
 
 #ifdef OPT_NEIGHBOR
 extern S_NEIGHBOR s_neighbor[];
@@ -248,6 +248,7 @@ int8_t TK_CmdType1(uint8_t *pu8RXBuf)
         psTkInfo->u8ShieldChan = pu8RXBuf[2];
         psTkInfo->u8SliderRes = pu8RXBuf[3];
         psTkInfo->u8WheelRes = pu8RXBuf[4];
+				printf("Shield = %d\n", psTkInfo->u8ShieldChan);
         break;
 
     case E_CMD_TYPE1_SPECIFY_FEATURE:
@@ -656,18 +657,18 @@ int8_t TK_CmdType2(uint8_t *pu8RXBuf)
     {
         uint8_t i8Group;
         i8Group = pu8RXBuf[1]*2;
-        gu8TXBuf[0] = sPressedTouchKeys[i8Group].u8TKChanNum;
-        if(sPressedTouchKeys[i8Group].i8Count >=2 )
+        gu8TXBuf[0] = asPressedTouchKeys[i8Group].u8TKChanNum;
+        if(asPressedTouchKeys[i8Group].i8Count >=2 )
             gu8TXBuf[1] = 2;
         else
-            gu8TXBuf[1] = sPressedTouchKeys[i8Group].i8Count;
+            gu8TXBuf[1] = asPressedTouchKeys[i8Group].i8Count;
         //DBG_PRINTF("P C%dR%d cnt=%d\n", (uint16_t)gu8TXBuf[0]&0x0F, (uint16_t)(gu8TXBuf[0]>>4), (uint16_t)gu8TXBuf[1]);
 
-        gu8TXBuf[2] = sPressedTouchKeys[i8Group+1].u8TKChanNum;
-        if(sPressedTouchKeys[i8Group+1].i8Count >=2 )
+        gu8TXBuf[2] = asPressedTouchKeys[i8Group+1].u8TKChanNum;
+        if(asPressedTouchKeys[i8Group+1].i8Count >=2 )
             gu8TXBuf[3] = 2;
         else
-            gu8TXBuf[3] = sPressedTouchKeys[i8Group+1].i8Count;
+            gu8TXBuf[3] = asPressedTouchKeys[i8Group+1].i8Count;
         //DBG_PRINTF("P C%dR%d cnt=%d\n", (uint16_t)gu8TXBuf[2]&0x0F, (uint16_t)(gu8TXBuf[2]>>4), (uint16_t)gu8TXBuf[3]);
     }
     break;
@@ -783,7 +784,14 @@ int8_t TK_GetPacket(uint32_t* pu32ChanelMsk)
                      | (1UL<<psTkInfo->u8RefChan));
 
     if(psTkInfo->u8ShieldChan != 0xFF)
+		{
+				printf("Shield = %d\n", psTkInfo->u8ShieldChan );
         *pu32ChanelMsk = *pu32ChanelMsk | (1UL<<psTkInfo->u8ShieldChan);
+		}
+		else
+		{
+				printf("Not assign Shield \n");
+		}
 
     return i8Ret;
     /* Escape as receive start cablibration */

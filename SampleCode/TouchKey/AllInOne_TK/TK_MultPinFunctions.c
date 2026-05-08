@@ -8,6 +8,9 @@
  * Copyright (C) 2019 Nuvoton Technology Corp. All rights reserved.
  *
  ******************************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "NuMicro.h"
 #include "tklib.h"
 #include "TK_Demo.h"
@@ -30,7 +33,7 @@
  * TK14     PD03 or PD7
  * TK15     PD02 or PD6
  * TK16     PD01 or PD5
- * TK16     PD00 or PD4 
+ * TK17     PD00 or PD4 
  ******************************************************************************/
 
 /**************************************************************************//**
@@ -46,21 +49,22 @@ void SetTkMultiFun(uint32_t u32TkMsk)
     psTkFeat = TK_GetFeaturePtr();
     unsigned int i;
 
-    for (i = 0; i < (u8MaxScKeyNum /*TKLIB_TOL_NUM_KEY*/ +2); i++)
+    //for (i = 0; i < (u8MaxScKeyNum /*TKLIB_TOL_NUM_KEY*/ +2); i++)
+		for (i = 0; i < (TKLIB_TOL_NUM_KEY + TKLIB_TOL_NUM_CKO); i++)
     {
         if ((1ul << i) & u32TkMsk)
         {
             switch(i)
             {
             case 0: /* TC8260 : PA.7 */
-				DBG_PRINTF("TK0 MF\n");
+				        DBG_PRINTF("TK0 MF\n");
                 SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(0xFFUL << (3*8))) | (16UL << (3*8)); //TK0 PA07  16
                 break;
             case 1: /* TC8260 : PA.6 */
                 DBG_PRINTF("TK1 MF\n");
                 SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(0xFFUL << (2*8))) | (16UL << (2*8)); //TK1 PA06  16
                 break;
-			case 2: /* M2L31 : PD.15 */
+						case 2: /* M2L31 : PD.15 */
 							
 //				DBG_PRINTF("TK2 MF\n");
 //              SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(0xFFUL << (1*8))) | (0UL << (1*8)); //TK2 PA05  16
@@ -192,13 +196,13 @@ void SetTkMultiFun(uint32_t u32TkMsk)
             //SYS->GPG_MFP3 = (SYS->GPG_MFP3 & ~(0xFFUL << (3*8))) | (16UL << (3*8)); //TK_SE PG15  16
             case 18:
                 DBG_PRINTF("TK18 CKO\n");
-                //SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(0xFFUL << (3*8))) | (06UL << (3*8)); //TK_SE PA03  06
+                SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(0xFFUL << (3*8))) | (06UL << (3*8)); //TK_SE PA03  06
                 //SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(0xFFUL << (2*8))) | (16UL << (2*8)); //TK_SE PB14  16
 
                 //SYS->GPC_MFP3 = (SYS->GPC_MFP3 & ~(0xFFUL << (1*8))) | (16UL << (1*8)); //TK_SE PC13  16  ==> J7
                 //SYS->GPD_MFP3 = (SYS->GPD_MFP3 & ~(0xFFUL << (0*8))) | (16UL << (0*8)); //TK_SE PD12  16  ==> J5
                 //SYS->GPD_MFP3 = (SYS->GPD_MFP3 & ~(0xFFUL << (1*8))) | (16UL << (1*8)); //TK_SE PD13  16  ==> J6
-                SYS->GPG_MFP3 = (SYS->GPG_MFP3 & ~(0xFFUL << (3*8))) | (16UL << (3*8)); //TK_SE PG15  16  ==> J8
+                //SYS->GPG_MFP3 = (SYS->GPG_MFP3 & ~(0xFFUL << (3*8))) | (16UL << (3*8)); //TK_SE PG15  16  ==> J8
                 break;
             case 19:
                 DBG_PRINTF("TK19 CKO\n");
@@ -209,7 +213,7 @@ void SetTkMultiFun(uint32_t u32TkMsk)
                 SYS->GPC_MFP3 = (SYS->GPC_MFP3 & ~(0xFFUL << (1*8))) | (16UL << (1*8)); //TK_SE PC13  16
                 break;
             case 21:
-                DBG_PRINTF("TK21 CKO\n");
+                printf("TK21 CKO\n");
                 SYS->GPD_MFP3 = (SYS->GPD_MFP3 & ~(0xFFUL << (0*8))) | (16UL << (0*8)); //TK_SE PD12  16
                 break;
             case 22:
