@@ -227,7 +227,7 @@ void TMR1_IRQHandler(void)
 
 /**
   *	To get requested PDO's information then to set the power circuit.
-	* If the requested PDO is Fixed PDO, user will parsing the pd_src_pdo[] array bases on request PDO index.
+  * If the requested PDO is Fixed PDO, user will parsing the pd_src_pdo[] array bases on request PDO index.
   * If the requested PDO is PPS PDO, user should call API pd_get_adjoutput_voltage_current() to get the requested information.
   **/
 void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint32_t* u32curr)
@@ -302,6 +302,8 @@ extern uint32_t battery_status[];
 static bool bIsConnection = FALSE;
 static uint32_t u32RecVolt = 0;
 extern void VBUS_Source_Level(int port, char i8Level);
+#define PIN_LARGECAP_Q3									PA9			//LargeCap_Q3(NMOS_Q3) control the Large Cap on Vbus. Set 0 to turn OFF
+
 void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
 {
     //printf("Callback event = %d\n", event);
@@ -326,6 +328,8 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
     {
         void rt9492_disable_hw_ctrl_gatedrive(int chgnum);
         rt9492_disable_hw_ctrl_gatedrive(0); 								/* ACDRV1 and ACDRV2 will be turned off */
+        /* Disable Big Capacitor path for Sink Inrush Current */
+        PIN_LARGECAP_Q3 = 0;
     }
     else if(event == UTCPD_PD_SNK_TC_PD_CONNECTION)
     {
@@ -363,8 +367,8 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
             battery_capabilities[8] = 0x1;  /* Invalid */
         }
         /**
-        * PD Library will base on battery_capabilities to build BCDB
-        **/
+          * PD Library will base on battery_capabilities to build BCDB
+          **/
         pd_set_battery_capabilities(port, battery_capabilities);
     }
     else if(event == UTCPD_PD_GET_BATTERY_STATUS)
@@ -411,8 +415,8 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
     }
     else if(event == UTCPD_PD_SRC_SEND_ACCEPT)
     {
-#define LargeCap_Q3									PA9			//LargeCap_Q3(NMOS_Q3) control the Large Cap on Vbus. Set 0 to turn OFF
-        LargeCap_Q3 = 1;
+        /* Enable Big Capacitor path for RT9492 SPEC Requirement */
+        PIN_LARGECAP_Q3 = 1;
     }
     else if(event == UTCPD_PD_PS_READY)
     {   /* To Enable VIN OVP/UVP */
@@ -456,8 +460,6 @@ void pd_task(void)
 
     while (1)
     {
-//      pd_timer_init(port);
-//      pd_task_init(port);
         pd_task_reinit(port);
         /** As long as pd_task_loop returns true, keep running the loop.
           * pd_task_loop returns false when the code needs to re-init
@@ -468,7 +470,6 @@ void pd_task(void)
 
 
         while (1)
-            //while(bTask == TRUE)
         {
             static int u32taskTick = 0;
             int ret = 0;
@@ -492,12 +493,9 @@ void pd_task(void)
 
             if( (bIsConnection == TRUE) && ((pd_get_tick() % 10) == 0))
             {
-//                void vbus_ocp_polling(int port);
-//                if (pd_get_power_role(port) == PD_ROLE_SOURCE)
-//                    vbus_ocp_polling(port);
-                if((pd_get_tick() % 1000) == 0) 
-                    if(bIsConnection == TRUE)
-                        printf("Connect\n");                        
+                void vbus_ocp_polling(int port);
+                if (pd_get_power_role(port) == PD_ROLE_SOURCE)
+                    vbus_ocp_polling(port);
             }
             continue;
         }
@@ -594,7 +592,7 @@ int main()
     SYS_Init();
 
     /* Init UART0 to 115200-8n1 for print message */
-    UART_Open(UART0, 115200);
+    UART_Open(UART0, 460800);
     printf("UART Initial\n");
 
     /* Init UTCPD */
@@ -625,20 +623,16 @@ int main()
     ACMP_Init();
 #endif
 
-
-    //void ina219_Init();
-    //ina219_Init();
-
-    printf("Init start\n");
+    printf("Init rt9492 battery charger mamager\n");
     rt9492_init();
     printf("Init done\n");
 
-    rt9492_read_vbat(0);
+    void ina219_Init();
+    ina219_Init();
 
-#if 0
-    void VBUS_Source_Level_Item(int port);
-    VBUS_Source_Level_Item(0);
-#endif
+    int32_t pd_set_deadbattry_threshold(int chgnum, int32_t i32threshold);
+    pd_set_deadbattry_threshold(0, 6000);	/* For 2-s battery, set 6000mV as dead battery threshold */
+    rt9492_read_vbat(0);
 
     pd_task();
 }

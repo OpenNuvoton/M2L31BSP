@@ -155,7 +155,7 @@ const static char szCommandShellHelp[] =
     "<SRCVC>\n"         /* (SRC/SNK Only) */
     "<DUMP0>\n"         /* (Debug Purpose)*/
     "<DUMP1>\n"         /* (Debug Purpose)*/
-    "<DUMP2>\n"         /* (Debug Purpose)*/		
+    "<DUMP2>\n"         /* (Debug Purpose)*/
     "<LSRCCAPS>\n"      /* (SRC/SNK Only), List source capabilities */
     "<LSNKCAPS>\n"      /* (SRC/SNK Only), List sink capabilities   */
     "<LCONSTATE>\n"     /* (SRC/SNK Only), List connection state    */
@@ -173,7 +173,7 @@ const static char *PDCommads[] =
     "HELP",             "HRESET",           "PR_SWAP",            "DR_SWAP",          "FR_SWAP",
     "VCS_SWAP",         "GET_SRC_CAPS",     "GET_SNK_CAPS",     //"ADD",              "SUB",
     "VDM",              "SNKEN",            "SNKDIS",           "SRCEN",            "SRCDIS",
-    "PROLE",            "DROLE",            "SRCVC",            "DUMP0",            "DUMP1",  "DUMP2", 
+    "PROLE",            "DROLE",            "SRCVC",            "DUMP0",            "DUMP1",  "DUMP2",
     "LSRCCAPS",         "LSNKCAPS",         "LCONSTATE",        "REQ_FIX",          "REQ_PPS",
     "EPERMR",           "DPERMR",           NULL,
 };
@@ -353,25 +353,25 @@ void UART_Commandshell(int port)
 #else
             case DUMP0:
                 //cpu_dump(UTCPD_BASE, UTCPD_BASE + 0x100);
-								Charger_dump_register(0);
+                Charger_dump_register(0);
                 break;
             case DUMP1:
                 //cpu_dump(UTCPD_BASE + 0x100, UTCPD_BASE + 0x200);
-								rt9492_read_vbat(0);
+                rt9492_read_vbat(0);
                 break;
-						case DUMP2:
+            case DUMP2:
                 //cpu_dump(UTCPD_BASE + 0x300, UTCPD_BASE + 0x380);
-								{
-										int curr, volt;
-										Charger_get_current(0, &curr);
-										Charger_get_voltage(0, &volt);
-										printf("Volt / Curr = %d / %d\n", volt, curr);
-										Charger_get_actual_current(0, &curr);
-										Charger_get_actual_voltage(0, &volt);
-										printf("Actual Volt / Curr = %d / %d\n", volt, curr);
-										
-								}									
-                break;
+            {
+                int curr, volt;
+                Charger_get_current(0, &curr);
+                Charger_get_voltage(0, &volt);
+                printf("Volt / Curr = %d / %d\n", volt, curr);
+                Charger_get_actual_current(0, &curr);
+                Charger_get_actual_voltage(0, &volt);
+                printf("Actual Volt / Curr = %d / %d\n", volt, curr);
+
+            }
+            break;
 #endif
 
             case LSRCCAPS:
@@ -519,7 +519,7 @@ void UART_Commandshell(int port)
     }
     while(0);
 
-    /* Send Message Periodically to test if communication broken to source big current */ 
+    /* Send Message Periodically to test if communication broken to source big current */
     if(bIsPeriodicRequest == 1)
     {
         if( ((gu32TimeBase % 500) == 0) && (gu32TimeBase != 0) )

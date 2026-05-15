@@ -69,7 +69,7 @@ extern "C"
 #define CONFIG_USB_PD_DUAL_ROLE_AUTO_TOGGLE      0
 #define CONFIG_USB_PD_PPC                        1   /* Power path control */
 #define CONFIG_USB_PD_TCPC_LOW_POWER             0
-#define CONFIG_USB_PD_FRS_TCPC                   0
+#define CONFIG_USB_PD_FRS_TCPC                   1
 #define CONFIG_USB_PD_TCPC_VCONN                 1   /* For VCONN Power. tcpm.h - tcpm_set_vconn() */
 /* } */
 
