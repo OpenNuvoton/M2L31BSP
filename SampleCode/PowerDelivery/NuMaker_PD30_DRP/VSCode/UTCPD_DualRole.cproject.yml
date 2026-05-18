@@ -24,6 +24,7 @@ project:
             - -fno-rtti
             - -funsigned-char
             - -fshort-enums
+            - -fshort-wchar
             - -ffunction-sections
           CPP:
             - -xc++
@@ -48,12 +49,15 @@ project:
             - -mthumb
             - -masm-syntax-unified
             - -fmessage-length=0
-            - -fsigned-char
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
             - -ffunction-sections
             - -fdata-sections 
           Link:
             - -mthumb -fmessage-length=0 -fsigned-char --specs=nano.specs --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
+            - -Wl,--no-wchar-size-warning
   linker:
     - script: ../../../../Library/Device/Nuvoton/M2L31/Source/ARM/APROM.sct
       for-compiler: AC6

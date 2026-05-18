@@ -24,6 +24,7 @@ project:
             - -fno-rtti
             - -funsigned-char
             - -fshort-enums
+            - -fshort-wchar
             - -ffunction-sections
           CPP:
             - -xc++
@@ -49,8 +50,10 @@ project:
             - -mthumb 
             - -masm-syntax-unified 
             - -fmessage-length=0 
-            - -fsigned-char 
-            - -ffunction-sections 
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -ffunction-sections
             - -fdata-sections
           Link:
             - -mthumb 
@@ -60,6 +63,7 @@ project:
             - --specs=nosys.specs
             - -Wl,--gc-sections,-Map="$elf()$.map"
             - -Wl,--no-warn-rwx-segments
+            - -Wl,--no-wchar-size-warning
   groups:
     - group: CMSIS
       files:
