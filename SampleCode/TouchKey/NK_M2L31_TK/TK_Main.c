@@ -248,9 +248,8 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    /* Set PB multi-function pins for UART0 RXD and TXD, CMD port */
-    SYS->GPC_MFP3 = (SYS->GPC_MFP3 & ~SYS_GPC_MFP3_PC12MFP_Msk) | SYS_GPC_MFP3_PC12MFP_UART0_TXD;
-    SYS->GPC_MFP2 = (SYS->GPC_MFP2 & ~SYS_GPC_MFP2_PC11MFP_Msk) | SYS_GPC_MFP2_PC11MFP_UART0_RXD;
+    /* Set PB multi-function pins for UART0 RXD=PB.12 and TXD=PB.13. CMD port */
+    Uart0DefaultMPF();
 
     /* Set GPE multi-function pins for UART3 RXD and TXD, DEBUG port */
     SYS->GPE_MFP0 = (SYS->GPE_MFP0 & ~(SYS_GPE_MFP0_PE0MFP_Msk | SYS_GPE_MFP0_PE1MFP_Msk)) |
