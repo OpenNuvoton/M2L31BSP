@@ -2862,7 +2862,7 @@ extern const int pd_src_epr_pdo_cnt;
 
 extern const uint32_t pd_src_pdo_max[];
 extern const int pd_src_pdo_max_cnt;
-extern const uint32_t pd_snk_pdo[];
+extern uint32_t pd_snk_pdo[];
 extern int pd_snk_pdo_cnt;	/* For change SNK PDO request */ 
 
 /**

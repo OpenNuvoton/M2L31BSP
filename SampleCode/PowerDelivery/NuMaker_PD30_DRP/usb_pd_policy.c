@@ -50,7 +50,7 @@ _Static_assert( pd_src_pdo_cnt <= 7, "SPR PDO count exceeds USB PD specification
 
 #define SNK_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DUAL_ROLE | PDO_FIXED_DATA_SWAP )
 
-const uint32_t pd_snk_pdo[] =
+uint32_t pd_snk_pdo[] =
 {
     PDO_FIXED(5000, 3000, SNK_PDO_FIXED_FLAGS),
     PDO_FIXED(9000, 3000, 0),
