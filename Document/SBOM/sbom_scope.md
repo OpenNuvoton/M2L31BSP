@@ -11,20 +11,7 @@ Drivers, middleware, libraries, startup code, boot code, binaries, and source co
 
 ## Evidence
 .
-├── Document
-├── Library
-│   ├── CMSIS
-│   ├── Device
-│   ├── NuMaker
-│   ├── PowerDeliveryLib
-│   ├── StdDriver
-│   ├── TKLib
-│   └── UsbHostLib
-├── ThirdParty
-│   ├── FatFs
-│   └── FreeRTOS
-└── Tool
-    └── TK
+└── Library
 
 # Test Sample SBOM
 
@@ -35,13 +22,6 @@ sample code、demo project、host-side test tool、sample validation script、te
 
 ## Evidence
 .
-└── SampleCode
-    ├── FreeRTOS
-    ├── Hard_Fault_Sample
-    ├── ISP
-    ├── PowerDelivery
-    ├── PowerManagement
-    ├── Semihost
-    ├── StdDriver
-    ├── Template
-    └── TouchKey
+├── SampleCode
+├── ThirdParty
+└── Tool

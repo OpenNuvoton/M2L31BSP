@@ -2,13 +2,13 @@
   "components": [
     {
       "type": "application",
-      "bom-ref": "TouchView.exe-38d449b6",
-      "name": "TouchView",
+      "bom-ref": "pkg:generic/touchview-mp@1.0.0.1?source=vendored&path=Tool/TK/TouchView_MP.exe",
+      "name": "TouchView_MP",
       "version": "1.0.0.1",
       "scope": "required",
       "author": "Nuvoton Technology Corporation",
-      "purl": "pkg:generic/touchview@1.0.0.1",
-      "description": "TouchView is a GUI tool for developing and tuning touch key functions on supported NuMicro MCUs. The tool is included in the corresponding BSP as a pre-built executable.",
+      "purl": "pkg:generic/touchview-mp@1.0.0.1",
+      "description": "TouchView_MP is a GUI mass production tool for touch key functions on supported NuMicro MCUs. The tool is included in the corresponding BSP as a pre-built executable.",
       "licenses": [
         {
           "license": {
@@ -19,13 +19,13 @@
       "hashes": [
         {
           "alg": "SHA-256",
-          "content": "38d449b6ab80a6c6391e297f042b619e5767a753d4ad62d2e4c4386ac7daa6fd"
+          "content": "798717b616ae59f81bb7cb4428a653f424838ac305bdfccc75623e69cce53cac"
         }
       ],
       "properties": [
         {
           "name": "bsp:file-path",
-          "value": "Tool/TK/TouchView.exe"
+          "value": "Tool/TK/TouchView_MP.exe"
         },
         {
           "name": "integration",
@@ -40,8 +40,12 @@
           "value": "Nuvoton Technology Corporation"
         },
         {
+          "name": "bsp:license-file",
+          "value": "Tool/TK/LICENSE.md"
+        },
+        {
           "name": "bsp:evidence-file",
-          "value": "Document/SBOM/components/sca_tk.json"
+          "value": "Document/SBOM/components/sca_tk_m.json"
         },
         {
           "name": "bsp:evidence-path",
@@ -49,7 +53,7 @@
         },
         {
           "name": "bsp:version-evidence",
-          "value": "Tool/TK/TouchView.exe (PE version resource: FileVersion 1.0.0.1)"
+          "value": "Tool/TK/TouchView_MP.exe (PE version resource: FileVersion 1.0.0.1; ProductVersion 1.0.0.1)"
         }
       ]
     }
