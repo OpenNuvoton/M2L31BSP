@@ -116,7 +116,7 @@ void SYS_Init(void)
 #endif
 #endif
 
-    /* Configure UUTCPD CC1/CC2 */
+    /* Configure UTCPD CC1/CC2 */
     SYS->GPC_MFP0 = (SYS->GPC_MFP0 & ~(SYS_GPC_MFP0_PC0MFP_Msk | SYS_GPC_MFP0_PC1MFP_Msk)) | (SYS_GPC_MFP0_PC0MFP_UTCPD0_CC1 | SYS_GPC_MFP0_PC1MFP_UTCPD0_CC2);
 
     SYS->GPB_MFP1 = (SYS->GPB_MFP1 & ~(SYS_GPB_MFP1_PB5MFP_Msk | SYS_GPB_MFP1_PB4MFP_Msk)) |
@@ -200,7 +200,8 @@ void TMR0_IRQHandler(void)
     UTCPD_TimerBaseInc();
 
     if(pd_vbus_transition_tick != 0)
-    {   /* VBUS Discharge if VBUS from High Level to Low Level */
+    {
+        /* VBUS Discharge if VBUS from High Level to Low Level */
         pd_vbus_transition_tick -= 1;
         if(pd_vbus_transition_tick == 0)
             vbus_discharge(0);		/* Stop VBUS Discharge */
@@ -239,29 +240,35 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
 {
     uint32_t pdopos; 	/* It will be equal to pdo_idx */
     if(pdo_idx <= pd_src_pdo_cnt)
-    {   //SPR
+    {
+        //SPR
         pdo_idx = pdo_idx - 1;
         if( (uint32_t)(pd_src_pdo[pdo_idx] & (uint32_t)PDO_TYPE_MASK) == (uint32_t)PDO_TYPE_FIXED)
-        {   //FIXED
+        {
+            //FIXED
             *u32volt = PDO_FIXED_GET_VOLT(pd_src_pdo[pdo_idx]);
             *u32curr = PDO_FIXED_GET_CURR(pd_src_pdo[pdo_idx]);
         }
         else if( (uint32_t)(pd_src_pdo[pdo_idx] & (uint32_t)PDO_TYPE_MASK) == (uint32_t)PDO_TYPE_AUGMENTED)
-        {   //PPS
+        {
+            //PPS
             pd_get_adjoutput_voltage_current(port, &pdopos, u32volt, u32curr);
         }
     }
 #if 0 /* M2L31 didn't support EPR */
     else if(pdo_idx >= 8 )
-    {   //EPR
+    {
+        //EPR
         pdo_idx = pdo_idx - 8;
         if( (pd_src_epr_pdo[pdo_idx] & PDO_TYPE_MASK) == PDO_TYPE_FIXED)
-        {   //Fix
+        {
+            //Fix
             *u32volt = PDO_FIXED_GET_VOLT(pd_src_epr_pdo[pdo_idx]);
             *u32curr = PDO_FIXED_GET_CURR(pd_src_epr_pdo[pdo_idx]);
         }
         else if( (pd_src_epr_pdo[pdo_idx] & PDO_TYPE_MASK) == PDO_TYPE_AUGMENTED)
-        {   //AVS
+        {
+            //AVS
             pd_get_adjoutput_voltage_current(port, &pdopos, u32volt, u32curr);
         }
     }
@@ -269,10 +276,10 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
 }
 
 /**
- * @brief       UUTCPD Callback Function
+ * @brief       UTCPD Callback Function
  *
- * @param       event: UUTCPD_PD_ATTACHED = 0,                 : Port partner attached or disattached
- *                     UUTCPD_PD_CONTRACT = 1,                 : PD contract established
+ * @param       event: UTCPD_PD_ATTACHED = 0,                  : Port partner attached or disattached
+ *                     UTCPD_PD_CONTRACT = 1,                  : PD contract established
  *                     UTCPD_PD_SNK_VOLTAGE = 2,               : SNK Role Contract voltage
  *                     UTCPD_PD_CABLE_MAX_POWER = 3,           : M2L31 Didn't Support. NPD48: Cable Max Voltage and Max Current : ((max_vol<<16) | max_curr)
  *                     UTCPD_PD_VCONN_DISCHARGE = 4,           : M2L31/NPD48 Didn't Support. To do VCONN Discharge
@@ -305,6 +312,7 @@ extern void vbus_discharge(int enable);
 //static bool bIsConnection = FALSE;
 static uint32_t u32RecVolt = 0;
 extern void VBUS_Source_Level(int port, char i8Level);
+extern void pd_recovery_snk_pdo(int port);
 void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
 {
     printf("Callback event = %d\n", event);
@@ -325,12 +333,14 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
 //        bIsConnection = FALSE;
 //    }
     else if(event == UTCPD_PD_ACCEPT_REQUEST_PDO)
-    {   /* Inform Upper layer to Provide the Power of Requested PDO */
+    {
+        /* Inform Upper layer to Provide the Power of Requested PDO */
         uint32_t u32volt, u32curr;
         uint32_t pdo_idx = op;
         pd_get_request_pdo_info(port, op, &u32volt, &u32curr);
         if (u32RecVolt > u32volt)
-        {   /* Start up VBUS discharge */
+        {
+            /* Start up VBUS discharge */
             printf("discharge\n");
             vbus_discharge(1);		//Turn ON the power path to start discharge
             pd_vbus_transition_tick = 100;  /* Start up VBUS Discharge 100ms */
@@ -338,6 +348,13 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
         printf("old/new = %d / %d\n", u32RecVolt, u32volt);
         u32RecVolt = 	u32volt;
         VBUS_Source_Level(port, pdo_idx);
+    }
+    else if(event == UTCPD_PD_SNK_REC_ACCEPT)
+    {
+        /** Recover the Sink PDO after receiving an ACCEPT message from the Source role
+          * if a new PDO has been requested before.
+        **/
+        pd_recovery_snk_pdo(0);
     }
 }
 
@@ -352,7 +369,7 @@ void pd_task(void)
     if (port >= board_get_usb_pd_port_count())
         return;
 
-    /* Install UUTCPD Callback Function */
+    /* Install UTCPD Callback Function */
     UTCPD_InstallCallback(port, (utcpd_pvFunPtr*)UTCPD_Callback);
 
     while (1)

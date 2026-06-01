@@ -26,14 +26,17 @@ int sb_i2c_xfer(int port, uint16_t addr_flags, const uint8_t *out, int out_size,
         return EC_ERROR_INVAL;
     if (out[0] >= ARRAY_SIZE(mock_smart_battery))
         return EC_ERROR_UNIMPLEMENTED;
-    if (out_size == 1) {
+    if (out_size == 1)
+    {
         /* Read */
         if (in_size != 2)
             /* We are not doing a read16, assume read string */
             return EC_SUCCESS;
         else
             *(uint16_t *)in = mock_smart_battery[out[0]];
-    } else {
+    }
+    else
+    {
         /* write */
         if (out_size != 3)
             /* We are only expecting write 16 */
@@ -53,7 +56,8 @@ int battery_time_at_rate(int rate, int *minutes)
 #include "utcpdlib.h"
 #endif
 
-static const struct battery_info bat_info = {
+static const struct battery_info bat_info =
+{
     /*
      * Design voltage
      *   max    = 8.4V

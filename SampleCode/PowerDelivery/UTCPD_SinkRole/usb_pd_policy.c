@@ -65,6 +65,30 @@ int pd_snk_pdo_cnt = ARRAY_SIZE(pd_snk_pdo);
 #else
 int pd_snk_pdo_cnt =  1;
 #endif
+
+uint32_t pd_snk_pdo_backup[7] = {0};
+
+void pd_backup_snk_pdo(int port)
+{
+    uint32_t i;
+    for( i = 0; i < pd_snk_pdo_cnt; i = i + 1)
+    {
+        pd_snk_pdo_backup[i] = pd_snk_pdo[i];
+    }
+}
+void pd_recovery_snk_pdo(int port)
+{
+    uint32_t i;
+    if(pd_snk_pdo_backup[0] != 0x0) /* Default Deattached */
+    {
+        for( i = 0; i < pd_src_pdo_cnt; i = i + 1)
+        {
+            pd_snk_pdo[i] = pd_snk_pdo_backup[i];
+        }
+    }
+    pd_snk_pdo_backup[0] = 0x0;
+}
+
 #ifdef SW
 void pd_set_input_current_limit(int port, uint32_t max_ma,
                                 uint32_t supply_voltage)
@@ -376,7 +400,8 @@ const struct svdm_response svdm_rsp =
   *				Test.PD.PROT.PORT3.2 Invalid Battery Status
   **/
 /* Source Capabilities Extended Data Block */
-const uint8_t ext_src_cap[] = { //====> Program need to modify
+const uint8_t ext_src_cap[] =   //====> Program need to modify
+{
     0xB4, 0x04, 								//VID
     0x65, 0xF6, 								//PID
     0x00, 0x00, 0x00, 0x00, 		//XID
@@ -402,14 +427,16 @@ const uint8_t ext_src_cap[] = { //====> Program need to modify
 };
 
 /* Sink Capabilities Extended Data Block */
-const uint8_t ext_snk_cap[] = {//====> Program need to modify
+const uint8_t ext_snk_cap[] =  //====> Program need to modify
+{
     0xB4, 0x04, 0x65, 0xF6, 0x00, 0x00, 0x00, 0x00,
     0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x0A, 0x05, 0x05, 0x64, 0x00, 0x00, 0x00,
 };
 //#endif
 
-const uint8_t battery_capabilities_rom[] = {
+const uint8_t battery_capabilities_rom[] =
+{
     0x16, 0x04,       // VID = 0x0416                                                   ====> Program need to modify
     0x60, 0x82,       // PID = 0x8260                                                   ====> Program need to modify
     0x96, 0x00,       // 0x96, 0x00,       // Design Capacity = 15 Wh (0.1Wh units)     ====> Program need to modify
@@ -433,6 +460,7 @@ uint8_t battery_capabilities[9] = {0x0};
   *       bit [7:4]  : Reserved
   * Reserved [7:0]  : Reserved
   **/
-uint32_t battery_status[] = {
+uint32_t battery_status[] =
+{
     0x00960200,
 };
