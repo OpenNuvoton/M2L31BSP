@@ -78,7 +78,7 @@ void pd_recovery_snk_pdo(int port)
     uint32_t i;
     if(pd_snk_pdo_backup[0] != 0x0) /* Default Deattached */
     {
-        for( i = 0; i < pd_src_pdo_cnt; i = i + 1)
+        for( i = 0; i < pd_snk_pdo_cnt; i = i + 1)
         {
             pd_snk_pdo[i] = pd_snk_pdo_backup[i];
         }
