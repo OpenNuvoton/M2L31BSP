@@ -80,7 +80,7 @@ void EADC_ConfigPins(void)
                     (SYS_GPB_MFP3_PB15MFP_EADC0_CH15);
 
     GPIO_DISABLE_DIGITAL_PATH(PB, BIT15);
-	
+
 }
 void EADC_Init(void)
 {

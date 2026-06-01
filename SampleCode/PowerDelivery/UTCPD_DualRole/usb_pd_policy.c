@@ -21,9 +21,9 @@
 
 
 /**
-  * PDO_FIXED_UNCONSTRAINED: The power source is not limited by power constraints
-  * PDO_FIXED_DUAL_ROLE: The device can operate as both a power source and a power sink
-  * PDO_FIXED_DATA_SWAP: The device supports swapping data roles
+  * PDO_FIXED_UNCONSTRAINED: The power source is not limited by power constraints (can supply the advertised power without restriction).
+  * PDO_FIXED_DUAL_ROLE: The device can operate as both a power source and a power sink (dual-role power).
+  * PDO_FIXED_DATA_SWAP: The device supports swapping data roles (e.g., switching between USB host and device).
   **/
 #define SRC_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DUAL_ROLE | PDO_FIXED_DATA_SWAP)
 
@@ -31,8 +31,6 @@
   * USB PD Source Power Data Objects (PDOs) configuration
   * Each PDO entry defines a voltage/current capability that this device can provide
   * Recommendation: Maximum 7 PDOs (per USB PD specification), and each voltage/current should not exceed hardware capability
-  *
-  * Since the source PDO may be changed based on cable capability going forward, we declare it as a array on SRAM area.
   **/
 uint32_t pd_src_pdo[] =
 {
@@ -51,19 +49,43 @@ _Static_assert( pd_src_pdo_cnt <= 7, "SPR PDO count exceeds USB PD specification
 uint32_t pd_snk_pdo[] =
 {
     PDO_FIXED(5000, 3000, SNK_PDO_FIXED_FLAGS),
-//      PDO_FIXED(9000, 3000, SNK_PDO_FIXED_FLAGS),
-//      PDO_FIXED(12000, 3000, SNK_PDO_FIXED_FLAGS),
-//      PDO_FIXED(15000, 3000, SNK_PDO_FIXED_FLAGS),
+//  PDO_FIXED(9000, 3000, SNK_PDO_FIXED_FLAGS),
+//  PDO_FIXED(12000, 3000, SNK_PDO_FIXED_FLAGS),
+//  PDO_FIXED(15000, 3000, SNK_PDO_FIXED_FLAGS),
     PDO_FIXED(20000, 3000, SNK_PDO_FIXED_FLAGS),
 
-//      PDO_BATT(4750, 21000, 15000),
-//      PDO_VAR(4750, 21000, 3000),
+//  PDO_BATT(4750, 21000, 15000),
+//  PDO_VAR(4750, 21000, 3000),
 };
 #if 1
 int pd_snk_pdo_cnt = ARRAY_SIZE(pd_snk_pdo);
 #else
 int pd_snk_pdo_cnt =  1;
 #endif
+
+uint32_t pd_snk_pdo_backup[7] = {0};
+
+void pd_backup_snk_pdo(int port)
+{
+    uint32_t i;
+    for( i = 0; i < pd_snk_pdo_cnt; i = i + 1)
+    {
+        pd_snk_pdo_backup[i] = pd_snk_pdo[i];
+    }
+}
+void pd_recovery_snk_pdo(int port)
+{
+    uint32_t i;
+    if(pd_snk_pdo_backup[0] != 0x0) /* Default Deattached */
+    {
+        for( i = 0; i < pd_src_pdo_cnt; i = i + 1)
+        {
+            pd_snk_pdo[i] = pd_snk_pdo_backup[i];
+        }
+    }
+    pd_snk_pdo_backup[0] = 0x0;
+}
+
 #ifdef SW
 void pd_set_input_current_limit(int port, uint32_t max_ma,
                                 uint32_t supply_voltage)
@@ -374,7 +396,8 @@ const struct svdm_response svdm_rsp =
   *				Test.PD.PROT.PORT3.2 Invalid Battery Status
   **/
 /* Source Capabilities Extended Data Block */
-const uint8_t ext_src_cap[] = { //====> Programmer needs to modify the content
+const uint8_t ext_src_cap[] =   //====> Programmer needs to modify the content
+{
     0x16, 0x04, 								//VID
     0x60, 0x82, 								//PID
     0x00, 0x00, 0x00, 0x00, 		//XID
@@ -400,13 +423,15 @@ const uint8_t ext_src_cap[] = { //====> Programmer needs to modify the content
 };
 
 /* Sink Capabilities Extended Data Block */
-const uint8_t ext_snk_cap[] = {//====> Programmer needs to modify the content
+const uint8_t ext_snk_cap[] =  //====> Programmer needs to modify the content
+{
     0x16, 0x04, 0x60, 0x82, 0x00, 0x00, 0x00, 0x00,
     0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x0A, 0x05, 0x05, 0x64, 0x00, 0x00, 0x00,
 };
 
-const uint8_t battery_capabilities_rom[] = {
+const uint8_t battery_capabilities_rom[] =
+{
     0x16, 0x04,       // VID = 0x0416                                                   ====> Programmer needs to modify the content
     0x60, 0x82,       // PID = 0x8260                                                   ====> Programmer needs to modify the content
     0xED, 0x00,       // 0x77, 0x00,       // Design Capacity = 11.9 Wh (0.1Wh units)   ====> Programmer needs to modify the content
@@ -429,6 +454,7 @@ uint8_t battery_capabilities[9] = {0x0};
   *      bit [15:12]  : Reserved
   * Reserved [7:0]  : Reserved
   **/
-uint32_t battery_status[] = {//Battery non-present
+uint32_t battery_status[] =  //Battery non-present
+{
     0x00000900,
 };

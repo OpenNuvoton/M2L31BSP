@@ -380,7 +380,7 @@ void VBUS_SNK_Control(void)
 // VCONN
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-/* Enable/Disable Discharge Signal for UUTCPD0_DISCHG for VCONN */
+/* Enable/Disable Discharge Signal for UTCPD0_DISCHG for VCONN */
 void  vconn_disable_discharge(void)
 {
     /* Disable VCONN discharge */

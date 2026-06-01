@@ -116,7 +116,7 @@ void SYS_Init(void)
 #endif
 #endif
 
-    /* Configure UUTCPD CC1/CC2 */
+    /* Configure UTCPD CC1/CC2 */
     SYS->GPC_MFP0 = (SYS->GPC_MFP0 & ~(SYS_GPC_MFP0_PC0MFP_Msk | SYS_GPC_MFP0_PC1MFP_Msk)) | (SYS_GPC_MFP0_PC0MFP_UTCPD0_CC1 | SYS_GPC_MFP0_PC1MFP_UTCPD0_CC2);
 
     SYS->GPB_MFP1 = (SYS->GPB_MFP1 & ~(SYS_GPB_MFP1_PB5MFP_Msk | SYS_GPB_MFP1_PB4MFP_Msk)) |
@@ -269,10 +269,10 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
 }
 
 /**
- * @brief       UUTCPD Callback Function
+ * @brief       UTCPD Callback Function
  *
- * @param       event: UUTCPD_PD_ATTACHED = 0,                 : Port partner attached or disattached
- *                     UUTCPD_PD_CONTRACT = 1,                 : PD contract established
+ * @param       event: UTCPD_PD_ATTACHED = 0,                  : Port partner attached or disattached
+ *                     UTCPD_PD_CONTRACT = 1,                  : PD contract established
  *                     UTCPD_PD_SNK_VOLTAGE = 2,               : SNK Role Contract voltage
  *                     UTCPD_PD_CABLE_MAX_POWER = 3,           : M2L31 Didn't Support. NPD48: Cable Max Voltage and Max Current : ((max_vol<<16) | max_curr)
  *                     UTCPD_PD_VCONN_DISCHARGE = 4,           : M2L31/NPD48 Didn't Support. To do VCONN Discharge
@@ -352,7 +352,7 @@ void pd_task(void)
     if (port >= board_get_usb_pd_port_count())
         return;
 
-    /* Install UUTCPD Callback Function */
+    /* Install UTCPD Callback Function */
     UTCPD_InstallCallback(port, (utcpd_pvFunPtr*)UTCPD_Callback);
 
     while (1)

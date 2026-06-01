@@ -11,7 +11,8 @@
 int16_t ina219_ReadShuntVoltage_uV(void);
 
 int16_t gi16VbusOcpThreshold;
-static const int16_t i16VbusOcpThresholdArray[4] = {
+static const int16_t i16VbusOcpThresholdArray[4] =
+{
     1000,         /* Default 5V PDO */
     3100, 	      /* Fixed 5V PDO OCP Threshold */
     1600, 	      /* Fixed 9V PDO OCP Threshold */

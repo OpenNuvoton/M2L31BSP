@@ -34,13 +34,15 @@
  *
  *****************************************************************************/
 #if 1
-typedef struct {
+typedef struct
+{
     int i2c_port;
     uint16_t i2c_addr_flags;
     const struct charger_drv *drv;
 } charger_config_t;
 #else
-struct charger_config_t {
+struct charger_config_t
+{
     int i2c_port;
     uint16_t i2c_addr_flags;
     const struct charger_drv *drv;
@@ -49,7 +51,8 @@ struct charger_config_t {
 
 /* baseboard.c */
 extern const struct charger_drv rt9490_drv;
-const struct charger_config_t chg_chips[] = {
+const struct charger_config_t chg_chips[] =
+{
     {
         .i2c_port = 0, 					//I2C_PORT_CHARGER,		/* SW change to useless */
         .i2c_addr_flags = 0x53, //ISL923X_ADDR_FLAGS,
@@ -173,7 +176,8 @@ void Charger_vbus_highz_mode(int chgnum, bool en)
 #endif
     }
     else
-    {   /* Disable HZ mode */
+    {
+        /* Disable HZ mode */
 #if 0
         PA11 = 1;
         GPIO_SetMode(PA, BIT11, GPIO_MODE_INPUT);
