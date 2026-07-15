@@ -1158,6 +1158,7 @@ uint32_t SPII2S_Open(SPI_T *i2s, uint32_t u32MasterSlave, uint32_t u32SampleRate
 
     /* Configure I2S controller */
     i2s->I2SCTL = u32MasterSlave | u32WordWidth | u32Channels | u32DataFormat;
+
     /* Set TX FIFO threshold to 2 and RX FIFO threshold to 1 */
     SPI_SetFIFO(i2s, 2, 1);
 
@@ -1170,9 +1171,13 @@ uint32_t SPII2S_Open(SPI_T *i2s, uint32_t u32MasterSlave, uint32_t u32SampleRate
         u32BitRate = u32SampleRate * ((u32WordWidth >> SPI_I2SCTL_WDWIDTH_Pos) + 1U) * 16U;
         u32Divider = ((u32SrcClk / u32BitRate) >> 1U) - 1U;
         //u32Divider = ((((u32SrcClk * 10UL / u32BitRate) >> 1U) + 5UL) / 10UL) - 1U;
+
         /* Set BCLKDIV setting */
         i2s->I2SCLK = (i2s->I2SCLK & ~SPI_I2SCLK_BCLKDIV_Msk) | (u32Divider << SPI_I2SCLK_BCLKDIV_Pos);
 
+        /* Enable I2S mode divider before to enable I2s mode */
+        i2s->I2SCLK |= SPI_I2SCLK_I2SMODE_Msk;
+        
         /* Calculate bit clock rate */
         u32BitRate = u32SrcClk / ((u32Divider + 1U) * 2U);
         /* Calculate real sample rate */
