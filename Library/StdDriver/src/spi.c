@@ -1177,9 +1177,10 @@ uint32_t SPII2S_Open(SPI_T *i2s, uint32_t u32MasterSlave, uint32_t u32SampleRate
 
         /* Enable I2S mode divider before to enable I2s mode */
         i2s->I2SCLK |= SPI_I2SCLK_I2SMODE_Msk;
-        
+
         /* Calculate bit clock rate */
         u32BitRate = u32SrcClk / ((u32Divider + 1U) * 2U);
+
         /* Calculate real sample rate */
         u32SampleRate = u32BitRate / (((u32WordWidth >> SPI_I2SCTL_WDWIDTH_Pos) + 1U) * 16U);
 
@@ -1193,6 +1194,9 @@ uint32_t SPII2S_Open(SPI_T *i2s, uint32_t u32MasterSlave, uint32_t u32SampleRate
     {
         /* Set BCLKDIV = 0 */
         i2s->I2SCLK &= ~SPI_I2SCLK_BCLKDIV_Msk;
+
+        /* Enable I2S slave mode divider before to enable I2s mode */
+        i2s->I2SCLK |= (SPI_I2SCLK_I2SSLAVE_Msk | SPI_I2SCLK_I2SMODE_Msk);
 
         if(i2s == SPI0)
         {
