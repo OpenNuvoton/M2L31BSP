@@ -7,7 +7,7 @@
 
 #define TK_UART_PORT    UART0
 
-#define USE_DEBUG_PORT                             /* Trace code with UART1 message */
+//#define USE_DEBUG_PORT                             /* Trace code with UART1 message */
 #ifdef USE_DEBUG_PORT
 #define DBG_PRINTF  printf
 #else

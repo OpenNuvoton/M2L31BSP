@@ -294,7 +294,7 @@ int32_t main(void)
 
 #ifdef USE_DEBUG_PORT
     UART3_Init();
-    printf("UART Init\n");
+    DBG_PRINTF("UART Init\n");
 #endif
 
     CLK->AHBCLK0 |= 0xFF000000;     /* Enable GPIOA ~ GPIOH */
@@ -331,7 +331,7 @@ int32_t main(void)
     //TK_EXTEND_CAPACITOR_BANK_SEL(TK_CAPACITOR_BANK_SEL_MODE1); 
 		
     /* Initialize Multiple Function Pins for TK */
-		printf("TK Channel = 0x%x\n", u32ChanelMsk);
+    DBG_PRINTF("TK Channel = 0x%x\n", u32ChanelMsk);
     SetTkMultiFun(u32ChanelMsk);
 
     /* Init systick 20ms/tick */

@@ -61,9 +61,11 @@ void TK_RawDataView(void)
 
     int8_t ai8Signal[TKLIB_TOL_NUM_KEY];
     uint32_t u32ChnMsk, i;
+    static uint32_t u32ChnOnMsk = 0;
+    uint32_t u32KeyChnMsk;
     //int8_t i8Count, i8State;
 
-    u32ChnMsk = TK_GetEnabledChannelMask(TK_KEY);
+    u32ChnMsk = u32KeyChnMsk = TK_GetEnabledChannelMask(TK_KEY);
     u32ChnMsk |= TK_GetEnabledChannelMask(TK_SLIDER);
     u32ChnMsk |= TK_GetEnabledChannelMask(TK_WHEEL);
 
@@ -86,7 +88,17 @@ void TK_RawDataView(void)
                     {
                         if(TK_DebounceChannel(i) == E_SIGNAL_OVER_DEBOUNCED)
                         {   //Turn On Indicator.
-                            //DBG_PRINTF("TK%i On\n", i);
+
+#ifdef DEMO_FREERUN
+                            if((u32ChnOnMsk & (1 << i)) == 0 )
+                            {
+                                if(u32KeyChnMsk & (1 << i))
+                                {
+                                    printf("TK%i On\n", i);
+                                    u32ChnOnMsk |= (1 << i);
+                                }
+                            }
+#endif
                         }
                     }
                 }
@@ -102,7 +114,16 @@ void TK_RawDataView(void)
                     {
                         if(TK_DebounceChannel(i) == E_NOISE_OVER_DEBOUNCED)
                         {   //Turn Off Indicator.
-                            //DBG_PRINTF("TK%d Off\n", i);
+#ifdef DEMO_FREERUN
+                            if((u32ChnOnMsk & (1 << i)) != 0 )
+                            {
+                                if(u32KeyChnMsk & (1 << i))
+                                {
+                                    printf("TK%i Off\n", i);
+                                    u32ChnOnMsk &= ~(1 << i);
+                                }
+                            }
+#endif
                         }
                     }
                 }
@@ -147,9 +168,9 @@ void TK_RawDataView(void)
                 }
 
                 i8SliderPercentage = TK_SliderPercentage(ai8TmpSignal, u8Count);
-#ifdef DEMO_FREERUN 								
-								printf("Slider %d\n", i8SliderPercentage);
-#endif								
+#ifdef DEMO_FREERUN
+                printf("Slider %d\n", i8SliderPercentage);
+#endif
             }
 
         }
@@ -179,9 +200,9 @@ void TK_RawDataView(void)
                 }
 
                 i8WheelPercentage = TK_WheelPercentage(ai8TmpSignal, u8Count);
-#ifdef DEMO_FREERUN 									
+#ifdef DEMO_FREERUN
                 printf("Wheel %d\n", i8WheelPercentage);
-#endif								
+#endif
             }
         }
 

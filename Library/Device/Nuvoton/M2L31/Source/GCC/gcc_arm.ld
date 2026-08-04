@@ -158,7 +158,7 @@ SECTIONS
 
 	} > RAM
     
-	.lpSram :
+	.lpSram (NOLOAD):
 	{
 		. = ALIGN(4);
 		__lpSram_start__ = .;

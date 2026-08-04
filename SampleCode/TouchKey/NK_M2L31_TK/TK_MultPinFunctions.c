@@ -49,6 +49,7 @@ void SetTkMultiFun(uint32_t u32TkMsk)
     psTkFeat = TK_GetFeaturePtr();
     unsigned int i;
 
+    //for (i = 0; i < (u8MaxScKeyNum /*TKLIB_TOL_NUM_KEY*/ +2); i++)
     for (i = 0; i < (TKLIB_TOL_NUM_KEY + TKLIB_TOL_NUM_CKO); i++)
     {
         if ((1ul << i) & u32TkMsk)
@@ -64,10 +65,6 @@ void SetTkMultiFun(uint32_t u32TkMsk)
                 SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(0xFFUL << (2 * 8))) | (16UL << (2 * 8)); //TK1 PA06  16
                 break;
             case 2: /* M2L31 : PD.15 */
-
-//				DBG_PRINTF("TK2 MF\n");
-//              SYS->GPA_MFP1 = (SYS->GPA_MFP1 & ~(0xFFUL << (1*8))) | (0UL << (1*8)); //TK2 PA05  16
-
                 DBG_PRINTF("TK2 MF\n");
                 SYS->GPD_MFP3 = (SYS->GPD_MFP3 & ~(0xFFUL << (3 * 8))) | (16UL << (3 * 8)); //TK2 PD15  16
                 break;
@@ -121,33 +118,57 @@ void SetTkMultiFun(uint32_t u32TkMsk)
                 DBG_PRINTF("TK14\n");
                 DBG_PRINTF("PINSEL = 0x%x\n", psTkFeat->u32PinSel);
                 if (((psTkFeat->u32PinSel >> (14 * 2)) & 0x3) == 0)
-                    SYS->GPD_MFP0 = (SYS->GPD_MFP0 & ~(0xFFUL << (3 * 8))) | (16UL << (3 * 8)); //TK14 PD03  16
+                {
+                    SYS->GPD_MFP1 = (SYS->GPD_MFP1 & ~(0xFFUL << (3 * 8))) | (16UL << (3 * 8)); //TK14 PD07
+                    DBG_PRINTF("Use PD7 as TK14\n");
+                }
                 else
-                    SYS->GPD_MFP1 = (SYS->GPD_MFP1 & ~(0xFFUL << (3 * 8))) | (16UL << (3 * 8)); //TK14 PD07  16
+                {
+                    SYS->GPD_MFP0 = (SYS->GPD_MFP0 & ~(0xFFUL << (3 * 8))) | (16UL << (3 * 8)); //TK14 PD03
+                    DBG_PRINTF("Use PD3 as TK14\n");
+                }
                 break;
             case 15: /* M2L31 : PD02 or PD06 */
                 DBG_PRINTF("TK15\n");
                 DBG_PRINTF("PINSEL = 0x%x\n", psTkFeat->u32PinSel);
                 if (((psTkFeat->u32PinSel >> (15 * 2)) & 0x3) == 0)
-                    SYS->GPD_MFP0 = (SYS->GPD_MFP0 & ~(0xFFUL << (2 * 8))) | (16UL << (2 * 8)); //TK15 PD02  16
+                {
+                    SYS->GPD_MFP1 = (SYS->GPD_MFP1 & ~(0xFFUL << (2 * 8))) | (16UL << (2 * 8)); //TK15 PD06
+                    DBG_PRINTF("Use PD6 as TK15\n");
+                }
                 else
-                    SYS->GPD_MFP1 = (SYS->GPD_MFP1 & ~(0xFFUL << (2 * 8))) | (16UL << (2 * 8)); //TK15 PD06  16
+                {
+                    SYS->GPD_MFP0 = (SYS->GPD_MFP0 & ~(0xFFUL << (2 * 8))) | (16UL << (2 * 8)); //TK15 PD02
+                    DBG_PRINTF("Use PD2 as TK15\n");
+                }
                 break;
             case 16: /* M2L31 : PD01 or PD05 */
                 DBG_PRINTF("TK16 MF\n");
                 DBG_PRINTF("PINSEL_1 = 0x%x\n", psTkFeat->u32PinSel1);
                 if (((psTkFeat->u32PinSel1) & 0x3) == 0)        //Because M25x is from TK15
-                    SYS->GPD_MFP0 = (SYS->GPD_MFP0 & ~(0xFFUL << (1 * 8))) | (16UL << (1 * 8)); //TK16 PD01  16
+                {
+                    SYS->GPD_MFP1 = (SYS->GPD_MFP1 & ~(0xFFUL << (1 * 8))) | (16UL << (1 * 8)); //TK16 PD05
+                    DBG_PRINTF("Use PD5 as TK16\n");
+                }
                 else
-                    SYS->GPD_MFP1 = (SYS->GPD_MFP1 & ~(0xFFUL << (1 * 8))) | (16UL << (1 * 8)); //TK16 PD05  16
+                {
+                    SYS->GPD_MFP0 = (SYS->GPD_MFP0 & ~(0xFFUL << (1 * 8))) | (16UL << (1 * 8)); //TK16 PD01
+                    DBG_PRINTF("Use PD1 as TK16\n");
+                }
                 break;
             case 17: /* M2L31 : PD00 or PD04 */
                 DBG_PRINTF("TK17\n");
                 DBG_PRINTF("PINSEL_1 = 0x%x\n", psTkFeat->u32PinSel1);
                 if (((psTkFeat->u32PinSel1 >> (1 * 2)) & 0x3) == 0)
-                    SYS->GPD_MFP0 = (SYS->GPD_MFP0 & ~(0xFFUL << (0 * 8))) | (16UL << (0 * 8)); //TK17 PD00  16
+                {
+                    SYS->GPD_MFP1 = (SYS->GPD_MFP1 & ~(0xFFUL << (0 * 8))) | (16UL << (0 * 8)); //TK17 PD04  vvv
+                    DBG_PRINTF("Use PD4 as TK17\n");
+                }
                 else
-                    SYS->GPD_MFP1 = (SYS->GPD_MFP1 & ~(0xFFUL << (0 * 8))) | (16UL << (0 * 8)); //TK17 PD04  16
+                {
+                    SYS->GPD_MFP0 = (SYS->GPD_MFP0 & ~(0xFFUL << (0 * 8))) | (16UL << (0 * 8)); //TK17 PD00
+                    DBG_PRINTF("Use PD0 as TK17\n");
+                }
                 break;
 
 
@@ -161,7 +182,11 @@ void SetTkMultiFun(uint32_t u32TkMsk)
             case 18:
                 DBG_PRINTF("TK18 CKO\n");
                 SYS->GPA_MFP0 = (SYS->GPA_MFP0 & ~(0xFFUL << (3 * 8))) | (06UL << (3 * 8)); //TK_SE PA03  06
-
+                //SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~(0xFFUL << (2*8))) | (16UL << (2*8)); //TK_SE PB14  16
+                //SYS->GPC_MFP3 = (SYS->GPC_MFP3 & ~(0xFFUL << (1*8))) | (16UL << (1*8)); //TK_SE PC13  16  ==> J7
+                //SYS->GPD_MFP3 = (SYS->GPD_MFP3 & ~(0xFFUL << (0*8))) | (16UL << (0*8)); //TK_SE PD12  16  ==> J5
+                //SYS->GPD_MFP3 = (SYS->GPD_MFP3 & ~(0xFFUL << (1*8))) | (16UL << (1*8)); //TK_SE PD13  16  ==> J6
+                //SYS->GPG_MFP3 = (SYS->GPG_MFP3 & ~(0xFFUL << (3*8))) | (16UL << (3*8)); //TK_SE PG15  16  ==> J8
                 break;
             case 19:
                 DBG_PRINTF("TK19 CKO\n");

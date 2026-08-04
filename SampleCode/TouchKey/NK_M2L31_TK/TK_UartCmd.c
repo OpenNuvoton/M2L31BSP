@@ -18,6 +18,9 @@ extern volatile int8_t i8SliderPercentage;
 extern volatile int8_t i8WheelPercentage;
 extern S_TKDEBOUNCE asPressedTouchKeys[];
 
+#ifdef OPT_NEIGHBOR
+extern S_NEIGHBOR s_neighbor[];
+#endif
 
 /* CMD Type 1 */
 #define E_CMD_TYPE1_SPECIFY_CHANNEL_MSK       (0x0)
@@ -175,6 +178,7 @@ int8_t TK_CmdType1(uint8_t *pu8RXBuf)
     int8_t i8Ret = 0;
     uint8_t u8Chan;
     uint32_t u32Data;
+    uint32_t u32PDID;		
     S_TKFEAT *psTkFeat;
     S_KEYINFO *pKeyInfo;
     S_TKINFO *psTkInfo;
@@ -243,13 +247,35 @@ int8_t TK_CmdType1(uint8_t *pu8RXBuf)
 #endif
             break;
 
-        case E_CMD_TYPE1_SPECIFY_CHANNEL_PIN:
-            if (pu8RXBuf[1] < 16)
-                psTkFeat->u32PinSel = (psTkFeat->u32PinSel & ~(0x3 << (pu8RXBuf[1]) * 2)) | ((pu8RXBuf[2] & 0x3) << (pu8RXBuf[1] * 2));
-            else
-                psTkFeat->u32PinSel1 = (psTkFeat->u32PinSel1 & ~(0x3 << ((pu8RXBuf[1] - 16) * 2))) | ((pu8RXBuf[2] & 0x3) << ((pu8RXBuf[1] - 16) * 2));
+    case E_CMD_TYPE1_SPECIFY_CHANNEL_PIN:
+        if (pu8RXBuf[1] < 16)
+        {
+            psTkFeat->u32PinSel = (psTkFeat->u32PinSel & ~(0x3 << (pu8RXBuf[1]) * 2)) | ((pu8RXBuf[2] & 0x3) << (pu8RXBuf[1] * 2));
+            DBG_PRINTF("psTkFeat->u32PinSel = 0x%x\n", psTkFeat->u32PinSel);
+        }
+        else
+        {
+            psTkFeat->u32PinSel1 = (psTkFeat->u32PinSel1 & ~(0x3 << ((pu8RXBuf[1] - 16) * 2))) | ((pu8RXBuf[2] & 0x3) << ((pu8RXBuf[1] - 16) * 2));
+            DBG_PRINTF("psTkFeat->u32PinSel1 = 0x%x\n", psTkFeat->u32PinSel1);
+        }
+        //For M256D/258G/M258 small packet
+        u32PDID = SYS->PDID;
+        if((SYS->PDID & 0x01D23140) == 0x01D23140)
+        {
+            psTkFeat->u32PinSel = 0x50000000;   //A set
+            psTkFeat->u32PinSel1 = 0x00000005;
+        }
+        else if((u32PDID & 0xFFFFF000) == 0x01F31000)
+        {   //M2L31 series
 
-            break;
+        }
+        else if( ((u32PDID & 0x000FFF00) != 0x00025840)
+                 && ((u32PDID & 0x000FFF00) != 0x00025640))
+        {
+            psTkFeat->u32PinSel = 0x54000000;
+            psTkFeat->u32PinSel1 = 0x00000001;
+        }
+        break;
 
         case E_CMD_TYPE1_START_CALIBRATION:     /* It took a long time to calibration */
 

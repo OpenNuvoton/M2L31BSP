@@ -19,7 +19,7 @@
 //#define DEBUG_PORT                       UART1
 #define TK_UART_PORT                     UART0
 
-#define UART_DBG_MSG                     /* Trace code with UART1 message */
+#define UART_DBG_MSG                     /* Trace code with UART message */
 #ifdef UART_DBG_MSG
 #define DBG_PRINTF printf
 #else
