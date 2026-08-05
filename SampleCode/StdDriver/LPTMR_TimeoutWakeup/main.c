@@ -60,6 +60,10 @@ void SYS_Init(void)
     /* Set multi-function pins for UART0 RXD(PB.12) and TXD(PB.13) */
     Uart0DefaultMPF();
 
+    /* Set multi-function pins for CLKO (PB.14) */
+    SYS->GPB_MFP3 = (SYS->GPB_MFP3 & ~SYS_GPB_MFP3_PB14MFP_Msk) | 
+                     SYS_GPB_MFP3_PB14MFP_CLKO;
+
     /* Lock protected registers */
     SYS_LockReg();
 }
