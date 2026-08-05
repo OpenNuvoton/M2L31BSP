@@ -40,6 +40,7 @@ typedef struct s_usbd_info
 } S_USBD_INFO_T;  /*!< Device description structure */
 
 extern const S_USBD_INFO_T gsInfo;
+extern uint8_t g_usbd_SetupPacket[8];
 
 /*@}*/ /* end of group USBD_EXPORTED_STRUCT */
 
@@ -49,83 +50,83 @@ extern const S_USBD_INFO_T gsInfo;
 /** @addtogroup USBD_EXPORTED_CONSTANTS USBD Exported Constants
   @{
 */
-#define USBD_BUF_BASE   (USBD_BASE+0x800ul)  /*!< USBD buffer base address \hideinitializer */
-#define USBD_MAX_EP     19ul /*!< Total EP number \hideinitializer */
+#define USBD_BUF_BASE   (USBD_BASE+0x800UL)  /*!< USBD buffer base address \hideinitializer */
+#define USBD_MAX_EP     19UL /*!< Total EP number \hideinitializer */
 
-#define EP0     0ul       /*!< Endpoint 0 \hideinitializer */
-#define EP1     1ul       /*!< Endpoint 1 \hideinitializer */
-#define EP2     2ul       /*!< Endpoint 2 \hideinitializer */
-#define EP3     3ul       /*!< Endpoint 3 \hideinitializer */
-#define EP4     4ul       /*!< Endpoint 4 \hideinitializer */
-#define EP5     5ul       /*!< Endpoint 5 \hideinitializer */
-#define EP6     6ul       /*!< Endpoint 6 \hideinitializer */
-#define EP7     7ul       /*!< Endpoint 7 \hideinitializer */
-#define EP8     8ul       /*!< Endpoint 8 \hideinitializer */
-#define EP9     9ul       /*!< Endpoint 9 \hideinitializer */
-#define EP10    10ul      /*!< Endpoint 10 \hideinitializer */
-#define EP11    11ul      /*!< Endpoint 11 \hideinitializer */
-#define EP12    12ul      /*!< Endpoint 12 \hideinitializer */
-#define EP13    13ul      /*!< Endpoint 13 \hideinitializer */
-#define EP14    14ul      /*!< Endpoint 14 \hideinitializer */
-#define EP15    15ul      /*!< Endpoint 15 \hideinitializer */
-#define EP16    16ul      /*!< Endpoint 16 \hideinitializer */
-#define EP17    17ul      /*!< Endpoint 17 \hideinitializer */
-#define EP18    18ul      /*!< Endpoint 18 \hideinitializer */
+#define EP0     0UL       /*!< Endpoint 0 \hideinitializer */
+#define EP1     1UL       /*!< Endpoint 1 \hideinitializer */
+#define EP2     2UL       /*!< Endpoint 2 \hideinitializer */
+#define EP3     3UL       /*!< Endpoint 3 \hideinitializer */
+#define EP4     4UL       /*!< Endpoint 4 \hideinitializer */
+#define EP5     5UL       /*!< Endpoint 5 \hideinitializer */
+#define EP6     6UL       /*!< Endpoint 6 \hideinitializer */
+#define EP7     7UL       /*!< Endpoint 7 \hideinitializer */
+#define EP8     8UL       /*!< Endpoint 8 \hideinitializer */
+#define EP9     9UL       /*!< Endpoint 9 \hideinitializer */
+#define EP10    10UL      /*!< Endpoint 10 \hideinitializer */
+#define EP11    11UL      /*!< Endpoint 11 \hideinitializer */
+#define EP12    12UL      /*!< Endpoint 12 \hideinitializer */
+#define EP13    13UL      /*!< Endpoint 13 \hideinitializer */
+#define EP14    14UL      /*!< Endpoint 14 \hideinitializer */
+#define EP15    15UL      /*!< Endpoint 15 \hideinitializer */
+#define EP16    16UL      /*!< Endpoint 16 \hideinitializer */
+#define EP17    17UL      /*!< Endpoint 17 \hideinitializer */
+#define EP18    18UL      /*!< Endpoint 18 \hideinitializer */
 
 
 /** @cond HIDDEN_SYMBOLS */
 /* USB Request Type */
-#define REQ_STANDARD        0x00ul
-#define REQ_CLASS           0x20ul
-#define REQ_VENDOR          0x40ul
+#define REQ_STANDARD        0x00UL
+#define REQ_CLASS           0x20UL
+#define REQ_VENDOR          0x40UL
 
 /* USB Standard Request */
-#define GET_STATUS          0x00ul
-#define CLEAR_FEATURE       0x01ul
-#define SET_FEATURE         0x03ul
-#define SET_ADDRESS         0x05ul
-#define GET_DESCRIPTOR      0x06ul
-#define SET_DESCRIPTOR      0x07ul
-#define GET_CONFIGURATION   0x08ul
-#define SET_CONFIGURATION   0x09ul
-#define GET_INTERFACE       0x0Aul
-#define SET_INTERFACE       0x0Bul
-#define SYNC_FRAME          0x0Cul
+#define GET_STATUS          0x00UL
+#define CLEAR_FEATURE       0x01UL
+#define SET_FEATURE         0x03UL
+#define SET_ADDRESS         0x05UL
+#define GET_DESCRIPTOR      0x06UL
+#define SET_DESCRIPTOR      0x07UL
+#define GET_CONFIGURATION   0x08UL
+#define SET_CONFIGURATION   0x09UL
+#define GET_INTERFACE       0x0AUL
+#define SET_INTERFACE       0x0BUL
+#define SYNC_FRAME          0x0CUL
 
 /* USB Descriptor Type */
-#define DESC_DEVICE         0x01ul
-#define DESC_CONFIG         0x02ul
-#define DESC_STRING         0x03ul
-#define DESC_INTERFACE      0x04ul
-#define DESC_ENDPOINT       0x05ul
-#define DESC_QUALIFIER      0x06ul
-#define DESC_OTHERSPEED     0x07ul
-#define DESC_IFPOWER        0x08ul
-#define DESC_OTG            0x09ul
-#define DESC_IAD            0x0Bul
-#define DESC_BOS            0x0Ful
-#define DESC_CAPABILITY     0x10ul
+#define DESC_DEVICE         0x01UL
+#define DESC_CONFIG         0x02UL
+#define DESC_STRING         0x03UL
+#define DESC_INTERFACE      0x04UL
+#define DESC_ENDPOINT       0x05UL
+#define DESC_QUALIFIER      0x06UL
+#define DESC_OTHERSPEED     0x07UL
+#define DESC_IFPOWER        0x08UL
+#define DESC_OTG            0x09UL
+#define DESC_IAD            0x0BUL
+#define DESC_BOS            0x0FUL
+#define DESC_CAPABILITY     0x10UL
 
 /* USB Device Capability Type */
-#define CAP_WIRELESS        0x01ul
-#define CAP_USB20_EXT       0x02ul
+#define CAP_WIRELESS        0x01UL
+#define CAP_USB20_EXT       0x02UL
 
 /* USB HID Descriptor Type */
-#define DESC_HID            0x21ul
-#define DESC_HID_RPT        0x22ul
+#define DESC_HID            0x21UL
+#define DESC_HID_RPT        0x22UL
 
 /* USB Descriptor Length */
-#define LEN_DEVICE          18ul
-#define LEN_QUALIFIER       10ul
-#define LEN_CONFIG          9ul
-#define LEN_INTERFACE       9ul
-#define LEN_ENDPOINT        7ul
-#define LEN_OTG             5ul
-#define LEN_BOS             5ul
-#define LEN_HID             9ul
-#define LEN_CCID            0x36ul
-#define LEN_BOSCAP          7ul
-#define LEN_IAD             8ul
+#define LEN_DEVICE          18UL
+#define LEN_QUALIFIER       10UL
+#define LEN_CONFIG          9UL
+#define LEN_INTERFACE       9UL
+#define LEN_ENDPOINT        7UL
+#define LEN_OTG             5UL
+#define LEN_BOS             5UL
+#define LEN_HID             9UL
+#define LEN_CCID            0x36UL
+#define LEN_BOSCAP          7UL
+#define LEN_IAD             8UL
 
 /* USB Endpoint Type */
 #define EP_ISO              0x01
@@ -136,8 +137,8 @@ extern const S_USBD_INFO_T gsInfo;
 #define EP_OUTPUT           0x00
 
 /* USB Feature Selector */
-#define FEATURE_DEVICE_REMOTE_WAKEUP    0x01ul
-#define FEATURE_ENDPOINT_HALT           0x00ul
+#define FEATURE_DEVICE_REMOTE_WAKEUP    0x01UL
+#define FEATURE_ENDPOINT_HALT           0x00UL
 /** @endcond HIDDEN_SYMBOLS */
 
 /******************************************************************************/
@@ -211,10 +212,10 @@ extern const S_USBD_INFO_T gsInfo;
 #define USBD_CFGP_SSTALL        USBD_CFGP_SSTALL_Msk        /*!< Set Stall \hideinitializer */
 #define USBD_CFG_CSTALL         USBD_CFG_CSTALL_Msk         /*!< Clear Stall \hideinitializer */
 
-#define USBD_CFG_EPMODE_DISABLE (0ul << USBD_CFG_STATE_Pos)/*!< Endpoint Disable \hideinitializer */
-#define USBD_CFG_EPMODE_OUT     (1ul << USBD_CFG_STATE_Pos)/*!< Out Endpoint \hideinitializer */
-#define USBD_CFG_EPMODE_IN      (2ul << USBD_CFG_STATE_Pos)/*!< In Endpoint \hideinitializer */
-#define USBD_CFG_TYPE_ISO       (1ul << USBD_CFG_ISOCH_Pos) /*!< Isochronous \hideinitializer */
+#define USBD_CFG_EPMODE_DISABLE (0UL << USBD_CFG_STATE_Pos)/*!< Endpoint Disable \hideinitializer */
+#define USBD_CFG_EPMODE_OUT     (1UL << USBD_CFG_STATE_Pos)/*!< Out Endpoint \hideinitializer */
+#define USBD_CFG_EPMODE_IN      (2UL << USBD_CFG_STATE_Pos)/*!< In Endpoint \hideinitializer */
+#define USBD_CFG_TYPE_ISO       (1UL << USBD_CFG_ISOCH_Pos) /*!< Isochronous \hideinitializer */
 
 
 
@@ -262,7 +263,7 @@ extern const S_USBD_INFO_T gsInfo;
   * @details  To set USB ATTR control register to enable USB and PHY.
   * \hideinitializer
   */
-#define USBD_ENABLE_USB()           ((uint32_t)(USBD->ATTR |= 0x7D0))
+#define USBD_ENABLE_USB()           ((uint32_t)(USBD->ATTR |= 0x7D0UL))
 
 /**
   * @brief    Disable USB
@@ -442,7 +443,7 @@ extern const S_USBD_INFO_T gsInfo;
   * @details  Return USB_ATTR[13:12] and USB_ATTR[3:0] for USB bus events.
   * \hideinitializer
   */
-#define USBD_GET_BUS_STATE()        ((uint32_t)(USBD->ATTR & 0x300f))
+#define USBD_GET_BUS_STATE()        ((uint32_t)(USBD->ATTR & 0x300fUL))
 
 /**
   * @brief    Check cable connection state
@@ -571,7 +572,7 @@ extern const S_USBD_INFO_T gsInfo;
   * @details     Set USB endpoint stall state for the specified endpoint ID. Endpoint will respond STALL token automatically.
   * \hideinitializer
   */
-#define USBD_SET_EP_STALL(ep)        (*((__IO uint32_t *) ((uint32_t)&USBD->EP[0ul].CFGP + (uint32_t)((ep) << 4))) |= USBD_CFGP_SSTALL_Msk)
+#define USBD_SET_EP_STALL(ep)        (*((__IO uint32_t *) ((uint32_t)&USBD->EP[0UL].CFGP + (uint32_t)((ep) << 4))) |= USBD_CFGP_SSTALL_Msk)
 
 /**
   * @brief       Clear USB endpoint stall state
@@ -673,14 +674,13 @@ extern const S_USBD_INFO_T gsInfo;
   * @details    This function will copy the number of data specified by size and src parameters to the address specified by dest parameter.
   *
   */
-__STATIC_INLINE void USBD_MemCopy(uint8_t dest[], uint8_t src[], uint32_t size)
+static inline void USBD_MemCopy(uint8_t dest[], const uint8_t src[], uint32_t size)
 {
-    uint32_t volatile i=0ul;
+    uint32_t volatile i;
 
-    while(size--)
+    for (i = 0UL; i < size; i++)
     {
         dest[i] = src[i];
-        i++;
     }
 }
 
@@ -694,18 +694,18 @@ __STATIC_INLINE void USBD_MemCopy(uint8_t dest[], uint8_t src[], uint32_t size)
   * @details     Set USB endpoint stall state. Endpoint will respond STALL token automatically.
   *
   */
-__STATIC_INLINE void USBD_SetStall(uint8_t epnum)
+static inline void USBD_SetStall(uint8_t epnum)
 {
-    uint32_t u32CfgAddr;
-    uint32_t u32Cfg;
     uint32_t i;
 
-    for(i = 0ul; i < USBD_MAX_EP; i++)
+    for(i = 0UL; i < USBD_MAX_EP; i++)
     {
+        uint32_t u32CfgAddr;
+        uint32_t u32Cfg;
         u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFG; /* USBD_CFG0 */
         u32Cfg = *((__IO uint32_t *)(u32CfgAddr));
 
-        if((u32Cfg & 0xful) == epnum)
+        if((u32Cfg & 0xfUL) == epnum)
         {
             u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFGP; /* USBD_CFGP0 */
             u32Cfg = *((__IO uint32_t *)(u32CfgAddr));
@@ -725,18 +725,18 @@ __STATIC_INLINE void USBD_SetStall(uint8_t epnum)
   *
   * @details     Clear USB endpoint stall state. Endpoint will respond ACK/NAK token.
   */
-__STATIC_INLINE void USBD_ClearStall(uint8_t epnum)
+static inline void USBD_ClearStall(uint8_t epnum)
 {
-    uint32_t u32CfgAddr;
-    uint32_t u32Cfg;
     uint32_t i;
 
-    for(i = 0ul; i < USBD_MAX_EP; i++)
+    for(i = 0UL; i < USBD_MAX_EP; i++)
     {
+        uint32_t u32CfgAddr;
+        uint32_t u32Cfg;
         u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFG; /* USBD_CFG0 */
         u32Cfg = *((__IO uint32_t *)(u32CfgAddr));
 
-        if((u32Cfg & 0xful) == epnum)
+        if((u32Cfg & 0xfUL) == epnum)
         {
             u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFGP; /* USBD_CFGP0 */
             u32Cfg = *((__IO uint32_t *)(u32CfgAddr));
@@ -758,25 +758,34 @@ __STATIC_INLINE void USBD_ClearStall(uint8_t epnum)
   * @details     Get USB endpoint stall state.
   *
   */
-__STATIC_INLINE uint32_t USBD_GetStall(uint8_t epnum)
+static inline uint32_t USBD_GetStall(uint8_t epnum)
 {
-    uint32_t u32CfgAddr;
-    uint32_t u32Cfg;
     uint32_t i;
+    uint32_t u32CfgpAddr = 0UL;
+    uint8_t  u8Found = 0U;
 
-    for(i = 0ul; i < USBD_MAX_EP; i++)
+    for(i = 0UL; i < USBD_MAX_EP; i++)
     {
+        uint32_t u32CfgAddr;
+        uint32_t u32Cfg;
         u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFG; /* USBD_CFG0 */
         u32Cfg = *((__IO uint32_t *)(u32CfgAddr));
 
-        if((u32Cfg & 0xful) == epnum)
+        if((u32Cfg & 0xfUL) == epnum)
         {
-            u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFGP; /* USBD_CFGP0 */
+            u32CfgpAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFGP; /* USBD_CFGP0 */
+            u8Found = 1U;      /* mark endpoint found */
             break;
         }
     }
 
-    return ((*((__IO uint32_t *)(u32CfgAddr))) & USBD_CFGP_SSTALL);
+    /* if endpoint is not found, it is not stalled */
+    if (u8Found == 0U)
+    {
+        return 0U;
+    }
+
+    return ((*((__IO uint32_t *)(u32CfgpAddr))) & USBD_CFGP_SSTALL);
 }
 
 
@@ -803,6 +812,7 @@ void USBD_SwReset(void);
 void USBD_SetVendorRequest(VENDOR_REQ pfnVendorReq);
 void USBD_SetConfigCallback(SET_CONFIG_CB pfnSetConfigCallback);
 void USBD_LockEpStall(uint32_t u32EpBitmap);
+void USBD_GetDescriptor(void);
 
 /*@}*/ /* end of group USBD_EXPORTED_FUNCTIONS */
 

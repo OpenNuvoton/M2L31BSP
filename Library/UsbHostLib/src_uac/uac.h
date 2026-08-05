@@ -16,9 +16,9 @@
 /*
  * Debug message
  */
-#define UAC_ERRMSG     printf
+#define UAC_ERRMSG     (void)usbh_printf
 #ifdef UAC_DEBUG
-#define UAC_DBGMSG      printf
+    #define UAC_DBGMSG      (void)usbh_printf
 #else
 #define UAC_DBGMSG(...)
 #endif
@@ -33,10 +33,10 @@ typedef enum
 
 
 /* Audio Interface Subclass Codes (A.2)               */
-#define SUBCLS_UNDEFINED              0x00
-#define SUBCLS_AUDIOCONTROL           0x01
-#define SUBCLS_AUDIOSTREAMING         0x02
-#define SUBCLS_MIDISTREAMING          0x03
+#define SUBCLS_UNDEFINED              0x00U
+#define SUBCLS_AUDIOCONTROL           0x01U
+#define SUBCLS_AUDIOSTREAMING         0x02U
+#define SUBCLS_MIDISTREAMING          0x03U
 
 /* Audio Interface Protocol Code (A.3)                */
 #define PR_PROTOCOL_UNDEFINED         0x00
@@ -162,7 +162,6 @@ typedef enum
 #define FORMAT_TYPE_I                 0x01
 #define FORMAT_TYPE_II                0x02
 #define FORMAT_TYPE_III               0x03
-
 
 /*-----------------------------------------------------------------------------------
  *  Audio Class Control Interface Descriptor header

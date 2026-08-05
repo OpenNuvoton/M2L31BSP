@@ -123,43 +123,43 @@ typedef struct
 @{ */
 
 #define WDT_CTL_RSTEN_Pos                (1)                                               /*!< WDT_T::CTL: RSTEN Position             */
-#define WDT_CTL_RSTEN_Msk                (0x1ul << WDT_CTL_RSTEN_Pos)                      /*!< WDT_T::CTL: RSTEN Mask                 */
+#define WDT_CTL_RSTEN_Msk                (0x1UL << WDT_CTL_RSTEN_Pos)                      /*!< WDT_T::CTL: RSTEN Mask                 */
 
 #define WDT_CTL_RSTF_Pos                 (2)                                               /*!< WDT_T::CTL: RSTF Position              */
-#define WDT_CTL_RSTF_Msk                 (0x1ul << WDT_CTL_RSTF_Pos)                       /*!< WDT_T::CTL: RSTF Mask                  */
+#define WDT_CTL_RSTF_Msk                 (0x1UL << WDT_CTL_RSTF_Pos)                       /*!< WDT_T::CTL: RSTF Mask                  */
 
 #define WDT_CTL_IF_Pos                   (3)                                               /*!< WDT_T::CTL: IF Position                */
-#define WDT_CTL_IF_Msk                   (0x1ul << WDT_CTL_IF_Pos)                         /*!< WDT_T::CTL: IF Mask                    */
+#define WDT_CTL_IF_Msk                   (0x1UL << WDT_CTL_IF_Pos)                         /*!< WDT_T::CTL: IF Mask                    */
 
 #define WDT_CTL_WKEN_Pos                 (4)                                               /*!< WDT_T::CTL: WKEN Position              */
-#define WDT_CTL_WKEN_Msk                 (0x1ul << WDT_CTL_WKEN_Pos)                       /*!< WDT_T::CTL: WKEN Mask                  */
+#define WDT_CTL_WKEN_Msk                 (0x1UL << WDT_CTL_WKEN_Pos)                       /*!< WDT_T::CTL: WKEN Mask                  */
 
 #define WDT_CTL_WKF_Pos                  (5)                                               /*!< WDT_T::CTL: WKF Position               */
-#define WDT_CTL_WKF_Msk                  (0x1ul << WDT_CTL_WKF_Pos)                        /*!< WDT_T::CTL: WKF Mask                   */
+#define WDT_CTL_WKF_Msk                  (0x1UL << WDT_CTL_WKF_Pos)                        /*!< WDT_T::CTL: WKF Mask                   */
 
 #define WDT_CTL_INTEN_Pos                (6)                                               /*!< WDT_T::CTL: INTEN Position             */
-#define WDT_CTL_INTEN_Msk                (0x1ul << WDT_CTL_INTEN_Pos)                      /*!< WDT_T::CTL: INTEN Mask                 */
+#define WDT_CTL_INTEN_Msk                (0x1UL << WDT_CTL_INTEN_Pos)                      /*!< WDT_T::CTL: INTEN Mask                 */
 
 #define WDT_CTL_WDTEN_Pos                (7)                                               /*!< WDT_T::CTL: WDTEN Position             */
-#define WDT_CTL_WDTEN_Msk                (0x1ul << WDT_CTL_WDTEN_Pos)                      /*!< WDT_T::CTL: WDTEN Mask                 */
+#define WDT_CTL_WDTEN_Msk                (0x1UL << WDT_CTL_WDTEN_Pos)                      /*!< WDT_T::CTL: WDTEN Mask                 */
 
 #define WDT_CTL_TOUTSEL_Pos              (8)                                               /*!< WDT_T::CTL: TOUTSEL Position           */
-#define WDT_CTL_TOUTSEL_Msk              (0xful << WDT_CTL_TOUTSEL_Pos)                    /*!< WDT_T::CTL: TOUTSEL Mask               */
+#define WDT_CTL_TOUTSEL_Msk              (0xfUL << WDT_CTL_TOUTSEL_Pos)                    /*!< WDT_T::CTL: TOUTSEL Mask               */
 
 #define WDT_CTL_PDRSTCNT_Pos             (29)                                              /*!< WDT_T::CTL: PDRSTCNT Position          */
-#define WDT_CTL_PDRSTCNT_Msk             (0x1ul << WDT_CTL_PDRSTCNT_Pos)                   /*!< WDT_T::CTL: PDRSTCNT Mask              */
+#define WDT_CTL_PDRSTCNT_Msk             (0x1UL << WDT_CTL_PDRSTCNT_Pos)                   /*!< WDT_T::CTL: PDRSTCNT Mask              */
 
 #define WDT_CTL_SYNC_Pos                 (30)                                              /*!< WDT_T::CTL: SYNC Position              */
-#define WDT_CTL_SYNC_Msk                 (0x1ul << WDT_CTL_SYNC_Pos)                       /*!< WDT_T::CTL: SYNC Mask                  */
+#define WDT_CTL_SYNC_Msk                 (0x1UL << WDT_CTL_SYNC_Pos)                       /*!< WDT_T::CTL: SYNC Mask                  */
 
 #define WDT_CTL_ICEDEBUG_Pos             (31)                                              /*!< WDT_T::CTL: ICEDEBUG Position          */
-#define WDT_CTL_ICEDEBUG_Msk             (0x1ul << WDT_CTL_ICEDEBUG_Pos)                   /*!< WDT_T::CTL: ICEDEBUG Mask              */
+#define WDT_CTL_ICEDEBUG_Msk             (0x1UL << WDT_CTL_ICEDEBUG_Pos)                   /*!< WDT_T::CTL: ICEDEBUG Mask              */
 
 #define WDT_ALTCTL_RSTDSEL_Pos           (0)                                               /*!< WDT_T::ALTCTL: RSTDSEL Position        */
-#define WDT_ALTCTL_RSTDSEL_Msk           (0x3ul << WDT_ALTCTL_RSTDSEL_Pos)                 /*!< WDT_T::ALTCTL: RSTDSEL Mask            */
+#define WDT_ALTCTL_RSTDSEL_Msk           (0x3UL << WDT_ALTCTL_RSTDSEL_Pos)                 /*!< WDT_T::ALTCTL: RSTDSEL Mask            */
 
 #define WDT_RSTCNT_RSTCNT_Pos            (0)                                               /*!< WDT_T::RSTCNT: RSTCNT Position         */
-#define WDT_RSTCNT_RSTCNT_Msk            (0xfffffffful << WDT_RSTCNT_RSTCNT_Pos)           /*!< WDT_T::RSTCNT: RSTCNT Mask             */
+#define WDT_RSTCNT_RSTCNT_Msk            (0xffffffffUL << WDT_RSTCNT_RSTCNT_Pos)           /*!< WDT_T::RSTCNT: RSTCNT Mask             */
 
 /**@}*/ /* WDT_CONST */
 /**@}*/ /* end of WDT register group */

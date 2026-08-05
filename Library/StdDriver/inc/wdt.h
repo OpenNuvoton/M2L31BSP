@@ -161,9 +161,9 @@ extern "C"
 /* static inline functions                                                                                 */
 /*---------------------------------------------------------------------------------------------------------*/
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
-__STATIC_INLINE void WDT_Close(void);
-__STATIC_INLINE void WDT_EnableInt(void);
-__STATIC_INLINE void WDT_DisableInt(void);
+static inline void WDT_Close(void);
+static inline void WDT_EnableInt(void);
+static inline void WDT_DisableInt(void);
 
 /**
   * @brief      Stop WDT Counting
@@ -174,14 +174,19 @@ __STATIC_INLINE void WDT_DisableInt(void);
   *
   * @details    This function will stop WDT counting and disable WDT module.
   */
-__STATIC_INLINE void WDT_Close(void)
+static inline void WDT_Close(void)
 {
     uint32_t u32TimeOutCnt = WDT_TIMEOUT;
 
     WDT->CTL = 0UL;
-    while(WDT->CTL & WDT_CTL_SYNC_Msk) /* Wait disable WDTEN bit completed, it needs 2 * WDT_CLK. */
+    /* Wait until WDT disable sync completes; use explicit comparison for clarity. */   
+    while ((WDT->CTL & WDT_CTL_SYNC_Msk) != 0UL)  /* Wait disable WDTEN bit completed, it needs 2 * WDT_CLK. */   
     {
-        if(--u32TimeOutCnt == 0) break;
+        /* [SEC] Timeout handling without underflow or side effects in expressions. */
+        if ((--u32TimeOutCnt) == 0UL)
+        {
+            break; /* Timeout */
+        }
     }
 }
 
@@ -194,7 +199,7 @@ __STATIC_INLINE void WDT_Close(void)
   *
   * @details    This function will enable the WDT time-out interrupt function.
   */
-__STATIC_INLINE void WDT_EnableInt(void)
+static inline void WDT_EnableInt(void)
 {
     WDT->CTL |= WDT_CTL_INTEN_Msk;
 }
@@ -208,7 +213,7 @@ __STATIC_INLINE void WDT_EnableInt(void)
   *
   * @details    This function will disable the WDT time-out interrupt function.
   */
-__STATIC_INLINE void WDT_DisableInt(void)
+static inline void WDT_DisableInt(void)
 {
     /* Do not touch another write 1 clear bits */
     WDT->CTL &= ~(WDT_CTL_INTEN_Msk | WDT_CTL_RSTF_Msk | WDT_CTL_IF_Msk | WDT_CTL_WKF_Msk);

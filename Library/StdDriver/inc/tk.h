@@ -6,8 +6,8 @@
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
-#ifndef __TK_H__
-#define __TK_H__
+#ifndef TK_H
+#define TK_H
 
 #include "NuMicro.h"
 
@@ -34,14 +34,14 @@ extern "C"
 #define TK_SCAN_MODE_ALL_KEY                (TK_REFC_SCAN_ALL_Msk)                            /*!< Touch key all keys scan mode */
 #define TK_SCAN_MODE_PERIODIC_ALL_KEY       (TK_SCANC_TRG_EN_Msk | TK_REFC_SCAN_ALL_Msk)       /*!< Touch key periodic with all keys scan mode */
 
-#define TK_SCAN_TRIGGER_SOURCE_TMR0         (1 << TK_SCANC_TMRTRG_EN_Pos)
-#define TK_SCAN_TRIGGER_SOURCE_TMR1         (2 << TK_SCANC_TMRTRG_EN_Pos)
-#define TK_SCAN_TRIGGER_SOURCE_TMR2         (3 << TK_SCANC_TMRTRG_EN_Pos)
-#define TK_SCAN_TRIGGER_SOURCE_TMR3         (4 << TK_SCANC_TMRTRG_EN_Pos)
-#define TK_SCAN_TRIGGER_SOURCE_LPTMR0       (8 << TK_SCANC_TMRTRG_EN_Pos)
-#define TK_SCAN_TRIGGER_SOURCE_LPTMR1       (9 << TK_SCANC_TMRTRG_EN_Pos)
-#define TK_SCAN_TRIGGER_SOURCE_TICKTMR0     (10 << TK_SCANC_TMRTRG_EN_Pos)
-#define TK_SCAN_TRIGGER_SOURCE_TICKTMR1     (11 << TK_SCANC_TMRTRG_EN_Pos)
+#define TK_SCAN_TRIGGER_SOURCE_TMR0         (1UL << TK_SCANC_TMRTRG_EN_Pos)
+#define TK_SCAN_TRIGGER_SOURCE_TMR1         (2UL << TK_SCANC_TMRTRG_EN_Pos)
+#define TK_SCAN_TRIGGER_SOURCE_TMR2         (3UL << TK_SCANC_TMRTRG_EN_Pos)
+#define TK_SCAN_TRIGGER_SOURCE_TMR3         (4UL << TK_SCANC_TMRTRG_EN_Pos)
+#define TK_SCAN_TRIGGER_SOURCE_LPTMR0       (8UL << TK_SCANC_TMRTRG_EN_Pos)
+#define TK_SCAN_TRIGGER_SOURCE_LPTMR1       (9UL << TK_SCANC_TMRTRG_EN_Pos)
+#define TK_SCAN_TRIGGER_SOURCE_TICKTMR0     (10UL << TK_SCANC_TMRTRG_EN_Pos)
+#define TK_SCAN_TRIGGER_SOURCE_TICKTMR1     (11UL << TK_SCANC_TMRTRG_EN_Pos)
 
 #define TK_SENSE_PULSE_1                    (0UL << TK_REFC_PULSET_Pos)                       /*!< Touch key sensing pulse width is 1us   */
 #define TK_SENSE_PULSE_2                    (1UL << TK_REFC_PULSET_Pos)                       /*!< Touch key sensing pulse width is 2us   */
@@ -146,8 +146,12 @@ extern "C"
  * @note Touch key 16 is the default reference key, so touch key 16 is enabled.
  * \hideinitializer
  */
-#define TK_ENABLE_SCAN_KEY(u32Mask) (TK->SCANC |= (u32Mask&0x1FFFF)); \
-    (TK->SCANC1 |= ((u32Mask)>>17))
+#define TK_ENABLE_SCAN_KEY(u32Mask)                 \
+    do                                                \
+    {                                                 \
+        TK->SCANC |= ((u32Mask) & 0x1FFFFUL);         \
+        TK->SCANC1 |= ((u32Mask) >> 17U);             \
+    } while (0)
 
 /**
  * @brief Disable scan key(s)
@@ -156,8 +160,12 @@ extern "C"
  * @return None
  * \hideinitializer
  */
-#define TK_DISABLE_SCAN_KEY(u32Mask) (TK->SCANC &= ~(u32Mask&0x1FFFF)); \
-    (TK->SCANC1 &= ~((u32Mask)>>17))
+#define TK_DISABLE_SCAN_KEY(u32Mask)                \
+    do                                                \
+    {                                                 \
+        TK->SCANC &= ~((u32Mask) & 0x1FFFFUL);        \
+        TK->SCANC1 &= ~((u32Mask) >> 17U);            \
+    } while (0)
 
 /**
  * @brief Enable reference key(s)
@@ -167,8 +175,12 @@ extern "C"
  * @note Touch key 16 is the default reference key, so touch key 16 is enabled.
  * \hideinitializer
  */
-#define TK_ENABLE_REF_KEY(u32Mask) (TK->REFC |= (u32Mask&0x1FFFF)); \
-    (TK->REFC1 |= (u32Mask>>17))
+#define TK_ENABLE_REF_KEY(u32Mask)                  \
+    do                                                \
+    {                                                 \
+        TK->REFC |= ((u32Mask) & 0x1FFFFUL);          \
+        TK->REFC1 |= ((u32Mask) >> 17U);              \
+    } while (0)
 
 /**
  * @brief Disable reference key(s)
@@ -179,8 +191,12 @@ extern "C"
  *       If no any one touch key as reference key except touch key 16, then reference Touch key 16 can't be disable.
  * \hideinitializer
  */
-#define TK_DISABLE_REF_KEY(u32Mask) (TK->REFC &= ~(u32Mask&0x1FFFF)); \
-    (TK->REFC1 &= ~(u32Mask>>17))
+#define TK_DISABLE_REF_KEY(u32Mask)                 \
+    do                                                \
+    {                                                 \
+        TK->REFC &= ~((u32Mask) & 0x1FFFFUL);         \
+        TK->REFC1 &= ~((u32Mask) >> 17U);             \
+    } while (0)
 /**
  * @brief Initiate enabled key(s) scan immediately.
  * @param None
@@ -250,7 +266,10 @@ extern "C"
  * @return Complement capacitor bank data
  * \hideinitializer
  */
-#define TK_GET_COMP_CAP_BANK_DATA(u32TKNum) ((u32TKNum<=16) ? (((*(__IO uint32_t *) (&(TK->CCBD0) + ((u32TKNum%17) >> 2))) >> ((u32TKNum%17) % 4 * 8) & TK_CCBD0_CCBD0_Msk)):(((*(__IO uint32_t *) (&(TK->CCBD5) + ((u32TKNum%17) >> 2))) >> ((u32TKNum%17) % 4 * 8) & TK_CCBD0_CCBD0_Msk)))
+#define TK_GET_COMP_CAP_BANK_DATA(u32TKNum) \
+    (((u32TKNum) <= 16UL) ? \
+     (((*(__IO uint32_t *)(&(TK->CCBD0) + ((((u32TKNum) % 17UL) >> 2U)))) >> ((((u32TKNum) % 17UL) % 4UL) * 8UL)) & TK_CCBD0_CCBD0_Msk) : \
+     (((*(__IO uint32_t *)(&(TK->CCBD5) + ((((u32TKNum) % 17UL) >> 2U)))) >> ((((u32TKNum) % 17UL) % 4UL) * 8UL)) & TK_CCBD0_CCBD0_Msk))
 
 /**
  * @brief Get touch key sensing result data.
@@ -258,7 +277,10 @@ extern "C"
  * @return Sensing result data
  * \hideinitializer
  */
-#define TK_GET_SENSE_DATA(u32TKNum) ((u32TKNum<=16) ? (((*(__IO uint32_t *) (&(TK->DAT0) + ((u32TKNum%17) >> 2))) >> ((u32TKNum%17) % 4 * 8) & TK_DAT0_TKDAT0_Msk)):(((*(__IO uint32_t *) (&(TK->DAT5) + ((u32TKNum%17) >> 2))) >> ((u32TKNum%17) % 4 * 8) & TK_DAT0_TKDAT0_Msk)))
+#define TK_GET_SENSE_DATA(u32TKNum) \
+    (((u32TKNum) <= 16UL) ? \
+     (((*(__IO uint32_t *)(&(TK->DAT0) + ((((u32TKNum) % 17UL) >> 2U)))) >> ((((u32TKNum) % 17UL) % 4UL) * 8UL)) & TK_DAT0_TKDAT0_Msk) : \
+     (((*(__IO uint32_t *)(&(TK->DAT5) + ((((u32TKNum) % 17UL) >> 2U)))) >> ((((u32TKNum) % 17UL) % 4UL) * 8UL)) & TK_DAT0_TKDAT0_Msk))
 
 /**
  * @brief Get touch key sensing result data.
@@ -275,7 +297,7 @@ extern "C"
  * @retval 1 Touch key is busy.
  * \hideinitializer
  */
-#define TK_IS_BUSY() ((TK->STA & TK_STA_BUSY_Msk) ? 1: 0)
+#define TK_IS_BUSY() ((TK->STA & TK_STA_BUSY_Msk) ? 1UL : 0UL)
 
 /**
  * @brief Get touch key interrupt flag.
@@ -304,7 +326,7 @@ extern "C"
  * @retval 1 Touch key is scan completed or threshold control event occurs.
  * \hideinitializer
  */
-#define TK_GET_INT_STATUS(u32Mask) ((TK->STA & (u32Mask)) ? 1: 0)
+#define TK_GET_INT_STATUS(u32Mask) ((TK->STA & (u32Mask)) ? 1UL : 0UL)
 
 /**
  * @brief Get touch key interrupt flag 1.
@@ -323,7 +345,7 @@ extern "C"
  * @retval 1 Touch key is scan completed or threshold control event occurs.
  * \hideinitializer
  */
-#define TK_GET_INT_STATUS1(u32Mask) ((TK->STA1 & (u32Mask)) ? 1: 0)
+#define TK_GET_INT_STATUS1(u32Mask) ((TK->STA1 & (u32Mask)) ? 1UL : 0UL)
 
 /**
  * @brief Clear touch key interrupt flag.
@@ -422,6 +444,13 @@ void TK_EnableScanAll(uint8_t u8RefcbAll, uint8_t u8CcbAll, uint8_t u8HThAll);
 void TK_DisableAllChannel(void);
 void TK_ClearTKIF(void);
 
+void TK_TriggerMode(uint32_t u32Src);
+void TK_SetReferenceChannel(uint32_t u32TKChanBitMsk);
+void TK_EnableChannel(uint32_t u32TKChanBitMsk);
+void TK_DisableChannel(uint32_t u32TKChanBitMsk);
+void TK_ClearTKIFBitMask(uint32_t u32TKChanBitMsk);
+uint32_t TK_CheckTKIF(uint8_t u8TKNum);
+
 void TK_ConfigPowerDown(uint8_t u8Sensitivity);
 
 /*@}*/ /* end of group TK_EXPORTED_FUNCTIONS */
@@ -434,4 +463,4 @@ void TK_ConfigPowerDown(uint8_t u8Sensitivity);
 }
 #endif
 
-#endif //__TK_H__
+#endif /* TK_H */

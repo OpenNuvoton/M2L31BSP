@@ -9,6 +9,8 @@
 #ifndef __CLK_H__
 #define __CLK_H__
 
+#include "core_cm23.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -578,10 +580,9 @@ extern "C"
 #define CLK_ENABLE_WKTMR(void)      (CLK->PMUWKCTL |= CLK_PMUWKCTL_WKTMREN_Msk)     /*!< Enable Wake-up timer at Standby or Deep Power-down mode \hideinitializer */
 
 #define CLK_TIMEOUT_ERR             (-1)    /*!< Clock timeout error value \hideinitializer */
+#define CLK_PLL_FAIL_ERR            (-2)    /*!< Set PLL Fail error value \hideinitializer */
 
 /*@}*/ /* end of group CLK_EXPORTED_CONSTANTS */
-
-extern int32_t g_CLK_i32ErrCode;
 
 /** @addtogroup CLK_EXPORTED_FUNCTIONS CLK Exported Functions
   @{
@@ -612,7 +613,7 @@ extern int32_t g_CLK_i32ErrCode;
  *
  * \hideinitializer
  */
-#define CLK_SET_WKTMR_INTERVAL(u32Interval)     (CLK->PMUWKCTL = (CLK->PMUWKCTL & ~CLK_PMUWKCTL_WKTMRIS_Msk) | u32Interval)
+#define CLK_SET_WKTMR_INTERVAL(u32Interval)     (CLK->PMUWKCTL = (CLK->PMUWKCTL & ~CLK_PMUWKCTL_WKTMRIS_Msk) | (u32Interval))
 
 /**
  * @brief       Set De-bounce Sampling Cycle Time
@@ -647,8 +648,8 @@ extern int32_t g_CLK_i32ErrCode;
 /* static inline functions                                                                                 */
 /*---------------------------------------------------------------------------------------------------------*/
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
-__STATIC_INLINE int32_t CLK_SysTickDelay(uint32_t us);
-__STATIC_INLINE int32_t CLK_SysTickLongDelay(uint32_t us);
+static inline int32_t CLK_SysTickDelay(uint32_t us);
+static inline int32_t CLK_SysTickLongDelay(uint32_t us);
 
 /**
   * @brief      This function execute delay function.
@@ -661,10 +662,10 @@ __STATIC_INLINE int32_t CLK_SysTickLongDelay(uint32_t us);
   * @details    Use the SysTick to generate the delay time and the unit is in us.
   *             The SysTick clock source is from HCLK, i.e the same as system core clock.
   */
-__STATIC_INLINE int32_t CLK_SysTickDelay(uint32_t us)
+static inline int32_t CLK_SysTickDelay(uint32_t us)
 {
     /* The u32TimeOutCnt value must be greater than the max delay time of 1398ms if HCLK=12MHz */
-    uint32_t u32TimeOutCnt = SystemCoreClock * 2;
+    uint32_t u32TimeOutCnt = SystemCoreClock * 2UL;
 
     SysTick->LOAD = us * CyclesPerUs;
     SysTick->VAL  = 0x0UL;
@@ -673,7 +674,7 @@ __STATIC_INLINE int32_t CLK_SysTickDelay(uint32_t us)
     /* Waiting for down-count to zero */
     while((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) == 0UL)
     {
-        if(--u32TimeOutCnt == 0)
+        if(--u32TimeOutCnt == 0UL)
         {
             break;
         }
@@ -682,10 +683,14 @@ __STATIC_INLINE int32_t CLK_SysTickDelay(uint32_t us)
     /* Disable SysTick counter */
     SysTick->CTRL = 0UL;
 
-    if(u32TimeOutCnt == 0)
+    if(u32TimeOutCnt == 0UL)
+    {
         return CLK_TIMEOUT_ERR;
+    }
     else
-        return 0;
+    {
+        return 0L;
+    }
 }
 
 /**
@@ -698,49 +703,50 @@ __STATIC_INLINE int32_t CLK_SysTickDelay(uint32_t us)
   *             The SysTick clock source is from HCLK, i.e the same as system core clock.
   *             User can use SystemCoreClockUpdate() to calculate CyclesPerUs automatically before using this function.
   */
-__STATIC_INLINE int32_t CLK_SysTickLongDelay(uint32_t us)
+static inline int32_t CLK_SysTickLongDelay(uint32_t us)
 {
     /* The u32TimeOutCnt value must be greater than the max delay time of 1398ms if HCLK=12MHz */
-    uint32_t u32TimeOutCnt = SystemCoreClock * 2;
-    uint32_t delay;
+    uint32_t u32TimeOutCnt = SystemCoreClock * 2UL;
+    uint32_t u32Delay;
+    uint32_t u32RemainUs;
+
+    u32RemainUs = us;
 
     /* It should <= 349525us for each delay loop */
-    delay = 349525UL;
+    u32Delay = 349525UL;
 
-    do
+    while (u32RemainUs > 0UL)
     {
-        if(us > delay)
+        if (u32RemainUs > u32Delay)
         {
-            us -= delay;
+            u32Delay     = 349525UL;
+            u32RemainUs -= 349525UL;
         }
         else
         {
-            delay = us;
-            us = 0UL;
+
+            u32Delay     = u32RemainUs;
+            u32RemainUs = 0UL;
         }
 
-        SysTick->LOAD = delay * CyclesPerUs;
+        SysTick->LOAD = u32Delay * CyclesPerUs;
         SysTick->VAL  = (0x0UL);
         SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk;
 
         /* Waiting for down-count to zero */
         while((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) == 0UL)
         {
-            if(--u32TimeOutCnt == 0)
+            if(--u32TimeOutCnt == 0UL)
             {
-                break;
+                SysTick->CTRL = 0UL;
+                return CLK_TIMEOUT_ERR;
             }
         }
 
         /* Disable SysTick counter */
         SysTick->CTRL = 0UL;
-
-        if(u32TimeOutCnt == 0)
-            return CLK_TIMEOUT_ERR;
-        else
-            return 0;
     }
-    while(us > 0UL);
+    return 0L;
 }
 
 
@@ -779,6 +785,8 @@ void     CLK_DisableMIRC(void);
 uint32_t CLK_EnableMIRC(uint32_t u32MircFreq);
 uint32_t CLK_GetHCLK1Freq(void);
 uint32_t CLK_GetPCLK2Freq(void);
+int32_t  CLK_GetErrCode(void);
+void     CLK_SetErrCode(int32_t err);
 
 /*@}*/ /* end of group CLK_EXPORTED_FUNCTIONS */
 

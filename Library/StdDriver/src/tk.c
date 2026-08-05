@@ -6,7 +6,94 @@
  * SPDX-License-Identifier: Apache-2.0
  * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
-#include "NuMicro.h"
+#include "tk.h"
+
+static volatile uint32_t *TK_GetCCBDReg(uint32_t u32TKNum)
+{
+    /* cppcheck-suppress constVariable */
+    static volatile uint32_t * const s_apu32CCBDReg[] =
+    {
+        &TK->CCBD0,
+        &TK->CCBD1,
+        &TK->CCBD2,
+        &TK->CCBD3,
+        &TK->CCBD4,
+        &TK->CCBD5
+    };
+
+
+    uint32_t u32RegIndex;
+
+    if (u32TKNum < 17UL)
+    {
+        u32RegIndex = u32TKNum / 4UL;
+    }
+    else
+    {
+        u32RegIndex = 5UL;
+    }
+
+    return s_apu32CCBDReg[u32RegIndex];
+}
+
+static volatile uint32_t *TK_GetREFCBDReg(uint32_t u32TKNum)
+{
+    /* cppcheck-suppress constVariable */
+    static volatile uint32_t * const s_apu32REFCBDReg[] =
+    {
+        &TK->REFCBD0,
+        &TK->REFCBD1,
+        &TK->REFCBD2,
+        &TK->REFCBD3,
+        &TK->REFCBD4,
+        &TK->REFCBD5
+    };
+
+    uint32_t u32RegIndex;
+
+    if (u32TKNum < 17UL)
+    {
+        u32RegIndex = u32TKNum / 4UL;
+    }
+    else
+    {
+        u32RegIndex = 5UL;
+    }
+
+    return s_apu32REFCBDReg[u32RegIndex];
+}
+
+static volatile uint32_t *TK_GetTHCReg(uint32_t u32TKNum)
+{
+    /* cppcheck-suppress constVariable */
+    static volatile uint32_t * const s_apu32THCReg[] =
+    {
+        &TK->THC01,
+        &TK->THC23,
+        &TK->THC45,
+        &TK->THC67,
+        &TK->THC89,
+        &TK->THC1011,
+        &TK->THC1213,
+        &TK->THC1415,
+        &TK->THC16,
+        &TK->THC17
+    };
+
+    uint32_t u32RegIndex;
+
+    if (u32TKNum < 17UL)
+    {
+        u32RegIndex = u32TKNum / 2UL;
+    }
+    else
+    {
+        u32RegIndex = 9UL;
+    }
+
+    return s_apu32THCReg[u32RegIndex];
+}
+
 
 /** @addtogroup Standard_Driver Standard Driver
   @{
@@ -35,14 +122,14 @@ void TK_Open(void)
     TK->SCANC |= TK_SCANC_TK_EN_Msk;
 
     /* Set idle and polarity state as GND */
-    TK->IDLSC = 0;
-    TK->IDLSC1 = 0;
-    TK->POLSEL = 0;
-    if( ((SYS->PDID&0x01925000) == 0x01925000) || ((SYS->PDID&0x01D23140) == 0x01D23140) || ((SYS->PDID&0x01F31000) == 0x01F31000) )
+    TK->IDLSC = 0UL;
+    TK->IDLSC1 = 0UL;
+    TK->POLSEL = 0UL;
+    if( ((SYS->PDID & 0x01925000UL) == 0x01925000UL) || ((SYS->PDID & 0x01D23140UL) == 0x01D23140UL) || ((SYS->PDID & 0x01F31000UL) == 0x01F31000UL) )
     {
         //for M258G || TC8260 || M2L31
-        TK->IDLSC1 = 0;
-        TK->POLSEL1 = 0;
+        TK->IDLSC1 = 0UL;
+        TK->POLSEL1 = 0UL;
     }
     TK->POLC &= ~(TK_POLC_IDLS16_Msk | TK_POLC_POL16_Msk);
 }
@@ -78,7 +165,7 @@ void TK_SetScanMode(uint32_t u32Mode)
 
     if (u32Mode == TK_SCAN_MODE_PERIODIC)
     {
-        //TK->SCANC |= u32Mode;   /* Replace by TK_TriggerMode() */
+        /* Periodic trigger source is configured by TK_TriggerMode(). */
     }
     else if (u32Mode == TK_SCAN_MODE_ALL_KEY)
     {
@@ -86,8 +173,12 @@ void TK_SetScanMode(uint32_t u32Mode)
     }
     else if (u32Mode == TK_SCAN_MODE_PERIODIC_ALL_KEY)
     {
-        //TK->SCANC |= TK_SCANC_TRG_EN_Msk;
+        /* Periodic trigger source is configured by TK_TriggerMode(). */
         TK->REFC |= TK_REFC_SCAN_ALL_Msk;
+    }
+    else
+    {
+        /* Single scan mode requires no additional configuration. */
     }
 }
 
@@ -177,27 +268,27 @@ void TK_SetTkPol(uint32_t u32Mask, uint32_t u32PolSel)
     uint32_t i;
 
     /* TK0 ~ TK15 Polarity Sel */
-    for (i = 0 ; i < 16 ; i++)
+    for (i = 0 ; i < 16UL ; i++)
     {
-        if ((1ul << i) & u32Mask)
+        if (((1UL << i) & u32Mask) != 0UL)
         {
-            TK->POLSEL = (TK->POLSEL & ~(TK_POLSEL_POL0_Msk << (i * 2))) | (u32PolSel << (i * 2));
+            TK->POLSEL = (TK->POLSEL & ~(TK_POLSEL_POL0_Msk << (i * 2UL))) | (u32PolSel << (i * 2UL));
         }
     }
 
     /* TK16's Polarity Sel is special */
-    i = 16;
-    if ((1ul << i) & u32Mask)
+    i = 16UL;
+    if (((1UL << i) & u32Mask) != 0UL)
     {
-        TK->POLC = (TK->POLC & ~(TK_POLC_POL16_Msk << 2)) | (u32PolSel<<2);
+        TK->POLC = (TK->POLC & ~(TK_POLC_POL16_Msk << 2U)) | (u32PolSel << 2U);
     }
 
     /* TK17 ~ TK26 Polarity Sel */
-    for (i = 17 ; i < 26 ; i++)
+    for (i = 17UL ; i < 26UL ; i++)
     {
-        if ((1ul << i) & u32Mask)
+        if (((1UL << i) & u32Mask) != 0UL)
         {
-            TK->POLSEL1 = (TK->POLSEL1 & ~(TK_POLSEL_POL0_Msk << ((i - 17) * 2))) | (u32PolSel << ((i - 17) * 2));
+            TK->POLSEL1 = (TK->POLSEL1 & ~(TK_POLSEL_POL0_Msk << ((i - 17UL) * 2UL))) | (u32PolSel << ((i - 17UL) * 2UL));
         }
     }
 }
@@ -212,11 +303,11 @@ void TK_SetTkPol(uint32_t u32Mask, uint32_t u32PolSel)
  */
 void TK_EnableTkPolarity(uint32_t u32Mask)
 {
-    TK->POLC |= ((u32Mask & 0x1FFFF) << TK_POLC_POLEN0_Pos);
-    if( ((SYS->PDID&0x01925000) == 0x01925000) || ((SYS->PDID&0x01D23140) == 0x01D23140) || ((SYS->PDID&0x01F31000) == 0x01F31000) )
+    TK->POLC |= ((u32Mask & 0x1FFFFUL) << TK_POLC_POLEN0_Pos);
+    if( ((SYS->PDID & 0x01925000UL) == 0x01925000UL) || ((SYS->PDID & 0x01D23140UL) == 0x01D23140UL) || ((SYS->PDID & 0x01F31000UL) == 0x01F31000UL) )
     {
         //for M258G || TC8260 || M2L31
-        TK->POLC1 |= (u32Mask >> 17);
+        TK->POLC1 |= (u32Mask >> 17U);
     }
 }
 
@@ -230,11 +321,11 @@ void TK_EnableTkPolarity(uint32_t u32Mask)
  */
 void TK_DisableTkPolarity(uint32_t u32Mask)
 {
-    TK->POLC &= ~((u32Mask & 0x1FFFF) << TK_POLC_POLEN0_Pos);
-    if( ((SYS->PDID&0x01925000) == 0x01925000) || ((SYS->PDID&0x01D23140) == 0x01D23140) || ((SYS->PDID&0x01F31000) == 0x01F31000) )
+    TK->POLC &= ~((u32Mask & 0x1FFFFUL) << TK_POLC_POLEN0_Pos);
+    if( ((SYS->PDID & 0x01925000UL) == 0x01925000UL) || ((SYS->PDID & 0x01D23140UL) == 0x01D23140UL) || ((SYS->PDID & 0x01F31000UL) == 0x01F31000UL) )
     {
         //for M258G || TC8260 || M2L31
-        TK->POLC1 &= ~(u32Mask >> 17);
+        TK->POLC1 &= ~(u32Mask >> 17U);
     }
 }
 
@@ -248,16 +339,31 @@ void TK_DisableTkPolarity(uint32_t u32Mask)
  */
 void TK_SetCompCapBankData(uint32_t u32TKNum, uint32_t u32CapData)
 {
-    if(u32TKNum <= 16)
+    volatile uint32_t *pu32Reg;
+    uint32_t u32Shift;
+    uint32_t u32MaskField;
+    uint32_t u32CapField;
+
+    if (u32TKNum > 17UL)
     {
-        *(__IO uint32_t *)(&(TK->CCBD0) + ((u32TKNum % 17) >> 2)) &= ~(TK_CCBD0_CCBD0_Msk << ((u32TKNum % 17) % 4 * 8));
-        *(__IO uint32_t *)(&(TK->CCBD0) + ((u32TKNum % 17) >> 2)) |= (u32CapData << ((u32TKNum % 17) % 4 * 8));
+        return;
+    }
+
+    pu32Reg = TK_GetCCBDReg(u32TKNum);
+
+    if (u32TKNum < 17UL)
+    {
+        u32Shift = (u32TKNum % 4UL) * 8UL;
     }
     else
     {
-        *(__IO uint32_t *)(&(TK->CCBD5) + ((u32TKNum % 17) >> 2)) &= ~(TK_CCBD0_CCBD0_Msk << ((u32TKNum % 17) % 4 * 8));
-        *(__IO uint32_t *)(&(TK->CCBD5) + ((u32TKNum % 17) >> 2)) |= (u32CapData << ((u32TKNum % 17) % 4 * 8));
+        u32Shift = 0UL;
     }
+
+    u32MaskField = (uint32_t)TK_CCBD0_CCBD0_Msk << u32Shift;
+    u32CapField = (((u32CapData & 0xFFUL) << u32Shift) & u32MaskField);
+
+    *pu32Reg = (*pu32Reg & (uint32_t)(~u32MaskField)) | u32CapField;
 }
 
 /**
@@ -269,8 +375,14 @@ void TK_SetCompCapBankData(uint32_t u32TKNum, uint32_t u32CapData)
  */
 void TK_SetRefKeyCapBankData(uint32_t u32CapData)
 {
-    /* In M258, each channel has own reference capacitor data. The function will be used if SCAN_ALL */
-    TK->CCBD4 = (TK->CCBD4 & ~TK_CCBD4_CCBD_ALL_Msk) | (u32CapData << TK_CCBD4_CCBD_ALL_Pos);
+    uint32_t u32CapField;
+
+    u32CapField =
+        (((u32CapData & 0xFFUL) << (uint32_t)TK_CCBD4_CCBD_ALL_Pos)
+         & (uint32_t)TK_CCBD4_CCBD_ALL_Msk);
+
+    TK->CCBD4 = (TK->CCBD4 & (uint32_t)(~TK_CCBD4_CCBD_ALL_Msk))
+                | u32CapField;
 }
 
 /**
@@ -283,16 +395,31 @@ void TK_SetRefKeyCapBankData(uint32_t u32CapData)
 
 void TK_SetRefCapBankData(uint32_t u32TKNum, uint32_t u32CapData)
 {
-    if(u32TKNum <= 16)
+    volatile uint32_t *pu32Reg;
+    uint32_t u32Shift;
+    uint32_t u32MaskField;
+    uint32_t u32CapField;
+
+    if (u32TKNum > 17UL)
     {
-        *(__IO uint32_t *)(&(TK->REFCBD0) + ((u32TKNum % 17) >> 2)) &= ~(TK_REFCBD0_CBD0_Msk << ((u32TKNum % 17) % 4 * 8));
-        *(__IO uint32_t *)(&(TK->REFCBD0) + ((u32TKNum % 17) >> 2)) |= (u32CapData << ((u32TKNum % 17) % 4 * 8));
+        return;
+    }
+
+    pu32Reg = TK_GetREFCBDReg(u32TKNum);
+
+    if (u32TKNum < 17UL)
+    {
+        u32Shift = (u32TKNum % 4UL) * 8UL;
     }
     else
     {
-        *(__IO uint32_t *)(&(TK->REFCBD5) + ((u32TKNum % 17) >> 2)) &= ~(TK_REFCBD0_CBD0_Msk << ((u32TKNum % 17) % 4 * 8));
-        *(__IO uint32_t *)(&(TK->REFCBD5) + ((u32TKNum % 17) >> 2)) |= (u32CapData << ((u32TKNum % 17) % 4 * 8));
+        u32Shift = 0UL;
     }
+
+    u32MaskField = (uint32_t)TK_REFCBD0_CBD0_Msk << u32Shift;
+    u32CapField = (((u32CapData & 0xFFUL) << u32Shift) & u32MaskField);
+
+    *pu32Reg = (*pu32Reg & (uint32_t)(~u32MaskField)) | u32CapField;
 }
 
 /**
@@ -305,16 +432,34 @@ void TK_SetRefCapBankData(uint32_t u32TKNum, uint32_t u32CapData)
  */
 void TK_SetScanThreshold(uint32_t u32TKNum, uint32_t u32HighLevel)
 {
-    if(u32TKNum <= 16)
+    volatile uint32_t *pu32Reg;
+    uint32_t u32Shift;
+    uint32_t u32MaskField;
+    uint32_t u32ThresholdField;
+
+    if (u32TKNum > 17UL)
     {
-        *(__IO uint32_t *)(&(TK->THC01) + ((u32TKNum % 17) >> 1)) &= ~((TK_THC01_HTH0_Msk) << (((u32TKNum % 17) & 0x1) * 16));
-        *(__IO uint32_t *)(&(TK->THC01) + ((u32TKNum % 17) >> 1)) |= (u32HighLevel << (TK_THC01_HTH0_Pos + ((u32TKNum % 17) & 0x1) * 16));
+        return;
+    }
+
+    pu32Reg = TK_GetTHCReg(u32TKNum);
+
+    if (u32TKNum < 17UL)
+    {
+        u32Shift = (uint32_t)TK_THC01_HTH0_Pos
+                   + ((u32TKNum & 0x1UL) * 16UL);
     }
     else
     {
-        *(__IO uint32_t *)(&(TK->THC17) + ((u32TKNum % 17) >> 1)) &= ~((TK_THC01_HTH0_Msk) << (((u32TKNum % 17) & 0x1) * 16));
-        *(__IO uint32_t *)(&(TK->THC17) + ((u32TKNum % 17) >> 1)) |= (u32HighLevel << (TK_THC01_HTH0_Pos + ((u32TKNum % 17) & 0x1) * 16));
+        u32Shift = (uint32_t)TK_THC01_HTH0_Pos;
     }
+
+    u32MaskField = (uint32_t)TK_THC01_HTH0_Msk << u32Shift;
+    u32ThresholdField =
+        (((u32HighLevel & 0xFFUL) << u32Shift) & u32MaskField);
+
+    *pu32Reg = (*pu32Reg & (uint32_t)(~u32MaskField))
+               | u32ThresholdField;
 }
 
 /**
@@ -355,11 +500,11 @@ void TK_DisableInt(uint32_t u32Msk)
   */
 void TK_DisableAllChannel(void)
 {
-    TK->SCANC &= ~(0x1FFFF);
-    if( ((SYS->PDID&0x01925000) == 0x01925000) || ((SYS->PDID&0x01D23140) == 0x01D23140) || ((SYS->PDID&0x01F31000) == 0x01F31000) )
+    TK->SCANC &= ~(0x1FFFFUL);
+    if( ((SYS->PDID & 0x01925000UL) == 0x01925000UL) || ((SYS->PDID & 0x01D23140UL) == 0x01D23140UL) || ((SYS->PDID & 0x01F31000UL) == 0x01F31000UL) )
     {
         //for M258G || TC8260 || M2L31
-        TK->SCANC1 &= ~(0x1F);
+        TK->SCANC1 &= ~(0x1FUL);
     }
 }
 
@@ -373,7 +518,7 @@ void TK_DisableAllChannel(void)
 void TK_ClearTKIF(void)
 {
     TK->STA |= 0x1FFFFC3UL;
-    if( ((SYS->PDID&0x01925000) == 0x01925000) || ((SYS->PDID&0x01D23140) == 0x01D23140) || ((SYS->PDID&0x01F31000) == 0x01F31000) )
+    if( ((SYS->PDID & 0x01925000UL) == 0x01925000UL) || ((SYS->PDID & 0x01D23140UL) == 0x01D23140UL) || ((SYS->PDID & 0x01F31000UL) == 0x01F31000UL) )
     {
         //for M258G || TC8260 || M2L31
         TK->STA1 |= 0x1FUL;
@@ -392,9 +537,9 @@ void TK_ClearTKIF(void)
 void TK_EnableScanAll(uint8_t u8RefcbAll, uint8_t u8CcbAll, uint8_t u8HThAll)
 {
     TK->REFC |= TK_REFC_SCAN_ALL_Msk;
-    TK->REFCBD4 = (TK->REFCBD4 & (~TK_REFCBD4_CBD_ALL_Msk)) | (u8RefcbAll << TK_REFCBD4_CBD_ALL_Pos);
-    TK->CCBD4 = (TK->CCBD4 & (~TK_CCBD4_CCBD_ALL_Msk)) | (u8CcbAll << TK_CCBD4_CCBD_ALL_Pos);
-    TK->THC16 = (TK->THC16 & (~TK_THC16_HTH_ALL_Msk))  | (u8HThAll << TK_THC16_HTH_ALL_Pos);
+    TK->REFCBD4 = (TK->REFCBD4 & (~TK_REFCBD4_CBD_ALL_Msk)) | ((uint32_t)u8RefcbAll << TK_REFCBD4_CBD_ALL_Pos);
+    TK->CCBD4 = (TK->CCBD4 & (~TK_CCBD4_CCBD_ALL_Msk)) | ((uint32_t)u8CcbAll << TK_CCBD4_CCBD_ALL_Pos);
+    TK->THC16 = (TK->THC16 & (~TK_THC16_HTH_ALL_Msk))  | ((uint32_t)u8HThAll << TK_THC16_HTH_ALL_Pos);
 }
 
 /**
@@ -416,15 +561,15 @@ void TK_DisableScanAll(void)
   */
 void TK_SetReferenceChannel(uint32_t u32TKChanBitMsk)  /* Single bit can be set */
 {
-    if(u32TKChanBitMsk <= 0x10000)
+    if(u32TKChanBitMsk <= 0x10000UL)
     {
-        TK->REFC = (TK->REFC & 0xFFFE0000) | u32TKChanBitMsk;
-        TK->REFC1 = 0x0;
+        TK->REFC = (TK->REFC & 0xFFFE0000UL) | u32TKChanBitMsk;
+        TK->REFC1 = 0UL;
     }
     else
     {
-        TK->REFC = 0;
-        TK->REFC1 = (u32TKChanBitMsk >> 17);
+        TK->REFC = 0UL;
+        TK->REFC1 = (u32TKChanBitMsk >> 17U);
     }
 }
 
@@ -437,8 +582,8 @@ void TK_SetReferenceChannel(uint32_t u32TKChanBitMsk)  /* Single bit can be set 
   */
 void TK_EnableChannel(uint32_t u32TKChanBitMsk)     /* Multiple bits can be set */
 {
-    TK->SCANC =  (TK->SCANC & ~0x1FFFF) | (u32TKChanBitMsk & 0x1FFFF);
-    TK->SCANC1 = u32TKChanBitMsk >> 17;
+    TK->SCANC =  (TK->SCANC & ~0x1FFFFUL) | (u32TKChanBitMsk & 0x1FFFFUL);
+    TK->SCANC1 = u32TKChanBitMsk >> 17U;
 }
 
 /**
@@ -450,10 +595,14 @@ void TK_EnableChannel(uint32_t u32TKChanBitMsk)     /* Multiple bits can be set 
   */
 void TK_DisableChannel(uint32_t u32TKChanBitMsk)    /* Multiple bits can be set */
 {
-    if( (u32TKChanBitMsk&0x1FFFF) != 0)
-        TK->SCANC &= ~(u32TKChanBitMsk&0x1FFFF);
-    if( (u32TKChanBitMsk >> 17) != 0)
-        TK->SCANC1 &= ~(u32TKChanBitMsk>>17);
+    if ((u32TKChanBitMsk & 0x1FFFFUL) != 0UL)
+    {
+        TK->SCANC &= ~(u32TKChanBitMsk & 0x1FFFFUL);
+    }
+    if ((u32TKChanBitMsk >> 17U) != 0UL)
+    {
+        TK->SCANC1 &= ~(u32TKChanBitMsk >> 17U);
+    }
 }
 
 /**
@@ -465,13 +614,13 @@ void TK_DisableChannel(uint32_t u32TKChanBitMsk)    /* Multiple bits can be set 
   */
 void TK_ClearTKIFBitMask(uint32_t u32TKChanBitMsk)          /* Multiple bits can be set */
 {
-    if( (u32TKChanBitMsk & 0x1FFFF) != 0x0)
+    if ((u32TKChanBitMsk & 0x1FFFFUL) != 0UL)
     {
-        TK->STA = (u32TKChanBitMsk & 0x1FFFF) << 8; /* Write one clear */
+        TK->STA = (u32TKChanBitMsk & 0x1FFFFUL) << 8U; /* Write one clear */
     }
-    if( (u32TKChanBitMsk >> 17) != 0x0)
+    if ((u32TKChanBitMsk >> 17U) != 0UL)
     {
-        TK->STA1 = (u32TKChanBitMsk >> 17);         /* Write one clear */
+        TK->STA1 = u32TKChanBitMsk >> 17U;         /* Write one clear */
     }
 }
 
@@ -484,21 +633,28 @@ void TK_ClearTKIFBitMask(uint32_t u32TKChanBitMsk)          /* Multiple bits can
   */
 uint32_t TK_CheckTKIF(uint8_t u8TKNum)
 {
-    uint32_t u32Ret = 0;
-    if(u8TKNum <= 16)
+    uint32_t u32Ret = 0UL;
+    uint32_t u32TkNum = (uint32_t)u8TKNum;
+
+    if (u32TkNum <= 16UL)
     {
-        if( TK->STA & ((1<<u8TKNum)<<8) )
-            u32Ret = 1;
-        else
-            u32Ret = 0;
+        if ((TK->STA & (1UL << (u32TkNum + 8UL))) != 0UL)
+        {
+            u32Ret = 1UL;
+        }
+    }
+    else if (u32TkNum <= 25UL)
+    {
+        if ((TK->STA1 & (1UL << (u32TkNum - 17UL))) != 0UL)
+        {
+            u32Ret = 1UL;
+        }
     }
     else
     {
-        if( TK->STA1 & (1<<(u8TKNum-17)) )
-            u32Ret = 1;
-        else
-            u32Ret = 0;
+        /* Invalid touch-key number. */
     }
+
     return u32Ret;
 }
 

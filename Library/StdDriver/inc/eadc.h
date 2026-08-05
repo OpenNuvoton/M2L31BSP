@@ -112,11 +112,9 @@ extern "C"
 /*--------------------------------------------------------------------------------------------------*/
 /* Define Error Code                                                                                */
 /*--------------------------------------------------------------------------------------------------*/
-#define EADC_TIMEOUT_ERR    (-1)    /*!< EADC operation abort due to timeout error \hideinitializer */
+#define EADC_TIMEOUT_ERR    (-1L)    /*!< EADC operation abort due to timeout error \hideinitializer */
 
 /*@}*/ /* end of group EADC_EXPORTED_CONSTANTS */
-
-extern int32_t g_EADC_i32ErrCode;
 
 /** @addtogroup EADC_EXPORTED_FUNCTIONS EADC Exported Functions
   @{
@@ -144,7 +142,7 @@ extern int32_t g_EADC_i32ErrCode;
   *         user can enable this bit to generate a PDMA data transfer request.
   * \hideinitializer
   */
-#define EADC_ENABLE_SAMPLE_MODULE_PDMA(eadc, u32ModuleMask) ((eadc)->PDMACTL |= u32ModuleMask)
+#define EADC_ENABLE_SAMPLE_MODULE_PDMA(eadc, u32ModuleMask) ((eadc)->PDMACTL |= (u32ModuleMask))
 
 /**
   * @brief Disable Sample Module PDMA transfer.
@@ -449,7 +447,7 @@ extern int32_t g_EADC_i32ErrCode;
                                                             (((u32ModuleNum) << EADC_CMP_CMPSPL_Pos)|\
                                                             (u32Condition) |\
                                                             ((u16CMPData) << EADC_CMP_CMPDAT_Pos)| \
-                                                            (((u32MatchCount) - 1) << EADC_CMP_CMPMCNT_Pos)|\
+                                                            (((u32MatchCount) - 1UL) << EADC_CMP_CMPMCNT_Pos)|\
                                                             EADC_CMP_ADCMPEN_Msk)))
 
 /**
@@ -475,7 +473,7 @@ extern int32_t g_EADC_i32ErrCode;
                                                             (((u32ModuleNum) << EADC_CMP_CMPSPL_Pos)|\
                                                             (u32Condition) |\
                                                             ((u16CMPData) << EADC_CMP_CMPDAT_Pos)| \
-                                                            (((u32MatchCount) - 1) << EADC_CMP_CMPMCNT_Pos)|\
+                                                            (((u32MatchCount) - 1UL) << EADC_CMP_CMPMCNT_Pos)|\
                                                             EADC_CMP_ADCMPEN_Msk)))
 
 /**
@@ -501,7 +499,7 @@ extern int32_t g_EADC_i32ErrCode;
                                                             (((u32ModuleNum) << EADC_CMP_CMPSPL_Pos)|\
                                                             (u32Condition) |\
                                                             ((u16CMPData) << EADC_CMP_CMPDAT_Pos)| \
-                                                            (((u32MatchCount) - 1) << EADC_CMP_CMPMCNT_Pos)|\
+                                                            (((u32MatchCount) - 1UL) << EADC_CMP_CMPMCNT_Pos)|\
                                                             EADC_CMP_ADCMPEN_Msk)))
 
 /**
@@ -527,7 +525,7 @@ extern int32_t g_EADC_i32ErrCode;
                                                             (((u32ModuleNum) << EADC_CMP_CMPSPL_Pos)|\
                                                             (u32Condition) |\
                                                             ((u16CMPData) << EADC_CMP_CMPDAT_Pos)| \
-                                                            (((u32MatchCount) - 1) << EADC_CMP_CMPMCNT_Pos)|\
+                                                            (((u32MatchCount) - 1UL) << EADC_CMP_CMPMCNT_Pos)|\
                                                             EADC_CMP_ADCMPEN_Msk)))
 
 /**
@@ -697,6 +695,8 @@ void EADC_Close(EADC_T *eadc);
 void EADC_ConfigSampleModule(EADC_T *eadc, uint32_t u32ModuleNum, uint32_t u32TriggerSrc, uint32_t u32Channel);
 void EADC_SetTriggerDelayTime(EADC_T *eadc, uint32_t u32ModuleNum, uint32_t u32TriggerDelayTime, uint32_t u32DelayClockDivider);
 void EADC_SetExtendSampleTime(EADC_T *eadc, uint32_t u32ModuleNum, uint32_t u32ExtendSampleTime);
+int32_t EADC_GetErrCode(void);
+void    EADC_SetErrCode(int32_t err);
 
 /*@}*/ /* end of group EADC_EXPORTED_FUNCTIONS */
 

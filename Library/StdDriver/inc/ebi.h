@@ -39,21 +39,21 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 /*  Constants for EBI bank number                                                                          */
 /*---------------------------------------------------------------------------------------------------------*/
-#define EBI_BANK0               0   /*!< EBI bank 0 */
-#define EBI_BANK1               1   /*!< EBI bank 1 */
-#define EBI_BANK2               2   /*!< EBI bank 2 */
+#define EBI_BANK0               0UL   /*!< EBI bank 0 */
+#define EBI_BANK1               1UL   /*!< EBI bank 1 */
+#define EBI_BANK2               2UL   /*!< EBI bank 2 */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  Constants for EBI data bus width                                                                       */
 /*---------------------------------------------------------------------------------------------------------*/
-#define EBI_BUSWIDTH_8BIT       8   /*!< EBI bus width is 8-bit */
-#define EBI_BUSWIDTH_16BIT      16  /*!< EBI bus width is 16-bit */
+#define EBI_BUSWIDTH_8BIT       8UL   /*!< EBI bus width is 8-bit */
+#define EBI_BUSWIDTH_16BIT      16UL  /*!< EBI bus width is 16-bit */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  Constants for EBI CS Active Level                                                                      */
 /*---------------------------------------------------------------------------------------------------------*/
-#define EBI_CS_ACTIVE_LOW       0   /*!< EBI CS active level is low */
-#define EBI_CS_ACTIVE_HIGH      1   /*!< EBI CS active level is high */
+#define EBI_CS_ACTIVE_LOW       0UL   /*!< EBI CS active level is low */
+#define EBI_CS_ACTIVE_HIGH      1UL   /*!< EBI CS active level is high */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  Constants for EBI MCLK divider and Timing                                                              */

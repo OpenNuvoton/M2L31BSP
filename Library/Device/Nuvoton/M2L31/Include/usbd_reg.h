@@ -533,904 +533,904 @@ typedef struct
 @{ */
 
 #define USBD_INTEN_BUSIEN_Pos            (0)                                               /*!< USBD_T::INTEN: BUSIEN Position         */
-#define USBD_INTEN_BUSIEN_Msk            (0x1ul << USBD_INTEN_BUSIEN_Pos)                  /*!< USBD_T::INTEN: BUSIEN Mask             */
+#define USBD_INTEN_BUSIEN_Msk            (0x1UL << USBD_INTEN_BUSIEN_Pos)                  /*!< USBD_T::INTEN: BUSIEN Mask             */
 
 #define USBD_INTEN_USBIEN_Pos            (1)                                               /*!< USBD_T::INTEN: USBIEN Position         */
-#define USBD_INTEN_USBIEN_Msk            (0x1ul << USBD_INTEN_USBIEN_Pos)                  /*!< USBD_T::INTEN: USBIEN Mask             */
+#define USBD_INTEN_USBIEN_Msk            (0x1UL << USBD_INTEN_USBIEN_Pos)                  /*!< USBD_T::INTEN: USBIEN Mask             */
 
 #define USBD_INTEN_VBDETIEN_Pos          (2)                                               /*!< USBD_T::INTEN: VBDETIEN Position       */
-#define USBD_INTEN_VBDETIEN_Msk          (0x1ul << USBD_INTEN_VBDETIEN_Pos)                /*!< USBD_T::INTEN: VBDETIEN Mask           */
+#define USBD_INTEN_VBDETIEN_Msk          (0x1UL << USBD_INTEN_VBDETIEN_Pos)                /*!< USBD_T::INTEN: VBDETIEN Mask           */
 
 #define USBD_INTEN_NEVWKIEN_Pos          (3)                                               /*!< USBD_T::INTEN: NEVWKIEN Position       */
-#define USBD_INTEN_NEVWKIEN_Msk          (0x1ul << USBD_INTEN_NEVWKIEN_Pos)                /*!< USBD_T::INTEN: NEVWKIEN Mask           */
+#define USBD_INTEN_NEVWKIEN_Msk          (0x1UL << USBD_INTEN_NEVWKIEN_Pos)                /*!< USBD_T::INTEN: NEVWKIEN Mask           */
 
 #define USBD_INTEN_SOFIEN_Pos            (4)                                               /*!< USBD_T::INTEN: SOFIEN Position         */
-#define USBD_INTEN_SOFIEN_Msk            (0x1ul << USBD_INTEN_SOFIEN_Pos)                  /*!< USBD_T::INTEN: SOFIEN Mask             */
+#define USBD_INTEN_SOFIEN_Msk            (0x1UL << USBD_INTEN_SOFIEN_Pos)                  /*!< USBD_T::INTEN: SOFIEN Mask             */
 
 #define USBD_INTEN_WKEN_Pos              (8)                                               /*!< USBD_T::INTEN: WKEN Position           */
-#define USBD_INTEN_WKEN_Msk              (0x1ul << USBD_INTEN_WKEN_Pos)                    /*!< USBD_T::INTEN: WKEN Mask               */
+#define USBD_INTEN_WKEN_Msk              (0x1UL << USBD_INTEN_WKEN_Pos)                    /*!< USBD_T::INTEN: WKEN Mask               */
 
 #define USBD_INTEN_INNAKEN_Pos           (15)                                              /*!< USBD_T::INTEN: INNAKEN Position        */
-#define USBD_INTEN_INNAKEN_Msk           (0x1ul << USBD_INTEN_INNAKEN_Pos)                 /*!< USBD_T::INTEN: INNAKEN Mask            */
+#define USBD_INTEN_INNAKEN_Msk           (0x1UL << USBD_INTEN_INNAKEN_Pos)                 /*!< USBD_T::INTEN: INNAKEN Mask            */
 
 #define USBD_INTSTS_BUSIF_Pos            (0)                                               /*!< USBD_T::INTSTS: BUSIF Position         */
-#define USBD_INTSTS_BUSIF_Msk            (0x1ul << USBD_INTSTS_BUSIF_Pos)                  /*!< USBD_T::INTSTS: BUSIF Mask             */
+#define USBD_INTSTS_BUSIF_Msk            (0x1UL << USBD_INTSTS_BUSIF_Pos)                  /*!< USBD_T::INTSTS: BUSIF Mask             */
 
 #define USBD_INTSTS_USBIF_Pos            (1)                                               /*!< USBD_T::INTSTS: USBIF Position         */
-#define USBD_INTSTS_USBIF_Msk            (0x1ul << USBD_INTSTS_USBIF_Pos)                  /*!< USBD_T::INTSTS: USBIF Mask             */
+#define USBD_INTSTS_USBIF_Msk            (0x1UL << USBD_INTSTS_USBIF_Pos)                  /*!< USBD_T::INTSTS: USBIF Mask             */
 
 #define USBD_INTSTS_VBDETIF_Pos          (2)                                               /*!< USBD_T::INTSTS: VBDETIF Position       */
-#define USBD_INTSTS_VBDETIF_Msk          (0x1ul << USBD_INTSTS_VBDETIF_Pos)                /*!< USBD_T::INTSTS: VBDETIF Mask           */
+#define USBD_INTSTS_VBDETIF_Msk          (0x1UL << USBD_INTSTS_VBDETIF_Pos)                /*!< USBD_T::INTSTS: VBDETIF Mask           */
 
 #define USBD_INTSTS_NEVWKIF_Pos          (3)                                               /*!< USBD_T::INTSTS: NEVWKIF Position       */
-#define USBD_INTSTS_NEVWKIF_Msk          (0x1ul << USBD_INTSTS_NEVWKIF_Pos)                /*!< USBD_T::INTSTS: NEVWKIF Mask           */
+#define USBD_INTSTS_NEVWKIF_Msk          (0x1UL << USBD_INTSTS_NEVWKIF_Pos)                /*!< USBD_T::INTSTS: NEVWKIF Mask           */
 
 #define USBD_INTSTS_SOFIF_Pos            (4)                                               /*!< USBD_T::INTSTS: SOFIF Position         */
-#define USBD_INTSTS_SOFIF_Msk            (0x1ul << USBD_INTSTS_SOFIF_Pos)                  /*!< USBD_T::INTSTS: SOFIF Mask             */
+#define USBD_INTSTS_SOFIF_Msk            (0x1UL << USBD_INTSTS_SOFIF_Pos)                  /*!< USBD_T::INTSTS: SOFIF Mask             */
 
 #define USBD_INTSTS_EPEVT0_Pos           (16)                                              /*!< USBD_T::INTSTS: EPEVT0 Position        */
-#define USBD_INTSTS_EPEVT0_Msk           (0x1ul << USBD_INTSTS_EPEVT0_Pos)                 /*!< USBD_T::INTSTS: EPEVT0 Mask            */
+#define USBD_INTSTS_EPEVT0_Msk           (0x1UL << USBD_INTSTS_EPEVT0_Pos)                 /*!< USBD_T::INTSTS: EPEVT0 Mask            */
 
 #define USBD_INTSTS_EPEVT1_Pos           (17)                                              /*!< USBD_T::INTSTS: EPEVT1 Position        */
-#define USBD_INTSTS_EPEVT1_Msk           (0x1ul << USBD_INTSTS_EPEVT1_Pos)                 /*!< USBD_T::INTSTS: EPEVT1 Mask            */
+#define USBD_INTSTS_EPEVT1_Msk           (0x1UL << USBD_INTSTS_EPEVT1_Pos)                 /*!< USBD_T::INTSTS: EPEVT1 Mask            */
 
 #define USBD_INTSTS_EPEVT2_Pos           (18)                                              /*!< USBD_T::INTSTS: EPEVT2 Position        */
-#define USBD_INTSTS_EPEVT2_Msk           (0x1ul << USBD_INTSTS_EPEVT2_Pos)                 /*!< USBD_T::INTSTS: EPEVT2 Mask            */
+#define USBD_INTSTS_EPEVT2_Msk           (0x1UL << USBD_INTSTS_EPEVT2_Pos)                 /*!< USBD_T::INTSTS: EPEVT2 Mask            */
 
 #define USBD_INTSTS_EPEVT3_Pos           (19)                                              /*!< USBD_T::INTSTS: EPEVT3 Position        */
-#define USBD_INTSTS_EPEVT3_Msk           (0x1ul << USBD_INTSTS_EPEVT3_Pos)                 /*!< USBD_T::INTSTS: EPEVT3 Mask            */
+#define USBD_INTSTS_EPEVT3_Msk           (0x1UL << USBD_INTSTS_EPEVT3_Pos)                 /*!< USBD_T::INTSTS: EPEVT3 Mask            */
 
 #define USBD_INTSTS_EPEVT4_Pos           (20)                                              /*!< USBD_T::INTSTS: EPEVT4 Position        */
-#define USBD_INTSTS_EPEVT4_Msk           (0x1ul << USBD_INTSTS_EPEVT4_Pos)                 /*!< USBD_T::INTSTS: EPEVT4 Mask            */
+#define USBD_INTSTS_EPEVT4_Msk           (0x1UL << USBD_INTSTS_EPEVT4_Pos)                 /*!< USBD_T::INTSTS: EPEVT4 Mask            */
 
 #define USBD_INTSTS_EPEVT5_Pos           (21)                                              /*!< USBD_T::INTSTS: EPEVT5 Position        */
-#define USBD_INTSTS_EPEVT5_Msk           (0x1ul << USBD_INTSTS_EPEVT5_Pos)                 /*!< USBD_T::INTSTS: EPEVT5 Mask            */
+#define USBD_INTSTS_EPEVT5_Msk           (0x1UL << USBD_INTSTS_EPEVT5_Pos)                 /*!< USBD_T::INTSTS: EPEVT5 Mask            */
 
 #define USBD_INTSTS_EPEVT6_Pos           (22)                                              /*!< USBD_T::INTSTS: EPEVT6 Position        */
-#define USBD_INTSTS_EPEVT6_Msk           (0x1ul << USBD_INTSTS_EPEVT6_Pos)                 /*!< USBD_T::INTSTS: EPEVT6 Mask            */
+#define USBD_INTSTS_EPEVT6_Msk           (0x1UL << USBD_INTSTS_EPEVT6_Pos)                 /*!< USBD_T::INTSTS: EPEVT6 Mask            */
 
 #define USBD_INTSTS_EPEVT7_Pos           (23)                                              /*!< USBD_T::INTSTS: EPEVT7 Position        */
-#define USBD_INTSTS_EPEVT7_Msk           (0x1ul << USBD_INTSTS_EPEVT7_Pos)                 /*!< USBD_T::INTSTS: EPEVT7 Mask            */
+#define USBD_INTSTS_EPEVT7_Msk           (0x1UL << USBD_INTSTS_EPEVT7_Pos)                 /*!< USBD_T::INTSTS: EPEVT7 Mask            */
 
 #define USBD_INTSTS_EPEVT8_Pos           (24)                                              /*!< USBD_T::INTSTS: EPEVT8 Position        */
-#define USBD_INTSTS_EPEVT8_Msk           (0x1ul << USBD_INTSTS_EPEVT8_Pos)                 /*!< USBD_T::INTSTS: EPEVT8 Mask            */
+#define USBD_INTSTS_EPEVT8_Msk           (0x1UL << USBD_INTSTS_EPEVT8_Pos)                 /*!< USBD_T::INTSTS: EPEVT8 Mask            */
 
 #define USBD_INTSTS_EPEVT9_Pos           (25)                                              /*!< USBD_T::INTSTS: EPEVT9 Position        */
-#define USBD_INTSTS_EPEVT9_Msk           (0x1ul << USBD_INTSTS_EPEVT9_Pos)                 /*!< USBD_T::INTSTS: EPEVT9 Mask            */
+#define USBD_INTSTS_EPEVT9_Msk           (0x1UL << USBD_INTSTS_EPEVT9_Pos)                 /*!< USBD_T::INTSTS: EPEVT9 Mask            */
 
 #define USBD_INTSTS_EPEVT10_Pos          (26)                                              /*!< USBD_T::INTSTS: EPEVT10 Position       */
-#define USBD_INTSTS_EPEVT10_Msk          (0x1ul << USBD_INTSTS_EPEVT10_Pos)                /*!< USBD_T::INTSTS: EPEVT10 Mask           */
+#define USBD_INTSTS_EPEVT10_Msk          (0x1UL << USBD_INTSTS_EPEVT10_Pos)                /*!< USBD_T::INTSTS: EPEVT10 Mask           */
 
 #define USBD_INTSTS_EPEVT11_Pos          (27)                                              /*!< USBD_T::INTSTS: EPEVT11 Position       */
-#define USBD_INTSTS_EPEVT11_Msk          (0x1ul << USBD_INTSTS_EPEVT11_Pos)                /*!< USBD_T::INTSTS: EPEVT11 Mask           */
+#define USBD_INTSTS_EPEVT11_Msk          (0x1UL << USBD_INTSTS_EPEVT11_Pos)                /*!< USBD_T::INTSTS: EPEVT11 Mask           */
 
 #define USBD_INTSTS_SETUP_Pos            (31)                                              /*!< USBD_T::INTSTS: SETUP Position         */
-#define USBD_INTSTS_SETUP_Msk            (0x1ul << USBD_INTSTS_SETUP_Pos)                  /*!< USBD_T::INTSTS: SETUP Mask             */
+#define USBD_INTSTS_SETUP_Msk            (0x1UL << USBD_INTSTS_SETUP_Pos)                  /*!< USBD_T::INTSTS: SETUP Mask             */
 
 #define USBD_FADDR_FADDR_Pos             (0)                                               /*!< USBD_T::FADDR: FADDR Position          */
-#define USBD_FADDR_FADDR_Msk             (0x7ful << USBD_FADDR_FADDR_Pos)                  /*!< USBD_T::FADDR: FADDR Mask              */
+#define USBD_FADDR_FADDR_Msk             (0x7fUL << USBD_FADDR_FADDR_Pos)                  /*!< USBD_T::FADDR: FADDR Mask              */
 
 #define USBD_EPSTS_OV_Pos                (7)                                               /*!< USBD_T::EPSTS: OV Position             */
-#define USBD_EPSTS_OV_Msk                (0x1ul << USBD_EPSTS_OV_Pos)                      /*!< USBD_T::EPSTS: OV Mask                 */
+#define USBD_EPSTS_OV_Msk                (0x1UL << USBD_EPSTS_OV_Pos)                      /*!< USBD_T::EPSTS: OV Mask                 */
 
 #define USBD_ATTR_USBRST_Pos             (0)                                               /*!< USBD_T::ATTR: USBRST Position          */
-#define USBD_ATTR_USBRST_Msk             (0x1ul << USBD_ATTR_USBRST_Pos)                   /*!< USBD_T::ATTR: USBRST Mask              */
+#define USBD_ATTR_USBRST_Msk             (0x1UL << USBD_ATTR_USBRST_Pos)                   /*!< USBD_T::ATTR: USBRST Mask              */
 
 #define USBD_ATTR_SUSPEND_Pos            (1)                                               /*!< USBD_T::ATTR: SUSPEND Position         */
-#define USBD_ATTR_SUSPEND_Msk            (0x1ul << USBD_ATTR_SUSPEND_Pos)                  /*!< USBD_T::ATTR: SUSPEND Mask             */
+#define USBD_ATTR_SUSPEND_Msk            (0x1UL << USBD_ATTR_SUSPEND_Pos)                  /*!< USBD_T::ATTR: SUSPEND Mask             */
 
 #define USBD_ATTR_RESUME_Pos             (2)                                               /*!< USBD_T::ATTR: RESUME Position          */
-#define USBD_ATTR_RESUME_Msk             (0x1ul << USBD_ATTR_RESUME_Pos)                   /*!< USBD_T::ATTR: RESUME Mask              */
+#define USBD_ATTR_RESUME_Msk             (0x1UL << USBD_ATTR_RESUME_Pos)                   /*!< USBD_T::ATTR: RESUME Mask              */
 
 #define USBD_ATTR_TOUT_Pos               (3)                                               /*!< USBD_T::ATTR: TOUT Position            */
-#define USBD_ATTR_TOUT_Msk               (0x1ul << USBD_ATTR_TOUT_Pos)                     /*!< USBD_T::ATTR: TOUT Mask                */
+#define USBD_ATTR_TOUT_Msk               (0x1UL << USBD_ATTR_TOUT_Pos)                     /*!< USBD_T::ATTR: TOUT Mask                */
 
 #define USBD_ATTR_PHYEN_Pos              (4)                                               /*!< USBD_T::ATTR: PHYEN Position           */
-#define USBD_ATTR_PHYEN_Msk              (0x1ul << USBD_ATTR_PHYEN_Pos)                    /*!< USBD_T::ATTR: PHYEN Mask               */
+#define USBD_ATTR_PHYEN_Msk              (0x1UL << USBD_ATTR_PHYEN_Pos)                    /*!< USBD_T::ATTR: PHYEN Mask               */
 
 #define USBD_ATTR_RWAKEUP_Pos            (5)                                               /*!< USBD_T::ATTR: RWAKEUP Position         */
-#define USBD_ATTR_RWAKEUP_Msk            (0x1ul << USBD_ATTR_RWAKEUP_Pos)                  /*!< USBD_T::ATTR: RWAKEUP Mask             */
+#define USBD_ATTR_RWAKEUP_Msk            (0x1UL << USBD_ATTR_RWAKEUP_Pos)                  /*!< USBD_T::ATTR: RWAKEUP Mask             */
 
 #define USBD_ATTR_USBEN_Pos              (7)                                               /*!< USBD_T::ATTR: USBEN Position           */
-#define USBD_ATTR_USBEN_Msk              (0x1ul << USBD_ATTR_USBEN_Pos)                    /*!< USBD_T::ATTR: USBEN Mask               */
+#define USBD_ATTR_USBEN_Msk              (0x1UL << USBD_ATTR_USBEN_Pos)                    /*!< USBD_T::ATTR: USBEN Mask               */
 
 #define USBD_ATTR_DPPUEN_Pos             (8)                                               /*!< USBD_T::ATTR: DPPUEN Position          */
-#define USBD_ATTR_DPPUEN_Msk             (0x1ul << USBD_ATTR_DPPUEN_Pos)                   /*!< USBD_T::ATTR: DPPUEN Mask              */
+#define USBD_ATTR_DPPUEN_Msk             (0x1UL << USBD_ATTR_DPPUEN_Pos)                   /*!< USBD_T::ATTR: DPPUEN Mask              */
 
 #define USBD_ATTR_PWRDN_Pos              (9)                                               /*!< USBD_T::ATTR: PWRDN Position           */
-#define USBD_ATTR_PWRDN_Msk              (0x1ul << USBD_ATTR_PWRDN_Pos)                    /*!< USBD_T::ATTR: PWRDN Mask               */
+#define USBD_ATTR_PWRDN_Msk              (0x1UL << USBD_ATTR_PWRDN_Pos)                    /*!< USBD_T::ATTR: PWRDN Mask               */
 
 #define USBD_ATTR_BYTEM_Pos              (10)                                              /*!< USBD_T::ATTR: BYTEM Position           */
-#define USBD_ATTR_BYTEM_Msk              (0x1ul << USBD_ATTR_BYTEM_Pos)                    /*!< USBD_T::ATTR: BYTEM Mask               */
+#define USBD_ATTR_BYTEM_Msk              (0x1UL << USBD_ATTR_BYTEM_Pos)                    /*!< USBD_T::ATTR: BYTEM Mask               */
 
 #define USBD_VBUSDET_VBUSDET_Pos         (0)                                               /*!< USBD_T::VBUSDET: VBUSDET Position      */
-#define USBD_VBUSDET_VBUSDET_Msk         (0x1ul << USBD_VBUSDET_VBUSDET_Pos)               /*!< USBD_T::VBUSDET: VBUSDET Mask          */
+#define USBD_VBUSDET_VBUSDET_Msk         (0x1UL << USBD_VBUSDET_VBUSDET_Pos)               /*!< USBD_T::VBUSDET: VBUSDET Mask          */
 
 #define USBD_STBUFSEG_STBUFSEG_Pos       (3)                                               /*!< USBD_T::STBUFSEG: STBUFSEG Position    */
-#define USBD_STBUFSEG_STBUFSEG_Msk       (0xfful << USBD_STBUFSEG_STBUFSEG_Pos)            /*!< USBD_T::STBUFSEG: STBUFSEG Mask        */
+#define USBD_STBUFSEG_STBUFSEG_Msk       (0xffUL << USBD_STBUFSEG_STBUFSEG_Pos)            /*!< USBD_T::STBUFSEG: STBUFSEG Mask        */
 
 #define USBD_EPSTS0_EPSTS0_Pos           (0)                                               /*!< USBD_T::EPSTS0: EPSTS0 Position        */
-#define USBD_EPSTS0_EPSTS0_Msk           (0xful << USBD_EPSTS0_EPSTS0_Pos)                 /*!< USBD_T::EPSTS0: EPSTS0 Mask            */
+#define USBD_EPSTS0_EPSTS0_Msk           (0xfUL << USBD_EPSTS0_EPSTS0_Pos)                 /*!< USBD_T::EPSTS0: EPSTS0 Mask            */
 
 #define USBD_EPSTS0_EPSTS1_Pos           (4)                                               /*!< USBD_T::EPSTS0: EPSTS1 Position        */
-#define USBD_EPSTS0_EPSTS1_Msk           (0xful << USBD_EPSTS0_EPSTS1_Pos)                 /*!< USBD_T::EPSTS0: EPSTS1 Mask            */
+#define USBD_EPSTS0_EPSTS1_Msk           (0xfUL << USBD_EPSTS0_EPSTS1_Pos)                 /*!< USBD_T::EPSTS0: EPSTS1 Mask            */
 
 #define USBD_EPSTS0_EPSTS2_Pos           (8)                                               /*!< USBD_T::EPSTS0: EPSTS2 Position        */
-#define USBD_EPSTS0_EPSTS2_Msk           (0xful << USBD_EPSTS0_EPSTS2_Pos)                 /*!< USBD_T::EPSTS0: EPSTS2 Mask            */
+#define USBD_EPSTS0_EPSTS2_Msk           (0xfUL << USBD_EPSTS0_EPSTS2_Pos)                 /*!< USBD_T::EPSTS0: EPSTS2 Mask            */
 
 #define USBD_EPSTS0_EPSTS3_Pos           (12)                                              /*!< USBD_T::EPSTS0: EPSTS3 Position        */
-#define USBD_EPSTS0_EPSTS3_Msk           (0xful << USBD_EPSTS0_EPSTS3_Pos)                 /*!< USBD_T::EPSTS0: EPSTS3 Mask            */
+#define USBD_EPSTS0_EPSTS3_Msk           (0xfUL << USBD_EPSTS0_EPSTS3_Pos)                 /*!< USBD_T::EPSTS0: EPSTS3 Mask            */
 
 #define USBD_EPSTS0_EPSTS4_Pos           (16)                                              /*!< USBD_T::EPSTS0: EPSTS4 Position        */
-#define USBD_EPSTS0_EPSTS4_Msk           (0xful << USBD_EPSTS0_EPSTS4_Pos)                 /*!< USBD_T::EPSTS0: EPSTS4 Mask            */
+#define USBD_EPSTS0_EPSTS4_Msk           (0xfUL << USBD_EPSTS0_EPSTS4_Pos)                 /*!< USBD_T::EPSTS0: EPSTS4 Mask            */
 
 #define USBD_EPSTS0_EPSTS5_Pos           (20)                                              /*!< USBD_T::EPSTS0: EPSTS5 Position        */
-#define USBD_EPSTS0_EPSTS5_Msk           (0xful << USBD_EPSTS0_EPSTS5_Pos)                 /*!< USBD_T::EPSTS0: EPSTS5 Mask            */
+#define USBD_EPSTS0_EPSTS5_Msk           (0xfUL << USBD_EPSTS0_EPSTS5_Pos)                 /*!< USBD_T::EPSTS0: EPSTS5 Mask            */
 
 #define USBD_EPSTS0_EPSTS6_Pos           (24)                                              /*!< USBD_T::EPSTS0: EPSTS6 Position        */
-#define USBD_EPSTS0_EPSTS6_Msk           (0xful << USBD_EPSTS0_EPSTS6_Pos)                 /*!< USBD_T::EPSTS0: EPSTS6 Mask            */
+#define USBD_EPSTS0_EPSTS6_Msk           (0xfUL << USBD_EPSTS0_EPSTS6_Pos)                 /*!< USBD_T::EPSTS0: EPSTS6 Mask            */
 
 #define USBD_EPSTS0_EPSTS7_Pos           (28)                                              /*!< USBD_T::EPSTS0: EPSTS7 Position        */
-#define USBD_EPSTS0_EPSTS7_Msk           (0xful << USBD_EPSTS0_EPSTS7_Pos)                 /*!< USBD_T::EPSTS0: EPSTS7 Mask            */
+#define USBD_EPSTS0_EPSTS7_Msk           (0xfUL << USBD_EPSTS0_EPSTS7_Pos)                 /*!< USBD_T::EPSTS0: EPSTS7 Mask            */
 
 #define USBD_EPSTS1_EPSTS8_Pos           (0)                                               /*!< USBD_T::EPSTS1: EPSTS8 Position        */
-#define USBD_EPSTS1_EPSTS8_Msk           (0xful << USBD_EPSTS1_EPSTS8_Pos)                 /*!< USBD_T::EPSTS1: EPSTS8 Mask            */
+#define USBD_EPSTS1_EPSTS8_Msk           (0xfUL << USBD_EPSTS1_EPSTS8_Pos)                 /*!< USBD_T::EPSTS1: EPSTS8 Mask            */
 
 #define USBD_EPSTS1_EPSTS9_Pos           (4)                                               /*!< USBD_T::EPSTS1: EPSTS9 Position        */
-#define USBD_EPSTS1_EPSTS9_Msk           (0xful << USBD_EPSTS1_EPSTS9_Pos)                 /*!< USBD_T::EPSTS1: EPSTS9 Mask            */
+#define USBD_EPSTS1_EPSTS9_Msk           (0xfUL << USBD_EPSTS1_EPSTS9_Pos)                 /*!< USBD_T::EPSTS1: EPSTS9 Mask            */
 
 #define USBD_EPSTS1_EPSTS10_Pos          (8)                                               /*!< USBD_T::EPSTS1: EPSTS10 Position       */
-#define USBD_EPSTS1_EPSTS10_Msk          (0xful << USBD_EPSTS1_EPSTS10_Pos)                /*!< USBD_T::EPSTS1: EPSTS10 Mask           */
+#define USBD_EPSTS1_EPSTS10_Msk          (0xfUL << USBD_EPSTS1_EPSTS10_Pos)                /*!< USBD_T::EPSTS1: EPSTS10 Mask           */
 
 #define USBD_EPSTS1_EPSTS11_Pos          (12)                                              /*!< USBD_T::EPSTS1: EPSTS11 Position       */
-#define USBD_EPSTS1_EPSTS11_Msk          (0xful << USBD_EPSTS1_EPSTS11_Pos)                /*!< USBD_T::EPSTS1: EPSTS11 Mask           */
+#define USBD_EPSTS1_EPSTS11_Msk          (0xfUL << USBD_EPSTS1_EPSTS11_Pos)                /*!< USBD_T::EPSTS1: EPSTS11 Mask           */
 
 #define USBD_EPSTS1_EPSTS12_Pos          (16)                                              /*!< USBD_T::EPSTS1: EPSTS12 Position       */
-#define USBD_EPSTS1_EPSTS12_Msk          (0xful << USBD_EPSTS1_EPSTS12_Pos)                /*!< USBD_T::EPSTS1: EPSTS12 Mask           */
+#define USBD_EPSTS1_EPSTS12_Msk          (0xfUL << USBD_EPSTS1_EPSTS12_Pos)                /*!< USBD_T::EPSTS1: EPSTS12 Mask           */
 
 #define USBD_EPSTS1_EPSTS13_Pos          (20)                                              /*!< USBD_T::EPSTS1: EPSTS13 Position       */
-#define USBD_EPSTS1_EPSTS13_Msk          (0xful << USBD_EPSTS1_EPSTS13_Pos)                /*!< USBD_T::EPSTS1: EPSTS13 Mask           */
+#define USBD_EPSTS1_EPSTS13_Msk          (0xfUL << USBD_EPSTS1_EPSTS13_Pos)                /*!< USBD_T::EPSTS1: EPSTS13 Mask           */
 
 #define USBD_EPSTS1_EPSTS14_Pos          (24)                                              /*!< USBD_T::EPSTS1: EPSTS14 Position       */
-#define USBD_EPSTS1_EPSTS14_Msk          (0xful << USBD_EPSTS1_EPSTS14_Pos)                /*!< USBD_T::EPSTS1: EPSTS14 Mask           */
+#define USBD_EPSTS1_EPSTS14_Msk          (0xfUL << USBD_EPSTS1_EPSTS14_Pos)                /*!< USBD_T::EPSTS1: EPSTS14 Mask           */
 
 #define USBD_EPSTS1_EPSTS15_Pos          (28)                                              /*!< USBD_T::EPSTS1: EPSTS15 Position       */
-#define USBD_EPSTS1_EPSTS15_Msk          (0xful << USBD_EPSTS1_EPSTS15_Pos)                /*!< USBD_T::EPSTS1: EPSTS15 Mask           */
+#define USBD_EPSTS1_EPSTS15_Msk          (0xfUL << USBD_EPSTS1_EPSTS15_Pos)                /*!< USBD_T::EPSTS1: EPSTS15 Mask           */
 
 #define USBD_EPSTS2_EPSTS16_Pos          (0)                                               /*!< USBD_T::EPSTS2: EPSTS16 Position       */
-#define USBD_EPSTS2_EPSTS16_Msk          (0xful << USBD_EPSTS2_EPSTS16_Pos)                /*!< USBD_T::EPSTS2: EPSTS16 Mask           */
+#define USBD_EPSTS2_EPSTS16_Msk          (0xfUL << USBD_EPSTS2_EPSTS16_Pos)                /*!< USBD_T::EPSTS2: EPSTS16 Mask           */
 
 #define USBD_EPSTS2_EPSTS17_Pos          (4)                                               /*!< USBD_T::EPSTS2: EPSTS17 Position       */
-#define USBD_EPSTS2_EPSTS17_Msk          (0xful << USBD_EPSTS2_EPSTS17_Pos)                /*!< USBD_T::EPSTS2: EPSTS17 Mask           */
+#define USBD_EPSTS2_EPSTS17_Msk          (0xfUL << USBD_EPSTS2_EPSTS17_Pos)                /*!< USBD_T::EPSTS2: EPSTS17 Mask           */
 
 #define USBD_EPSTS2_EPSTS18_Pos          (8)                                               /*!< USBD_T::EPSTS2: EPSTS18 Position       */
-#define USBD_EPSTS2_EPSTS18_Msk          (0xful << USBD_EPSTS2_EPSTS18_Pos)                /*!< USBD_T::EPSTS2: EPSTS18 Mask           */
+#define USBD_EPSTS2_EPSTS18_Msk          (0xfUL << USBD_EPSTS2_EPSTS18_Pos)                /*!< USBD_T::EPSTS2: EPSTS18 Mask           */
 
 #define USBD_EPINTSTS_EPEVT0_Pos         (0)                                               /*!< USBD_T::EPINTSTS: EPEVT0 Position      */
-#define USBD_EPINTSTS_EPEVT0_Msk         (0x1ul << USBD_EPINTSTS_EPEVT0_Pos)               /*!< USBD_T::EPINTSTS: EPEVT0 Mask          */
+#define USBD_EPINTSTS_EPEVT0_Msk         (0x1UL << USBD_EPINTSTS_EPEVT0_Pos)               /*!< USBD_T::EPINTSTS: EPEVT0 Mask          */
 
 #define USBD_EPINTSTS_EPEVT1_Pos         (1)                                               /*!< USBD_T::EPINTSTS: EPEVT1 Position      */
-#define USBD_EPINTSTS_EPEVT1_Msk         (0x1ul << USBD_EPINTSTS_EPEVT1_Pos)               /*!< USBD_T::EPINTSTS: EPEVT1 Mask          */
+#define USBD_EPINTSTS_EPEVT1_Msk         (0x1UL << USBD_EPINTSTS_EPEVT1_Pos)               /*!< USBD_T::EPINTSTS: EPEVT1 Mask          */
 
 #define USBD_EPINTSTS_EPEVT2_Pos         (2)                                               /*!< USBD_T::EPINTSTS: EPEVT2 Position      */
-#define USBD_EPINTSTS_EPEVT2_Msk         (0x1ul << USBD_EPINTSTS_EPEVT2_Pos)               /*!< USBD_T::EPINTSTS: EPEVT2 Mask          */
+#define USBD_EPINTSTS_EPEVT2_Msk         (0x1UL << USBD_EPINTSTS_EPEVT2_Pos)               /*!< USBD_T::EPINTSTS: EPEVT2 Mask          */
 
 #define USBD_EPINTSTS_EPEVT3_Pos         (3)                                               /*!< USBD_T::EPINTSTS: EPEVT3 Position      */
-#define USBD_EPINTSTS_EPEVT3_Msk         (0x1ul << USBD_EPINTSTS_EPEVT3_Pos)               /*!< USBD_T::EPINTSTS: EPEVT3 Mask          */
+#define USBD_EPINTSTS_EPEVT3_Msk         (0x1UL << USBD_EPINTSTS_EPEVT3_Pos)               /*!< USBD_T::EPINTSTS: EPEVT3 Mask          */
 
 #define USBD_EPINTSTS_EPEVT4_Pos         (4)                                               /*!< USBD_T::EPINTSTS: EPEVT4 Position      */
-#define USBD_EPINTSTS_EPEVT4_Msk         (0x1ul << USBD_EPINTSTS_EPEVT4_Pos)               /*!< USBD_T::EPINTSTS: EPEVT4 Mask          */
+#define USBD_EPINTSTS_EPEVT4_Msk         (0x1UL << USBD_EPINTSTS_EPEVT4_Pos)               /*!< USBD_T::EPINTSTS: EPEVT4 Mask          */
 
 #define USBD_EPINTSTS_EPEVT5_Pos         (5)                                               /*!< USBD_T::EPINTSTS: EPEVT5 Position      */
-#define USBD_EPINTSTS_EPEVT5_Msk         (0x1ul << USBD_EPINTSTS_EPEVT5_Pos)               /*!< USBD_T::EPINTSTS: EPEVT5 Mask          */
+#define USBD_EPINTSTS_EPEVT5_Msk         (0x1UL << USBD_EPINTSTS_EPEVT5_Pos)               /*!< USBD_T::EPINTSTS: EPEVT5 Mask          */
 
 #define USBD_EPINTSTS_EPEVT6_Pos         (6)                                               /*!< USBD_T::EPINTSTS: EPEVT6 Position      */
-#define USBD_EPINTSTS_EPEVT6_Msk         (0x1ul << USBD_EPINTSTS_EPEVT6_Pos)               /*!< USBD_T::EPINTSTS: EPEVT6 Mask          */
+#define USBD_EPINTSTS_EPEVT6_Msk         (0x1UL << USBD_EPINTSTS_EPEVT6_Pos)               /*!< USBD_T::EPINTSTS: EPEVT6 Mask          */
 
 #define USBD_EPINTSTS_EPEVT7_Pos         (7)                                               /*!< USBD_T::EPINTSTS: EPEVT7 Position      */
-#define USBD_EPINTSTS_EPEVT7_Msk         (0x1ul << USBD_EPINTSTS_EPEVT7_Pos)               /*!< USBD_T::EPINTSTS: EPEVT7 Mask          */
+#define USBD_EPINTSTS_EPEVT7_Msk         (0x1UL << USBD_EPINTSTS_EPEVT7_Pos)               /*!< USBD_T::EPINTSTS: EPEVT7 Mask          */
 
 #define USBD_EPINTSTS_EPEVT8_Pos         (8)                                               /*!< USBD_T::EPINTSTS: EPEVT8 Position      */
-#define USBD_EPINTSTS_EPEVT8_Msk         (0x1ul << USBD_EPINTSTS_EPEVT8_Pos)               /*!< USBD_T::EPINTSTS: EPEVT8 Mask          */
+#define USBD_EPINTSTS_EPEVT8_Msk         (0x1UL << USBD_EPINTSTS_EPEVT8_Pos)               /*!< USBD_T::EPINTSTS: EPEVT8 Mask          */
 
 #define USBD_EPINTSTS_EPEVT9_Pos         (9)                                               /*!< USBD_T::EPINTSTS: EPEVT9 Position      */
-#define USBD_EPINTSTS_EPEVT9_Msk         (0x1ul << USBD_EPINTSTS_EPEVT9_Pos)               /*!< USBD_T::EPINTSTS: EPEVT9 Mask          */
+#define USBD_EPINTSTS_EPEVT9_Msk         (0x1UL << USBD_EPINTSTS_EPEVT9_Pos)               /*!< USBD_T::EPINTSTS: EPEVT9 Mask          */
 
 #define USBD_EPINTSTS_EPEVT10_Pos        (10)                                              /*!< USBD_T::EPINTSTS: EPEVT10 Position     */
-#define USBD_EPINTSTS_EPEVT10_Msk        (0x1ul << USBD_EPINTSTS_EPEVT10_Pos)              /*!< USBD_T::EPINTSTS: EPEVT10 Mask         */
+#define USBD_EPINTSTS_EPEVT10_Msk        (0x1UL << USBD_EPINTSTS_EPEVT10_Pos)              /*!< USBD_T::EPINTSTS: EPEVT10 Mask         */
 
 #define USBD_EPINTSTS_EPEVT11_Pos        (11)                                              /*!< USBD_T::EPINTSTS: EPEVT11 Position     */
-#define USBD_EPINTSTS_EPEVT11_Msk        (0x1ul << USBD_EPINTSTS_EPEVT11_Pos)              /*!< USBD_T::EPINTSTS: EPEVT11 Mask         */
+#define USBD_EPINTSTS_EPEVT11_Msk        (0x1UL << USBD_EPINTSTS_EPEVT11_Pos)              /*!< USBD_T::EPINTSTS: EPEVT11 Mask         */
 
 #define USBD_EPINTSTS_EPEVT12_Pos        (12)                                              /*!< USBD_T::EPINTSTS: EPEVT12 Position     */
-#define USBD_EPINTSTS_EPEVT12_Msk        (0x1ul << USBD_EPINTSTS_EPEVT12_Pos)              /*!< USBD_T::EPINTSTS: EPEVT12 Mask         */
+#define USBD_EPINTSTS_EPEVT12_Msk        (0x1UL << USBD_EPINTSTS_EPEVT12_Pos)              /*!< USBD_T::EPINTSTS: EPEVT12 Mask         */
 
 #define USBD_EPINTSTS_EPEVT13_Pos        (13)                                              /*!< USBD_T::EPINTSTS: EPEVT13 Position     */
-#define USBD_EPINTSTS_EPEVT13_Msk        (0x1ul << USBD_EPINTSTS_EPEVT13_Pos)              /*!< USBD_T::EPINTSTS: EPEVT13 Mask         */
+#define USBD_EPINTSTS_EPEVT13_Msk        (0x1UL << USBD_EPINTSTS_EPEVT13_Pos)              /*!< USBD_T::EPINTSTS: EPEVT13 Mask         */
 
 #define USBD_EPINTSTS_EPEVT14_Pos        (14)                                              /*!< USBD_T::EPINTSTS: EPEVT14 Position     */
-#define USBD_EPINTSTS_EPEVT14_Msk        (0x1ul << USBD_EPINTSTS_EPEVT14_Pos)              /*!< USBD_T::EPINTSTS: EPEVT14 Mask         */
+#define USBD_EPINTSTS_EPEVT14_Msk        (0x1UL << USBD_EPINTSTS_EPEVT14_Pos)              /*!< USBD_T::EPINTSTS: EPEVT14 Mask         */
 
 #define USBD_EPINTSTS_EPEVT15_Pos        (15)                                              /*!< USBD_T::EPINTSTS: EPEVT15 Position     */
-#define USBD_EPINTSTS_EPEVT15_Msk        (0x1ul << USBD_EPINTSTS_EPEVT15_Pos)              /*!< USBD_T::EPINTSTS: EPEVT15 Mask         */
+#define USBD_EPINTSTS_EPEVT15_Msk        (0x1UL << USBD_EPINTSTS_EPEVT15_Pos)              /*!< USBD_T::EPINTSTS: EPEVT15 Mask         */
 
 #define USBD_EPINTSTS_EPEVT16_Pos        (16)                                              /*!< USBD_T::EPINTSTS: EPEVT16 Position     */
-#define USBD_EPINTSTS_EPEVT16_Msk        (0x1ul << USBD_EPINTSTS_EPEVT16_Pos)              /*!< USBD_T::EPINTSTS: EPEVT16 Mask         */
+#define USBD_EPINTSTS_EPEVT16_Msk        (0x1UL << USBD_EPINTSTS_EPEVT16_Pos)              /*!< USBD_T::EPINTSTS: EPEVT16 Mask         */
 
 #define USBD_EPINTSTS_EPEVT17_Pos        (17)                                              /*!< USBD_T::EPINTSTS: EPEVT17 Position     */
-#define USBD_EPINTSTS_EPEVT17_Msk        (0x1ul << USBD_EPINTSTS_EPEVT17_Pos)              /*!< USBD_T::EPINTSTS: EPEVT17 Mask         */
+#define USBD_EPINTSTS_EPEVT17_Msk        (0x1UL << USBD_EPINTSTS_EPEVT17_Pos)              /*!< USBD_T::EPINTSTS: EPEVT17 Mask         */
 
 #define USBD_EPINTSTS_EPEVT18_Pos        (18)                                              /*!< USBD_T::EPINTSTS: EPEVT18 Position     */
-#define USBD_EPINTSTS_EPEVT18_Msk        (0x1ul << USBD_EPINTSTS_EPEVT18_Pos)              /*!< USBD_T::EPINTSTS: EPEVT18 Mask         */
+#define USBD_EPINTSTS_EPEVT18_Msk        (0x1UL << USBD_EPINTSTS_EPEVT18_Pos)              /*!< USBD_T::EPINTSTS: EPEVT18 Mask         */
 
 #define USBD_FN_FN_Pos                   (0)                                               /*!< USBD_T::FN: FN Position                */
-#define USBD_FN_FN_Msk                   (0x7fful << USBD_FN_FN_Pos)                       /*!< USBD_T::FN: FN Mask                    */
+#define USBD_FN_FN_Msk                   (0x7ffUL << USBD_FN_FN_Pos)                       /*!< USBD_T::FN: FN Mask                    */
 
 #define USBD_SE0_SE0_Pos                 (0)                                               /*!< USBD_T::SE0: SE0 Position              */
-#define USBD_SE0_SE0_Msk                 (0x1ul << USBD_SE0_SE0_Pos)                       /*!< USBD_T::SE0: SE0 Mask                  */
+#define USBD_SE0_SE0_Msk                 (0x1UL << USBD_SE0_SE0_Pos)                       /*!< USBD_T::SE0: SE0 Mask                  */
 
 #define USBD_BUFSEG_BUFSEG_Pos           (3)                                               /*!< USBD_EP_T::BUFSEG: BUFSEG Position     */
-#define USBD_BUFSEG_BUFSEG_Msk           (0x3ful << USBD_BUFSEG_BUFSEG_Pos)                /*!< USBD_EP_T::BUFSEG: BUFSEG Mask         */
+#define USBD_BUFSEG_BUFSEG_Msk           (0x3fUL << USBD_BUFSEG_BUFSEG_Pos)                /*!< USBD_EP_T::BUFSEG: BUFSEG Mask         */
 
 #define USBD_MXPLD_MXPLD_Pos             (0)                                               /*!< USBD_EP_T::MXPLD: MXPLD Position       */
-#define USBD_MXPLD_MXPLD_Msk             (0x1fful << USBD_MXPLD_MXPLD_Pos)                 /*!< USBD_EP_T::MXPLD: MXPLD Mask           */
+#define USBD_MXPLD_MXPLD_Msk             (0x1ffUL << USBD_MXPLD_MXPLD_Pos)                 /*!< USBD_EP_T::MXPLD: MXPLD Mask           */
 
 #define USBD_BUFSEG0_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG0: BUFSEG Position       */
-#define USBD_BUFSEG0_BUFSEG_Msk          (0xfful << USBD_BUFSEG0_BUFSEG_Pos)               /*!< USBD_T::BUFSEG0: BUFSEG Mask           */
+#define USBD_BUFSEG0_BUFSEG_Msk          (0xffUL << USBD_BUFSEG0_BUFSEG_Pos)               /*!< USBD_T::BUFSEG0: BUFSEG Mask           */
 
 #define USBD_MXPLD0_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD0: MXPLD Position         */
-#define USBD_MXPLD0_MXPLD_Msk            (0x7fful << USBD_MXPLD0_MXPLD_Pos)                /*!< USBD_T::MXPLD0: MXPLD Mask             */
+#define USBD_MXPLD0_MXPLD_Msk            (0x7ffUL << USBD_MXPLD0_MXPLD_Pos)                /*!< USBD_T::MXPLD0: MXPLD Mask             */
 
 #define USBD_CFG0_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG0: EPNUM Position           */
-#define USBD_CFG0_EPNUM_Msk              (0xful << USBD_CFG0_EPNUM_Pos)                    /*!< USBD_T::CFG0: EPNUM Mask               */
+#define USBD_CFG0_EPNUM_Msk              (0xfUL << USBD_CFG0_EPNUM_Pos)                    /*!< USBD_T::CFG0: EPNUM Mask               */
 
 #define USBD_CFG0_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG0: ISOCH Position           */
-#define USBD_CFG0_ISOCH_Msk              (0x1ul << USBD_CFG0_ISOCH_Pos)                    /*!< USBD_T::CFG0: ISOCH Mask               */
+#define USBD_CFG0_ISOCH_Msk              (0x1UL << USBD_CFG0_ISOCH_Pos)                    /*!< USBD_T::CFG0: ISOCH Mask               */
 
 #define USBD_CFG0_STATE_Pos              (5)                                               /*!< USBD_T::CFG0: STATE Position           */
-#define USBD_CFG0_STATE_Msk              (0x3ul << USBD_CFG0_STATE_Pos)                    /*!< USBD_T::CFG0: STATE Mask               */
+#define USBD_CFG0_STATE_Msk              (0x3UL << USBD_CFG0_STATE_Pos)                    /*!< USBD_T::CFG0: STATE Mask               */
 
 #define USBD_CFG0_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG0: DSQSYNC Position         */
-#define USBD_CFG0_DSQSYNC_Msk            (0x1ul << USBD_CFG0_DSQSYNC_Pos)                  /*!< USBD_T::CFG0: DSQSYNC Mask             */
+#define USBD_CFG0_DSQSYNC_Msk            (0x1UL << USBD_CFG0_DSQSYNC_Pos)                  /*!< USBD_T::CFG0: DSQSYNC Mask             */
 
 #define USBD_CFG0_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG0: CSTALL Position          */
-#define USBD_CFG0_CSTALL_Msk             (0x1ul << USBD_CFG0_CSTALL_Pos)                   /*!< USBD_T::CFG0: CSTALL Mask              */
+#define USBD_CFG0_CSTALL_Msk             (0x1UL << USBD_CFG0_CSTALL_Pos)                   /*!< USBD_T::CFG0: CSTALL Mask              */
 
 #define USBD_CFG0_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG0: DBTGACTIVE Position      */
-#define USBD_CFG0_DBTGACTIVE_Msk         (0x1ul << USBD_CFG0_DBTGACTIVE_Pos)               /*!< USBD_T::CFG0: DBTGACTIVE Mask          */
+#define USBD_CFG0_DBTGACTIVE_Msk         (0x1UL << USBD_CFG0_DBTGACTIVE_Pos)               /*!< USBD_T::CFG0: DBTGACTIVE Mask          */
 
 #define USBD_CFG0_DBEN_Pos               (11)                                              /*!< USBD_T::CFG0: DBEN Position            */
-#define USBD_CFG0_DBEN_Msk               (0x1ul << USBD_CFG0_DBEN_Pos)                     /*!< USBD_T::CFG0: DBEN Mask                */
+#define USBD_CFG0_DBEN_Msk               (0x1UL << USBD_CFG0_DBEN_Pos)                     /*!< USBD_T::CFG0: DBEN Mask                */
 
 #define USBD_CFGP0_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP0: CLRRDY Position         */
-#define USBD_CFGP0_CLRRDY_Msk            (0x1ul << USBD_CFGP0_CLRRDY_Pos)                  /*!< USBD_T::CFGP0: CLRRDY Mask             */
+#define USBD_CFGP0_CLRRDY_Msk            (0x1UL << USBD_CFGP0_CLRRDY_Pos)                  /*!< USBD_T::CFGP0: CLRRDY Mask             */
 
 #define USBD_CFGP0_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP0: SSTALL Position         */
-#define USBD_CFGP0_SSTALL_Msk            (0x1ul << USBD_CFGP0_SSTALL_Pos)                  /*!< USBD_T::CFGP0: SSTALL Mask             */
+#define USBD_CFGP0_SSTALL_Msk            (0x1UL << USBD_CFGP0_SSTALL_Pos)                  /*!< USBD_T::CFGP0: SSTALL Mask             */
 
 #define USBD_BUFSEG1_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG1: BUFSEG Position       */
-#define USBD_BUFSEG1_BUFSEG_Msk          (0xfful << USBD_BUFSEG1_BUFSEG_Pos)               /*!< USBD_T::BUFSEG1: BUFSEG Mask           */
+#define USBD_BUFSEG1_BUFSEG_Msk          (0xffUL << USBD_BUFSEG1_BUFSEG_Pos)               /*!< USBD_T::BUFSEG1: BUFSEG Mask           */
 
-#define USBD_MXPLD_MXPLD_Msk             (0x1fful << USBD_MXPLD_MXPLD_Pos)                 /*!< USBD_EP_T::MXPLD: MXPLD Mask           */
+#define USBD_MXPLD_MXPLD_Msk             (0x1ffUL << USBD_MXPLD_MXPLD_Pos)                 /*!< USBD_EP_T::MXPLD: MXPLD Mask           */
 
 #define USBD_CFG_EPNUM_Pos               (0)                                               /*!< USBD_EP_T::CFG: EPNUM Position         */
-#define USBD_CFG_EPNUM_Msk               (0xful << USBD_CFG_EPNUM_Pos)                     /*!< USBD_EP_T::CFG: EPNUM Mask             */
+#define USBD_CFG_EPNUM_Msk               (0xfUL << USBD_CFG_EPNUM_Pos)                     /*!< USBD_EP_T::CFG: EPNUM Mask             */
 
 #define USBD_CFG_ISOCH_Pos               (4)                                               /*!< USBD_EP_T::CFG: ISOCH Position         */
-#define USBD_CFG_ISOCH_Msk               (0x1ul << USBD_CFG_ISOCH_Pos)                     /*!< USBD_EP_T::CFG: ISOCH Mask             */
+#define USBD_CFG_ISOCH_Msk               (0x1UL << USBD_CFG_ISOCH_Pos)                     /*!< USBD_EP_T::CFG: ISOCH Mask             */
 
 #define USBD_CFG_STATE_Pos               (5)                                               /*!< USBD_EP_T::CFG: STATE Position         */
-#define USBD_CFG_STATE_Msk               (0x3ul << USBD_CFG_STATE_Pos)                     /*!< USBD_EP_T::CFG: STATE Mask             */
+#define USBD_CFG_STATE_Msk               (0x3UL << USBD_CFG_STATE_Pos)                     /*!< USBD_EP_T::CFG: STATE Mask             */
 
 #define USBD_CFG_DSQSYNC_Pos             (7)                                               /*!< USBD_EP_T::CFG: DSQSYNC Position       */
-#define USBD_CFG_DSQSYNC_Msk             (0x1ul << USBD_CFG_DSQSYNC_Pos)                   /*!< USBD_EP_T::CFG: DSQSYNC Mask           */
+#define USBD_CFG_DSQSYNC_Msk             (0x1UL << USBD_CFG_DSQSYNC_Pos)                   /*!< USBD_EP_T::CFG: DSQSYNC Mask           */
 
 #define USBD_CFG_CSTALL_Pos              (9)                                               /*!< USBD_EP_T::CFG: CSTALL Position        */
-#define USBD_CFG_CSTALL_Msk              (0x1ul << USBD_CFG_CSTALL_Pos)                    /*!< USBD_EP_T::CFG: CSTALL Mask            */
+#define USBD_CFG_CSTALL_Msk              (0x1UL << USBD_CFG_CSTALL_Pos)                    /*!< USBD_EP_T::CFG: CSTALL Mask            */
 
 #define USBD_CFG_DBTGACTIVE_Pos          (10)                                              /*!< USBD_EP_T::CFG: DBTGACTIVE Position    */
-#define USBD_CFG_DBTGACTIVE_Msk          (0x1ul << USBD_CFG_DBTGACTIVE_Pos)                /*!< USBD_EP_T::CFG: DBTGACTIVE Mask        */
+#define USBD_CFG_DBTGACTIVE_Msk          (0x1UL << USBD_CFG_DBTGACTIVE_Pos)                /*!< USBD_EP_T::CFG: DBTGACTIVE Mask        */
 
 #define USBD_CFG_DBEN_Pos                (11)                                              /*!< USBD_EP_T::CFG: DBEN Position          */
-#define USBD_CFG_DBEN_Msk                (0x1ul << USBD_CFG_DBEN_Pos)                      /*!< USBD_EP_T::CFG: DBEN Mask              */
+#define USBD_CFG_DBEN_Msk                (0x1UL << USBD_CFG_DBEN_Pos)                      /*!< USBD_EP_T::CFG: DBEN Mask              */
 
 #define USBD_CFGP_CLRRDY_Pos             (0)                                               /*!< USBD_EP_T::CFGP: CLRRDY Position       */
-#define USBD_CFGP_CLRRDY_Msk             (0x1ul << USBD_CFGP_CLRRDY_Pos)                   /*!< USBD_EP_T::CFGP: CLRRDY Mask           */
+#define USBD_CFGP_CLRRDY_Msk             (0x1UL << USBD_CFGP_CLRRDY_Pos)                   /*!< USBD_EP_T::CFGP: CLRRDY Mask           */
 
 #define USBD_CFGP_SSTALL_Pos             (1)                                               /*!< USBD_EP_T::CFGP: SSTALL Position       */
-#define USBD_CFGP_SSTALL_Msk             (0x1ul << USBD_CFGP_SSTALL_Pos)                   /*!< USBD_EP_T::CFGP: SSTALL Mask           */
+#define USBD_CFGP_SSTALL_Msk             (0x1UL << USBD_CFGP_SSTALL_Pos)                   /*!< USBD_EP_T::CFGP: SSTALL Mask           */
 
 
 #define USBD_MXPLD1_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD1: MXPLD Position         */
-#define USBD_MXPLD1_MXPLD_Msk            (0x7fful << USBD_MXPLD1_MXPLD_Pos)                /*!< USBD_T::MXPLD1: MXPLD Mask             */
+#define USBD_MXPLD1_MXPLD_Msk            (0x7ffUL << USBD_MXPLD1_MXPLD_Pos)                /*!< USBD_T::MXPLD1: MXPLD Mask             */
 
 #define USBD_CFG1_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG1: EPNUM Position           */
-#define USBD_CFG1_EPNUM_Msk              (0xful << USBD_CFG1_EPNUM_Pos)                    /*!< USBD_T::CFG1: EPNUM Mask               */
+#define USBD_CFG1_EPNUM_Msk              (0xfUL << USBD_CFG1_EPNUM_Pos)                    /*!< USBD_T::CFG1: EPNUM Mask               */
 
 #define USBD_CFG1_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG1: ISOCH Position           */
-#define USBD_CFG1_ISOCH_Msk              (0x1ul << USBD_CFG1_ISOCH_Pos)                    /*!< USBD_T::CFG1: ISOCH Mask               */
+#define USBD_CFG1_ISOCH_Msk              (0x1UL << USBD_CFG1_ISOCH_Pos)                    /*!< USBD_T::CFG1: ISOCH Mask               */
 
 #define USBD_CFG1_STATE_Pos              (5)                                               /*!< USBD_T::CFG1: STATE Position           */
-#define USBD_CFG1_STATE_Msk              (0x3ul << USBD_CFG1_STATE_Pos)                    /*!< USBD_T::CFG1: STATE Mask               */
+#define USBD_CFG1_STATE_Msk              (0x3UL << USBD_CFG1_STATE_Pos)                    /*!< USBD_T::CFG1: STATE Mask               */
 
 #define USBD_CFG1_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG1: DSQSYNC Position         */
-#define USBD_CFG1_DSQSYNC_Msk            (0x1ul << USBD_CFG1_DSQSYNC_Pos)                  /*!< USBD_T::CFG1: DSQSYNC Mask             */
+#define USBD_CFG1_DSQSYNC_Msk            (0x1UL << USBD_CFG1_DSQSYNC_Pos)                  /*!< USBD_T::CFG1: DSQSYNC Mask             */
 
 #define USBD_CFG1_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG1: CSTALL Position          */
-#define USBD_CFG1_CSTALL_Msk             (0x1ul << USBD_CFG1_CSTALL_Pos)                   /*!< USBD_T::CFG1: CSTALL Mask              */
+#define USBD_CFG1_CSTALL_Msk             (0x1UL << USBD_CFG1_CSTALL_Pos)                   /*!< USBD_T::CFG1: CSTALL Mask              */
 
 #define USBD_CFG1_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG1: DBTGACTIVE Position      */
-#define USBD_CFG1_DBTGACTIVE_Msk         (0x1ul << USBD_CFG1_DBTGACTIVE_Pos)               /*!< USBD_T::CFG1: DBTGACTIVE Mask          */
+#define USBD_CFG1_DBTGACTIVE_Msk         (0x1UL << USBD_CFG1_DBTGACTIVE_Pos)               /*!< USBD_T::CFG1: DBTGACTIVE Mask          */
 
 #define USBD_CFG1_DBEN_Pos               (11)                                              /*!< USBD_T::CFG1: DBEN Position            */
-#define USBD_CFG1_DBEN_Msk               (0x1ul << USBD_CFG1_DBEN_Pos)                     /*!< USBD_T::CFG1: DBEN Mask                */
+#define USBD_CFG1_DBEN_Msk               (0x1UL << USBD_CFG1_DBEN_Pos)                     /*!< USBD_T::CFG1: DBEN Mask                */
 
 #define USBD_CFGP1_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP1: CLRRDY Position         */
-#define USBD_CFGP1_CLRRDY_Msk            (0x1ul << USBD_CFGP1_CLRRDY_Pos)                  /*!< USBD_T::CFGP1: CLRRDY Mask             */
+#define USBD_CFGP1_CLRRDY_Msk            (0x1UL << USBD_CFGP1_CLRRDY_Pos)                  /*!< USBD_T::CFGP1: CLRRDY Mask             */
 
 #define USBD_CFGP1_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP1: SSTALL Position         */
-#define USBD_CFGP1_SSTALL_Msk            (0x1ul << USBD_CFGP1_SSTALL_Pos)                  /*!< USBD_T::CFGP1: SSTALL Mask             */
+#define USBD_CFGP1_SSTALL_Msk            (0x1UL << USBD_CFGP1_SSTALL_Pos)                  /*!< USBD_T::CFGP1: SSTALL Mask             */
 
 #define USBD_BUFSEG2_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG2: BUFSEG Position       */
-#define USBD_BUFSEG2_BUFSEG_Msk          (0xfful << USBD_BUFSEG2_BUFSEG_Pos)               /*!< USBD_T::BUFSEG2: BUFSEG Mask           */
+#define USBD_BUFSEG2_BUFSEG_Msk          (0xffUL << USBD_BUFSEG2_BUFSEG_Pos)               /*!< USBD_T::BUFSEG2: BUFSEG Mask           */
 
 #define USBD_MXPLD2_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD2: MXPLD Position         */
-#define USBD_MXPLD2_MXPLD_Msk            (0x7fful << USBD_MXPLD2_MXPLD_Pos)                /*!< USBD_T::MXPLD2: MXPLD Mask             */
+#define USBD_MXPLD2_MXPLD_Msk            (0x7ffUL << USBD_MXPLD2_MXPLD_Pos)                /*!< USBD_T::MXPLD2: MXPLD Mask             */
 
 #define USBD_CFG2_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG2: EPNUM Position           */
-#define USBD_CFG2_EPNUM_Msk              (0xful << USBD_CFG2_EPNUM_Pos)                    /*!< USBD_T::CFG2: EPNUM Mask               */
+#define USBD_CFG2_EPNUM_Msk              (0xfUL << USBD_CFG2_EPNUM_Pos)                    /*!< USBD_T::CFG2: EPNUM Mask               */
 
 #define USBD_CFG2_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG2: ISOCH Position           */
-#define USBD_CFG2_ISOCH_Msk              (0x1ul << USBD_CFG2_ISOCH_Pos)                    /*!< USBD_T::CFG2: ISOCH Mask               */
+#define USBD_CFG2_ISOCH_Msk              (0x1UL << USBD_CFG2_ISOCH_Pos)                    /*!< USBD_T::CFG2: ISOCH Mask               */
 
 #define USBD_CFG2_STATE_Pos              (5)                                               /*!< USBD_T::CFG2: STATE Position           */
-#define USBD_CFG2_STATE_Msk              (0x3ul << USBD_CFG2_STATE_Pos)                    /*!< USBD_T::CFG2: STATE Mask               */
+#define USBD_CFG2_STATE_Msk              (0x3UL << USBD_CFG2_STATE_Pos)                    /*!< USBD_T::CFG2: STATE Mask               */
 
 #define USBD_CFG2_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG2: DSQSYNC Position         */
-#define USBD_CFG2_DSQSYNC_Msk            (0x1ul << USBD_CFG2_DSQSYNC_Pos)                  /*!< USBD_T::CFG2: DSQSYNC Mask             */
+#define USBD_CFG2_DSQSYNC_Msk            (0x1UL << USBD_CFG2_DSQSYNC_Pos)                  /*!< USBD_T::CFG2: DSQSYNC Mask             */
 
 #define USBD_CFG2_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG2: CSTALL Position          */
-#define USBD_CFG2_CSTALL_Msk             (0x1ul << USBD_CFG2_CSTALL_Pos)                   /*!< USBD_T::CFG2: CSTALL Mask              */
+#define USBD_CFG2_CSTALL_Msk             (0x1UL << USBD_CFG2_CSTALL_Pos)                   /*!< USBD_T::CFG2: CSTALL Mask              */
 
 #define USBD_CFG2_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG2: DBTGACTIVE Position      */
-#define USBD_CFG2_DBTGACTIVE_Msk         (0x1ul << USBD_CFG2_DBTGACTIVE_Pos)               /*!< USBD_T::CFG2: DBTGACTIVE Mask          */
+#define USBD_CFG2_DBTGACTIVE_Msk         (0x1UL << USBD_CFG2_DBTGACTIVE_Pos)               /*!< USBD_T::CFG2: DBTGACTIVE Mask          */
 
 #define USBD_CFG2_DBEN_Pos               (11)                                              /*!< USBD_T::CFG2: DBEN Position            */
-#define USBD_CFG2_DBEN_Msk               (0x1ul << USBD_CFG2_DBEN_Pos)                     /*!< USBD_T::CFG2: DBEN Mask                */
+#define USBD_CFG2_DBEN_Msk               (0x1UL << USBD_CFG2_DBEN_Pos)                     /*!< USBD_T::CFG2: DBEN Mask                */
 
 #define USBD_CFGP2_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP2: CLRRDY Position         */
-#define USBD_CFGP2_CLRRDY_Msk            (0x1ul << USBD_CFGP2_CLRRDY_Pos)                  /*!< USBD_T::CFGP2: CLRRDY Mask             */
+#define USBD_CFGP2_CLRRDY_Msk            (0x1UL << USBD_CFGP2_CLRRDY_Pos)                  /*!< USBD_T::CFGP2: CLRRDY Mask             */
 
 #define USBD_CFGP2_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP2: SSTALL Position         */
-#define USBD_CFGP2_SSTALL_Msk            (0x1ul << USBD_CFGP2_SSTALL_Pos)                  /*!< USBD_T::CFGP2: SSTALL Mask             */
+#define USBD_CFGP2_SSTALL_Msk            (0x1UL << USBD_CFGP2_SSTALL_Pos)                  /*!< USBD_T::CFGP2: SSTALL Mask             */
 
 #define USBD_BUFSEG3_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG3: BUFSEG Position       */
-#define USBD_BUFSEG3_BUFSEG_Msk          (0xfful << USBD_BUFSEG3_BUFSEG_Pos)               /*!< USBD_T::BUFSEG3: BUFSEG Mask           */
+#define USBD_BUFSEG3_BUFSEG_Msk          (0xffUL << USBD_BUFSEG3_BUFSEG_Pos)               /*!< USBD_T::BUFSEG3: BUFSEG Mask           */
 
 #define USBD_MXPLD3_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD3: MXPLD Position         */
-#define USBD_MXPLD3_MXPLD_Msk            (0x7fful << USBD_MXPLD3_MXPLD_Pos)                /*!< USBD_T::MXPLD3: MXPLD Mask             */
+#define USBD_MXPLD3_MXPLD_Msk            (0x7ffUL << USBD_MXPLD3_MXPLD_Pos)                /*!< USBD_T::MXPLD3: MXPLD Mask             */
 
 #define USBD_CFG3_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG3: EPNUM Position           */
-#define USBD_CFG3_EPNUM_Msk              (0xful << USBD_CFG3_EPNUM_Pos)                    /*!< USBD_T::CFG3: EPNUM Mask               */
+#define USBD_CFG3_EPNUM_Msk              (0xfUL << USBD_CFG3_EPNUM_Pos)                    /*!< USBD_T::CFG3: EPNUM Mask               */
 
 #define USBD_CFG3_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG3: ISOCH Position           */
-#define USBD_CFG3_ISOCH_Msk              (0x1ul << USBD_CFG3_ISOCH_Pos)                    /*!< USBD_T::CFG3: ISOCH Mask               */
+#define USBD_CFG3_ISOCH_Msk              (0x1UL << USBD_CFG3_ISOCH_Pos)                    /*!< USBD_T::CFG3: ISOCH Mask               */
 
 #define USBD_CFG3_STATE_Pos              (5)                                               /*!< USBD_T::CFG3: STATE Position           */
-#define USBD_CFG3_STATE_Msk              (0x3ul << USBD_CFG3_STATE_Pos)                    /*!< USBD_T::CFG3: STATE Mask               */
+#define USBD_CFG3_STATE_Msk              (0x3UL << USBD_CFG3_STATE_Pos)                    /*!< USBD_T::CFG3: STATE Mask               */
 
 #define USBD_CFG3_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG3: DSQSYNC Position         */
-#define USBD_CFG3_DSQSYNC_Msk            (0x1ul << USBD_CFG3_DSQSYNC_Pos)                  /*!< USBD_T::CFG3: DSQSYNC Mask             */
+#define USBD_CFG3_DSQSYNC_Msk            (0x1UL << USBD_CFG3_DSQSYNC_Pos)                  /*!< USBD_T::CFG3: DSQSYNC Mask             */
 
 #define USBD_CFG3_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG3: CSTALL Position          */
-#define USBD_CFG3_CSTALL_Msk             (0x1ul << USBD_CFG3_CSTALL_Pos)                   /*!< USBD_T::CFG3: CSTALL Mask              */
+#define USBD_CFG3_CSTALL_Msk             (0x1UL << USBD_CFG3_CSTALL_Pos)                   /*!< USBD_T::CFG3: CSTALL Mask              */
 
 #define USBD_CFG3_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG3: DBTGACTIVE Position      */
-#define USBD_CFG3_DBTGACTIVE_Msk         (0x1ul << USBD_CFG3_DBTGACTIVE_Pos)               /*!< USBD_T::CFG3: DBTGACTIVE Mask          */
+#define USBD_CFG3_DBTGACTIVE_Msk         (0x1UL << USBD_CFG3_DBTGACTIVE_Pos)               /*!< USBD_T::CFG3: DBTGACTIVE Mask          */
 
 #define USBD_CFG3_DBEN_Pos               (11)                                              /*!< USBD_T::CFG3: DBEN Position            */
-#define USBD_CFG3_DBEN_Msk               (0x1ul << USBD_CFG3_DBEN_Pos)                     /*!< USBD_T::CFG3: DBEN Mask                */
+#define USBD_CFG3_DBEN_Msk               (0x1UL << USBD_CFG3_DBEN_Pos)                     /*!< USBD_T::CFG3: DBEN Mask                */
 
 #define USBD_CFGP3_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP3: CLRRDY Position         */
-#define USBD_CFGP3_CLRRDY_Msk            (0x1ul << USBD_CFGP3_CLRRDY_Pos)                  /*!< USBD_T::CFGP3: CLRRDY Mask             */
+#define USBD_CFGP3_CLRRDY_Msk            (0x1UL << USBD_CFGP3_CLRRDY_Pos)                  /*!< USBD_T::CFGP3: CLRRDY Mask             */
 
 #define USBD_CFGP3_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP3: SSTALL Position         */
-#define USBD_CFGP3_SSTALL_Msk            (0x1ul << USBD_CFGP3_SSTALL_Pos)                  /*!< USBD_T::CFGP3: SSTALL Mask             */
+#define USBD_CFGP3_SSTALL_Msk            (0x1UL << USBD_CFGP3_SSTALL_Pos)                  /*!< USBD_T::CFGP3: SSTALL Mask             */
 
 #define USBD_BUFSEG4_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG4: BUFSEG Position       */
-#define USBD_BUFSEG4_BUFSEG_Msk          (0xfful << USBD_BUFSEG4_BUFSEG_Pos)               /*!< USBD_T::BUFSEG4: BUFSEG Mask           */
+#define USBD_BUFSEG4_BUFSEG_Msk          (0xffUL << USBD_BUFSEG4_BUFSEG_Pos)               /*!< USBD_T::BUFSEG4: BUFSEG Mask           */
 
 #define USBD_MXPLD4_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD4: MXPLD Position         */
-#define USBD_MXPLD4_MXPLD_Msk            (0x7fful << USBD_MXPLD4_MXPLD_Pos)                /*!< USBD_T::MXPLD4: MXPLD Mask             */
+#define USBD_MXPLD4_MXPLD_Msk            (0x7ffUL << USBD_MXPLD4_MXPLD_Pos)                /*!< USBD_T::MXPLD4: MXPLD Mask             */
 
 #define USBD_CFG4_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG4: EPNUM Position           */
-#define USBD_CFG4_EPNUM_Msk              (0xful << USBD_CFG4_EPNUM_Pos)                    /*!< USBD_T::CFG4: EPNUM Mask               */
+#define USBD_CFG4_EPNUM_Msk              (0xfUL << USBD_CFG4_EPNUM_Pos)                    /*!< USBD_T::CFG4: EPNUM Mask               */
 
 #define USBD_CFG4_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG4: ISOCH Position           */
-#define USBD_CFG4_ISOCH_Msk              (0x1ul << USBD_CFG4_ISOCH_Pos)                    /*!< USBD_T::CFG4: ISOCH Mask               */
+#define USBD_CFG4_ISOCH_Msk              (0x1UL << USBD_CFG4_ISOCH_Pos)                    /*!< USBD_T::CFG4: ISOCH Mask               */
 
 #define USBD_CFG4_STATE_Pos              (5)                                               /*!< USBD_T::CFG4: STATE Position           */
-#define USBD_CFG4_STATE_Msk              (0x3ul << USBD_CFG4_STATE_Pos)                    /*!< USBD_T::CFG4: STATE Mask               */
+#define USBD_CFG4_STATE_Msk              (0x3UL << USBD_CFG4_STATE_Pos)                    /*!< USBD_T::CFG4: STATE Mask               */
 
 #define USBD_CFG4_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG4: DSQSYNC Position         */
-#define USBD_CFG4_DSQSYNC_Msk            (0x1ul << USBD_CFG4_DSQSYNC_Pos)                  /*!< USBD_T::CFG4: DSQSYNC Mask             */
+#define USBD_CFG4_DSQSYNC_Msk            (0x1UL << USBD_CFG4_DSQSYNC_Pos)                  /*!< USBD_T::CFG4: DSQSYNC Mask             */
 
 #define USBD_CFG4_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG4: CSTALL Position          */
-#define USBD_CFG4_CSTALL_Msk             (0x1ul << USBD_CFG4_CSTALL_Pos)                   /*!< USBD_T::CFG4: CSTALL Mask              */
+#define USBD_CFG4_CSTALL_Msk             (0x1UL << USBD_CFG4_CSTALL_Pos)                   /*!< USBD_T::CFG4: CSTALL Mask              */
 
 #define USBD_CFG4_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG4: DBTGACTIVE Position      */
-#define USBD_CFG4_DBTGACTIVE_Msk         (0x1ul << USBD_CFG4_DBTGACTIVE_Pos)               /*!< USBD_T::CFG4: DBTGACTIVE Mask          */
+#define USBD_CFG4_DBTGACTIVE_Msk         (0x1UL << USBD_CFG4_DBTGACTIVE_Pos)               /*!< USBD_T::CFG4: DBTGACTIVE Mask          */
 
 #define USBD_CFG4_DBEN_Pos               (11)                                              /*!< USBD_T::CFG4: DBEN Position            */
-#define USBD_CFG4_DBEN_Msk               (0x1ul << USBD_CFG4_DBEN_Pos)                     /*!< USBD_T::CFG4: DBEN Mask                */
+#define USBD_CFG4_DBEN_Msk               (0x1UL << USBD_CFG4_DBEN_Pos)                     /*!< USBD_T::CFG4: DBEN Mask                */
 
 #define USBD_CFGP4_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP4: CLRRDY Position         */
-#define USBD_CFGP4_CLRRDY_Msk            (0x1ul << USBD_CFGP4_CLRRDY_Pos)                  /*!< USBD_T::CFGP4: CLRRDY Mask             */
+#define USBD_CFGP4_CLRRDY_Msk            (0x1UL << USBD_CFGP4_CLRRDY_Pos)                  /*!< USBD_T::CFGP4: CLRRDY Mask             */
 
 #define USBD_CFGP4_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP4: SSTALL Position         */
-#define USBD_CFGP4_SSTALL_Msk            (0x1ul << USBD_CFGP4_SSTALL_Pos)                  /*!< USBD_T::CFGP4: SSTALL Mask             */
+#define USBD_CFGP4_SSTALL_Msk            (0x1UL << USBD_CFGP4_SSTALL_Pos)                  /*!< USBD_T::CFGP4: SSTALL Mask             */
 
 #define USBD_BUFSEG5_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG5: BUFSEG Position       */
-#define USBD_BUFSEG5_BUFSEG_Msk          (0xfful << USBD_BUFSEG5_BUFSEG_Pos)               /*!< USBD_T::BUFSEG5: BUFSEG Mask           */
+#define USBD_BUFSEG5_BUFSEG_Msk          (0xffUL << USBD_BUFSEG5_BUFSEG_Pos)               /*!< USBD_T::BUFSEG5: BUFSEG Mask           */
 
 #define USBD_MXPLD5_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD5: MXPLD Position         */
-#define USBD_MXPLD5_MXPLD_Msk            (0x7fful << USBD_MXPLD5_MXPLD_Pos)                /*!< USBD_T::MXPLD5: MXPLD Mask             */
+#define USBD_MXPLD5_MXPLD_Msk            (0x7ffUL << USBD_MXPLD5_MXPLD_Pos)                /*!< USBD_T::MXPLD5: MXPLD Mask             */
 
 #define USBD_CFG5_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG5: EPNUM Position           */
-#define USBD_CFG5_EPNUM_Msk              (0xful << USBD_CFG5_EPNUM_Pos)                    /*!< USBD_T::CFG5: EPNUM Mask               */
+#define USBD_CFG5_EPNUM_Msk              (0xfUL << USBD_CFG5_EPNUM_Pos)                    /*!< USBD_T::CFG5: EPNUM Mask               */
 
 #define USBD_CFG5_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG5: ISOCH Position           */
-#define USBD_CFG5_ISOCH_Msk              (0x1ul << USBD_CFG5_ISOCH_Pos)                    /*!< USBD_T::CFG5: ISOCH Mask               */
+#define USBD_CFG5_ISOCH_Msk              (0x1UL << USBD_CFG5_ISOCH_Pos)                    /*!< USBD_T::CFG5: ISOCH Mask               */
 
 #define USBD_CFG5_STATE_Pos              (5)                                               /*!< USBD_T::CFG5: STATE Position           */
-#define USBD_CFG5_STATE_Msk              (0x3ul << USBD_CFG5_STATE_Pos)                    /*!< USBD_T::CFG5: STATE Mask               */
+#define USBD_CFG5_STATE_Msk              (0x3UL << USBD_CFG5_STATE_Pos)                    /*!< USBD_T::CFG5: STATE Mask               */
 
 #define USBD_CFG5_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG5: DSQSYNC Position         */
-#define USBD_CFG5_DSQSYNC_Msk            (0x1ul << USBD_CFG5_DSQSYNC_Pos)                  /*!< USBD_T::CFG5: DSQSYNC Mask             */
+#define USBD_CFG5_DSQSYNC_Msk            (0x1UL << USBD_CFG5_DSQSYNC_Pos)                  /*!< USBD_T::CFG5: DSQSYNC Mask             */
 
 #define USBD_CFG5_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG5: CSTALL Position          */
-#define USBD_CFG5_CSTALL_Msk             (0x1ul << USBD_CFG5_CSTALL_Pos)                   /*!< USBD_T::CFG5: CSTALL Mask              */
+#define USBD_CFG5_CSTALL_Msk             (0x1UL << USBD_CFG5_CSTALL_Pos)                   /*!< USBD_T::CFG5: CSTALL Mask              */
 
 #define USBD_CFG5_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG5: DBTGACTIVE Position      */
-#define USBD_CFG5_DBTGACTIVE_Msk         (0x1ul << USBD_CFG5_DBTGACTIVE_Pos)               /*!< USBD_T::CFG5: DBTGACTIVE Mask          */
+#define USBD_CFG5_DBTGACTIVE_Msk         (0x1UL << USBD_CFG5_DBTGACTIVE_Pos)               /*!< USBD_T::CFG5: DBTGACTIVE Mask          */
 
 #define USBD_CFG5_DBEN_Pos               (11)                                              /*!< USBD_T::CFG5: DBEN Position            */
-#define USBD_CFG5_DBEN_Msk               (0x1ul << USBD_CFG5_DBEN_Pos)                     /*!< USBD_T::CFG5: DBEN Mask                */
+#define USBD_CFG5_DBEN_Msk               (0x1UL << USBD_CFG5_DBEN_Pos)                     /*!< USBD_T::CFG5: DBEN Mask                */
 
 #define USBD_CFGP5_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP5: CLRRDY Position         */
-#define USBD_CFGP5_CLRRDY_Msk            (0x1ul << USBD_CFGP5_CLRRDY_Pos)                  /*!< USBD_T::CFGP5: CLRRDY Mask             */
+#define USBD_CFGP5_CLRRDY_Msk            (0x1UL << USBD_CFGP5_CLRRDY_Pos)                  /*!< USBD_T::CFGP5: CLRRDY Mask             */
 
 #define USBD_CFGP5_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP5: SSTALL Position         */
-#define USBD_CFGP5_SSTALL_Msk            (0x1ul << USBD_CFGP5_SSTALL_Pos)                  /*!< USBD_T::CFGP5: SSTALL Mask             */
+#define USBD_CFGP5_SSTALL_Msk            (0x1UL << USBD_CFGP5_SSTALL_Pos)                  /*!< USBD_T::CFGP5: SSTALL Mask             */
 
 #define USBD_BUFSEG6_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG6: BUFSEG Position       */
-#define USBD_BUFSEG6_BUFSEG_Msk          (0xfful << USBD_BUFSEG6_BUFSEG_Pos)               /*!< USBD_T::BUFSEG6: BUFSEG Mask           */
+#define USBD_BUFSEG6_BUFSEG_Msk          (0xffUL << USBD_BUFSEG6_BUFSEG_Pos)               /*!< USBD_T::BUFSEG6: BUFSEG Mask           */
 
 #define USBD_MXPLD6_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD6: MXPLD Position         */
-#define USBD_MXPLD6_MXPLD_Msk            (0x7fful << USBD_MXPLD6_MXPLD_Pos)                /*!< USBD_T::MXPLD6: MXPLD Mask             */
+#define USBD_MXPLD6_MXPLD_Msk            (0x7ffUL << USBD_MXPLD6_MXPLD_Pos)                /*!< USBD_T::MXPLD6: MXPLD Mask             */
 
 #define USBD_CFG6_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG6: EPNUM Position           */
-#define USBD_CFG6_EPNUM_Msk              (0xful << USBD_CFG6_EPNUM_Pos)                    /*!< USBD_T::CFG6: EPNUM Mask               */
+#define USBD_CFG6_EPNUM_Msk              (0xfUL << USBD_CFG6_EPNUM_Pos)                    /*!< USBD_T::CFG6: EPNUM Mask               */
 
 #define USBD_CFG6_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG6: ISOCH Position           */
-#define USBD_CFG6_ISOCH_Msk              (0x1ul << USBD_CFG6_ISOCH_Pos)                    /*!< USBD_T::CFG6: ISOCH Mask               */
+#define USBD_CFG6_ISOCH_Msk              (0x1UL << USBD_CFG6_ISOCH_Pos)                    /*!< USBD_T::CFG6: ISOCH Mask               */
 
 #define USBD_CFG6_STATE_Pos              (5)                                               /*!< USBD_T::CFG6: STATE Position           */
-#define USBD_CFG6_STATE_Msk              (0x3ul << USBD_CFG6_STATE_Pos)                    /*!< USBD_T::CFG6: STATE Mask               */
+#define USBD_CFG6_STATE_Msk              (0x3UL << USBD_CFG6_STATE_Pos)                    /*!< USBD_T::CFG6: STATE Mask               */
 
 #define USBD_CFG6_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG6: DSQSYNC Position         */
-#define USBD_CFG6_DSQSYNC_Msk            (0x1ul << USBD_CFG6_DSQSYNC_Pos)                  /*!< USBD_T::CFG6: DSQSYNC Mask             */
+#define USBD_CFG6_DSQSYNC_Msk            (0x1UL << USBD_CFG6_DSQSYNC_Pos)                  /*!< USBD_T::CFG6: DSQSYNC Mask             */
 
 #define USBD_CFG6_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG6: CSTALL Position          */
-#define USBD_CFG6_CSTALL_Msk             (0x1ul << USBD_CFG6_CSTALL_Pos)                   /*!< USBD_T::CFG6: CSTALL Mask              */
+#define USBD_CFG6_CSTALL_Msk             (0x1UL << USBD_CFG6_CSTALL_Pos)                   /*!< USBD_T::CFG6: CSTALL Mask              */
 
 #define USBD_CFG6_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG6: DBTGACTIVE Position      */
-#define USBD_CFG6_DBTGACTIVE_Msk         (0x1ul << USBD_CFG6_DBTGACTIVE_Pos)               /*!< USBD_T::CFG6: DBTGACTIVE Mask          */
+#define USBD_CFG6_DBTGACTIVE_Msk         (0x1UL << USBD_CFG6_DBTGACTIVE_Pos)               /*!< USBD_T::CFG6: DBTGACTIVE Mask          */
 
 #define USBD_CFG6_DBEN_Pos               (11)                                              /*!< USBD_T::CFG6: DBEN Position            */
-#define USBD_CFG6_DBEN_Msk               (0x1ul << USBD_CFG6_DBEN_Pos)                     /*!< USBD_T::CFG6: DBEN Mask                */
+#define USBD_CFG6_DBEN_Msk               (0x1UL << USBD_CFG6_DBEN_Pos)                     /*!< USBD_T::CFG6: DBEN Mask                */
 
 #define USBD_CFGP6_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP6: CLRRDY Position         */
-#define USBD_CFGP6_CLRRDY_Msk            (0x1ul << USBD_CFGP6_CLRRDY_Pos)                  /*!< USBD_T::CFGP6: CLRRDY Mask             */
+#define USBD_CFGP6_CLRRDY_Msk            (0x1UL << USBD_CFGP6_CLRRDY_Pos)                  /*!< USBD_T::CFGP6: CLRRDY Mask             */
 
 #define USBD_CFGP6_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP6: SSTALL Position         */
-#define USBD_CFGP6_SSTALL_Msk            (0x1ul << USBD_CFGP6_SSTALL_Pos)                  /*!< USBD_T::CFGP6: SSTALL Mask             */
+#define USBD_CFGP6_SSTALL_Msk            (0x1UL << USBD_CFGP6_SSTALL_Pos)                  /*!< USBD_T::CFGP6: SSTALL Mask             */
 
 #define USBD_BUFSEG7_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG7: BUFSEG Position       */
-#define USBD_BUFSEG7_BUFSEG_Msk          (0xfful << USBD_BUFSEG7_BUFSEG_Pos)               /*!< USBD_T::BUFSEG7: BUFSEG Mask           */
+#define USBD_BUFSEG7_BUFSEG_Msk          (0xffUL << USBD_BUFSEG7_BUFSEG_Pos)               /*!< USBD_T::BUFSEG7: BUFSEG Mask           */
 
 #define USBD_MXPLD7_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD7: MXPLD Position         */
-#define USBD_MXPLD7_MXPLD_Msk            (0x7fful << USBD_MXPLD7_MXPLD_Pos)                /*!< USBD_T::MXPLD7: MXPLD Mask             */
+#define USBD_MXPLD7_MXPLD_Msk            (0x7ffUL << USBD_MXPLD7_MXPLD_Pos)                /*!< USBD_T::MXPLD7: MXPLD Mask             */
 
 #define USBD_CFG7_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG7: EPNUM Position           */
-#define USBD_CFG7_EPNUM_Msk              (0xful << USBD_CFG7_EPNUM_Pos)                    /*!< USBD_T::CFG7: EPNUM Mask               */
+#define USBD_CFG7_EPNUM_Msk              (0xfUL << USBD_CFG7_EPNUM_Pos)                    /*!< USBD_T::CFG7: EPNUM Mask               */
 
 #define USBD_CFG7_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG7: ISOCH Position           */
-#define USBD_CFG7_ISOCH_Msk              (0x1ul << USBD_CFG7_ISOCH_Pos)                    /*!< USBD_T::CFG7: ISOCH Mask               */
+#define USBD_CFG7_ISOCH_Msk              (0x1UL << USBD_CFG7_ISOCH_Pos)                    /*!< USBD_T::CFG7: ISOCH Mask               */
 
 #define USBD_CFG7_STATE_Pos              (5)                                               /*!< USBD_T::CFG7: STATE Position           */
-#define USBD_CFG7_STATE_Msk              (0x3ul << USBD_CFG7_STATE_Pos)                    /*!< USBD_T::CFG7: STATE Mask               */
+#define USBD_CFG7_STATE_Msk              (0x3UL << USBD_CFG7_STATE_Pos)                    /*!< USBD_T::CFG7: STATE Mask               */
 
 #define USBD_CFG7_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG7: DSQSYNC Position         */
-#define USBD_CFG7_DSQSYNC_Msk            (0x1ul << USBD_CFG7_DSQSYNC_Pos)                  /*!< USBD_T::CFG7: DSQSYNC Mask             */
+#define USBD_CFG7_DSQSYNC_Msk            (0x1UL << USBD_CFG7_DSQSYNC_Pos)                  /*!< USBD_T::CFG7: DSQSYNC Mask             */
 
 #define USBD_CFG7_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG7: CSTALL Position          */
-#define USBD_CFG7_CSTALL_Msk             (0x1ul << USBD_CFG7_CSTALL_Pos)                   /*!< USBD_T::CFG7: CSTALL Mask              */
+#define USBD_CFG7_CSTALL_Msk             (0x1UL << USBD_CFG7_CSTALL_Pos)                   /*!< USBD_T::CFG7: CSTALL Mask              */
 
 #define USBD_CFG7_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG7: DBTGACTIVE Position      */
-#define USBD_CFG7_DBTGACTIVE_Msk         (0x1ul << USBD_CFG7_DBTGACTIVE_Pos)               /*!< USBD_T::CFG7: DBTGACTIVE Mask          */
+#define USBD_CFG7_DBTGACTIVE_Msk         (0x1UL << USBD_CFG7_DBTGACTIVE_Pos)               /*!< USBD_T::CFG7: DBTGACTIVE Mask          */
 
 #define USBD_CFG7_DBEN_Pos               (11)                                              /*!< USBD_T::CFG7: DBEN Position            */
-#define USBD_CFG7_DBEN_Msk               (0x1ul << USBD_CFG7_DBEN_Pos)                     /*!< USBD_T::CFG7: DBEN Mask                */
+#define USBD_CFG7_DBEN_Msk               (0x1UL << USBD_CFG7_DBEN_Pos)                     /*!< USBD_T::CFG7: DBEN Mask                */
 
 #define USBD_CFGP7_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP7: CLRRDY Position         */
-#define USBD_CFGP7_CLRRDY_Msk            (0x1ul << USBD_CFGP7_CLRRDY_Pos)                  /*!< USBD_T::CFGP7: CLRRDY Mask             */
+#define USBD_CFGP7_CLRRDY_Msk            (0x1UL << USBD_CFGP7_CLRRDY_Pos)                  /*!< USBD_T::CFGP7: CLRRDY Mask             */
 
 #define USBD_CFGP7_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP7: SSTALL Position         */
-#define USBD_CFGP7_SSTALL_Msk            (0x1ul << USBD_CFGP7_SSTALL_Pos)                  /*!< USBD_T::CFGP7: SSTALL Mask             */
+#define USBD_CFGP7_SSTALL_Msk            (0x1UL << USBD_CFGP7_SSTALL_Pos)                  /*!< USBD_T::CFGP7: SSTALL Mask             */
 
 #define USBD_BUFSEG8_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG8: BUFSEG Position       */
-#define USBD_BUFSEG8_BUFSEG_Msk          (0xfful << USBD_BUFSEG8_BUFSEG_Pos)               /*!< USBD_T::BUFSEG8: BUFSEG Mask           */
+#define USBD_BUFSEG8_BUFSEG_Msk          (0xffUL << USBD_BUFSEG8_BUFSEG_Pos)               /*!< USBD_T::BUFSEG8: BUFSEG Mask           */
 
 #define USBD_MXPLD8_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD8: MXPLD Position         */
-#define USBD_MXPLD8_MXPLD_Msk            (0x7fful << USBD_MXPLD8_MXPLD_Pos)                /*!< USBD_T::MXPLD8: MXPLD Mask             */
+#define USBD_MXPLD8_MXPLD_Msk            (0x7ffUL << USBD_MXPLD8_MXPLD_Pos)                /*!< USBD_T::MXPLD8: MXPLD Mask             */
 
 #define USBD_CFG8_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG8: EPNUM Position           */
-#define USBD_CFG8_EPNUM_Msk              (0xful << USBD_CFG8_EPNUM_Pos)                    /*!< USBD_T::CFG8: EPNUM Mask               */
+#define USBD_CFG8_EPNUM_Msk              (0xfUL << USBD_CFG8_EPNUM_Pos)                    /*!< USBD_T::CFG8: EPNUM Mask               */
 
 #define USBD_CFG8_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG8: ISOCH Position           */
-#define USBD_CFG8_ISOCH_Msk              (0x1ul << USBD_CFG8_ISOCH_Pos)                    /*!< USBD_T::CFG8: ISOCH Mask               */
+#define USBD_CFG8_ISOCH_Msk              (0x1UL << USBD_CFG8_ISOCH_Pos)                    /*!< USBD_T::CFG8: ISOCH Mask               */
 
 #define USBD_CFG8_STATE_Pos              (5)                                               /*!< USBD_T::CFG8: STATE Position           */
-#define USBD_CFG8_STATE_Msk              (0x3ul << USBD_CFG8_STATE_Pos)                    /*!< USBD_T::CFG8: STATE Mask               */
+#define USBD_CFG8_STATE_Msk              (0x3UL << USBD_CFG8_STATE_Pos)                    /*!< USBD_T::CFG8: STATE Mask               */
 
 #define USBD_CFG8_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG8: DSQSYNC Position         */
-#define USBD_CFG8_DSQSYNC_Msk            (0x1ul << USBD_CFG8_DSQSYNC_Pos)                  /*!< USBD_T::CFG8: DSQSYNC Mask             */
+#define USBD_CFG8_DSQSYNC_Msk            (0x1UL << USBD_CFG8_DSQSYNC_Pos)                  /*!< USBD_T::CFG8: DSQSYNC Mask             */
 
 #define USBD_CFG8_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG8: CSTALL Position          */
-#define USBD_CFG8_CSTALL_Msk             (0x1ul << USBD_CFG8_CSTALL_Pos)                   /*!< USBD_T::CFG8: CSTALL Mask              */
+#define USBD_CFG8_CSTALL_Msk             (0x1UL << USBD_CFG8_CSTALL_Pos)                   /*!< USBD_T::CFG8: CSTALL Mask              */
 
 #define USBD_CFG8_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG8: DBTGACTIVE Position      */
-#define USBD_CFG8_DBTGACTIVE_Msk         (0x1ul << USBD_CFG8_DBTGACTIVE_Pos)               /*!< USBD_T::CFG8: DBTGACTIVE Mask          */
+#define USBD_CFG8_DBTGACTIVE_Msk         (0x1UL << USBD_CFG8_DBTGACTIVE_Pos)               /*!< USBD_T::CFG8: DBTGACTIVE Mask          */
 
 #define USBD_CFG8_DBEN_Pos               (11)                                              /*!< USBD_T::CFG8: DBEN Position            */
-#define USBD_CFG8_DBEN_Msk               (0x1ul << USBD_CFG8_DBEN_Pos)                     /*!< USBD_T::CFG8: DBEN Mask                */
+#define USBD_CFG8_DBEN_Msk               (0x1UL << USBD_CFG8_DBEN_Pos)                     /*!< USBD_T::CFG8: DBEN Mask                */
 
 #define USBD_CFGP8_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP8: CLRRDY Position         */
-#define USBD_CFGP8_CLRRDY_Msk            (0x1ul << USBD_CFGP8_CLRRDY_Pos)                  /*!< USBD_T::CFGP8: CLRRDY Mask             */
+#define USBD_CFGP8_CLRRDY_Msk            (0x1UL << USBD_CFGP8_CLRRDY_Pos)                  /*!< USBD_T::CFGP8: CLRRDY Mask             */
 
 #define USBD_CFGP8_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP8: SSTALL Position         */
-#define USBD_CFGP8_SSTALL_Msk            (0x1ul << USBD_CFGP8_SSTALL_Pos)                  /*!< USBD_T::CFGP8: SSTALL Mask             */
+#define USBD_CFGP8_SSTALL_Msk            (0x1UL << USBD_CFGP8_SSTALL_Pos)                  /*!< USBD_T::CFGP8: SSTALL Mask             */
 
 #define USBD_BUFSEG9_BUFSEG_Pos          (3)                                               /*!< USBD_T::BUFSEG9: BUFSEG Position       */
-#define USBD_BUFSEG9_BUFSEG_Msk          (0xfful << USBD_BUFSEG9_BUFSEG_Pos)               /*!< USBD_T::BUFSEG9: BUFSEG Mask           */
+#define USBD_BUFSEG9_BUFSEG_Msk          (0xffUL << USBD_BUFSEG9_BUFSEG_Pos)               /*!< USBD_T::BUFSEG9: BUFSEG Mask           */
 
 #define USBD_MXPLD9_MXPLD_Pos            (0)                                               /*!< USBD_T::MXPLD9: MXPLD Position         */
-#define USBD_MXPLD9_MXPLD_Msk            (0x7fful << USBD_MXPLD9_MXPLD_Pos)                /*!< USBD_T::MXPLD9: MXPLD Mask             */
+#define USBD_MXPLD9_MXPLD_Msk            (0x7ffUL << USBD_MXPLD9_MXPLD_Pos)                /*!< USBD_T::MXPLD9: MXPLD Mask             */
 
 #define USBD_CFG9_EPNUM_Pos              (0)                                               /*!< USBD_T::CFG9: EPNUM Position           */
-#define USBD_CFG9_EPNUM_Msk              (0xful << USBD_CFG9_EPNUM_Pos)                    /*!< USBD_T::CFG9: EPNUM Mask               */
+#define USBD_CFG9_EPNUM_Msk              (0xfUL << USBD_CFG9_EPNUM_Pos)                    /*!< USBD_T::CFG9: EPNUM Mask               */
 
 #define USBD_CFG9_ISOCH_Pos              (4)                                               /*!< USBD_T::CFG9: ISOCH Position           */
-#define USBD_CFG9_ISOCH_Msk              (0x1ul << USBD_CFG9_ISOCH_Pos)                    /*!< USBD_T::CFG9: ISOCH Mask               */
+#define USBD_CFG9_ISOCH_Msk              (0x1UL << USBD_CFG9_ISOCH_Pos)                    /*!< USBD_T::CFG9: ISOCH Mask               */
 
 #define USBD_CFG9_STATE_Pos              (5)                                               /*!< USBD_T::CFG9: STATE Position           */
-#define USBD_CFG9_STATE_Msk              (0x3ul << USBD_CFG9_STATE_Pos)                    /*!< USBD_T::CFG9: STATE Mask               */
+#define USBD_CFG9_STATE_Msk              (0x3UL << USBD_CFG9_STATE_Pos)                    /*!< USBD_T::CFG9: STATE Mask               */
 
 #define USBD_CFG9_DSQSYNC_Pos            (7)                                               /*!< USBD_T::CFG9: DSQSYNC Position         */
-#define USBD_CFG9_DSQSYNC_Msk            (0x1ul << USBD_CFG9_DSQSYNC_Pos)                  /*!< USBD_T::CFG9: DSQSYNC Mask             */
+#define USBD_CFG9_DSQSYNC_Msk            (0x1UL << USBD_CFG9_DSQSYNC_Pos)                  /*!< USBD_T::CFG9: DSQSYNC Mask             */
 
 #define USBD_CFG9_CSTALL_Pos             (9)                                               /*!< USBD_T::CFG9: CSTALL Position          */
-#define USBD_CFG9_CSTALL_Msk             (0x1ul << USBD_CFG9_CSTALL_Pos)                   /*!< USBD_T::CFG9: CSTALL Mask              */
+#define USBD_CFG9_CSTALL_Msk             (0x1UL << USBD_CFG9_CSTALL_Pos)                   /*!< USBD_T::CFG9: CSTALL Mask              */
 
 #define USBD_CFG9_DBTGACTIVE_Pos         (10)                                              /*!< USBD_T::CFG9: DBTGACTIVE Position      */
-#define USBD_CFG9_DBTGACTIVE_Msk         (0x1ul << USBD_CFG9_DBTGACTIVE_Pos)               /*!< USBD_T::CFG9: DBTGACTIVE Mask          */
+#define USBD_CFG9_DBTGACTIVE_Msk         (0x1UL << USBD_CFG9_DBTGACTIVE_Pos)               /*!< USBD_T::CFG9: DBTGACTIVE Mask          */
 
 #define USBD_CFG9_DBEN_Pos               (11)                                              /*!< USBD_T::CFG9: DBEN Position            */
-#define USBD_CFG9_DBEN_Msk               (0x1ul << USBD_CFG9_DBEN_Pos)                     /*!< USBD_T::CFG9: DBEN Mask                */
+#define USBD_CFG9_DBEN_Msk               (0x1UL << USBD_CFG9_DBEN_Pos)                     /*!< USBD_T::CFG9: DBEN Mask                */
 
 #define USBD_CFGP9_CLRRDY_Pos            (0)                                               /*!< USBD_T::CFGP9: CLRRDY Position         */
-#define USBD_CFGP9_CLRRDY_Msk            (0x1ul << USBD_CFGP9_CLRRDY_Pos)                  /*!< USBD_T::CFGP9: CLRRDY Mask             */
+#define USBD_CFGP9_CLRRDY_Msk            (0x1UL << USBD_CFGP9_CLRRDY_Pos)                  /*!< USBD_T::CFGP9: CLRRDY Mask             */
 
 #define USBD_CFGP9_SSTALL_Pos            (1)                                               /*!< USBD_T::CFGP9: SSTALL Position         */
-#define USBD_CFGP9_SSTALL_Msk            (0x1ul << USBD_CFGP9_SSTALL_Pos)                  /*!< USBD_T::CFGP9: SSTALL Mask             */
+#define USBD_CFGP9_SSTALL_Msk            (0x1UL << USBD_CFGP9_SSTALL_Pos)                  /*!< USBD_T::CFGP9: SSTALL Mask             */
 
 #define USBD_BUFSEG10_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG10: BUFSEG Position      */
-#define USBD_BUFSEG10_BUFSEG_Msk         (0xfful << USBD_BUFSEG10_BUFSEG_Pos)              /*!< USBD_T::BUFSEG10: BUFSEG Mask          */
+#define USBD_BUFSEG10_BUFSEG_Msk         (0xffUL << USBD_BUFSEG10_BUFSEG_Pos)              /*!< USBD_T::BUFSEG10: BUFSEG Mask          */
 
 #define USBD_MXPLD10_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD10: MXPLD Position        */
-#define USBD_MXPLD10_MXPLD_Msk           (0x7fful << USBD_MXPLD10_MXPLD_Pos)               /*!< USBD_T::MXPLD10: MXPLD Mask            */
+#define USBD_MXPLD10_MXPLD_Msk           (0x7ffUL << USBD_MXPLD10_MXPLD_Pos)               /*!< USBD_T::MXPLD10: MXPLD Mask            */
 
 #define USBD_CFG10_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG10: EPNUM Position          */
-#define USBD_CFG10_EPNUM_Msk             (0xful << USBD_CFG10_EPNUM_Pos)                   /*!< USBD_T::CFG10: EPNUM Mask              */
+#define USBD_CFG10_EPNUM_Msk             (0xfUL << USBD_CFG10_EPNUM_Pos)                   /*!< USBD_T::CFG10: EPNUM Mask              */
 
 #define USBD_CFG10_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG10: ISOCH Position          */
-#define USBD_CFG10_ISOCH_Msk             (0x1ul << USBD_CFG10_ISOCH_Pos)                   /*!< USBD_T::CFG10: ISOCH Mask              */
+#define USBD_CFG10_ISOCH_Msk             (0x1UL << USBD_CFG10_ISOCH_Pos)                   /*!< USBD_T::CFG10: ISOCH Mask              */
 
 #define USBD_CFG10_STATE_Pos             (5)                                               /*!< USBD_T::CFG10: STATE Position          */
-#define USBD_CFG10_STATE_Msk             (0x3ul << USBD_CFG10_STATE_Pos)                   /*!< USBD_T::CFG10: STATE Mask              */
+#define USBD_CFG10_STATE_Msk             (0x3UL << USBD_CFG10_STATE_Pos)                   /*!< USBD_T::CFG10: STATE Mask              */
 
 #define USBD_CFG10_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG10: DSQSYNC Position        */
-#define USBD_CFG10_DSQSYNC_Msk           (0x1ul << USBD_CFG10_DSQSYNC_Pos)                 /*!< USBD_T::CFG10: DSQSYNC Mask            */
+#define USBD_CFG10_DSQSYNC_Msk           (0x1UL << USBD_CFG10_DSQSYNC_Pos)                 /*!< USBD_T::CFG10: DSQSYNC Mask            */
 
 #define USBD_CFG10_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG10: CSTALL Position         */
-#define USBD_CFG10_CSTALL_Msk            (0x1ul << USBD_CFG10_CSTALL_Pos)                  /*!< USBD_T::CFG10: CSTALL Mask             */
+#define USBD_CFG10_CSTALL_Msk            (0x1UL << USBD_CFG10_CSTALL_Pos)                  /*!< USBD_T::CFG10: CSTALL Mask             */
 
 #define USBD_CFG10_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG10: DBTGACTIVE Position     */
-#define USBD_CFG10_DBTGACTIVE_Msk        (0x1ul << USBD_CFG10_DBTGACTIVE_Pos)              /*!< USBD_T::CFG10: DBTGACTIVE Mask         */
+#define USBD_CFG10_DBTGACTIVE_Msk        (0x1UL << USBD_CFG10_DBTGACTIVE_Pos)              /*!< USBD_T::CFG10: DBTGACTIVE Mask         */
 
 #define USBD_CFG10_DBEN_Pos              (11)                                              /*!< USBD_T::CFG10: DBEN Position           */
-#define USBD_CFG10_DBEN_Msk              (0x1ul << USBD_CFG10_DBEN_Pos)                    /*!< USBD_T::CFG10: DBEN Mask               */
+#define USBD_CFG10_DBEN_Msk              (0x1UL << USBD_CFG10_DBEN_Pos)                    /*!< USBD_T::CFG10: DBEN Mask               */
 
 #define USBD_CFGP10_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP10: CLRRDY Position        */
-#define USBD_CFGP10_CLRRDY_Msk           (0x1ul << USBD_CFGP10_CLRRDY_Pos)                 /*!< USBD_T::CFGP10: CLRRDY Mask            */
+#define USBD_CFGP10_CLRRDY_Msk           (0x1UL << USBD_CFGP10_CLRRDY_Pos)                 /*!< USBD_T::CFGP10: CLRRDY Mask            */
 
 #define USBD_CFGP10_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP10: SSTALL Position        */
-#define USBD_CFGP10_SSTALL_Msk           (0x1ul << USBD_CFGP10_SSTALL_Pos)                 /*!< USBD_T::CFGP10: SSTALL Mask            */
+#define USBD_CFGP10_SSTALL_Msk           (0x1UL << USBD_CFGP10_SSTALL_Pos)                 /*!< USBD_T::CFGP10: SSTALL Mask            */
 
 #define USBD_BUFSEG11_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG11: BUFSEG Position      */
-#define USBD_BUFSEG11_BUFSEG_Msk         (0xfful << USBD_BUFSEG11_BUFSEG_Pos)              /*!< USBD_T::BUFSEG11: BUFSEG Mask          */
+#define USBD_BUFSEG11_BUFSEG_Msk         (0xffUL << USBD_BUFSEG11_BUFSEG_Pos)              /*!< USBD_T::BUFSEG11: BUFSEG Mask          */
 
 #define USBD_MXPLD11_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD11: MXPLD Position        */
-#define USBD_MXPLD11_MXPLD_Msk           (0x7fful << USBD_MXPLD11_MXPLD_Pos)               /*!< USBD_T::MXPLD11: MXPLD Mask            */
+#define USBD_MXPLD11_MXPLD_Msk           (0x7ffUL << USBD_MXPLD11_MXPLD_Pos)               /*!< USBD_T::MXPLD11: MXPLD Mask            */
 
 #define USBD_CFG11_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG11: EPNUM Position          */
-#define USBD_CFG11_EPNUM_Msk             (0xful << USBD_CFG11_EPNUM_Pos)                   /*!< USBD_T::CFG11: EPNUM Mask              */
+#define USBD_CFG11_EPNUM_Msk             (0xfUL << USBD_CFG11_EPNUM_Pos)                   /*!< USBD_T::CFG11: EPNUM Mask              */
 
 #define USBD_CFG11_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG11: ISOCH Position          */
-#define USBD_CFG11_ISOCH_Msk             (0x1ul << USBD_CFG11_ISOCH_Pos)                   /*!< USBD_T::CFG11: ISOCH Mask              */
+#define USBD_CFG11_ISOCH_Msk             (0x1UL << USBD_CFG11_ISOCH_Pos)                   /*!< USBD_T::CFG11: ISOCH Mask              */
 
 #define USBD_CFG11_STATE_Pos             (5)                                               /*!< USBD_T::CFG11: STATE Position          */
-#define USBD_CFG11_STATE_Msk             (0x3ul << USBD_CFG11_STATE_Pos)                   /*!< USBD_T::CFG11: STATE Mask              */
+#define USBD_CFG11_STATE_Msk             (0x3UL << USBD_CFG11_STATE_Pos)                   /*!< USBD_T::CFG11: STATE Mask              */
 
 #define USBD_CFG11_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG11: DSQSYNC Position        */
-#define USBD_CFG11_DSQSYNC_Msk           (0x1ul << USBD_CFG11_DSQSYNC_Pos)                 /*!< USBD_T::CFG11: DSQSYNC Mask            */
+#define USBD_CFG11_DSQSYNC_Msk           (0x1UL << USBD_CFG11_DSQSYNC_Pos)                 /*!< USBD_T::CFG11: DSQSYNC Mask            */
 
 #define USBD_CFG11_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG11: CSTALL Position         */
-#define USBD_CFG11_CSTALL_Msk            (0x1ul << USBD_CFG11_CSTALL_Pos)                  /*!< USBD_T::CFG11: CSTALL Mask             */
+#define USBD_CFG11_CSTALL_Msk            (0x1UL << USBD_CFG11_CSTALL_Pos)                  /*!< USBD_T::CFG11: CSTALL Mask             */
 
 #define USBD_CFG11_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG11: DBTGACTIVE Position     */
-#define USBD_CFG11_DBTGACTIVE_Msk        (0x1ul << USBD_CFG11_DBTGACTIVE_Pos)              /*!< USBD_T::CFG11: DBTGACTIVE Mask         */
+#define USBD_CFG11_DBTGACTIVE_Msk        (0x1UL << USBD_CFG11_DBTGACTIVE_Pos)              /*!< USBD_T::CFG11: DBTGACTIVE Mask         */
 
 #define USBD_CFG11_DBEN_Pos              (11)                                              /*!< USBD_T::CFG11: DBEN Position           */
-#define USBD_CFG11_DBEN_Msk              (0x1ul << USBD_CFG11_DBEN_Pos)                    /*!< USBD_T::CFG11: DBEN Mask               */
+#define USBD_CFG11_DBEN_Msk              (0x1UL << USBD_CFG11_DBEN_Pos)                    /*!< USBD_T::CFG11: DBEN Mask               */
 
 #define USBD_CFGP11_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP11: CLRRDY Position        */
-#define USBD_CFGP11_CLRRDY_Msk           (0x1ul << USBD_CFGP11_CLRRDY_Pos)                 /*!< USBD_T::CFGP11: CLRRDY Mask            */
+#define USBD_CFGP11_CLRRDY_Msk           (0x1UL << USBD_CFGP11_CLRRDY_Pos)                 /*!< USBD_T::CFGP11: CLRRDY Mask            */
 
 #define USBD_CFGP11_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP11: SSTALL Position        */
-#define USBD_CFGP11_SSTALL_Msk           (0x1ul << USBD_CFGP11_SSTALL_Pos)                 /*!< USBD_T::CFGP11: SSTALL Mask            */
+#define USBD_CFGP11_SSTALL_Msk           (0x1UL << USBD_CFGP11_SSTALL_Pos)                 /*!< USBD_T::CFGP11: SSTALL Mask            */
 
 #define USBD_BUFSEG12_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG12: BUFSEG Position      */
-#define USBD_BUFSEG12_BUFSEG_Msk         (0xfful << USBD_BUFSEG12_BUFSEG_Pos)              /*!< USBD_T::BUFSEG12: BUFSEG Mask          */
+#define USBD_BUFSEG12_BUFSEG_Msk         (0xffUL << USBD_BUFSEG12_BUFSEG_Pos)              /*!< USBD_T::BUFSEG12: BUFSEG Mask          */
 
 #define USBD_MXPLD12_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD12: MXPLD Position        */
-#define USBD_MXPLD12_MXPLD_Msk           (0x7fful << USBD_MXPLD12_MXPLD_Pos)               /*!< USBD_T::MXPLD12: MXPLD Mask            */
+#define USBD_MXPLD12_MXPLD_Msk           (0x7ffUL << USBD_MXPLD12_MXPLD_Pos)               /*!< USBD_T::MXPLD12: MXPLD Mask            */
 
 #define USBD_CFG12_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG12: EPNUM Position          */
-#define USBD_CFG12_EPNUM_Msk             (0xful << USBD_CFG12_EPNUM_Pos)                   /*!< USBD_T::CFG12: EPNUM Mask              */
+#define USBD_CFG12_EPNUM_Msk             (0xfUL << USBD_CFG12_EPNUM_Pos)                   /*!< USBD_T::CFG12: EPNUM Mask              */
 
 #define USBD_CFG12_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG12: ISOCH Position          */
-#define USBD_CFG12_ISOCH_Msk             (0x1ul << USBD_CFG12_ISOCH_Pos)                   /*!< USBD_T::CFG12: ISOCH Mask              */
+#define USBD_CFG12_ISOCH_Msk             (0x1UL << USBD_CFG12_ISOCH_Pos)                   /*!< USBD_T::CFG12: ISOCH Mask              */
 
 #define USBD_CFG12_STATE_Pos             (5)                                               /*!< USBD_T::CFG12: STATE Position          */
-#define USBD_CFG12_STATE_Msk             (0x3ul << USBD_CFG12_STATE_Pos)                   /*!< USBD_T::CFG12: STATE Mask              */
+#define USBD_CFG12_STATE_Msk             (0x3UL << USBD_CFG12_STATE_Pos)                   /*!< USBD_T::CFG12: STATE Mask              */
 
 #define USBD_CFG12_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG12: DSQSYNC Position        */
-#define USBD_CFG12_DSQSYNC_Msk           (0x1ul << USBD_CFG12_DSQSYNC_Pos)                 /*!< USBD_T::CFG12: DSQSYNC Mask            */
+#define USBD_CFG12_DSQSYNC_Msk           (0x1UL << USBD_CFG12_DSQSYNC_Pos)                 /*!< USBD_T::CFG12: DSQSYNC Mask            */
 
 #define USBD_CFG12_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG12: CSTALL Position         */
-#define USBD_CFG12_CSTALL_Msk            (0x1ul << USBD_CFG12_CSTALL_Pos)                  /*!< USBD_T::CFG12: CSTALL Mask             */
+#define USBD_CFG12_CSTALL_Msk            (0x1UL << USBD_CFG12_CSTALL_Pos)                  /*!< USBD_T::CFG12: CSTALL Mask             */
 
 #define USBD_CFG12_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG12: DBTGACTIVE Position     */
-#define USBD_CFG12_DBTGACTIVE_Msk        (0x1ul << USBD_CFG12_DBTGACTIVE_Pos)              /*!< USBD_T::CFG12: DBTGACTIVE Mask         */
+#define USBD_CFG12_DBTGACTIVE_Msk        (0x1UL << USBD_CFG12_DBTGACTIVE_Pos)              /*!< USBD_T::CFG12: DBTGACTIVE Mask         */
 
 #define USBD_CFG12_DBEN_Pos              (11)                                              /*!< USBD_T::CFG12: DBEN Position           */
-#define USBD_CFG12_DBEN_Msk              (0x1ul << USBD_CFG12_DBEN_Pos)                    /*!< USBD_T::CFG12: DBEN Mask               */
+#define USBD_CFG12_DBEN_Msk              (0x1UL << USBD_CFG12_DBEN_Pos)                    /*!< USBD_T::CFG12: DBEN Mask               */
 
 #define USBD_CFGP12_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP12: CLRRDY Position        */
-#define USBD_CFGP12_CLRRDY_Msk           (0x1ul << USBD_CFGP12_CLRRDY_Pos)                 /*!< USBD_T::CFGP12: CLRRDY Mask            */
+#define USBD_CFGP12_CLRRDY_Msk           (0x1UL << USBD_CFGP12_CLRRDY_Pos)                 /*!< USBD_T::CFGP12: CLRRDY Mask            */
 
 #define USBD_CFGP12_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP12: SSTALL Position        */
-#define USBD_CFGP12_SSTALL_Msk           (0x1ul << USBD_CFGP12_SSTALL_Pos)                 /*!< USBD_T::CFGP12: SSTALL Mask            */
+#define USBD_CFGP12_SSTALL_Msk           (0x1UL << USBD_CFGP12_SSTALL_Pos)                 /*!< USBD_T::CFGP12: SSTALL Mask            */
 
 #define USBD_BUFSEG13_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG13: BUFSEG Position      */
-#define USBD_BUFSEG13_BUFSEG_Msk         (0xfful << USBD_BUFSEG13_BUFSEG_Pos)              /*!< USBD_T::BUFSEG13: BUFSEG Mask          */
+#define USBD_BUFSEG13_BUFSEG_Msk         (0xffUL << USBD_BUFSEG13_BUFSEG_Pos)              /*!< USBD_T::BUFSEG13: BUFSEG Mask          */
 
 #define USBD_MXPLD13_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD13: MXPLD Position        */
-#define USBD_MXPLD13_MXPLD_Msk           (0x7fful << USBD_MXPLD13_MXPLD_Pos)               /*!< USBD_T::MXPLD13: MXPLD Mask            */
+#define USBD_MXPLD13_MXPLD_Msk           (0x7ffUL << USBD_MXPLD13_MXPLD_Pos)               /*!< USBD_T::MXPLD13: MXPLD Mask            */
 
 #define USBD_CFG13_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG13: EPNUM Position          */
-#define USBD_CFG13_EPNUM_Msk             (0xful << USBD_CFG13_EPNUM_Pos)                   /*!< USBD_T::CFG13: EPNUM Mask              */
+#define USBD_CFG13_EPNUM_Msk             (0xfUL << USBD_CFG13_EPNUM_Pos)                   /*!< USBD_T::CFG13: EPNUM Mask              */
 
 #define USBD_CFG13_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG13: ISOCH Position          */
-#define USBD_CFG13_ISOCH_Msk             (0x1ul << USBD_CFG13_ISOCH_Pos)                   /*!< USBD_T::CFG13: ISOCH Mask              */
+#define USBD_CFG13_ISOCH_Msk             (0x1UL << USBD_CFG13_ISOCH_Pos)                   /*!< USBD_T::CFG13: ISOCH Mask              */
 
 #define USBD_CFG13_STATE_Pos             (5)                                               /*!< USBD_T::CFG13: STATE Position          */
-#define USBD_CFG13_STATE_Msk             (0x3ul << USBD_CFG13_STATE_Pos)                   /*!< USBD_T::CFG13: STATE Mask              */
+#define USBD_CFG13_STATE_Msk             (0x3UL << USBD_CFG13_STATE_Pos)                   /*!< USBD_T::CFG13: STATE Mask              */
 
 #define USBD_CFG13_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG13: DSQSYNC Position        */
-#define USBD_CFG13_DSQSYNC_Msk           (0x1ul << USBD_CFG13_DSQSYNC_Pos)                 /*!< USBD_T::CFG13: DSQSYNC Mask            */
+#define USBD_CFG13_DSQSYNC_Msk           (0x1UL << USBD_CFG13_DSQSYNC_Pos)                 /*!< USBD_T::CFG13: DSQSYNC Mask            */
 
 #define USBD_CFG13_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG13: CSTALL Position         */
-#define USBD_CFG13_CSTALL_Msk            (0x1ul << USBD_CFG13_CSTALL_Pos)                  /*!< USBD_T::CFG13: CSTALL Mask             */
+#define USBD_CFG13_CSTALL_Msk            (0x1UL << USBD_CFG13_CSTALL_Pos)                  /*!< USBD_T::CFG13: CSTALL Mask             */
 
 #define USBD_CFG13_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG13: DBTGACTIVE Position     */
-#define USBD_CFG13_DBTGACTIVE_Msk        (0x1ul << USBD_CFG13_DBTGACTIVE_Pos)              /*!< USBD_T::CFG13: DBTGACTIVE Mask         */
+#define USBD_CFG13_DBTGACTIVE_Msk        (0x1UL << USBD_CFG13_DBTGACTIVE_Pos)              /*!< USBD_T::CFG13: DBTGACTIVE Mask         */
 
 #define USBD_CFG13_DBEN_Pos              (11)                                              /*!< USBD_T::CFG13: DBEN Position           */
-#define USBD_CFG13_DBEN_Msk              (0x1ul << USBD_CFG13_DBEN_Pos)                    /*!< USBD_T::CFG13: DBEN Mask               */
+#define USBD_CFG13_DBEN_Msk              (0x1UL << USBD_CFG13_DBEN_Pos)                    /*!< USBD_T::CFG13: DBEN Mask               */
 
 #define USBD_CFGP13_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP13: CLRRDY Position        */
-#define USBD_CFGP13_CLRRDY_Msk           (0x1ul << USBD_CFGP13_CLRRDY_Pos)                 /*!< USBD_T::CFGP13: CLRRDY Mask            */
+#define USBD_CFGP13_CLRRDY_Msk           (0x1UL << USBD_CFGP13_CLRRDY_Pos)                 /*!< USBD_T::CFGP13: CLRRDY Mask            */
 
 #define USBD_CFGP13_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP13: SSTALL Position        */
-#define USBD_CFGP13_SSTALL_Msk           (0x1ul << USBD_CFGP13_SSTALL_Pos)                 /*!< USBD_T::CFGP13: SSTALL Mask            */
+#define USBD_CFGP13_SSTALL_Msk           (0x1UL << USBD_CFGP13_SSTALL_Pos)                 /*!< USBD_T::CFGP13: SSTALL Mask            */
 
 #define USBD_BUFSEG14_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG14: BUFSEG Position      */
-#define USBD_BUFSEG14_BUFSEG_Msk         (0xfful << USBD_BUFSEG14_BUFSEG_Pos)              /*!< USBD_T::BUFSEG14: BUFSEG Mask          */
+#define USBD_BUFSEG14_BUFSEG_Msk         (0xffUL << USBD_BUFSEG14_BUFSEG_Pos)              /*!< USBD_T::BUFSEG14: BUFSEG Mask          */
 
 #define USBD_MXPLD14_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD14: MXPLD Position        */
-#define USBD_MXPLD14_MXPLD_Msk           (0x7fful << USBD_MXPLD14_MXPLD_Pos)               /*!< USBD_T::MXPLD14: MXPLD Mask            */
+#define USBD_MXPLD14_MXPLD_Msk           (0x7ffUL << USBD_MXPLD14_MXPLD_Pos)               /*!< USBD_T::MXPLD14: MXPLD Mask            */
 
 #define USBD_CFG14_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG14: EPNUM Position          */
-#define USBD_CFG14_EPNUM_Msk             (0xful << USBD_CFG14_EPNUM_Pos)                   /*!< USBD_T::CFG14: EPNUM Mask              */
+#define USBD_CFG14_EPNUM_Msk             (0xfUL << USBD_CFG14_EPNUM_Pos)                   /*!< USBD_T::CFG14: EPNUM Mask              */
 
 #define USBD_CFG14_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG14: ISOCH Position          */
-#define USBD_CFG14_ISOCH_Msk             (0x1ul << USBD_CFG14_ISOCH_Pos)                   /*!< USBD_T::CFG14: ISOCH Mask              */
+#define USBD_CFG14_ISOCH_Msk             (0x1UL << USBD_CFG14_ISOCH_Pos)                   /*!< USBD_T::CFG14: ISOCH Mask              */
 
 #define USBD_CFG14_STATE_Pos             (5)                                               /*!< USBD_T::CFG14: STATE Position          */
-#define USBD_CFG14_STATE_Msk             (0x3ul << USBD_CFG14_STATE_Pos)                   /*!< USBD_T::CFG14: STATE Mask              */
+#define USBD_CFG14_STATE_Msk             (0x3UL << USBD_CFG14_STATE_Pos)                   /*!< USBD_T::CFG14: STATE Mask              */
 
 #define USBD_CFG14_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG14: DSQSYNC Position        */
-#define USBD_CFG14_DSQSYNC_Msk           (0x1ul << USBD_CFG14_DSQSYNC_Pos)                 /*!< USBD_T::CFG14: DSQSYNC Mask            */
+#define USBD_CFG14_DSQSYNC_Msk           (0x1UL << USBD_CFG14_DSQSYNC_Pos)                 /*!< USBD_T::CFG14: DSQSYNC Mask            */
 
 #define USBD_CFG14_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG14: CSTALL Position         */
-#define USBD_CFG14_CSTALL_Msk            (0x1ul << USBD_CFG14_CSTALL_Pos)                  /*!< USBD_T::CFG14: CSTALL Mask             */
+#define USBD_CFG14_CSTALL_Msk            (0x1UL << USBD_CFG14_CSTALL_Pos)                  /*!< USBD_T::CFG14: CSTALL Mask             */
 
 #define USBD_CFG14_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG14: DBTGACTIVE Position     */
-#define USBD_CFG14_DBTGACTIVE_Msk        (0x1ul << USBD_CFG14_DBTGACTIVE_Pos)              /*!< USBD_T::CFG14: DBTGACTIVE Mask         */
+#define USBD_CFG14_DBTGACTIVE_Msk        (0x1UL << USBD_CFG14_DBTGACTIVE_Pos)              /*!< USBD_T::CFG14: DBTGACTIVE Mask         */
 
 #define USBD_CFG14_DBEN_Pos              (11)                                              /*!< USBD_T::CFG14: DBEN Position           */
-#define USBD_CFG14_DBEN_Msk              (0x1ul << USBD_CFG14_DBEN_Pos)                    /*!< USBD_T::CFG14: DBEN Mask               */
+#define USBD_CFG14_DBEN_Msk              (0x1UL << USBD_CFG14_DBEN_Pos)                    /*!< USBD_T::CFG14: DBEN Mask               */
 
 #define USBD_CFGP14_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP14: CLRRDY Position        */
-#define USBD_CFGP14_CLRRDY_Msk           (0x1ul << USBD_CFGP14_CLRRDY_Pos)                 /*!< USBD_T::CFGP14: CLRRDY Mask            */
+#define USBD_CFGP14_CLRRDY_Msk           (0x1UL << USBD_CFGP14_CLRRDY_Pos)                 /*!< USBD_T::CFGP14: CLRRDY Mask            */
 
 #define USBD_CFGP14_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP14: SSTALL Position        */
-#define USBD_CFGP14_SSTALL_Msk           (0x1ul << USBD_CFGP14_SSTALL_Pos)                 /*!< USBD_T::CFGP14: SSTALL Mask            */
+#define USBD_CFGP14_SSTALL_Msk           (0x1UL << USBD_CFGP14_SSTALL_Pos)                 /*!< USBD_T::CFGP14: SSTALL Mask            */
 
 #define USBD_BUFSEG15_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG15: BUFSEG Position      */
-#define USBD_BUFSEG15_BUFSEG_Msk         (0xfful << USBD_BUFSEG15_BUFSEG_Pos)              /*!< USBD_T::BUFSEG15: BUFSEG Mask          */
+#define USBD_BUFSEG15_BUFSEG_Msk         (0xffUL << USBD_BUFSEG15_BUFSEG_Pos)              /*!< USBD_T::BUFSEG15: BUFSEG Mask          */
 
 #define USBD_MXPLD15_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD15: MXPLD Position        */
-#define USBD_MXPLD15_MXPLD_Msk           (0x7fful << USBD_MXPLD15_MXPLD_Pos)               /*!< USBD_T::MXPLD15: MXPLD Mask            */
+#define USBD_MXPLD15_MXPLD_Msk           (0x7ffUL << USBD_MXPLD15_MXPLD_Pos)               /*!< USBD_T::MXPLD15: MXPLD Mask            */
 
 #define USBD_CFG15_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG15: EPNUM Position          */
-#define USBD_CFG15_EPNUM_Msk             (0xful << USBD_CFG15_EPNUM_Pos)                   /*!< USBD_T::CFG15: EPNUM Mask              */
+#define USBD_CFG15_EPNUM_Msk             (0xfUL << USBD_CFG15_EPNUM_Pos)                   /*!< USBD_T::CFG15: EPNUM Mask              */
 
 #define USBD_CFG15_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG15: ISOCH Position          */
-#define USBD_CFG15_ISOCH_Msk             (0x1ul << USBD_CFG15_ISOCH_Pos)                   /*!< USBD_T::CFG15: ISOCH Mask              */
+#define USBD_CFG15_ISOCH_Msk             (0x1UL << USBD_CFG15_ISOCH_Pos)                   /*!< USBD_T::CFG15: ISOCH Mask              */
 
 #define USBD_CFG15_STATE_Pos             (5)                                               /*!< USBD_T::CFG15: STATE Position          */
-#define USBD_CFG15_STATE_Msk             (0x3ul << USBD_CFG15_STATE_Pos)                   /*!< USBD_T::CFG15: STATE Mask              */
+#define USBD_CFG15_STATE_Msk             (0x3UL << USBD_CFG15_STATE_Pos)                   /*!< USBD_T::CFG15: STATE Mask              */
 
 #define USBD_CFG15_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG15: DSQSYNC Position        */
-#define USBD_CFG15_DSQSYNC_Msk           (0x1ul << USBD_CFG15_DSQSYNC_Pos)                 /*!< USBD_T::CFG15: DSQSYNC Mask            */
+#define USBD_CFG15_DSQSYNC_Msk           (0x1UL << USBD_CFG15_DSQSYNC_Pos)                 /*!< USBD_T::CFG15: DSQSYNC Mask            */
 
 #define USBD_CFG15_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG15: CSTALL Position         */
-#define USBD_CFG15_CSTALL_Msk            (0x1ul << USBD_CFG15_CSTALL_Pos)                  /*!< USBD_T::CFG15: CSTALL Mask             */
+#define USBD_CFG15_CSTALL_Msk            (0x1UL << USBD_CFG15_CSTALL_Pos)                  /*!< USBD_T::CFG15: CSTALL Mask             */
 
 #define USBD_CFG15_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG15: DBTGACTIVE Position     */
-#define USBD_CFG15_DBTGACTIVE_Msk        (0x1ul << USBD_CFG15_DBTGACTIVE_Pos)              /*!< USBD_T::CFG15: DBTGACTIVE Mask         */
+#define USBD_CFG15_DBTGACTIVE_Msk        (0x1UL << USBD_CFG15_DBTGACTIVE_Pos)              /*!< USBD_T::CFG15: DBTGACTIVE Mask         */
 
 #define USBD_CFG15_DBEN_Pos              (11)                                              /*!< USBD_T::CFG15: DBEN Position           */
-#define USBD_CFG15_DBEN_Msk              (0x1ul << USBD_CFG15_DBEN_Pos)                    /*!< USBD_T::CFG15: DBEN Mask               */
+#define USBD_CFG15_DBEN_Msk              (0x1UL << USBD_CFG15_DBEN_Pos)                    /*!< USBD_T::CFG15: DBEN Mask               */
 
 #define USBD_CFGP15_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP15: CLRRDY Position        */
-#define USBD_CFGP15_CLRRDY_Msk           (0x1ul << USBD_CFGP15_CLRRDY_Pos)                 /*!< USBD_T::CFGP15: CLRRDY Mask            */
+#define USBD_CFGP15_CLRRDY_Msk           (0x1UL << USBD_CFGP15_CLRRDY_Pos)                 /*!< USBD_T::CFGP15: CLRRDY Mask            */
 
 #define USBD_CFGP15_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP15: SSTALL Position        */
-#define USBD_CFGP15_SSTALL_Msk           (0x1ul << USBD_CFGP15_SSTALL_Pos)                 /*!< USBD_T::CFGP15: SSTALL Mask            */
+#define USBD_CFGP15_SSTALL_Msk           (0x1UL << USBD_CFGP15_SSTALL_Pos)                 /*!< USBD_T::CFGP15: SSTALL Mask            */
 
 #define USBD_BUFSEG16_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG16: BUFSEG Position      */
-#define USBD_BUFSEG16_BUFSEG_Msk         (0xfful << USBD_BUFSEG16_BUFSEG_Pos)              /*!< USBD_T::BUFSEG16: BUFSEG Mask          */
+#define USBD_BUFSEG16_BUFSEG_Msk         (0xffUL << USBD_BUFSEG16_BUFSEG_Pos)              /*!< USBD_T::BUFSEG16: BUFSEG Mask          */
 
 #define USBD_MXPLD16_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD16: MXPLD Position        */
-#define USBD_MXPLD16_MXPLD_Msk           (0x7fful << USBD_MXPLD16_MXPLD_Pos)               /*!< USBD_T::MXPLD16: MXPLD Mask            */
+#define USBD_MXPLD16_MXPLD_Msk           (0x7ffUL << USBD_MXPLD16_MXPLD_Pos)               /*!< USBD_T::MXPLD16: MXPLD Mask            */
 
 #define USBD_CFG16_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG16: EPNUM Position          */
-#define USBD_CFG16_EPNUM_Msk             (0xful << USBD_CFG16_EPNUM_Pos)                   /*!< USBD_T::CFG16: EPNUM Mask              */
+#define USBD_CFG16_EPNUM_Msk             (0xfUL << USBD_CFG16_EPNUM_Pos)                   /*!< USBD_T::CFG16: EPNUM Mask              */
 
 #define USBD_CFG16_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG16: ISOCH Position          */
-#define USBD_CFG16_ISOCH_Msk             (0x1ul << USBD_CFG16_ISOCH_Pos)                   /*!< USBD_T::CFG16: ISOCH Mask              */
+#define USBD_CFG16_ISOCH_Msk             (0x1UL << USBD_CFG16_ISOCH_Pos)                   /*!< USBD_T::CFG16: ISOCH Mask              */
 
 #define USBD_CFG16_STATE_Pos             (5)                                               /*!< USBD_T::CFG16: STATE Position          */
-#define USBD_CFG16_STATE_Msk             (0x3ul << USBD_CFG16_STATE_Pos)                   /*!< USBD_T::CFG16: STATE Mask              */
+#define USBD_CFG16_STATE_Msk             (0x3UL << USBD_CFG16_STATE_Pos)                   /*!< USBD_T::CFG16: STATE Mask              */
 
 #define USBD_CFG16_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG16: DSQSYNC Position        */
-#define USBD_CFG16_DSQSYNC_Msk           (0x1ul << USBD_CFG16_DSQSYNC_Pos)                 /*!< USBD_T::CFG16: DSQSYNC Mask            */
+#define USBD_CFG16_DSQSYNC_Msk           (0x1UL << USBD_CFG16_DSQSYNC_Pos)                 /*!< USBD_T::CFG16: DSQSYNC Mask            */
 
 #define USBD_CFG16_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG16: CSTALL Position         */
-#define USBD_CFG16_CSTALL_Msk            (0x1ul << USBD_CFG16_CSTALL_Pos)                  /*!< USBD_T::CFG16: CSTALL Mask             */
+#define USBD_CFG16_CSTALL_Msk            (0x1UL << USBD_CFG16_CSTALL_Pos)                  /*!< USBD_T::CFG16: CSTALL Mask             */
 
 #define USBD_CFG16_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG16: DBTGACTIVE Position     */
-#define USBD_CFG16_DBTGACTIVE_Msk        (0x1ul << USBD_CFG16_DBTGACTIVE_Pos)              /*!< USBD_T::CFG16: DBTGACTIVE Mask         */
+#define USBD_CFG16_DBTGACTIVE_Msk        (0x1UL << USBD_CFG16_DBTGACTIVE_Pos)              /*!< USBD_T::CFG16: DBTGACTIVE Mask         */
 
 #define USBD_CFG16_DBEN_Pos              (11)                                              /*!< USBD_T::CFG16: DBEN Position           */
-#define USBD_CFG16_DBEN_Msk              (0x1ul << USBD_CFG16_DBEN_Pos)                    /*!< USBD_T::CFG16: DBEN Mask               */
+#define USBD_CFG16_DBEN_Msk              (0x1UL << USBD_CFG16_DBEN_Pos)                    /*!< USBD_T::CFG16: DBEN Mask               */
 
 #define USBD_CFGP16_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP16: CLRRDY Position        */
-#define USBD_CFGP16_CLRRDY_Msk           (0x1ul << USBD_CFGP16_CLRRDY_Pos)                 /*!< USBD_T::CFGP16: CLRRDY Mask            */
+#define USBD_CFGP16_CLRRDY_Msk           (0x1UL << USBD_CFGP16_CLRRDY_Pos)                 /*!< USBD_T::CFGP16: CLRRDY Mask            */
 
 #define USBD_CFGP16_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP16: SSTALL Position        */
-#define USBD_CFGP16_SSTALL_Msk           (0x1ul << USBD_CFGP16_SSTALL_Pos)                 /*!< USBD_T::CFGP16: SSTALL Mask            */
+#define USBD_CFGP16_SSTALL_Msk           (0x1UL << USBD_CFGP16_SSTALL_Pos)                 /*!< USBD_T::CFGP16: SSTALL Mask            */
 
 #define USBD_BUFSEG17_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG17: BUFSEG Position      */
-#define USBD_BUFSEG17_BUFSEG_Msk         (0xfful << USBD_BUFSEG17_BUFSEG_Pos)              /*!< USBD_T::BUFSEG17: BUFSEG Mask          */
+#define USBD_BUFSEG17_BUFSEG_Msk         (0xffUL << USBD_BUFSEG17_BUFSEG_Pos)              /*!< USBD_T::BUFSEG17: BUFSEG Mask          */
 
 #define USBD_MXPLD17_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD17: MXPLD Position        */
-#define USBD_MXPLD17_MXPLD_Msk           (0x7fful << USBD_MXPLD17_MXPLD_Pos)               /*!< USBD_T::MXPLD17: MXPLD Mask            */
+#define USBD_MXPLD17_MXPLD_Msk           (0x7ffUL << USBD_MXPLD17_MXPLD_Pos)               /*!< USBD_T::MXPLD17: MXPLD Mask            */
 
 #define USBD_CFG17_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG17: EPNUM Position          */
-#define USBD_CFG17_EPNUM_Msk             (0xful << USBD_CFG17_EPNUM_Pos)                   /*!< USBD_T::CFG17: EPNUM Mask              */
+#define USBD_CFG17_EPNUM_Msk             (0xfUL << USBD_CFG17_EPNUM_Pos)                   /*!< USBD_T::CFG17: EPNUM Mask              */
 
 #define USBD_CFG17_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG17: ISOCH Position          */
-#define USBD_CFG17_ISOCH_Msk             (0x1ul << USBD_CFG17_ISOCH_Pos)                   /*!< USBD_T::CFG17: ISOCH Mask              */
+#define USBD_CFG17_ISOCH_Msk             (0x1UL << USBD_CFG17_ISOCH_Pos)                   /*!< USBD_T::CFG17: ISOCH Mask              */
 
 #define USBD_CFG17_STATE_Pos             (5)                                               /*!< USBD_T::CFG17: STATE Position          */
-#define USBD_CFG17_STATE_Msk             (0x3ul << USBD_CFG17_STATE_Pos)                   /*!< USBD_T::CFG17: STATE Mask              */
+#define USBD_CFG17_STATE_Msk             (0x3UL << USBD_CFG17_STATE_Pos)                   /*!< USBD_T::CFG17: STATE Mask              */
 
 #define USBD_CFG17_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG17: DSQSYNC Position        */
-#define USBD_CFG17_DSQSYNC_Msk           (0x1ul << USBD_CFG17_DSQSYNC_Pos)                 /*!< USBD_T::CFG17: DSQSYNC Mask            */
+#define USBD_CFG17_DSQSYNC_Msk           (0x1UL << USBD_CFG17_DSQSYNC_Pos)                 /*!< USBD_T::CFG17: DSQSYNC Mask            */
 
 #define USBD_CFG17_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG17: CSTALL Position         */
-#define USBD_CFG17_CSTALL_Msk            (0x1ul << USBD_CFG17_CSTALL_Pos)                  /*!< USBD_T::CFG17: CSTALL Mask             */
+#define USBD_CFG17_CSTALL_Msk            (0x1UL << USBD_CFG17_CSTALL_Pos)                  /*!< USBD_T::CFG17: CSTALL Mask             */
 
 #define USBD_CFG17_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG17: DBTGACTIVE Position     */
-#define USBD_CFG17_DBTGACTIVE_Msk        (0x1ul << USBD_CFG17_DBTGACTIVE_Pos)              /*!< USBD_T::CFG17: DBTGACTIVE Mask         */
+#define USBD_CFG17_DBTGACTIVE_Msk        (0x1UL << USBD_CFG17_DBTGACTIVE_Pos)              /*!< USBD_T::CFG17: DBTGACTIVE Mask         */
 
 #define USBD_CFG17_DBEN_Pos              (11)                                              /*!< USBD_T::CFG17: DBEN Position           */
-#define USBD_CFG17_DBEN_Msk              (0x1ul << USBD_CFG17_DBEN_Pos)                    /*!< USBD_T::CFG17: DBEN Mask               */
+#define USBD_CFG17_DBEN_Msk              (0x1UL << USBD_CFG17_DBEN_Pos)                    /*!< USBD_T::CFG17: DBEN Mask               */
 
 #define USBD_CFGP17_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP17: CLRRDY Position        */
-#define USBD_CFGP17_CLRRDY_Msk           (0x1ul << USBD_CFGP17_CLRRDY_Pos)                 /*!< USBD_T::CFGP17: CLRRDY Mask            */
+#define USBD_CFGP17_CLRRDY_Msk           (0x1UL << USBD_CFGP17_CLRRDY_Pos)                 /*!< USBD_T::CFGP17: CLRRDY Mask            */
 
 #define USBD_CFGP17_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP17: SSTALL Position        */
-#define USBD_CFGP17_SSTALL_Msk           (0x1ul << USBD_CFGP17_SSTALL_Pos)                 /*!< USBD_T::CFGP17: SSTALL Mask            */
+#define USBD_CFGP17_SSTALL_Msk           (0x1UL << USBD_CFGP17_SSTALL_Pos)                 /*!< USBD_T::CFGP17: SSTALL Mask            */
 
 #define USBD_BUFSEG18_BUFSEG_Pos         (3)                                               /*!< USBD_T::BUFSEG18: BUFSEG Position      */
-#define USBD_BUFSEG18_BUFSEG_Msk         (0xfful << USBD_BUFSEG18_BUFSEG_Pos)              /*!< USBD_T::BUFSEG18: BUFSEG Mask          */
+#define USBD_BUFSEG18_BUFSEG_Msk         (0xffUL << USBD_BUFSEG18_BUFSEG_Pos)              /*!< USBD_T::BUFSEG18: BUFSEG Mask          */
 
 #define USBD_MXPLD18_MXPLD_Pos           (0)                                               /*!< USBD_T::MXPLD18: MXPLD Position        */
-#define USBD_MXPLD18_MXPLD_Msk           (0x7fful << USBD_MXPLD18_MXPLD_Pos)               /*!< USBD_T::MXPLD18: MXPLD Mask            */
+#define USBD_MXPLD18_MXPLD_Msk           (0x7ffUL << USBD_MXPLD18_MXPLD_Pos)               /*!< USBD_T::MXPLD18: MXPLD Mask            */
 
 #define USBD_CFG18_EPNUM_Pos             (0)                                               /*!< USBD_T::CFG18: EPNUM Position          */
-#define USBD_CFG18_EPNUM_Msk             (0xful << USBD_CFG18_EPNUM_Pos)                   /*!< USBD_T::CFG18: EPNUM Mask              */
+#define USBD_CFG18_EPNUM_Msk             (0xfUL << USBD_CFG18_EPNUM_Pos)                   /*!< USBD_T::CFG18: EPNUM Mask              */
 
 #define USBD_CFG18_ISOCH_Pos             (4)                                               /*!< USBD_T::CFG18: ISOCH Position          */
-#define USBD_CFG18_ISOCH_Msk             (0x1ul << USBD_CFG18_ISOCH_Pos)                   /*!< USBD_T::CFG18: ISOCH Mask              */
+#define USBD_CFG18_ISOCH_Msk             (0x1UL << USBD_CFG18_ISOCH_Pos)                   /*!< USBD_T::CFG18: ISOCH Mask              */
 
 #define USBD_CFG18_STATE_Pos             (5)                                               /*!< USBD_T::CFG18: STATE Position          */
-#define USBD_CFG18_STATE_Msk             (0x3ul << USBD_CFG18_STATE_Pos)                   /*!< USBD_T::CFG18: STATE Mask              */
+#define USBD_CFG18_STATE_Msk             (0x3UL << USBD_CFG18_STATE_Pos)                   /*!< USBD_T::CFG18: STATE Mask              */
 
 #define USBD_CFG18_DSQSYNC_Pos           (7)                                               /*!< USBD_T::CFG18: DSQSYNC Position        */
-#define USBD_CFG18_DSQSYNC_Msk           (0x1ul << USBD_CFG18_DSQSYNC_Pos)                 /*!< USBD_T::CFG18: DSQSYNC Mask            */
+#define USBD_CFG18_DSQSYNC_Msk           (0x1UL << USBD_CFG18_DSQSYNC_Pos)                 /*!< USBD_T::CFG18: DSQSYNC Mask            */
 
 #define USBD_CFG18_CSTALL_Pos            (9)                                               /*!< USBD_T::CFG18: CSTALL Position         */
-#define USBD_CFG18_CSTALL_Msk            (0x1ul << USBD_CFG18_CSTALL_Pos)                  /*!< USBD_T::CFG18: CSTALL Mask             */
+#define USBD_CFG18_CSTALL_Msk            (0x1UL << USBD_CFG18_CSTALL_Pos)                  /*!< USBD_T::CFG18: CSTALL Mask             */
 
 #define USBD_CFG18_DBTGACTIVE_Pos        (10)                                              /*!< USBD_T::CFG18: DBTGACTIVE Position     */
-#define USBD_CFG18_DBTGACTIVE_Msk        (0x1ul << USBD_CFG18_DBTGACTIVE_Pos)              /*!< USBD_T::CFG18: DBTGACTIVE Mask         */
+#define USBD_CFG18_DBTGACTIVE_Msk        (0x1UL << USBD_CFG18_DBTGACTIVE_Pos)              /*!< USBD_T::CFG18: DBTGACTIVE Mask         */
 
 #define USBD_CFG18_DBEN_Pos              (11)                                              /*!< USBD_T::CFG18: DBEN Position           */
-#define USBD_CFG18_DBEN_Msk              (0x1ul << USBD_CFG18_DBEN_Pos)                    /*!< USBD_T::CFG18: DBEN Mask               */
+#define USBD_CFG18_DBEN_Msk              (0x1UL << USBD_CFG18_DBEN_Pos)                    /*!< USBD_T::CFG18: DBEN Mask               */
 
 #define USBD_CFGP18_CLRRDY_Pos           (0)                                               /*!< USBD_T::CFGP18: CLRRDY Position        */
-#define USBD_CFGP18_CLRRDY_Msk           (0x1ul << USBD_CFGP18_CLRRDY_Pos)                 /*!< USBD_T::CFGP18: CLRRDY Mask            */
+#define USBD_CFGP18_CLRRDY_Msk           (0x1UL << USBD_CFGP18_CLRRDY_Pos)                 /*!< USBD_T::CFGP18: CLRRDY Mask            */
 
 #define USBD_CFGP18_SSTALL_Pos           (1)                                               /*!< USBD_T::CFGP18: SSTALL Position        */
-#define USBD_CFGP18_SSTALL_Msk           (0x1ul << USBD_CFGP18_SSTALL_Pos)                 /*!< USBD_T::CFGP18: SSTALL Mask            */
+#define USBD_CFGP18_SSTALL_Msk           (0x1UL << USBD_CFGP18_SSTALL_Pos)                 /*!< USBD_T::CFGP18: SSTALL Mask            */
 
 /**@}*/ /* USBD_CONST */
 /**@}*/ /* end of USBD register group */

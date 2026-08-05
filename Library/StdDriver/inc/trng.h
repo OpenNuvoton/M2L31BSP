@@ -31,13 +31,13 @@ extern "C"
 /*  TRNG_CTL constant definitions.                                                              */
 /*----------------------------------------------------------------------------------------------*/
 
-#define TRNG_CTL_MODE_ENTROPY   (0 << TRNG_CTL_MODE_Pos)    /*!< TRNG MODE for ENTROPY \hideinitializer */
-#define TRNG_CTL_MODE_NRBG      (1 << TRNG_CTL_MODE_Pos)    /*!< TRNG MODE for NRBG    \hideinitializer */
-#define TRNG_CTL_MODE_DRBG      (2 << TRNG_CTL_MODE_Pos)    /*!< TRNG MODE for DRBG    \hideinitializer */
+#define TRNG_CTL_MODE_ENTROPY   (0UL << TRNG_CTL_MODE_Pos)    /*!< TRNG MODE for ENTROPY \hideinitializer */
+#define TRNG_CTL_MODE_NRBG      (1UL << TRNG_CTL_MODE_Pos)    /*!< TRNG MODE for NRBG    \hideinitializer */
+#define TRNG_CTL_MODE_DRBG      (2UL << TRNG_CTL_MODE_Pos)    /*!< TRNG MODE for DRBG    \hideinitializer */
 
-#define TRNG_CTL_KATSEL_INSTANT (0 << TRNG_CTL_KATSEL_Pos)  /*!< TRNG Known Answer Test for Instantiation \hideinitializer */
-#define TRNG_CTL_KATSEL_RESEED  (1 << TRNG_CTL_KATSEL_Pos)  /*!< TRNG Known Answer Test for Reseed        \hideinitializer */
-#define TRNG_CTL_KATSEL_UPDATE  (2 << TRNG_CTL_KATSEL_Pos)  /*!< TRNG Known Answer Test for Generation    \hideinitializer */
+#define TRNG_CTL_KATSEL_INSTANT (0UL << TRNG_CTL_KATSEL_Pos)  /*!< TRNG Known Answer Test for Instantiation \hideinitializer */
+#define TRNG_CTL_KATSEL_RESEED  (1UL << TRNG_CTL_KATSEL_Pos)  /*!< TRNG Known Answer Test for Reseed        \hideinitializer */
+#define TRNG_CTL_KATSEL_UPDATE  (2UL << TRNG_CTL_KATSEL_Pos)  /*!< TRNG Known Answer Test for Generation    \hideinitializer */
 
 /*@}*/ /* end of group TRNG_EXPORTED_CONSTANTS */
 

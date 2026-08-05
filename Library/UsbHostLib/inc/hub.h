@@ -57,12 +57,12 @@
 #define PORT_C_OVERCURRENT             (1UL << 3)
 #define PORT_C_RESET                   (1UL << 4)
 
-
 /*--------------------------------------------------------------------------*/
 /*   Hub descriptor                                                         */
 /*--------------------------------------------------------------------------*/
 #ifdef __ICCARM__
-typedef struct {
+typedef struct
+{
     __packed uint8_t  bDescLength;
     __packed uint8_t  bDescriptorType;
     __packed uint8_t  bNbrPorts;
@@ -73,7 +73,8 @@ typedef struct {
     __packed uint8_t  PortPwrCtrlMask[16];
 }  DESC_HUB_T;
 #else
-typedef struct __attribute__((__packed__)) {
+typedef struct __attribute__((__packed__))
+{
     uint8_t  bDescLength;
     uint8_t  bDescriptorType;
     uint8_t  bNbrPorts;
@@ -82,7 +83,8 @@ typedef struct __attribute__((__packed__)) {
     uint8_t  bHubContrCurrent;
     uint8_t  bDeviceRemovble;
     uint8_t  PortPwrCtrlMask[16];
-}  DESC_HUB_T;
+}
+DESC_HUB_T;
 #endif
 
 /*
@@ -100,10 +102,10 @@ typedef struct __attribute__((__packed__)) {
 #define HUB_LED_GREEN                  2
 #define HUB_LED_OFF                    3
 
-
 /*--------------------------------------------------------------------------*/
 /*   Port reset retry and time-out settings                                 */
 /*--------------------------------------------------------------------------*/
+#define HUB_DEBOUNCE_TIME              500      /* Hub connect/disconnect de-bounce time in ms     */
 #define PORT_RESET_RETRY               3        /* port reset retry times                          */
 #define PORT_RESET_TIME_MS             50       /* port reset time (ms)                            */
 #define PORT_RESET_RETRY_INC_MS        250      /* increased reset time (ms) after reset failed    */
@@ -114,18 +116,18 @@ typedef struct __attribute__((__packed__)) {
 /* 4 can support up to 32 port hubs                */
 /* Note!! If modeifed to 4, "uint16_t sc_bitmap"   */
 /*        MUST be changed as "uint32_t sc_bitmap"  */
-typedef struct hub_dev_t {
+typedef struct hub_dev_t
+{
     IFACE_T    *iface;                 /*!< Interface device of this hub          \hideinitializer */
     UTR_T      *utr;                   /*!< Interrupt in UTR of this hub          \hideinitializer */
     uint8_t    buff[HUB_STATUS_MAX_BYTE];   /*!< Interrupt in buffer              \hideinitializer */
     uint16_t   sc_bitmap;              /*!< Hub and Port Status Change Bitmap     \hideinitializer */
     uint8_t    bNbrPorts;              /*!< Number of ports                       \hideinitializer */
     uint8_t    bPwrOn2PwrGood;         /*!< Hub power on to power good time       \hideinitializer */
-    char       pos_id[MAX_HUB_DEVICE+1];   /*!< Hub position identifier           \hideinitializer */
-    int        (*port_reset)(struct hub_dev_t *hub, int port);/*!< Port reset function                   \hideinitializer */
+    char       pos_id[MAX_HUB_DEVICE + 1]; /*!< Hub position identifier           \hideinitializer */
+    int (*port_reset)(struct hub_dev_t *hub, int port);              /*!< Port reset function                   \hideinitializer */
     UDEV_T     *children;              /*!< Child device list.                    \hideinitializer */
 } HUB_DEV_T;
-
 
 /// @endcond
 

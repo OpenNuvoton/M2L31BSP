@@ -76,7 +76,7 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 #define LPUART_FUNCSEL_LPUART  (0x0UL << LPUART_FUNCSEL_FUNCSEL_Pos)       /*!< LPUART_FUNCSEL setting to set LPUART Function (Default) */
 #define LPUART_FUNCSEL_RS485 (0x3UL << LPUART_FUNCSEL_FUNCSEL_Pos)       /*!< LPUART_FUNCSEL setting to set RS485 Function          */
-#define LPUART_FUNCSEL_SINGLE_WIRE (0x4ul << LPUART_FUNCSEL_FUNCSEL_Pos) /*!< LPUART_FUNCSEL setting to set Single Wire Function   \hideinitializer */
+#define LPUART_FUNCSEL_SINGLE_WIRE (0x4UL << LPUART_FUNCSEL_FUNCSEL_Pos) /*!< LPUART_FUNCSEL setting to set Single Wire Function   \hideinitializer */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* LPUART BAUDRATE MODE constants definitions                                                              */
@@ -117,7 +117,7 @@ extern "C"
  *    @details      This macro calculate LPUART baudrate mode0 divider.
  *    \hideinitializer
  */
-#define LPUART_BAUD_MODE0_DIVIDER(u32SrcFreq, u32BaudRate)    ((((u32SrcFreq) + ((u32BaudRate)*8ul)) / (u32BaudRate) >> 4ul)-2ul)
+#define LPUART_BAUD_MODE0_DIVIDER(u32SrcFreq, u32BaudRate)    ((((u32SrcFreq) + ((u32BaudRate)*8UL)) / (u32BaudRate) >> 4UL)-2UL)
 
 
 /**
@@ -131,7 +131,7 @@ extern "C"
  *    @details      This macro calculate LPUART baudrate mode2 divider.
  *    \hideinitializer
  */
-#define LPUART_BAUD_MODE2_DIVIDER(u32SrcFreq, u32BaudRate)    ((((u32SrcFreq) + ((u32BaudRate)/2ul)) / (u32BaudRate))-2ul)
+#define LPUART_BAUD_MODE2_DIVIDER(u32SrcFreq, u32BaudRate)    ((((u32SrcFreq) + ((u32BaudRate)/2UL)) / (u32BaudRate))-2UL)
 
 
 /**
@@ -383,11 +383,11 @@ extern "C"
  *    @details      This macro get specified interrupt flag or interrupt indicator status.
  *    \hideinitializer
  */
-#define LPUART_GET_INT_FLAG(lpuart,u32eIntTypeFlag)    (((lpuart)->INTSTS & (u32eIntTypeFlag))?1:0)
+#define LPUART_GET_INT_FLAG(lpuart,u32eIntTypeFlag)    (((lpuart)->INTSTS & (u32eIntTypeFlag))?1UL:0UL)
 
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
-static __INLINE void LPUART_CLEAR_RTS(LPUART_T* lpuart);
-static __INLINE void LPUART_SET_RTS(LPUART_T* lpuart);
+static inline void LPUART_CLEAR_RTS(LPUART_T* lpuart);
+static inline void LPUART_SET_RTS(LPUART_T* lpuart);
 
 
 /**
@@ -400,7 +400,7 @@ static __INLINE void LPUART_SET_RTS(LPUART_T* lpuart);
  *    @details      This macro set RTS pin to low.
  *    \hideinitializer
  */
-__STATIC_INLINE void LPUART_CLEAR_RTS(LPUART_T* lpuart)
+static inline void LPUART_CLEAR_RTS(LPUART_T* lpuart)
 {
     lpuart->MODEM |= LPUART_MODEM_RTSACTLV_Msk;
     lpuart->MODEM &= ~LPUART_MODEM_RTS_Msk;
@@ -417,7 +417,7 @@ __STATIC_INLINE void LPUART_CLEAR_RTS(LPUART_T* lpuart)
  *    @details      This macro set RTS pin to high.
  *    \hideinitializer
  */
-__STATIC_INLINE void LPUART_SET_RTS(LPUART_T* lpuart)
+static inline void LPUART_SET_RTS(LPUART_T* lpuart)
 {
     lpuart->MODEM |= LPUART_MODEM_RTSACTLV_Msk | LPUART_MODEM_RTS_Msk;
 }
@@ -485,11 +485,11 @@ void LPUART_DisableInt(LPUART_T*  lpuart, uint32_t u32InterruptFlag);
 void LPUART_EnableFlowCtrl(LPUART_T* lpuart);
 void LPUART_EnableInt(LPUART_T*  lpuart, uint32_t u32InterruptFlag);
 void LPUART_Open(LPUART_T* lpuart, uint32_t u32baudrate);
-uint32_t LPUART_Read(LPUART_T* lpuart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes);
+uint32_t LPUART_Read(const LPUART_T* lpuart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes);
 void LPUART_SetLine_Config(LPUART_T* lpuart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t  u32stop_bits);
 void LPUART_SetTimeoutCnt(LPUART_T* lpuart, uint32_t u32TOC);
 void LPUART_SelectRS485Mode(LPUART_T* lpuart, uint32_t u32Mode, uint32_t u32Addr);
-uint32_t LPUART_Write(LPUART_T* lpuart, uint8_t pu8TxBuf[], uint32_t u32WriteBytes);
+uint32_t LPUART_Write(LPUART_T* lpuart, const uint8_t pu8TxBuf[], uint32_t u32WriteBytes);
 void LPUART_SelectSingleWireMode(LPUART_T *lpuart);
 
 /**@}*/ /* end of group LPUART_EXPORTED_FUNCTIONS */

@@ -35,11 +35,13 @@
   */
 uint32_t TPWM_ConfigOutputFreqAndDuty(TIMER_T *timer, uint32_t u32Frequency, uint32_t u32DutyCycle)
 {
-    uint32_t u32PWMClockFreq, u32TargetFreq;
-    uint32_t u32Prescaler = 0x100UL, u32Period, u32CMP;
-    uint32_t u32Src;    
-    const uint32_t au32Clk[] = {__HXT, __LXT, 0UL, 0UL, 0UL, __LIRC, 0UL, __HIRC};
-    
+    uint32_t u32PWMClockFreq;
+    uint32_t u32TargetFreq;
+    uint32_t u32Prescaler = 0x100UL;
+    uint32_t u32Period;
+    uint32_t u32CMP;
+    uint32_t u32Src;
+    const uint32_t au32Clk[] = { __HXT, __LXT, 0UL, 0UL, 0UL, __LIRC, 0UL, __HIRC };
 
     if(timer == TIMER0)
     {
@@ -57,7 +59,7 @@ uint32_t TPWM_ConfigOutputFreqAndDuty(TIMER_T *timer, uint32_t u32Frequency, uin
     {
         u32Src = (CLK->CLKSEL1 & CLK_CLKSEL1_TMR3SEL_Msk) >> CLK_CLKSEL1_TMR3SEL_Pos;
     }
-    
+
     if(u32Src == 2UL)
     {
         if ((timer == TIMER0) || (timer == TIMER1))
@@ -81,7 +83,9 @@ uint32_t TPWM_ConfigOutputFreqAndDuty(TIMER_T *timer, uint32_t u32Frequency, uin
 
         /* If target u32Period is larger than 0x10000, need to use a larger prescaler */
         if (u32Period > 0x10000UL)
+        {
             continue;
+        }
 
         break;
     }
@@ -253,7 +257,7 @@ void TPWM_ClearAccInt(TIMER_T *timer)
   * @retval     1   Accumulator interrupt occurred
   * @details    This function is used to get interrupt flag accumulator interrupt.
   */
-uint32_t TPWM_GetAccInt(TIMER_T *timer)
+uint32_t TPWM_GetAccInt(const TIMER_T *timer)
 {
     return (((timer)->PWMAINTSTS & TIMER_PWMAINTSTS_IFAIF_Msk)? 1UL : 0UL);
 }

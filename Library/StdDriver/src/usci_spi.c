@@ -42,9 +42,10 @@
   */
 uint32_t USPI_Open(USPI_T *uspi, uint32_t u32MasterSlave, uint32_t u32SPIMode,  uint32_t u32DataWidth, uint32_t u32BusClock)
 {
-    uint32_t u32ClkDiv = 0ul;
+    uint32_t u32ClkDiv = 0UL;
     uint32_t u32Pclk;
-    uint32_t u32UspiClk = 0ul;
+    uint32_t u32UspiClk = 0UL;
+    uint32_t u32DataWidthTmp = u32DataWidth;
 
     if(uspi == (USPI_T *)USPI0)
     {
@@ -55,24 +56,27 @@ uint32_t USPI_Open(USPI_T *uspi, uint32_t u32MasterSlave, uint32_t u32SPIMode,  
         u32Pclk = CLK_GetPCLK1Freq();
     }
 
-    if(u32BusClock != 0ul)
+    if(u32BusClock != 0UL)
     {
-        u32ClkDiv = (uint32_t) ((((((u32Pclk/2ul)*10ul)/(u32BusClock))+5ul)/10ul)-1ul); /* Compute proper divider for USCI_SPI clock */
+        u32ClkDiv = (uint32_t) ((((((u32Pclk/2UL)*10UL)/(u32BusClock))+5UL)/10UL)-1UL); /* Compute proper divider for USCI_SPI clock */
     }
-    else {}
+    else
+    {
+        u32ClkDiv = 0UL;
+    }
 
     /* Enable USCI_SPI protocol */
     uspi->CTL &= ~USPI_CTL_FUNMODE_Msk;
-    uspi->CTL = 1ul << USPI_CTL_FUNMODE_Pos;
+    uspi->CTL = 1UL << USPI_CTL_FUNMODE_Pos;
 
     /* Data format configuration */
-    if(u32DataWidth == 16ul)
+    if(u32DataWidth == 16UL)
     {
-        u32DataWidth = 0ul;
+        u32DataWidthTmp = 0UL;
     }
-    else {}
+
     uspi->LINECTL &= ~USPI_LINECTL_DWIDTH_Msk;
-    uspi->LINECTL |= (u32DataWidth << USPI_LINECTL_DWIDTH_Pos);
+    uspi->LINECTL |= (u32DataWidthTmp << USPI_LINECTL_DWIDTH_Pos);
 
     /* MSB data format */
     uspi->LINECTL &= ~USPI_LINECTL_LSB_Msk;
@@ -96,11 +100,14 @@ uint32_t USPI_Open(USPI_T *uspi, uint32_t u32MasterSlave, uint32_t u32SPIMode,  
     uspi->BRGEN |=  (u32ClkDiv << USPI_BRGEN_CLKDIV_Pos);
     uspi->PROTCTL |=  USPI_PROTCTL_PROTEN_Msk;
 
-    if(u32BusClock != 0ul)
+    if (u32BusClock != 0UL)
     {
-        u32UspiClk = (uint32_t)( u32Pclk / ((u32ClkDiv+1ul)<<1) );
+        u32UspiClk = (uint32_t)(u32Pclk / (((u32ClkDiv + 1UL) << 1UL)));
     }
-    else {}
+    else
+    {
+        u32UspiClk = 0UL;
+    }
 
     return u32UspiClk;
 }
@@ -156,6 +163,8 @@ void USPI_DisableAutoSS(USPI_T *uspi)
   */
 void USPI_EnableAutoSS(USPI_T *uspi, uint32_t u32SSPinMask, uint32_t u32ActiveLevel)
 {
+    (void)u32SSPinMask;
+
     uspi->LINECTL = (uspi->LINECTL & ~USPI_LINECTL_CTLOINV_Msk) | u32ActiveLevel;
     uspi->PROTCTL |= USPI_PROTCTL_AUTOSS_Msk;
 }
@@ -180,13 +189,13 @@ uint32_t USPI_SetBusClock(USPI_T *uspi, uint32_t u32BusClock)
         u32Pclk = CLK_GetPCLK1Freq();
     }
 
-    u32ClkDiv = (uint32_t) ((((((u32Pclk/2ul)*10ul)/(u32BusClock))+5ul)/10ul)-1ul); /* Compute proper divider for USCI_SPI clock */
+    u32ClkDiv = (uint32_t) ((((((u32Pclk/2UL)*10UL)/(u32BusClock))+5UL)/10UL)-1UL); /* Compute proper divider for USCI_SPI clock */
 
     /* Set USCI_SPI bus clock */
     uspi->BRGEN &= ~USPI_BRGEN_CLKDIV_Msk;
     uspi->BRGEN |=  (u32ClkDiv << USPI_BRGEN_CLKDIV_Pos);
 
-    return ( u32Pclk / ((u32ClkDiv+1ul)<<1) );
+    return ( u32Pclk / ((u32ClkDiv+1UL)<<1) );
 }
 
 /**
@@ -194,7 +203,7 @@ uint32_t USPI_SetBusClock(USPI_T *uspi, uint32_t u32BusClock)
   * @param[in]  uspi The pointer of the specified USCI_SPI module.
   * @return Actual USCI_SPI bus clock frequency.
   */
-uint32_t USPI_GetBusClock(USPI_T *uspi)
+uint32_t USPI_GetBusClock(const USPI_T *uspi)
 {
     uint32_t u32BusClk;
     uint32_t u32ClkDiv;
@@ -203,11 +212,11 @@ uint32_t USPI_GetBusClock(USPI_T *uspi)
 
     if(uspi == USPI0)
     {
-        u32BusClk = (uint32_t)( CLK_GetPCLK0Freq() / ((u32ClkDiv+1ul)<<1) );
+        u32BusClk = (uint32_t)( CLK_GetPCLK0Freq() / ((u32ClkDiv+1UL)<<1) );
     }
     else
     {
-        u32BusClk = (uint32_t)( CLK_GetPCLK1Freq() / ((u32ClkDiv+1ul)<<1) );
+        u32BusClk = (uint32_t)( CLK_GetPCLK1Freq() / ((u32ClkDiv+1UL)<<1) );
     }
 
     return u32BusClk;
@@ -413,10 +422,10 @@ void USPI_DisableInt(USPI_T *uspi, uint32_t u32Mask)
   *           - \ref USPI_RXEND_INT_MASK
   * @return Interrupt flags of selected sources.
   */
-uint32_t USPI_GetIntFlag(USPI_T *uspi, uint32_t u32Mask)
+uint32_t USPI_GetIntFlag(const USPI_T *uspi, uint32_t u32Mask)
 {
     uint32_t u32TmpFlag;
-    uint32_t u32IntFlag = 0ul;
+    uint32_t u32IntFlag = 0UL;
 
     /* Check slave selection signal inactive interrupt flag */
     u32TmpFlag = uspi->PROTSTS & USPI_PROTSTS_SSINAIF_Msk;
@@ -606,9 +615,9 @@ void USPI_ClearIntFlag(USPI_T *uspi, uint32_t u32Mask)
   *           - \ref USPI_SSLINE_STS_MASK
   * @return Flags of selected sources.
   */
-uint32_t USPI_GetStatus(USPI_T *uspi, uint32_t u32Mask)
+uint32_t USPI_GetStatus(const USPI_T *uspi, uint32_t u32Mask)
 {
-    uint32_t u32Flag = 0ul;
+    uint32_t u32Flag = 0UL;
     uint32_t u32TmpFlag;
 
     /* Check busy status */

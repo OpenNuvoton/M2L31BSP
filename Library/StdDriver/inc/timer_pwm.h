@@ -285,7 +285,7 @@ extern "C"
   * @details    This macro indicates period event occurred or not.
   * \hideinitializer
   */
-#define TPWM_GET_PERIOD_INT_FLAG(timer)     (((timer)->PWMINTSTS0 & TIMER_PWMINTSTS0_PIF_Msk)? 1 : 0)
+#define TPWM_GET_PERIOD_INT_FLAG(timer)     (((timer)->PWMINTSTS0 & TIMER_PWMINTSTS0_PIF_Msk)? 1UL : 0UL)
 
 /**
   * @brief      Clear Period Event Interrupt Flag
@@ -334,7 +334,7 @@ extern "C"
   * @details    This macro indicates compare up event occurred or not.
   * \hideinitializer
   */
-#define TPWM_GET_CMP_UP_INT_FLAG(timer)     (((timer)->PWMINTSTS0 & TIMER_PWMINTSTS0_CMPUIF_Msk)? 1 : 0)
+#define TPWM_GET_CMP_UP_INT_FLAG(timer)     (((timer)->PWMINTSTS0 & TIMER_PWMINTSTS0_CMPUIF_Msk)? 1UL : 0UL)
 
 /**
   * @brief      Clear Compare Up Event Interrupt Flag
@@ -359,7 +359,7 @@ extern "C"
   * @details    This macro indicates Timer PWM counter has count to 0xFFFF or not.
   * \hideinitializer
   */
-#define TPWM_GET_REACH_MAX_CNT_STATUS(timer)    (((timer)->PWMSTATUS & TIMER_PWMSTATUS_CNTMAXF_Msk)? 1 : 0)
+#define TPWM_GET_REACH_MAX_CNT_STATUS(timer)    (((timer)->PWMSTATUS & TIMER_PWMSTATUS_CNTMAXF_Msk)? 1UL : 0UL)
 
 /**
   * @brief      Clear Counter Reach Maximum Count Status
@@ -384,7 +384,7 @@ extern "C"
   * @details    This macro is used to indicate TPWM counter event has triggered LPADC start conversion.
   * \hideinitializer
   */
-#define TPWM_GET_TRG_LPADC_STATUS(timer)              (((timer)->PWMSTATUS & TIMER_PWMSTATUS_LPADCTRGF_Msk)? 1 : 0)
+#define TPWM_GET_TRG_LPADC_STATUS(timer)              (((timer)->PWMSTATUS & TIMER_PWMSTATUS_LPADCTRGF_Msk)? 1UL : 0UL)
 
 /**
   * @brief      Clear Trigger LPADC Status
@@ -409,7 +409,7 @@ extern "C"
   * @details    This macro is used to indicate TPWM counter event has triggered EADC start conversion.
   * \hideinitializer
   */
-#define TPWM_GET_TRG_EADC_STATUS(timer)              (((timer)->PWMSTATUS & TIMER_PWMSTATUS_EADCTRGF_Msk)? 1 : 0)
+#define TPWM_GET_TRG_EADC_STATUS(timer)              (((timer)->PWMSTATUS & TIMER_PWMSTATUS_EADCTRGF_Msk)? 1UL : 0UL)
 
 /**
   * @brief      Clear Trigger EADC Status
@@ -434,7 +434,7 @@ extern "C"
   * @details    This macro is used to indicate TPWM counter event has triggered DAC start conversion.
   * \hideinitializer
   */
-#define TPWM_GET_TRG_DAC_STATUS(timer)              (((timer)->PWMSTATUS & TIMER_PWMSTATUS_DACTRGF_Msk)? 1 : 0)
+#define TPWM_GET_TRG_DAC_STATUS(timer)              (((timer)->PWMSTATUS & TIMER_PWMSTATUS_DACTRGF_Msk)? 1UL : 0UL)
 
 /**
   * @brief      Clear Trigger DAC Status
@@ -459,7 +459,7 @@ extern "C"
   * @details    This macro is used to indicate TPWM counter event has triggered PDMA start conversion.
   * \hideinitializer
   */
-#define TPWM_GET_TRG_PDMA_STATUS(timer)              (((timer)->PWMSTATUS & TIMER_PWMSTATUS_PDMATRGF_Msk)? 1 : 0)
+#define TPWM_GET_TRG_PDMA_STATUS(timer)              (((timer)->PWMSTATUS & TIMER_PWMSTATUS_PDMATRGF_Msk)? 1UL : 0UL)
 
 /**
   * @brief      Clear Trigger PDMA Status
@@ -555,10 +555,10 @@ void TPWM_DisableTrigger(TIMER_T *timer, uint32_t u32TargetMask);
 #define TPWM_DisableTriggerPDMA(timer)              TPWM_DisableTrigger(timer, TIMER_PWMTRGCTL_PWMTRGPDMA_Msk)
 
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
-__STATIC_INLINE void TPWM_EnableWakeup(TIMER_T *timer);
-__STATIC_INLINE void TPWM_DisableWakeup(TIMER_T *timer);
-__STATIC_INLINE uint32_t TPWM_GetWakeupFlag(TIMER_T *timer);
-__STATIC_INLINE void TPWM_ClearWakeupFlag(TIMER_T *timer);
+static inline void TPWM_EnableWakeup(TIMER_T *timer);
+static inline void TPWM_DisableWakeup(TIMER_T *timer);
+static inline uint32_t TPWM_GetWakeupFlag(const TIMER_T *timer);
+static inline void TPWM_ClearWakeupFlag(TIMER_T *timer);
 
 /**
   * @brief      Enable TPWM Interrupt Wake-up Function
@@ -572,7 +572,7 @@ __STATIC_INLINE void TPWM_ClearWakeupFlag(TIMER_T *timer);
   * @note       To wake the system from Power-down mode, PCLKx source must be ether LXT or LIRC.
   * \hideinitializer
   */
-__STATIC_INLINE void TPWM_EnableWakeup(TIMER_T *timer)
+static inline void TPWM_EnableWakeup(TIMER_T *timer)
 {
     timer->PWMCTL |= TIMER_PWMCTL_PWMINTWKEN_Msk;
 }
@@ -587,7 +587,7 @@ __STATIC_INLINE void TPWM_EnableWakeup(TIMER_T *timer)
   * @details    This function is used to disable the TPWM interrupt Wake-up function.
   * \hideinitializer
   */
-__STATIC_INLINE void TPWM_DisableWakeup(TIMER_T *timer)
+static inline void TPWM_DisableWakeup(TIMER_T *timer)
 {
     timer->PWMCTL &= ~TIMER_PWMCTL_PWMINTWKEN_Msk;
 }
@@ -603,7 +603,7 @@ __STATIC_INLINE void TPWM_DisableWakeup(TIMER_T *timer)
   * @details    This function indicates TPWM interrupt event has waked up system or not.
   * \hideinitializer
   */
-__STATIC_INLINE uint32_t TPWM_GetWakeupFlag(TIMER_T *timer)
+static inline uint32_t TPWM_GetWakeupFlag(const TIMER_T *timer)
 {
     return ((timer->PWMSTATUS & TIMER_PWMSTATUS_PWMINTWKF_Msk) ? 1 : 0);
 }
@@ -618,7 +618,7 @@ __STATIC_INLINE uint32_t TPWM_GetWakeupFlag(TIMER_T *timer)
   * @details    This function clears TPWM Wake-up flag.
   * \hideinitializer
   */
-__STATIC_INLINE void TPWM_ClearWakeupFlag(TIMER_T *timer)
+static inline void TPWM_ClearWakeupFlag(TIMER_T *timer)
 {
     timer->PWMSTATUS = TIMER_PWMSTATUS_PWMINTWKF_Msk;
 }
@@ -628,7 +628,7 @@ void TPWM_DisableAcc(TIMER_T *timer);
 void TPWM_EnableAccInt(TIMER_T *timer);
 void TPWM_DisableAccInt(TIMER_T *timer);
 void TPWM_ClearAccInt(TIMER_T *timer);
-uint32_t TPWM_GetAccInt(TIMER_T *timer);
+uint32_t TPWM_GetAccInt(const TIMER_T *timer);
 void TPWM_EnableAccPDMA(TIMER_T *timer);
 void TPWM_DisableAccPDMA(TIMER_T *timer);
 void TPWM_EnableAccStopMode(TIMER_T *timer);

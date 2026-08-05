@@ -16,11 +16,11 @@
   @{
 */
 
-int32_t g_LPI2C_i32ErrCode = 0;       /*!< LPI2C global error code */
-
 /** @addtogroup LPI2C_EXPORTED_FUNCTIONS LPI2C Exported Functions
   @{
 */
+
+int32_t g_LPI2C_i32ErrCode = 0;       /*!< LPI2C global error code */
 
 /**
   * @brief      Enable specify LPI2C Controller and set Clock Divider
@@ -32,7 +32,7 @@ int32_t g_LPI2C_i32ErrCode = 0;       /*!< LPI2C global error code */
   *
   * @details    The function enable the specify LPI2C Controller and set proper Clock Divider
   *             in LPI2C CLOCK DIVIDED REGISTER (LPI2CLK) according to the target LPI2C Bus clock.
-  *             LPI2C Bus clock = PCLK / (4*(divider+1).
+  *             LPI2C Bus clock = PCLK / (4*(divider+1)).
   *
   */
 uint32_t LPI2C_Open(LPI2C_T *lpi2c, uint32_t u32BusClock)
@@ -42,7 +42,7 @@ uint32_t LPI2C_Open(LPI2C_T *lpi2c, uint32_t u32BusClock)
 
     u32Pclk = CLK_GetPCLK2Freq();
 
-    u32Div = (uint32_t)(((u32Pclk * 10U) / (u32BusClock * 4U) + 5U) / 10U - 1U); /* Compute proper divider for LPI2C clock */
+    u32Div = (uint32_t)((((u32Pclk * 10U) / (u32BusClock * 4U) + 5U) / 10U) - 1U); /* Compute proper divider for LPI2C clock */
     lpi2c->CLKDIV = u32Div;
 
     /* Enable LPI2C */
@@ -167,7 +167,7 @@ void LPI2C_EnableInt(LPI2C_T *lpi2c)
  *
  * @details    To get the actual LPI2C Bus Clock frequency.
  */
-uint32_t LPI2C_GetBusClockFreq(LPI2C_T *lpi2c)
+uint32_t LPI2C_GetBusClockFreq(const LPI2C_T *lpi2c)
 {
     uint32_t u32Divider = lpi2c->CLKDIV;
     uint32_t u32Pclk;
@@ -194,7 +194,7 @@ uint32_t LPI2C_SetBusClockFreq(LPI2C_T *lpi2c, uint32_t u32BusClock)
 
     u32Pclk = CLK_GetPCLK2Freq();
 
-    u32Div = (uint32_t)(((u32Pclk * 10U) / (u32BusClock * 4U) + 5U) / 10U - 1U); /* Compute proper divider for LPI2C clock */
+    u32Div = (uint32_t)((((u32Pclk * 10U) / (u32BusClock * 4U) + 5U) / 10U) - 1U); /* Compute proper divider for LPI2C clock */
     lpi2c->CLKDIV = u32Div;
 
     return (u32Pclk / ((u32Div + 1U) << 2U));
@@ -209,7 +209,7 @@ uint32_t LPI2C_SetBusClockFreq(LPI2C_T *lpi2c, uint32_t u32BusClock)
  *
  * @details    To get LPI2C Bus interrupt flag.
  */
-uint32_t LPI2C_GetIntFlag(LPI2C_T *lpi2c)
+uint32_t LPI2C_GetIntFlag(const LPI2C_T *lpi2c)
 {
     uint32_t u32Value;
 
@@ -234,7 +234,7 @@ uint32_t LPI2C_GetIntFlag(LPI2C_T *lpi2c)
  *
  * @details    To get LPI2C Bus Status Code.
  */
-uint32_t LPI2C_GetStatus(LPI2C_T *lpi2c)
+uint32_t LPI2C_GetStatus(const LPI2C_T *lpi2c)
 {
     return (lpi2c->STATUS0);
 }
@@ -248,7 +248,7 @@ uint32_t LPI2C_GetStatus(LPI2C_T *lpi2c)
  *
  * @details    To read a bytes data from specify LPI2C port.
  */
-uint8_t LPI2C_GetData(LPI2C_T *lpi2c)
+uint8_t LPI2C_GetData(const LPI2C_T *lpi2c)
 {
     return (uint8_t)(lpi2c->DAT);
 }
@@ -406,78 +406,6 @@ void LPI2C_DisableWakeup(LPI2C_T *lpi2c)
 }
 
 /**
- * @brief      Enable specified auto-operation mode and set trigger source
- *
- * @param[in]  lpi2c              Specify LPI2C port
- * @param[in]  u8Mode    The specified auto-operation mode of LPI2C module:
- *                                      - \ref LPI2C_AUTO_TXPDMA   : Auto TXPDMA transfer mode
- *                                      - \ref LPI2C_AUTO_RXPDMA      : Auto RXPDMA transfer mode
- *                                      - \ref LPI2C_RANDOM_REPEAT_STA  : Random Read mode, repeat start between TX/RX
- *                                      - \ref LPI2C_RANDOM_STO_STA    : Random Read mode, stop and start between TX/RX
- * @param[in]  u8Src    Set auto-operation mode trigger source
- *                                      - \ref LPI2C_TRGSRC_LPTMR0   : Auto-operation trigger source from LPTMR0
- *                                      - \ref LPI2C_TRGSRC_LPTMR1      : Auto-operation trigger source from LPTMR1
- *                                      - \ref LPI2C_TRGSRC_TTMR0  : Auto-operation trigger source from TTMR0
- *                                      - \ref LPI2C_TRGSRC_TTMR1    : Auto-operation trigger source from TTMR1
- *                                      - \ref LPI2C_TRGSRC_WKIOA0   : Auto-operation trigger source from WKIOA0
- *                                      - \ref LPI2C_TRGSRC_WKIOB0      : Auto-operation trigger source from WKIOB0
- *                                      - \ref LPI2C_TRGSRC_WKIOC0  : Auto-operation trigger source from WKIOC0
- *                                      - \ref LPI2C_TRGSRC_WKIOD0    : Auto-operation trigger source from WKIOD0
- *                                      - \ref LPI2C_TRGSRC_SWTRG    : Auto-operation trigger source from Software setting
- *
- * @return     None
- *
- * @details    This function enable specified auto-operation mode and set trigger source
- *
- */
-void LPI2C_EnableAutoMode(LPI2C_T *lpi2c, uint8_t u8Mode, uint8_t u8Src)
-{
-    /* Auto-operation mode select*/
-    lpi2c->AUTOCTL = (lpi2c->AUTOCTL & ~LPI2C_AUTOCTL_AUTOMODE_Msk) | (u8Mode);
-
-    /* Trigger source select*/
-    lpi2c->AUTOCTL = (lpi2c->AUTOCTL & ~LPI2C_AUTOCTL_TGSRCSEL_Msk) | (u8Src);
-
-    lpi2c->AUTOCTL |= LPI2C_AUTOCTL_TRGEN_Msk;
-}
-
-/**
- * @brief      Disable auto-operation mode
- *
- * @param[in]  lpi2c              Specify LPI2C port
- *
- * @return     None
- *
- * @details    This function disable auto-operation mode
- *
- */
-void LPI2C_DisableAutoMode(LPI2C_T *lpi2c)
-{
-    lpi2c->AUTOCTL &= ~(LPI2C_AUTOCTL_AUTOMODE_Msk | LPI2C_AUTOCTL_TRGEN_Msk);
-}
-
-/**
- * @brief      Set auto-operation mode transfer count
- *
- * @param[in]  lpi2c              Specify LPI2C port
- * @param[in]  u32RxCount    Rx transfer count. Valid values are between 0~255.
- * @param[in]  u32TxCount    Tx transfer count. Valid values are between 0~255.
- *
- * @return     None
- *
- * @details    This function is used to set auto-operation mode transfer count
- *
- */
-void LPI2C_SetAutoModeTransferCnt(LPI2C_T *lpi2c, uint32_t u32RxCount, uint32_t u32TxCount)
-{
-    if(u32RxCount != 0)
-        lpi2c->AUTOCNT = (lpi2c->AUTOCNT & ~LPI2C_AUTOCNT_RXCNT_Msk) | ((u32RxCount -1) << LPI2C_AUTOCNT_RXCNT_Pos);
-
-    if(u32TxCount != 0)
-        lpi2c->AUTOCNT = (lpi2c->AUTOCNT & ~LPI2C_AUTOCNT_TXCNT_Msk) | (u32TxCount -1);
-}
-
-/**
   * @brief      Write a byte to Slave
   *
   * @param[in]  lpi2c           Point to LPI2C peripheral
@@ -489,13 +417,15 @@ void LPI2C_SetAutoModeTransferCnt(LPI2C_T *lpi2c, uint32_t u32RxCount, uint32_t 
   *
   * @details    The function is used for LPI2C Master write a byte data to Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
+  *
   */
 
 uint8_t LPI2C_WriteByte(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t data)
 {
-    uint32_t u32txLen = LPI2C_WriteMultiBytes(lpi2c, u8SlaveAddr, &data, 1);
+    uint32_t u32txLen = LPI2C_WriteMultiBytes(lpi2c, u8SlaveAddr, &data, 1u);
 
-    if (u32txLen == 1)
+    if (u32txLen == 1u)
     {
         return 0; // Write data success
     }
@@ -517,26 +447,30 @@ uint8_t LPI2C_WriteByte(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t data)
   *
   * @details    The function is used for LPI2C Master write multi bytes data to Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
+  *
   */
 
-uint32_t LPI2C_WriteMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t data[], uint32_t u32wLen)
+uint32_t LPI2C_WriteMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, const uint8_t data[], uint32_t u32wLen)
 {
-    uint8_t u8Xfering = 1u, u8Err = 0u, u8Ctrl = 0u;
+    uint8_t u8Xfering = 1u;
+    uint8_t u8Err = 0u;
+    uint32_t u32Ctrl = LPI2C_CTL_SI;
     uint32_t u32txLen = 0u;
     uint32_t u32TimeOutCount;
 
     g_LPI2C_i32ErrCode = 0;
 
     LPI2C_START(lpi2c);                                                        /* Send START */
-    while(u8Xfering && (u8Err == 0u))
+    while ((u8Xfering != 0u) && (u8Err == 0u))
     {
-        u32TimeOutCount = SystemCoreClock;
+        u32TimeOutCount = LPI2C_TIMEOUT;
         LPI2C_WAIT_READY(lpi2c)
         {
             u32TimeOutCount--;
-            if(u32TimeOutCount == 0)
+            if (u32TimeOutCount == 0u)
             {
-                g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
+                g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
                 u8Err = 1u;
                 break;
             }
@@ -545,44 +479,44 @@ uint32_t LPI2C_WriteMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t data
         switch(LPI2C_GET_STATUS(lpi2c))
         {
         case 0x08u:
-            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u | 0x00u));       /* Write SLA+W to Register LPI2CDAT */
-            u8Ctrl = LPI2C_CTL_SI;                                             /* Clear SI */
+            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u));               /* Write SLA+W to Register LPI2CDAT */
+            u32Ctrl = LPI2C_CTL_SI;                                            /* Clear SI */
             break;
         case 0x18u:                                                            /* Slave Address ACK */
         case 0x28u:
             if(u32txLen < u32wLen)
             {
-                LPI2C_SET_DATA(lpi2c, data[u32txLen++]);                       /* Write Data to LPI2CDAT */
+                LPI2C_SET_DATA(lpi2c, data[u32txLen]);                         /* Write Data to LPI2CDAT */
+                u32txLen++;
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_STO_SI;                                     /* Clear SI and send STOP */
+                u32Ctrl = LPI2C_CTL_STO_SI;                                    /* Clear SI and send STOP */
                 u8Xfering = 0u;
             }
             break;
         case 0x20u:                                                            /* Slave Address NACK */
         case 0x30u:                                                            /* Master transmit data NACK */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Err = 1u;
             break;
         case 0x38u:                                                            /* Arbitration Lost */
         default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
-            u8Ctrl = LPI2C_CTL_SI;
+            u32Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u32Ctrl);                                 /* Write control bit to LPI2C_CTL register */
     }
 
-    u32TimeOutCount = SystemCoreClock;
-    while ((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk)
+    u32TimeOutCount = LPI2C_TIMEOUT;
+    while (((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk) != 0u)
     {
         u32TimeOutCount--;
-        if(u32TimeOutCount == 0)
+        if (u32TimeOutCount == 0u)
         {
-            g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
-            u8Err = 1u;
+            g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
             break;
         }
     }
@@ -603,13 +537,15 @@ uint32_t LPI2C_WriteMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t data
   *
   * @details    The function is used for LPI2C Master specify a address that data write to in Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
+  *
   */
 
 uint8_t LPI2C_WriteByteOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, uint8_t data)
 {
-    uint32_t u32txLen = LPI2C_WriteMultiBytesOneReg(lpi2c, u8SlaveAddr, u8DataAddr, &data, 1);
+    uint32_t u32txLen = LPI2C_WriteMultiBytesOneReg(lpi2c, u8SlaveAddr, u8DataAddr, &data, 1u);
 
-    if (u32txLen == 1)
+    if (u32txLen == 1u)
     {
         return 0; // Write data success
     }
@@ -632,26 +568,30 @@ uint8_t LPI2C_WriteByteOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8Dat
   *
   * @details    The function is used for LPI2C Master specify a byte address that multi data bytes write to in Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
+  *
   */
 
-uint32_t LPI2C_WriteMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, uint8_t data[], uint32_t u32wLen)
+uint32_t LPI2C_WriteMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, const uint8_t data[], uint32_t u32wLen)
 {
-    uint8_t u8Xfering = 1u, u8Err = 0u, u8Ctrl = 0u;
+    uint8_t u8Xfering = 1u;
+    uint8_t u8Err = 0u;
+    uint32_t u32Ctrl = LPI2C_CTL_SI;
     uint32_t u32txLen = 0u;
     uint32_t u32TimeOutCount;
 
     g_LPI2C_i32ErrCode = 0;
 
     LPI2C_START(lpi2c);                                                        /* Send START */
-    while(u8Xfering && (u8Err == 0u))
+    while ((u8Xfering != 0u) && (u8Err == 0u))
     {
-        u32TimeOutCount = SystemCoreClock;
+        u32TimeOutCount = LPI2C_TIMEOUT;
         LPI2C_WAIT_READY(lpi2c)
         {
             u32TimeOutCount--;
-            if(u32TimeOutCount == 0)
+            if (u32TimeOutCount == 0u)
             {
-                g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
+                g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
                 u8Err = 1u;
                 break;
             }
@@ -660,46 +600,46 @@ uint32_t LPI2C_WriteMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_
         switch(LPI2C_GET_STATUS(lpi2c))
         {
         case 0x08u:
-            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u | 0x00u));       /* Write SLA+W to Register LPI2CDAT */
-            u8Ctrl = LPI2C_CTL_SI;
+            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u));               /* Write SLA+W to Register LPI2CDAT */
+            u32Ctrl = LPI2C_CTL_SI;
             break;
         case 0x18u:                                                            /* Slave Address ACK */
             LPI2C_SET_DATA(lpi2c, u8DataAddr);                                 /* Write Lo byte address of register */
             break;
         case 0x20u:                                                            /* Slave Address NACK */
         case 0x30u:                                                            /* Master transmit data NACK */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Err = 1u;
             break;
         case 0x28u:
             if(u32txLen < u32wLen)
             {
-                LPI2C_SET_DATA(lpi2c, data[u32txLen++]);
+                LPI2C_SET_DATA(lpi2c, data[u32txLen]);
+                u32txLen++;
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_STO_SI;                                     /* Clear SI and send STOP */
+                u32Ctrl = LPI2C_CTL_STO_SI;                                    /* Clear SI and send STOP */
                 u8Xfering = 0u;
             }
             break;
         case 0x38u:                                                            /* Arbitration Lost */
         default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
-            u8Ctrl = LPI2C_CTL_SI;
+            u32Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u32Ctrl);                                 /* Write control bit to LPI2C_CTL register */
     }
 
-    u32TimeOutCount = SystemCoreClock;
-    while ((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk)
+    u32TimeOutCount = LPI2C_TIMEOUT;
+    while (((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk) != 0u)
     {
         u32TimeOutCount--;
-        if(u32TimeOutCount == 0)
+        if (u32TimeOutCount == 0u)
         {
-            g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
-            u8Err = 1u;
+            g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
             break;
         }
     }
@@ -720,13 +660,15 @@ uint32_t LPI2C_WriteMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_
   *
   * @details    The function is used for LPI2C Master specify two bytes address that data write to in Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
+  *
   */
 
 uint8_t LPI2C_WriteByteTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t data)
 {
-    uint32_t u32txLen = LPI2C_WriteMultiBytesTwoRegs(lpi2c, u8SlaveAddr, u16DataAddr, &data, 1);
+    uint32_t u32txLen = LPI2C_WriteMultiBytesTwoRegs(lpi2c, u8SlaveAddr, u16DataAddr, &data, 1u);
 
-    if (u32txLen == 1)
+    if (u32txLen == 1u)
     {
         return 0; // Write data success
     }
@@ -749,26 +691,31 @@ uint8_t LPI2C_WriteByteTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16
   *
   * @details    The function is used for LPI2C Master specify two bytes address that multi data write to in Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
+  *
   */
 
-uint32_t LPI2C_WriteMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t data[], uint32_t u32wLen)
+uint32_t LPI2C_WriteMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, const uint8_t data[], uint32_t u32wLen)
 {
-    uint8_t u8Xfering = 1u, u8Err = 0u, u8Addr = 1u, u8Ctrl = 0u;
+    uint8_t u8Xfering = 1u;
+    uint8_t u8Err = 0u;
+    uint8_t u8Addr = 1u;
+    uint32_t u32Ctrl = LPI2C_CTL_SI;
     uint32_t u32txLen = 0u;
     uint32_t u32TimeOutCount;
 
     g_LPI2C_i32ErrCode = 0;
 
     LPI2C_START(lpi2c);                                                        /* Send START */
-    while(u8Xfering && (u8Err == 0u))
+    while ((u8Xfering != 0u) && (u8Err == 0u))
     {
-        u32TimeOutCount = SystemCoreClock;
+        u32TimeOutCount = LPI2C_TIMEOUT;
         LPI2C_WAIT_READY(lpi2c)
         {
             u32TimeOutCount--;
-            if(u32TimeOutCount == 0)
+            if (u32TimeOutCount == 0u)
             {
-                g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
+                g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
                 u8Err = 1u;
                 break;
             }
@@ -777,51 +724,51 @@ uint32_t LPI2C_WriteMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint1
         switch(LPI2C_GET_STATUS(lpi2c))
         {
         case 0x08u:
-            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u | 0x00u));       /* Write SLA+W to Register LPI2CDAT */
-            u8Ctrl = LPI2C_CTL_SI;                                             /* Clear SI */
+            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u));               /* Write SLA+W to Register LPI2CDAT */
+            u32Ctrl = LPI2C_CTL_SI;                                            /* Clear SI */
             break;
         case 0x18u:                                                            /* Slave Address ACK */
             LPI2C_SET_DATA(lpi2c, (uint8_t)((u16DataAddr & 0xFF00u) >> 8u));   /* Write Hi byte address of register */
             break;
         case 0x20u:                                                            /* Slave Address NACK */
         case 0x30u:                                                            /* Master transmit data NACK */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Err = 1u;
             break;
         case 0x28u:
-            if(u8Addr)
+            if (u8Addr == 1u)
             {
                 LPI2C_SET_DATA(lpi2c, (uint8_t)(u16DataAddr & 0xFFu));         /* Write Lo byte address of register */
                 u8Addr = 0u;
             }
-            else if((u32txLen < u32wLen) && (u8Addr == 0u))
+            else if ((u32txLen < u32wLen) && (u8Addr == 0u))
             {
-                LPI2C_SET_DATA(lpi2c, data[u32txLen++]);                       /* Write data to Register LPI2CDAT*/
+                LPI2C_SET_DATA(lpi2c, data[u32txLen]);                         /* Write data to Register LPI2CDAT*/
+                u32txLen++;
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_STO_SI;                                     /* Clear SI and send STOP */
+                u32Ctrl = LPI2C_CTL_STO_SI;                                    /* Clear SI and send STOP */
                 u8Xfering = 0u;
             }
             break;
         case 0x38u:                                                            /* Arbitration Lost */
         default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
-            u8Ctrl = LPI2C_CTL_SI;
+            u32Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u32Ctrl);                                 /* Write control bit to LPI2C_CTL register */
     }
 
-    u32TimeOutCount = SystemCoreClock;
-    while ((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk)
+    u32TimeOutCount = LPI2C_TIMEOUT;
+    while (((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk) != 0u)
     {
         u32TimeOutCount--;
-        if(u32TimeOutCount == 0)
+        if (u32TimeOutCount == 0u)
         {
-            g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
-            u8Err = 1u;
+            g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
             break;
         }
     }
@@ -839,14 +786,16 @@ uint32_t LPI2C_WriteMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint1
   *
   * @details    The function is used for LPI2C Master to read a byte data from Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
+  *
   */
 uint8_t LPI2C_ReadByte(LPI2C_T *lpi2c, uint8_t u8SlaveAddr)
 {
     uint8_t data;
 
-    uint32_t u32rxLen = LPI2C_ReadMultiBytes(lpi2c, u8SlaveAddr, &data, 1);
+    uint32_t u32rxLen = LPI2C_ReadMultiBytes(lpi2c, u8SlaveAddr, &data, 1u);
 
-    if (u32rxLen == 1)
+    if (u32rxLen == 1u)
     {
         return data;
     }
@@ -869,26 +818,29 @@ uint8_t LPI2C_ReadByte(LPI2C_T *lpi2c, uint8_t u8SlaveAddr)
   *
   * @details    The function is used for LPI2C Master to read multi data bytes from Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
   *
   */
 uint32_t LPI2C_ReadMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t rdata[], uint32_t u32rLen)
 {
-    uint8_t u8Xfering = 1u, u8Err = 0u, u8Ctrl = 0u;
+    uint8_t u8Xfering = 1u;
+    uint8_t u8Err = 0u;
+    uint32_t u32Ctrl = LPI2C_CTL_SI;
     uint32_t u32rxLen = 0u;
     uint32_t u32TimeOutCount;
 
     g_LPI2C_i32ErrCode = 0;
 
     LPI2C_START(lpi2c);                                                        /* Send START */
-    while(u8Xfering && (u8Err == 0u))
+    while ((u8Xfering != 0u) && (u8Err == 0u))
     {
-        u32TimeOutCount = SystemCoreClock;
+        u32TimeOutCount = LPI2C_TIMEOUT;
         LPI2C_WAIT_READY(lpi2c)
         {
             u32TimeOutCount--;
-            if(u32TimeOutCount == 0)
+            if (u32TimeOutCount == 0u)
             {
-                g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
+                g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
                 u8Err = 1u;
                 break;
             }
@@ -898,56 +850,57 @@ uint32_t LPI2C_ReadMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t rdata
         {
         case 0x08u:
             LPI2C_SET_DATA(lpi2c, (uint8_t)((u8SlaveAddr << 1u) | 0x01u));     /* Write SLA+R to Register LPI2CDAT */
-            u8Ctrl = LPI2C_CTL_SI;                                             /* Clear SI */
+            u32Ctrl = LPI2C_CTL_SI;                                            /* Clear SI */
             break;
         case 0x40u:                                                            /* Slave Address ACK */
-            if (u32rLen == 1)
+            if (u32rLen == 1u)
             {
-                u8Ctrl = LPI2C_CTL_SI;                                         /* Clear SI */
+                u32Ctrl = LPI2C_CTL_SI;                                        /* Clear SI */
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_SI_AA;                                      /* Clear SI and set ACK */
+                u32Ctrl = LPI2C_CTL_SI_AA;                                     /* Clear SI and set ACK */
             }
             break;
         case 0x48u:                                                            /* Slave Address NACK */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Err = 1u;
             break;
         case 0x50u:
-            rdata[u32rxLen++] = (uint8_t) LPI2C_GET_DATA(lpi2c);               /* Receive Data */
+            rdata[u32rxLen] = (uint8_t) LPI2C_GET_DATA(lpi2c);                 /* Receive Data */
+            u32rxLen++;
             if(u32rxLen < (u32rLen - 1u))
             {
-                u8Ctrl = LPI2C_CTL_SI_AA;                                      /* Clear SI and set ACK */
+                u32Ctrl = LPI2C_CTL_SI_AA;                                     /* Clear SI and set ACK */
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_SI;                                         /* Clear SI */
+                u32Ctrl = LPI2C_CTL_SI;                                        /* Clear SI */
             }
             break;
         case 0x58u:
-            rdata[u32rxLen++] = (uint8_t) LPI2C_GET_DATA(lpi2c);               /* Receive Data */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            rdata[u32rxLen] = (uint8_t) LPI2C_GET_DATA(lpi2c);                 /* Receive Data */
+            u32rxLen++;
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Xfering = 0u;
             break;
         case 0x38u:                                                            /* Arbitration Lost */
         default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
-            u8Ctrl = LPI2C_CTL_SI;
+            u32Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u32Ctrl);                                 /* Write control bit to LPI2C_CTL register */
     }
 
-    u32TimeOutCount = SystemCoreClock;
-    while ((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk)
+    u32TimeOutCount = LPI2C_TIMEOUT;
+    while (((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk) != 0u)
     {
         u32TimeOutCount--;
-        if(u32TimeOutCount == 0)
+        if (u32TimeOutCount == 0u)
         {
-            g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
-            u8Err = 1u;
+            g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
             break;
         }
     }
@@ -967,15 +920,16 @@ uint32_t LPI2C_ReadMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t rdata
   *
   * @details    The function is used for LPI2C Master specify a byte address that a data byte read from Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
   *
   */
 uint8_t LPI2C_ReadByteOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr)
 {
     uint8_t data;
 
-    uint32_t u32rxLen = LPI2C_ReadMultiBytesOneReg(lpi2c, u8SlaveAddr, u8DataAddr, &data, 1);
+    uint32_t u32rxLen = LPI2C_ReadMultiBytesOneReg(lpi2c, u8SlaveAddr, u8DataAddr, &data, 1u);
 
-    if (u32rxLen == 1)
+    if (u32rxLen == 1u)
     {
         return data;
     }
@@ -998,26 +952,29 @@ uint8_t LPI2C_ReadByteOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8Data
   *
   * @details    The function is used for LPI2C Master specify a byte address that multi data bytes read from Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
   *
   */
 uint32_t LPI2C_ReadMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, uint8_t rdata[], uint32_t u32rLen)
 {
-    uint8_t u8Xfering = 1u, u8Err = 0u, u8Ctrl = 0u;
+    uint8_t u8Xfering = 1u;
+    uint8_t u8Err = 0u;
+    uint32_t u32Ctrl = LPI2C_CTL_SI;
     uint32_t u32rxLen = 0u;
     uint32_t u32TimeOutCount;
 
     g_LPI2C_i32ErrCode = 0;
 
     LPI2C_START(lpi2c);                                                        /* Send START */
-    while(u8Xfering && (u8Err == 0u))
+    while ((u8Xfering != 0u) && (u8Err == 0u))
     {
-        u32TimeOutCount = SystemCoreClock;
+        u32TimeOutCount = LPI2C_TIMEOUT;
         LPI2C_WAIT_READY(lpi2c)
         {
             u32TimeOutCount--;
-            if(u32TimeOutCount == 0)
+            if (u32TimeOutCount == 0u)
             {
-                g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
+                g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
                 u8Err = 1u;
                 break;
             }
@@ -1026,72 +983,73 @@ uint32_t LPI2C_ReadMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t
         switch(LPI2C_GET_STATUS(lpi2c))
         {
         case 0x08u:
-            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u | 0x00u));       /* Write SLA+W to Register LPI2CDAT */
-            u8Ctrl = LPI2C_CTL_SI;                                             /* Clear SI */
+            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u));               /* Write SLA+W to Register LPI2CDAT */
+            u32Ctrl = LPI2C_CTL_SI;                                            /* Clear SI */
             break;
         case 0x18u:                                                            /* Slave Address ACK */
             LPI2C_SET_DATA(lpi2c, u8DataAddr);                                 /* Write Lo byte address of register */
             break;
         case 0x20u:                                                            /* Slave Address NACK */
         case 0x30u:                                                            /* Master transmit data NACK */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Err = 1u;
             break;
         case 0x28u:
-            u8Ctrl = LPI2C_CTL_STA_SI;                                         /* Send repeat START */
+            u32Ctrl = LPI2C_CTL_STA_SI;                                        /* Send repeat START */
             break;
         case 0x10u:
             LPI2C_SET_DATA(lpi2c, (uint8_t)((u8SlaveAddr << 1u) | 0x01u));     /* Write SLA+R to Register LPI2CDAT */
-            u8Ctrl = LPI2C_CTL_SI;                                             /* Clear SI */
+            u32Ctrl = LPI2C_CTL_SI;                                            /* Clear SI */
             break;
         case 0x40u:                                                            /* Slave Address ACK */
-            if (u32rLen == 1)
+            if (u32rLen == 1u)
             {
-                u8Ctrl = LPI2C_CTL_SI;                                         /* Clear SI */
+                u32Ctrl = LPI2C_CTL_SI;                                        /* Clear SI */
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_SI_AA;                                      /* Clear SI and set ACK */
+                u32Ctrl = LPI2C_CTL_SI_AA;                                     /* Clear SI and set ACK */
             }
             break;
         case 0x48u:                                                            /* Slave Address NACK */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Err = 1u;
             break;
         case 0x50u:
-            rdata[u32rxLen++] = (uint8_t) LPI2C_GET_DATA(lpi2c);               /* Receive Data */
+            rdata[u32rxLen] = (uint8_t) LPI2C_GET_DATA(lpi2c);                 /* Receive Data */
+            u32rxLen++;
             if(u32rxLen < (u32rLen - 1u))
             {
-                u8Ctrl = LPI2C_CTL_SI_AA;                                      /* Clear SI and set ACK */
+                u32Ctrl = LPI2C_CTL_SI_AA;                                     /* Clear SI and set ACK */
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_SI;                                         /* Clear SI */
+                u32Ctrl = LPI2C_CTL_SI;                                        /* Clear SI */
             }
             break;
         case 0x58u:
-            rdata[u32rxLen++] = (uint8_t) LPI2C_GET_DATA(lpi2c);               /* Receive Data */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            rdata[u32rxLen] = (uint8_t) LPI2C_GET_DATA(lpi2c);                 /* Receive Data */
+            u32rxLen++;
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Xfering = 0u;
             break;
         case 0x38u:                                                            /* Arbitration Lost */
         default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
-            u8Ctrl = LPI2C_CTL_SI;
+            u32Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u32Ctrl);                                 /* Write control bit to LPI2C_CTL register */
     }
 
-    u32TimeOutCount = SystemCoreClock;
-    while ((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk)
+    u32TimeOutCount = LPI2C_TIMEOUT;
+    while (((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk) != 0u)
     {
         u32TimeOutCount--;
-        if(u32TimeOutCount == 0)
+        if (u32TimeOutCount == 0u)
         {
-            g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
-            u8Err = 1u;
+            g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
             break;
         }
     }
@@ -1110,15 +1068,16 @@ uint32_t LPI2C_ReadMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t
   *
   * @details    The function is used for LPI2C Master specify two bytes address that a data byte read from Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
   *
   */
 uint8_t LPI2C_ReadByteTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr)
 {
     uint8_t data;
 
-    uint32_t u32rxLen = LPI2C_ReadMultiBytesTwoRegs(lpi2c, u8SlaveAddr, u16DataAddr, &data, 1);
+    uint32_t u32rxLen = LPI2C_ReadMultiBytesTwoRegs(lpi2c, u8SlaveAddr, u16DataAddr, &data, 1u);
 
-    if (u32rxLen == 1)
+    if (u32rxLen == 1u)
     {
         return data;
     }
@@ -1141,26 +1100,30 @@ uint8_t LPI2C_ReadByteTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16D
   *
   * @details    The function is used for LPI2C Master specify two bytes address that multi data bytes read from Slave.
   *
+  * @note       This function sets g_LPI2C_i32ErrCode to LPI2C_ERR_TIMEOUT if waiting I2C time-out.
   *
   */
 uint32_t LPI2C_ReadMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t rdata[], uint32_t u32rLen)
 {
-    uint8_t u8Xfering = 1u, u8Err = 0u, u8Addr = 1u, u8Ctrl = 0u;
+    uint8_t u8Xfering = 1u;
+    uint8_t u8Err = 0u;
+    uint8_t u8Addr = 1u;
+    uint32_t u32Ctrl = LPI2C_CTL_SI;
     uint32_t u32rxLen = 0u;
     uint32_t u32TimeOutCount;
 
     g_LPI2C_i32ErrCode = 0;
 
     LPI2C_START(lpi2c);                                                        /* Send START */
-    while(u8Xfering && (u8Err == 0u))
+    while ((u8Xfering != 0u) && (u8Err == 0u))
     {
-        u32TimeOutCount = SystemCoreClock;
+        u32TimeOutCount = LPI2C_TIMEOUT;
         LPI2C_WAIT_READY(lpi2c)
         {
             u32TimeOutCount--;
-            if(u32TimeOutCount == 0)
+            if (u32TimeOutCount == 0u)
             {
-                g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
+                g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
                 u8Err = 1u;
                 break;
             }
@@ -1169,80 +1132,81 @@ uint32_t LPI2C_ReadMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16
         switch(LPI2C_GET_STATUS(lpi2c))
         {
         case 0x08u:
-            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u | 0x00u));       /* Write SLA+W to Register LPI2CDAT */
-            u8Ctrl = LPI2C_CTL_SI;                                             /* Clear SI */
+            LPI2C_SET_DATA(lpi2c, (uint8_t)(u8SlaveAddr << 1u));               /* Write SLA+W to Register LPI2CDAT */
+            u32Ctrl = LPI2C_CTL_SI;                                            /* Clear SI */
             break;
         case 0x18u:                                                            /* Slave Address ACK */
             LPI2C_SET_DATA(lpi2c, (uint8_t)((u16DataAddr & 0xFF00u) >> 8u));   /* Write Hi byte address of register */
             break;
         case 0x20u:                                                            /* Slave Address NACK */
         case 0x30u:                                                            /* Master transmit data NACK */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Err = 1u;
             break;
         case 0x28u:
-            if(u8Addr)
+            if (u8Addr == 1u)
             {
                 LPI2C_SET_DATA(lpi2c, (uint8_t)(u16DataAddr & 0xFFu));         /* Write Lo byte address of register */
                 u8Addr = 0u;
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_STA_SI;                                     /* Clear SI and send repeat START */
+                u32Ctrl = LPI2C_CTL_STA_SI;                                    /* Clear SI and send repeat START */
             }
             break;
         case 0x10u:
             LPI2C_SET_DATA(lpi2c, (uint8_t)((u8SlaveAddr << 1u) | 0x01u));     /* Write SLA+R to Register LPI2CDAT */
-            u8Ctrl = LPI2C_CTL_SI;                                             /* Clear SI */
+            u32Ctrl = LPI2C_CTL_SI;                                            /* Clear SI */
             break;
         case 0x40u:                                                            /* Slave Address ACK */
-            if (u32rLen == 1)
+            if (u32rLen == 1u)
             {
-                u8Ctrl = LPI2C_CTL_SI;                                         /* Clear SI */
+                u32Ctrl = LPI2C_CTL_SI;                                        /* Clear SI */
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_SI_AA;                                      /* Clear SI and set ACK */
+                u32Ctrl = LPI2C_CTL_SI_AA;                                     /* Clear SI and set ACK */
             }
             break;
         case 0x48u:                                                            /* Slave Address NACK */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Err = 1u;
             break;
         case 0x50u:
-            rdata[u32rxLen++] = (uint8_t) LPI2C_GET_DATA(lpi2c);               /* Receive Data */
+            rdata[u32rxLen] = (uint8_t) LPI2C_GET_DATA(lpi2c);                 /* Receive Data */
+            u32rxLen++;
             if(u32rxLen < (u32rLen - 1u))
             {
-                u8Ctrl = LPI2C_CTL_SI_AA;                                      /* Clear SI and set ACK */
+                u32Ctrl = LPI2C_CTL_SI_AA;                                     /* Clear SI and set ACK */
             }
             else
             {
-                u8Ctrl = LPI2C_CTL_SI;                                         /* Clear SI */
+                u32Ctrl = LPI2C_CTL_SI;                                        /* Clear SI */
             }
             break;
         case 0x58u:
-            rdata[u32rxLen++] = (uint8_t) LPI2C_GET_DATA(lpi2c);               /* Receive Data */
-            u8Ctrl = LPI2C_CTL_STO_SI;                                         /* Clear SI and send STOP */
+            rdata[u32rxLen] = (uint8_t) LPI2C_GET_DATA(lpi2c);                 /* Receive Data */
+            u32rxLen++;
+            u32Ctrl = LPI2C_CTL_STO_SI;                                        /* Clear SI and send STOP */
             u8Xfering = 0u;
             break;
         case 0x38u:                                                            /* Arbitration Lost */
         default:                                                               /* Unknown status */
             LPI2C_SET_CONTROL_REG(lpi2c, LPI2C_CTL_STO_SI);                    /* Clear SI and send STOP */
-            u8Ctrl = LPI2C_CTL_SI;
+            u32Ctrl = LPI2C_CTL_SI;
             u8Err = 1u;
             break;
         }
-        LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl);                                  /* Write control bit to LPI2C_CTL register */
+        LPI2C_SET_CONTROL_REG(lpi2c, u32Ctrl);                                 /* Write control bit to LPI2C_CTL register */
     }
 
-    u32TimeOutCount = SystemCoreClock;
-    while ((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk)
+    u32TimeOutCount = LPI2C_TIMEOUT;
+    while (((lpi2c)->CTL0 & LPI2C_CTL0_STO_Msk) != 0u)
     {
         u32TimeOutCount--;
-        if(u32TimeOutCount == 0)
+        if (u32TimeOutCount == 0u)
         {
-            g_LPI2C_i32ErrCode = LPI2C_TIMEOUT_ERR;
-            u8Err = 1u;
+            g_LPI2C_i32ErrCode = LPI2C_ERR_TIMEOUT;
             break;
         }
     }

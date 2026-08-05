@@ -14,7 +14,6 @@ extern "C"
 {
 #endif
 
-
 /** @addtogroup Standard_Driver Standard Driver
   @{
 */

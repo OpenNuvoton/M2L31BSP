@@ -8,8 +8,7 @@
 *****************************************************************************/
 #include "NuMicro.h"
 
-
-static uint8_t u8ChSelect[LPPDMA_CH_MAX];
+static uint32_t g_u32ChSelect[LPPDMA_CH_MAX];
 
 /** @addtogroup Standard_Driver Standard Driver
   @{
@@ -41,10 +40,10 @@ void LPPDMA_Open(LPPDMA_T * lppdma,uint32_t u32Mask)
 
     for (i=0UL; i < LPPDMA_CH_MAX; i++)
     {
-        if((1 << i) & u32Mask)
+        if ((1UL << i) & u32Mask)
         {
             lppdma->LPDSCT[i].CTL = 0UL;
-            u8ChSelect[i] = LPPDMA_MEM;
+            g_u32ChSelect[i] = LPPDMA_MEM;
         }
     }
 
@@ -142,33 +141,39 @@ void LPPDMA_SetTransferAddr(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32SrcAdd
  */
 void LPPDMA_SetTransferMode(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Peripheral, uint32_t u32ScatterEn, uint32_t u32DescAddr)
 {
-    u8ChSelect[u32Ch] = u32Peripheral;
-    switch(u32Ch)
+    g_u32ChSelect[u32Ch] = u32Peripheral;
+
+    switch (u32Ch)
     {
-    case 0ul:
+    case 0UL:
         lppdma->REQSEL0_3 = (lppdma->REQSEL0_3 & ~LPPDMA_REQSEL0_3_REQSRC0_Msk) | u32Peripheral;
         break;
-    case 1ul:
+
+    case 1UL:
         lppdma->REQSEL0_3 = (lppdma->REQSEL0_3 & ~LPPDMA_REQSEL0_3_REQSRC1_Msk) | (u32Peripheral << LPPDMA_REQSEL0_3_REQSRC1_Pos);
         break;
-    case 2ul:
+
+    case 2UL:
         lppdma->REQSEL0_3 = (lppdma->REQSEL0_3 & ~LPPDMA_REQSEL0_3_REQSRC2_Msk) | (u32Peripheral << LPPDMA_REQSEL0_3_REQSRC2_Pos);
         break;
-    case 3ul:
+
+    case 3UL:
         lppdma->REQSEL0_3 = (lppdma->REQSEL0_3 & ~LPPDMA_REQSEL0_3_REQSRC3_Msk) | (u32Peripheral << LPPDMA_REQSEL0_3_REQSRC3_Pos);
         break;
+
     default:
+        /* do nothing */
         break;
     }
 
-    if(u32ScatterEn)
+    if (u32ScatterEn != 0UL)
     {
-        lppdma->LPDSCT[u32Ch].NEXT = u32DescAddr - (lppdma->SCATBA);
-        lppdma->LPDSCT[u32Ch].CTL = (lppdma->LPDSCT[u32Ch].CTL & ~LPPDMA_DSCT_CTL_OPMODE_Msk) | LPPDMA_OP_SCATTER;
+        lppdma->LPDSCT[u32Ch].NEXT = (uint32_t)(u32DescAddr - (uint32_t)(lppdma->SCATBA));
+        lppdma->LPDSCT[u32Ch].CTL  = (lppdma->LPDSCT[u32Ch].CTL & ~LPPDMA_DSCT_CTL_OPMODE_Msk) | LPPDMA_OP_SCATTER;
     }
     else
     {
-        lppdma->LPDSCT[u32Ch].CTL = (lppdma->LPDSCT[u32Ch].CTL & ~LPPDMA_DSCT_CTL_OPMODE_Msk) | LPPDMA_OP_BASIC;
+        lppdma->LPDSCT[u32Ch].CTL  = (lppdma->LPDSCT[u32Ch].CTL & ~LPPDMA_DSCT_CTL_OPMODE_Msk) | LPPDMA_OP_BASIC;
     }
 }
 
@@ -212,11 +217,14 @@ void LPPDMA_SetBurstType(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32BurstType
  */
 void LPPDMA_Trigger(LPPDMA_T * lppdma,uint32_t u32Ch)
 {
-    if(u8ChSelect[u32Ch] == LPPDMA_MEM)
+    if (g_u32ChSelect[u32Ch] == LPPDMA_MEM)
     {
-        lppdma->SWREQ = (1ul << u32Ch);
+        lppdma->SWREQ = (1UL << u32Ch);
     }
-    else {}
+    else
+    {
+        /* do nothing */
+    }
 }
 
 /**
@@ -236,7 +244,7 @@ void LPPDMA_EnableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask)
 {
     if (u32Mask & LPPDMA_INT_TRANS_DONE)
     {
-        lppdma->INTEN |= (1ul << u32Ch);
+        lppdma->INTEN |= (1UL << u32Ch);
     }
 
     if (u32Mask & LPPDMA_INT_TEMPTY)
@@ -262,7 +270,7 @@ void LPPDMA_DisableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask)
 {
     if (u32Mask & LPPDMA_INT_TRANS_DONE)
     {
-        lppdma->INTEN &= ~(1ul << u32Ch);
+        lppdma->INTEN &= ~(1UL << u32Ch);
     }
 
     if (u32Mask & LPPDMA_INT_TEMPTY)

@@ -58,7 +58,10 @@ void EQEI_DisableInt(EQEI_T* eqei, uint32_t u32IntSel)
     {
         NVIC_DisableIRQ((IRQn_Type)EQEI1_IRQn);
     }
-
+    else
+    {
+        /* Optional: invalid instance handling (do nothing / assert / set error code) */
+    }
 }
 
 /**
@@ -80,13 +83,16 @@ void EQEI_EnableInt(EQEI_T* eqei, uint32_t u32IntSel)
     /* Enable NVIC EQEI IRQ */
     if(eqei == (EQEI_T*)EQEI0)
     {
-        NVIC_EnableIRQ(EQEI0_IRQn);
+        NVIC_EnableIRQ((IRQn_Type)EQEI0_IRQn);
     }
     else if(eqei == (EQEI_T*)EQEI1)
     {
-        NVIC_EnableIRQ(EQEI1_IRQn);
+        NVIC_EnableIRQ((IRQn_Type)EQEI1_IRQn);
     }
-
+    else
+    {
+        /* Optional: invalid instance handling (do nothing / assert / set error code) */
+    }
 }
 
 /**

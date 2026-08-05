@@ -134,7 +134,7 @@ extern "C"
   * @details    This macro is used to check if specify Timer counter is inactive or active.
   * \hideinitializer
   */
-#define TIMER_IS_ACTIVE(timer)                      (((timer)->CTL & TIMER_CTL_ACTSTS_Msk) ? 1 : 0)
+#define TIMER_IS_ACTIVE(timer)                      (((timer)->CTL & TIMER_CTL_ACTSTS_Msk) ? 1UL : 0UL)
 
 /**
   * @brief      Select Toggle-output Pin
@@ -167,28 +167,28 @@ extern "C"
 #define TIMER_SET_OPMODE(timer, u32OpMode)   ((timer)->CTL = ((timer)->CTL & ~TIMER_CTL_OPMODE_Msk) | (u32OpMode))
 
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
-__STATIC_INLINE void     TIMER_Start(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_Stop(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_EnableWakeup(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_DisableWakeup(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_StartCapture(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_StopCapture(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_EnableCaptureDebounce(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_DisableCaptureDebounce(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_EnableEventCounterDebounce(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_DisableEventCounterDebounce(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_EnableInt(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_DisableInt(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_EnableCaptureInt(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_DisableCaptureInt(TIMER_T *timer);
-__STATIC_INLINE uint32_t TIMER_GetIntFlag(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_ClearIntFlag(TIMER_T *timer);
-__STATIC_INLINE uint32_t TIMER_GetCaptureIntFlag(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_ClearCaptureIntFlag(TIMER_T *timer);
-__STATIC_INLINE uint32_t TIMER_GetWakeupFlag(TIMER_T *timer);
-__STATIC_INLINE void     TIMER_ClearWakeupFlag(TIMER_T *timer);
-__STATIC_INLINE uint32_t TIMER_GetCaptureData(TIMER_T *timer);
-__STATIC_INLINE uint32_t TIMER_GetCounter(TIMER_T *timer);
+static inline void     TIMER_Start(TIMER_T *timer);
+static inline void     TIMER_Stop(TIMER_T *timer);
+static inline void     TIMER_EnableWakeup(TIMER_T *timer);
+static inline void     TIMER_DisableWakeup(TIMER_T *timer);
+static inline void     TIMER_StartCapture(TIMER_T *timer);
+static inline void     TIMER_StopCapture(TIMER_T *timer);
+static inline void     TIMER_EnableCaptureDebounce(TIMER_T *timer);
+static inline void     TIMER_DisableCaptureDebounce(TIMER_T *timer);
+static inline void     TIMER_EnableEventCounterDebounce(TIMER_T *timer);
+static inline void     TIMER_DisableEventCounterDebounce(TIMER_T *timer);
+static inline void     TIMER_EnableInt(TIMER_T *timer);
+static inline void     TIMER_DisableInt(TIMER_T *timer);
+static inline void     TIMER_EnableCaptureInt(TIMER_T *timer);
+static inline void     TIMER_DisableCaptureInt(TIMER_T *timer);
+static inline uint32_t TIMER_GetIntFlag(const TIMER_T *timer);
+static inline void     TIMER_ClearIntFlag(TIMER_T *timer);
+static inline uint32_t TIMER_GetCaptureIntFlag(const TIMER_T *timer);
+static inline void     TIMER_ClearCaptureIntFlag(TIMER_T *timer);
+static inline uint32_t TIMER_GetWakeupFlag(const TIMER_T *timer);
+static inline void     TIMER_ClearWakeupFlag(TIMER_T *timer);
+static inline uint32_t TIMER_GetCaptureData(const TIMER_T *timer);
+static inline uint32_t TIMER_GetCounter(const TIMER_T *timer);
 
 /**
   * @brief      Start Timer Counting
@@ -199,7 +199,7 @@ __STATIC_INLINE uint32_t TIMER_GetCounter(TIMER_T *timer);
   *
   * @details    This function is used to start Timer counting.
   */
-__STATIC_INLINE void TIMER_Start(TIMER_T *timer)
+static inline void TIMER_Start(TIMER_T *timer)
 {
     timer->CTL |= TIMER_CTL_CNTEN_Msk;
 }
@@ -213,7 +213,7 @@ __STATIC_INLINE void TIMER_Start(TIMER_T *timer)
   *
   * @details    This function is used to stop/suspend Timer counting.
   */
-__STATIC_INLINE void TIMER_Stop(TIMER_T *timer)
+static inline void TIMER_Stop(TIMER_T *timer)
 {
     timer->CTL &= ~TIMER_CTL_CNTEN_Msk;
 }
@@ -229,7 +229,7 @@ __STATIC_INLINE void TIMER_Stop(TIMER_T *timer)
   *             counter event interrupt or capture trigger interrupt.
   * @note       To wake the system from Power-down mode, timer clock source must be ether LXT or LIRC.
   */
-__STATIC_INLINE void TIMER_EnableWakeup(TIMER_T *timer)
+static inline void TIMER_EnableWakeup(TIMER_T *timer)
 {
     timer->CTL |= TIMER_CTL_WKEN_Msk;
 }
@@ -243,7 +243,7 @@ __STATIC_INLINE void TIMER_EnableWakeup(TIMER_T *timer)
   *
   * @details    This function is used to disable the timer interrupt wake-up function.
   */
-__STATIC_INLINE void TIMER_DisableWakeup(TIMER_T *timer)
+static inline void TIMER_DisableWakeup(TIMER_T *timer)
 {
     timer->CTL &= ~TIMER_CTL_WKEN_Msk;
 }
@@ -257,7 +257,7 @@ __STATIC_INLINE void TIMER_DisableWakeup(TIMER_T *timer)
   *
   * @details    This function is used to start Timer capture function.
   */
-__STATIC_INLINE void TIMER_StartCapture(TIMER_T *timer)
+static inline void TIMER_StartCapture(TIMER_T *timer)
 {
     timer->EXTCTL |= TIMER_EXTCTL_CAPEN_Msk;
 }
@@ -271,7 +271,7 @@ __STATIC_INLINE void TIMER_StartCapture(TIMER_T *timer)
   *
   * @details    This function is used to stop Timer capture function.
   */
-__STATIC_INLINE void TIMER_StopCapture(TIMER_T *timer)
+static inline void TIMER_StopCapture(TIMER_T *timer)
 {
     timer->EXTCTL &= ~TIMER_EXTCTL_CAPEN_Msk;
 }
@@ -285,7 +285,7 @@ __STATIC_INLINE void TIMER_StopCapture(TIMER_T *timer)
   *
   * @details    This function is used to enable the detect de-bounce function of capture pin.
   */
-__STATIC_INLINE void TIMER_EnableCaptureDebounce(TIMER_T *timer)
+static inline void TIMER_EnableCaptureDebounce(TIMER_T *timer)
 {
     timer->EXTCTL |= TIMER_EXTCTL_CAPDBEN_Msk;
 }
@@ -299,7 +299,7 @@ __STATIC_INLINE void TIMER_EnableCaptureDebounce(TIMER_T *timer)
   *
   * @details    This function is used to disable the detect de-bounce function of capture pin.
   */
-__STATIC_INLINE void TIMER_DisableCaptureDebounce(TIMER_T *timer)
+static inline void TIMER_DisableCaptureDebounce(TIMER_T *timer)
 {
     timer->EXTCTL &= ~TIMER_EXTCTL_CAPDBEN_Msk;
 }
@@ -313,7 +313,7 @@ __STATIC_INLINE void TIMER_DisableCaptureDebounce(TIMER_T *timer)
   *
   * @details    This function is used to enable the detect de-bounce function of counter pin.
   */
-__STATIC_INLINE void TIMER_EnableEventCounterDebounce(TIMER_T *timer)
+static inline void TIMER_EnableEventCounterDebounce(TIMER_T *timer)
 {
     timer->EXTCTL |= TIMER_EXTCTL_CNTDBEN_Msk;
 }
@@ -327,7 +327,7 @@ __STATIC_INLINE void TIMER_EnableEventCounterDebounce(TIMER_T *timer)
   *
   * @details    This function is used to disable the detect de-bounce function of counter pin.
   */
-__STATIC_INLINE void TIMER_DisableEventCounterDebounce(TIMER_T *timer)
+static inline void TIMER_DisableEventCounterDebounce(TIMER_T *timer)
 {
     timer->EXTCTL &= ~TIMER_EXTCTL_CNTDBEN_Msk;
 }
@@ -341,7 +341,7 @@ __STATIC_INLINE void TIMER_DisableEventCounterDebounce(TIMER_T *timer)
   *
   * @details    This function is used to enable the timer time-out interrupt function.
   */
-__STATIC_INLINE void TIMER_EnableInt(TIMER_T *timer)
+static inline void TIMER_EnableInt(TIMER_T *timer)
 {
     timer->CTL |= TIMER_CTL_INTEN_Msk;
 }
@@ -355,7 +355,7 @@ __STATIC_INLINE void TIMER_EnableInt(TIMER_T *timer)
   *
   * @details    This function is used to disable the timer time-out interrupt function.
   */
-__STATIC_INLINE void TIMER_DisableInt(TIMER_T *timer)
+static inline void TIMER_DisableInt(TIMER_T *timer)
 {
     timer->CTL &= ~TIMER_CTL_INTEN_Msk;
 }
@@ -369,7 +369,7 @@ __STATIC_INLINE void TIMER_DisableInt(TIMER_T *timer)
   *
   * @details    This function is used to enable the timer capture trigger interrupt function.
   */
-__STATIC_INLINE void TIMER_EnableCaptureInt(TIMER_T *timer)
+static inline void TIMER_EnableCaptureInt(TIMER_T *timer)
 {
     timer->EXTCTL |= TIMER_EXTCTL_CAPIEN_Msk;
 }
@@ -383,7 +383,7 @@ __STATIC_INLINE void TIMER_EnableCaptureInt(TIMER_T *timer)
   *
   * @details    This function is used to disable the timer capture trigger interrupt function.
   */
-__STATIC_INLINE void TIMER_DisableCaptureInt(TIMER_T *timer)
+static inline void TIMER_DisableCaptureInt(TIMER_T *timer)
 {
     timer->EXTCTL &= ~TIMER_EXTCTL_CAPIEN_Msk;
 }
@@ -398,7 +398,7 @@ __STATIC_INLINE void TIMER_DisableCaptureInt(TIMER_T *timer)
   *
   * @details    This function indicates timer time-out interrupt occurred or not.
   */
-__STATIC_INLINE uint32_t TIMER_GetIntFlag(TIMER_T *timer)
+static inline uint32_t TIMER_GetIntFlag(const TIMER_T *timer)
 {
     return ((timer->INTSTS & TIMER_INTSTS_TIF_Msk) ? 1UL : 0UL);
 }
@@ -412,7 +412,7 @@ __STATIC_INLINE uint32_t TIMER_GetIntFlag(TIMER_T *timer)
   *
   * @details    This function clears timer time-out interrupt flag to 0.
   */
-__STATIC_INLINE void TIMER_ClearIntFlag(TIMER_T *timer)
+static inline void TIMER_ClearIntFlag(TIMER_T *timer)
 {
     timer->INTSTS = TIMER_INTSTS_TIF_Msk;
 }
@@ -427,7 +427,7 @@ __STATIC_INLINE void TIMER_ClearIntFlag(TIMER_T *timer)
   *
   * @details    This function indicates timer capture trigger interrupt occurred or not.
   */
-__STATIC_INLINE uint32_t TIMER_GetCaptureIntFlag(TIMER_T *timer)
+static inline uint32_t TIMER_GetCaptureIntFlag(const TIMER_T *timer)
 {
     return ((timer->EINTSTS & TIMER_EINTSTS_CAPIF_Msk) ? 1UL : 0UL);
 }
@@ -441,7 +441,7 @@ __STATIC_INLINE uint32_t TIMER_GetCaptureIntFlag(TIMER_T *timer)
   *
   * @details    This function clears timer capture trigger interrupt flag to 0.
   */
-__STATIC_INLINE void TIMER_ClearCaptureIntFlag(TIMER_T *timer)
+static inline void TIMER_ClearCaptureIntFlag(TIMER_T *timer)
 {
     timer->EINTSTS = TIMER_EINTSTS_CAPIF_Msk;
 }
@@ -456,9 +456,9 @@ __STATIC_INLINE void TIMER_ClearCaptureIntFlag(TIMER_T *timer)
   *
   * @details    This function indicates timer interrupt event has waked up system or not.
   */
-__STATIC_INLINE uint32_t TIMER_GetWakeupFlag(TIMER_T *timer)
+static inline uint32_t TIMER_GetWakeupFlag(const TIMER_T *timer)
 {
-    return (timer->INTSTS & TIMER_INTSTS_TWKF_Msk ? 1UL : 0UL);
+    return ((timer->INTSTS & TIMER_INTSTS_TWKF_Msk) ? 1UL : 0UL);
 }
 
 /**
@@ -470,7 +470,7 @@ __STATIC_INLINE uint32_t TIMER_GetWakeupFlag(TIMER_T *timer)
   *
   * @details    This function clears the timer wake-up system flag to 0.
   */
-__STATIC_INLINE void TIMER_ClearWakeupFlag(TIMER_T *timer)
+static inline void TIMER_ClearWakeupFlag(TIMER_T *timer)
 {
     timer->INTSTS = TIMER_INTSTS_TWKF_Msk;
 }
@@ -484,7 +484,7 @@ __STATIC_INLINE void TIMER_ClearWakeupFlag(TIMER_T *timer)
   *
   * @details    This function reports the current 24-bit timer capture value.
   */
-__STATIC_INLINE uint32_t TIMER_GetCaptureData(TIMER_T *timer)
+static inline uint32_t TIMER_GetCaptureData(const TIMER_T *timer)
 {
     return timer->CAP;
 }
@@ -498,7 +498,7 @@ __STATIC_INLINE uint32_t TIMER_GetCaptureData(TIMER_T *timer)
   *
   * @details    This function reports the current 24-bit timer counter value.
   */
-__STATIC_INLINE uint32_t TIMER_GetCounter(TIMER_T *timer)
+static inline uint32_t TIMER_GetCounter(const TIMER_T *timer)
 {
     return timer->CNT;
 }
@@ -511,7 +511,7 @@ void     TIMER_EnableCapture(TIMER_T *timer, uint32_t u32CapMode, uint32_t u32Ed
 void     TIMER_DisableCapture(TIMER_T *timer);
 void     TIMER_EnableEventCounter(TIMER_T *timer, uint32_t u32Edge);
 void     TIMER_DisableEventCounter(TIMER_T *timer);
-uint32_t TIMER_GetModuleClock(TIMER_T *timer);
+uint32_t TIMER_GetModuleClock(const TIMER_T *timer);
 void     TIMER_EnableFreqCounter(TIMER_T *timer,
                                  uint32_t u32DropCount,
                                  uint32_t u32Timeout,

@@ -34,18 +34,18 @@ static CONN_FUNC  *g_conn_func, *g_disconn_func;
   *
   * @return      None.
   */
-void  usbh_core_init()
+void  usbh_core_init(void)
 {
     DISABLE_OHCI_IRQ();
 
     _ohci = USBH;
 
-    memset(_drivers, 0, sizeof(_drivers));
+    (void)memset(_drivers, 0, sizeof(_drivers));
 
-    g_conn_func = NULL;
-    g_disconn_func = NULL;
+    g_conn_func = USBNULL;
+    g_disconn_func = USBNULL;
 
-    usbh_hub_init();
+    (void)usbh_hub_init();
 
     usbh_memory_init();
 
@@ -75,12 +75,16 @@ void usbh_install_conn_callback(CONN_FUNC *conn_func, CONN_FUNC *disconn_func)
 
 static int  reset_device(UDEV_T *udev)
 {
-    if(udev->parent == NULL)
+    if (udev->parent == USBNULL)
     {
-        if(udev->hc_driver)
-            return udev->hc_driver->rthub_port_reset(udev->port_num - 1);
+        if (udev->hc_driver)
+        {
+            return udev->hc_driver->rthub_port_reset(udev->port_num - 1U);
+        }
         else
+        {
             return USBH_ERR_NOT_FOUND;
+        }
     }
     else
     {
@@ -92,7 +96,7 @@ static int  reset_device(UDEV_T *udev)
   * @brief    Suspend USB Host Controller and devices
   * @return   None
   */
-void usbh_suspend()
+void usbh_suspend(void)
 {
 #ifdef ENABLE_OHCI
     /* set port suspend if connected */
@@ -149,17 +153,19 @@ int  usbh_register_driver(UDEV_DRV_T *udrv)
     for(i = 0; i < MAX_UDEV_DRIVER; i++)
     {
         if(_drivers[i] == udrv)
+        {
             return 0;                  /* already registered, do nothing */
+        }
 
-        if(_drivers[i] == NULL)
+        if (_drivers[i] == USBNULL)
         {
             _drivers[i] = udrv;        /* register this driver */
             return 0;
         }
     }
+
     return USBH_ERR_MEMORY_OUT;        /* reached MAX_UDEV_DRIVER limitation, aborted */
 }
-
 
 /**
   * @brief    Execute an USB request in control transfer. This function returns after the request
@@ -190,8 +196,11 @@ int usbh_ctrl_xfer(UDEV_T *udev, uint8_t bmRequestType, uint8_t bRequest, uint16
     //    return USBH_ERR_INVALID_PARAM;
 
     utr = alloc_utr(udev);
-    if(utr == NULL)
+
+    if (utr == USBNULL)
+    {
         return USBH_ERR_MEMORY_OUT;
+    }
 
     utr->setup.bmRequestType = bmRequestType;
     utr->setup.bRequest   = bRequest;
@@ -203,21 +212,23 @@ int usbh_ctrl_xfer(UDEV_T *udev, uint8_t bmRequestType, uint8_t bRequest, uint16
     utr->data_len = wLength;
     utr->bIsTransferDone = 0;
     status = udev->hc_driver->ctrl_xfer(utr);
-    if(status < 0)
+
+    if (status < 0)
     {
-        udev->ep0.hw_pipe = NULL;
+        udev->ep0.hw_pipe = USBNULL;
         free_utr(utr);
         return status;
     }
 
     t0 = get_ticks();
-    while(utr->bIsTransferDone == 0)
+
+    while (utr->bIsTransferDone == 0U)
     {
-        if(get_ticks() - t0 > timeout)
+        if ((get_ticks() - t0) > timeout)
         {
-            usbh_quit_utr(utr);
+            (void)usbh_quit_utr(utr);
             free_utr(utr);
-            udev->ep0.hw_pipe = NULL;
+            udev->ep0.hw_pipe = USBNULL;
             return USBH_ERR_TIMEOUT;
         }
     }
@@ -228,11 +239,11 @@ int usbh_ctrl_xfer(UDEV_T *udev, uint8_t bmRequestType, uint8_t bRequest, uint16
     {
         *xfer_len = utr->xfer_len;
     }
+
     free_utr(utr);
 
     return status;
 }
-
 
 /**
   * @brief    Execute a bulk transfer request. This function will return immediately after
@@ -270,16 +281,18 @@ int usbh_int_xfer(UTR_T *utr)
   */
 int usbh_iso_xfer(UTR_T *utr)
 {
-    if(utr->udev->hc_driver == NULL)
+    if (utr->udev->hc_driver == USBNULL)
     {
-        printf("hc_driver - 0x%x\n", (int)utr->udev->hc_driver);
+        USB_debug("hc_driver is USBNULL!\n");
         return -1;
     }
-    if(utr->udev->hc_driver->iso_xfer == NULL)
+
+    if (utr->udev->hc_driver->iso_xfer == USBNULL)
     {
-        printf("iso_xfer - 0x%x\n", (int)utr->udev->hc_driver->iso_xfer);
+        USB_debug("iso_xfer is USBNULL!\n");
         return -1;
     }
+
     return utr->udev->hc_driver->iso_xfer(utr);
 }
 
@@ -292,9 +305,11 @@ int usbh_iso_xfer(UTR_T *utr)
 int usbh_quit_utr(UTR_T *utr)
 {
     if(!utr || !utr->udev)
+    {
         return USBH_ERR_NOT_FOUND;
+    }
 
-    return utr->udev->hc_driver->quit_xfer(utr, NULL);
+    return utr->udev->hc_driver->quit_xfer(utr, USBNULL);
 }
 
 
@@ -307,24 +322,24 @@ int usbh_quit_utr(UTR_T *utr)
   */
 int usbh_quit_xfer(UDEV_T *udev, EP_INFO_T *ep)
 {
-    return udev->hc_driver->quit_xfer(NULL, ep);
+    return udev->hc_driver->quit_xfer(USBNULL, ep);
 }
 
 
-void  dump_device_descriptor(DESC_DEV_T *desc)
+static void  dump_device_descriptor(DESC_DEV_T *desc)
 {
     USB_debug("\n[Device Descriptor]\n");
     USB_debug("----------------------------------------------\n");
     USB_debug("  Length              = %2d\n",  desc->bLength);
     USB_debug("  DescriptorType      = 0x%02x\n", desc->bDescriptorType);
     USB_debug("  USB version         = %x.%02x\n",
-              desc->bcdUSB >> 8, desc->bcdUSB & 0xff);
+              desc->bcdUSB >> 8, desc->bcdUSB & 0xffU);
     USB_debug("  Vendor:Product      = %04x:%04x\n",
               desc->idVendor, desc->idProduct);
     USB_debug("  MaxPacketSize0      = %d\n",   desc->bMaxPacketSize0);
     USB_debug("  NumConfigurations   = %d\n",   desc->bNumConfigurations);
     USB_debug("  Device version      = %x.%02x\n",
-              desc->bcdDevice >> 8, desc->bcdDevice & 0xff);
+              desc->bcdDevice >> 8, desc->bcdDevice & 0xffU);
     USB_debug("  Device Class:SubClass:Protocol = %02x:%02x:%02x\n",
               desc->bDeviceClass, desc->bDeviceSubClass, desc->bDeviceProtocol);
 }
@@ -358,7 +373,7 @@ void usbh_dump_endpoint_descriptor(DESC_EP_T *ep_desc)
     USB_debug("          bSynchAddress       = %d\n", ep_desc->bSynchAddress);
 }
 
-void  dump_config_descriptor(DESC_CONF_T *desc)
+static void  dump_config_descriptor(DESC_CONF_T *desc)
 {
     uint8_t     *bptr = (uint8_t *)desc;
     DESC_HDR_T  *hdr;
@@ -382,11 +397,11 @@ void  dump_config_descriptor(DESC_CONF_T *desc)
                 break;
 
             case USB_DT_INTERFACE:
-                usbh_dump_interface_descriptor((DESC_IF_T *)bptr);
+                (void)usbh_dump_interface_descriptor((DESC_IF_T *)bptr);
                 break;
 
             case USB_DT_ENDPOINT:
-                usbh_dump_endpoint_descriptor((DESC_EP_T *)bptr);
+                (void)usbh_dump_endpoint_descriptor((DESC_EP_T *)bptr);
                 break;
 
             default:
@@ -397,9 +412,13 @@ void  dump_config_descriptor(DESC_CONF_T *desc)
                 USB_debug("DescriptorType      = %02x\n", hdr->bDescriptorType);
                 break;
         }
-        if(bptr[0] == 0)
+
+        if (bptr[0] == 0U)
+        {
             break;
-        tlen -= bptr[0];
+        }
+
+        tlen -= (int)bptr[0];
         bptr += bptr[0];
     }
 }
@@ -412,10 +431,13 @@ void  dump_config_descriptor(DESC_CONF_T *desc)
 int usbh_set_address(UDEV_T *udev)
 {
     uint32_t  read_len;
-    int       dev_num, ret;
+    int       dev_num;
+    int       ret;
 
-    if(udev->dev_num != 0)
+    if (udev->dev_num != 0U)
+    {
         return USBH_ERR_SET_DEV_ADDR;
+    }
 
     dev_num = alloc_dev_address();
 
@@ -424,7 +446,8 @@ int usbh_set_address(UDEV_T *udev)
     /*------------------------------------------------------------------------------------*/
     ret = usbh_ctrl_xfer(udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
                          USB_REQ_SET_ADDRESS, dev_num, 0, 0,
-                         NULL, &read_len, 100);
+                         USBNULL, &read_len, 100);
+
     if(ret < 0)
     {
         free_dev_address(dev_num);
@@ -447,21 +470,28 @@ int usbh_set_configuration(UDEV_T *udev, uint8_t conf_val)
     int       ret;
 
     /* Current configuration is the same. Do nothing. */
-    if(udev->cur_conf == conf_val)
+    if (udev->cur_conf == (int)conf_val)
+    {
         return 0;
+    }
 
     /* Set another configuration is currently not supported! */
-    if(udev->cur_conf != -1)
+    if (udev->cur_conf != -1)
+    {
         return USBH_ERR_SET_CONFIG;
+    }
 
     /*------------------------------------------------------------------------------------*/
     /* Issue SET CONFIGURATION command to select device configuration                     */
     /*------------------------------------------------------------------------------------*/
     ret = usbh_ctrl_xfer(udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
                          USB_REQ_SET_CONFIGURATION, conf_val, 0, 0,
-                         NULL, &read_len, 300);
-    if(ret < 0)
+                         USBNULL, &read_len, 300);
+
+    if (ret < 0)
+    {
         return ret;
+    }
 
     udev->cur_conf = (int8_t)conf_val;
 
@@ -477,26 +507,46 @@ int usbh_set_configuration(UDEV_T *udev, uint8_t conf_val)
  */
 int usbh_set_interface(IFACE_T *iface, uint16_t alt_setting)
 {
-    ALT_IFACE_T  *aif = NULL;
-    uint32_t     xfer_len;
-    int          i, ret;
+    ALT_IFACE_T  *aif = USBNULL;
 
-    for(i = 0; i < iface->num_alt; i++)
+    uint8_t      alt_num;
+    uint32_t     xfer_len;
+    int          i;
+    int          ret;
+
+    if (alt_setting > 0xFFU)
     {
-        if(iface->alt[i].ifd->bAlternateSetting == alt_setting)
+        return USBH_ERR_NOT_FOUND;
+    }
+
+    alt_num = (uint8_t)alt_setting;
+
+    for (i = 0; i < (int)iface->num_alt; i++)
+    {
+        const DESC_IF_T    *ifd;
+        ifd = iface->alt[i].ifd;
+
+        if ((ifd != USBNULL) && (ifd->bAlternateSetting == alt_num))
         {
             aif = &iface->alt[i];
             break;
         }
     }
-    if(aif == NULL)
+
+    if (aif == USBNULL)
+    {
         return USBH_ERR_NOT_FOUND;          /* cannot find desired alternative setting    */
+    }
 
     ret = usbh_ctrl_xfer(iface->udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_IFACE,
                          USB_REQ_SET_INTERFACE, alt_setting, iface->if_num, 0,
-                         NULL, &xfer_len, 100);
-    if(ret == 0)
+                         USBNULL, &xfer_len, 100);
+
+    if (ret == 0)
+    {
         iface->aif = aif;                   /* change active alternative setting          */
+    }
+
     return ret;
 }
 
@@ -510,24 +560,62 @@ int usbh_set_interface(IFACE_T *iface, uint16_t alt_setting)
 int usbh_get_device_descriptor(UDEV_T *udev, DESC_DEV_T *desc_buff)
 {
     uint32_t  read_len;
-    int       ret, retry;
+    int       ret = 0;
+    int       retry;
     int       timeout = 10;
 
     for(retry = 0; retry < 3; retry++)
     {
         ret = usbh_ctrl_xfer(udev, REQ_TYPE_IN | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
                              USB_REQ_GET_DESCRIPTOR,
-                             ((USB_DT_STANDARD | USB_DT_DEVICE) << 8), 0, sizeof(DESC_DEV_T),
+                             (uint16_t)(((uint32_t)USB_DT_STANDARD | (uint32_t)USB_DT_DEVICE) << 8U), 0, sizeof(DESC_DEV_T),
                              (uint8_t *)desc_buff, &read_len, timeout);
-        if(ret == 0)
+
+        if (ret == 0)
+        {
             return 0;
+        }
 
         USB_debug("Get device descriptor failed - %d, retry!\n", ret);
     }
+
     return ret;
 }
 
 /**
+ *  @brief Get configuration descriptor total length from the USB device.
+ *
+ *  @param[in] udev The target USB device.
+ *  @param[in] conf_header Data buffer to receive configuration descriptor header.
+ *  @return   Success or not.
+ *  @retval   0  Success
+ *  @retval   Otherwise  Failed
+ */
+
+int usbh_get_config_descripotr_total_length(UDEV_T *udev, DESC_CONF_T *conf_header)
+{
+    uint32_t  read_len;
+    int       ret;
+
+    /*------------------------------------------------------------------------------------*/
+    /* Get Configuration Descriptor Header (9 bytes)                                      */
+    /*------------------------------------------------------------------------------------*/
+    ret = usbh_ctrl_xfer(udev, REQ_TYPE_IN | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
+                         USB_REQ_GET_DESCRIPTOR,
+                         (uint16_t)(((uint32_t)USB_DT_STANDARD | (uint32_t)USB_DT_CONFIGURATION) << 8U), 0,
+                         sizeof(DESC_CONF_T), // read 9 bytes only.
+                         (uint8_t *)conf_header, &read_len, 200);
+
+    if (ret < 0)
+    {
+        USB_error("Get config descriptor header failed!\n");
+        return ret;
+    }
+
+    return 0;
+}
+
+/*
  *  @brief  Get configuration descriptor from the USB device.
  *  @param[out] desc_buff  Data buffer to receive configuration descriptor data.
  *  @param[in]  buff_len   Valid length of <desc_buff>
@@ -546,10 +634,13 @@ int usbh_get_config_descriptor(UDEV_T *udev, uint8_t *desc_buff, int buff_len)
     /*------------------------------------------------------------------------------------*/
     ret = usbh_ctrl_xfer(udev, REQ_TYPE_IN | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
                          USB_REQ_GET_DESCRIPTOR,
-                         ((USB_DT_STANDARD | USB_DT_CONFIGURATION) << 8), 0, 9,
+                         (uint16_t)(((uint32_t)USB_DT_STANDARD | (uint32_t)USB_DT_CONFIGURATION) << 8U), 0, 9,
                          desc_buff, &read_len, 200);
-    if(ret < 0)
+
+    if (ret < 0)
+    {
         return ret;
+    }
 
     if(conf->wTotalLength > buff_len)
     {
@@ -563,8 +654,11 @@ int usbh_get_config_descriptor(UDEV_T *udev, uint8_t *desc_buff, int buff_len)
                          USB_REQ_GET_DESCRIPTOR,
                          ((USB_DT_STANDARD | USB_DT_CONFIGURATION) << 8), 0, read_len,
                          desc_buff, &read_len, 200);
-    if(ret < 0)
+
+    if (ret < 0)
+    {
         return ret;
+    }
 
     return 0;
 }
@@ -589,7 +683,7 @@ int usbh_get_string_descriptor(UDEV_T *udev, int index, uint8_t *desc_buff, int 
     /*------------------------------------------------------------------------------------*/
     ret = usbh_ctrl_xfer(udev, REQ_TYPE_IN | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
                          USB_REQ_GET_DESCRIPTOR,
-                         ((USB_DT_STANDARD | USB_DT_STRING) << 8) | index, 0x0409, buff_len,
+                         (uint16_t)((((uint32_t)USB_DT_STANDARD | (uint32_t)USB_DT_STRING) << 8U) | index), 0x0409, buff_len,
                          desc_buff, &read_len, 200);
     return ret;
 }
@@ -608,44 +702,53 @@ int usbh_clear_halt(UDEV_T *udev, uint16_t ep_addr)
     USB_debug("Clear endpoint 0x%x halt.\n", ep_addr);
     return usbh_ctrl_xfer(udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_EP,
                           USB_REQ_CLEAR_FEATURE, 0, ep_addr, 0,
-                          NULL, &read_len, 100);
+                          USBNULL, &read_len, 100);
 }
 
 static int  usbh_parse_endpoint(ALT_IFACE_T *alt, int ep_idx, uint8_t *desc_buff, int len)
 {
-    DESC_EP_T    *ep_desc;
+    DESC_EP_T    *ep_desc = USBNULL;
     int          parsed_len = 0;
-    int          pksz;
+    unsigned int pksz;
+    int          len_tmp = len;
 
-    while(len > 0)
+    while (len_tmp > 0)
     {
-        ep_desc = (DESC_EP_T *)desc_buff;
+        ep_desc = (DESC_EP_T *)&desc_buff[parsed_len];
 
-        if((len < ep_desc->bLength) || (ep_desc->bLength < 2))
+        if ((len_tmp < ep_desc->bLength) || (ep_desc->bLength < 2))
         {
             USB_error("ERR DESCRIPTOR EP LEN [0x%X %d]\n", ep_desc->bDescriptorType, ep_desc->bLength);
             return USBH_ERR_DESCRIPTOR;
         }
 
-        if(ep_desc->bDescriptorType == USB_DT_ENDPOINT)
+        if (ep_desc->bDescriptorType == USB_DT_ENDPOINT)
+        {
             break;     /* endpoint descriptor found */
+        }
 
         /* unrecognized descriptor */
         USB_vdebug("ignore descriptor 0x%X %d\n", ep_desc->bDescriptorType, ep_desc->bLength);
-        desc_buff += ep_desc->bLength;
         parsed_len += ep_desc->bLength;
-        len -= ep_desc->bLength;
+        len_tmp -= ep_desc->bLength;
     }
 
-    USB_vdebug("Descriptor Found - Alt: %d, Endpoint 0x%x, remaining len: %d\n", alt->ifd->bAlternateSetting, ep_desc->bEndpointAddress, len);
+    if (ep_desc == USBNULL)
+    {
+        USB_error("ERR - no endpoint descriptor found!\n");
+        return USBH_ERR_DESCRIPTOR;
+    }
+
+    USB_vdebug("Descriptor Found - Alt: %d, Endpoint 0x%x, remaining len: %d\n", alt->ifd->bAlternateSetting, ep_desc->bEndpointAddress, len_tmp);
 
     alt->ep[ep_idx].bEndpointAddress = ep_desc->bEndpointAddress;
     alt->ep[ep_idx].bmAttributes     = ep_desc->bmAttributes;
     alt->ep[ep_idx].bInterval        = ep_desc->bInterval;
+    /* HS isochronous/interrupt endpoints use wMaxPacketSize bits 12:11 for additional transactions per microframe. */
     pksz = ep_desc->wMaxPacketSize;
-    pksz = (pksz & 0x07ff) * (1 + ((pksz >> 11) & 3));
+    pksz = (pksz & 0x07FFU) * (1U + ((pksz >> 11U) & 3U));
     alt->ep[ep_idx].wMaxPacketSize   = pksz;
-    alt->ep[ep_idx].hw_pipe          = NULL;
+    alt->ep[ep_idx].hw_pipe          = USBNULL;
 
     return parsed_len + ep_desc->bLength;
 }
@@ -661,137 +764,176 @@ static int  usbh_parse_endpoint(ALT_IFACE_T *alt, int ep_idx, uint8_t *desc_buff
   */
 static int  usbh_parse_interface(UDEV_T *udev, uint8_t *desc_buff, int len)
 {
-    int         i, matched, parsed_len = 0;
-    DESC_HDR_T  *hdr;
+    int         i;
+    int         matched;
+    int         parsed_len = 0;
+    DESC_HDR_T  *hdr = USBNULL;
     DESC_IF_T   *if_desc;
-    IFACE_T     *iface = NULL;
-    int         ret;
+    IFACE_T     *iface = USBNULL;
+    int         ret = -1;
+    int         len_tmp = len;
+    int8_t      bDone = 0;
+    int8_t      bError = 0;
 
     iface = usbh_alloc_mem(sizeof(*iface)); /* create an interface                        */
-    if(iface == NULL)
+
+    if (iface == USBNULL)
+    {
         return USBH_ERR_MEMORY_OUT;
+    }
+
     iface->udev = udev;
     iface->aif = &iface->alt[0];            /* Default active interface should be the
                                                first found alternative interface          */
     iface->if_num = ((DESC_IF_T *)desc_buff)->bInterfaceNumber;
 
-    while(len > 0)
+    while ((len_tmp > 0) && (bDone == 0))
     {
         /*--------------------------------------------------------------------------------*/
         /* Find the first/next interface descriptor                                       */
         /*--------------------------------------------------------------------------------*/
-        if_desc = (DESC_IF_T *)desc_buff;
+        if_desc = (DESC_IF_T *)&desc_buff[parsed_len];
 
-        if(if_desc->bDescriptorType != USB_DT_INTERFACE)
+        if (if_desc->bDescriptorType != USB_DT_INTERFACE)
         {
-            desc_buff += if_desc->bLength;
             parsed_len += if_desc->bLength;
-            len -= if_desc->bLength;
+            len_tmp -= if_desc->bLength;
             continue;
         }
 
-        if(if_desc->bInterfaceNumber != iface->if_num)
+        if (if_desc->bInterfaceNumber != iface->if_num)
         {
-            goto parse_done;
+            bDone = 1;                      /* parse_done                                 */
+            continue;
         }
 
-        if(if_desc->bNumEndpoints > MAX_EP_PER_IFACE)
+        if (if_desc->bNumEndpoints > MAX_EP_PER_IFACE)
         {
             USB_error("IF EP LIMITE %d\n", if_desc->bNumEndpoints);
             ret = USBH_ERR_IF_EP_LIMIT;
-            goto err_out;
+            bError = 1;
+            bDone = 1;
+            continue;
         }
 
         /* Step over the interface descriptor */
-        desc_buff += if_desc->bLength;
         parsed_len += if_desc->bLength;
-        len -= if_desc->bLength;
-        USB_vdebug("Descriptor Found - Interface %d, Alt: %d, num_alt:%d, remaining len: %d\n", if_desc->bInterfaceNumber, if_desc->bAlternateSetting, iface->num_alt, len);
+        len_tmp -= if_desc->bLength;
+        USB_vdebug("Descriptor Found - Interface %d, Alt: %d, num_alt:%d, remaining len: %d\n", if_desc->bInterfaceNumber, if_desc->bAlternateSetting, iface->num_alt, len_tmp);
 
         /*--------------------------------------------------------------------------------*/
         /* Add to alternative interface list                                              */
         /*--------------------------------------------------------------------------------*/
-        if(iface->num_alt >= MAX_ALT_PER_IFACE)
+        if (iface->num_alt >= (uint8_t)MAX_ALT_PER_IFACE)
         {
             ret = USBH_ERR_IF_ALT_LIMIT;
-            goto err_out;
+            bError = 1;
+            bDone = 1;
+            continue;
         }
 
         /*--------------------------------------------------------------------------------*/
         /* Find the next alternative interface or endpoint descriptor                     */
         /*--------------------------------------------------------------------------------*/
-        while(len > 0)
+        while ((len_tmp > 0) && (bDone == 0))
         {
-            hdr = (DESC_HDR_T *)desc_buff;
+            hdr = (DESC_HDR_T *)&desc_buff[parsed_len];
 
-            if((len < hdr->bLength) || (hdr->bLength < 2))
+            if ((len_tmp < hdr->bLength) || (hdr->bLength < 2))
             {
                 USB_error("ERR DESCRIPTOR IF LEN [0x%X %d]\n", hdr->bDescriptorType, hdr->bLength);
                 ret = USBH_ERR_DESCRIPTOR;
-                goto err_out;
+                bError = 1;
+                bDone = 1;
             }
-
-            if(hdr->bDescriptorType == USB_DT_CONFIGURATION)
-                goto parse_done;            /* is other configuration, parsing completed  */
-
-            if((hdr->bDescriptorType == USB_DT_INTERFACE) || (hdr->bDescriptorType == USB_DT_ENDPOINT))
+            else if (hdr->bDescriptorType == USB_DT_CONFIGURATION)
+            {
+                bDone = 1;                  /* is other configuration, parsing completed  */
+            }
+            else if ((hdr->bDescriptorType == USB_DT_INTERFACE) || (hdr->bDescriptorType == USB_DT_ENDPOINT))
+            {
                 break;                      /* the first endpoint descriptor found        */
+            }
+            else
+            {
+                /* unrecognized descriptor */
+                USB_vdebug("ignore descriptor 0x%X %d\n", hdr->bDescriptorType, hdr->bLength);
+                parsed_len += hdr->bLength;
+                len_tmp -= hdr->bLength;
+            }
+        }
 
-            /* unrecognized descriptor */
-            USB_vdebug("ignore descriptor 0x%X %d\n", hdr->bDescriptorType, hdr->bLength);
-            desc_buff += hdr->bLength;
-            parsed_len += hdr->bLength;
-            len -= hdr->bLength;
+        if (bDone != 0)
+        {
+            continue;
         }
 
         iface->alt[iface->num_alt].ifd = if_desc;
         iface->num_alt++;
 
-        if(len == 0)
-            goto parse_done;
+        if (len_tmp == 0)
+        {
+            bDone = 1;                      /* parse_done                                 */
+            continue;
+        }
 
-        if(hdr->bDescriptorType == USB_DT_INTERFACE)
+        if (hdr->bDescriptorType == USB_DT_INTERFACE)
+        {
             continue;                       /* is the next interface descriptor           */
+        }
 
         USB_vdebug("Finding %d endpoints of interface %d, alt %d...\n", if_desc->bNumEndpoints, if_desc->bInterfaceNumber, if_desc->bAlternateSetting);
 
-        /* parsign all endpoint descriptors */
-        for(i = 0; i < if_desc->bNumEndpoints; i++)
+        /* parsing all endpoint descriptors */
+        for (i = 0; (i < if_desc->bNumEndpoints) && (bDone == 0); i++)
         {
-            ret = usbh_parse_endpoint(&iface->alt[iface->num_alt - 1], i, desc_buff, len);
-            if(ret < 0)
-                goto err_out;
+            ret = usbh_parse_endpoint(&iface->alt[iface->num_alt - 1U], i, &desc_buff[parsed_len], len_tmp);
 
-            desc_buff += ret;
-            parsed_len += ret;
-            len -= ret;
-            USB_vdebug("EP parse remaining %d\n", len);
+            if (ret < 0)
+            {
+                bError = 1;
+                bDone = 1;
+            }
+            else
+            {
+                parsed_len += ret;
+                len_tmp -= ret;
+                USB_vdebug("EP parse remaining %d\n", len_tmp);
+            }
         }
     }
 
-parse_done:
+    /* error path */
+    if (bError != 0)
+    {
+        (void)usbh_free_mem(iface, sizeof(*iface));
+        return ret;
+    }
 
     /*
      *  Probing all registered USB device drivers to find a matched driver.
      */
     matched = 0;
-    for(i = 0; i < MAX_UDEV_DRIVER; i++)
+
+    for (i = 0; i < MAX_UDEV_DRIVER; i++)
     {
-        if((_drivers[i] != NULL) && (_drivers[i]->probe(iface) == 0))
+        if ((_drivers[i] != USBNULL) && (_drivers[i]->probe(iface) == 0))
         {
             matched = 1;
             break;
         }
     }
 
-    if(matched)
+    if ((matched) && (i < MAX_UDEV_DRIVER))
     {
         iface->driver = _drivers[i];        /* have a driver now */
-        iface->next = NULL;
+        iface->next = USBNULL;
 
         /* Added this interface to USB device interface list */
-        if(udev->iface_list == NULL)
+        if (udev->iface_list == USBNULL)
+        {
             udev->iface_list = iface;
+        }
         else
         {
             iface->next = udev->iface_list;
@@ -800,116 +942,130 @@ parse_done:
     }
     else
     {
-        usbh_free_mem(iface, sizeof(*iface));
-        iface = NULL;
+        (void)usbh_free_mem(iface, sizeof(*iface));
+        iface = USBNULL;
     }
 
     return parsed_len;
-
-err_out:
-    usbh_free_mem(iface, sizeof(*iface));
-    return ret;
 }
 
 
 static int  usbh_parse_configuration(UDEV_T *udev, uint8_t *desc_buff)
 {
-    DESC_CONF_T  *config = (DESC_CONF_T *)desc_buff;
-    DESC_HDR_T   *hdr;
-    int    i, ret, len;
+    const DESC_CONF_T  *config = (const DESC_CONF_T *)desc_buff;
+    int    i;
+    int    len;
+    int    parsed_len;
 
     len = config->wTotalLength;
 
-    desc_buff += config->bLength;
+    parsed_len = config->bLength;
     len -= config->bLength;
 
     USB_vdebug("Parsing CONFIG =>\n");
 
-    for(i = 0; i < config->bNumInterfaces; i++)
+    for (i = 0; i < config->bNumInterfaces; i++)
     {
         /*
          *  find the next interface descriptor
          */
-        while(len >= sizeof(DESC_HDR_T))
+        while (len >= (int)sizeof(DESC_HDR_T))
         {
-            hdr = (DESC_HDR_T *)desc_buff;
+            DESC_HDR_T   *hdr;
+            hdr = (DESC_HDR_T *)&desc_buff[parsed_len];
 
-            if((hdr->bLength > len) || (hdr->bLength < 2))
+            if ((hdr->bLength > len) || (hdr->bLength < 2))
             {
                 USB_error("ERR DESCRIPTOR CONFIG [%d]\n", hdr->bLength);
                 return USBH_ERR_DESCRIPTOR;
             }
 
-            if(hdr->bDescriptorType == USB_DT_INTERFACE)
+            if (hdr->bDescriptorType == USB_DT_INTERFACE)
+            {
                 break;
+            }
 
             USB_debug("ignore descriptor 0x%X %d\n", hdr->bDescriptorType, hdr->bLength);
 
-            desc_buff += hdr->bLength;
+            parsed_len += hdr->bLength;
             len -= hdr->bLength;
         }
 
-        ret = usbh_parse_interface(udev, desc_buff, len);
-        if(ret < 0)
-            return ret;
+        int    ret;
+        ret = usbh_parse_interface(udev, &desc_buff[parsed_len], len);
 
-        desc_buff += ret;
+        if (ret < 0)
+        {
+            return ret;
+        }
+
+        parsed_len += ret;
         len -= ret;
         USB_vdebug("IFACE parse remaining %d\n", len);
     }
 
-    if(len > 0)
+    if (len > 0)
     {
         USB_debug("ERR DESCRIPTOR CONFIG LEN %d\n", len);
         return USBH_ERR_DESCRIPTOR;
     }
+
     return len;
 }
 
 void print_usb_string(char *lead, uint8_t *str)
 {
-    int  len, i = 2;
+    int  len;
+    int  i = 2;
 
     USB_debug("%s", lead);
     len = str[0];
-    while(i < len)
+
+    while (i < len)
     {
         USB_debug("%c", str[i]);
         i += 2;
     }
+
     USB_debug("\n");
 }
 
 int  connect_device(UDEV_T *udev)
 {
     DESC_CONF_T  *conf;
+    DESC_CONF_T  conf_header; // configer Header
     uint32_t     read_len;
     int          ret;
+    uint16_t     conf_total_len;
 
     USB_debug("Connect device =>\n");
 
     delay_us(100 * 1000);                   /* initially, give 100 ms delay               */
 
-    usbh_get_device_descriptor(udev, &udev->descriptor);
+    USB_debug("get device =>\n");
+    (void)usbh_get_device_descriptor(udev, &udev->descriptor);
 
-    reset_device(udev);
+    (void)reset_device(udev);
+    USB_debug("reset device =>\n");
 
-    delay_us(100 * 1000);
+    delay_us(100 * 1000);                   /* initially, give 100 ms delay               */
 
     ret = usbh_set_address(udev);
-    if(ret < 0)
+
+    if (ret < 0)
     {
         USB_debug("Set address command failed!!\n");
         return ret;
     }
 
-    delay_us(100 * 1000);                   /* after set address, give 100 ms delay       */
+    delay_us(100 * 1000);                   /* initially, give 100 ms delay               */
 
     USB_debug("New %s device address %d assigned.\n", (udev->speed == SPEED_HIGH) ? "high-speed" : ((udev->speed == SPEED_FULL) ? "full-speed" : "low-speed"), udev->dev_num);
 
     /* Get device descriptor again with new device address */
     ret = usbh_get_device_descriptor(udev, &udev->descriptor);
-    if(ret < 0)
+
+    if (ret < 0)
     {
         free_dev_address(udev->dev_num);
         return ret;
@@ -919,13 +1075,29 @@ int  connect_device(UDEV_T *udev)
     dump_device_descriptor(&udev->descriptor);
 #endif
 
-    if(udev->descriptor.bNumConfigurations != 1)
+    if (udev->descriptor.bNumConfigurations != 1)
     {
         USB_debug("Warning! This device has multiple configurations [%d]. \n", udev->descriptor.bNumConfigurations);
     }
 
-    conf = (DESC_CONF_T *)usbh_alloc_mem(MAX_DESC_BUFF_SIZE);
-    if(conf == NULL)
+    /*------------------------------------------------------------------------------------*/
+    /*  Step 1: Get Configuration Descriptor Header (9 bytes) first                       */
+    /*------------------------------------------------------------------------------------*/
+    ret = usbh_get_config_descripotr_total_length(udev, &conf_header);
+
+    if (ret < 0)
+    {
+        USB_debug("Get config descriptor header failed!\n");
+        free_dev_address(udev->dev_num);
+        return ret;
+    }
+
+    conf_total_len = conf_header.wTotalLength;
+    USB_debug("Config Descriptor Total Length: %d\n", conf_total_len);
+
+    conf = (DESC_CONF_T *)usbh_alloc_mem(conf_total_len);
+
+    if (conf == USBNULL)
     {
         free_dev_address(udev->dev_num);
         return USBH_ERR_MEMORY_OUT;
@@ -934,8 +1106,9 @@ int  connect_device(UDEV_T *udev)
     udev->cfd_buff = (uint8_t *)conf;
 
     /* Get configuration descriptor again with new device address */
-    ret = usbh_get_config_descriptor(udev, (uint8_t *)conf, MAX_DESC_BUFF_SIZE);
-    if(ret < 0)
+    ret = usbh_get_config_descriptor(udev, (uint8_t *)conf, conf_total_len);
+
+    if (ret < 0)
     {
         free_dev_address(udev->dev_num);
         return ret;
@@ -947,27 +1120,32 @@ int  connect_device(UDEV_T *udev)
 
 #if 0  /* printf string descriptors, for debug only */
     str_buff = (uint8_t *)usbh_alloc_mem(MAX_DESC_BUFF_SIZE);
-    if(udev->descriptor.iManufacturer != 0)
+
+    if (udev->descriptor.iManufacturer != 0)
     {
-        usbh_get_string_descriptor(udev, udev->descriptor.iManufacturer, str_buff, MAX_DESC_BUFF_SIZE);
+        (void)usbh_get_string_descriptor(udev, udev->descriptor.iManufacturer, str_buff, MAX_DESC_BUFF_SIZE);
         print_usb_string("Manufactor: ", str_buff);
     }
-    if(udev->descriptor.iProduct != 0)
+
+    if (udev->descriptor.iProduct != 0)
     {
-        usbh_get_string_descriptor(udev, udev->descriptor.iProduct, str_buff, MAX_DESC_BUFF_SIZE);
+        (void)usbh_get_string_descriptor(udev, udev->descriptor.iProduct, str_buff, MAX_DESC_BUFF_SIZE);
         print_usb_string("Product: ", str_buff);
     }
-    if(udev->descriptor.iSerialNumber != 0)
+
+    if (udev->descriptor.iSerialNumber != 0)
     {
-        usbh_get_string_descriptor(udev, udev->descriptor.iSerialNumber, str_buff, MAX_DESC_BUFF_SIZE);
+        (void)usbh_get_string_descriptor(udev, udev->descriptor.iSerialNumber, str_buff, MAX_DESC_BUFF_SIZE);
         print_usb_string("Serial Number: ", str_buff);
     }
-    usbh_free_mem(str_buff, MAX_DESC_BUFF_SIZE);
+
+    (void)usbh_free_mem(str_buff, MAX_DESC_BUFF_SIZE);
 #endif
 
     /* Always select the first configuration */
     ret = usbh_set_configuration(udev, conf->bConfigurationValue);
-    if(ret < 0)
+
+    if (ret < 0)
     {
         USB_debug("Set configuration %d failed!\n", conf->bConfigurationValue);
         free_dev_address(udev->dev_num);
@@ -976,26 +1154,29 @@ int  connect_device(UDEV_T *udev)
 
     /* Parse the configuration/interface/endpoint descriptors and find corresponding drivers. */
     ret = usbh_parse_configuration(udev, (uint8_t *)conf);
-    if(ret < 0)
+
+    if (ret < 0)
     {
         USB_debug("Parse configuration %d failed!\n", conf->bConfigurationValue);
         free_dev_address(udev->dev_num);
         return ret;
     }
 
-    if(conf->bmAttributes & (1 << 5))
+    if (conf->bmAttributes & (1U << 5))
     {
         /* If this configuration supports remote wakeup, enable it.                           */
-        if(usbh_ctrl_xfer(udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
-                          USB_REQ_SET_FEATURE, 0x01, 0x0000, 0x0000,
-                          NULL, &read_len, 300) < 0)
+        if (usbh_ctrl_xfer(udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
+                           USB_REQ_SET_FEATURE, 0x01, 0x0000, 0x0000,
+                           USBNULL, &read_len, 300) < 0)
         {
             USB_debug("Device does not accept remote wakeup enable command.\n");
         }
     }
 
-    if(g_conn_func)
+    if (g_conn_func)
+    {
         g_conn_func(udev, 0);
+    }
 
     return ret;
 }
@@ -1005,78 +1186,96 @@ int  usbh_reset_device(UDEV_T *udev)
     IFACE_T      *iface;
     DESC_CONF_T  *conf;
     uint32_t     read_len;
-    int          dev_num, ret;
+    uint16_t     conf_total_len;
+    int          dev_num;
+    int          ret;
 
     USB_debug("Reset device =>\n");
 
-    usbh_pooling_hubs();
+    (void)usbh_pooling_hubs();
 
     /*------------------------------------------------------------------------------------*/
     /*  Disconnect device                                                                 */
     /*------------------------------------------------------------------------------------*/
 
-    if(g_disconn_func)
+    if (g_disconn_func)
+    {
         g_disconn_func(udev, 0);
+    }
 
-    usbh_quit_xfer(udev, &(udev->ep0));    /* Quit control transfer if hw_pipe is not NULL.  */
+    (void)usbh_quit_xfer(udev, &(udev->ep0));    /* Quit control transfer if hw_pipe is not USBNULL.  */
 
     /* Notified all actived interface device driver  */
     iface = udev->iface_list;
-    while(iface != NULL)
+
+    while (iface != USBNULL)
     {
         udev->iface_list = iface->next;
         iface->driver->disconnect(iface);
-        usbh_free_mem(iface, sizeof(*iface));
+        (void)usbh_free_mem(iface, sizeof(*iface));
         iface = udev->iface_list;
     }
 
     /*------------------------------------------------------------------------------------*/
     /*  Reset device                                                                      */
     /*------------------------------------------------------------------------------------*/
+    USB_debug("Port device =>\n");
+    (void)reset_device(udev);
 
-    reset_device(udev);
 
     delay_us(100 * 1000);
+
 
     /*------------------------------------------------------------------------------------*/
     /*  Set address (use current address)                                                 */
     /*------------------------------------------------------------------------------------*/
-
+    USB_debug("Set Address =>\n");
     dev_num = udev->dev_num;
     udev->dev_num = 0;
     /* Issue SET ADDRESS command to set the same device address                           */
     ret = usbh_ctrl_xfer(udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
                          USB_REQ_SET_ADDRESS, dev_num, 0, 0,
-                         NULL, &read_len, 100);
+                         USBNULL, &read_len, 100);
     udev->dev_num = dev_num;
-    if(ret < 0)
+
+    if (ret < 0)
+    {
         return ret;
+    }
 
     delay_us(100 * 1000);                   /* after set address, give 100 ms delay       */
 
     /*------------------------------------------------------------------------------------*/
     /*  Get device descriptor                                                             */
     /*------------------------------------------------------------------------------------*/
-
+    USB_debug("Get descriptor =>\n");
     /* Get device descriptor again with new device address */
     ret = usbh_get_device_descriptor(udev, &udev->descriptor);
-    if(ret < 0)
+
+    if (ret < 0)
+    {
         return ret;
+    }
 
     /*------------------------------------------------------------------------------------*/
     /*  Get configuration descriptor                                                      */
     /*------------------------------------------------------------------------------------*/
 
     conf = (DESC_CONF_T *)udev->cfd_buff;   /* using the previously allocated buffer      */
+    conf_total_len = conf->wTotalLength;
 
     /* Get configuration descriptor again with new device address */
-    ret = usbh_get_config_descriptor(udev, (uint8_t *)conf, MAX_DESC_BUFF_SIZE);
-    if(ret < 0)
+    ret = usbh_get_config_descriptor(udev, (uint8_t *)conf, conf_total_len);
+
+    if (ret < 0)
+    {
         return ret;
+    }
 
     /* Always select the first configuration */
     ret = usbh_set_configuration(udev, udev->cur_conf);
-    if(ret < 0)
+
+    if (ret < 0)
     {
         USB_debug("Set configuration %d failed!\n", udev->cur_conf);
         return ret;
@@ -1084,22 +1283,25 @@ int  usbh_reset_device(UDEV_T *udev)
 
     /* Parse the configuration/interface/endpoint descriptors and find corresponding drivers. */
     ret = usbh_parse_configuration(udev, (uint8_t *)conf);
-    if(ret < 0)
+
+    if (ret < 0)
     {
         USB_debug("Parse configuration %d failed!\n", conf->bConfigurationValue);
         return ret;
     }
 
     /* Enable remote wakeup                                                                   */
-    if(usbh_ctrl_xfer(udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
-                      USB_REQ_SET_FEATURE, 0x01, 0x0000, 0x0000,
-                      NULL, &read_len, 300) < 0)
+    if (usbh_ctrl_xfer(udev, REQ_TYPE_OUT | REQ_TYPE_STD_DEV | REQ_TYPE_TO_DEV,
+                       USB_REQ_SET_FEATURE, 0x01, 0x0000, 0x0000,
+                       USBNULL, &read_len, 300) < 0)
     {
-        USB_debug("Device not accept remote wakeup enable command.\n");
+        USB_debug("Device does not accept remote wakeup enable command.\n");
     }
 
-    if(g_conn_func)
-        g_conn_func(udev, 0);
+    if (g_conn_func)
+    {
+        (void)g_conn_func(udev, 0);
+    }
 
     return ret;
 }
@@ -1111,25 +1313,54 @@ void disconnect_device(UDEV_T *udev)
     USB_debug("disconnect device...\n");
 
     if(g_disconn_func)
+    {
         g_disconn_func(udev, 0);
+    }
 
-    usbh_quit_xfer(udev, &(udev->ep0));    /* Quit control transfer if hw_pipe is not NULL.  */
+    (void)usbh_quit_xfer(udev, &(udev->ep0));    /* Quit control transfer if hw_pipe is not USBNULL.  */
 
-    /* Notified all actived interface device driver  */
+    /*------------------------------------------------------------------------------------*/
+    /* FCall driver's disconnect first to stop application layer transfer requests        */
+    /*------------------------------------------------------------------------------------*/
     iface = udev->iface_list;
-    while(iface != NULL)
+
+    while (iface != USBNULL)
+    {
+        IFACE_T *iface_next = iface->next;
+
+        if (iface->driver && iface->driver->disconnect)
+        {
+            iface->driver->disconnect(iface);  // stop application layer first (set flag_streaming = 0)
+        }
+
+        iface = iface_next;
+    }
+
+    /*------------------------------------------------------------------------------------*/
+    /* release Interface source                                                             */
+    /*------------------------------------------------------------------------------------*/
+    iface = udev->iface_list;
+
+    while (iface != USBNULL)
     {
         udev->iface_list = iface->next;
-        iface->driver->disconnect(iface);
-        usbh_free_mem(iface, sizeof(*iface));
+        (void)usbh_free_mem(iface, sizeof(*iface));
         iface = udev->iface_list;
+    }
+
+    if (udev->cfd_buff != USBNULL)
+    {
+        const DESC_CONF_T *conf = (const DESC_CONF_T *)udev->cfd_buff;
+        uint16_t total_len = conf->wTotalLength;
+        (void)usbh_free_mem(udev->cfd_buff, total_len);
+        udev->cfd_buff = USBNULL;
     }
 
     /* remove device from global device list */
     free_dev_address(udev->dev_num);
     free_device(udev);
 
-    usbh_memory_used();
+    (void)usbh_memory_used();
 }
 
 #if 0
@@ -1137,19 +1368,26 @@ static int  check_device(UDEV_T *udev)
 {
     UDEV_T  *d;
 
-    if(udev == NULL)
+    if (udev == USBNULL)
+    {
         return USBH_ERR_INVALID_PARAM;
+    }
 
-    //if ((udev->hc_driver != &ohci_driver))
-    //  return USBH_ERR_INVALID_PARAM;
+    //if((udev->hc_driver != &ohci_driver) && (udev->hc_driver != &ehci_driver))
+    //    return USBH_ERR_INVALID_PARAM;
 
     d = g_udev_list;
-    while(d)
+
+    while (d)
     {
-        if(d == udev)
+        if (d == udev)
+        {
             return USBH_OK;
+        }
+
         d = d->next;
     }
+
     return USBH_ERR_INVALID_PARAM;
 }
 #endif
@@ -1159,49 +1397,69 @@ EP_INFO_T * usbh_iface_find_ep(IFACE_T *iface, uint8_t ep_addr, uint8_t dir_type
     ALT_IFACE_T  *aif = iface->aif;
     int     i;
 
-    if(ep_addr == 0)       /* find the first EP matched with specified direction and type */
+    if (ep_addr == 0U)      /* find the first EP matched with specified direction and type */
     {
-        for(i = 0; i < aif->ifd->bNumEndpoints; i++)
+        for (i = 0; i < aif->ifd->bNumEndpoints; i++)
         {
-            if(((aif->ep[i].bEndpointAddress & EP_ADDR_DIR_MASK) == (dir_type & EP_ADDR_DIR_MASK)) &&
+            if (((aif->ep[i].bEndpointAddress & EP_ADDR_DIR_MASK) == (dir_type & EP_ADDR_DIR_MASK)) &&
                     ((aif->ep[i].bmAttributes & EP_ATTR_TT_MASK) == (dir_type & EP_ATTR_TT_MASK)))
+            {
                 return &aif->ep[i];
+            }
         }
     }
     else                   /* find the EP with specified endpoint address                 */
     {
-        for(i = 0; i < aif->ifd->bNumEndpoints; i++)
+        for (i = 0; i < aif->ifd->bNumEndpoints; i++)
         {
-            if(aif->ep[i].bEndpointAddress == ep_addr)
+            if (aif->ep[i].bEndpointAddress == ep_addr)
+            {
                 return &aif->ep[i];
+            }
         }
     }
-    return NULL;
+
+    return USBNULL;
 }
 
 void  usbh_dump_buff_bytes(uint8_t *buff, int nSize)
 {
-    int     nIdx, i;
+    int     nIdx;
+    int     i;
+    int     nSizeTmp = nSize;
 
     nIdx = 0;
-    while(nSize > 0)
+
+    while (nSizeTmp > 0)
     {
-        printf("0x%04X  ", nIdx);
-        for(i = 0; i < 16; i++)
-            printf("%02x ", buff[nIdx + i]);
-        printf("  ");
-        for(i = 0; i < 16; i++)
+        USB_debug("0x%04X  ", nIdx);
+
+        for (i = 0; i < 16; i++)
         {
-            if((buff[nIdx + i] >= 0x20) && (buff[nIdx + i] < 127))
-                printf("%c", buff[nIdx + i]);
-            else
-                printf(".");
-            nSize--;
+            USB_debug("%02x ", buff[nIdx + i]);
         }
+
+        USB_debug("  ");
+
+        for (i = 0; i < 16; i++)
+        {
+            if ((buff[nIdx + i] >= (uint8_t)0x20) && (buff[nIdx + i] < (uint8_t)127))
+            {
+                USB_debug("%c", buff[nIdx + i]);
+            }
+            else
+            {
+                USB_debug(".");
+            }
+
+            nSizeTmp--;
+        }
+
         nIdx += 16;
-        printf("\n");
+        USB_debug("\n");
     }
-    printf("\n");
+
+    USB_debug("\n");
 }
 
 void usbh_dump_iface(IFACE_T *iface)
@@ -1212,7 +1470,7 @@ void usbh_dump_iface(IFACE_T *iface)
     USB_debug("  if_num     = %d\n",   iface->if_num);
     USB_debug("  driver     = 0x%x\n", (int)iface->driver);
     USB_debug("  next       = 0x%x\n", (int)iface->next);
-    usbh_dump_interface_descriptor(iface->aif->ifd);
+    (void)usbh_dump_interface_descriptor(iface->aif->ifd);
 }
 
 void usbh_dump_ep_info(EP_INFO_T *ep)
@@ -1224,6 +1482,26 @@ void usbh_dump_ep_info(EP_INFO_T *ep)
     USB_debug("  bInterval           = %d\n",     ep->bInterval);
     USB_debug("  wMaxPacketSize      = %d\n",     ep->wMaxPacketSize);
     USB_debug("  hw_pipe             = 0x%x\n",   (int)ep->hw_pipe);
+}
+
+/**
+ * @brief  Default debug output function for USB Host Library.
+ *         Routes output through standard printf (retargeted to UART by application).
+ *         This wrapper isolates the library from direct stdio dependency (MISRA C:2012 Rule 21.6).
+ * @param[in] fmt  Format string (printf-compatible)
+ * @return  Number of characters printed
+ */
+// cppcheck-suppress misra-c2012-21.6 ; required for debug output, isolated in single function
+int usbh_printf(const char *fmt, ...)
+{
+    va_list args;
+    int     ret;
+
+    va_start(args, fmt);
+    ret = vprintf(fmt, args);
+    va_end(args);
+
+    return ret;
 }
 
 /// @endcond HIDDEN_SYMBOLS

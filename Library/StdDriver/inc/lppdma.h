@@ -113,7 +113,7 @@ extern "C"
  * @details     This macro gets the interrupt status.
  * \hideinitializer
  */
-#define LPPDMA_GET_INT_STATUS(lppdma) ((uint32_t)(lppdma->INTSTS))
+#define LPPDMA_GET_INT_STATUS(lppdma) ((uint32_t)((lppdma)->INTSTS))
 
 /**
  * @brief       Get Transfer Done Interrupt Status
@@ -125,7 +125,7 @@ extern "C"
  * @details     Get the transfer done Interrupt status.
  * \hideinitializer
  */
-#define LPPDMA_GET_TD_STS(lppdma) ((uint32_t)(lppdma->TDSTS))
+#define LPPDMA_GET_TD_STS(lppdma) ((uint32_t)((lppdma)->TDSTS))
 
 /**
  * @brief       Clear Transfer Done Interrupt Status
@@ -139,7 +139,7 @@ extern "C"
  * @details     Clear the transfer done Interrupt status.
  * \hideinitializer
  */
-#define LPPDMA_CLR_TD_FLAG(lppdma,u32Mask) ((uint32_t)(lppdma->TDSTS = (u32Mask)))
+#define LPPDMA_CLR_TD_FLAG(lppdma,u32Mask) ((uint32_t)((lppdma)->TDSTS = (u32Mask)))
 
 /**
  * @brief       Get Target Abort Interrupt Status
@@ -151,7 +151,7 @@ extern "C"
  * @details     Get the target abort Interrupt status.
  * \hideinitializer
  */
-#define LPPDMA_GET_ABORT_STS(lppdma) ((uint32_t)(lppdma->ABTSTS))
+#define LPPDMA_GET_ABORT_STS(lppdma) ((uint32_t)((lppdma)->ABTSTS))
 
 /**
  * @brief       Clear Target Abort Interrupt Status
@@ -165,7 +165,7 @@ extern "C"
  * @details     Clear the target abort Interrupt status.
  * \hideinitializer
  */
-#define LPPDMA_CLR_ABORT_FLAG(lppdma,u32Mask) ((uint32_t)(lppdma->ABTSTS = (u32Mask)))
+#define LPPDMA_CLR_ABORT_FLAG(lppdma,u32Mask) ((uint32_t)((lppdma)->ABTSTS = (u32Mask)))
 
 /**
  * @brief       Get Alignment Interrupt Status
@@ -177,7 +177,7 @@ extern "C"
  * @details     Get Alignment Interrupt status.
  * \hideinitializer
  */
-#define LPPDMA_GET_ALIGN_STS(lppdma) ((uint32_t)(lppdma->ALIGN))
+#define LPPDMA_GET_ALIGN_STS(lppdma) ((uint32_t)((lppdma)->ALIGN))
 
 /**
  * @brief       Clear Alignment Interrupt Status
@@ -190,7 +190,7 @@ extern "C"
  * @details     Clear the Alignment Interrupt status.
  * \hideinitializer
  */
-#define LPPDMA_CLR_ALIGN_FLAG(lppdma,u32Mask) ((uint32_t)(lppdma->ALIGN = (u32Mask)))
+#define LPPDMA_CLR_ALIGN_FLAG(lppdma,u32Mask) ((uint32_t)((lppdma)->ALIGN = (u32Mask)))
 
 /**
  * @brief       Check Channel Status
@@ -204,7 +204,7 @@ extern "C"
  * @details     Check the selected channel is busy or not.
  * \hideinitializer
  */
-#define LPPDMA_IS_CH_BUSY(lppdma,u32Ch) ((uint32_t)(lppdma->TRGSTS & (1UL << (u32Ch)))? 1 : 0)
+#define LPPDMA_IS_CH_BUSY(lppdma,u32Ch) ((uint32_t)((lppdma)->TRGSTS & (1UL << (u32Ch)))? 1 : 0)
 
 /**
  * @brief       Set Source Address
@@ -218,7 +218,7 @@ extern "C"
  * @details     This macro set the selected channel source address.
  * \hideinitializer
  */
-#define LPPDMA_SET_SRC_ADDR(lppdma,u32Ch, u32Addr) ((uint32_t)(lppdma->LPDSCT[(u32Ch)].SA = (u32Addr)))
+#define LPPDMA_SET_SRC_ADDR(lppdma,u32Ch, u32Addr) ((uint32_t)((lppdma)->LPDSCT[(u32Ch)].SA = (u32Addr)))
 
 /**
  * @brief       Set Destination Address
@@ -232,7 +232,7 @@ extern "C"
  * @details     This macro set the selected channel destination address.
  * \hideinitializer
  */
-#define LPPDMA_SET_DST_ADDR(lppdma,u32Ch, u32Addr) ((uint32_t)(lppdma->LPDSCT[(u32Ch)].DA = (u32Addr)))
+#define LPPDMA_SET_DST_ADDR(lppdma,u32Ch, u32Addr) ((uint32_t)((lppdma)->LPDSCT[(u32Ch)].DA = (u32Addr)))
 
 /**
  * @brief       Set Transfer Count
@@ -246,7 +246,7 @@ extern "C"
  * @details     This macro set the selected channel transfer count.
  * \hideinitializer
  */
-#define LPPDMA_SET_TRANS_CNT(lppdma,u32Ch, u32TransCount) ((uint32_t)(lppdma->LPDSCT[(u32Ch)].CTL=(lppdma->LPDSCT[(u32Ch)].CTL&~LPPDMA_DSCT_CTL_TXCNT_Msk)|(((u32TransCount)-1UL) << LPPDMA_DSCT_CTL_TXCNT_Pos)))
+#define LPPDMA_SET_TRANS_CNT(lppdma,u32Ch, u32TransCount) ((uint32_t)((lppdma)->LPDSCT[(u32Ch)].CTL=((lppdma)->LPDSCT[(u32Ch)].CTL&~LPPDMA_DSCT_CTL_TXCNT_Msk)|(((u32TransCount)-1UL) << LPPDMA_DSCT_CTL_TXCNT_Pos)))
 
 /**
  * @brief       Set Scatter-gather descriptor Address
@@ -260,7 +260,7 @@ extern "C"
  * @details     This macro set the selected channel scatter-gather descriptor address.
  * \hideinitializer
  */
-#define LPPDMA_SET_SCATTER_DESC(lppdma,u32Ch, u32Addr) ((uint32_t)(lppdma->LPDSCT[(u32Ch)].NEXT = (u32Addr) - (lppdma->SCATBA)))
+#define LPPDMA_SET_SCATTER_DESC(lppdma,u32Ch, u32Addr) ((uint32_t)((lppdma)->LPDSCT[(u32Ch)].NEXT = (u32Addr) - ((lppdma)->SCATBA)))
 
 /**
  * @brief       Stop the channel
@@ -274,7 +274,7 @@ extern "C"
  * @details     This macro stop the selected channel.
  * \hideinitializer
  */
-#define LPPDMA_STOP(lppdma,u32Ch) ((uint32_t)(lppdma->PAUSE = (1UL << (u32Ch))))
+#define LPPDMA_STOP(lppdma,u32Ch) ((uint32_t)((lppdma)->PAUSE = (1UL << (u32Ch))))
 
 /**
  * @brief       Pause the channel
@@ -288,7 +288,7 @@ extern "C"
  * @details     This macro pause the selected channel.
  * \hideinitializer
  */
-#define LPPDMA_PAUSE(lppdma,u32Ch) ((uint32_t)(lppdma->PAUSE = (1UL << (u32Ch))))
+#define LPPDMA_PAUSE(lppdma,u32Ch) ((uint32_t)((lppdma)->PAUSE = (1UL << (u32Ch))))
 
 /**
  * @brief       Reset the channel
@@ -301,7 +301,7 @@ extern "C"
  * @details     This macro reset the selected channel.
  * \hideinitializer 
  */
-#define LPPDMA_RESET(lppdma, u32Ch) ((uint32_t)((lppdma)->CHRST = (1UL << (u32Ch))))
+#define LPPDMA_RESET(lppdma,u32Ch) ((uint32_t)((lppdma)->CHRST = (1UL << (u32Ch))))
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define PDMA functions prototype                                                                          */

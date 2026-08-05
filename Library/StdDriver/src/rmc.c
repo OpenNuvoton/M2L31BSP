@@ -25,7 +25,58 @@
   @{
 */
 
-int32_t  g_RMC_i32ErrCode;
+int32_t  g_RMC_i32ErrCode = 0;
+
+/* Wait until ISPTRG.ISPGO is cleared or timeout occurs. */
+static int32_t RMC_WaitISPDone(uint32_t u32Timeout)
+{
+    uint32_t u32Remain;
+    u32Remain = u32Timeout;
+
+    while ((u32Remain > 0UL) && ((RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk) != 0UL))
+    {
+        u32Remain--;
+    }
+
+    return (u32Remain == 0UL) ? -1L : 0L;
+}
+
+/* Wait until ISPSTS.ISPBUSY is cleared or timeout occurs. */
+static int32_t RMC_WaitISPBusyClear(uint32_t u32Timeout)
+{
+    uint32_t u32Remain;
+    u32Remain = u32Timeout;
+    while ((u32Remain > 0UL) && ((RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk) != 0UL))
+    {
+        u32Remain--;
+    }
+
+    return (u32Remain == 0UL) ? -1L : 0L;
+}
+
+/* Clear data buffer and check ISPSTS fail flag. */
+static int32_t RMC_ClearDataBuffer(void)
+{
+    int32_t i32Ret;
+
+    RMC->ISPCMD  = RMC_ISPCMD_CLEAR_DATA_BUFFER;
+    RMC->ISPADDR = 0x00000000UL;
+    RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
+
+    i32Ret = RMC_WaitISPDone(RMC_TIMEOUT_WRITE);
+    if (i32Ret != 0L)
+    {
+        return -1L;
+    }
+
+    if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
+    {
+        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+        return -1L;
+    }
+
+    return 0L;
+}
 
 /**
   * @brief    Disable ISP Functions
@@ -57,36 +108,50 @@ void RMC_Close(void)
   */
 int32_t RMC_ConfigXOM(uint32_t u32XomNum, uint32_t u32XomBase, uint8_t u8XomPage)
 {
-    int32_t  ret = 0;
+    int32_t  ret = 0L;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
-    g_RMC_i32ErrCode = 0;
+    if(RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
+    g_RMC_i32ErrCode = 0L;
 
     if(u32XomNum >= 4UL)
     {
-        ret = -2;
+        ret = -2L;
     }
 
-    if(ret == 0)
+    if(ret == 0L)
     {
         ret = RMC_GetXOMState(u32XomNum);
     }
 
-    if(ret == 0)
+
+    if (ret == 0L)
     {
-        ret = g_RMC_i32ErrCode = RMC_Write(RMC_XOM_BASE + (u32XomNum * 0x10u),u32XomBase);
-        if(g_RMC_i32ErrCode == 0)
-            ret = g_RMC_i32ErrCode = RMC_Write(RMC_XOM_BASE + (u32XomNum * 0x10u + 0x04u),u8XomPage);
+        uint32_t u32XomAddr;
 
-        if(g_RMC_i32ErrCode == 0)
-            ret = g_RMC_i32ErrCode = RMC_Write(RMC_XOM_BASE + (u32XomNum * 0x10u + 0x08u),0);
+        u32XomAddr = RMC_XOM_BASE + (u32XomNum * 0x10UL);
 
+        g_RMC_i32ErrCode = RMC_Write(u32XomAddr, u32XomBase);
+        ret = g_RMC_i32ErrCode;
+
+        if (ret == 0L)
+        {
+            g_RMC_i32ErrCode = RMC_Write((u32XomAddr + 0x04UL), (uint32_t)u8XomPage);
+            ret = g_RMC_i32ErrCode;
+        }
+
+        if (ret == 0L)
+        {
+            g_RMC_i32ErrCode = RMC_Write((u32XomAddr + 0x08UL), 0UL);
+            ret = g_RMC_i32ErrCode;
+        }
     }
+
     return ret;
 }
 
@@ -104,91 +169,101 @@ int32_t RMC_ConfigXOM(uint32_t u32XomNum, uint32_t u32XomBase, uint8_t u8XomPage
   */
 int32_t RMC_EraseXOM(uint32_t u32XomNum)
 {
-    uint32_t u32Addr;
-    int32_t i32Active, err = 0;
-    uint32_t  tout;
+    uint32_t u32Addr = 0UL;
+    uint32_t u32EraseData = 0x55AA03UL;
+    int32_t  i32Active;
+    int32_t  err = 0L;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    if (RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
 
-    g_RMC_i32ErrCode = 0;
+    g_RMC_i32ErrCode = 0L;
 
     if(u32XomNum >= 5UL)
     {
-        err = -2;
+        err = -2L;
     }
 
-    if(err == 0)
+    if (err == 0L)
     {
         i32Active = RMC_GetXOMState(u32XomNum);
+        RMC->ISPCTL &= ~RMC_ISPCTL_MPEN_Msk;
 
-        RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
-        if(i32Active)
+        if (i32Active != 0L)
         {
             switch(u32XomNum)
             {
-            case 0u:
-                u32Addr = (RMC->XOMR0STS & 0xFFFFFF00u) >> 8u;
+            case 0UL:
+                u32Addr = (RMC->XOMR0STS & 0xFFFFFF00UL) >> 8UL;
                 break;
-            case 1u:
-                u32Addr = (RMC->XOMR1STS & 0xFFFFFF00u) >> 8u;
+
+            case 1UL:
+                u32Addr = (RMC->XOMR1STS & 0xFFFFFF00UL) >> 8UL;
                 break;
-            case 2u:
-                u32Addr = (RMC->XOMR2STS & 0xFFFFFF00u) >> 8u;
+
+            case 2UL:
+                u32Addr = (RMC->XOMR2STS & 0xFFFFFF00UL) >> 8UL;
                 break;
-            case 3u:
-                u32Addr = (RMC->XOMR3STS & 0xFFFFFF00u) >> 8u;
+
+            case 3UL:
+                u32Addr = (RMC->XOMR3STS & 0xFFFFFF00UL) >> 8UL;
                 break;
-            case 4u:
-                u32Addr = (RMC->XOMR0STS & 0xFFFFFF00u) >> 8u;
-                RMC->ISPCMD = RMC_ISPCMD_PAGE_ERASE;
-                RMC->ISPADDR = u32Addr;
-                RMC->ISPDAT = 0x0u;
-                RMC->ISPTRG = 0x1u;
-                goto test;
+
+            case 4UL:
+                u32Addr = (RMC->XOMR0STS & 0xFFFFFF00UL) >> 8UL;
+                u32EraseData = 0x0UL; /*  preserve original special case */
                 break;
+
             default:
+                err = -2L;
                 break;
             }
-            RMC->ISPCMD = RMC_ISPCMD_PAGE_ERASE;
-            RMC->ISPADDR = u32Addr;
-            RMC->ISPDAT = 0x55aa03u;
-            RMC->ISPTRG = 0x1u;
-test:
-#if ISBEN
-            __ISB();
-#endif
-            tout = RMC_TIMEOUT_ERASE;
-            while ((--tout > 0) && RMC->ISPTRG) {}
-            if (tout == 0)
-                err = -1;
 
-            /* Check ISPFF flag to know whether erase OK or fail. */
-            if(RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk)
+            if (err == 0L)
             {
-                RMC->ISPCTL |= RMC_ISPCTL_ISPFF_Msk;
-                RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
-                RMC->ISPADDR = 0x00000000;
-                RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-                tout = RMC_TIMEOUT_WRITE;
+                RMC->ISPCMD  = RMC_ISPCMD_PAGE_ERASE;
+                RMC->ISPADDR = u32Addr;
+                RMC->ISPDAT  = u32EraseData;
+                RMC->ISPTRG  = 0x1UL;
 
-                while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+#if defined(ISBEN) && (ISBEN != 0)
+                __ISB();
+#endif
 
-                if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+                if (RMC_WaitISPDone(RMC_TIMEOUT_ERASE) != 0L)
                 {
-                    RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+                    err = -1L;
                 }
-                err = -1;
+                /* Check ISPFF flag to know whether erase OK or fail. */
+                if ((err == 0L) && ((RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk) != 0UL))
+                {
+                    RMC->ISPCTL |= RMC_ISPCTL_ISPFF_Msk;
+
+                    if (RMC_ClearDataBuffer() != 0L)
+                    {
+                        /* keep err as failure */
+                    }
+
+                    if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
+                    {
+                        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+                    }
+
+                    err = -1L;
+                }
             }
         }
         else
         {
-            err = -1;
+            err = -1L;
         }
     }
+
     return err;
 }
 
@@ -205,17 +280,17 @@ test:
   */
 int32_t RMC_GetXOMState(uint32_t u32XomNum)
 {
-    uint32_t u32act;
-    int32_t  ret = 0;
+    int32_t  ret = 0L;
 
     if(u32XomNum >= 4UL)
     {
-        ret = -2;
+        ret = -2L;
     }
 
-    if(ret >= 0)
+    if(ret >= 0L)
     {
-        u32act = (((RMC->XOMSTS) & 0xful) & (1ul << u32XomNum)) >> u32XomNum;
+        uint32_t u32act;
+        u32act = (((RMC->XOMSTS) & 0xfUL) & (1UL << u32XomNum)) >> u32XomNum;
         ret = (int32_t)u32act;
     }
     return ret;
@@ -244,28 +319,29 @@ uint32_t RMC_Read(uint32_t u32Addr)
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
-    g_RMC_i32ErrCode = 0;
+    if(RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
+    g_RMC_i32ErrCode = 0L;
     RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
     RMC->ISPCMD = RMC_ISPCMD_READ;
     RMC->ISPADDR = u32Addr;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_READ;
 
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+    while ((--tout > 0UL) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
 
-    if (tout == 0)
+    if (tout == 0UL)
     {
-        g_RMC_i32ErrCode = -1;
-        return 0xFFFFFFFF;
+        g_RMC_i32ErrCode = -1L;
+        return 0xFFFFFFFFUL;
     }
     if(RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk)
     {
         RMC->ISPCTL |= RMC_ISPCTL_ISPFF_Msk;
-        g_RMC_i32ErrCode = -1;
-        return 0xFFFFFFFF;
+        g_RMC_i32ErrCode = -1L;
+        return 0xFFFFFFFFUL;
     }
     return RMC->ISPDAT;
 }
@@ -309,11 +385,11 @@ void RMC_SetBootSource(int32_t i32BootSrc)
   */
 int32_t RMC_GetBootSource (void)
 {
-    int32_t  ret = 0;
+    int32_t  ret = 0L;
 
     if (RMC->ISPCTL & RMC_ISPCTL_BS_Msk)
     {
-        ret = 1;
+        ret = 1L;
     }
 
     return ret;
@@ -328,80 +404,87 @@ int32_t RMC_GetBootSource (void)
   */
 int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
 {
-    uint32_t  tout;
+    int32_t i32Ret = 0L;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
-    g_RMC_i32ErrCode = 0;
-    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
-    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
-    RMC->ISPADDR = 0x00000000;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
-
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (tout == 0)
-        goto program_fail;
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    if (RMC_CHECK_MAGICNUM() != 0UL)
     {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        goto program_fail;
-    }
-    RMC->ISPCMD = RMC_ISPCMD_LOAD_DATA_BUFFER;
-    RMC->ISPADDR = u32Addr;
-    RMC->ISPDAT = u32Data;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
-
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (tout == 0)
-        goto program_fail;
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
-    {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        goto program_fail;
+        (void)RMC_DummyReadCID();
     }
 
-    RMC->ISPCMD = RMC_ISPCMD_PROGRAM;
-    RMC->ISPADDR = u32Addr;
-    RMC->ISPDAT = u32Data;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
+    g_RMC_i32ErrCode = 0L;
+    RMC->ISPCTL &= ~RMC_ISPCTL_MPEN_Msk;
 
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (tout == 0)
-        goto program_fail;
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    /* Clear data buffer */
+    if (RMC_ClearDataBuffer() != 0L)
     {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        goto program_fail;
+        i32Ret = -1L;
     }
-    return 0;
-program_fail:
-    g_RMC_i32ErrCode = -1;
 
-    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
-    RMC->ISPADDR = 0x00000000;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
-
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    /* Load data buffer */
+    if (i32Ret == 0L)
     {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+        RMC->ISPCMD  = RMC_ISPCMD_LOAD_DATA_BUFFER;
+        RMC->ISPADDR = u32Addr;
+        RMC->ISPDAT  = u32Data;
+        RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
+
+        if (RMC_WaitISPDone(RMC_TIMEOUT_WRITE) != 0L)
+        {
+            i32Ret = -1L;
+        }
+        else if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
+        {
+            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+            i32Ret = -1L;
+        }
+        else
+        {
+
+        }
     }
-    return -1;
+
+    /* Program */
+    if (i32Ret == 0L)
+    {
+        RMC->ISPCMD  = RMC_ISPCMD_PROGRAM;
+        RMC->ISPADDR = u32Addr;
+        RMC->ISPDAT  = u32Data;
+        RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
+
+        if (RMC_WaitISPDone(RMC_TIMEOUT_WRITE) != 0L)
+        {
+            i32Ret = -1L;
+        }
+        else if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
+        {
+            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+            i32Ret = -1L;
+        }
+        else
+        {
+
+        }
+    }
+
+    if (i32Ret != 0L)
+    {
+        g_RMC_i32ErrCode = -1L;
+
+        /* Best-effort cleanup of data buffer after failure. */
+        (void)RMC_ClearDataBuffer();
+
+        if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
+        {
+            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+        }
+
+        return -1L;
+    }
+
+    return 0L;
 }
 
 /**
@@ -415,114 +498,130 @@ program_fail:
   */
 int32_t RMC_Erase(uint32_t u32PageAddr)
 {
-    int   idx;
-    uint32_t  tout, u32Len, u32Addr;
+    uint32_t u32Addr;
+    uint32_t u32EndAddr;
+    int32_t  i32Err = 0L;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    if (RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
 
-    g_RMC_i32ErrCode = 0;
-
+    g_RMC_i32ErrCode = 0L;
     u32Addr = u32PageAddr;
-    
-    if((u32Addr % 256) != 0)
-        return -2;
+    u32EndAddr = u32PageAddr + RMC_FLASH_PAGE_SIZE;
+
+    if ((u32Addr % 256UL) != 0UL)
+    {
+        return -2L;
+    }
 
     if (u32Addr < RMC_APROM_END)
     {
-        if((u32Addr + RMC_FLASH_PAGE_SIZE) > RMC_APROM_END)
-            return -2;
+        if ((u32Addr + RMC_FLASH_PAGE_SIZE) > RMC_APROM_END)
+        {
+            return -2L;
+        }
     }
     else if ((u32Addr >= RMC_LDROM_BASE) && (u32Addr < RMC_LDROM_END))
     {
-        if((u32Addr + RMC_FLASH_PAGE_SIZE) > RMC_LDROM_END)
-            return -2;
+        if ((u32Addr + RMC_FLASH_PAGE_SIZE) > RMC_LDROM_END)
+        {
+            return -2L;
+        }
     }
     else
-        return -2;
-
-    while(u32Addr < u32PageAddr + RMC_FLASH_PAGE_SIZE)
     {
+        return -2L;
+    }
+
+    while ((u32Addr < u32EndAddr) && (i32Err == 0L))
+    {
+        uint32_t u32Len;
+        uint32_t u32Idx;
         u32Len = RMC_MULTI_WORD_PROG_MAX_LEN;
-        RMC->ISPCTL = RMC->ISPCTL | RMC_ISPCTL_MPEN_Msk; 
-        RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
-        RMC->ISPADDR = 0x00000000;
-        RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-        tout = RMC_TIMEOUT_WRITE;
+        RMC->ISPCTL |= RMC_ISPCTL_MPEN_Msk;
 
-        while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-        if (tout == 0)
-            goto erase_fail;
-
-        if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+        if (RMC_ClearDataBuffer() != 0L)
         {
-            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-            goto erase_fail;
+            i32Err = -1L;
         }
-        idx = 0;
-        while (u32Len > 0)
+
+        u32Idx = 0UL;
+        while ((u32Len > 0UL) && (i32Err == 0L))
         {
-            RMC->ISPCMD = RMC_ISPCMD_LOAD_DATA_BUFFER;
-            RMC->ISPADDR = u32Addr + idx * 4;
-            RMC->ISPDAT = 0xFFFFFFFF;
-            RMC->MPDAT1 = 0xFFFFFFFF;
-            RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-            idx += 2;
-            tout = RMC_TIMEOUT_WRITE;
+            uint32_t u32ProgAddr;
 
-            while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-            
-            if (tout == 0)
-                goto erase_fail;
+            u32ProgAddr = u32Addr + (u32Idx * 4UL);
 
-            if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+            RMC->ISPCMD  = RMC_ISPCMD_LOAD_DATA_BUFFER;
+            RMC->ISPADDR = u32ProgAddr;
+            RMC->ISPDAT  = 0xFFFFFFFFUL;
+            RMC->MPDAT1  = 0xFFFFFFFFUL;
+            RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
+
+            if (RMC_WaitISPDone(RMC_TIMEOUT_WRITE) != 0L)
+            {
+                i32Err = -1L;
+            }
+            else if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
             {
                 RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-                goto erase_fail;
+                i32Err = -1L;
             }
-            u32Len -= 8;
+            else
+            {
+
+            }
+
+            u32Idx += 2UL;
+            u32Len -= 8UL;
         }
 
-        RMC->ISPCMD = RMC_ISPCMD_PROGRAM;
-        RMC->ISPADDR = u32Addr;
-        RMC->ISPDAT = 0xFFFFFFFF;
-        RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-        tout = RMC_TIMEOUT_WRITE;
+        if (i32Err == 0L)
+        {
+            RMC->ISPCMD  = RMC_ISPCMD_PROGRAM;
+            RMC->ISPADDR = u32Addr;
+            RMC->ISPDAT  = 0xFFFFFFFFUL;
+            RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
 
-        while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+            if (RMC_WaitISPDone(RMC_TIMEOUT_WRITE) != 0L)
+            {
+                i32Err = -1L;
+            }
+            else if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
+            {
+                RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+                i32Err = -1L;
+            }
+            else
+            {
 
-        if (tout == 0)
-            goto erase_fail;
+            }
+        }
 
-        if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+        u32Addr += RMC_MULTI_WORD_PROG_MAX_LEN;
+    }
+
+    RMC->ISPCTL &= ~RMC_ISPCTL_MPEN_Msk;
+
+    if (i32Err != 0L)
+    {
+        g_RMC_i32ErrCode = -1L;
+        (void)RMC_ClearDataBuffer();
+
+        if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
         {
             RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-            goto erase_fail;
         }
-        u32Addr = u32Addr + RMC_MULTI_WORD_PROG_MAX_LEN;
+
+        return -1L;
     }
-    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk; 
-    return 0;
-erase_fail:
-    g_RMC_i32ErrCode = -1;
-    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk; 
 
-    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
-    RMC->ISPADDR = 0x00000000;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
-
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
-    {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-    }
-    return -1;
+    return 0L;
 }
 
 /**
@@ -536,19 +635,20 @@ erase_fail:
   */
 int32_t RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count)
 {
-    int32_t   ret = 0;
+    int32_t   ret = 0L;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
+    if(RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
     u32Config[0] = RMC_Read(RMC_CONFIG_BASE);
 
     if (u32Count < 2UL)
     {
-        ret = -1;
+        ret = -1L;
     }
     else
     {
@@ -567,41 +667,58 @@ int32_t RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count)
   * @retval    0  Success
   * @retval   -1  Failed
   */
-int32_t RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count)
+int32_t RMC_WriteConfig(const uint32_t u32Config[], uint32_t u32Count)
 {
-    int   i;
+    uint32_t u32Idx;
+
+    /* Defensive check */
+    if (u32Config == (const uint32_t *)NULL)
+    {
+        return -1L;
+    }
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    if (RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
 
     RMC_ENABLE_CFG_UPDATE();
+    RMC->ISPCTL &= ~RMC_ISPCTL_MPEN_Msk;
 
-    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
-
-    for (i = 0; i < u32Count; i++)
+    for (u32Idx = 0UL; u32Idx < u32Count; u32Idx++)
     {
-        if (RMC_Write(RMC_CONFIG_BASE+i*4UL, u32Config[i]) != 0)
+        uint32_t u32CfgAddr;
+        uint32_t u32ReadBack;
+        int32_t  i32WriteRet;
+
+        u32CfgAddr = RMC_CONFIG_BASE + (u32Idx * 4UL);
+
+        i32WriteRet = RMC_Write(u32CfgAddr, u32Config[u32Idx]);
+        if (i32WriteRet != 0L)
         {
             RMC_DISABLE_CFG_UPDATE();
-            return -1;
+            return -1L;
         }
-        if (RMC_Read(RMC_CONFIG_BASE+i*4UL) != u32Config[i])
+
+        u32ReadBack = RMC_Read(u32CfgAddr);
+        if (u32ReadBack != u32Config[u32Idx])
         {
             RMC_DISABLE_CFG_UPDATE();
-            return -1;
+            return -1L;
         }
-        if (g_RMC_i32ErrCode != 0)
+
+        if (g_RMC_i32ErrCode != 0L)
         {
             RMC_DISABLE_CFG_UPDATE();
-            return -1;
+            return -1L;
         }
     }
 
     RMC_DISABLE_CFG_UPDATE();
-    return 0;
+    return 0L;
 }
 
 /**
@@ -621,104 +738,141 @@ int32_t RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count)
  *           -1  Program failed or time-out
  *           -2  Invalid address or length
  */
-int32_t RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len)
+int32_t  RMC_WriteMultiple(uint32_t u32Addr, const uint32_t pu32Buf[], uint32_t u32Len)
 {
-    int   idx;
-    uint32_t  tout;
+    uint32_t u32Idx;
+    uint32_t u32Remain;
+    int32_t  i32Err = 0L;
+    uint32_t u32WrittenBytes;
+    /* Defensive checks */
+    if (pu32Buf == (const uint32_t *)NULL)
+    {
+        return -2L;
+    }
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    if (RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
 
-    g_RMC_i32ErrCode = 0;
+    g_RMC_i32ErrCode = 0L;
 
-    if(((u32Addr % 256) != 0) || ((u32Len % 2) != 0) || (u32Len > RMC_MULTI_WORD_PROG_MAX_LEN))
-        return -2;
+    if (((u32Addr % 256UL) != 0UL) || ((u32Len % 8UL) != 0UL) || (u32Len > RMC_MULTI_WORD_PROG_MAX_LEN))
+    {
+        return -2L;
+    }
 
     if (u32Addr < RMC_APROM_END)
     {
         if((u32Addr + u32Len) > RMC_APROM_END)
-            return -2;
+        {
+            return -2L;
+        }
     }
     else if ((u32Addr >= RMC_LDROM_BASE) && (u32Addr < RMC_LDROM_END))
     {
-        if((u32Addr + u32Len) > RMC_LDROM_END)
-            return -2;
+        if ((u32Addr + u32Len) > RMC_LDROM_END)
+        {
+            return -2L;
+        }
     }
-    RMC->ISPCTL = RMC->ISPCTL | RMC_ISPCTL_MPEN_Msk; 
-    idx = 0;
-    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
-    RMC->ISPADDR = 0x00000000;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
-
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (tout == 0)
-        goto prog_fail;
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    else
     {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;        
-        goto prog_fail;
+        return -2L; /* original code fell through */
     }
-    while (u32Len > 0)
+
+    RMC->ISPCTL |= RMC_ISPCTL_MPEN_Msk;
+
+    if (RMC_ClearDataBuffer() != 0L)
     {
-        RMC->ISPCMD = RMC_ISPCMD_LOAD_DATA_BUFFER;
-        RMC->ISPADDR = u32Addr + idx * 4;
-        RMC->ISPDAT = pu32Buf[idx++];
-        RMC->MPDAT1 = pu32Buf[idx++];
-        RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-        tout = RMC_TIMEOUT_WRITE;
+        i32Err = -1L;
+    }
 
-        while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+    u32Idx = 0UL;
+    u32Remain = u32Len; /* local copy, do not modify function parameter */
 
-        if (tout == 0)
-            goto prog_fail;
+    while ((u32Remain > 0UL) && (i32Err == 0L))
+    {
+        uint32_t u32ProgAddr;
 
-        if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+        u32ProgAddr = u32Addr + (u32Idx * 4UL);
+
+        RMC->ISPCMD  = RMC_ISPCMD_LOAD_DATA_BUFFER;
+        RMC->ISPADDR = u32ProgAddr;
+        RMC->ISPDAT  = pu32Buf[u32Idx];
+        u32Idx++;
+        RMC->MPDAT1  = pu32Buf[u32Idx];
+        u32Idx++;
+        RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
+
+        if (RMC_WaitISPDone(RMC_TIMEOUT_WRITE) != 0L)
+        {
+            i32Err = -1L;
+        }
+        else if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
         {
             RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-            goto prog_fail;
+            i32Err = -1L;
         }
-        u32Len -= 8;
+        else
+        {
+
+        }
+
+        if (i32Err == 0L)
+        {
+            u32Remain -= 8UL;
+        }
     }
 
-    RMC->ISPCMD = RMC_ISPCMD_PROGRAM;
-    RMC->ISPADDR = u32Addr;
-    RMC->ISPDAT = pu32Buf[0];
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
-
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (tout == 0)
-        goto prog_fail;
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    if (i32Err == 0L)
     {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        goto prog_fail;
+        RMC->ISPCMD  = RMC_ISPCMD_PROGRAM;
+        RMC->ISPADDR = u32Addr;
+        RMC->ISPDAT  = pu32Buf[0];
+        RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
+
+        if (RMC_WaitISPDone(RMC_TIMEOUT_WRITE) != 0L)
+        {
+            i32Err = -1L;
+        }
+        else if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
+        {
+            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+            i32Err = -1L;
+        }
+        else
+        {
+
+        }
     }
-    return idx * 4;
-prog_fail:
-    g_RMC_i32ErrCode = -1;
-    RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk; 
 
-    RMC->ISPCMD = RMC_ISPCMD_CLEAR_DATA_BUFFER;
-    RMC->ISPADDR = 0x00000000;
-    RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
-    tout = RMC_TIMEOUT_WRITE;
+    RMC->ISPCTL &= ~RMC_ISPCTL_MPEN_Msk;
 
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-
-    if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
+    if (i32Err != 0L)
     {
-        RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+        g_RMC_i32ErrCode = -1L;
+        (void)RMC_ClearDataBuffer();
+
+        if ((RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk) != 0UL)
+        {
+            RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
+        }
+
+        return -1L;
     }
-    return -1;
+
+    u32WrittenBytes = (u32Idx * 4UL);
+
+    if (u32WrittenBytes > 0x7FFFFFFFUL) /* prevent narrowing overflow */
+    {
+        return -1L; /* fail-safe */
+    }
+
+    return (int32_t)u32WrittenBytes; /* cast single object only */
 }
 
 /**
@@ -731,60 +885,62 @@ prog_fail:
   */
 uint32_t  RMC_GetChkSum(uint32_t u32addr, uint32_t u32count)
 {
-    uint32_t   ret, tout;
+    uint32_t   ret;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
-    g_RMC_i32ErrCode = 0;
+    if(RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
+    g_RMC_i32ErrCode = 0L;
 
     if ((u32addr % 512UL) || (u32count % 512UL))
     {
-        ret = 0xFFFFFFFF;
+        ret = 0xFFFFFFFFUL;
     }
     else
     {
+        uint32_t   tout;
         RMC->ISPCTL = RMC->ISPCTL & ~RMC_ISPCTL_MPEN_Msk;
         RMC->ISPCMD  = RMC_ISPCMD_RUN_CKS;
         RMC->ISPADDR = u32addr;
         RMC->ISPDAT  = u32count;
         RMC->ISPTRG  = RMC_ISPTRG_ISPGO_Msk;
         tout = RMC_TIMEOUT_CHKSUM;
-        
-        while ((--tout > 0) && (RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)) {}
-        
-        if (tout == 0)
+
+        while ((--tout > 0UL) && (RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)) {}
+
+        if (tout == 0UL)
         {
-            g_RMC_i32ErrCode = -1;
-            return 0xFFFFFFFF;
+            g_RMC_i32ErrCode = -1L;
+            return 0xFFFFFFFFUL;
         }
 
         if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
         {
             RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-            g_RMC_i32ErrCode = -1;
-            return -1;
+            g_RMC_i32ErrCode = -1L;
+            return 0xFFFFFFFFUL;
         }
         RMC->ISPCMD = RMC_ISPCMD_READ_CKS;
         RMC->ISPADDR    = u32addr;
         RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
 
         tout = RMC_TIMEOUT_CHKSUM;
-        while ((--tout > 0) && (RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)) {}
-        if (tout == 0)
+        while ((--tout > 0UL) && (RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)) {}
+        if (tout == 0UL)
         {
-            g_RMC_i32ErrCode = -1;
-            return 0xFFFFFFFF;
+            g_RMC_i32ErrCode = -1L;
+            return 0xFFFFFFFFUL;
         }
 
         if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
         {
             RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-            g_RMC_i32ErrCode = -1;
-            return 0xFFFFFFFF;
+            g_RMC_i32ErrCode = -1L;
+            return 0xFFFFFFFFUL;
         }
         ret = RMC->ISPDAT;
     }
@@ -806,15 +962,16 @@ uint32_t  RMC_GetChkSum(uint32_t u32addr, uint32_t u32count)
 uint32_t  RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count)
 {
     uint32_t  ret = READ_ALLONE_CMD_FAIL;
-    int32_t   i32TimeOutCnt0, i32TimeOutCnt1;
+    int32_t   i32TimeOutCnt0;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
-    g_RMC_i32ErrCode = 0;
+    if(RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
+    g_RMC_i32ErrCode = 0L;
 
     RMC->ISPSTS = 0x80UL;   /* clear check all one bit */
 
@@ -826,16 +983,16 @@ uint32_t  RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count)
     i32TimeOutCnt0 = RMC_TIMEOUT_CHKALLONE;
     while(RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)
     {
-        if( i32TimeOutCnt0-- <= 0)
+        if( i32TimeOutCnt0-- <= 0L)
         {
-            g_RMC_i32ErrCode = -1;
+            g_RMC_i32ErrCode = -1L;
             break;
         }
     }
 
-    if(g_RMC_i32ErrCode == 0)
+    if(g_RMC_i32ErrCode == 0L)
     {
-        i32TimeOutCnt1 = RMC_TIMEOUT_CHKALLONE;
+        int32_t   i32TimeOutCnt1 = RMC_TIMEOUT_CHKALLONE;
         do
         {
             RMC->ISPCMD = RMC_ISPCMD_READ_ALL1;
@@ -845,29 +1002,36 @@ uint32_t  RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count)
             i32TimeOutCnt0 = RMC_TIMEOUT_CHKALLONE;
             while(RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk)
             {
-                if( i32TimeOutCnt0-- <= 0)
+                if( i32TimeOutCnt0-- <= 0L)
                 {
-                    g_RMC_i32ErrCode = -1;
+                    g_RMC_i32ErrCode = -1L;
                     break;
                 }
             }
 
-            if( i32TimeOutCnt1-- <= 0)
+            if( i32TimeOutCnt1-- <= 0L)
             {
-                g_RMC_i32ErrCode = -1;
+                g_RMC_i32ErrCode = -1L;
             }
         }
-        while( (RMC->ISPDAT == 0UL) && (g_RMC_i32ErrCode == 0) );
+        while( (RMC->ISPDAT == 0UL) && (g_RMC_i32ErrCode == 0L) );
     }
 
-    if( g_RMC_i32ErrCode == 0 )
+    if( g_RMC_i32ErrCode == 0L )
     {
         if(RMC->ISPDAT == READ_ALLONE_YES)
+        {
             ret = READ_ALLONE_YES;
+        }
         else if(RMC->ISPDAT == READ_ALLONE_NOT)
+        {
             ret = READ_ALLONE_NOT;
+        }
         else
-            g_RMC_i32ErrCode = -1;
+        {
+            g_RMC_i32ErrCode = -1L;
+            ret = READ_ALLONE_CMD_FAIL;
+        }
     }
 
     return ret;
@@ -893,29 +1057,30 @@ int32_t RMC_RemapBank(uint32_t u32BankAddr)
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
-    g_RMC_i32ErrCode = 0;
+    if(RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
+    g_RMC_i32ErrCode = 0L;
     RMC->ISPCMD = RMC_ISPCMD_BANK_REMAP;
     RMC->ISPADDR = u32BankAddr;
     RMC->ISPDAT = 0x5AA55AA5UL;
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;
     tout = RMC_TIMEOUT_WRITE;
-    
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
-    
-    if (tout == 0)
+
+    while ((--tout > 0UL) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
+
+    if (tout == 0UL)
     {
-        g_RMC_i32ErrCode = -1;
-        return -1;
+        g_RMC_i32ErrCode = -1L;
+        return -1L;
     }
 
     if (RMC->ISPSTS & RMC_ISPSTS_ISPFF_Msk)
     {
         RMC->ISPSTS |= RMC_ISPSTS_ISPFF_Msk;
-        g_RMC_i32ErrCode = -1;
-        return -1;
+        g_RMC_i32ErrCode = -1L;
+        return -1L;
     }
 
     return ret;
@@ -932,24 +1097,27 @@ int32_t RMC_RemapBank(uint32_t u32BankAddr)
   */
 int32_t RMC_ReadOTP(uint32_t otp_num, uint32_t *low_word, uint32_t *high_word)
 {
-    int32_t  ret = 0;
+    int32_t  ret = 0L;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
+    if(RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
     if (otp_num > 255UL)
     {
-        ret = -2;
+        ret = -2L;
     }
 
-    if (ret == 0)
+    if (ret == 0L)
     {
-        *low_word  = RMC_Read(RMC_OTP_BASE + otp_num * 8UL);
-        if(g_RMC_i32ErrCode == 0)
-            *high_word = RMC_Read(RMC_OTP_BASE + otp_num * 8UL +4);
+        *low_word  = RMC_Read(RMC_OTP_BASE + (otp_num * 8UL));
+        if(g_RMC_i32ErrCode == 0L)
+        {
+            *high_word = RMC_Read(RMC_OTP_BASE + (otp_num * 8UL) + 4UL);
+        }
     }
     return ret;
 }
@@ -963,20 +1131,27 @@ int32_t RMC_ReadOTP(uint32_t otp_num, uint32_t *low_word, uint32_t *high_word)
   */
 int32_t RMC_LockOTP(uint32_t otp_num)
 {
-    int32_t  ret = 0;
+    int32_t ret = 0L;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    if (RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
 
     if (otp_num > 255UL)
     {
-        ret = -2;
+        ret = -2L;
     }
 
-    if (ret == 0)
+    if (ret == 0L)
     {
-        RMC_Write(RMC_OTP_BASE + 0x800UL + otp_num * 4UL, 0);
+        int32_t i32WriteRet;
+        i32WriteRet = RMC_Write((RMC_OTP_BASE + 0x800UL + (otp_num * 4UL)), 0UL);
+        if (i32WriteRet != 0L)
+        {
+            ret = -1L;
+        }
     }
     return ret;
 }
@@ -991,26 +1166,26 @@ int32_t RMC_LockOTP(uint32_t otp_num)
   */
 int32_t RMC_IsOTPLocked(uint32_t otp_num)
 {
-    int32_t  ret = 0;
-    uint32_t  u32data = 0;
+    int32_t  ret = 0L;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
+    if(RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
     if (otp_num > 255UL)
     {
-        ret = -2;
+        ret = -2L;
     }
 
-    if (ret == 0)
+    if (ret == 0L)
     {
-        u32data = RMC_Read(RMC_OTP_BASE + 0x800UL + otp_num * 4UL);
+        uint32_t  u32data = RMC_Read(RMC_OTP_BASE + 0x800UL + (otp_num * 4UL));
         if (u32data != 0xFFFFFFFFUL)
         {
-            ret = 1;   /* Lock work was progrmmed. OTP was locked. */
+            ret = 1L;   /* Lock work was progrmmed. OTP was locked. */
         }
     }
     return ret;
@@ -1027,27 +1202,38 @@ int32_t RMC_IsOTPLocked(uint32_t otp_num)
   */
 int32_t RMC_WriteOTP(uint32_t otp_num, uint32_t low_word, uint32_t high_word)
 {
-    int32_t  ret = 0;
+    int32_t ret = 0L;
+    int32_t i32WriteRet;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    if (RMC_CHECK_MAGICNUM() != 0UL)
+    {
+        (void)RMC_DummyReadCID();
+    }
 
     if (otp_num > 255UL)
     {
-        ret = -2;
+        ret = -2L;
     }
 
-    if (ret == 0)
+    if (ret == 0L)
     {
-        RMC_Write(RMC_OTP_BASE + otp_num * 8UL, low_word);
+        i32WriteRet = RMC_Write((RMC_OTP_BASE + (otp_num * 8UL)), low_word);
+        if (i32WriteRet != 0L)
+        {
+            ret = -1L;
+        }
     }
 
-    if (g_RMC_i32ErrCode == 0)
+    if ((ret == 0L) && (g_RMC_i32ErrCode == 0L))
     {
-        RMC_Write(RMC_OTP_BASE + otp_num * 8UL+ 4UL, high_word);
+        i32WriteRet = RMC_Write((RMC_OTP_BASE + (otp_num * 8UL) + 4UL), high_word);
+        if (i32WriteRet != 0L)
+        {
+            ret = -1L;
+        }
     }
 
     return ret;

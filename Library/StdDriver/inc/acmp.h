@@ -73,11 +73,9 @@ extern "C"
 /*--------------------------------------------------------------------------------------------------*/
 /* Define Error Code                                                                                */
 /*--------------------------------------------------------------------------------------------------*/
-#define ACMP_TIMEOUT_ERR            (-1)    /*!< ACMP operation abort due to timeout error \hideinitializer */
+#define ACMP_TIMEOUT_ERR            (-1L)    /*!< ACMP operation abort due to timeout error \hideinitializer */
 
 /*@}*/ /* end of group ACMP_EXPORTED_CONSTANTS */
-
-extern int32_t g_ACMP_i32ErrCode;
 
 /** @addtogroup ACMP_EXPORTED_FUNCTIONS ACMP Exported Functions
   @{
@@ -97,8 +95,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_ENABLE_OUTPUT_INVERSE(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] |= ACMP_CTL_ACMPOINV_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] |= ACMP_CTL_ACMPOINV_Msk;}
+    do                                                                                 \
+    {                                                                                  \
+        ACMP_T * const p_acmp_ = (acmp);                                               \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));        \
+        if (p_acmp_ == ACMP01)                                                         \
+        {                                                                              \
+            p_acmp_->CTL[ch_] |= ACMP_CTL_ACMPOINV_Msk;                                \
+        }                                                                              \
+        else if (p_acmp_ == ACMP2)                                                     \
+        {                                                                              \
+            p_acmp_->CTL[0UL] |= ACMP_CTL_ACMPOINV_Msk;                                \
+        }                                                                              \
+        else                                                                           \
+        {                                                                              \
+            /* Optional: invalid instance handling */                                  \
+        }                                                                              \
+    } while (0)
 
 /**
   * @brief This macro is used to disable output inverse function
@@ -109,8 +122,24 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_DISABLE_OUTPUT_INVERSE(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] &= ~ACMP_CTL_ACMPOINV_Msk);}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] &= ~ACMP_CTL_ACMPOINV_Msk);}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] &= (uint32_t)~ACMP_CTL_ACMPOINV_Msk;                      \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] &= (uint32_t)~ACMP_CTL_ACMPOINV_Msk;                      \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
+
 
 /**
   * @brief This macro is used to select ACMP negative input source
@@ -127,8 +156,24 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_SET_NEG_SRC(acmp, u32ChNum, u32Src) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] = ((acmp)->CTL[u32ChNum] & ~ACMP_CTL_NEGSEL_Msk) | (u32Src);}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] = ((acmp)->CTL[0] & ~ACMP_CTL_NEGSEL_Msk) | (u32Src);}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        const uint32_t src_ = (uint32_t)(u32Src);                                       \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] = (p_acmp_->CTL[ch_] & (uint32_t)~ACMP_CTL_NEGSEL_Msk) | src_; \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] = (p_acmp_->CTL[0UL] & (uint32_t)~ACMP_CTL_NEGSEL_Msk) | src_; \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to enable hysteresis function and set hysteresis to 20mV
@@ -138,8 +183,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_ENABLE_HYSTERESIS(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] = ((acmp)->CTL[u32ChNum] & ~ACMP_CTL_HYSSEL_Msk) | (ACMP_CTL_HYSTERESIS_20MV);}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] = ((acmp)->CTL[0] & ~ACMP_CTL_HYSSEL_Msk) | (ACMP_CTL_HYSTERESIS_20MV);}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] = (p_acmp_->CTL[ch_] & (uint32_t)~ACMP_CTL_HYSSEL_Msk) | (uint32_t)ACMP_CTL_HYSTERESIS_20MV; \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] = (p_acmp_->CTL[0UL] & (uint32_t)~ACMP_CTL_HYSSEL_Msk) | (uint32_t)ACMP_CTL_HYSTERESIS_20MV; \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to disable hysteresis function
@@ -150,8 +210,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_DISABLE_HYSTERESIS(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] = ((acmp)->CTL[u32ChNum] & ~ACMP_CTL_HYSSEL_Msk) | (ACMP_CTL_HYSTERESIS_DISABLE);}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] = ((acmp)->CTL[0] & ~ACMP_CTL_HYSSEL_Msk) | (ACMP_CTL_HYSTERESIS_DISABLE);}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] = (p_acmp_->CTL[ch_] & (uint32_t)~ACMP_CTL_HYSSEL_Msk) | (uint32_t)ACMP_CTL_HYSTERESIS_DISABLE; \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] = (p_acmp_->CTL[0UL] & (uint32_t)~ACMP_CTL_HYSSEL_Msk) | (uint32_t)ACMP_CTL_HYSTERESIS_DISABLE; \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to select hysteresis level
@@ -165,8 +240,24 @@ extern int32_t g_ACMP_i32ErrCode;
   * @return None
   */
 #define ACMP_CONFIG_HYSTERESIS(acmp, u32ChNum, u32HysSel) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] = ((acmp)->CTL[u32ChNum] & ~ACMP_CTL_HYSSEL_Msk) | (u32HysSel);}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] = ((acmp)->CTL[0] & ~ACMP_CTL_HYSSEL_Msk) | (u32HysSel);}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        const uint32_t hys_ = (uint32_t)(u32HysSel);                                    \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] = (p_acmp_->CTL[ch_] & (uint32_t)~ACMP_CTL_HYSSEL_Msk) | hys_; \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] = (p_acmp_->CTL[0UL] & (uint32_t)~ACMP_CTL_HYSSEL_Msk) | hys_; \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to enable interrupt
@@ -178,8 +269,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_ENABLE_INT(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] |= ACMP_CTL_ACMPIE_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] |= ACMP_CTL_ACMPIE_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] |= ACMP_CTL_ACMPIE_Msk;                                   \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] |= ACMP_CTL_ACMPIE_Msk;                                   \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to disable interrupt
@@ -190,8 +296,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_DISABLE_INT(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] &= ~ACMP_CTL_ACMPIE_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] &= ~ACMP_CTL_ACMPIE_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] &= (uint32_t)~ACMP_CTL_ACMPIE_Msk;                        \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] &= (uint32_t)~ACMP_CTL_ACMPIE_Msk;                        \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to enable ACMP
@@ -202,8 +323,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_ENABLE(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] |= ACMP_CTL_ACMPEN_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] |= ACMP_CTL_ACMPEN_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] |= ACMP_CTL_ACMPEN_Msk;                                   \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] |= ACMP_CTL_ACMPEN_Msk;                                   \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to disable ACMP
@@ -214,8 +350,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_DISABLE(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] &= ~ACMP_CTL_ACMPEN_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] &= ~ACMP_CTL_ACMPEN_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] &= (uint32_t)~ACMP_CTL_ACMPEN_Msk;                        \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] &= (uint32_t)~ACMP_CTL_ACMPEN_Msk;                        \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to get ACMP output value
@@ -226,9 +377,12 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_GET_OUTPUT(acmp, u32ChNum) \
-    ( (acmp == ACMP01) ? \
-      (((acmp)->STATUS & (ACMP_STATUS_ACMPO0_Msk<<(u32ChNum)))?1:0) : \
-      (((acmp)->STATUS & (ACMP_STATUS_ACMPO0_Msk<<(0)))?1:0) )
+    (                                                                                   \
+        (((acmp) == ACMP01) ?                                                           \
+            ((((acmp)->STATUS & ((uint32_t)ACMP_STATUS_ACMPO0_Msk << (uint32_t)(u32ChNum))) != 0UL) ? 1UL : 0UL) : \
+            ((((acmp)->STATUS & ((uint32_t)ACMP_STATUS_ACMPO0_Msk << 0UL)) != 0UL) ? 1UL : 0UL)       \
+        )                                                                               \
+    )
 
 /**
   * @brief This macro is used to get ACMP interrupt flag
@@ -239,9 +393,12 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_GET_INT_FLAG(acmp, u32ChNum) \
-    ( (acmp == ACMP01) ? \
-      (((acmp)->STATUS & (ACMP_STATUS_ACMPIF0_Msk<<(u32ChNum)))?1:0) : \
-      (((acmp)->STATUS & (ACMP_STATUS_ACMPIF0_Msk<<(0)))?1:0) )
+    (                                                                                   \
+        (((acmp) == ACMP01) ?                                                           \
+            ((((acmp)->STATUS & ((uint32_t)ACMP_STATUS_ACMPIF0_Msk << (uint32_t)(u32ChNum))) != 0UL) ? 1UL : 0UL) : \
+            ((((acmp)->STATUS & ((uint32_t)ACMP_STATUS_ACMPIF0_Msk << 0UL)) != 0UL) ? 1UL : 0UL)       \
+        )                                                                               \
+    )
 
 /**
   * @brief This macro is used to clear ACMP interrupt flag
@@ -252,8 +409,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_CLR_INT_FLAG(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->STATUS = (ACMP_STATUS_ACMPIF0_Msk<<(u32ChNum));}\
-    else if (acmp == ACMP2) {(acmp)->STATUS = (ACMP_STATUS_ACMPIF0_Msk<<(0));}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->STATUS = ((uint32_t)ACMP_STATUS_ACMPIF0_Msk << ch_);               \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->STATUS = ((uint32_t)ACMP_STATUS_ACMPIF0_Msk << 0UL);               \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to clear ACMP wake-up interrupt flag
@@ -264,8 +436,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_CLR_WAKEUP_INT_FLAG(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->STATUS = (ACMP_STATUS_WKIF0_Msk<<(u32ChNum));}\
-    else if (acmp == ACMP2) {(acmp)->STATUS = (ACMP_STATUS_WKIF0_Msk<<(0));}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->STATUS = ((uint32_t)ACMP_STATUS_WKIF0_Msk << ch_);                 \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->STATUS = ((uint32_t)ACMP_STATUS_WKIF0_Msk << 0UL);                 \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to enable ACMP wake-up function
@@ -276,8 +463,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_ENABLE_WAKEUP(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] |= ACMP_CTL_WKEN_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] |= ACMP_CTL_WKEN_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->STATUS = ((uint32_t)ACMP_STATUS_WKIF0_Msk << ch_);                 \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->STATUS = ((uint32_t)ACMP_STATUS_WKIF0_Msk << 0UL);                 \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to disable ACMP wake-up function
@@ -288,8 +490,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_DISABLE_WAKEUP(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] &= ~ACMP_CTL_WKEN_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] &= ~ACMP_CTL_WKEN_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] &= (uint32_t)~ACMP_CTL_WKEN_Msk;                          \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] &= (uint32_t)~ACMP_CTL_WKEN_Msk;                          \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to select ACMP positive input pin
@@ -308,8 +525,24 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_SELECT_P(acmp, u32ChNum, u32Pin) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] = ((acmp)->CTL[u32ChNum] & ~ACMP_CTL_POSSEL_Msk) | (u32Pin);}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] = ((acmp)->CTL[0] & ~ACMP_CTL_POSSEL_Msk) | (u32Pin);}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        const uint32_t pin_ = (uint32_t)(u32Pin);                                       \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] = (p_acmp_->CTL[ch_] & (uint32_t)~ACMP_CTL_POSSEL_Msk) | pin_; \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] = (p_acmp_->CTL[0UL] & (uint32_t)~ACMP_CTL_POSSEL_Msk) | pin_; \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to enable ACMP filter function
@@ -320,8 +553,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_ENABLE_FILTER(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] |= ACMP_CTL_OUTSEL_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] |= ACMP_CTL_OUTSEL_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] |= ACMP_CTL_OUTSEL_Msk;                                   \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] |= ACMP_CTL_OUTSEL_Msk;                                   \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to disable ACMP filter function
@@ -332,8 +580,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_DISABLE_FILTER(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] &= ~ACMP_CTL_OUTSEL_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] &= ~ACMP_CTL_OUTSEL_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] &= (uint32_t)~ACMP_CTL_OUTSEL_Msk;                        \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] &= (uint32_t)~ACMP_CTL_OUTSEL_Msk;                        \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to set ACMP filter function
@@ -353,8 +616,24 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_SET_FILTER(acmp, u32ChNum, u32Cnt) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] = ((acmp)->CTL[u32ChNum] & ~ACMP_CTL_FILTSEL_Msk) | (u32Cnt);}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] = ((acmp)->CTL[0] & ~ACMP_CTL_FILTSEL_Msk) | (u32Cnt);}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        const uint32_t cnt_ = (uint32_t)(u32Cnt);                                       \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] = (p_acmp_->CTL[ch_] & (uint32_t)~ACMP_CTL_FILTSEL_Msk) | cnt_; \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] = (p_acmp_->CTL[0UL] & (uint32_t)~ACMP_CTL_FILTSEL_Msk) | cnt_; \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to select comparator reference voltage CRV0
@@ -367,7 +646,13 @@ extern int32_t g_ACMP_i32ErrCode;
   * @details  When CRV0 is selected as ACMP negative input source, the CRV0 level is determined by CRV0SEL.
   * \hideinitializer
   */
-#define ACMP_CRV0_SEL(acmp, u32Level) ((acmp)->VREF = ((acmp)->VREF & ~ACMP_VREF_CRV0SEL_Msk) | ((u32Level)<<ACMP_VREF_CRV0SEL_Pos))
+#define ACMP_CRV0_SEL(acmp, u32Level) \
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t level_ = (uint32_t)(u32Level);                                   \
+        p_acmp_->VREF = (p_acmp_->VREF & (uint32_t)~ACMP_VREF_CRV0SEL_Msk) | (level_ << ACMP_VREF_CRV0SEL_Pos); \
+    } while (0)
 
 /**
   * @brief This macro is used to select the source of CRV0
@@ -379,7 +664,13 @@ extern int32_t g_ACMP_i32ErrCode;
   * @details The source of CRV0 can be VDDA or internal reference voltage. The internal reference voltage level is determined by SYS_VREFCTL register.
   * \hideinitializer
   */
-#define ACMP_SELECT_CRV0_SRC(acmp, u32Src) ((acmp)->VREF = ((acmp)->VREF & ~ACMP_VREF_CRV0SSEL_Msk) | (u32Src))
+#define ACMP_SELECT_CRV0_SRC(acmp, u32Src) \
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t src_ = (uint32_t)(u32Src);                                       \
+        p_acmp_->VREF = (p_acmp_->VREF & (uint32_t)~ACMP_VREF_CRV0SSEL_Msk) | src_;     \
+    } while (0)
 
 /**
   * @brief This macro is used to select comparator reference voltage CRV1
@@ -392,7 +683,13 @@ extern int32_t g_ACMP_i32ErrCode;
   * @details  When CRV1 is selected as ACMP negative input source, the CRV1 level is determined by CRV1SEL.
   * \hideinitializer
   */
-#define ACMP_CRV1_SEL(acmp, u32Level) ((acmp)->VREF = ((acmp)->VREF & ~ACMP_VREF_CRV1SEL_Msk) | ((u32Level)<<ACMP_VREF_CRV1SEL_Pos))
+#define ACMP_CRV1_SEL(acmp, u32Level) \
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t level_ = (uint32_t)(u32Level);                                   \
+        p_acmp_->VREF = (p_acmp_->VREF & (uint32_t)~ACMP_VREF_CRV1SEL_Msk) | (level_ << ACMP_VREF_CRV1SEL_Pos); \
+    } while (0)
 
 /**
   * @brief This macro is used to select the source of CRV1
@@ -404,7 +701,13 @@ extern int32_t g_ACMP_i32ErrCode;
   * @details The source of CRV1 can be VDDA or internal reference voltage. The internal reference voltage level is determined by SYS_VREFCTL register.
   * \hideinitializer
   */
-#define ACMP_SELECT_CRV1_SRC(acmp, u32Src) ((acmp)->VREF = ((acmp)->VREF & ~ACMP_VREF_CRV1SSEL_Msk) | (u32Src))
+#define ACMP_SELECT_CRV1_SRC(acmp, u32Src) \
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t src_ = (uint32_t)(u32Src);                                       \
+        p_acmp_->VREF = (p_acmp_->VREF & (uint32_t)~ACMP_VREF_CRV1SSEL_Msk) | src_;     \
+    } while (0)
 
 /**
   * @brief This macro is used to select comparator reference voltage CRV2
@@ -417,7 +720,13 @@ extern int32_t g_ACMP_i32ErrCode;
   * @details  When CRV2 is selected as ACMP negative input source, the CRV2 level is determined by CRV2SEL.
   * \hideinitializer
   */
-#define ACMP_CRV2_SEL(acmp, u32Level) ((acmp)->VREF = ((acmp)->VREF & ~ACMP_VREF_CRV2SEL_Msk) | ((u32Level)<<ACMP_VREF_CRV2SEL_Pos))
+#define ACMP_CRV2_SEL(acmp, u32Level) \
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t level_ = (uint32_t)(u32Level);                                   \
+        p_acmp_->VREF = (p_acmp_->VREF & (uint32_t)~ACMP_VREF_CRV2SEL_Msk) | (level_ << ACMP_VREF_CRV2SEL_Pos); \
+    } while (0)
 
 /**
   * @brief This macro is used to select the source of CRV2
@@ -429,7 +738,13 @@ extern int32_t g_ACMP_i32ErrCode;
   * @details The source of CRV2 can be VDDA or internal reference voltage. The internal reference voltage level is determined by SYS_VREFCTL register.
   * \hideinitializer
   */
-#define ACMP_SELECT_CRV2_SRC(acmp, u32Src) ((acmp)->VREF = ((acmp)->VREF & ~ACMP_VREF_CRV2SSEL_Msk) | (u32Src))
+#define ACMP_SELECT_CRV2_SRC(acmp, u32Src) \
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t src_ = (uint32_t)(u32Src);                                       \
+        p_acmp_->VREF = (p_acmp_->VREF & (uint32_t)~ACMP_VREF_CRV2SSEL_Msk) | src_;     \
+    } while (0)
 
 /**
   * @brief This macro is used to select ACMP interrupt condition
@@ -444,8 +759,24 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_SELECT_INT_COND(acmp, u32ChNum, u32Cond) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] = ((acmp)->CTL[u32ChNum] & ~ACMP_CTL_INTPOL_Msk) | (u32Cond);}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] = ((acmp)->CTL[0] & ~ACMP_CTL_INTPOL_Msk) | (u32Cond);}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        const uint32_t cond_ = (uint32_t)(u32Cond);                                     \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] = (p_acmp_->CTL[ch_] & (uint32_t)~ACMP_CTL_INTPOL_Msk) | cond_; \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] = (p_acmp_->CTL[0UL] & (uint32_t)~ACMP_CTL_INTPOL_Msk) | cond_; \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                             \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to enable ACMP window latch mode
@@ -459,8 +790,23 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_ENABLE_WINDOW_LATCH(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] |= ACMP_CTL_WLATEN_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] |= ACMP_CTL_WLATEN_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] |= ACMP_CTL_WLATEN_Msk;                                   \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] |= ACMP_CTL_WLATEN_Msk;                                   \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
+    } while (0)
 
 /**
   * @brief This macro is used to disable ACMP window latch mode
@@ -471,8 +817,22 @@ extern int32_t g_ACMP_i32ErrCode;
   * \hideinitializer
   */
 #define ACMP_DISABLE_WINDOW_LATCH(acmp, u32ChNum) \
-    if (acmp == ACMP01) {(acmp)->CTL[u32ChNum] &= ~ACMP_CTL_WLATEN_Msk;}\
-    else if (acmp == ACMP2) {(acmp)->CTL[0] &= ~ACMP_CTL_WLATEN_Msk;}
+    do                                                                                  \
+    {                                                                                   \
+        ACMP_T * const p_acmp_ = (acmp);                                                \
+        const uint32_t ch_ = ((p_acmp_ == ACMP2) ? 0UL : (uint32_t)(u32ChNum));         \
+        if (p_acmp_ == ACMP01)                                                          \
+        {                                                                               \
+            p_acmp_->CTL[ch_] &= (uint32_t)~ACMP_CTL_WLATEN_Msk;                        \
+        }                                                                               \
+        else if (p_acmp_ == ACMP2)                                                      \
+        {                                                                               \
+            p_acmp_->CTL[0UL] &= (uint32_t)~ACMP_CTL_WLATEN_Msk;                        \
+        }                                                                               \
+        else                                                                            \
+        {                                                                               \
+            /* Optional: invalid instance handling */                                   \
+        }                                                                               \
 
 /**
   * @brief This macro is used to enable ACMP window compare mode
@@ -504,6 +864,8 @@ extern int32_t g_ACMP_i32ErrCode;
 /* Function prototype declaration */
 void ACMP_Open(ACMP_T *acmp, uint32_t u32ChNum, uint32_t u32NegSrc, uint32_t u32HysSel);
 void ACMP_Close(ACMP_T *acmp, uint32_t u32ChNum);
+int32_t ACMP_GetErrCode(void);
+void    ACMP_SetErrCode(int32_t err);
 
 /*@}*/ /* end of group ACMP_EXPORTED_FUNCTIONS */
 

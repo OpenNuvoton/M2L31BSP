@@ -150,82 +150,82 @@ typedef struct
 @{ */
 
 #define TRNG_CTL_LDOEN_Pos               (0)                                               /*!< TRNG_T::CTL: LDOEN Position            */
-#define TRNG_CTL_LDOEN_Msk               (0x1ul << TRNG_CTL_LDOEN_Pos)                     /*!< TRNG_T::CTL: LDOEN Mask                */
+#define TRNG_CTL_LDOEN_Msk               (0x1UL << TRNG_CTL_LDOEN_Pos)                     /*!< TRNG_T::CTL: LDOEN Mask                */
 
 #define TRNG_CTL_NRST_Pos                (1)                                               /*!< TRNG_T::CTL: NRST Position             */
-#define TRNG_CTL_NRST_Msk                (0x1ul << TRNG_CTL_NRST_Pos)                      /*!< TRNG_T::CTL: NRST Mask                 */
+#define TRNG_CTL_NRST_Msk                (0x1UL << TRNG_CTL_NRST_Pos)                      /*!< TRNG_T::CTL: NRST Mask                 */
 
 #define TRNG_CTL_TRNGEN_Pos              (2)                                               /*!< TRNG_T::CTL: TRNGEN Position           */
-#define TRNG_CTL_TRNGEN_Msk              (0x1ul << TRNG_CTL_TRNGEN_Pos)                    /*!< TRNG_T::CTL: TRNGEN Mask               */
+#define TRNG_CTL_TRNGEN_Msk              (0x1UL << TRNG_CTL_TRNGEN_Pos)                    /*!< TRNG_T::CTL: TRNGEN Mask               */
 
 #define TRNG_CTL_START_Pos               (3)                                               /*!< TRNG_T::CTL: START Position            */
-#define TRNG_CTL_START_Msk               (0x1ul << TRNG_CTL_START_Pos)                     /*!< TRNG_T::CTL: START Mask                */
+#define TRNG_CTL_START_Msk               (0x1UL << TRNG_CTL_START_Pos)                     /*!< TRNG_T::CTL: START Mask                */
 
 #define TRNG_CTL_MODE_Pos                (4)                                               /*!< TRNG_T::CTL: MODE Position             */
-#define TRNG_CTL_MODE_Msk                (0x3ul << TRNG_CTL_MODE_Pos)                      /*!< TRNG_T::CTL: MODE Mask                 */
+#define TRNG_CTL_MODE_Msk                (0x3UL << TRNG_CTL_MODE_Pos)                      /*!< TRNG_T::CTL: MODE Mask                 */
 
 #define TRNG_CTL_INSTANT_Pos             (8)                                               /*!< TRNG_T::CTL: INSTANT Position          */
-#define TRNG_CTL_INSTANT_Msk             (0x1ul << TRNG_CTL_INSTANT_Pos)                   /*!< TRNG_T::CTL: INSTANT Mask              */
+#define TRNG_CTL_INSTANT_Msk             (0x1UL << TRNG_CTL_INSTANT_Pos)                   /*!< TRNG_T::CTL: INSTANT Mask              */
 
 #define TRNG_CTL_RESEED_Pos              (9)                                               /*!< TRNG_T::CTL: RESEED Position           */
-#define TRNG_CTL_RESEED_Msk              (0x1ul << TRNG_CTL_RESEED_Pos)                    /*!< TRNG_T::CTL: RESEED Mask               */
+#define TRNG_CTL_RESEED_Msk              (0x1UL << TRNG_CTL_RESEED_Pos)                    /*!< TRNG_T::CTL: RESEED Mask               */
 
 #define TRNG_CTL_UPDATE_Pos              (10)                                              /*!< TRNG_T::CTL: UPDATE Position           */
-#define TRNG_CTL_UPDATE_Msk              (0x1ul << TRNG_CTL_UPDATE_Pos)                    /*!< TRNG_T::CTL: UPDATE Mask               */
+#define TRNG_CTL_UPDATE_Msk              (0x1UL << TRNG_CTL_UPDATE_Pos)                    /*!< TRNG_T::CTL: UPDATE Mask               */
 
 #define TRNG_CTL_KATEN_Pos               (24)                                              /*!< TRNG_T::CTL: KATEN Position            */
-#define TRNG_CTL_KATEN_Msk               (0x1ul << TRNG_CTL_KATEN_Pos)                     /*!< TRNG_T::CTL: KATEN Mask                */
+#define TRNG_CTL_KATEN_Msk               (0x1UL << TRNG_CTL_KATEN_Pos)                     /*!< TRNG_T::CTL: KATEN Mask                */
 
 #define TRNG_CTL_KATSEL_Pos              (25)                                              /*!< TRNG_T::CTL: KATSEL Position           */
-#define TRNG_CTL_KATSEL_Msk              (0x3ul << TRNG_CTL_KATSEL_Pos)                    /*!< TRNG_T::CTL: KATSEL Mask               */
+#define TRNG_CTL_KATSEL_Msk              (0x3UL << TRNG_CTL_KATSEL_Pos)                    /*!< TRNG_T::CTL: KATSEL Mask               */
 
 #define TRNG_CTL_ERRIEN_Pos              (30)                                              /*!< TRNG_T::CTL: ERRIEN Position           */
-#define TRNG_CTL_ERRIEN_Msk              (0x1ul << TRNG_CTL_ERRIEN_Pos)                    /*!< TRNG_T::CTL: ERRIEN Mask               */
+#define TRNG_CTL_ERRIEN_Msk              (0x1UL << TRNG_CTL_ERRIEN_Pos)                    /*!< TRNG_T::CTL: ERRIEN Mask               */
 
 #define TRNG_CTL_DVIEN_Pos               (31)                                              /*!< TRNG_T::CTL: DVIEN Position            */
-#define TRNG_CTL_DVIEN_Msk               (0x1ul << TRNG_CTL_DVIEN_Pos)                     /*!< TRNG_T::CTL: DVIEN Mask                */
+#define TRNG_CTL_DVIEN_Msk               (0x1UL << TRNG_CTL_DVIEN_Pos)                     /*!< TRNG_T::CTL: DVIEN Mask                */
 
 #define TRNG_CFG_RESEED_INTERVAL_Pos     (0)                                               /*!< TRNG_T::CFG: RESEED_INTERVAL Position  */
-#define TRNG_CFG_RESEED_INTERVAL_Msk     (0x3fffffful << TRNG_CFG_RESEED_INTERVAL_Pos)     /*!< TRNG_T::CFG: RESEED_INTERVAL Mask      */
+#define TRNG_CFG_RESEED_INTERVAL_Msk     (0x3ffffffUL << TRNG_CFG_RESEED_INTERVAL_Pos)     /*!< TRNG_T::CFG: RESEED_INTERVAL Mask      */
 
 #define TRNG_CFG_CTRLEN_Pos              (28)                                              /*!< TRNG_T::CFG: CTRLEN Position           */
-#define TRNG_CFG_CTRLEN_Msk              (0xful << TRNG_CFG_CTRLEN_Pos)                    /*!< TRNG_T::CFG: CTRLEN Mask               */
+#define TRNG_CFG_CTRLEN_Msk              (0xfUL << TRNG_CFG_CTRLEN_Pos)                    /*!< TRNG_T::CFG: CTRLEN Mask               */
 
 #define TRNG_STS_LDORDY_Pos              (0)                                               /*!< TRNG_T::STS: LDORDY Position           */
-#define TRNG_STS_LDORDY_Msk              (0x1ul << TRNG_STS_LDORDY_Pos)                    /*!< TRNG_T::STS: LDORDY Mask               */
+#define TRNG_STS_LDORDY_Msk              (0x1UL << TRNG_STS_LDORDY_Pos)                    /*!< TRNG_T::STS: LDORDY Mask               */
 
 #define TRNG_STS_TRNGRDY_Pos             (1)                                               /*!< TRNG_T::STS: TRNGRDY Position          */
-#define TRNG_STS_TRNGRDY_Msk             (0x1ul << TRNG_STS_TRNGRDY_Pos)                   /*!< TRNG_T::STS: TRNGRDY Mask              */
+#define TRNG_STS_TRNGRDY_Msk             (0x1UL << TRNG_STS_TRNGRDY_Pos)                   /*!< TRNG_T::STS: TRNGRDY Mask              */
 
 #define TRNG_STS_ESSUT_Pos               (4)                                               /*!< TRNG_T::STS: ESSUT Position            */
-#define TRNG_STS_ESSUT_Msk               (0x1ul << TRNG_STS_ESSUT_Pos)                     /*!< TRNG_T::STS: ESSUT Mask                */
+#define TRNG_STS_ESSUT_Msk               (0x1UL << TRNG_STS_ESSUT_Pos)                     /*!< TRNG_T::STS: ESSUT Mask                */
 
 #define TRNG_STS_ESRCT_Pos               (5)                                               /*!< TRNG_T::STS: ESRCT Position            */
-#define TRNG_STS_ESRCT_Msk               (0x1ul << TRNG_STS_ESRCT_Pos)                     /*!< TRNG_T::STS: ESRCT Mask                */
+#define TRNG_STS_ESRCT_Msk               (0x1UL << TRNG_STS_ESRCT_Pos)                     /*!< TRNG_T::STS: ESRCT Mask                */
 
 #define TRNG_STS_ESAPT_Pos               (6)                                               /*!< TRNG_T::STS: ESAPT Position            */
-#define TRNG_STS_ESAPT_Msk               (0x1ul << TRNG_STS_ESAPT_Pos)                     /*!< TRNG_T::STS: ESAPT Mask                */
+#define TRNG_STS_ESAPT_Msk               (0x1UL << TRNG_STS_ESAPT_Pos)                     /*!< TRNG_T::STS: ESAPT Mask                */
 
 #define TRNG_STS_KATPASS_Pos             (27)                                              /*!< TRNG_T::STS: KATPASS Position          */
-#define TRNG_STS_KATPASS_Msk             (0x1ul << TRNG_STS_KATPASS_Pos)                   /*!< TRNG_T::STS: KATPASS Mask              */
+#define TRNG_STS_KATPASS_Msk             (0x1UL << TRNG_STS_KATPASS_Pos)                   /*!< TRNG_T::STS: KATPASS Mask              */
 
 #define TRNG_STS_ERRIF_Pos               (30)                                              /*!< TRNG_T::STS: ERRIF Position            */
-#define TRNG_STS_ERRIF_Msk               (0x1ul << TRNG_STS_ERRIF_Pos)                     /*!< TRNG_T::STS: ERRIF Mask                */
+#define TRNG_STS_ERRIF_Msk               (0x1UL << TRNG_STS_ERRIF_Pos)                     /*!< TRNG_T::STS: ERRIF Mask                */
 
 #define TRNG_STS_DVIF_Pos                (31)                                              /*!< TRNG_T::STS: DVIF Position             */
-#define TRNG_STS_DVIF_Msk                (0x1ul << TRNG_STS_DVIF_Pos)                      /*!< TRNG_T::STS: DVIF Mask                 */
+#define TRNG_STS_DVIF_Msk                (0x1UL << TRNG_STS_DVIF_Pos)                      /*!< TRNG_T::STS: DVIF Mask                 */
 
 #define TRNG_DATA0_DATA_Pos              (0)                                               /*!< TRNG_T::DATA0: DATA Position           */
-#define TRNG_DATA0_DATA_Msk              (0xfffffffful << TRNG_DATA0_DATA_Pos)             /*!< TRNG_T::DATA0: DATA Mask               */
+#define TRNG_DATA0_DATA_Msk              (0xffffffffUL << TRNG_DATA0_DATA_Pos)             /*!< TRNG_T::DATA0: DATA Mask               */
 
 #define TRNG_DATA1_DATA_Pos              (0)                                               /*!< TRNG_T::DATA1: DATA Position           */
-#define TRNG_DATA1_DATA_Msk              (0xfffffffful << TRNG_DATA1_DATA_Pos)             /*!< TRNG_T::DATA1: DATA Mask               */
+#define TRNG_DATA1_DATA_Msk              (0xffffffffUL << TRNG_DATA1_DATA_Pos)             /*!< TRNG_T::DATA1: DATA Mask               */
 
 #define TRNG_DATA2_DATA_Pos              (0)                                               /*!< TRNG_T::DATA2: DATA Position           */
-#define TRNG_DATA2_DATA_Msk              (0xfffffffful << TRNG_DATA2_DATA_Pos)             /*!< TRNG_T::DATA2: DATA Mask               */
+#define TRNG_DATA2_DATA_Msk              (0xffffffffUL << TRNG_DATA2_DATA_Pos)             /*!< TRNG_T::DATA2: DATA Mask               */
 
 #define TRNG_DATA3_DATA_Pos              (0)                                               /*!< TRNG_T::DATA3: DATA Position           */
-#define TRNG_DATA3_DATA_Msk              (0xfffffffful << TRNG_DATA3_DATA_Pos)             /*!< TRNG_T::DATA3: DATA Mask               */
+#define TRNG_DATA3_DATA_Msk              (0xffffffffUL << TRNG_DATA3_DATA_Pos)             /*!< TRNG_T::DATA3: DATA Mask               */
 
 /**@}*/ /* TRNG_CONST */
 /**@}*/ /* end of TRNG register group */

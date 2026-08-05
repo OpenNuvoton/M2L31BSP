@@ -1037,622 +1037,622 @@ typedef struct
 @{ */
 
 #define CANFD_DBTP_DSJW_Pos              (0)                                               /*!< CANFD_T::DBTP: DSJW Position           */
-#define CANFD_DBTP_DSJW_Msk              (0xful << CANFD_DBTP_DSJW_Pos)                    /*!< CANFD_T::DBTP: DSJW Mask               */
+#define CANFD_DBTP_DSJW_Msk              (0xfUL << CANFD_DBTP_DSJW_Pos)                    /*!< CANFD_T::DBTP: DSJW Mask               */
 
 #define CANFD_DBTP_DTSEG2_Pos            (4)                                               /*!< CANFD_T::DBTP: DTSEG2 Position         */
-#define CANFD_DBTP_DTSEG2_Msk            (0xful << CANFD_DBTP_DTSEG2_Pos)                  /*!< CANFD_T::DBTP: DTSEG2 Mask             */
+#define CANFD_DBTP_DTSEG2_Msk            (0xfUL << CANFD_DBTP_DTSEG2_Pos)                  /*!< CANFD_T::DBTP: DTSEG2 Mask             */
 
 #define CANFD_DBTP_DTSEG1_Pos            (8)                                               /*!< CANFD_T::DBTP: DTSEG1 Position         */
-#define CANFD_DBTP_DTSEG1_Msk            (0x1ful << CANFD_DBTP_DTSEG1_Pos)                 /*!< CANFD_T::DBTP: DTSEG1 Mask             */
+#define CANFD_DBTP_DTSEG1_Msk            (0x1fUL << CANFD_DBTP_DTSEG1_Pos)                 /*!< CANFD_T::DBTP: DTSEG1 Mask             */
 
 #define CANFD_DBTP_DBRP_Pos              (16)                                              /*!< CANFD_T::DBTP: DBRP Position           */
-#define CANFD_DBTP_DBRP_Msk              (0x1ful << CANFD_DBTP_DBRP_Pos)                   /*!< CANFD_T::DBTP: DBRP Mask               */
+#define CANFD_DBTP_DBRP_Msk              (0x1fUL << CANFD_DBTP_DBRP_Pos)                   /*!< CANFD_T::DBTP: DBRP Mask               */
 
 #define CANFD_DBTP_TDC_Pos               (23)                                              /*!< CANFD_T::DBTP: TDC Position            */
-#define CANFD_DBTP_TDC_Msk               (0x1ul << CANFD_DBTP_TDC_Pos)                     /*!< CANFD_T::DBTP: TDC Mask                */
+#define CANFD_DBTP_TDC_Msk               (0x1UL << CANFD_DBTP_TDC_Pos)                     /*!< CANFD_T::DBTP: TDC Mask                */
 
 #define CANFD_TEST_LBCK_Pos              (4)                                               /*!< CANFD_T::TEST: LBCK Position           */
-#define CANFD_TEST_LBCK_Msk              (0x1ul << CANFD_TEST_LBCK_Pos)                    /*!< CANFD_T::TEST: LBCK Mask               */
+#define CANFD_TEST_LBCK_Msk              (0x1UL << CANFD_TEST_LBCK_Pos)                    /*!< CANFD_T::TEST: LBCK Mask               */
 
 #define CANFD_TEST_TX_Pos                (5)                                               /*!< CANFD_T::TEST: TX Position             */
-#define CANFD_TEST_TX_Msk                (0x3ul << CANFD_TEST_TX_Pos)                      /*!< CANFD_T::TEST: TX Mask                 */
+#define CANFD_TEST_TX_Msk                (0x3UL << CANFD_TEST_TX_Pos)                      /*!< CANFD_T::TEST: TX Mask                 */
 
 #define CANFD_TEST_RX_Pos                (7)                                               /*!< CANFD_T::TEST: RX Position             */
-#define CANFD_TEST_RX_Msk                (0x1ul << CANFD_TEST_RX_Pos)                      /*!< CANFD_T::TEST: RX Mask                 */
+#define CANFD_TEST_RX_Msk                (0x1UL << CANFD_TEST_RX_Pos)                      /*!< CANFD_T::TEST: RX Mask                 */
 
 #define CANFD_RWD_WDC_Pos                (0)                                               /*!< CANFD_T::RWD: WDC Position             */
-#define CANFD_RWD_WDC_Msk                (0xfful << CANFD_RWD_WDC_Pos)                     /*!< CANFD_T::RWD: WDC Mask                 */
+#define CANFD_RWD_WDC_Msk                (0xffUL << CANFD_RWD_WDC_Pos)                     /*!< CANFD_T::RWD: WDC Mask                 */
 
 #define CANFD_RWD_WDV_Pos                (8)                                               /*!< CANFD_T::RWD: WDV Position             */
-#define CANFD_RWD_WDV_Msk                (0xfful << CANFD_RWD_WDV_Pos)                     /*!< CANFD_T::RWD: WDV Mask                 */
+#define CANFD_RWD_WDV_Msk                (0xffUL << CANFD_RWD_WDV_Pos)                     /*!< CANFD_T::RWD: WDV Mask                 */
 
 #define CANFD_CCCR_INIT_Pos              (0)                                               /*!< CANFD_T::CCCR: INIT Position           */
-#define CANFD_CCCR_INIT_Msk              (0x1ul << CANFD_CCCR_INIT_Pos)                    /*!< CANFD_T::CCCR: INIT Mask               */
+#define CANFD_CCCR_INIT_Msk              (0x1UL << CANFD_CCCR_INIT_Pos)                    /*!< CANFD_T::CCCR: INIT Mask               */
 
 #define CANFD_CCCR_CCE_Pos               (1)                                               /*!< CANFD_T::CCCR: CCE Position            */
-#define CANFD_CCCR_CCE_Msk               (0x1ul << CANFD_CCCR_CCE_Pos)                     /*!< CANFD_T::CCCR: CCE Mask                */
+#define CANFD_CCCR_CCE_Msk               (0x1UL << CANFD_CCCR_CCE_Pos)                     /*!< CANFD_T::CCCR: CCE Mask                */
 
 #define CANFD_CCCR_ASM_Pos               (2)                                               /*!< CANFD_T::CCCR: ASM Position            */
-#define CANFD_CCCR_ASM_Msk               (0x1ul << CANFD_CCCR_ASM_Pos)                     /*!< CANFD_T::CCCR: ASM Mask                */
+#define CANFD_CCCR_ASM_Msk               (0x1UL << CANFD_CCCR_ASM_Pos)                     /*!< CANFD_T::CCCR: ASM Mask                */
 
 #define CANFD_CCCR_CSA_Pos               (3)                                               /*!< CANFD_T::CCCR: CSA Position            */
-#define CANFD_CCCR_CSA_Msk               (0x1ul << CANFD_CCCR_CSA_Pos)                     /*!< CANFD_T::CCCR: CSA Mask                */
+#define CANFD_CCCR_CSA_Msk               (0x1UL << CANFD_CCCR_CSA_Pos)                     /*!< CANFD_T::CCCR: CSA Mask                */
 
 #define CANFD_CCCR_CSR_Pos               (4)                                               /*!< CANFD_T::CCCR: CSR Position            */
-#define CANFD_CCCR_CSR_Msk               (0x1ul << CANFD_CCCR_CSR_Pos)                     /*!< CANFD_T::CCCR: CSR Mask                */
+#define CANFD_CCCR_CSR_Msk               (0x1UL << CANFD_CCCR_CSR_Pos)                     /*!< CANFD_T::CCCR: CSR Mask                */
 
 #define CANFD_CCCR_MON_Pos               (5)                                               /*!< CANFD_T::CCCR: MON Position            */
-#define CANFD_CCCR_MON_Msk               (0x1ul << CANFD_CCCR_MON_Pos)                     /*!< CANFD_T::CCCR: MON Mask                */
+#define CANFD_CCCR_MON_Msk               (0x1UL << CANFD_CCCR_MON_Pos)                     /*!< CANFD_T::CCCR: MON Mask                */
 
 #define CANFD_CCCR_DAR_Pos               (6)                                               /*!< CANFD_T::CCCR: DAR Position            */
-#define CANFD_CCCR_DAR_Msk               (0x1ul << CANFD_CCCR_DAR_Pos)                     /*!< CANFD_T::CCCR: DAR Mask                */
+#define CANFD_CCCR_DAR_Msk               (0x1UL << CANFD_CCCR_DAR_Pos)                     /*!< CANFD_T::CCCR: DAR Mask                */
 
 #define CANFD_CCCR_TEST_Pos              (7)                                               /*!< CANFD_T::CCCR: TEST Position           */
-#define CANFD_CCCR_TEST_Msk              (0x1ul << CANFD_CCCR_TEST_Pos)                    /*!< CANFD_T::CCCR: TEST Mask               */
+#define CANFD_CCCR_TEST_Msk              (0x1UL << CANFD_CCCR_TEST_Pos)                    /*!< CANFD_T::CCCR: TEST Mask               */
 
 #define CANFD_CCCR_FDOE_Pos              (8)                                               /*!< CANFD_T::CCCR: FDOE Position           */
-#define CANFD_CCCR_FDOE_Msk              (0x1ul << CANFD_CCCR_FDOE_Pos)                    /*!< CANFD_T::CCCR: FDOE Mask               */
+#define CANFD_CCCR_FDOE_Msk              (0x1UL << CANFD_CCCR_FDOE_Pos)                    /*!< CANFD_T::CCCR: FDOE Mask               */
 
 #define CANFD_CCCR_BRSE_Pos              (9)                                               /*!< CANFD_T::CCCR: BRSE Position           */
-#define CANFD_CCCR_BRSE_Msk              (0x1ul << CANFD_CCCR_BRSE_Pos)                    /*!< CANFD_T::CCCR: BRSE Mask               */
+#define CANFD_CCCR_BRSE_Msk              (0x1UL << CANFD_CCCR_BRSE_Pos)                    /*!< CANFD_T::CCCR: BRSE Mask               */
 
 #define CANFD_CCCR_PXHD_Pos              (12)                                              /*!< CANFD_T::CCCR: PXHD Position           */
-#define CANFD_CCCR_PXHD_Msk              (0x1ul << CANFD_CCCR_PXHD_Pos)                    /*!< CANFD_T::CCCR: PXHD Mask               */
+#define CANFD_CCCR_PXHD_Msk              (0x1UL << CANFD_CCCR_PXHD_Pos)                    /*!< CANFD_T::CCCR: PXHD Mask               */
 
 #define CANFD_CCCR_EFBI_Pos              (13)                                              /*!< CANFD_T::CCCR: EFBI Position           */
-#define CANFD_CCCR_EFBI_Msk              (0x1ul << CANFD_CCCR_EFBI_Pos)                    /*!< CANFD_T::CCCR: EFBI Mask               */
+#define CANFD_CCCR_EFBI_Msk              (0x1UL << CANFD_CCCR_EFBI_Pos)                    /*!< CANFD_T::CCCR: EFBI Mask               */
 
 #define CANFD_CCCR_TXP_Pos               (14)                                              /*!< CANFD_T::CCCR: TXP Position            */
-#define CANFD_CCCR_TXP_Msk               (0x1ul << CANFD_CCCR_TXP_Pos)                     /*!< CANFD_T::CCCR: TXP Mask                */
+#define CANFD_CCCR_TXP_Msk               (0x1UL << CANFD_CCCR_TXP_Pos)                     /*!< CANFD_T::CCCR: TXP Mask                */
 
 #define CANFD_CCCR_NISO_Pos              (15)                                              /*!< CANFD_T::CCCR: NISO Position           */
-#define CANFD_CCCR_NISO_Msk              (0x1ul << CANFD_CCCR_NISO_Pos)                    /*!< CANFD_T::CCCR: NISO Mask               */
+#define CANFD_CCCR_NISO_Msk              (0x1UL << CANFD_CCCR_NISO_Pos)                    /*!< CANFD_T::CCCR: NISO Mask               */
 
 #define CANFD_NBTP_NTSEG2_Pos            (0)                                               /*!< CANFD_T::NBTP: NTSEG2 Position         */
-#define CANFD_NBTP_NTSEG2_Msk            (0x7ful << CANFD_NBTP_NTSEG2_Pos)                 /*!< CANFD_T::NBTP: NTSEG2 Mask             */
+#define CANFD_NBTP_NTSEG2_Msk            (0x7fUL << CANFD_NBTP_NTSEG2_Pos)                 /*!< CANFD_T::NBTP: NTSEG2 Mask             */
 
 #define CANFD_NBTP_NTSEG1_Pos            (8)                                               /*!< CANFD_T::NBTP: NTSEG1 Position         */
-#define CANFD_NBTP_NTSEG1_Msk            (0xfful << CANFD_NBTP_NTSEG1_Pos)                 /*!< CANFD_T::NBTP: NTSEG1 Mask             */
+#define CANFD_NBTP_NTSEG1_Msk            (0xffUL << CANFD_NBTP_NTSEG1_Pos)                 /*!< CANFD_T::NBTP: NTSEG1 Mask             */
 
 #define CANFD_NBTP_NBRP_Pos              (16)                                              /*!< CANFD_T::NBTP: NBRP Position           */
-#define CANFD_NBTP_NBRP_Msk              (0x1fful << CANFD_NBTP_NBRP_Pos)                  /*!< CANFD_T::NBTP: NBRP Mask               */
+#define CANFD_NBTP_NBRP_Msk              (0x1ffUL << CANFD_NBTP_NBRP_Pos)                  /*!< CANFD_T::NBTP: NBRP Mask               */
 
 #define CANFD_NBTP_NSJW_Pos              (25)                                              /*!< CANFD_T::NBTP: NSJW Position           */
-#define CANFD_NBTP_NSJW_Msk              (0x7ful << CANFD_NBTP_NSJW_Pos)                   /*!< CANFD_T::NBTP: NSJW Mask               */
+#define CANFD_NBTP_NSJW_Msk              (0x7fUL << CANFD_NBTP_NSJW_Pos)                   /*!< CANFD_T::NBTP: NSJW Mask               */
 
 #define CANFD_TSCC_TSS_Pos               (0)                                               /*!< CANFD_T::TSCC: TSS Position            */
-#define CANFD_TSCC_TSS_Msk               (0x3ul << CANFD_TSCC_TSS_Pos)                     /*!< CANFD_T::TSCC: TSS Mask                */
+#define CANFD_TSCC_TSS_Msk               (0x3UL << CANFD_TSCC_TSS_Pos)                     /*!< CANFD_T::TSCC: TSS Mask                */
 
 #define CANFD_TSCC_TCP_Pos               (16)                                              /*!< CANFD_T::TSCC: TCP Position            */
-#define CANFD_TSCC_TCP_Msk               (0xful << CANFD_TSCC_TCP_Pos)                     /*!< CANFD_T::TSCC: TCP Mask                */
+#define CANFD_TSCC_TCP_Msk               (0xfUL << CANFD_TSCC_TCP_Pos)                     /*!< CANFD_T::TSCC: TCP Mask                */
 
 #define CANFD_TSCV_TSC_Pos               (0)                                               /*!< CANFD_T::TSCV: TSC Position            */
-#define CANFD_TSCV_TSC_Msk               (0xfffful << CANFD_TSCV_TSC_Pos)                  /*!< CANFD_T::TSCV: TSC Mask                */
+#define CANFD_TSCV_TSC_Msk               (0xffffUL << CANFD_TSCV_TSC_Pos)                  /*!< CANFD_T::TSCV: TSC Mask                */
 
 #define CANFD_TOCC_ETOC_Pos              (0)                                               /*!< CANFD_T::TOCC: ETOC Position           */
-#define CANFD_TOCC_ETOC_Msk              (0x1ul << CANFD_TOCC_ETOC_Pos)                    /*!< CANFD_T::TOCC: ETOC Mask               */
+#define CANFD_TOCC_ETOC_Msk              (0x1UL << CANFD_TOCC_ETOC_Pos)                    /*!< CANFD_T::TOCC: ETOC Mask               */
 
 #define CANFD_TOCC_TOS_Pos               (1)                                               /*!< CANFD_T::TOCC: TOS Position            */
-#define CANFD_TOCC_TOS_Msk               (0x3ul << CANFD_TOCC_TOS_Pos)                     /*!< CANFD_T::TOCC: TOS Mask                */
+#define CANFD_TOCC_TOS_Msk               (0x3UL << CANFD_TOCC_TOS_Pos)                     /*!< CANFD_T::TOCC: TOS Mask                */
 
 #define CANFD_TOCC_TOP_Pos               (16)                                              /*!< CANFD_T::TOCC: TOP Position            */
-#define CANFD_TOCC_TOP_Msk               (0xfffful << CANFD_TOCC_TOP_Pos)                  /*!< CANFD_T::TOCC: TOP Mask                */
+#define CANFD_TOCC_TOP_Msk               (0xffffUL << CANFD_TOCC_TOP_Pos)                  /*!< CANFD_T::TOCC: TOP Mask                */
 
 #define CANFD_TOCV_TOC_Pos               (0)                                               /*!< CANFD_T::TOCV: TOC Position            */
-#define CANFD_TOCV_TOC_Msk               (0xfffful << CANFD_TOCV_TOC_Pos)                  /*!< CANFD_T::TOCV: TOC Mask                */
+#define CANFD_TOCV_TOC_Msk               (0xffffUL << CANFD_TOCV_TOC_Pos)                  /*!< CANFD_T::TOCV: TOC Mask                */
 
 #define CANFD_ECR_TEC_Pos                (0)                                               /*!< CANFD_T::ECR: TEC Position             */
-#define CANFD_ECR_TEC_Msk                (0xfful << CANFD_ECR_TEC_Pos)                     /*!< CANFD_T::ECR: TEC Mask                 */
+#define CANFD_ECR_TEC_Msk                (0xffUL << CANFD_ECR_TEC_Pos)                     /*!< CANFD_T::ECR: TEC Mask                 */
 
 #define CANFD_ECR_REC_Pos                (8)                                               /*!< CANFD_T::ECR: REC Position             */
-#define CANFD_ECR_REC_Msk                (0x7ful << CANFD_ECR_REC_Pos)                     /*!< CANFD_T::ECR: REC Mask                 */
+#define CANFD_ECR_REC_Msk                (0x7fUL << CANFD_ECR_REC_Pos)                     /*!< CANFD_T::ECR: REC Mask                 */
 
 #define CANFD_ECR_RP_Pos                 (15)                                              /*!< CANFD_T::ECR: RP Position              */
-#define CANFD_ECR_RP_Msk                 (0x1ul << CANFD_ECR_RP_Pos)                       /*!< CANFD_T::ECR: RP Mask                  */
+#define CANFD_ECR_RP_Msk                 (0x1UL << CANFD_ECR_RP_Pos)                       /*!< CANFD_T::ECR: RP Mask                  */
 
 #define CANFD_ECR_CEL_Pos                (16)                                              /*!< CANFD_T::ECR: CEL Position             */
-#define CANFD_ECR_CEL_Msk                (0xfful << CANFD_ECR_CEL_Pos)                     /*!< CANFD_T::ECR: CEL Mask                 */
+#define CANFD_ECR_CEL_Msk                (0xffUL << CANFD_ECR_CEL_Pos)                     /*!< CANFD_T::ECR: CEL Mask                 */
 
 #define CANFD_PSR_LEC_Pos                (0)                                               /*!< CANFD_T::PSR: LEC Position             */
-#define CANFD_PSR_LEC_Msk                (0x7ul << CANFD_PSR_LEC_Pos)                      /*!< CANFD_T::PSR: LEC Mask                 */
+#define CANFD_PSR_LEC_Msk                (0x7UL << CANFD_PSR_LEC_Pos)                      /*!< CANFD_T::PSR: LEC Mask                 */
 
 #define CANFD_PSR_ACT_Pos                (3)                                               /*!< CANFD_T::PSR: ACT Position             */
-#define CANFD_PSR_ACT_Msk                (0x3ul << CANFD_PSR_ACT_Pos)                      /*!< CANFD_T::PSR: ACT Mask                 */
+#define CANFD_PSR_ACT_Msk                (0x3UL << CANFD_PSR_ACT_Pos)                      /*!< CANFD_T::PSR: ACT Mask                 */
 
 #define CANFD_PSR_EP_Pos                 (5)                                               /*!< CANFD_T::PSR: EP Position              */
-#define CANFD_PSR_EP_Msk                 (0x1ul << CANFD_PSR_EP_Pos)                       /*!< CANFD_T::PSR: EP Mask                  */
+#define CANFD_PSR_EP_Msk                 (0x1UL << CANFD_PSR_EP_Pos)                       /*!< CANFD_T::PSR: EP Mask                  */
 
 #define CANFD_PSR_EW_Pos                 (6)                                               /*!< CANFD_T::PSR: EW Position              */
-#define CANFD_PSR_EW_Msk                 (0x1ul << CANFD_PSR_EW_Pos)                       /*!< CANFD_T::PSR: EW Mask                  */
+#define CANFD_PSR_EW_Msk                 (0x1UL << CANFD_PSR_EW_Pos)                       /*!< CANFD_T::PSR: EW Mask                  */
 
 #define CANFD_PSR_BO_Pos                 (7)                                               /*!< CANFD_T::PSR: BO Position              */
-#define CANFD_PSR_BO_Msk                 (0x1ul << CANFD_PSR_BO_Pos)                       /*!< CANFD_T::PSR: BO Mask                  */
+#define CANFD_PSR_BO_Msk                 (0x1UL << CANFD_PSR_BO_Pos)                       /*!< CANFD_T::PSR: BO Mask                  */
 
 #define CANFD_PSR_DLEC_Pos               (8)                                               /*!< CANFD_T::PSR: DLEC Position            */
-#define CANFD_PSR_DLEC_Msk               (0x7ul << CANFD_PSR_DLEC_Pos)                     /*!< CANFD_T::PSR: DLEC Mask                */
+#define CANFD_PSR_DLEC_Msk               (0x7UL << CANFD_PSR_DLEC_Pos)                     /*!< CANFD_T::PSR: DLEC Mask                */
 
 #define CANFD_PSR_RESI_Pos               (11)                                              /*!< CANFD_T::PSR: RESI Position            */
-#define CANFD_PSR_RESI_Msk               (0x1ul << CANFD_PSR_RESI_Pos)                     /*!< CANFD_T::PSR: RESI Mask                */
+#define CANFD_PSR_RESI_Msk               (0x1UL << CANFD_PSR_RESI_Pos)                     /*!< CANFD_T::PSR: RESI Mask                */
 
 #define CANFD_PSR_RBRS_Pos               (12)                                              /*!< CANFD_T::PSR: RBRS Position            */
-#define CANFD_PSR_RBRS_Msk               (0x1ul << CANFD_PSR_RBRS_Pos)                     /*!< CANFD_T::PSR: RBRS Mask                */
+#define CANFD_PSR_RBRS_Msk               (0x1UL << CANFD_PSR_RBRS_Pos)                     /*!< CANFD_T::PSR: RBRS Mask                */
 
 #define CANFD_PSR_RFDF_Pos               (13)                                              /*!< CANFD_T::PSR: RFDF Position            */
-#define CANFD_PSR_RFDF_Msk               (0x1ul << CANFD_PSR_RFDF_Pos)                     /*!< CANFD_T::PSR: RFDF Mask                */
+#define CANFD_PSR_RFDF_Msk               (0x1UL << CANFD_PSR_RFDF_Pos)                     /*!< CANFD_T::PSR: RFDF Mask                */
 
 #define CANFD_PSR_PXE_Pos                (14)                                              /*!< CANFD_T::PSR: PXE Position             */
-#define CANFD_PSR_PXE_Msk                (0x1ul << CANFD_PSR_PXE_Pos)                      /*!< CANFD_T::PSR: PXE Mask                 */
+#define CANFD_PSR_PXE_Msk                (0x1UL << CANFD_PSR_PXE_Pos)                      /*!< CANFD_T::PSR: PXE Mask                 */
 
 #define CANFD_PSR_TDCV_Pos               (16)                                              /*!< CANFD_T::PSR: TDCV Position            */
-#define CANFD_PSR_TDCV_Msk               (0x7ful << CANFD_PSR_TDCV_Pos)                    /*!< CANFD_T::PSR: TDCV Mask                */
+#define CANFD_PSR_TDCV_Msk               (0x7fUL << CANFD_PSR_TDCV_Pos)                    /*!< CANFD_T::PSR: TDCV Mask                */
 
 #define CANFD_TDCR_TDCF_Pos              (0)                                               /*!< CANFD_T::TDCR: TDCF Position           */
-#define CANFD_TDCR_TDCF_Msk              (0x7ful << CANFD_TDCR_TDCF_Pos)                   /*!< CANFD_T::TDCR: TDCF Mask               */
+#define CANFD_TDCR_TDCF_Msk              (0x7fUL << CANFD_TDCR_TDCF_Pos)                   /*!< CANFD_T::TDCR: TDCF Mask               */
 
 #define CANFD_TDCR_TDCO_Pos              (8)                                               /*!< CANFD_T::TDCR: TDCO Position           */
-#define CANFD_TDCR_TDCO_Msk              (0x7ful << CANFD_TDCR_TDCO_Pos)                   /*!< CANFD_T::TDCR: TDCO Mask               */
+#define CANFD_TDCR_TDCO_Msk              (0x7fUL << CANFD_TDCR_TDCO_Pos)                   /*!< CANFD_T::TDCR: TDCO Mask               */
 
 #define CANFD_IR_RF0N_Pos                (0)                                               /*!< CANFD_T::IR: RF0N Position             */
-#define CANFD_IR_RF0N_Msk                (0x1ul << CANFD_IR_RF0N_Pos)                      /*!< CANFD_T::IR: RF0N Mask                 */
+#define CANFD_IR_RF0N_Msk                (0x1UL << CANFD_IR_RF0N_Pos)                      /*!< CANFD_T::IR: RF0N Mask                 */
 
 #define CANFD_IR_RF0W_Pos                (1)                                               /*!< CANFD_T::IR: RF0W Position             */
-#define CANFD_IR_RF0W_Msk                (0x1ul << CANFD_IR_RF0W_Pos)                      /*!< CANFD_T::IR: RF0W Mask                 */
+#define CANFD_IR_RF0W_Msk                (0x1UL << CANFD_IR_RF0W_Pos)                      /*!< CANFD_T::IR: RF0W Mask                 */
 
 #define CANFD_IR_RF0F_Pos                (2)                                               /*!< CANFD_T::IR: RF0F Position             */
-#define CANFD_IR_RF0F_Msk                (0x1ul << CANFD_IR_RF0F_Pos)                      /*!< CANFD_T::IR: RF0F Mask                 */
+#define CANFD_IR_RF0F_Msk                (0x1UL << CANFD_IR_RF0F_Pos)                      /*!< CANFD_T::IR: RF0F Mask                 */
 
 #define CANFD_IR_RF0L_Pos                (3)                                               /*!< CANFD_T::IR: RF0L Position             */
-#define CANFD_IR_RF0L_Msk                (0x1ul << CANFD_IR_RF0L_Pos)                      /*!< CANFD_T::IR: RF0L Mask                 */
+#define CANFD_IR_RF0L_Msk                (0x1UL << CANFD_IR_RF0L_Pos)                      /*!< CANFD_T::IR: RF0L Mask                 */
 
 #define CANFD_IR_RF1N_Pos                (4)                                               /*!< CANFD_T::IR: RF1N Position             */
-#define CANFD_IR_RF1N_Msk                (0x1ul << CANFD_IR_RF1N_Pos)                      /*!< CANFD_T::IR: RF1N Mask                 */
+#define CANFD_IR_RF1N_Msk                (0x1UL << CANFD_IR_RF1N_Pos)                      /*!< CANFD_T::IR: RF1N Mask                 */
 
 #define CANFD_IR_RF1W_Pos                (5)                                               /*!< CANFD_T::IR: RF1W Position             */
-#define CANFD_IR_RF1W_Msk                (0x1ul << CANFD_IR_RF1W_Pos)                      /*!< CANFD_T::IR: RF1W Mask                 */
+#define CANFD_IR_RF1W_Msk                (0x1UL << CANFD_IR_RF1W_Pos)                      /*!< CANFD_T::IR: RF1W Mask                 */
 
 #define CANFD_IR_RF1F_Pos                (6)                                               /*!< CANFD_T::IR: RF1F Position             */
-#define CANFD_IR_RF1F_Msk                (0x1ul << CANFD_IR_RF1F_Pos)                      /*!< CANFD_T::IR: RF1F Mask                 */
+#define CANFD_IR_RF1F_Msk                (0x1UL << CANFD_IR_RF1F_Pos)                      /*!< CANFD_T::IR: RF1F Mask                 */
 
 #define CANFD_IR_RF1L_Pos                (7)                                               /*!< CANFD_T::IR: RF1L Position             */
-#define CANFD_IR_RF1L_Msk                (0x1ul << CANFD_IR_RF1L_Pos)                      /*!< CANFD_T::IR: RF1L Mask                 */
+#define CANFD_IR_RF1L_Msk                (0x1UL << CANFD_IR_RF1L_Pos)                      /*!< CANFD_T::IR: RF1L Mask                 */
 
 #define CANFD_IR_HPM_Pos                 (8)                                               /*!< CANFD_T::IR: HPM Position              */
-#define CANFD_IR_HPM_Msk                 (0x1ul << CANFD_IR_HPM_Pos)                       /*!< CANFD_T::IR: HPM Mask                  */
+#define CANFD_IR_HPM_Msk                 (0x1UL << CANFD_IR_HPM_Pos)                       /*!< CANFD_T::IR: HPM Mask                  */
 
 #define CANFD_IR_TC_Pos                  (9)                                               /*!< CANFD_T::IR: TC Position               */
-#define CANFD_IR_TC_Msk                  (0x1ul << CANFD_IR_TC_Pos)                        /*!< CANFD_T::IR: TC Mask                   */
+#define CANFD_IR_TC_Msk                  (0x1UL << CANFD_IR_TC_Pos)                        /*!< CANFD_T::IR: TC Mask                   */
 
 #define CANFD_IR_TCF_Pos                 (10)                                              /*!< CANFD_T::IR: TCF Position              */
-#define CANFD_IR_TCF_Msk                 (0x1ul << CANFD_IR_TCF_Pos)                       /*!< CANFD_T::IR: TCF Mask                  */
+#define CANFD_IR_TCF_Msk                 (0x1UL << CANFD_IR_TCF_Pos)                       /*!< CANFD_T::IR: TCF Mask                  */
 
 #define CANFD_IR_TFE_Pos                 (11)                                              /*!< CANFD_T::IR: TFE Position              */
-#define CANFD_IR_TFE_Msk                 (0x1ul << CANFD_IR_TFE_Pos)                       /*!< CANFD_T::IR: TFE Mask                  */
+#define CANFD_IR_TFE_Msk                 (0x1UL << CANFD_IR_TFE_Pos)                       /*!< CANFD_T::IR: TFE Mask                  */
 
 #define CANFD_IR_TEFN_Pos                (12)                                              /*!< CANFD_T::IR: TEFN Position             */
-#define CANFD_IR_TEFN_Msk                (0x1ul << CANFD_IR_TEFN_Pos)                      /*!< CANFD_T::IR: TEFN Mask                 */
+#define CANFD_IR_TEFN_Msk                (0x1UL << CANFD_IR_TEFN_Pos)                      /*!< CANFD_T::IR: TEFN Mask                 */
 
 #define CANFD_IR_TEFW_Pos                (13)                                              /*!< CANFD_T::IR: TEFW Position             */
-#define CANFD_IR_TEFW_Msk                (0x1ul << CANFD_IR_TEFW_Pos)                      /*!< CANFD_T::IR: TEFW Mask                 */
+#define CANFD_IR_TEFW_Msk                (0x1UL << CANFD_IR_TEFW_Pos)                      /*!< CANFD_T::IR: TEFW Mask                 */
 
 #define CANFD_IR_TEFF_Pos                (14)                                              /*!< CANFD_T::IR: TEFF Position             */
-#define CANFD_IR_TEFF_Msk                (0x1ul << CANFD_IR_TEFF_Pos)                      /*!< CANFD_T::IR: TEFF Mask                 */
+#define CANFD_IR_TEFF_Msk                (0x1UL << CANFD_IR_TEFF_Pos)                      /*!< CANFD_T::IR: TEFF Mask                 */
 
 #define CANFD_IR_TEFL_Pos                (15)                                              /*!< CANFD_T::IR: TEFL Position             */
-#define CANFD_IR_TEFL_Msk                (0x1ul << CANFD_IR_TEFL_Pos)                      /*!< CANFD_T::IR: TEFL Mask                 */
+#define CANFD_IR_TEFL_Msk                (0x1UL << CANFD_IR_TEFL_Pos)                      /*!< CANFD_T::IR: TEFL Mask                 */
 
 #define CANFD_IR_TSW_Pos                 (16)                                              /*!< CANFD_T::IR: TSW Position              */
-#define CANFD_IR_TSW_Msk                 (0x1ul << CANFD_IR_TSW_Pos)                       /*!< CANFD_T::IR: TSW Mask                  */
+#define CANFD_IR_TSW_Msk                 (0x1UL << CANFD_IR_TSW_Pos)                       /*!< CANFD_T::IR: TSW Mask                  */
 
 #define CANFD_IR_MRAF_Pos                (17)                                              /*!< CANFD_T::IR: MRAF Position             */
-#define CANFD_IR_MRAF_Msk                (0x1ul << CANFD_IR_MRAF_Pos)                      /*!< CANFD_T::IR: MRAF Mask                 */
+#define CANFD_IR_MRAF_Msk                (0x1UL << CANFD_IR_MRAF_Pos)                      /*!< CANFD_T::IR: MRAF Mask                 */
 
 #define CANFD_IR_TOO_Pos                 (18)                                              /*!< CANFD_T::IR: TOO Position              */
-#define CANFD_IR_TOO_Msk                 (0x1ul << CANFD_IR_TOO_Pos)                       /*!< CANFD_T::IR: TOO Mask                  */
+#define CANFD_IR_TOO_Msk                 (0x1UL << CANFD_IR_TOO_Pos)                       /*!< CANFD_T::IR: TOO Mask                  */
 
 #define CANFD_IR_DRX_Pos                 (19)                                              /*!< CANFD_T::IR: DRX Position              */
-#define CANFD_IR_DRX_Msk                 (0x1ul << CANFD_IR_DRX_Pos)                       /*!< CANFD_T::IR: DRX Mask                  */
+#define CANFD_IR_DRX_Msk                 (0x1UL << CANFD_IR_DRX_Pos)                       /*!< CANFD_T::IR: DRX Mask                  */
 
 #define CANFD_IR_ELO_Pos                 (22)                                              /*!< CANFD_T::IR: ELO Position              */
-#define CANFD_IR_ELO_Msk                 (0x1ul << CANFD_IR_ELO_Pos)                       /*!< CANFD_T::IR: ELO Mask                  */
+#define CANFD_IR_ELO_Msk                 (0x1UL << CANFD_IR_ELO_Pos)                       /*!< CANFD_T::IR: ELO Mask                  */
 
 #define CANFD_IR_EP_Pos                  (23)                                              /*!< CANFD_T::IR: EP Position               */
-#define CANFD_IR_EP_Msk                  (0x1ul << CANFD_IR_EP_Pos)                        /*!< CANFD_T::IR: EP Mask                   */
+#define CANFD_IR_EP_Msk                  (0x1UL << CANFD_IR_EP_Pos)                        /*!< CANFD_T::IR: EP Mask                   */
 
 #define CANFD_IR_EW_Pos                  (24)                                              /*!< CANFD_T::IR: EW Position               */
-#define CANFD_IR_EW_Msk                  (0x1ul << CANFD_IR_EW_Pos)                        /*!< CANFD_T::IR: EW Mask                   */
+#define CANFD_IR_EW_Msk                  (0x1UL << CANFD_IR_EW_Pos)                        /*!< CANFD_T::IR: EW Mask                   */
 
 #define CANFD_IR_BO_Pos                  (25)                                              /*!< CANFD_T::IR: BO Position               */
-#define CANFD_IR_BO_Msk                  (0x1ul << CANFD_IR_BO_Pos)                        /*!< CANFD_T::IR: BO Mask                   */
+#define CANFD_IR_BO_Msk                  (0x1UL << CANFD_IR_BO_Pos)                        /*!< CANFD_T::IR: BO Mask                   */
 
 #define CANFD_IR_WDI_Pos                 (26)                                              /*!< CANFD_T::IR: WDI Position              */
-#define CANFD_IR_WDI_Msk                 (0x1ul << CANFD_IR_WDI_Pos)                       /*!< CANFD_T::IR: WDI Mask                  */
+#define CANFD_IR_WDI_Msk                 (0x1UL << CANFD_IR_WDI_Pos)                       /*!< CANFD_T::IR: WDI Mask                  */
 
 #define CANFD_IR_PEA_Pos                 (27)                                              /*!< CANFD_T::IR: PEA Position              */
-#define CANFD_IR_PEA_Msk                 (0x1ul << CANFD_IR_PEA_Pos)                       /*!< CANFD_T::IR: PEA Mask                  */
+#define CANFD_IR_PEA_Msk                 (0x1UL << CANFD_IR_PEA_Pos)                       /*!< CANFD_T::IR: PEA Mask                  */
 
 #define CANFD_IR_PED_Pos                 (28)                                              /*!< CANFD_T::IR: PED Position              */
-#define CANFD_IR_PED_Msk                 (0x1ul << CANFD_IR_PED_Pos)                       /*!< CANFD_T::IR: PED Mask                  */
+#define CANFD_IR_PED_Msk                 (0x1UL << CANFD_IR_PED_Pos)                       /*!< CANFD_T::IR: PED Mask                  */
 
 #define CANFD_IR_ARA_Pos                 (29)                                              /*!< CANFD_T::IR: ARA Position              */
-#define CANFD_IR_ARA_Msk                 (0x1ul << CANFD_IR_ARA_Pos)                       /*!< CANFD_T::IR: ARA Mask                  */
+#define CANFD_IR_ARA_Msk                 (0x1UL << CANFD_IR_ARA_Pos)                       /*!< CANFD_T::IR: ARA Mask                  */
 
 #define CANFD_IE_RF0NE_Pos               (0)                                               /*!< CANFD_T::IE: RF0NE Position            */
-#define CANFD_IE_RF0NE_Msk               (0x1ul << CANFD_IE_RF0NE_Pos)                     /*!< CANFD_T::IE: RF0NE Mask                */
+#define CANFD_IE_RF0NE_Msk               (0x1UL << CANFD_IE_RF0NE_Pos)                     /*!< CANFD_T::IE: RF0NE Mask                */
 
 #define CANFD_IE_RF0WE_Pos               (1)                                               /*!< CANFD_T::IE: RF0WE Position            */
-#define CANFD_IE_RF0WE_Msk               (0x1ul << CANFD_IE_RF0WE_Pos)                     /*!< CANFD_T::IE: RF0WE Mask                */
+#define CANFD_IE_RF0WE_Msk               (0x1UL << CANFD_IE_RF0WE_Pos)                     /*!< CANFD_T::IE: RF0WE Mask                */
 
 #define CANFD_IE_RF0FE_Pos               (2)                                               /*!< CANFD_T::IE: RF0FE Position            */
-#define CANFD_IE_RF0FE_Msk               (0x1ul << CANFD_IE_RF0FE_Pos)                     /*!< CANFD_T::IE: RF0FE Mask                */
+#define CANFD_IE_RF0FE_Msk               (0x1UL << CANFD_IE_RF0FE_Pos)                     /*!< CANFD_T::IE: RF0FE Mask                */
 
 #define CANFD_IE_RF0LE_Pos               (3)                                               /*!< CANFD_T::IE: RF0LE Position            */
-#define CANFD_IE_RF0LE_Msk               (0x1ul << CANFD_IE_RF0LE_Pos)                     /*!< CANFD_T::IE: RF0LE Mask                */
+#define CANFD_IE_RF0LE_Msk               (0x1UL << CANFD_IE_RF0LE_Pos)                     /*!< CANFD_T::IE: RF0LE Mask                */
 
 #define CANFD_IE_RF1NE_Pos               (4)                                               /*!< CANFD_T::IE: RF1NE Position            */
-#define CANFD_IE_RF1NE_Msk               (0x1ul << CANFD_IE_RF1NE_Pos)                     /*!< CANFD_T::IE: RF1NE Mask                */
+#define CANFD_IE_RF1NE_Msk               (0x1UL << CANFD_IE_RF1NE_Pos)                     /*!< CANFD_T::IE: RF1NE Mask                */
 
 #define CANFD_IE_RF1WE_Pos               (5)                                               /*!< CANFD_T::IE: RF1WE Position            */
-#define CANFD_IE_RF1WE_Msk               (0x1ul << CANFD_IE_RF1WE_Pos)                     /*!< CANFD_T::IE: RF1WE Mask                */
+#define CANFD_IE_RF1WE_Msk               (0x1UL << CANFD_IE_RF1WE_Pos)                     /*!< CANFD_T::IE: RF1WE Mask                */
 
 #define CANFD_IE_RF1FE_Pos               (6)                                               /*!< CANFD_T::IE: RF1FE Position            */
-#define CANFD_IE_RF1FE_Msk               (0x1ul << CANFD_IE_RF1FE_Pos)                     /*!< CANFD_T::IE: RF1FE Mask                */
+#define CANFD_IE_RF1FE_Msk               (0x1UL << CANFD_IE_RF1FE_Pos)                     /*!< CANFD_T::IE: RF1FE Mask                */
 
 #define CANFD_IE_RF1LE_Pos               (7)                                               /*!< CANFD_T::IE: RF1LE Position            */
-#define CANFD_IE_RF1LE_Msk               (0x1ul << CANFD_IE_RF1LE_Pos)                     /*!< CANFD_T::IE: RF1LE Mask                */
+#define CANFD_IE_RF1LE_Msk               (0x1UL << CANFD_IE_RF1LE_Pos)                     /*!< CANFD_T::IE: RF1LE Mask                */
 
 #define CANFD_IE_HPME_Pos                (8)                                               /*!< CANFD_T::IE: HPME Position             */
-#define CANFD_IE_HPME_Msk                (0x1ul << CANFD_IE_HPME_Pos)                      /*!< CANFD_T::IE: HPME Mask                 */
+#define CANFD_IE_HPME_Msk                (0x1UL << CANFD_IE_HPME_Pos)                      /*!< CANFD_T::IE: HPME Mask                 */
 
 #define CANFD_IE_TCE_Pos                 (9)                                               /*!< CANFD_T::IE: TCE Position              */
-#define CANFD_IE_TCE_Msk                 (0x1ul << CANFD_IE_TCE_Pos)                       /*!< CANFD_T::IE: TCE Mask                  */
+#define CANFD_IE_TCE_Msk                 (0x1UL << CANFD_IE_TCE_Pos)                       /*!< CANFD_T::IE: TCE Mask                  */
 
 #define CANFD_IE_TCFE_Pos                (10)                                              /*!< CANFD_T::IE: TCFE Position             */
-#define CANFD_IE_TCFE_Msk                (0x1ul << CANFD_IE_TCFE_Pos)                      /*!< CANFD_T::IE: TCFE Mask                 */
+#define CANFD_IE_TCFE_Msk                (0x1UL << CANFD_IE_TCFE_Pos)                      /*!< CANFD_T::IE: TCFE Mask                 */
 
 #define CANFD_IE_TFEE_Pos                (11)                                              /*!< CANFD_T::IE: TFEE Position             */
-#define CANFD_IE_TFEE_Msk                (0x1ul << CANFD_IE_TFEE_Pos)                      /*!< CANFD_T::IE: TFEE Mask                 */
+#define CANFD_IE_TFEE_Msk                (0x1UL << CANFD_IE_TFEE_Pos)                      /*!< CANFD_T::IE: TFEE Mask                 */
 
 #define CANFD_IE_TEFNE_Pos               (12)                                              /*!< CANFD_T::IE: TEFNE Position            */
-#define CANFD_IE_TEFNE_Msk               (0x1ul << CANFD_IE_TEFNE_Pos)                     /*!< CANFD_T::IE: TEFNE Mask                */
+#define CANFD_IE_TEFNE_Msk               (0x1UL << CANFD_IE_TEFNE_Pos)                     /*!< CANFD_T::IE: TEFNE Mask                */
 
 #define CANFD_IE_TEFWE_Pos               (13)                                              /*!< CANFD_T::IE: TEFWE Position            */
-#define CANFD_IE_TEFWE_Msk               (0x1ul << CANFD_IE_TEFWE_Pos)                     /*!< CANFD_T::IE: TEFWE Mask                */
+#define CANFD_IE_TEFWE_Msk               (0x1UL << CANFD_IE_TEFWE_Pos)                     /*!< CANFD_T::IE: TEFWE Mask                */
 
 #define CANFD_IE_TEFFE_Pos               (14)                                              /*!< CANFD_T::IE: TEFFE Position            */
-#define CANFD_IE_TEFFE_Msk               (0x1ul << CANFD_IE_TEFFE_Pos)                     /*!< CANFD_T::IE: TEFFE Mask                */
+#define CANFD_IE_TEFFE_Msk               (0x1UL << CANFD_IE_TEFFE_Pos)                     /*!< CANFD_T::IE: TEFFE Mask                */
 
 #define CANFD_IE_TEFLE_Pos               (15)                                              /*!< CANFD_T::IE: TEFLE Position            */
-#define CANFD_IE_TEFLE_Msk               (0x1ul << CANFD_IE_TEFLE_Pos)                     /*!< CANFD_T::IE: TEFLE Mask                */
+#define CANFD_IE_TEFLE_Msk               (0x1UL << CANFD_IE_TEFLE_Pos)                     /*!< CANFD_T::IE: TEFLE Mask                */
 
 #define CANFD_IE_TSWE_Pos                (16)                                              /*!< CANFD_T::IE: TSWE Position             */
-#define CANFD_IE_TSWE_Msk                (0x1ul << CANFD_IE_TSWE_Pos)                      /*!< CANFD_T::IE: TSWE Mask                 */
+#define CANFD_IE_TSWE_Msk                (0x1UL << CANFD_IE_TSWE_Pos)                      /*!< CANFD_T::IE: TSWE Mask                 */
 
 #define CANFD_IE_MRAFE_Pos               (17)                                              /*!< CANFD_T::IE: MRAFE Position            */
-#define CANFD_IE_MRAFE_Msk               (0x1ul << CANFD_IE_MRAFE_Pos)                     /*!< CANFD_T::IE: MRAFE Mask                */
+#define CANFD_IE_MRAFE_Msk               (0x1UL << CANFD_IE_MRAFE_Pos)                     /*!< CANFD_T::IE: MRAFE Mask                */
 
 #define CANFD_IE_TOOE_Pos                (18)                                              /*!< CANFD_T::IE: TOOE Position             */
-#define CANFD_IE_TOOE_Msk                (0x1ul << CANFD_IE_TOOE_Pos)                      /*!< CANFD_T::IE: TOOE Mask                 */
+#define CANFD_IE_TOOE_Msk                (0x1UL << CANFD_IE_TOOE_Pos)                      /*!< CANFD_T::IE: TOOE Mask                 */
 
 #define CANFD_IE_DRXE_Pos                (19)                                              /*!< CANFD_T::IE: DRXE Position             */
-#define CANFD_IE_DRXE_Msk                (0x1ul << CANFD_IE_DRXE_Pos)                      /*!< CANFD_T::IE: DRXE Mask                 */
+#define CANFD_IE_DRXE_Msk                (0x1UL << CANFD_IE_DRXE_Pos)                      /*!< CANFD_T::IE: DRXE Mask                 */
 
 #define CANFD_IE_BECE_Pos                (20)                                              /*!< CANFD_T::IE: BECE Position             */
-#define CANFD_IE_BECE_Msk                (0x1ul << CANFD_IE_BECE_Pos)                      /*!< CANFD_T::IE: BECE Mask                 */
+#define CANFD_IE_BECE_Msk                (0x1UL << CANFD_IE_BECE_Pos)                      /*!< CANFD_T::IE: BECE Mask                 */
 
 #define CANFD_IE_BEUE_Pos                (21)                                              /*!< CANFD_T::IE: BEUE Position             */
-#define CANFD_IE_BEUE_Msk                (0x1ul << CANFD_IE_BEUE_Pos)                      /*!< CANFD_T::IE: BEUE Mask                 */
+#define CANFD_IE_BEUE_Msk                (0x1UL << CANFD_IE_BEUE_Pos)                      /*!< CANFD_T::IE: BEUE Mask                 */
 
 #define CANFD_IE_ELOE_Pos                (22)                                              /*!< CANFD_T::IE: ELOE Position             */
-#define CANFD_IE_ELOE_Msk                (0x1ul << CANFD_IE_ELOE_Pos)                      /*!< CANFD_T::IE: ELOE Mask                 */
+#define CANFD_IE_ELOE_Msk                (0x1UL << CANFD_IE_ELOE_Pos)                      /*!< CANFD_T::IE: ELOE Mask                 */
 
 #define CANFD_IE_EPE_Pos                 (23)                                              /*!< CANFD_T::IE: EPE Position              */
-#define CANFD_IE_EPE_Msk                 (0x1ul << CANFD_IE_EPE_Pos)                       /*!< CANFD_T::IE: EPE Mask                  */
+#define CANFD_IE_EPE_Msk                 (0x1UL << CANFD_IE_EPE_Pos)                       /*!< CANFD_T::IE: EPE Mask                  */
 
 #define CANFD_IE_EWE_Pos                 (24)                                              /*!< CANFD_T::IE: EWE Position              */
-#define CANFD_IE_EWE_Msk                 (0x1ul << CANFD_IE_EWE_Pos)                       /*!< CANFD_T::IE: EWE Mask                  */
+#define CANFD_IE_EWE_Msk                 (0x1UL << CANFD_IE_EWE_Pos)                       /*!< CANFD_T::IE: EWE Mask                  */
 
 #define CANFD_IE_BOE_Pos                 (25)                                              /*!< CANFD_T::IE: BOE Position              */
-#define CANFD_IE_BOE_Msk                 (0x1ul << CANFD_IE_BOE_Pos)                       /*!< CANFD_T::IE: BOE Mask                  */
+#define CANFD_IE_BOE_Msk                 (0x1UL << CANFD_IE_BOE_Pos)                       /*!< CANFD_T::IE: BOE Mask                  */
 
 #define CANFD_IE_WDIE_Pos                (26)                                              /*!< CANFD_T::IE: WDIE Position             */
-#define CANFD_IE_WDIE_Msk                (0x1ul << CANFD_IE_WDIE_Pos)                      /*!< CANFD_T::IE: WDIE Mask                 */
+#define CANFD_IE_WDIE_Msk                (0x1UL << CANFD_IE_WDIE_Pos)                      /*!< CANFD_T::IE: WDIE Mask                 */
 
 #define CANFD_IE_PEAE_Pos                (27)                                              /*!< CANFD_T::IE: PEAE Position             */
-#define CANFD_IE_PEAE_Msk                (0x1ul << CANFD_IE_PEAE_Pos)                      /*!< CANFD_T::IE: PEAE Mask                 */
+#define CANFD_IE_PEAE_Msk                (0x1UL << CANFD_IE_PEAE_Pos)                      /*!< CANFD_T::IE: PEAE Mask                 */
 
 #define CANFD_IE_PEDE_Pos                (28)                                              /*!< CANFD_T::IE: PEDE Position             */
-#define CANFD_IE_PEDE_Msk                (0x1ul << CANFD_IE_PEDE_Pos)                      /*!< CANFD_T::IE: PEDE Mask                 */
+#define CANFD_IE_PEDE_Msk                (0x1UL << CANFD_IE_PEDE_Pos)                      /*!< CANFD_T::IE: PEDE Mask                 */
 
 #define CANFD_IE_ARAE_Pos                (29)                                              /*!< CANFD_T::IE: ARAE Position             */
-#define CANFD_IE_ARAE_Msk                (0x1ul << CANFD_IE_ARAE_Pos)                      /*!< CANFD_T::IE: ARAE Mask                 */
+#define CANFD_IE_ARAE_Msk                (0x1UL << CANFD_IE_ARAE_Pos)                      /*!< CANFD_T::IE: ARAE Mask                 */
 
 #define CANFD_ILS_RF0NL_Pos              (0)                                               /*!< CANFD_T::ILS: RF0NL Position           */
-#define CANFD_ILS_RF0NL_Msk              (0x1ul << CANFD_ILS_RF0NL_Pos)                    /*!< CANFD_T::ILS: RF0NL Mask               */
+#define CANFD_ILS_RF0NL_Msk              (0x1UL << CANFD_ILS_RF0NL_Pos)                    /*!< CANFD_T::ILS: RF0NL Mask               */
 
 #define CANFD_ILS_RF0WL_Pos              (1)                                               /*!< CANFD_T::ILS: RF0WL Position           */
-#define CANFD_ILS_RF0WL_Msk              (0x1ul << CANFD_ILS_RF0WL_Pos)                    /*!< CANFD_T::ILS: RF0WL Mask               */
+#define CANFD_ILS_RF0WL_Msk              (0x1UL << CANFD_ILS_RF0WL_Pos)                    /*!< CANFD_T::ILS: RF0WL Mask               */
 
 #define CANFD_ILS_RF0FL_Pos              (2)                                               /*!< CANFD_T::ILS: RF0FL Position           */
-#define CANFD_ILS_RF0FL_Msk              (0x1ul << CANFD_ILS_RF0FL_Pos)                    /*!< CANFD_T::ILS: RF0FL Mask               */
+#define CANFD_ILS_RF0FL_Msk              (0x1UL << CANFD_ILS_RF0FL_Pos)                    /*!< CANFD_T::ILS: RF0FL Mask               */
 
 #define CANFD_ILS_RF0LL_Pos              (3)                                               /*!< CANFD_T::ILS: RF0LL Position           */
-#define CANFD_ILS_RF0LL_Msk              (0x1ul << CANFD_ILS_RF0LL_Pos)                    /*!< CANFD_T::ILS: RF0LL Mask               */
+#define CANFD_ILS_RF0LL_Msk              (0x1UL << CANFD_ILS_RF0LL_Pos)                    /*!< CANFD_T::ILS: RF0LL Mask               */
 
 #define CANFD_ILS_RF1NL_Pos              (4)                                               /*!< CANFD_T::ILS: RF1NL Position           */
-#define CANFD_ILS_RF1NL_Msk              (0x1ul << CANFD_ILS_RF1NL_Pos)                    /*!< CANFD_T::ILS: RF1NL Mask               */
+#define CANFD_ILS_RF1NL_Msk              (0x1UL << CANFD_ILS_RF1NL_Pos)                    /*!< CANFD_T::ILS: RF1NL Mask               */
 
 #define CANFD_ILS_RF1WL_Pos              (5)                                               /*!< CANFD_T::ILS: RF1WL Position           */
-#define CANFD_ILS_RF1WL_Msk              (0x1ul << CANFD_ILS_RF1WL_Pos)                    /*!< CANFD_T::ILS: RF1WL Mask               */
+#define CANFD_ILS_RF1WL_Msk              (0x1UL << CANFD_ILS_RF1WL_Pos)                    /*!< CANFD_T::ILS: RF1WL Mask               */
 
 #define CANFD_ILS_RF1FL_Pos              (6)                                               /*!< CANFD_T::ILS: RF1FL Position           */
-#define CANFD_ILS_RF1FL_Msk              (0x1ul << CANFD_ILS_RF1FL_Pos)                    /*!< CANFD_T::ILS: RF1FL Mask               */
+#define CANFD_ILS_RF1FL_Msk              (0x1UL << CANFD_ILS_RF1FL_Pos)                    /*!< CANFD_T::ILS: RF1FL Mask               */
 
 #define CANFD_ILS_RF1LL_Pos              (7)                                               /*!< CANFD_T::ILS: RF1LL Position           */
-#define CANFD_ILS_RF1LL_Msk              (0x1ul << CANFD_ILS_RF1LL_Pos)                    /*!< CANFD_T::ILS: RF1LL Mask               */
+#define CANFD_ILS_RF1LL_Msk              (0x1UL << CANFD_ILS_RF1LL_Pos)                    /*!< CANFD_T::ILS: RF1LL Mask               */
 
 #define CANFD_ILS_HPML_Pos               (8)                                               /*!< CANFD_T::ILS: HPML Position            */
-#define CANFD_ILS_HPML_Msk               (0x1ul << CANFD_ILS_HPML_Pos)                     /*!< CANFD_T::ILS: HPML Mask                */
+#define CANFD_ILS_HPML_Msk               (0x1UL << CANFD_ILS_HPML_Pos)                     /*!< CANFD_T::ILS: HPML Mask                */
 
 #define CANFD_ILS_TCL_Pos                (9)                                               /*!< CANFD_T::ILS: TCL Position             */
-#define CANFD_ILS_TCL_Msk                (0x1ul << CANFD_ILS_TCL_Pos)                      /*!< CANFD_T::ILS: TCL Mask                 */
+#define CANFD_ILS_TCL_Msk                (0x1UL << CANFD_ILS_TCL_Pos)                      /*!< CANFD_T::ILS: TCL Mask                 */
 
 #define CANFD_ILS_TCFL_Pos               (10)                                              /*!< CANFD_T::ILS: TCFL Position            */
-#define CANFD_ILS_TCFL_Msk               (0x1ul << CANFD_ILS_TCFL_Pos)                     /*!< CANFD_T::ILS: TCFL Mask                */
+#define CANFD_ILS_TCFL_Msk               (0x1UL << CANFD_ILS_TCFL_Pos)                     /*!< CANFD_T::ILS: TCFL Mask                */
 
 #define CANFD_ILS_TFEL_Pos               (11)                                              /*!< CANFD_T::ILS: TFEL Position            */
-#define CANFD_ILS_TFEL_Msk               (0x1ul << CANFD_ILS_TFEL_Pos)                     /*!< CANFD_T::ILS: TFEL Mask                */
+#define CANFD_ILS_TFEL_Msk               (0x1UL << CANFD_ILS_TFEL_Pos)                     /*!< CANFD_T::ILS: TFEL Mask                */
 
 #define CANFD_ILS_TEFNL_Pos              (12)                                              /*!< CANFD_T::ILS: TEFNL Position           */
-#define CANFD_ILS_TEFNL_Msk              (0x1ul << CANFD_ILS_TEFNL_Pos)                    /*!< CANFD_T::ILS: TEFNL Mask               */
+#define CANFD_ILS_TEFNL_Msk              (0x1UL << CANFD_ILS_TEFNL_Pos)                    /*!< CANFD_T::ILS: TEFNL Mask               */
 
 #define CANFD_ILS_TEFWL_Pos              (13)                                              /*!< CANFD_T::ILS: TEFWL Position           */
-#define CANFD_ILS_TEFWL_Msk              (0x1ul << CANFD_ILS_TEFWL_Pos)                    /*!< CANFD_T::ILS: TEFWL Mask               */
+#define CANFD_ILS_TEFWL_Msk              (0x1UL << CANFD_ILS_TEFWL_Pos)                    /*!< CANFD_T::ILS: TEFWL Mask               */
 
 #define CANFD_ILS_TEFFL_Pos              (14)                                              /*!< CANFD_T::ILS: TEFFL Position           */
-#define CANFD_ILS_TEFFL_Msk              (0x1ul << CANFD_ILS_TEFFL_Pos)                    /*!< CANFD_T::ILS: TEFFL Mask               */
+#define CANFD_ILS_TEFFL_Msk              (0x1UL << CANFD_ILS_TEFFL_Pos)                    /*!< CANFD_T::ILS: TEFFL Mask               */
 
 #define CANFD_ILS_TEFLL_Pos              (15)                                              /*!< CANFD_T::ILS: TEFLL Position           */
-#define CANFD_ILS_TEFLL_Msk              (0x1ul << CANFD_ILS_TEFLL_Pos)                    /*!< CANFD_T::ILS: TEFLL Mask               */
+#define CANFD_ILS_TEFLL_Msk              (0x1UL << CANFD_ILS_TEFLL_Pos)                    /*!< CANFD_T::ILS: TEFLL Mask               */
 
 #define CANFD_ILS_TSWL_Pos               (16)                                              /*!< CANFD_T::ILS: TSWL Position            */
-#define CANFD_ILS_TSWL_Msk               (0x1ul << CANFD_ILS_TSWL_Pos)                     /*!< CANFD_T::ILS: TSWL Mask                */
+#define CANFD_ILS_TSWL_Msk               (0x1UL << CANFD_ILS_TSWL_Pos)                     /*!< CANFD_T::ILS: TSWL Mask                */
 
 #define CANFD_ILS_MRAFL_Pos              (17)                                              /*!< CANFD_T::ILS: MRAFL Position           */
-#define CANFD_ILS_MRAFL_Msk              (0x1ul << CANFD_ILS_MRAFL_Pos)                    /*!< CANFD_T::ILS: MRAFL Mask               */
+#define CANFD_ILS_MRAFL_Msk              (0x1UL << CANFD_ILS_MRAFL_Pos)                    /*!< CANFD_T::ILS: MRAFL Mask               */
 
 #define CANFD_ILS_TOOL_Pos               (18)                                              /*!< CANFD_T::ILS: TOOL Position            */
-#define CANFD_ILS_TOOL_Msk               (0x1ul << CANFD_ILS_TOOL_Pos)                     /*!< CANFD_T::ILS: TOOL Mask                */
+#define CANFD_ILS_TOOL_Msk               (0x1UL << CANFD_ILS_TOOL_Pos)                     /*!< CANFD_T::ILS: TOOL Mask                */
 
 #define CANFD_ILS_DRXL_Pos               (19)                                              /*!< CANFD_T::ILS: DRXL Position            */
-#define CANFD_ILS_DRXL_Msk               (0x1ul << CANFD_ILS_DRXL_Pos)                     /*!< CANFD_T::ILS: DRXL Mask                */
+#define CANFD_ILS_DRXL_Msk               (0x1UL << CANFD_ILS_DRXL_Pos)                     /*!< CANFD_T::ILS: DRXL Mask                */
 
 #define CANFD_ILS_BECL_Pos               (20)                                              /*!< CANFD_T::ILS: BECL Position            */
-#define CANFD_ILS_BECL_Msk               (0x1ul << CANFD_ILS_BECL_Pos)                     /*!< CANFD_T::ILS: BECL Mask                */
+#define CANFD_ILS_BECL_Msk               (0x1UL << CANFD_ILS_BECL_Pos)                     /*!< CANFD_T::ILS: BECL Mask                */
 
 #define CANFD_ILS_BEUL_Pos               (21)                                              /*!< CANFD_T::ILS: BEUL Position            */
-#define CANFD_ILS_BEUL_Msk               (0x1ul << CANFD_ILS_BEUL_Pos)                     /*!< CANFD_T::ILS: BEUL Mask                */
+#define CANFD_ILS_BEUL_Msk               (0x1UL << CANFD_ILS_BEUL_Pos)                     /*!< CANFD_T::ILS: BEUL Mask                */
 
 #define CANFD_ILS_ELOL_Pos               (22)                                              /*!< CANFD_T::ILS: ELOL Position            */
-#define CANFD_ILS_ELOL_Msk               (0x1ul << CANFD_ILS_ELOL_Pos)                     /*!< CANFD_T::ILS: ELOL Mask                */
+#define CANFD_ILS_ELOL_Msk               (0x1UL << CANFD_ILS_ELOL_Pos)                     /*!< CANFD_T::ILS: ELOL Mask                */
 
 #define CANFD_ILS_EPL_Pos                (23)                                              /*!< CANFD_T::ILS: EPL Position             */
-#define CANFD_ILS_EPL_Msk                (0x1ul << CANFD_ILS_EPL_Pos)                      /*!< CANFD_T::ILS: EPL Mask                 */
+#define CANFD_ILS_EPL_Msk                (0x1UL << CANFD_ILS_EPL_Pos)                      /*!< CANFD_T::ILS: EPL Mask                 */
 
 #define CANFD_ILS_EWL_Pos                (24)                                              /*!< CANFD_T::ILS: EWL Position             */
-#define CANFD_ILS_EWL_Msk                (0x1ul << CANFD_ILS_EWL_Pos)                      /*!< CANFD_T::ILS: EWL Mask                 */
+#define CANFD_ILS_EWL_Msk                (0x1UL << CANFD_ILS_EWL_Pos)                      /*!< CANFD_T::ILS: EWL Mask                 */
 
 #define CANFD_ILS_BOL_Pos                (25)                                              /*!< CANFD_T::ILS: BOL Position             */
-#define CANFD_ILS_BOL_Msk                (0x1ul << CANFD_ILS_BOL_Pos)                      /*!< CANFD_T::ILS: BOL Mask                 */
+#define CANFD_ILS_BOL_Msk                (0x1UL << CANFD_ILS_BOL_Pos)                      /*!< CANFD_T::ILS: BOL Mask                 */
 
 #define CANFD_ILS_WDIL_Pos               (26)                                              /*!< CANFD_T::ILS: WDIL Position            */
-#define CANFD_ILS_WDIL_Msk               (0x1ul << CANFD_ILS_WDIL_Pos)                     /*!< CANFD_T::ILS: WDIL Mask                */
+#define CANFD_ILS_WDIL_Msk               (0x1UL << CANFD_ILS_WDIL_Pos)                     /*!< CANFD_T::ILS: WDIL Mask                */
 
 #define CANFD_ILS_PEAL_Pos               (27)                                              /*!< CANFD_T::ILS: PEAL Position            */
-#define CANFD_ILS_PEAL_Msk               (0x1ul << CANFD_ILS_PEAL_Pos)                     /*!< CANFD_T::ILS: PEAL Mask                */
+#define CANFD_ILS_PEAL_Msk               (0x1UL << CANFD_ILS_PEAL_Pos)                     /*!< CANFD_T::ILS: PEAL Mask                */
 
 #define CANFD_ILS_PEDL_Pos               (28)                                              /*!< CANFD_T::ILS: PEDL Position            */
-#define CANFD_ILS_PEDL_Msk               (0x1ul << CANFD_ILS_PEDL_Pos)                     /*!< CANFD_T::ILS: PEDL Mask                */
+#define CANFD_ILS_PEDL_Msk               (0x1UL << CANFD_ILS_PEDL_Pos)                     /*!< CANFD_T::ILS: PEDL Mask                */
 
 #define CANFD_ILS_ARAL_Pos               (29)                                              /*!< CANFD_T::ILS: ARAL Position            */
-#define CANFD_ILS_ARAL_Msk               (0x1ul << CANFD_ILS_ARAL_Pos)                     /*!< CANFD_T::ILS: ARAL Mask                */
+#define CANFD_ILS_ARAL_Msk               (0x1UL << CANFD_ILS_ARAL_Pos)                     /*!< CANFD_T::ILS: ARAL Mask                */
 
 #define CANFD_ILE_EINT0_Pos              (0)                                               /*!< CANFD_T::ILE: EINT0 Position           */
-#define CANFD_ILE_EINT0_Msk              (0x1ul << CANFD_ILE_EINT0_Pos)                    /*!< CANFD_T::ILE: EINT0 Mask               */
+#define CANFD_ILE_EINT0_Msk              (0x1UL << CANFD_ILE_EINT0_Pos)                    /*!< CANFD_T::ILE: EINT0 Mask               */
 
 #define CANFD_ILE_EINT1_Pos              (1)                                               /*!< CANFD_T::ILE: EINT1 Position           */
-#define CANFD_ILE_EINT1_Msk              (0x1ul << CANFD_ILE_EINT1_Pos)                    /*!< CANFD_T::ILE: EINT1 Mask               */
+#define CANFD_ILE_EINT1_Msk              (0x1UL << CANFD_ILE_EINT1_Pos)                    /*!< CANFD_T::ILE: EINT1 Mask               */
 
 #define CANFD_GFC_RRFE_Pos               (0)                                               /*!< CANFD_T::GFC: RRFE Position            */
-#define CANFD_GFC_RRFE_Msk               (0x1ul << CANFD_GFC_RRFE_Pos)                     /*!< CANFD_T::GFC: RRFE Mask                */
+#define CANFD_GFC_RRFE_Msk               (0x1UL << CANFD_GFC_RRFE_Pos)                     /*!< CANFD_T::GFC: RRFE Mask                */
 
 #define CANFD_GFC_RRFS_Pos               (1)                                               /*!< CANFD_T::GFC: RRFS Position            */
-#define CANFD_GFC_RRFS_Msk               (0x1ul << CANFD_GFC_RRFS_Pos)                     /*!< CANFD_T::GFC: RRFS Mask                */
+#define CANFD_GFC_RRFS_Msk               (0x1UL << CANFD_GFC_RRFS_Pos)                     /*!< CANFD_T::GFC: RRFS Mask                */
 
 #define CANFD_GFC_ANFE_Pos               (2)                                               /*!< CANFD_T::GFC: ANFE Position            */
-#define CANFD_GFC_ANFE_Msk               (0x3ul << CANFD_GFC_ANFE_Pos)                     /*!< CANFD_T::GFC: ANFE Mask                */
+#define CANFD_GFC_ANFE_Msk               (0x3UL << CANFD_GFC_ANFE_Pos)                     /*!< CANFD_T::GFC: ANFE Mask                */
 
 #define CANFD_GFC_ANFS_Pos               (4)                                               /*!< CANFD_T::GFC: ANFS Position            */
-#define CANFD_GFC_ANFS_Msk               (0x3ul << CANFD_GFC_ANFS_Pos)                     /*!< CANFD_T::GFC: ANFS Mask                */
+#define CANFD_GFC_ANFS_Msk               (0x3UL << CANFD_GFC_ANFS_Pos)                     /*!< CANFD_T::GFC: ANFS Mask                */
 
 #define CANFD_SIDFC_FLSSA_Pos            (2)                                               /*!< CANFD_T::SIDFC: FLSSA Position         */
-#define CANFD_SIDFC_FLSSA_Msk            (0x3ffful << CANFD_SIDFC_FLSSA_Pos)               /*!< CANFD_T::SIDFC: FLSSA Mask             */
+#define CANFD_SIDFC_FLSSA_Msk            (0x3fffUL << CANFD_SIDFC_FLSSA_Pos)               /*!< CANFD_T::SIDFC: FLSSA Mask             */
 
 #define CANFD_SIDFC_LSS_Pos              (16)                                              /*!< CANFD_T::SIDFC: LSS Position           */
-#define CANFD_SIDFC_LSS_Msk              (0xfful << CANFD_SIDFC_LSS_Pos)                   /*!< CANFD_T::SIDFC: LSS Mask               */
+#define CANFD_SIDFC_LSS_Msk              (0xffUL << CANFD_SIDFC_LSS_Pos)                   /*!< CANFD_T::SIDFC: LSS Mask               */
 
 #define CANFD_XIDFC_FLESA_Pos            (2)                                               /*!< CANFD_T::XIDFC: FLESA Position         */
-#define CANFD_XIDFC_FLESA_Msk            (0x3ffful << CANFD_XIDFC_FLESA_Pos)               /*!< CANFD_T::XIDFC: FLESA Mask             */
+#define CANFD_XIDFC_FLESA_Msk            (0x3fffUL << CANFD_XIDFC_FLESA_Pos)               /*!< CANFD_T::XIDFC: FLESA Mask             */
 
 #define CANFD_XIDFC_LSE_Pos              (16)                                              /*!< CANFD_T::XIDFC: LSE Position           */
-#define CANFD_XIDFC_LSE_Msk              (0x7ful << CANFD_XIDFC_LSE_Pos)                   /*!< CANFD_T::XIDFC: LSE Mask               */
+#define CANFD_XIDFC_LSE_Msk              (0x7fUL << CANFD_XIDFC_LSE_Pos)                   /*!< CANFD_T::XIDFC: LSE Mask               */
 
 #define CANFD_XIDAM_EIDM_Pos             (0)                                               /*!< CANFD_T::XIDAM: EIDM Position          */
-#define CANFD_XIDAM_EIDM_Msk             (0x1ffffffful << CANFD_XIDAM_EIDM_Pos)            /*!< CANFD_T::XIDAM: EIDM Mask              */
+#define CANFD_XIDAM_EIDM_Msk             (0x1fffffffUL << CANFD_XIDAM_EIDM_Pos)            /*!< CANFD_T::XIDAM: EIDM Mask              */
 
 #define CANFD_HPMS_BIDX_Pos              (0)                                               /*!< CANFD_T::HPMS: BIDX Position           */
-#define CANFD_HPMS_BIDX_Msk              (0x3ful << CANFD_HPMS_BIDX_Pos)                   /*!< CANFD_T::HPMS: BIDX Mask               */
+#define CANFD_HPMS_BIDX_Msk              (0x3fUL << CANFD_HPMS_BIDX_Pos)                   /*!< CANFD_T::HPMS: BIDX Mask               */
 
 #define CANFD_HPMS_MSI_Pos               (6)                                               /*!< CANFD_T::HPMS: MSI Position            */
-#define CANFD_HPMS_MSI_Msk               (0x3ul << CANFD_HPMS_MSI_Pos)                     /*!< CANFD_T::HPMS: MSI Mask                */
+#define CANFD_HPMS_MSI_Msk               (0x3UL << CANFD_HPMS_MSI_Pos)                     /*!< CANFD_T::HPMS: MSI Mask                */
 
 #define CANFD_HPMS_FIDX_Pos              (8)                                               /*!< CANFD_T::HPMS: FIDX Position           */
-#define CANFD_HPMS_FIDX_Msk              (0x7ful << CANFD_HPMS_FIDX_Pos)                   /*!< CANFD_T::HPMS: FIDX Mask               */
+#define CANFD_HPMS_FIDX_Msk              (0x7fUL << CANFD_HPMS_FIDX_Pos)                   /*!< CANFD_T::HPMS: FIDX Mask               */
 
 #define CANFD_HPMS_FLST_Pos              (15)                                              /*!< CANFD_T::HPMS: FLST Position           */
-#define CANFD_HPMS_FLST_Msk              (0x1ul << CANFD_HPMS_FLST_Pos)                    /*!< CANFD_T::HPMS: FLST Mask               */
+#define CANFD_HPMS_FLST_Msk              (0x1UL << CANFD_HPMS_FLST_Pos)                    /*!< CANFD_T::HPMS: FLST Mask               */
 
 #define CANFD_NDAT1_NDn_Pos              (0)                                               /*!< CANFD_T::NDAT1: NDn Position           */
-#define CANFD_NDAT1_NDn_Msk              (0xfffffffful << CANFD_NDAT1_NDn_Pos)             /*!< CANFD_T::NDAT1: NDn Mask               */
+#define CANFD_NDAT1_NDn_Msk              (0xffffffffUL << CANFD_NDAT1_NDn_Pos)             /*!< CANFD_T::NDAT1: NDn Mask               */
 
 #define CANFD_NDAT2_NDn_Pos              (0)                                               /*!< CANFD_T::NDAT2: NDn Position           */
-#define CANFD_NDAT2_NDn_Msk              (0xfffffffful << CANFD_NDAT2_NDn_Pos)             /*!< CANFD_T::NDAT2: NDn Mask               */
+#define CANFD_NDAT2_NDn_Msk              (0xffffffffUL << CANFD_NDAT2_NDn_Pos)             /*!< CANFD_T::NDAT2: NDn Mask               */
 
 #define CANFD_RXF0C_F0SA_Pos             (2)                                               /*!< CANFD_T::RXF0C: F0SA Position          */
-#define CANFD_RXF0C_F0SA_Msk             (0x3ffful << CANFD_RXF0C_F0SA_Pos)                /*!< CANFD_T::RXF0C: F0SA Mask              */
+#define CANFD_RXF0C_F0SA_Msk             (0x3fffUL << CANFD_RXF0C_F0SA_Pos)                /*!< CANFD_T::RXF0C: F0SA Mask              */
 
 #define CANFD_RXF0C_F0S_Pos              (16)                                              /*!< CANFD_T::RXF0C: F0S Position           */
-#define CANFD_RXF0C_F0S_Msk              (0x7ful << CANFD_RXF0C_F0S_Pos)                   /*!< CANFD_T::RXF0C: F0S Mask               */
+#define CANFD_RXF0C_F0S_Msk              (0x7fUL << CANFD_RXF0C_F0S_Pos)                   /*!< CANFD_T::RXF0C: F0S Mask               */
 
 #define CANFD_RXF0C_F0WM_Pos             (24)                                              /*!< CANFD_T::RXF0C: F0WM Position          */
-#define CANFD_RXF0C_F0WM_Msk             (0x7ful << CANFD_RXF0C_F0WM_Pos)                  /*!< CANFD_T::RXF0C: F0WM Mask              */
+#define CANFD_RXF0C_F0WM_Msk             (0x7fUL << CANFD_RXF0C_F0WM_Pos)                  /*!< CANFD_T::RXF0C: F0WM Mask              */
 
 #define CANFD_RXF0C_F0OM_Pos             (31)                                              /*!< CANFD_T::RXF0C: F0OM Position          */
-#define CANFD_RXF0C_F0OM_Msk             (0x1ul << CANFD_RXF0C_F0OM_Pos)                   /*!< CANFD_T::RXF0C: F0OM Mask              */
+#define CANFD_RXF0C_F0OM_Msk             (0x1UL << CANFD_RXF0C_F0OM_Pos)                   /*!< CANFD_T::RXF0C: F0OM Mask              */
 
 #define CANFD_RXF0S_F0FL_Pos             (0)                                               /*!< CANFD_T::RXF0S: F0FL Position          */
-#define CANFD_RXF0S_F0FL_Msk             (0x7ful << CANFD_RXF0S_F0FL_Pos)                  /*!< CANFD_T::RXF0S: F0FL Mask              */
+#define CANFD_RXF0S_F0FL_Msk             (0x7fUL << CANFD_RXF0S_F0FL_Pos)                  /*!< CANFD_T::RXF0S: F0FL Mask              */
 
 #define CANFD_RXF0S_F0GI_Pos             (8)                                               /*!< CANFD_T::RXF0S: F0GI Position          */
-#define CANFD_RXF0S_F0GI_Msk             (0x3ful << CANFD_RXF0S_F0GI_Pos)                  /*!< CANFD_T::RXF0S: F0GI Mask              */
+#define CANFD_RXF0S_F0GI_Msk             (0x3fUL << CANFD_RXF0S_F0GI_Pos)                  /*!< CANFD_T::RXF0S: F0GI Mask              */
 
 #define CANFD_RXF0S_F0PI_Pos             (16)                                              /*!< CANFD_T::RXF0S: F0PI Position          */
-#define CANFD_RXF0S_F0PI_Msk             (0x3ful << CANFD_RXF0S_F0PI_Pos)                  /*!< CANFD_T::RXF0S: F0PI Mask              */
+#define CANFD_RXF0S_F0PI_Msk             (0x3fUL << CANFD_RXF0S_F0PI_Pos)                  /*!< CANFD_T::RXF0S: F0PI Mask              */
 
 #define CANFD_RXF0S_F0F_Pos              (24)                                              /*!< CANFD_T::RXF0S: F0F Position           */
-#define CANFD_RXF0S_F0F_Msk              (0x1ul << CANFD_RXF0S_F0F_Pos)                    /*!< CANFD_T::RXF0S: F0F Mask               */
+#define CANFD_RXF0S_F0F_Msk              (0x1UL << CANFD_RXF0S_F0F_Pos)                    /*!< CANFD_T::RXF0S: F0F Mask               */
 
 #define CANFD_RXF0S_RF0L_Pos             (25)                                              /*!< CANFD_T::RXF0S: RF0L Position          */
-#define CANFD_RXF0S_RF0L_Msk             (0x1ul << CANFD_RXF0S_RF0L_Pos)                   /*!< CANFD_T::RXF0S: RF0L Mask              */
+#define CANFD_RXF0S_RF0L_Msk             (0x1UL << CANFD_RXF0S_RF0L_Pos)                   /*!< CANFD_T::RXF0S: RF0L Mask              */
 
 #define CANFD_RXF0A_F0A_Pos              (0)                                               /*!< CANFD_T::RXF0A: F0A Position           */
-#define CANFD_RXF0A_F0A_Msk              (0x3ful << CANFD_RXF0A_F0A_Pos)                   /*!< CANFD_T::RXF0A: F0A Mask               */
+#define CANFD_RXF0A_F0A_Msk              (0x3fUL << CANFD_RXF0A_F0A_Pos)                   /*!< CANFD_T::RXF0A: F0A Mask               */
 
 #define CANFD_RXBC_RBSA_Pos              (2)                                               /*!< CANFD_T::RXBC: RBSA Position           */
-#define CANFD_RXBC_RBSA_Msk              (0x3ffful << CANFD_RXBC_RBSA_Pos)                 /*!< CANFD_T::RXBC: RBSA Mask               */
+#define CANFD_RXBC_RBSA_Msk              (0x3fffUL << CANFD_RXBC_RBSA_Pos)                 /*!< CANFD_T::RXBC: RBSA Mask               */
 
 #define CANFD_RXF1C_F1SA_Pos             (2)                                               /*!< CANFD_T::RXF1C: F1SA Position          */
-#define CANFD_RXF1C_F1SA_Msk             (0x3ffful << CANFD_RXF1C_F1SA_Pos)                /*!< CANFD_T::RXF1C: F1SA Mask              */
+#define CANFD_RXF1C_F1SA_Msk             (0x3fffUL << CANFD_RXF1C_F1SA_Pos)                /*!< CANFD_T::RXF1C: F1SA Mask              */
 
 #define CANFD_RXF1C_F1S_Pos              (16)                                              /*!< CANFD_T::RXF1C: F1S Position           */
-#define CANFD_RXF1C_F1S_Msk              (0x7ful << CANFD_RXF1C_F1S_Pos)                   /*!< CANFD_T::RXF1C: F1S Mask               */
+#define CANFD_RXF1C_F1S_Msk              (0x7fUL << CANFD_RXF1C_F1S_Pos)                   /*!< CANFD_T::RXF1C: F1S Mask               */
 
 #define CANFD_RXF1C_F1WM_Pos             (24)                                              /*!< CANFD_T::RXF1C: F1WM Position          */
-#define CANFD_RXF1C_F1WM_Msk             (0x7ful << CANFD_RXF1C_F1WM_Pos)                  /*!< CANFD_T::RXF1C: F1WM Mask              */
+#define CANFD_RXF1C_F1WM_Msk             (0x7fUL << CANFD_RXF1C_F1WM_Pos)                  /*!< CANFD_T::RXF1C: F1WM Mask              */
 
 #define CANFD_RXF1C_F1OM_Pos             (31)                                              /*!< CANFD_T::RXF1C: F1OM Position          */
-#define CANFD_RXF1C_F1OM_Msk             (0x1ul << CANFD_RXF1C_F1OM_Pos)                   /*!< CANFD_T::RXF1C: F1OM Mask              */
+#define CANFD_RXF1C_F1OM_Msk             (0x1UL << CANFD_RXF1C_F1OM_Pos)                   /*!< CANFD_T::RXF1C: F1OM Mask              */
 
 #define CANFD_RXF1S_F1FL_Pos             (0)                                               /*!< CANFD_T::RXF1S: F1FL Position          */
-#define CANFD_RXF1S_F1FL_Msk             (0x7ful << CANFD_RXF1S_F1FL_Pos)                  /*!< CANFD_T::RXF1S: F1FL Mask              */
+#define CANFD_RXF1S_F1FL_Msk             (0x7fUL << CANFD_RXF1S_F1FL_Pos)                  /*!< CANFD_T::RXF1S: F1FL Mask              */
 
 #define CANFD_RXF1S_F1GI_Pos             (8)                                               /*!< CANFD_T::RXF1S: F1GI Position          */
-#define CANFD_RXF1S_F1GI_Msk             (0x3ful << CANFD_RXF1S_F1GI_Pos)                  /*!< CANFD_T::RXF1S: F1GI Mask              */
+#define CANFD_RXF1S_F1GI_Msk             (0x3fUL << CANFD_RXF1S_F1GI_Pos)                  /*!< CANFD_T::RXF1S: F1GI Mask              */
 
 #define CANFD_RXF1S_F1PI_Pos             (16)                                              /*!< CANFD_T::RXF1S: F1PI Position          */
-#define CANFD_RXF1S_F1PI_Msk             (0x3ful << CANFD_RXF1S_F1PI_Pos)                  /*!< CANFD_T::RXF1S: F1PI Mask              */
+#define CANFD_RXF1S_F1PI_Msk             (0x3fUL << CANFD_RXF1S_F1PI_Pos)                  /*!< CANFD_T::RXF1S: F1PI Mask              */
 
 #define CANFD_RXF1S_F1F_Pos              (24)                                              /*!< CANFD_T::RXF1S: F1F Position           */
-#define CANFD_RXF1S_F1F_Msk              (0x1ul << CANFD_RXF1S_F1F_Pos)                    /*!< CANFD_T::RXF1S: F1F Mask               */
+#define CANFD_RXF1S_F1F_Msk              (0x1UL << CANFD_RXF1S_F1F_Pos)                    /*!< CANFD_T::RXF1S: F1F Mask               */
 
 #define CANFD_RXF1S_RF1L_Pos             (25)                                              /*!< CANFD_T::RXF1S: RF1L Position          */
-#define CANFD_RXF1S_RF1L_Msk             (0x1ul << CANFD_RXF1S_RF1L_Pos)                   /*!< CANFD_T::RXF1S: RF1L Mask              */
+#define CANFD_RXF1S_RF1L_Msk             (0x1UL << CANFD_RXF1S_RF1L_Pos)                   /*!< CANFD_T::RXF1S: RF1L Mask              */
 
 #define CANFD_RXF1A_F1AI_Pos             (0)                                               /*!< CANFD_T::RXF1A: F1AI Position          */
-#define CANFD_RXF1A_F1AI_Msk             (0x3ful << CANFD_RXF1A_F1AI_Pos)                  /*!< CANFD_T::RXF1A: F1AI Mask              */
+#define CANFD_RXF1A_F1AI_Msk             (0x3fUL << CANFD_RXF1A_F1AI_Pos)                  /*!< CANFD_T::RXF1A: F1AI Mask              */
 
 #define CANFD_RXESC_F0DS_Pos             (0)                                               /*!< CANFD_T::RXESC: F0DS Position          */
-#define CANFD_RXESC_F0DS_Msk             (0x7ul << CANFD_RXESC_F0DS_Pos)                   /*!< CANFD_T::RXESC: F0DS Mask              */
+#define CANFD_RXESC_F0DS_Msk             (0x7UL << CANFD_RXESC_F0DS_Pos)                   /*!< CANFD_T::RXESC: F0DS Mask              */
 
 #define CANFD_RXESC_F1DS_Pos             (4)                                               /*!< CANFD_T::RXESC: F1DS Position          */
-#define CANFD_RXESC_F1DS_Msk             (0x7ul << CANFD_RXESC_F1DS_Pos)                   /*!< CANFD_T::RXESC: F1DS Mask              */
+#define CANFD_RXESC_F1DS_Msk             (0x7UL << CANFD_RXESC_F1DS_Pos)                   /*!< CANFD_T::RXESC: F1DS Mask              */
 
 #define CANFD_RXESC_RBDS_Pos             (8)                                               /*!< CANFD_T::RXESC: RBDS Position          */
-#define CANFD_RXESC_RBDS_Msk             (0x7ul << CANFD_RXESC_RBDS_Pos)                   /*!< CANFD_T::RXESC: RBDS Mask              */
+#define CANFD_RXESC_RBDS_Msk             (0x7UL << CANFD_RXESC_RBDS_Pos)                   /*!< CANFD_T::RXESC: RBDS Mask              */
 
 #define CANFD_TXBC_TBSA_Pos              (2)                                               /*!< CANFD_T::TXBC: TBSA Position           */
-#define CANFD_TXBC_TBSA_Msk              (0x3ffful << CANFD_TXBC_TBSA_Pos)                 /*!< CANFD_T::TXBC: TBSA Mask               */
+#define CANFD_TXBC_TBSA_Msk              (0x3fffUL << CANFD_TXBC_TBSA_Pos)                 /*!< CANFD_T::TXBC: TBSA Mask               */
 
 #define CANFD_TXBC_NDTB_Pos              (16)                                              /*!< CANFD_T::TXBC: NDTB Position           */
-#define CANFD_TXBC_NDTB_Msk              (0x3ful << CANFD_TXBC_NDTB_Pos)                   /*!< CANFD_T::TXBC: NDTB Mask               */
+#define CANFD_TXBC_NDTB_Msk              (0x3fUL << CANFD_TXBC_NDTB_Pos)                   /*!< CANFD_T::TXBC: NDTB Mask               */
 
 #define CANFD_TXBC_TFQS_Pos              (24)                                              /*!< CANFD_T::TXBC: TFQS Position           */
-#define CANFD_TXBC_TFQS_Msk              (0x3ful << CANFD_TXBC_TFQS_Pos)                   /*!< CANFD_T::TXBC: TFQS Mask               */
+#define CANFD_TXBC_TFQS_Msk              (0x3fUL << CANFD_TXBC_TFQS_Pos)                   /*!< CANFD_T::TXBC: TFQS Mask               */
 
 #define CANFD_TXBC_TFQM_Pos              (30)                                              /*!< CANFD_T::TXBC: TFQM Position           */
-#define CANFD_TXBC_TFQM_Msk              (0x1ul << CANFD_TXBC_TFQM_Pos)                    /*!< CANFD_T::TXBC: TFQM Mask               */
+#define CANFD_TXBC_TFQM_Msk              (0x1UL << CANFD_TXBC_TFQM_Pos)                    /*!< CANFD_T::TXBC: TFQM Mask               */
 
 #define CANFD_TXFQS_TFFL_Pos             (0)                                               /*!< CANFD_T::TXFQS: TFFL Position          */
-#define CANFD_TXFQS_TFFL_Msk             (0x3ful << CANFD_TXFQS_TFFL_Pos)                  /*!< CANFD_T::TXFQS: TFFL Mask              */
+#define CANFD_TXFQS_TFFL_Msk             (0x3fUL << CANFD_TXFQS_TFFL_Pos)                  /*!< CANFD_T::TXFQS: TFFL Mask              */
 
 #define CANFD_TXFQS_TFGI_Pos             (8)                                               /*!< CANFD_T::TXFQS: TFGI Position          */
-#define CANFD_TXFQS_TFGI_Msk             (0x1ful << CANFD_TXFQS_TFGI_Pos)                  /*!< CANFD_T::TXFQS: TFGI Mask              */
+#define CANFD_TXFQS_TFGI_Msk             (0x1fUL << CANFD_TXFQS_TFGI_Pos)                  /*!< CANFD_T::TXFQS: TFGI Mask              */
 
 #define CANFD_TXFQS_TFQPI_Pos            (16)                                              /*!< CANFD_T::TXFQS: TFQPI Position         */
-#define CANFD_TXFQS_TFQPI_Msk            (0x1ful << CANFD_TXFQS_TFQPI_Pos)                 /*!< CANFD_T::TXFQS: TFQPI Mask             */
+#define CANFD_TXFQS_TFQPI_Msk            (0x1fUL << CANFD_TXFQS_TFQPI_Pos)                 /*!< CANFD_T::TXFQS: TFQPI Mask             */
 
 #define CANFD_TXFQS_TFQF_Pos             (21)                                              /*!< CANFD_T::TXFQS: TFQF Position          */
-#define CANFD_TXFQS_TFQF_Msk             (0x1ul << CANFD_TXFQS_TFQF_Pos)                   /*!< CANFD_T::TXFQS: TFQF Mask              */
+#define CANFD_TXFQS_TFQF_Msk             (0x1UL << CANFD_TXFQS_TFQF_Pos)                   /*!< CANFD_T::TXFQS: TFQF Mask              */
 
 #define CANFD_TXESC_TBDS_Pos             (0)                                               /*!< CANFD_T::TXESC: TBDS Position          */
-#define CANFD_TXESC_TBDS_Msk             (0x7ul << CANFD_TXESC_TBDS_Pos)                   /*!< CANFD_T::TXESC: TBDS Mask              */
+#define CANFD_TXESC_TBDS_Msk             (0x7UL << CANFD_TXESC_TBDS_Pos)                   /*!< CANFD_T::TXESC: TBDS Mask              */
 
 #define CANFD_TXBRP_TRPn_Pos             (0)                                               /*!< CANFD_T::TXBRP: TRPn Position          */
-#define CANFD_TXBRP_TRPn_Msk             (0xfffffffful << CANFD_TXBRP_TRPn_Pos)            /*!< CANFD_T::TXBRP: TRPn Mask              */
+#define CANFD_TXBRP_TRPn_Msk             (0xffffffffUL << CANFD_TXBRP_TRPn_Pos)            /*!< CANFD_T::TXBRP: TRPn Mask              */
 
 #define CANFD_TXBAR_ARn_Pos              (0)                                               /*!< CANFD_T::TXBAR: ARn Position           */
-#define CANFD_TXBAR_ARn_Msk              (0xfffffffful << CANFD_TXBAR_ARn_Pos)             /*!< CANFD_T::TXBAR: ARn Mask               */
+#define CANFD_TXBAR_ARn_Msk              (0xffffffffUL << CANFD_TXBAR_ARn_Pos)             /*!< CANFD_T::TXBAR: ARn Mask               */
 
 #define CANFD_TXBCR_CRn_Pos              (0)                                               /*!< CANFD_T::TXBCR: CRn Position           */
-#define CANFD_TXBCR_CRn_Msk              (0xfffffffful << CANFD_TXBCR_CRn_Pos)             /*!< CANFD_T::TXBCR: CRn Mask               */
+#define CANFD_TXBCR_CRn_Msk              (0xffffffffUL << CANFD_TXBCR_CRn_Pos)             /*!< CANFD_T::TXBCR: CRn Mask               */
 
 #define CANFD_TXBTO_TOn_Pos              (0)                                               /*!< CANFD_T::TXBTO: TOn Position           */
-#define CANFD_TXBTO_TOn_Msk              (0xfffffffful << CANFD_TXBTO_TOn_Pos)             /*!< CANFD_T::TXBTO: TOn Mask               */
+#define CANFD_TXBTO_TOn_Msk              (0xffffffffUL << CANFD_TXBTO_TOn_Pos)             /*!< CANFD_T::TXBTO: TOn Mask               */
 
 #define CANFD_TXBCF_CFn_Pos              (0)                                               /*!< CANFD_T::TXBCF: CFn Position           */
-#define CANFD_TXBCF_CFn_Msk              (0xfffffffful << CANFD_TXBCF_CFn_Pos)             /*!< CANFD_T::TXBCF: CFn Mask               */
+#define CANFD_TXBCF_CFn_Msk              (0xffffffffUL << CANFD_TXBCF_CFn_Pos)             /*!< CANFD_T::TXBCF: CFn Mask               */
 
 #define CANFD_TXBTIE_TIEn_Pos            (0)                                               /*!< CANFD_T::TXBTIE: TIEn Position         */
-#define CANFD_TXBTIE_TIEn_Msk            (0xfffffffful << CANFD_TXBTIE_TIEn_Pos)           /*!< CANFD_T::TXBTIE: TIEn Mask             */
+#define CANFD_TXBTIE_TIEn_Msk            (0xffffffffUL << CANFD_TXBTIE_TIEn_Pos)           /*!< CANFD_T::TXBTIE: TIEn Mask             */
 
 #define CANFD_TXBCIE_CFIEn_Pos           (0)                                               /*!< CANFD_T::TXBCIE: CFIEn Position        */
-#define CANFD_TXBCIE_CFIEn_Msk           (0xfffffffful << CANFD_TXBCIE_CFIEn_Pos)          /*!< CANFD_T::TXBCIE: CFIEn Mask            */
+#define CANFD_TXBCIE_CFIEn_Msk           (0xffffffffUL << CANFD_TXBCIE_CFIEn_Pos)          /*!< CANFD_T::TXBCIE: CFIEn Mask            */
 
 #define CANFD_TXEFC_EFSA_Pos             (2)                                               /*!< CANFD_T::TXEFC: EFSA Position          */
-#define CANFD_TXEFC_EFSA_Msk             (0x3ffful << CANFD_TXEFC_EFSA_Pos)                /*!< CANFD_T::TXEFC: EFSA Mask              */
+#define CANFD_TXEFC_EFSA_Msk             (0x3fffUL << CANFD_TXEFC_EFSA_Pos)                /*!< CANFD_T::TXEFC: EFSA Mask              */
 
 #define CANFD_TXEFC_EFS_Pos              (16)                                              /*!< CANFD_T::TXEFC: EFS Position           */
-#define CANFD_TXEFC_EFS_Msk              (0x3ful << CANFD_TXEFC_EFS_Pos)                   /*!< CANFD_T::TXEFC: EFS Mask               */
+#define CANFD_TXEFC_EFS_Msk              (0x3fUL << CANFD_TXEFC_EFS_Pos)                   /*!< CANFD_T::TXEFC: EFS Mask               */
 
 #define CANFD_TXEFC_EFWM_Pos             (24)                                              /*!< CANFD_T::TXEFC: EFWM Position          */
-#define CANFD_TXEFC_EFWM_Msk             (0x3ful << CANFD_TXEFC_EFWM_Pos)                  /*!< CANFD_T::TXEFC: EFWM Mask              */
+#define CANFD_TXEFC_EFWM_Msk             (0x3fUL << CANFD_TXEFC_EFWM_Pos)                  /*!< CANFD_T::TXEFC: EFWM Mask              */
 
 #define CANFD_TXEFS_EFFL_Pos             (0)                                               /*!< CANFD_T::TXEFS: EFFL Position          */
-#define CANFD_TXEFS_EFFL_Msk             (0x3ful << CANFD_TXEFS_EFFL_Pos)                  /*!< CANFD_T::TXEFS: EFFL Mask              */
+#define CANFD_TXEFS_EFFL_Msk             (0x3fUL << CANFD_TXEFS_EFFL_Pos)                  /*!< CANFD_T::TXEFS: EFFL Mask              */
 
 #define CANFD_TXEFS_EFGI_Pos             (8)                                               /*!< CANFD_T::TXEFS: EFGI Position          */
-#define CANFD_TXEFS_EFGI_Msk             (0x1ful << CANFD_TXEFS_EFGI_Pos)                  /*!< CANFD_T::TXEFS: EFGI Mask              */
+#define CANFD_TXEFS_EFGI_Msk             (0x1fUL << CANFD_TXEFS_EFGI_Pos)                  /*!< CANFD_T::TXEFS: EFGI Mask              */
 
 #define CANFD_TXEFS_EFPI_Pos             (16)                                              /*!< CANFD_T::TXEFS: EFPI Position          */
-#define CANFD_TXEFS_EFPI_Msk             (0x1ful << CANFD_TXEFS_EFPI_Pos)                  /*!< CANFD_T::TXEFS: EFPI Mask              */
+#define CANFD_TXEFS_EFPI_Msk             (0x1fUL << CANFD_TXEFS_EFPI_Pos)                  /*!< CANFD_T::TXEFS: EFPI Mask              */
 
 #define CANFD_TXEFS_EFF_Pos              (24)                                              /*!< CANFD_T::TXEFS: EFF Position           */
-#define CANFD_TXEFS_EFF_Msk              (0x1ul << CANFD_TXEFS_EFF_Pos)                    /*!< CANFD_T::TXEFS: EFF Mask               */
+#define CANFD_TXEFS_EFF_Msk              (0x1UL << CANFD_TXEFS_EFF_Pos)                    /*!< CANFD_T::TXEFS: EFF Mask               */
 
 #define CANFD_TXEFS_TEFL_Pos             (25)                                              /*!< CANFD_T::TXEFS: TEFL Position          */
-#define CANFD_TXEFS_TEFL_Msk             (0x1ul << CANFD_TXEFS_TEFL_Pos)                   /*!< CANFD_T::TXEFS: TEFL Mask              */
+#define CANFD_TXEFS_TEFL_Msk             (0x1UL << CANFD_TXEFS_TEFL_Pos)                   /*!< CANFD_T::TXEFS: TEFL Mask              */
 
 #define CANFD_TXEFA_EFAI_Pos             (0)                                               /*!< CANFD_T::TXEFA: EFAI Position          */
-#define CANFD_TXEFA_EFAI_Msk             (0x1ful << CANFD_TXEFA_EFAI_Pos)                  /*!< CANFD_T::TXEFA: EFAI Mask              */
+#define CANFD_TXEFA_EFAI_Msk             (0x1fUL << CANFD_TXEFA_EFAI_Pos)                  /*!< CANFD_T::TXEFA: EFAI Mask              */
 
 /**@}*/ /* CANFD_CONST */
 /**@}*/ /* end of CANFD register group */

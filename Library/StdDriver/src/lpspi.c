@@ -45,25 +45,28 @@ uint32_t LPSPI_Open(LPSPI_T *lpspi,
                     uint32_t u32DataWidth,
                     uint32_t u32BusClock)
 {
-    uint32_t u32ClkSrc = 0U, u32Div, u32RetValue=0U;
+    uint32_t u32RetValue = 0U;
+    uint32_t u32DWidth = u32DataWidth;
 
-    if(u32DataWidth == 32U)
+    if(u32DWidth == 32U)
     {
-        u32DataWidth = 0U;
+        u32DWidth = 0U;
     }
 
     if(u32MasterSlave == LPSPI_MASTER)
     {
+        uint32_t u32ClkSrc;
+
         /* Default setting: slave selection signal is active low; disable automatic slave selection function. */
         lpspi->SSCTL = LPSPI_SS_ACTIVE_LOW;
 
         /* Default setting: MSB first, disable unit transfer interrupt, SP_CYCLE = 0. */
-        lpspi->CTL = u32MasterSlave | (u32DataWidth << LPSPI_CTL_DWIDTH_Pos) | (u32SPIMode) | LPSPI_CTL_SPIEN_Msk;
+        lpspi->CTL = (u32DWidth << LPSPI_CTL_DWIDTH_Pos) | u32SPIMode | LPSPI_CTL_SPIEN_Msk;
 
         /* Check clock source of LPSPI */
         if(lpspi == LPSPI0)
         {
-            if((LPSCC->CLKSEL0 & (~LPSCC_CLKSEL0_LPSPI0SEL_Msk)) == LPSCC_CLKSEL0_LPSPI0SEL_HIRC)
+            if((LPSCC->CLKSEL0 & LPSCC_CLKSEL0_LPSPI0SEL_Msk) == LPSCC_CLKSEL0_LPSPI0SEL_HIRC)
             {
                 u32ClkSrc = __HIRC; /* Clock source is HIRC */
             }
@@ -71,6 +74,10 @@ uint32_t LPSPI_Open(LPSPI_T *lpspi,
             {
                 u32ClkSrc = __MIRC; /* Clock source is MIRC */
             }
+        }
+        else
+        {
+            return 0U;
         }
 
         if(u32BusClock >= u32ClkSrc)
@@ -89,10 +96,10 @@ uint32_t LPSPI_Open(LPSPI_T *lpspi,
         }
         else
         {
-            u32Div = (((u32ClkSrc * 10U) / u32BusClock + 5U) / 10U) - 1U; /* Round to the nearest integer */
+            uint32_t u32Div;
+            u32Div = ((((u32ClkSrc * 10U) / u32BusClock) + 5U) / 10U) - 1U; /* Round to the nearest integer */
             if(u32Div > 0xFFU)
             {
-                u32Div = 0xFFU;
                 lpspi->CLKDIV |= LPSPI_CLKDIV_DIVIDER_Msk;
                 /* Return master peripheral clock rate */
                 u32RetValue = (u32ClkSrc / (0xFFU + 1U));
@@ -111,7 +118,7 @@ uint32_t LPSPI_Open(LPSPI_T *lpspi,
         lpspi->SSCTL = LPSPI_SS_ACTIVE_LOW;
 
         /* Default setting: MSB first, disable unit transfer interrupt, SP_CYCLE = 0. */
-        lpspi->CTL = u32MasterSlave | (u32DataWidth << LPSPI_CTL_DWIDTH_Pos) | (u32SPIMode) | LPSPI_CTL_SPIEN_Msk;
+        lpspi->CTL = u32MasterSlave | ((u32DWidth << LPSPI_CTL_DWIDTH_Pos) | (u32SPIMode) | LPSPI_CTL_SPIEN_Msk);
 
         /* Set DIVIDER = 0 */
         lpspi->CLKDIV = 0U;
@@ -119,7 +126,7 @@ uint32_t LPSPI_Open(LPSPI_T *lpspi,
         /* Select PCLK as the clock source of LPSPI */
         if(lpspi == LPSPI0)
         {
-            if((LPSCC->CLKSEL0 & (~LPSCC_CLKSEL0_LPSPI0SEL_Msk)) == LPSCC_CLKSEL0_LPSPI0SEL_HIRC)
+            if((LPSCC->CLKSEL0 & LPSCC_CLKSEL0_LPSPI0SEL_Msk) == LPSCC_CLKSEL0_LPSPI0SEL_HIRC)
             {
                 u32RetValue = __HIRC; /* Clock source is HIRC */
             }
@@ -138,7 +145,7 @@ uint32_t LPSPI_Open(LPSPI_T *lpspi,
   * @return None
   * @details This function will reset LPSPI controller.
   */
-void LPSPI_Close(LPSPI_T *lpspi)
+void LPSPI_Close(const LPSPI_T *lpspi)
 {
     if(lpspi == LPSPI0)
     {
@@ -211,12 +218,12 @@ void LPSPI_EnableAutoSS(LPSPI_T *lpspi, uint32_t u32SSPinMask, uint32_t u32Activ
 uint32_t LPSPI_SetBusClock(LPSPI_T *lpspi, uint32_t u32BusClock)
 {
     uint32_t u32ClkSrc;
-    uint32_t u32Div, u32RetValue;
+    uint32_t u32RetValue;
 
     /* Check clock source of LPSPI */
     if(lpspi == LPSPI0)
     {
-        if((LPSCC->CLKSEL0 & (~LPSCC_CLKSEL0_LPSPI0SEL_Msk)) == LPSCC_CLKSEL0_LPSPI0SEL_HIRC)
+        if((LPSCC->CLKSEL0 & LPSCC_CLKSEL0_LPSPI0SEL_Msk) == LPSCC_CLKSEL0_LPSPI0SEL_HIRC)
         {
             u32ClkSrc = __HIRC; /* Clock source is HIRC */
         }
@@ -247,10 +254,10 @@ uint32_t LPSPI_SetBusClock(LPSPI_T *lpspi, uint32_t u32BusClock)
     }
     else
     {
-        u32Div = (((u32ClkSrc * 10U) / u32BusClock + 5U) / 10U) - 1U; /* Round to the nearest integer */
+        uint32_t u32Div;
+        u32Div = ((((u32ClkSrc * 10U) / u32BusClock) + 5U) / 10U) - 1U; /* Round to the nearest integer */
         if(u32Div > 0x1FFU)
         {
-            u32Div = 0x1FFU;
             lpspi->CLKDIV |= LPSPI_CLKDIV_DIVIDER_Msk;
             /* Return master peripheral clock rate */
             u32RetValue = (u32ClkSrc / (0xFFU + 1U));
@@ -287,7 +294,7 @@ void LPSPI_SetFIFO(LPSPI_T *lpspi, uint32_t u32TxThreshold, uint32_t u32RxThresh
   * @return Actual LPSPI bus clock frequency in Hz.
   * @details This function will calculate the actual LPSPI bus clock rate according to the SPInSEL and DIVIDER settings. Only available in Master mode.
   */
-uint32_t LPSPI_GetBusClock(LPSPI_T *lpspi)
+uint32_t LPSPI_GetBusClock(const LPSPI_T *lpspi)
 {
     uint32_t u32Div;
     uint32_t u32ClkSrc;
@@ -298,7 +305,7 @@ uint32_t LPSPI_GetBusClock(LPSPI_T *lpspi)
     /* Check clock source of LPSPI */
     if(lpspi == LPSPI0)
     {
-        if((LPSCC->CLKSEL0 & (~LPSCC_CLKSEL0_LPSPI0SEL_Msk)) == LPSCC_CLKSEL0_LPSPI0SEL_HIRC)
+        if((LPSCC->CLKSEL0 & LPSCC_CLKSEL0_LPSPI0SEL_Msk) == LPSCC_CLKSEL0_LPSPI0SEL_HIRC)
         {
             u32ClkSrc = __HIRC; /* Clock source is HIRC */
         }
@@ -306,6 +313,10 @@ uint32_t LPSPI_GetBusClock(LPSPI_T *lpspi)
         {
             u32ClkSrc = __MIRC; /* Clock source is MIRC */
         }
+    }
+    else
+    {
+        return 0U;
     }
     /* Return LPSPI bus clock rate */
     return (u32ClkSrc / (u32Div + 1U));
@@ -497,9 +508,10 @@ void LPSPI_DisableInt(LPSPI_T *lpspi, uint32_t u32Mask)
   * @return Interrupt flags of selected sources.
   * @details Get LPSPI related interrupt flags specified by u32Mask parameter.
   */
-uint32_t LPSPI_GetIntFlag(LPSPI_T *lpspi, uint32_t u32Mask)
+uint32_t LPSPI_GetIntFlag(const LPSPI_T *lpspi, uint32_t u32Mask)
 {
-    uint32_t u32IntFlag = 0U, u32TmpVal;
+    uint32_t u32IntFlag = 0U;
+    uint32_t u32TmpVal;
 
     u32TmpVal = lpspi->STATUS & LPSPI_STATUS_UNITIF_Msk;
     /* Check unit transfer interrupt flag */
@@ -653,9 +665,10 @@ void LPSPI_ClearIntFlag(LPSPI_T *lpspi, uint32_t u32Mask)
   * @return Flags of selected sources.
   * @details Get LPSPI related status specified by u32Mask parameter.
   */
-uint32_t LPSPI_GetStatus(LPSPI_T *lpspi, uint32_t u32Mask)
+uint32_t LPSPI_GetStatus(const LPSPI_T *lpspi, uint32_t u32Mask)
 {
-    uint32_t u32Flag = 0U, u32TmpValue;
+    uint32_t u32Flag = 0U;
+    uint32_t u32TmpValue;
 
     u32TmpValue = lpspi->STATUS & LPSPI_STATUS_BUSY_Msk;
     /* Check busy status */

@@ -35,8 +35,11 @@
   */
 uint32_t LPTPWM_ConfigOutputFreqAndDuty(LPTMR_T *lptmr, uint32_t u32Frequency, uint32_t u32DutyCycle)
 {
-    uint32_t u32PWMClockFreq, u32TargetFreq;
-    uint32_t u32Prescaler = 0x100UL, u32Period, u32CMP;
+    uint32_t u32PWMClockFreq;
+    uint32_t u32TargetFreq;
+    uint32_t u32Prescaler = 0x100UL;
+    uint32_t u32Period;
+    uint32_t u32CMP;
     const uint32_t u32ClkTbl[4] = {__HIRC, __MIRC, __LXT, __LIRC};
     uint32_t u32Src;
 
@@ -48,6 +51,11 @@ uint32_t LPTPWM_ConfigOutputFreqAndDuty(LPTMR_T *lptmr, uint32_t u32Frequency, u
     {
         u32Src = (LPSCC->CLKSEL0 & LPSCC_CLKSEL0_LPTMR1SEL_Msk) >> LPSCC_CLKSEL0_LPTMR1SEL_Pos;
     }
+    else
+    {
+        /* Unsupported LPTMR instance */
+        return 0U;
+    }
 
     u32PWMClockFreq = u32ClkTbl[u32Src];
 
@@ -58,8 +66,9 @@ uint32_t LPTPWM_ConfigOutputFreqAndDuty(LPTMR_T *lptmr, uint32_t u32Frequency, u
 
         /* If target u32Period is larger than 0x10000, need to use a larger prescaler */
         if (u32Period > 0x10000UL)
+        {
             continue;
-
+        }
         break;
     }
 
@@ -225,7 +234,7 @@ void LPTPWM_ClearAccInt(LPTMR_T *lptmr)
   * @retval     1   Accumulator interrupt occurred
   * @details    This function is used to get interrupt flag accumulator interrupt.
   */
-uint32_t LPTPWM_GetAccInt(LPTMR_T *lptmr)
+uint32_t LPTPWM_GetAccInt(const LPTMR_T *lptmr)
 {
     return (((lptmr)->PWMAINTSTS & LPTMR_PWMAINTSTS_IFAIF_Msk)? 1UL : 0UL);
 }

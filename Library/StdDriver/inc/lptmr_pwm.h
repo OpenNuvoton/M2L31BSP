@@ -407,10 +407,10 @@ void LPTPWM_DisableTrigger(LPTMR_T *lptmr, uint32_t u32TargetMask);
 #define LPTPWM_DisableTriggerLPPDMA(lptmr)              LPTPWM_DisableTrigger(lptmr, (LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk | LPTMR_PWMTRGCTL_TRGEN_Msk))
 
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
-__STATIC_INLINE void LPTPWM_EnableWakeup(LPTMR_T *lptmr);
-__STATIC_INLINE void LPTPWM_DisableWakeup(LPTMR_T *lptmr);
-__STATIC_INLINE uint32_t LPTPWM_GetWakeupFlag(LPTMR_T *lptmr);
-__STATIC_INLINE void LPTPWM_ClearWakeupFlag(LPTMR_T *lptmr);
+static inline void LPTPWM_EnableWakeup(LPTMR_T *lptmr);
+static inline void LPTPWM_DisableWakeup(LPTMR_T *lptmr);
+static inline uint32_t LPTPWM_GetWakeupFlag(const LPTMR_T *lptmr);
+static inline void LPTPWM_ClearWakeupFlag(LPTMR_T *lptmr);
 
 /**
   * @brief      Enable LPTPWM Interrupt Wake-up Function
@@ -424,7 +424,7 @@ __STATIC_INLINE void LPTPWM_ClearWakeupFlag(LPTMR_T *lptmr);
   * @note       To wake the system from Power-down mode, PCLKx source must be ether LXT or LIRC.
   * \hideinitializer
   */
-__STATIC_INLINE void LPTPWM_EnableWakeup(LPTMR_T *lptmr)
+static inline void LPTPWM_EnableWakeup(LPTMR_T *lptmr)
 {
     lptmr->PWMCTL |= LPTMR_PWMCTL_PWMINTWKEN_Msk;
 }
@@ -439,7 +439,7 @@ __STATIC_INLINE void LPTPWM_EnableWakeup(LPTMR_T *lptmr)
   * @details    This function is used to disable the LPTPWM interrupt Wake-up function.
   * \hideinitializer
   */
-__STATIC_INLINE void LPTPWM_DisableWakeup(LPTMR_T *lptmr)
+static inline void LPTPWM_DisableWakeup(LPTMR_T *lptmr)
 {
     lptmr->PWMCTL &= ~LPTMR_PWMCTL_PWMINTWKEN_Msk;
 }
@@ -455,7 +455,7 @@ __STATIC_INLINE void LPTPWM_DisableWakeup(LPTMR_T *lptmr)
   * @details    This function indicates LPTPWM interrupt event has waked up system or not.
   * \hideinitializer
   */
-__STATIC_INLINE uint32_t LPTPWM_GetWakeupFlag(LPTMR_T *lptmr)
+static inline uint32_t LPTPWM_GetWakeupFlag(const LPTMR_T *lptmr)
 {
     return ((lptmr->PWMSTATUS & LPTMR_PWMSTATUS_PWMINTWKF_Msk) ? 1 : 0);
 }
@@ -470,7 +470,7 @@ __STATIC_INLINE uint32_t LPTPWM_GetWakeupFlag(LPTMR_T *lptmr)
   * @details    This function clears LPTPWM Wake-up flag.
   * \hideinitializer
   */
-__STATIC_INLINE void LPTPWM_ClearWakeupFlag(LPTMR_T *lptmr)
+static inline void LPTPWM_ClearWakeupFlag(LPTMR_T *lptmr)
 {
     lptmr->PWMSTATUS = LPTMR_PWMSTATUS_PWMINTWKF_Msk;
 }
@@ -480,7 +480,7 @@ void LPTPWM_DisableAcc(LPTMR_T *lptmr);
 void LPTPWM_EnableAccInt(LPTMR_T *lptmr);
 void LPTPWM_DisableAccInt(LPTMR_T *lptmr);
 void LPTPWM_ClearAccInt(LPTMR_T *lptmr);
-uint32_t LPTPWM_GetAccInt(LPTMR_T *lptmr);
+uint32_t LPTPWM_GetAccInt(const LPTMR_T *lptmr);
 void LPTPWM_EnableAccLPPDMA(LPTMR_T *lptmr);
 void LPTPWM_DisableAccPDMA(LPTMR_T *lptmr);
 void LPTPWM_EnableAccStopMode(LPTMR_T *lptmr);

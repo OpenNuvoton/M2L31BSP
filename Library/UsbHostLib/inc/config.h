@@ -9,6 +9,10 @@
 #ifndef  _USBH_CONFIG_H_
 #define  _USBH_CONFIG_H_
 
+#include <stdarg.h>
+
+#define USBNULL                ((void*)0)                 ///< For USB Library Usage: USBNULL pointer
+extern int usbh_printf(const char *fmt, ...);        ///< For USB Library Usage: debug print function
 /// @cond HIDDEN_SYMBOLS
 
 /*----------------------------------------------------------------------------------------*/
@@ -47,9 +51,13 @@
    are all allocated from this pool. Allocated unit size is determined by MEM_POOL_UNIT_SIZE.
    May allocate one or more units depend on hardware descriptor type.                                 */
 
-#define MEM_POOL_UNIT_SIZE     64      /*!< A fixed hard coding setting. Do not change it!            */
-#define MEM_POOL_UNIT_NUM      64      /*!< Increase this or heap size if memory allocate failed.     */
+#define HW_MEM_UNIT_SIZE       64      /*!< A fixed hard coding setting. Do not change it!            */
+#define HW_MEM_UNIT_NUM        48      /*!< Increase this or heap size if memory allocate failed.     */
 
+/* USB transfer memory pool. For non-cache DMA memory allocation. */
+
+#define DMA_MEM_UNIT_SIZE    1024      /*!< A fixed hard coding setting. Do not change it!            */
+#define DMA_MEM_UNIT_NUM       20      /*!< Increase this or heap size if memory allocate failed.     */
 /*----------------------------------------------------------------------------------------*/
 /*   Re-defined staff for various compiler                                                */
 /*----------------------------------------------------------------------------------------*/
@@ -67,15 +75,15 @@
 //#define DUMP_DESCRIPTOR                     /* dump descriptors                           */
 
 #ifdef ENABLE_ERROR_MSG
-#define USB_error            printf
+    #define USB_error            (void)usbh_printf
 #else
-#define USB_error(...)
+    #define USB_error(...)
 #endif
 
 #ifdef ENABLE_DEBUG_MSG
-#define USB_debug            printf
-#ifdef ENABLE_VERBOSE_DEBUG
-#define USB_vdebug         printf
+    #define USB_debug            (void)usbh_printf
+    #ifdef ENABLE_VERBOSE_DEBUG
+        #define USB_vdebug         (void)usbh_printf
 #else
 #define USB_vdebug(...)
 #endif

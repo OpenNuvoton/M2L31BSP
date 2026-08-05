@@ -50,15 +50,15 @@ extern "C"
 
 #define RMC_FLASH_PAGE_SIZE          0x1000UL        /*!< Flash Page Size (4K bytes)  \hideinitializer */
 #define RMC_PAGE_ADDR_MASK           0xFFFFF000UL    /*!< Flash page address mask     \hideinitializer */
-#define RMC_MULTI_WORD_PROG_MAX_LEN  512             /*!< The maximum length of a multi-word program.  */
+#define RMC_MULTI_WORD_PROG_MAX_LEN  512UL           /*!< The maximum length of a multi-word program.  */
 
 #define RMC_APROM_SIZE          RMC_APROM_END        /*!< APROM Size                  \hideinitializer */
 #define RMC_BANK_SIZE           (RMC_APROM_SIZE/2UL) /*!< APROM Bank Size             \hideinitializer */
 #define RMC_LDROM_SIZE          0x1000UL             /*!< LDROM Size (4 Kbytes)       \hideinitializer */
 #define RMC_OTP_ENTRY_CNT       256UL                /*!< OTP entry number            \hideinitializer */
 
-#define XOM_OFF_MARK            0x5A
-#define XOM_DEBUG_MARK          0x50
+#define XOM_OFF_MARK            0x5AUL
+#define XOM_DEBUG_MARK          0x50UL
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  XOM region number constant definitions                                                                 */
@@ -92,17 +92,20 @@ extern "C"
 #define RMC_ISPCMD_RUN_CKS               0x2DUL          /*!< ISP Command: Run checksum calculation \hideinitializer */
 #define RMC_ISPCMD_VECMAP                0x2EUL          /*!< ISP Command: Vector Page Remap       \hideinitializer */
 
-#define RMC_ISPADDR_MAGIC_NUM   (0x20241126)
+#define RMC_ISPADDR_MAGIC_NUM   (0x20241126UL)
 
 #define READ_ALLONE_YES         0xA11FFFFFUL    /*!< Check-all-one result is all one.     \hideinitializer */
 #define READ_ALLONE_NOT         0xA1100000UL    /*!< Check-all-one result is not all one. \hideinitializer */
 #define READ_ALLONE_CMD_FAIL    0xFFFFFFFFUL    /*!< Check-all-one command failed.        \hideinitializer */
 
-#define RMC_TIMEOUT_READ        ((SystemCoreClock/10)/4) /*!< Read command time-out 100 ms         \hideinitializer */
-#define RMC_TIMEOUT_WRITE       ((SystemCoreClock/10)/4) /*!< Write command time-out 100 ms        \hideinitializer */
-#define RMC_TIMEOUT_ERASE       ((SystemCoreClock/10)/2) /*!< Erase command time-out 200 ms        \hideinitializer */
-#define RMC_TIMEOUT_CHKSUM      (SystemCoreClock/2)      /*!< Get checksum command time-out 2 s    \hideinitializer */
-#define RMC_TIMEOUT_CHKALLONE   (SystemCoreClock/2)      /*!< Check-all-one command time-out 2 s   \hideinitializer */
+#define RMC_TIMEOUT_READ        ((uint32_t)SystemCoreClock/40UL)     /*!< Read command time-out 100 ms         \hideinitializer */
+#define RMC_TIMEOUT_WRITE       ((uint32_t)SystemCoreClock/40UL)     /*!< Write command time-out 100 ms        \hideinitializer */
+#define RMC_TIMEOUT_ERASE       ((uint32_t)SystemCoreClock/20UL)     /*!< Erase command time-out 200 ms        \hideinitializer */
+#define RMC_TIMEOUT_CHKSUM      ((uint32_t)SystemCoreClock/2UL)      /*!< Get checksum command time-out 2 s    \hideinitializer */
+#define RMC_TIMEOUT_CHKALLONE   ((uint32_t)SystemCoreClock/2UL)      /*!< Check-all-one command time-out 2 s   \hideinitializer */
+
+#define RMC_VECMAP_LDROM_RAW_BASE      0x00100000UL
+#define RMC_VECMAP_LDROM_ALIAS_BASE    0x0F000000UL
 
 /*@}*/ /* end of group RMC_EXPORTED_CONSTANTS */
 
@@ -333,13 +336,13 @@ extern int32_t  g_RMC_i32ErrCode;
 /*---------------------------------------------------------------------------------------------------------*/
 /* inline functions                                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
-__STATIC_INLINE uint32_t RMC_DummyReadCID(void);
-__STATIC_INLINE uint32_t RMC_ReadCID(void);
-__STATIC_INLINE uint32_t RMC_ReadPID(void);
-__STATIC_INLINE uint32_t RMC_ReadUID(uint8_t u8Index);
-__STATIC_INLINE uint32_t RMC_ReadUCID(uint32_t u32Index);
-__STATIC_INLINE int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr);
-__STATIC_INLINE uint32_t RMC_GetVECMAP(void);
+static inline uint32_t RMC_DummyReadCID(void);
+static inline uint32_t RMC_ReadCID(void);
+static inline uint32_t RMC_ReadPID(void);
+static inline uint32_t RMC_ReadUID(uint8_t u8Index);
+static inline uint32_t RMC_ReadUCID(uint32_t u32Index);
+static inline int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr);
+static inline uint32_t RMC_GetVECMAP(void);
 
 /**
  * @brief       Get current vector mapping address.
@@ -349,12 +352,20 @@ __STATIC_INLINE uint32_t RMC_GetVECMAP(void);
  * @note
  *              VECMAP only valid when new IAP function is enabled. (CBS = 10'b or 00'b)
  */
-__STATIC_INLINE uint32_t RMC_GetVECMAP(void)
+static inline uint32_t RMC_GetVECMAP(void)
 {
-    if((RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk) & 0x100000)
-        return (RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk) | 0xF000000;
+    uint32_t u32VecMap;
+
+    u32VecMap = (RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk);
+
+    if ((u32VecMap & RMC_VECMAP_LDROM_RAW_BASE) != 0UL)
+    {
+        return (u32VecMap | RMC_VECMAP_LDROM_ALIAS_BASE);
+    }
     else
-        return (RMC->ISPSTS & RMC_ISPSTS_VECMAP_Msk); 
+    {
+        return u32VecMap;
+    }
 }
 
 
@@ -364,31 +375,36 @@ __STATIC_INLINE uint32_t RMC_GetVECMAP(void)
   * @return   The company ID (32-bit)
   * @details  The company ID of Nuvoton is fixed to be 0xDA
   */
-__STATIC_INLINE uint32_t RMC_DummyReadCID(void)
+static inline uint32_t RMC_DummyReadCID(void)
 {
     uint32_t  tout = RMC_TIMEOUT_READ;
 
-    g_RMC_i32ErrCode = 0;
+    g_RMC_i32ErrCode = 0L;
 
     RMC->ISPCMD = RMC_ISPCMD_READ_CID;           /* Set ISP Command Code */
-    RMC->ISPADDR = 0x0u;                         /* Must keep 0x0 when read CID */
+    RMC->ISPADDR = 0x0UL;                         /* Must keep 0x0 when read CID */
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;          /* Trigger to start ISP procedure */
-#if ISBEN
-    __ISB();
-#endif                                           /* To make sure ISP/CPU be Synchronized */
-    while ((--tout > 0) && (RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk)) {}
 
-    if (tout == 0)
+#if defined(ISBEN) && (ISBEN != 0)
+    __ISB();
+#endif /* To make sure ISP/CPU be synchronized */
+    while (((RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk) != 0UL) && (tout > 0UL))
     {
-        g_RMC_i32ErrCode = -1;
-        return 0xFFFFFFFF;
+        tout--;
     }
-    if(RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk)
+
+    if (tout == 0UL)
+    {
+        g_RMC_i32ErrCode = -1L;
+        return 0xFFFFFFFFUL;
+    }
+
+    if ((RMC->ISPCTL & RMC_ISPCTL_ISPFF_Msk) != 0UL)
     {
         RMC->ISPCTL |= RMC_ISPCTL_ISPFF_Msk;
     }
 
-    return 0xDA;
+    return 0xDAUL;
 }
 
 
@@ -398,35 +414,39 @@ __STATIC_INLINE uint32_t RMC_DummyReadCID(void)
   * @return   The company ID (32-bit)
   * @details  The company ID of Nuvoton is fixed to be 0xDA
   */
-__STATIC_INLINE uint32_t RMC_ReadCID(void)
+static inline uint32_t RMC_ReadCID(void)
 {
     uint32_t  tout = RMC_TIMEOUT_READ;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
-    if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
-
-    g_RMC_i32ErrCode = 0;
+    if(RMC_CHECK_MAGICNUM() == 1UL)
+    {
+       (void)RMC_DummyReadCID();
+    }
+    g_RMC_i32ErrCode = 0L;
 
     RMC->ISPCMD = RMC_ISPCMD_READ_CID;           /* Set ISP Command Code */
-    RMC->ISPADDR = 0x0u;                         /* Must keep 0x0 when read CID */
+    RMC->ISPADDR = 0x0U;                         /* Must keep 0x0 when read CID */
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;          /* Trigger to start ISP procedure */
-#if ISBEN
+
+#if defined(ISBEN) && (ISBEN != 0)
     __ISB();
 #endif                                           /* To make sure ISP/CPU be Synchronized */
-    while (tout-- > 0)
+    while (tout-- > 0UL)
     {
-        if (!(RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk))  /* Waiting for ISP Done */
+        if ((RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk) == 0UL)  /* Waiting for ISP Done */
         {
-            if (RMC->ISPDAT != 0x530000DA)
-                g_RMC_i32ErrCode = -1;
+            if (RMC->ISPDAT != 0x530000DAUL)
+            {
+                g_RMC_i32ErrCode = -1L;
+            }
             return RMC->ISPDAT;
         }
     }
-    g_RMC_i32ErrCode = -1;
-    return 0xFFFFFFFF;
+    g_RMC_i32ErrCode = -1L;
+    return 0xFFFFFFFFUL;
 }
 
 /**
@@ -435,31 +455,38 @@ __STATIC_INLINE uint32_t RMC_ReadCID(void)
   * @return   The product ID (32-bit)
   * @details  This function is used to read product ID.
   */
-__STATIC_INLINE uint32_t RMC_ReadPID(void)
+static inline uint32_t RMC_ReadPID(void)
 {
-    uint32_t  tout = RMC_TIMEOUT_READ;
+    uint32_t tout = RMC_TIMEOUT_READ;
 
     /* Workaround solution: Check ISPADDR to know if wakeup from power-down mode.
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    {
+       (void)RMC_DummyReadCID();
+    }
 
-    g_RMC_i32ErrCode = 0;
+    g_RMC_i32ErrCode = 0L;
 
     RMC->ISPCMD = RMC_ISPCMD_READ_DID;          /* Set ISP Command Code */
-    RMC->ISPADDR = 0x04u;                       /* Must keep 0x4 when read PID */
+    RMC->ISPADDR = 0x04UL;                       /* Must keep 0x4 when read PID */
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;         /* Trigger to start ISP procedure */
-#if ISBEN
+
+#if defined(ISBEN) && (ISBEN != 0)
     __ISB();
-#endif                                          /* To make sure ISP/CPU be Synchronized */
-    while (tout-- > 0)
+#endif /* To make sure ISP/CPU be synchronized */
+
+    while (tout-- > 0UL)
     {
-        if (!(RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk))  /* Waiting for ISP Done */
+        if ((RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk) == 0UL)  /* Waiting for ISP Done */
+        {
             return RMC->ISPDAT;
+        }
     }
-    g_RMC_i32ErrCode = -1;
-    return 0xFFFFFFFF;
+
+    g_RMC_i32ErrCode = -1L;
+    return 0xFFFFFFFFUL;
 }
 
 /**
@@ -468,7 +495,7 @@ __STATIC_INLINE uint32_t RMC_ReadPID(void)
  * @return      The 32-bit unique ID data of specified UID index.
  * @details     To read out 96-bit Unique ID.
  */
-__STATIC_INLINE uint32_t RMC_ReadUID(uint8_t u8Index)
+static inline uint32_t RMC_ReadUID(uint8_t u8Index)
 {
     uint32_t  tout = RMC_TIMEOUT_READ;
 
@@ -476,24 +503,31 @@ __STATIC_INLINE uint32_t RMC_ReadUID(uint8_t u8Index)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    {
+       (void)RMC_DummyReadCID();
+    }
 
-    g_RMC_i32ErrCode = 0;
+    g_RMC_i32ErrCode = 0L;
 
     RMC->ISPCMD = RMC_ISPCMD_READ_UID;
-    RMC->ISPADDR = ((uint32_t)u8Index << 2u);
-    RMC->ISPDAT = 0u;
-    RMC->ISPTRG = 0x1u;
-#if ISBEN
+    RMC->ISPADDR = ((uint32_t)u8Index << 2U);
+    RMC->ISPDAT = 0UL;
+    RMC->ISPTRG = 0x1UL;
+
+#if defined(ISBEN) && (ISBEN != 0)
     __ISB();
-#endif
-    while (tout-- > 0)
+#endif /* To make sure ISP/CPU be synchronized */
+
+    while (tout-- > 0UL)
     {
-        if (!(RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk))  /* Waiting for ISP Done */
+        if ((RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk) == 0UL)  /* Waiting for ISP Done */
+        {
             return RMC->ISPDAT;
+        }
     }
-    g_RMC_i32ErrCode = -1;
-    return 0xFFFFFFFF;
+
+    g_RMC_i32ErrCode = -1L;
+    return 0xFFFFFFFFUL;
 }
 
 /**
@@ -502,7 +536,7 @@ __STATIC_INLINE uint32_t RMC_ReadUID(uint8_t u8Index)
   * @return     The UCID of specified index
   * @details    This function is used to read unique chip ID (UCID).
   */
-__STATIC_INLINE uint32_t RMC_ReadUCID(uint32_t u32Index)
+static inline uint32_t RMC_ReadUCID(uint32_t u32Index)
 {         
     uint32_t  tout = RMC_TIMEOUT_READ;
 
@@ -510,23 +544,29 @@ __STATIC_INLINE uint32_t RMC_ReadUCID(uint32_t u32Index)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    {
+       (void)RMC_DummyReadCID();
+    }
 
-    g_RMC_i32ErrCode = 0;
+    g_RMC_i32ErrCode = 0L;
 
     RMC->ISPCMD = RMC_ISPCMD_READ_UID;            /* Set ISP Command Code */
-    RMC->ISPADDR = (0x04u * u32Index) + 0x10u;    /* The UCID is at offset 0x10 with word alignment. */
+    RMC->ISPADDR = (0x04UL * u32Index) + 0x10UL;    /* The UCID is at offset 0x10 with word alignment. */
     RMC->ISPTRG = RMC_ISPTRG_ISPGO_Msk;           /* Trigger to start ISP procedure */
-#if ISBEN
+
+#if defined(ISBEN) && (ISBEN != 0)
     __ISB();
 #endif                                            /* To make sure ISP/CPU be Synchronized */
-    while (tout-- > 0)
+    while (tout-- > 0UL)
     {
-        if (!(RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk))  /* Waiting for ISP Done */
+        if ((RMC->ISPTRG & RMC_ISPTRG_ISPGO_Msk) == 0UL)  /* Waiting for ISP Done */
+        {
             return RMC->ISPDAT;
+        }
     }
-    g_RMC_i32ErrCode = -1;
-    return 0xFFFFFFFF;
+
+    g_RMC_i32ErrCode = -1L;
+    return 0xFFFFFFFFUL;
 }
 
 /**
@@ -537,7 +577,7 @@ __STATIC_INLINE uint32_t RMC_ReadUCID(uint32_t u32Index)
  * @note
  *              VECMAP only valid when new IAP function is enabled. (CBS = 10'b or 00'b)
  */
-__STATIC_INLINE int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr)
+static inline int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr)
 {
     uint32_t  tout = RMC_TIMEOUT_WRITE;
 
@@ -545,23 +585,29 @@ __STATIC_INLINE int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr)
        If Magic Number exists, call Read CID command to avoid issue 2.5 (Please refer to Errata Sheet)
      */
     if(RMC_CHECK_MAGICNUM())
-        RMC_DummyReadCID();
+    {
+       (void)RMC_DummyReadCID();
+    }
 
-    g_RMC_i32ErrCode = 0;
+    g_RMC_i32ErrCode = 0L;
 
     RMC->ISPCMD = RMC_ISPCMD_VECMAP;  /* Set ISP Command Code */
     RMC->ISPADDR = u32PageAddr;       /* The address of specified page which will be map to address 0x0. It must be page alignment. */
-    RMC->ISPTRG = 0x1u;               /* Trigger to start ISP procedure */
-#if ISBEN
+    RMC->ISPTRG = 0x1U;               /* Trigger to start ISP procedure */
+
+#if defined(ISBEN) && (ISBEN != 0)
     __ISB();
-#endif                                /* To make sure ISP/CPU be Synchronized */
-    while (tout-- > 0)
+#endif /* To make sure ISP/CPU be synchronized */
+ 
+    while (tout-- > 0UL) 
     {
-        if (!RMC->ISPTRG)             /* Waiting for ISP Done */
-            return 0;
+        if (RMC->ISPTRG == 0UL)   /* Waiting for ISP Done */
+        {
+            return 0L;
+        }
     }
-    g_RMC_i32ErrCode = -1;
-    return -1;
+    g_RMC_i32ErrCode = -1L;
+    return -1L;
 }
 
 
@@ -571,18 +617,18 @@ __STATIC_INLINE int32_t RMC_SetVectorPageAddr(uint32_t u32PageAddr)
 
 extern void     RMC_Open(void);
 extern void     RMC_Close(void);
-extern int32_t  RMC_ConfigXOM(uint32_t xom_num, uint32_t xom_base, uint8_t xom_page);
+extern int32_t  RMC_ConfigXOM(uint32_t u32XomNum, uint32_t u32XomBase, uint8_t u8XomPage);
 extern int32_t  RMC_Erase(uint32_t u32PageAddr);
-extern int32_t  RMC_EraseXOM(uint32_t xom_num);
-extern int32_t  RMC_GetXOMState(uint32_t xom_num);
+extern int32_t  RMC_EraseXOM(uint32_t u32XomNum);
+extern int32_t  RMC_GetXOMState(uint32_t u32XomNum);
 extern int32_t  RMC_GetBootSource(void);
 extern uint32_t RMC_Read(uint32_t u32Addr);
 extern uint32_t RMC_ReadDataFlashBaseAddr(void);
 extern void     RMC_SetBootSource(int32_t i32BootSrc);
 extern int32_t  RMC_Write(uint32_t u32Addr, uint32_t u32Data);
 extern int32_t  RMC_ReadConfig(uint32_t u32Config[], uint32_t u32Count);
-extern int32_t  RMC_WriteConfig(uint32_t u32Config[], uint32_t u32Count);       
-extern int32_t  RMC_WriteMultiple(uint32_t u32Addr, uint32_t pu32Buf[], uint32_t u32Len);
+extern int32_t  RMC_WriteConfig(const uint32_t u32Config[], uint32_t u32Count);       
+extern int32_t  RMC_WriteMultiple(uint32_t u32Addr, const uint32_t pu32Buf[], uint32_t u32Len);
 extern uint32_t RMC_GetChkSum(uint32_t u32addr, uint32_t u32count);
 extern uint32_t RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count);
 extern int32_t  RMC_ReadOTP(uint32_t otp_num, uint32_t *low_word, uint32_t *high_word);

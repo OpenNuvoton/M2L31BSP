@@ -22,11 +22,34 @@ extern "C"
   @{
 */
 
-int32_t g_SYS_i32ErrCode = 0;   /*!< SYS global error code */
+static int32_t g_SYS_i32ErrCode = 0;   /*!< SYS global error code */
 
 /** @addtogroup SYS_EXPORTED_FUNCTIONS SYS Exported Functions
   @{
 */
+
+/* Restrict error code to module scope. */
+/**
+  * @brief      Get the error code of SYS module
+  * @param      None
+  * @return     The error code of SYS module
+  * @details    This function return the error code of SYS module.
+  */
+int32_t SYS_GetErrCode(void)
+{
+    return g_SYS_i32ErrCode;
+}
+
+/**
+  * @brief      Set the error code of SYS module
+  * @param      The error code of SYS module
+  * @return     None
+  * @details    This function set the error code of SYS module.
+  */
+void SYS_SetErrCode(int32_t err)
+{
+    g_SYS_i32ErrCode = err;
+}
 
 /**
   * @brief      Clear reset source
@@ -190,28 +213,50 @@ void SYS_ResetCPU(void)
   */
 void SYS_ResetModule(uint32_t u32ModuleIndex)
 {
-    uint32_t u32tmpVal = 0UL, u32tmpAddr = 0UL;
+    uint32_t  u32tmpVal  = 0UL;
+    uintptr_t u32tmpAddr = 0UL;
+    uint32_t  u32BitPos;
 
-    if ((u32ModuleIndex & 0x80000000UL) == 0x80000000)
+    if ((u32ModuleIndex & 0x80000000UL) == 0x80000000UL)
     {
         /* Support the IP RESET register NOT NEAR SYS_IPRST0 */
         if (((u32ModuleIndex & 0xFF000000UL) >> 24UL) == 0x80UL)
+        {
             /* 0x80UL for LPSCC_IPRST0 */
-            u32tmpAddr = (uint32_t)&LPSCC->IPRST0;
+            u32tmpAddr = (uintptr_t)&LPSCC->IPRST0;
+        }
     }
     else
     {
+        uint32_t  u32RegOffset;
+        uintptr_t baseAddr;
+        uintptr_t offset;
+
+        /* [MISRA10.8] Avoid casting a composite expression. */
+        u32RegOffset = ((u32ModuleIndex >> 24UL) & 0xFFUL);
+
         /* Support the IP RESET register NEAR SYS_IPRST0 */
-        u32tmpAddr = (uint32_t)&SYS->IPRST0 + ((u32ModuleIndex >> 24UL));
+        baseAddr = (uintptr_t)&SYS->IPRST0;
+        offset   = (uintptr_t)u32RegOffset; /* cast single object only */
+        u32tmpAddr = baseAddr + offset;
+    }
+
+    /* Extract bit position once and validate before shifting. */
+    u32BitPos = (u32ModuleIndex & 0x00FFFFFFUL);
+
+    if (u32BitPos >= 32UL) /* prevent undefined shift */
+    {
+        return;
     }
 
     /* Generate reset signal to the corresponding module */
-    u32tmpVal = (1UL << (u32ModuleIndex & 0x00ffffffUL));
-    *(uint32_t *)u32tmpAddr |= u32tmpVal;
+    u32tmpVal = (uint32_t)(1UL << u32BitPos);
+    *(volatile uint32_t *)u32tmpAddr |= u32tmpVal; /* Volatile MMIO access */
 
     /* Release corresponding module from reset state */
-    u32tmpVal = ~(1UL << (u32ModuleIndex & 0x00ffffffUL));
-    *(uint32_t *)u32tmpAddr &= u32tmpVal;
+    u32tmpVal = (uint32_t)~(1UL << u32BitPos);
+    *(volatile uint32_t *)u32tmpAddr &= u32tmpVal; /* Volatile MMIO access */
+
 }
 
 /**
@@ -325,11 +370,12 @@ int32_t SYS_SetSSRAMPowerMode(uint32_t u32SRAMSel, uint32_t u32PowerMode)
 {
     int32_t i32TimeOutCnt;
     uint32_t u32SRAMSelPos = SYS_SRAMPC0_SRAM0PM_Pos;
+    uint32_t u32MaxPos = (uint32_t)SYS_SRAMPC0_SRAM6PM_Pos;
 
     /* Get system SRAM power mode setting position */
-    while(u32SRAMSelPos <= SYS_SRAMPC0_SRAM6PM_Pos)
+    while (u32SRAMSelPos <= u32MaxPos)
     {
-        if(u32SRAMSel & (BIT0 << u32SRAMSelPos))
+        if ((u32SRAMSel & (BIT0 << u32SRAMSelPos)) != 0UL)
         {
             break;
         }

@@ -35,7 +35,7 @@ extern "C"
 
 int32_t RNG_Open(void);
 int32_t RNG_Random(uint32_t *pu32Buf, int32_t i32WordCnt);
-int32_t RNG_EntropyPoll(uint8_t* pu8Out, int32_t i32Len);
+int32_t RNG_EntropyPoll(uint8_t *pu8Out, int32_t i32Len);
 
 /**@}*/ /* end of group RNG_EXPORTED_FUNCTIONS */
 

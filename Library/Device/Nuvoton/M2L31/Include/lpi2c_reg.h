@@ -410,181 +410,181 @@ typedef struct
 @{ */
 
 #define LPI2C_CTL0_AA_Pos                (2)                                               /*!< LPI2C_T::CTL0: AA Position             */
-#define LPI2C_CTL0_AA_Msk                (0x1ul << LPI2C_CTL0_AA_Pos)                      /*!< LPI2C_T::CTL0: AA Mask                 */
+#define LPI2C_CTL0_AA_Msk                (0x1UL << LPI2C_CTL0_AA_Pos)                      /*!< LPI2C_T::CTL0: AA Mask                 */
 
 #define LPI2C_CTL0_SI_Pos                (3)                                               /*!< LPI2C_T::CTL0: SI Position             */
-#define LPI2C_CTL0_SI_Msk                (0x1ul << LPI2C_CTL0_SI_Pos)                      /*!< LPI2C_T::CTL0: SI Mask                 */
+#define LPI2C_CTL0_SI_Msk                (0x1UL << LPI2C_CTL0_SI_Pos)                      /*!< LPI2C_T::CTL0: SI Mask                 */
 
 #define LPI2C_CTL0_STO_Pos               (4)                                               /*!< LPI2C_T::CTL0: STO Position            */
-#define LPI2C_CTL0_STO_Msk               (0x1ul << LPI2C_CTL0_STO_Pos)                     /*!< LPI2C_T::CTL0: STO Mask                */
+#define LPI2C_CTL0_STO_Msk               (0x1UL << LPI2C_CTL0_STO_Pos)                     /*!< LPI2C_T::CTL0: STO Mask                */
 
 #define LPI2C_CTL0_STA_Pos               (5)                                               /*!< LPI2C_T::CTL0: STA Position            */
-#define LPI2C_CTL0_STA_Msk               (0x1ul << LPI2C_CTL0_STA_Pos)                     /*!< LPI2C_T::CTL0: STA Mask                */
+#define LPI2C_CTL0_STA_Msk               (0x1UL << LPI2C_CTL0_STA_Pos)                     /*!< LPI2C_T::CTL0: STA Mask                */
 
 #define LPI2C_CTL0_LPI2CEN_Pos           (6)                                               /*!< LPI2C_T::CTL0: LPI2CEN Position        */
-#define LPI2C_CTL0_LPI2CEN_Msk           (0x1ul << LPI2C_CTL0_LPI2CEN_Pos)                 /*!< LPI2C_T::CTL0: LPI2CEN Mask            */
+#define LPI2C_CTL0_LPI2CEN_Msk           (0x1UL << LPI2C_CTL0_LPI2CEN_Pos)                 /*!< LPI2C_T::CTL0: LPI2CEN Mask            */
 
 #define LPI2C_CTL0_INTEN_Pos             (7)                                               /*!< LPI2C_T::CTL0: INTEN Position          */
-#define LPI2C_CTL0_INTEN_Msk             (0x1ul << LPI2C_CTL0_INTEN_Pos)                   /*!< LPI2C_T::CTL0: INTEN Mask              */
+#define LPI2C_CTL0_INTEN_Msk             (0x1UL << LPI2C_CTL0_INTEN_Pos)                   /*!< LPI2C_T::CTL0: INTEN Mask              */
 
 #define LPI2C_ADDR0_GC_Pos               (0)                                               /*!< LPI2C_T::ADDR0: GC Position            */
-#define LPI2C_ADDR0_GC_Msk               (0x1ul << LPI2C_ADDR0_GC_Pos)                     /*!< LPI2C_T::ADDR0: GC Mask                */
+#define LPI2C_ADDR0_GC_Msk               (0x1UL << LPI2C_ADDR0_GC_Pos)                     /*!< LPI2C_T::ADDR0: GC Mask                */
 
 #define LPI2C_ADDR0_ADDR_Pos             (1)                                               /*!< LPI2C_T::ADDR0: ADDR Position          */
-#define LPI2C_ADDR0_ADDR_Msk             (0x7ful << LPI2C_ADDR0_ADDR_Pos)                  /*!< LPI2C_T::ADDR0: ADDR Mask              */
+#define LPI2C_ADDR0_ADDR_Msk             (0x7fUL << LPI2C_ADDR0_ADDR_Pos)                  /*!< LPI2C_T::ADDR0: ADDR Mask              */
 
 #define LPI2C_DAT_DAT_Pos                (0)                                               /*!< LPI2C_T::DAT: DAT Position             */
-#define LPI2C_DAT_DAT_Msk                (0xfful << LPI2C_DAT_DAT_Pos)                     /*!< LPI2C_T::DAT: DAT Mask                 */
+#define LPI2C_DAT_DAT_Msk                (0xffUL << LPI2C_DAT_DAT_Pos)                     /*!< LPI2C_T::DAT: DAT Mask                 */
 
 #define LPI2C_STATUS0_STATUS_Pos         (0)                                               /*!< LPI2C_T::STATUS0: STATUS Position      */
-#define LPI2C_STATUS0_STATUS_Msk         (0xfful << LPI2C_STATUS0_STATUS_Pos)              /*!< LPI2C_T::STATUS0: STATUS Mask          */
+#define LPI2C_STATUS0_STATUS_Msk         (0xffUL << LPI2C_STATUS0_STATUS_Pos)              /*!< LPI2C_T::STATUS0: STATUS Mask          */
 
 #define LPI2C_CLKDIV_DIVIDER_Pos         (0)                                               /*!< LPI2C_T::CLKDIV: DIVIDER Position      */
-#define LPI2C_CLKDIV_DIVIDER_Msk         (0x3fful << LPI2C_CLKDIV_DIVIDER_Pos)             /*!< LPI2C_T::CLKDIV: DIVIDER Mask          */
+#define LPI2C_CLKDIV_DIVIDER_Msk         (0x3ffUL << LPI2C_CLKDIV_DIVIDER_Pos)             /*!< LPI2C_T::CLKDIV: DIVIDER Mask          */
 
 #define LPI2C_CLKDIV_NFCNT_Pos           (12)                                              /*!< LPI2C_T::CLKDIV: NFCNT Position        */
-#define LPI2C_CLKDIV_NFCNT_Msk           (0xful << LPI2C_CLKDIV_NFCNT_Pos)                 /*!< LPI2C_T::CLKDIV: NFCNT Mask            */
+#define LPI2C_CLKDIV_NFCNT_Msk           (0xfUL << LPI2C_CLKDIV_NFCNT_Pos)                 /*!< LPI2C_T::CLKDIV: NFCNT Mask            */
 
 #define LPI2C_TOCTL_TOIF_Pos             (0)                                               /*!< LPI2C_T::TOCTL: TOIF Position          */
-#define LPI2C_TOCTL_TOIF_Msk             (0x1ul << LPI2C_TOCTL_TOIF_Pos)                   /*!< LPI2C_T::TOCTL: TOIF Mask              */
+#define LPI2C_TOCTL_TOIF_Msk             (0x1UL << LPI2C_TOCTL_TOIF_Pos)                   /*!< LPI2C_T::TOCTL: TOIF Mask              */
 
 #define LPI2C_TOCTL_TOCDIV4_Pos          (1)                                               /*!< LPI2C_T::TOCTL: TOCDIV4 Position       */
-#define LPI2C_TOCTL_TOCDIV4_Msk          (0x1ul << LPI2C_TOCTL_TOCDIV4_Pos)                /*!< LPI2C_T::TOCTL: TOCDIV4 Mask           */
+#define LPI2C_TOCTL_TOCDIV4_Msk          (0x1UL << LPI2C_TOCTL_TOCDIV4_Pos)                /*!< LPI2C_T::TOCTL: TOCDIV4 Mask           */
 
 #define LPI2C_TOCTL_TOCEN_Pos            (2)                                               /*!< LPI2C_T::TOCTL: TOCEN Position         */
-#define LPI2C_TOCTL_TOCEN_Msk            (0x1ul << LPI2C_TOCTL_TOCEN_Pos)                  /*!< LPI2C_T::TOCTL: TOCEN Mask             */
+#define LPI2C_TOCTL_TOCEN_Msk            (0x1UL << LPI2C_TOCTL_TOCEN_Pos)                  /*!< LPI2C_T::TOCTL: TOCEN Mask             */
 
 #define LPI2C_ADDR1_GC_Pos               (0)                                               /*!< LPI2C_T::ADDR1: GC Position            */
-#define LPI2C_ADDR1_GC_Msk               (0x1ul << LPI2C_ADDR1_GC_Pos)                     /*!< LPI2C_T::ADDR1: GC Mask                */
+#define LPI2C_ADDR1_GC_Msk               (0x1UL << LPI2C_ADDR1_GC_Pos)                     /*!< LPI2C_T::ADDR1: GC Mask                */
 
 #define LPI2C_ADDR1_ADDR_Pos             (1)                                               /*!< LPI2C_T::ADDR1: ADDR Position          */
-#define LPI2C_ADDR1_ADDR_Msk             (0x7ful << LPI2C_ADDR1_ADDR_Pos)                  /*!< LPI2C_T::ADDR1: ADDR Mask              */
+#define LPI2C_ADDR1_ADDR_Msk             (0x7fUL << LPI2C_ADDR1_ADDR_Pos)                  /*!< LPI2C_T::ADDR1: ADDR Mask              */
 
 #define LPI2C_ADDR2_GC_Pos               (0)                                               /*!< LPI2C_T::ADDR2: GC Position            */
-#define LPI2C_ADDR2_GC_Msk               (0x1ul << LPI2C_ADDR2_GC_Pos)                     /*!< LPI2C_T::ADDR2: GC Mask                */
+#define LPI2C_ADDR2_GC_Msk               (0x1UL << LPI2C_ADDR2_GC_Pos)                     /*!< LPI2C_T::ADDR2: GC Mask                */
 
 #define LPI2C_ADDR2_ADDR_Pos             (1)                                               /*!< LPI2C_T::ADDR2: ADDR Position          */
-#define LPI2C_ADDR2_ADDR_Msk             (0x7ful << LPI2C_ADDR2_ADDR_Pos)                  /*!< LPI2C_T::ADDR2: ADDR Mask              */
+#define LPI2C_ADDR2_ADDR_Msk             (0x7fUL << LPI2C_ADDR2_ADDR_Pos)                  /*!< LPI2C_T::ADDR2: ADDR Mask              */
 
 #define LPI2C_ADDR3_GC_Pos               (0)                                               /*!< LPI2C_T::ADDR3: GC Position            */
-#define LPI2C_ADDR3_GC_Msk               (0x1ul << LPI2C_ADDR3_GC_Pos)                     /*!< LPI2C_T::ADDR3: GC Mask                */
+#define LPI2C_ADDR3_GC_Msk               (0x1UL << LPI2C_ADDR3_GC_Pos)                     /*!< LPI2C_T::ADDR3: GC Mask                */
 
 #define LPI2C_ADDR3_ADDR_Pos             (1)                                               /*!< LPI2C_T::ADDR3: ADDR Position          */
-#define LPI2C_ADDR3_ADDR_Msk             (0x7ful << LPI2C_ADDR3_ADDR_Pos)                  /*!< LPI2C_T::ADDR3: ADDR Mask              */
+#define LPI2C_ADDR3_ADDR_Msk             (0x7fUL << LPI2C_ADDR3_ADDR_Pos)                  /*!< LPI2C_T::ADDR3: ADDR Mask              */
 
 #define LPI2C_ADDRMSK0_ADDRMSK_Pos       (1)                                               /*!< LPI2C_T::ADDRMSK0: ADDRMSK Position    */
-#define LPI2C_ADDRMSK0_ADDRMSK_Msk       (0x7ful << LPI2C_ADDRMSK0_ADDRMSK_Pos)            /*!< LPI2C_T::ADDRMSK0: ADDRMSK Mask        */
+#define LPI2C_ADDRMSK0_ADDRMSK_Msk       (0x7fUL << LPI2C_ADDRMSK0_ADDRMSK_Pos)            /*!< LPI2C_T::ADDRMSK0: ADDRMSK Mask        */
 
 #define LPI2C_ADDRMSK1_ADDRMSK_Pos       (1)                                               /*!< LPI2C_T::ADDRMSK1: ADDRMSK Position    */
-#define LPI2C_ADDRMSK1_ADDRMSK_Msk       (0x7ful << LPI2C_ADDRMSK1_ADDRMSK_Pos)            /*!< LPI2C_T::ADDRMSK1: ADDRMSK Mask        */
+#define LPI2C_ADDRMSK1_ADDRMSK_Msk       (0x7fUL << LPI2C_ADDRMSK1_ADDRMSK_Pos)            /*!< LPI2C_T::ADDRMSK1: ADDRMSK Mask        */
 
 #define LPI2C_ADDRMSK2_ADDRMSK_Pos       (1)                                               /*!< LPI2C_T::ADDRMSK2: ADDRMSK Position    */
-#define LPI2C_ADDRMSK2_ADDRMSK_Msk       (0x7ful << LPI2C_ADDRMSK2_ADDRMSK_Pos)            /*!< LPI2C_T::ADDRMSK2: ADDRMSK Mask        */
+#define LPI2C_ADDRMSK2_ADDRMSK_Msk       (0x7fUL << LPI2C_ADDRMSK2_ADDRMSK_Pos)            /*!< LPI2C_T::ADDRMSK2: ADDRMSK Mask        */
 
 #define LPI2C_ADDRMSK3_ADDRMSK_Pos       (1)                                               /*!< LPI2C_T::ADDRMSK3: ADDRMSK Position    */
-#define LPI2C_ADDRMSK3_ADDRMSK_Msk       (0x7ful << LPI2C_ADDRMSK3_ADDRMSK_Pos)            /*!< LPI2C_T::ADDRMSK3: ADDRMSK Mask        */
+#define LPI2C_ADDRMSK3_ADDRMSK_Msk       (0x7fUL << LPI2C_ADDRMSK3_ADDRMSK_Pos)            /*!< LPI2C_T::ADDRMSK3: ADDRMSK Mask        */
 
 #define LPI2C_WKCTL_WKEN_Pos             (0)                                               /*!< LPI2C_T::WKCTL: WKEN Position          */
-#define LPI2C_WKCTL_WKEN_Msk             (0x1ul << LPI2C_WKCTL_WKEN_Pos)                   /*!< LPI2C_T::WKCTL: WKEN Mask              */
+#define LPI2C_WKCTL_WKEN_Msk             (0x1UL << LPI2C_WKCTL_WKEN_Pos)                   /*!< LPI2C_T::WKCTL: WKEN Mask              */
 
 #define LPI2C_WKCTL_NHDBUSEN_Pos         (7)                                               /*!< LPI2C_T::WKCTL: NHDBUSEN Position      */
-#define LPI2C_WKCTL_NHDBUSEN_Msk         (0x1ul << LPI2C_WKCTL_NHDBUSEN_Pos)               /*!< LPI2C_T::WKCTL: NHDBUSEN Mask          */
+#define LPI2C_WKCTL_NHDBUSEN_Msk         (0x1UL << LPI2C_WKCTL_NHDBUSEN_Pos)               /*!< LPI2C_T::WKCTL: NHDBUSEN Mask          */
 
 #define LPI2C_WKSTS_WKIF_Pos             (0)                                               /*!< LPI2C_T::WKSTS: WKIF Position          */
-#define LPI2C_WKSTS_WKIF_Msk             (0x1ul << LPI2C_WKSTS_WKIF_Pos)                   /*!< LPI2C_T::WKSTS: WKIF Mask              */
+#define LPI2C_WKSTS_WKIF_Msk             (0x1UL << LPI2C_WKSTS_WKIF_Pos)                   /*!< LPI2C_T::WKSTS: WKIF Mask              */
 
 #define LPI2C_WKSTS_WKAKDONE_Pos         (1)                                               /*!< LPI2C_T::WKSTS: WKAKDONE Position      */
-#define LPI2C_WKSTS_WKAKDONE_Msk         (0x1ul << LPI2C_WKSTS_WKAKDONE_Pos)               /*!< LPI2C_T::WKSTS: WKAKDONE Mask          */
+#define LPI2C_WKSTS_WKAKDONE_Msk         (0x1UL << LPI2C_WKSTS_WKAKDONE_Pos)               /*!< LPI2C_T::WKSTS: WKAKDONE Mask          */
 
 #define LPI2C_WKSTS_WRSTSWK_Pos          (2)                                               /*!< LPI2C_T::WKSTS: WRSTSWK Position       */
-#define LPI2C_WKSTS_WRSTSWK_Msk          (0x1ul << LPI2C_WKSTS_WRSTSWK_Pos)                /*!< LPI2C_T::WKSTS: WRSTSWK Mask           */
+#define LPI2C_WKSTS_WRSTSWK_Msk          (0x1UL << LPI2C_WKSTS_WRSTSWK_Pos)                /*!< LPI2C_T::WKSTS: WRSTSWK Mask           */
 
 #define LPI2C_CTL1_TXPDMAEN_Pos          (0)                                               /*!< LPI2C_T::CTL1: TXPDMAEN Position       */
-#define LPI2C_CTL1_TXPDMAEN_Msk          (0x1ul << LPI2C_CTL1_TXPDMAEN_Pos)                /*!< LPI2C_T::CTL1: TXPDMAEN Mask           */
+#define LPI2C_CTL1_TXPDMAEN_Msk          (0x1UL << LPI2C_CTL1_TXPDMAEN_Pos)                /*!< LPI2C_T::CTL1: TXPDMAEN Mask           */
 
 #define LPI2C_CTL1_RXPDMAEN_Pos          (1)                                               /*!< LPI2C_T::CTL1: RXPDMAEN Position       */
-#define LPI2C_CTL1_RXPDMAEN_Msk          (0x1ul << LPI2C_CTL1_RXPDMAEN_Pos)                /*!< LPI2C_T::CTL1: RXPDMAEN Mask           */
+#define LPI2C_CTL1_RXPDMAEN_Msk          (0x1UL << LPI2C_CTL1_RXPDMAEN_Pos)                /*!< LPI2C_T::CTL1: RXPDMAEN Mask           */
 
 #define LPI2C_CTL1_PDMARST_Pos           (2)                                               /*!< LPI2C_T::CTL1: PDMARST Position        */
-#define LPI2C_CTL1_PDMARST_Msk           (0x1ul << LPI2C_CTL1_PDMARST_Pos)                 /*!< LPI2C_T::CTL1: PDMARST Mask            */
+#define LPI2C_CTL1_PDMARST_Msk           (0x1UL << LPI2C_CTL1_PDMARST_Pos)                 /*!< LPI2C_T::CTL1: PDMARST Mask            */
 
 #define LPI2C_CTL1_PDMASTR_Pos           (8)                                               /*!< LPI2C_T::CTL1: PDMASTR Position        */
-#define LPI2C_CTL1_PDMASTR_Msk           (0x1ul << LPI2C_CTL1_PDMASTR_Pos)                 /*!< LPI2C_T::CTL1: PDMASTR Mask            */
+#define LPI2C_CTL1_PDMASTR_Msk           (0x1UL << LPI2C_CTL1_PDMASTR_Pos)                 /*!< LPI2C_T::CTL1: PDMASTR Mask            */
 
 #define LPI2C_CTL1_SWITCHEN_Pos          (10)                                              /*!< LPI2C_T::CTL1: SWITCHEN Position       */
-#define LPI2C_CTL1_SWITCHEN_Msk          (0x1ul << LPI2C_CTL1_SWITCHEN_Pos)                /*!< LPI2C_T::CTL1: SWITCHEN Mask           */
+#define LPI2C_CTL1_SWITCHEN_Msk          (0x1UL << LPI2C_CTL1_SWITCHEN_Pos)                /*!< LPI2C_T::CTL1: SWITCHEN Mask           */
 
 #define LPI2C_STATUS1_ADMAT0_Pos         (0)                                               /*!< LPI2C_T::STATUS1: ADMAT0 Position      */
-#define LPI2C_STATUS1_ADMAT0_Msk         (0x1ul << LPI2C_STATUS1_ADMAT0_Pos)               /*!< LPI2C_T::STATUS1: ADMAT0 Mask          */
+#define LPI2C_STATUS1_ADMAT0_Msk         (0x1UL << LPI2C_STATUS1_ADMAT0_Pos)               /*!< LPI2C_T::STATUS1: ADMAT0 Mask          */
 
 #define LPI2C_STATUS1_ADMAT1_Pos         (1)                                               /*!< LPI2C_T::STATUS1: ADMAT1 Position      */
-#define LPI2C_STATUS1_ADMAT1_Msk         (0x1ul << LPI2C_STATUS1_ADMAT1_Pos)               /*!< LPI2C_T::STATUS1: ADMAT1 Mask          */
+#define LPI2C_STATUS1_ADMAT1_Msk         (0x1UL << LPI2C_STATUS1_ADMAT1_Pos)               /*!< LPI2C_T::STATUS1: ADMAT1 Mask          */
 
 #define LPI2C_STATUS1_ADMAT2_Pos         (2)                                               /*!< LPI2C_T::STATUS1: ADMAT2 Position      */
-#define LPI2C_STATUS1_ADMAT2_Msk         (0x1ul << LPI2C_STATUS1_ADMAT2_Pos)               /*!< LPI2C_T::STATUS1: ADMAT2 Mask          */
+#define LPI2C_STATUS1_ADMAT2_Msk         (0x1UL << LPI2C_STATUS1_ADMAT2_Pos)               /*!< LPI2C_T::STATUS1: ADMAT2 Mask          */
 
 #define LPI2C_STATUS1_ADMAT3_Pos         (3)                                               /*!< LPI2C_T::STATUS1: ADMAT3 Position      */
-#define LPI2C_STATUS1_ADMAT3_Msk         (0x1ul << LPI2C_STATUS1_ADMAT3_Pos)               /*!< LPI2C_T::STATUS1: ADMAT3 Mask          */
+#define LPI2C_STATUS1_ADMAT3_Msk         (0x1UL << LPI2C_STATUS1_ADMAT3_Pos)               /*!< LPI2C_T::STATUS1: ADMAT3 Mask          */
 
 #define LPI2C_STATUS1_ONBUSY_Pos         (8)                                               /*!< LPI2C_T::STATUS1: ONBUSY Position      */
-#define LPI2C_STATUS1_ONBUSY_Msk         (0x1ul << LPI2C_STATUS1_ONBUSY_Pos)               /*!< LPI2C_T::STATUS1: ONBUSY Mask          */
+#define LPI2C_STATUS1_ONBUSY_Msk         (0x1UL << LPI2C_STATUS1_ONBUSY_Pos)               /*!< LPI2C_T::STATUS1: ONBUSY Mask          */
 
 #define LPI2C_TMCTL_STCTL_Pos            (0)                                               /*!< LPI2C_T::TMCTL: STCTL Position         */
-#define LPI2C_TMCTL_STCTL_Msk            (0x1fful << LPI2C_TMCTL_STCTL_Pos)                /*!< LPI2C_T::TMCTL: STCTL Mask             */
+#define LPI2C_TMCTL_STCTL_Msk            (0x1ffUL << LPI2C_TMCTL_STCTL_Pos)                /*!< LPI2C_T::TMCTL: STCTL Mask             */
 
 #define LPI2C_TMCTL_HTCTL_Pos            (16)                                              /*!< LPI2C_T::TMCTL: HTCTL Position         */
-#define LPI2C_TMCTL_HTCTL_Msk            (0x1fful << LPI2C_TMCTL_HTCTL_Pos)                /*!< LPI2C_T::TMCTL: HTCTL Mask             */
+#define LPI2C_TMCTL_HTCTL_Msk            (0x1ffUL << LPI2C_TMCTL_HTCTL_Pos)                /*!< LPI2C_T::TMCTL: HTCTL Mask             */
 
 #define LPI2C_AUTOCTL_TGSRCSEL_Pos       (0)                                               /*!< LPI2C_T::AUTOCTL: TGSRCSEL Position    */
-#define LPI2C_AUTOCTL_TGSRCSEL_Msk       (0xful << LPI2C_AUTOCTL_TGSRCSEL_Pos)             /*!< LPI2C_T::AUTOCTL: TGSRCSEL Mask        */
+#define LPI2C_AUTOCTL_TGSRCSEL_Msk       (0xfUL << LPI2C_AUTOCTL_TGSRCSEL_Pos)             /*!< LPI2C_T::AUTOCTL: TGSRCSEL Mask        */
 
 #define LPI2C_AUTOCTL_TRGEN_Pos          (4)                                               /*!< LPI2C_T::AUTOCTL: TRGEN Position       */
-#define LPI2C_AUTOCTL_TRGEN_Msk          (0x1ul << LPI2C_AUTOCTL_TRGEN_Pos)                /*!< LPI2C_T::AUTOCTL: TRGEN Mask           */
+#define LPI2C_AUTOCTL_TRGEN_Msk          (0x1UL << LPI2C_AUTOCTL_TRGEN_Pos)                /*!< LPI2C_T::AUTOCTL: TRGEN Mask           */
 
 #define LPI2C_AUTOCTL_TXWKEN_Pos         (5)                                               /*!< LPI2C_T::AUTOCTL: TXWKEN Position      */
-#define LPI2C_AUTOCTL_TXWKEN_Msk         (0x1ul << LPI2C_AUTOCTL_TXWKEN_Pos)               /*!< LPI2C_T::AUTOCTL: TXWKEN Mask          */
+#define LPI2C_AUTOCTL_TXWKEN_Msk         (0x1UL << LPI2C_AUTOCTL_TXWKEN_Pos)               /*!< LPI2C_T::AUTOCTL: TXWKEN Mask          */
 
 #define LPI2C_AUTOCTL_RXWKEN_Pos         (6)                                               /*!< LPI2C_T::AUTOCTL: RXWKEN Position      */
-#define LPI2C_AUTOCTL_RXWKEN_Msk         (0x1ul << LPI2C_AUTOCTL_RXWKEN_Pos)               /*!< LPI2C_T::AUTOCTL: RXWKEN Mask          */
+#define LPI2C_AUTOCTL_RXWKEN_Msk         (0x1UL << LPI2C_AUTOCTL_RXWKEN_Pos)               /*!< LPI2C_T::AUTOCTL: RXWKEN Mask          */
 
 #define LPI2C_AUTOCTL_NACKWKEN_Pos       (7)                                               /*!< LPI2C_T::AUTOCTL: NACKWKEN Position    */
-#define LPI2C_AUTOCTL_NACKWKEN_Msk       (0x1ul << LPI2C_AUTOCTL_NACKWKEN_Pos)             /*!< LPI2C_T::AUTOCTL: NACKWKEN Mask        */
+#define LPI2C_AUTOCTL_NACKWKEN_Msk       (0x1UL << LPI2C_AUTOCTL_NACKWKEN_Pos)             /*!< LPI2C_T::AUTOCTL: NACKWKEN Mask        */
 
 #define LPI2C_AUTOCTL_AUTOMODE_Pos       (8)                                               /*!< LPI2C_T::AUTOCTL: AUTOMODE Position    */
-#define LPI2C_AUTOCTL_AUTOMODE_Msk       (0x7ul << LPI2C_AUTOCTL_AUTOMODE_Pos)             /*!< LPI2C_T::AUTOCTL: AUTOMODE Mask        */
+#define LPI2C_AUTOCTL_AUTOMODE_Msk       (0x7UL << LPI2C_AUTOCTL_AUTOMODE_Pos)             /*!< LPI2C_T::AUTOCTL: AUTOMODE Mask        */
 
 #define LPI2C_AUTOCTL_SWTRG_Pos          (31)                                              /*!< LPI2C_T::AUTOCTL: SWTRG Position       */
-#define LPI2C_AUTOCTL_SWTRG_Msk          (0x1ul << LPI2C_AUTOCTL_SWTRG_Pos)                /*!< LPI2C_T::AUTOCTL: SWTRG Mask           */
+#define LPI2C_AUTOCTL_SWTRG_Msk          (0x1UL << LPI2C_AUTOCTL_SWTRG_Pos)                /*!< LPI2C_T::AUTOCTL: SWTRG Mask           */
 
 #define LPI2C_AUTOSTS_TXWKF_Pos          (0)                                               /*!< LPI2C_T::AUTOSTS: TXWKF Position       */
-#define LPI2C_AUTOSTS_TXWKF_Msk          (0x1ul << LPI2C_AUTOSTS_TXWKF_Pos)                /*!< LPI2C_T::AUTOSTS: TXWKF Mask           */
+#define LPI2C_AUTOSTS_TXWKF_Msk          (0x1UL << LPI2C_AUTOSTS_TXWKF_Pos)                /*!< LPI2C_T::AUTOSTS: TXWKF Mask           */
 
 #define LPI2C_AUTOSTS_RXWKF_Pos          (1)                                               /*!< LPI2C_T::AUTOSTS: RXWKF Position       */
-#define LPI2C_AUTOSTS_RXWKF_Msk          (0x1ul << LPI2C_AUTOSTS_RXWKF_Pos)                /*!< LPI2C_T::AUTOSTS: RXWKF Mask           */
+#define LPI2C_AUTOSTS_RXWKF_Msk          (0x1UL << LPI2C_AUTOSTS_RXWKF_Pos)                /*!< LPI2C_T::AUTOSTS: RXWKF Mask           */
 
 #define LPI2C_AUTOSTS_ERRORWKF_Pos       (2)                                               /*!< LPI2C_T::AUTOSTS: ERRORWKF Position    */
-#define LPI2C_AUTOSTS_ERRORWKF_Msk       (0x1ul << LPI2C_AUTOSTS_ERRORWKF_Pos)             /*!< LPI2C_T::AUTOSTS: ERRORWKF Mask        */
+#define LPI2C_AUTOSTS_ERRORWKF_Msk       (0x1UL << LPI2C_AUTOSTS_ERRORWKF_Pos)             /*!< LPI2C_T::AUTOSTS: ERRORWKF Mask        */
 
 #define LPI2C_AUTOSTS_TXFINISH_Pos       (8)                                               /*!< LPI2C_T::AUTOSTS: TXFINISH Position    */
-#define LPI2C_AUTOSTS_TXFINISH_Msk       (0x1ul << LPI2C_AUTOSTS_TXFINISH_Pos)             /*!< LPI2C_T::AUTOSTS: TXFINISH Mask        */
+#define LPI2C_AUTOSTS_TXFINISH_Msk       (0x1UL << LPI2C_AUTOSTS_TXFINISH_Pos)             /*!< LPI2C_T::AUTOSTS: TXFINISH Mask        */
 
 #define LPI2C_AUTOSTS_RXFINISH_Pos       (9)                                               /*!< LPI2C_T::AUTOSTS: RXFINISH Position    */
-#define LPI2C_AUTOSTS_RXFINISH_Msk       (0x1ul << LPI2C_AUTOSTS_RXFINISH_Pos)             /*!< LPI2C_T::AUTOSTS: RXFINISH Mask        */
+#define LPI2C_AUTOSTS_RXFINISH_Msk       (0x1UL << LPI2C_AUTOSTS_RXFINISH_Pos)             /*!< LPI2C_T::AUTOSTS: RXFINISH Mask        */
 
 #define LPI2C_AUTOSTS_ERRORIF_Pos        (10)                                              /*!< LPI2C_T::AUTOSTS: ERRORIF Position     */
-#define LPI2C_AUTOSTS_ERRORIF_Msk        (0x1ul << LPI2C_AUTOSTS_ERRORIF_Pos)              /*!< LPI2C_T::AUTOSTS: ERRORIF Mask         */
+#define LPI2C_AUTOSTS_ERRORIF_Msk        (0x1UL << LPI2C_AUTOSTS_ERRORIF_Pos)              /*!< LPI2C_T::AUTOSTS: ERRORIF Mask         */
 
 #define LPI2C_AUTOSTS_AOFINISH_Pos       (24)                                              /*!< LPI2C_T::AUTOSTS: AOFINISH Position    */
-#define LPI2C_AUTOSTS_AOFINISH_Msk       (0x1ul << LPI2C_AUTOSTS_AOFINISH_Pos)             /*!< LPI2C_T::AUTOSTS: AOFINISH Mask        */
+#define LPI2C_AUTOSTS_AOFINISH_Msk       (0x1UL << LPI2C_AUTOSTS_AOFINISH_Pos)             /*!< LPI2C_T::AUTOSTS: AOFINISH Mask        */
 
 #define LPI2C_AUTOSTS_BUSY_Pos           (31)                                              /*!< LPI2C_T::AUTOSTS: BUSY Position        */
-#define LPI2C_AUTOSTS_BUSY_Msk           (0x1ul << LPI2C_AUTOSTS_BUSY_Pos)                 /*!< LPI2C_T::AUTOSTS: BUSY Mask            */
+#define LPI2C_AUTOSTS_BUSY_Msk           (0x1UL << LPI2C_AUTOSTS_BUSY_Pos)                 /*!< LPI2C_T::AUTOSTS: BUSY Mask            */
 
 #define LPI2C_AUTOCNT_TXCNT_Pos          (0)                                               /*!< LPI2C_T::AUTOCNT: TXCNT Position       */
-#define LPI2C_AUTOCNT_TXCNT_Msk          (0xfful << LPI2C_AUTOCNT_TXCNT_Pos)               /*!< LPI2C_T::AUTOCNT: TXCNT Mask           */
+#define LPI2C_AUTOCNT_TXCNT_Msk          (0xffUL << LPI2C_AUTOCNT_TXCNT_Pos)               /*!< LPI2C_T::AUTOCNT: TXCNT Mask           */
 
 #define LPI2C_AUTOCNT_RXCNT_Pos          (16)                                              /*!< LPI2C_T::AUTOCNT: RXCNT Position       */
-#define LPI2C_AUTOCNT_RXCNT_Msk          (0xfful << LPI2C_AUTOCNT_RXCNT_Pos)               /*!< LPI2C_T::AUTOCNT: RXCNT Mask           */
+#define LPI2C_AUTOCNT_RXCNT_Msk          (0xffUL << LPI2C_AUTOCNT_RXCNT_Pos)               /*!< LPI2C_T::AUTOCNT: RXCNT Mask           */
 
 /**@}*/ /* LPI2C_CONST */
 /**@}*/ /* end of LPI2C register group */

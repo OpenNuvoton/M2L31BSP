@@ -291,7 +291,7 @@ extern "C"
   * @details    The data width can be 8 ~ 32 bits.
   * \hideinitializer
   */
-#define LPSPI_SET_DATA_WIDTH(lpspi, u32Width)   ((lpspi)->CTL = ((lpspi)->CTL & ~LPSPI_CTL_DWIDTH_Msk) | (((u32Width)&0x1F) << LPSPI_CTL_DWIDTH_Pos))
+#define LPSPI_SET_DATA_WIDTH(lpspi, u32Width)   ((lpspi)->CTL = ((lpspi)->CTL & ~LPSPI_CTL_DWIDTH_Msk) | (((u32Width)&0x1FUL) << LPSPI_CTL_DWIDTH_Pos))
 
 /**
   * @brief      Get the LPSPI busy state.
@@ -330,7 +330,7 @@ extern "C"
   * \hideinitializer
   */
 #define LPSPI_SET_AUTO_RX_TCNT(lpspi, u32Tcnt)   ((lpspi)->AUTOCTL &= ~LPSPI_AUTOCTL_TCNT_Msk); \
-                                                 ((lpspi)->AUTOCTL |= ((u32Tcnt&0xFF) << LPSPI_AUTOCTL_TCNT_Pos))
+                                                 ((lpspi)->AUTOCTL |= ((u32Tcnt&0xFFUL) << LPSPI_AUTOCTL_TCNT_Pos))
 
 /**
   * @brief      Enable RX TCNT count match wake up.
@@ -478,7 +478,7 @@ extern "C"
   * \hideinitializer
   */
 #define LPSPI_SET_AUTO_TRIG_SOURCE(lpspi, u32TrigSrc)   ((lpspi)->AUTOCTL &= ~LPSPI_AUTOCTL_TRIGSEL_Msk); \
-                                                        ((lpspi)->AUTOCTL |= ((u32TrigSrc&0x0F) << LPSPI_AUTOCTL_TRIGSEL_Pos))
+                                                        ((lpspi)->AUTOCTL |= ((u32TrigSrc&0x0FUL) << LPSPI_AUTOCTL_TRIGSEL_Pos))
 
 /**
   * @brief      Get TCNT count match wake up flag in Auto Operation Mode.
@@ -559,19 +559,19 @@ extern "C"
 
 /* Function prototype declaration */
 uint32_t LPSPI_Open(LPSPI_T *lpspi, uint32_t u32MasterSlave, uint32_t u32SPIMode, uint32_t u32DataWidth, uint32_t u32BusClock);
-void LPSPI_Close(LPSPI_T *lpspi);
+void LPSPI_Close(const LPSPI_T *lpspi);
 void LPSPI_ClearRxFIFO(LPSPI_T *lpspi);
 void LPSPI_ClearTxFIFO(LPSPI_T *lpspi);
 void LPSPI_DisableAutoSS(LPSPI_T *lpspi);
 void LPSPI_EnableAutoSS(LPSPI_T *lpspi, uint32_t u32SSPinMask, uint32_t u32ActiveLevel);
 uint32_t LPSPI_SetBusClock(LPSPI_T *lpspi, uint32_t u32BusClock);
 void LPSPI_SetFIFO(LPSPI_T *lpspi, uint32_t u32TxThreshold, uint32_t u32RxThreshold);
-uint32_t LPSPI_GetBusClock(LPSPI_T *lpspi);
+uint32_t LPSPI_GetBusClock(const LPSPI_T *lpspi);
 void LPSPI_EnableInt(LPSPI_T *lpspi, uint32_t u32Mask);
 void LPSPI_DisableInt(LPSPI_T *lpspi, uint32_t u32Mask);
-uint32_t LPSPI_GetIntFlag(LPSPI_T *lpspi, uint32_t u32Mask);
+uint32_t LPSPI_GetIntFlag(const LPSPI_T *lpspi, uint32_t u32Mask);
 void LPSPI_ClearIntFlag(LPSPI_T *lpspi, uint32_t u32Mask);
-uint32_t LPSPI_GetStatus(LPSPI_T *lpspi, uint32_t u32Mask);
+uint32_t LPSPI_GetStatus(const LPSPI_T *lpspi, uint32_t u32Mask);
 
 /*@}*/ /* end of group LPSPI_EXPORTED_FUNCTIONS */
 

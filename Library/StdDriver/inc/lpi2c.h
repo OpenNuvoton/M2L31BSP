@@ -73,7 +73,7 @@ extern "C"
 #define LPI2C_TIMEOUT     SystemCoreClock  /*!< LPI2C time-out counter (1 second time-out)                                 \hideinitializer */
 #define LPI2C_OK          ( 0L)            /*!< LPI2C operation OK                                                         \hideinitializer */
 #define LPI2C_ERR_FAIL    (-1L)            /*!< LPI2C operation failed                                                     \hideinitializer */
-#define LPI2C_TIMEOUT_ERR (-2L)            /*!< LPI2C operation abort due to timeout error                                 \hideinitializer */
+#define LPI2C_ERR_TIMEOUT (-2L)            /*!< LPI2C operation abort due to timeout error                                 \hideinitializer */
 
 /*@}*/ /* end of group LPI2C_EXPORTED_CONSTANTS */
 
@@ -93,7 +93,7 @@ extern int32_t g_LPI2C_i32ErrCode;
  *    @details      Set LPI2C_CTL register to control LPI2C bus conditions of START, STOP, SI, ACK.
  *    \hideinitializer
  */
-#define LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl) ((lpi2c)->CTL0 = ((lpi2c)->CTL0 & ~0x3C) | (u8Ctrl))
+#define LPI2C_SET_CONTROL_REG(lpi2c, u8Ctrl) ((lpi2c)->CTL0 = ((lpi2c)->CTL0 & ~0x3CUL) | (u8Ctrl))
 
 /**
  *    @brief        The macro is used to set START condition of LPI2C Bus
@@ -167,7 +167,7 @@ extern int32_t g_LPI2C_i32ErrCode;
  *    @details      When LPI2C bus occurs time-out event, the time-out flag will be set.
  *    \hideinitializer
  */
-#define LPI2C_GET_TIMEOUT_FLAG(lpi2c)   ( ((lpi2c)->TOCTL & LPI2C_TOCTL_TOIF_Msk) == LPI2C_TOCTL_TOIF_Msk ? 1:0 )
+#define LPI2C_GET_TIMEOUT_FLAG(lpi2c)   (((lpi2c)->TOCTL & LPI2C_TOCTL_TOIF_Msk) == LPI2C_TOCTL_TOIF_Msk ? 1:0 )
 
 /**
  *    @brief        To get wake-up flag from LPI2C Bus
@@ -180,7 +180,7 @@ extern int32_t g_LPI2C_i32ErrCode;
  *    @details      LPI2C bus occurs wake-up event, wake-up flag will be set.
  *    \hideinitializer
  */
-#define LPI2C_GET_WAKEUP_FLAG(lpi2c) ( ((lpi2c)->WKSTS & LPI2C_WKSTS_WKIF_Msk) == LPI2C_WKSTS_WKIF_Msk ? 1:0  )
+#define LPI2C_GET_WAKEUP_FLAG(lpi2c) (((lpi2c)->WKSTS & LPI2C_WKSTS_WKIF_Msk) == LPI2C_WKSTS_WKIF_Msk ? 1:0  )
 
 /**
  *    @brief        To clear wake-up flag
@@ -205,7 +205,7 @@ extern int32_t g_LPI2C_i32ErrCode;
  *    @details      LPI2C bus occurs wake-up event and address frame ACK is done, this flag will be set.
  *    \hideinitializer
  */
-#define LPI2C_GET_WAKEUP_DONE(lpi2c) ( ((lpi2c)->WKSTS & LPI2C_WKSTS_WKAKDONE_Msk) == LPI2C_WKSTS_WKAKDONE_Msk ? 1 : 0)
+#define LPI2C_GET_WAKEUP_DONE(lpi2c) (((lpi2c)->WKSTS & LPI2C_WKSTS_WKAKDONE_Msk) == LPI2C_WKSTS_WKAKDONE_Msk ? 1 : 0)
 
 /**
  *    @brief        To clear address frame ACK done flag
@@ -377,7 +377,7 @@ extern int32_t g_LPI2C_i32ErrCode;
 /*---------------------------------------------------------------------------------------------------------*/
 
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
-__STATIC_INLINE void LPI2C_STOP(LPI2C_T *lpi2c);
+static inline void LPI2C_STOP(LPI2C_T *lpi2c);
 
 /**
  *    @brief        The macro is used to set STOP condition of LPI2C Bus
@@ -388,15 +388,18 @@ __STATIC_INLINE void LPI2C_STOP(LPI2C_T *lpi2c);
  *
  *    @details      Set the LPI2C bus STOP condition in LPI2C_CTL register.
  */
-__STATIC_INLINE void LPI2C_STOP(LPI2C_T *lpi2c)
+static inline void LPI2C_STOP(LPI2C_T *lpi2c)
 {
     uint32_t u32TimeOutCount = SystemCoreClock;
 
     (lpi2c)->CTL0 |= (LPI2C_CTL0_SI_Msk | LPI2C_CTL0_STO_Msk);
-    while(lpi2c->CTL0 & LPI2C_CTL0_STO_Msk)
+    while ((lpi2c->CTL0 & LPI2C_CTL0_STO_Msk) != 0u)
     {
         u32TimeOutCount--;
-        if(u32TimeOutCount == 0) break;
+        if (u32TimeOutCount == 0u)
+        {
+            break;
+        }
     }
 }
 
@@ -405,11 +408,11 @@ void LPI2C_Close(LPI2C_T *lpi2c);
 void LPI2C_Trigger(LPI2C_T *lpi2c, uint8_t u8Start, uint8_t u8Stop, uint8_t u8Si, uint8_t u8Ack);
 void LPI2C_DisableInt(LPI2C_T *lpi2c);
 void LPI2C_EnableInt(LPI2C_T *lpi2c);
-uint32_t LPI2C_GetBusClockFreq(LPI2C_T *lpi2c);
-uint32_t LPI2C_GetIntFlag(LPI2C_T *lpi2c);
-uint32_t LPI2C_GetStatus(LPI2C_T *lpi2c);
+uint32_t LPI2C_GetBusClockFreq(const LPI2C_T *lpi2c);
+uint32_t LPI2C_GetIntFlag(const LPI2C_T *lpi2c);
+uint32_t LPI2C_GetStatus(const LPI2C_T *lpi2c);
 uint32_t LPI2C_Open(LPI2C_T *lpi2c, uint32_t u32BusClock);
-uint8_t LPI2C_GetData(LPI2C_T *lpi2c);
+uint8_t LPI2C_GetData(const LPI2C_T *lpi2c);
 void LPI2C_SetSlaveAddr(LPI2C_T *lpi2c, uint8_t u8SlaveNo, uint8_t u8SlaveAddr, uint8_t u8GCMode);
 void LPI2C_SetSlaveAddrMask(LPI2C_T *lpi2c, uint8_t u8SlaveNo, uint8_t u8SlaveAddrMask);
 uint32_t LPI2C_SetBusClockFreq(LPI2C_T *lpi2c, uint32_t u32BusClock);
@@ -419,11 +422,11 @@ void LPI2C_EnableWakeup(LPI2C_T *lpi2c);
 void LPI2C_DisableWakeup(LPI2C_T *lpi2c);
 void LPI2C_SetData(LPI2C_T *lpi2c, uint8_t u8Data);
 uint8_t LPI2C_WriteByte(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t data);
-uint32_t LPI2C_WriteMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t data[], uint32_t u32wLen);
+uint32_t LPI2C_WriteMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, const uint8_t data[], uint32_t u32wLen);
 uint8_t LPI2C_WriteByteOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, uint8_t data);
-uint32_t LPI2C_WriteMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, uint8_t data[], uint32_t u32wLen);
+uint32_t LPI2C_WriteMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr, const uint8_t data[], uint32_t u32wLen);
 uint8_t LPI2C_WriteByteTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t data);
-uint32_t LPI2C_WriteMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t data[], uint32_t u32wLen);
+uint32_t LPI2C_WriteMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, const uint8_t data[], uint32_t u32wLen);
 uint8_t LPI2C_ReadByte(LPI2C_T *lpi2c, uint8_t u8SlaveAddr);
 uint32_t LPI2C_ReadMultiBytes(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t rdata[], uint32_t u32rLen);
 uint8_t LPI2C_ReadByteOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr);

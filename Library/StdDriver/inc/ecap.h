@@ -69,6 +69,8 @@ extern "C"
 #define ECAP_CAPTURE_TIMER_CLK_SRC_CAP1        (2UL<<ECAP_CTL1_CNTSRCSEL_Pos)    /*!< ECAP capture timer/clock source from CAP1    \hideinitializer */
 #define ECAP_CAPTURE_TIMER_CLK_SRC_CAP2        (3UL<<ECAP_CTL1_CNTSRCSEL_Pos)    /*!< ECAP capture timer/clock source from CAP2    \hideinitializer */
 
+#define ECAP_CNT_CLEAR_EVENT_CTL1_MASK         (0x00700F00UL)
+
 /*@}*/ /* end of group ECAP_EXPORTED_CONSTANTS */
 
 /** @addtogroup ECAP_EXPORTED_FUNCTIONS ECAP Exported Functions
@@ -257,11 +259,11 @@ extern "C"
   * \hideinitializer
   */
 #define ECAP_SET_CNT_CLEAR_EVENT(ecap, u32Event) do{ \
-    if((u32Event) & ECAP_CTL0_CMPCLREN_Msk) \
-        (ecap)->CTL0 |= ECAP_CTL0_CMPCLREN_Msk; \
-    else \
-        (ecap)->CTL0 &= ~ECAP_CTL0_CMPCLREN_Msk; \
-    (ecap)->CTL1 = ((ecap)->CTL1 &~0x00700F00) | ((u32Event) & 0x00700F00); \
+    if((u32Event) & ECAP_CTL0_CMPCLREN_Msk) {\
+        (ecap)->CTL0 |= ECAP_CTL0_CMPCLREN_Msk; }\
+    else {\
+        (ecap)->CTL0 &= ~ECAP_CTL0_CMPCLREN_Msk; }\
+    (ecap)->CTL1 = ((ecap)->CTL1 &~0x00700F00UL) | ((u32Event) & 0x00700F00UL); \
   }while(0);
 
 /**
@@ -329,7 +331,7 @@ extern "C"
   * @details This macro will select capture counter reload trigger source.
   * \hideinitializer
   */
-#define ECAP_SEL_RELOAD_TRIG_SRC(ecap, u32TrigSrc) ((ecap)->CTL1 = ((ecap)->CTL1 & ~0xF00)|(u32TrigSrc))
+#define ECAP_SEL_RELOAD_TRIG_SRC(ecap, u32TrigSrc) ((ecap)->CTL1 = ((ecap)->CTL1 & ~0xF00UL)|(u32TrigSrc))
 
 /**
   * @brief This macro is used to select capture timer clock divide.
@@ -385,7 +387,7 @@ extern "C"
   * @details This macro will write 1 to get the input channel_n interrupt flag.
   * \hideinitializer
   */
-#define ECAP_GET_CAPTURE_FLAG(ecap, u32Mask) (((ecap)->STATUS & (u32Mask))?1:0)
+#define ECAP_GET_CAPTURE_FLAG(ecap, u32Mask) (((ecap)->STATUS & (u32Mask))?1UL:0UL)
 
 /**
   * @brief This macro is used to clear input channel interrupt flag

@@ -41,19 +41,25 @@ int32_t TRNG_Open(void)
 
     /* Waiting for ready */
     u32TimeOutCount = SystemCoreClock;
-    while((TRNG->STS & (TRNG_STS_LDORDY_Msk)) == 0)
+    while ((TRNG->STS & TRNG_STS_LDORDY_Msk) == 0UL)
     {
-        if(--u32TimeOutCount == 0) return -1; /* Time-out error */
+        if (--u32TimeOutCount == 0UL)
+        {
+            return -1; /* Time-out error */
+        }
     }
 
     /* Eanble TRNG and release reset */
-    TRNG->CTL = TRNG_CTL_TRNGEN_Msk | TRNG_CTL_LDOEN_Msk | TRNG_CTL_NRST_Msk;
+    TRNG->CTL = (TRNG_CTL_TRNGEN_Msk | TRNG_CTL_LDOEN_Msk | TRNG_CTL_NRST_Msk);
 
     /* Waiting for ready */
     u32TimeOutCount = SystemCoreClock;
-    while ((TRNG->STS & (TRNG_STS_TRNGRDY_Msk)) == 0)
+    while ((TRNG->STS & TRNG_STS_TRNGRDY_Msk) == 0UL)
     {
-        if(--u32TimeOutCount == 0) return -1; /* Time-out error */
+        if (--u32TimeOutCount == 0UL)
+        {
+            return -1; /* Time-out error */
+        }
     }
 
     TRNG->CTL = TRNG_CTL_TRNGEN_Msk | TRNG_CTL_LDOEN_Msk | TRNG_CTL_NRST_Msk | TRNG_CTL_INSTANT_Msk |
@@ -61,9 +67,12 @@ int32_t TRNG_Open(void)
 
     /* Waiting for DVIF */
     u32TimeOutCount = SystemCoreClock;
-    while((TRNG->STS & (TRNG_STS_DVIF_Msk)) == 0)
+    while ((TRNG->STS & TRNG_STS_DVIF_Msk) == 0UL)
     {
-        if(--u32TimeOutCount == 0) return -1; /* Time-out error */
+        if (--u32TimeOutCount == 0UL)
+        {
+            return -1; /* Time-out error */
+        }
     }
 
     return 0;
@@ -79,20 +88,24 @@ int32_t TRNG_Open(void)
   */
 int32_t TRNG_GenWord(uint32_t *u32RndNum)
 {
-    uint32_t   i, u32Reg, timeout;
+    uint32_t u32TimeOutCount;
 
-    *u32RndNum = 0;
+    *u32RndNum = 0U;
 
     TRNG->CTL |= TRNG_CTL_START_Msk;
 
-    for(timeout = SystemCoreClock; timeout > 0; timeout--)
+    for(u32TimeOutCount = SystemCoreClock; u32TimeOutCount > 0U; u32TimeOutCount--)
     {
-        if(TRNG->STS & TRNG_STS_DVIF_Msk)
+        if (TRNG->STS & TRNG_STS_DVIF_Msk)
+        {
             break;
+        }
     }
 
-    if(timeout == 0)
+    if (u32TimeOutCount == 0U)
+    {
         return -1;
+    }
 
     *u32RndNum = TRNG->DATA[0];
 
@@ -110,30 +123,40 @@ int32_t TRNG_GenWord(uint32_t *u32RndNum)
   */
 int32_t TRNG_GenBignum(uint8_t u8BigNum[], int32_t i32Len)
 {
-    uint32_t   i, j, u32Reg, timeout;
+    uint32_t i;
+    uint32_t j;
+    uint32_t u32Reg;
+    uint32_t u32TimeOutCount;
+    uint32_t u32ByteLen;
 
-    for (i = 0; i < i32Len/8; i++)
+    u32ByteLen = (uint32_t)i32Len / 8UL;
+
+    for (i = 0U; i < u32ByteLen; i++)
     {
         /* Get 32 random bits */
-        if((i & 0x3) == 0)
+        if((i & 0x3U) == 0U)
         {
             TRNG->CTL |= TRNG_CTL_START_Msk;
 
             /* Return fail when timeout */
-            for(timeout = (CLK_GetHCLKFreq() / 100); timeout > 0; timeout--)
+            for(u32TimeOutCount = (CLK_GetHCLKFreq() / 100U); u32TimeOutCount > 0U; u32TimeOutCount--)
             {
-                if(TRNG->CTL & TRNG_STS_DVIF_Msk)
+                if(TRNG->STS & TRNG_STS_DVIF_Msk)
+                {
                     break;
+                }
             }
 
-            if(timeout == 0)
+            if(u32TimeOutCount == 0U)
+            {
                 return -1;
+            }
 
             u32Reg = TRNG->DATA[0];
-            j = 0;
+            j = 0U;
         }
 
-        u8BigNum[i] = (u32Reg >> (j * 8)) & 0xff;
+        u8BigNum[i] = (uint8_t)((u32Reg >> (j * 8U)) & 0xFFU);
         j++;
     }
 
@@ -151,42 +174,63 @@ int32_t TRNG_GenBignum(uint8_t u8BigNum[], int32_t i32Len)
   */
 int32_t TRNG_GenBignumHex(char cBigNumHex[], int32_t i32Len)
 {
-    uint32_t   i, j, u32Reg, timeout, ch,cl;
+    uint32_t i;
+    uint32_t j;
+    uint32_t u32Reg;
+    uint32_t u32TimeOutCount;
+    uint32_t u32ByteLen;
 
-    for(i = 0; i < i32Len / 8; i++)
+    u32ByteLen = (uint32_t)i32Len / 8UL;
+
+    for(i = 0U; i < u32ByteLen; i++)
     {
         /* Get 32 random bits */
-        if((i & 0x3) == 0)
+        if((i & 0x3U) == 0U)
         {
             TRNG->CTL |= TRNG_CTL_START_Msk;
 
             /* Return fail when timeout */
-            for(timeout = (CLK_GetHCLKFreq() / 100); timeout > 0; timeout--)
+            for(u32TimeOutCount = (CLK_GetHCLKFreq() / 100U); u32TimeOutCount > 0U; u32TimeOutCount--)
             {
-                if(TRNG->CTL & TRNG_STS_DVIF_Msk)
+                if(TRNG->STS & TRNG_STS_DVIF_Msk)
+                {
                     break;
+                }
             }
 
-            if(timeout == 0)
+            if(u32TimeOutCount == 0U)
+            {
                 return -1;
+            }
 
             u32Reg = TRNG->DATA[0];
-            j = 0;
+            j = 0U;
         }
 
-        ch = ((u32Reg >> (j * 8)) & 0xf0) >> 4;
-        cl = (u32Reg >> (j * 8)) & 0x0f;
+        uint32_t u32HighCh;
+        uint32_t u32LowCh;
+
+        u32HighCh = ((u32Reg >> (j * 8U)) & 0xF0U) >> 4;
+        u32LowCh = (u32Reg >> (j * 8U)) & 0x0FU;
         j++;
 
-        if(ch >= 0xa)
-            cBigNumHex[i * 2] = ch - 0xa + 'a';
+        if(u32HighCh >= 0xaU)
+        {
+            cBigNumHex[i * 2U] = u32HighCh - 10U + 'a';
+        }
         else
-            cBigNumHex[i * 2] = ch + '0';
+        {
+            cBigNumHex[i * 2U] = u32HighCh + '0';
+        }
 
-        if(cl >= 0xa)
-            cBigNumHex[i * 2 + 1] = cl - 0xa + 'a';
+        if(u32LowCh >= 0xaU)
+        {
+            cBigNumHex[(i * 2U) + 1U] = u32LowCh - 10U + 'a';
+        }
         else
-            cBigNumHex[i * 2 + 1] = cl + '0';
+        {
+            cBigNumHex[(i * 2U) + 1U] = u32LowCh + '0';
+        }
 
     }
 

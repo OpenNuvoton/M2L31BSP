@@ -43,28 +43,28 @@ enum OperationNumber
 // SWI numbers and reason codes for RDI (Angel) monitors.
 #define AngelSWI_ARM                        0x123456
 #ifdef __thumb__
-    #define AngelSWI                        0xAB
+#define AngelSWI                        0xAB
 #else
-    #define AngelSWI                        AngelSWI_ARM
+#define AngelSWI                        AngelSWI_ARM
 #endif
 // For thumb only architectures use the BKPT instruction instead of SWI.
 #if defined(__ARM_ARCH_7M__)     \
     || defined(__ARM_ARCH_7EM__) \
     || defined(__ARM_ARCH_6M__) || defined(__ARM_ARCH_8M_BASE__)
-    #define AngelSWIInsn                    "bkpt"
-    #define AngelSWIAsm                     bkpt
+#define AngelSWIInsn                    "bkpt"
+#define AngelSWIAsm                     bkpt
 #else
-    #define AngelSWIInsn                    "swi"
-    #define AngelSWIAsm                     swi
+#define AngelSWIInsn                    "swi"
+#define AngelSWIAsm                     swi
 #endif
 
 #if defined(OS_DEBUG_SEMIHOSTING_FAULTS)
-    // Testing the local semihosting handler cannot use another BKPT, since this
-    // configuration cannot trigger HaedFault exceptions while the debugger is
-    // connected, so we use an illegal op code, that will trigger an
-    // UsageFault exception.
-    #define AngelSWITestFault               "setend be"
-    #define AngelSWITestFaultOpCode         (0xB658)
+// Testing the local semihosting handler cannot use another BKPT, since this
+// configuration cannot trigger HaedFault exceptions while the debugger is
+// connected, so we use an illegal op code, that will trigger an
+// UsageFault exception.
+#define AngelSWITestFault               "setend be"
+#define AngelSWITestFaultOpCode         (0xB658)
 #endif
 
 

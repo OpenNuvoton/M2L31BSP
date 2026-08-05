@@ -68,7 +68,7 @@ extern "C"
 /* ADCMPR Constant Definitions                                                                             */
 /*---------------------------------------------------------------------------------------------------------*/
 #define LPADC_ADCMPR_CMPD(x)                    ((x) << LPADC_ADCMPR_CMPD_Pos)          /*!< Compare value for compare function     \hideinitializer */
-#define LPADC_ADCMPR_CMPMATCNT(x)               (((x)-1) << LPADC_ADCMPR_CMPMATCNT_Pos) /*!< Match count for compare function       \hideinitializer */
+#define LPADC_ADCMPR_CMPMATCNT(x)               (((x)-1UL) << LPADC_ADCMPR_CMPMATCNT_Pos) /*!< Match count for compare function       \hideinitializer */
 #define LPADC_ADCMPR_CMPCH(x)                   ((x) << LPADC_ADCMPR_CMPCH_Pos)         /*!< Compare channel for compare function   \hideinitializer */
 #define LPADC_ADCMPR_CMPCOND_LESS_THAN          (0<<LPADC_ADCMPR_CMPCOND_Pos)           /*!< The compare condition is "less than"   \hideinitializer */
 #define LPADC_ADCMPR_CMPCOND_GREATER_OR_EQUAL   (1<<LPADC_ADCMPR_CMPCOND_Pos)           /*!< The compare condition is "greater than or equal to"    \hideinitializer */
@@ -126,8 +126,6 @@ extern "C"
 
 /*@}*/ /* end of group LPADC_EXPORTED_CONSTANTS */
 
-extern int32_t g_LPADC_i32ErrCode;
-
 /** @addtogroup LPADC_EXPORTED_FUNCTIONS LPADC Exported Functions
   @{
 */
@@ -179,7 +177,7 @@ extern int32_t g_LPADC_i32ErrCode;
   * @details ADSR0[7] (BUSY) is a mirror of ADCR[11] (ADST).
   * \hideinitializer
   */
-#define LPADC_IS_BUSY(lpadc) ((lpadc)->ADSR0 & LPADC_ADSR0_BUSY_Msk ? 1 : 0)
+#define LPADC_IS_BUSY(lpadc) (((lpadc)->ADSR0 & LPADC_ADSR0_BUSY_Msk) ? 1UL : 0UL)
 
 /**
   * @brief Check if the LPADC conversion data is over written or not.
@@ -190,7 +188,7 @@ extern int32_t g_LPADC_i32ErrCode;
   * @details ADSR2[31:0] (OVERRUN) is the mirror of ADDR0~31[16] OVERRUN bits.
   * \hideinitializer
   */
-#define LPADC_IS_DATA_OVERRUN(lpadc, u32ChNum) (((lpadc)->ADSR2 & (1<<(u32ChNum))) ? 1 : 0)
+#define LPADC_IS_DATA_OVERRUN(lpadc, u32ChNum) (((lpadc)->ADSR2 & (1UL<<(u32ChNum))) ? 1UL : 0UL)
 
 /**
   * @brief Check if the LPADC conversion data is valid or not.
@@ -201,7 +199,7 @@ extern int32_t g_LPADC_i32ErrCode;
   * @details VALID (ADDR0~31[17]) is set to 1 when corresponding channel analog input conversion is completed and cleared by hardware after ADDR register is read.
   * \hideinitializer
   */
-#define LPADC_IS_DATA_VALID(lpadc, u32ChNum) ((lpadc)->ADSR1 & (0x1<<(u32ChNum)) ? 1 : 0)
+#define LPADC_IS_DATA_VALID(lpadc, u32ChNum) ((lpadc)->ADSR1 & (0x1UL<<(u32ChNum)) ? 1UL : 0UL)
 
 /**
   * @brief Power down LPADC module.
@@ -243,7 +241,7 @@ extern int32_t g_LPADC_i32ErrCode;
                         u32MatchCount) ((lpadc)->ADCMPR[0] = ((u32ChNum) << LPADC_ADCMPR_CMPCH_Pos) | \
                                                            (u32Condition) | \
                                                            ((u32Data) << LPADC_ADCMPR_CMPD_Pos) | \
-                                                           (((u32MatchCount) - 1) << LPADC_ADCMPR_CMPMCNT_Pos) |\
+                                                           (((u32MatchCount) - 1UL) << LPADC_ADCMPR_CMPMCNT_Pos) |\
                                                            LPADC_ADCMPR_CMPEN_Msk)
 
 /**
@@ -277,7 +275,7 @@ extern int32_t g_LPADC_i32ErrCode;
                         u32MatchCount) ((lpadc)->ADCMPR[1] = ((u32ChNum) << LPADC_ADCMPR_CMPCH_Pos) | \
                                                            (u32Condition) | \
                                                            ((u32Data) << LPADC_ADCMPR_CMPD_Pos) | \
-                                                           (((u32MatchCount) - 1) << LPADC_ADCMPR_CMPMCNT_Pos) |\
+                                                           (((u32MatchCount) - 1UL) << LPADC_ADCMPR_CMPMCNT_Pos) |\
                                                            LPADC_ADCMPR_CMPEN_Msk)
 
 /**
@@ -533,7 +531,7 @@ void LPADC_Open(LPADC_T *lpadc,
                 uint32_t u32InputMode,
                 uint32_t u32OpMode,
                 uint32_t u32ChMask);
-void LPADC_Close(LPADC_T *lpadc);
+void LPADC_Close(const LPADC_T *lpadc);
 void LPADC_EnableHWTrigger(LPADC_T *lpadc,
                            uint32_t u32Source,
                            uint32_t u32Param);
@@ -544,8 +542,8 @@ void LPADC_SetExtendSampleTime(LPADC_T *lpadc,
                                uint32_t u32ModuleNum,
                                uint32_t u32ExtendSampleTime);
 void LPADC_SelectAutoOperationMode(LPADC_T *lpadc, uint32_t u32TrigSel);
-
-/*@}*/ /* end of group LPADC_EXPORTED_FUNCTIONS */
+int32_t LPADC_GetErrCode(void);
+void LPADC_SetErrCode(int32_t err);
 
 /*@}*/ /* end of group LPADC_Driver */
 

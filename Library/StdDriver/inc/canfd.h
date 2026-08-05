@@ -31,61 +31,61 @@ extern "C"
   @{
 */
 
-#define CANFD_OP_CAN_MODE     0 /*!< CAN Mode */
-#define CANFD_OP_CAN_FD_MODE  1 /*!< CAN FD Mode */
+#define CANFD_OP_CAN_MODE     0U /*!< CAN Mode */
+#define CANFD_OP_CAN_FD_MODE  1U /*!< CAN FD Mode */
 
 /* Reserved number of elements in Message RAM - used for calculation of start addresses within RAM Configuration
    some element_numbers set to less than max, to stay altogether below 256 words of MessageRAM requirement*/
-#define CANFD_MAX_11_BIT_FTR_ELEMS    128ul  /*!<  maximum is 128 11-bit Filter */
-#define CANFD_MAX_29_BIT_FTR_ELEMS    64ul   /*!<  maximum is  64 29-bit Filter */
-#define CANFD_MAX_RX_FIFO0_ELEMS      64ul   /*!<  maximum is  64 Rx FIFO 0 elements */
-#define CANFD_MAX_RX_FIFO1_ELEMS      64ul   /*!<  maximum is  64 Rx FIFO 1 elements */
-#define CANFD_MAX_RX_BUF_ELEMS        64ul   /*!<  maximum is  64 Rx Buffers */
-#define CANFD_MAX_TX_BUF_ELEMS        32ul   /*!<  maximum is  32 Tx Buffers */
-#define CANFD_MAX_TX_EVNT_FIFO_ELEMS  32ul   /*!<  maximum is  32 Tx Event FIFO elements */
+#define CANFD_MAX_11_BIT_FTR_ELEMS    128UL  /*!<  maximum is 128 11-bit Filter */
+#define CANFD_MAX_29_BIT_FTR_ELEMS    64UL   /*!<  maximum is  64 29-bit Filter */
+#define CANFD_MAX_RX_FIFO0_ELEMS      64UL   /*!<  maximum is  64 Rx FIFO 0 elements */
+#define CANFD_MAX_RX_FIFO1_ELEMS      64UL   /*!<  maximum is  64 Rx FIFO 1 elements */
+#define CANFD_MAX_RX_BUF_ELEMS        64UL   /*!<  maximum is  64 Rx Buffers */
+#define CANFD_MAX_TX_BUF_ELEMS        32UL   /*!<  maximum is  32 Tx Buffers */
+#define CANFD_MAX_TX_EVNT_FIFO_ELEMS  32UL   /*!<  maximum is  32 Tx Event FIFO elements */
 
 /* CAN FD sram size  */
-#define CANFD_SRAM_SIZE          0x1800ul
-#define CANFD_SRAM_OFFSET        0x200ul
+#define CANFD_SRAM_SIZE          0x1800UL
+#define CANFD_SRAM_OFFSET        0x200UL
 
 /* CAN FD sram address  */
-#define CANFD_SRAM_BASE_ADDR(psCanfd)  ((uint32_t)psCanfd + CANFD_SRAM_OFFSET)
+#define CANFD_SRAM_BASE_ADDR(psCanfd)  ((uint32_t)((uintptr_t)(psCanfd) + (uintptr_t)(CANFD_SRAM_OFFSET)))
 
 /* CAN FD  Mask all interrupt */
-#define CANFD_INT_ALL_SIGNALS         0x3FFFFFFFul /*!< Mask all interrupt */
+#define CANFD_INT_ALL_SIGNALS         0x3FFFFFFFUL /*!< Mask all interrupt */
 
 /* Maximum size of a CAN FD frame. Must be a valid CAN FD value */
-#define CANFD_MAX_MESSAGE_BYTES     64 /*!< Maximum size of a CAN FD frame */
+#define CANFD_MAX_MESSAGE_BYTES     64UL /*!< Maximum size of a CAN FD frame */
 
 /* Maximum size of a CAN FD frame. Must be a valid CAN FD value */
-#define CANFD_MAX_MESSAGE_WORDS     (CANFD_MAX_MESSAGE_BYTES/4) /*!< Maximum size of a CAN FD frame */
+#define CANFD_MAX_MESSAGE_WORDS     (CANFD_MAX_MESSAGE_BYTES/4UL) /*!< Maximum size of a CAN FD frame */
 
 /* Receive message buffer helper macro */
-#define CANFD_RX_BUFFER_STD(id, mbIdx)               ((7UL << 27) | ((id & 0x7FF) << 16) | (mbIdx & 0x3F)) /*!< Receive message buffer helper macro */
+#define CANFD_RX_BUFFER_STD(id, mbIdx)               ((7UL << 27) | (((id) & 0x7FF) << 16) | ((mbIdx) & 0x3F)) /*!< Receive message buffer helper macro */
 
 /* Receive message buffer extended helper macro - low */
-#define CANFD_RX_BUFFER_EXT_LOW(id, mbIdx)           ((7UL << 29) | (id & 0x1FFFFFFFUL))
+#define CANFD_RX_BUFFER_EXT_LOW(id, mbIdx)           ((7UL << 29) | ((id) & 0x1FFFFFFFUL))
 
 /*  Receive message buffer extended helper macro - high */
-#define CANFD_RX_BUFFER_EXT_HIGH(id, mbIdx)          (mbIdx & 0x3FUL)
+#define CANFD_RX_BUFFER_EXT_HIGH(id, mbIdx)          ((mbIdx) & 0x3FUL)
 
 /*  CAN FD Rx FIFO 0 Mask helper macro. */
-#define CANFD_RX_FIFO0_STD_MASK(match, mask)         ((2UL << 30) | (1UL << 27) | ((match & 0x7FF) << 16) | (mask & 0x7FF))
+#define CANFD_RX_FIFO0_STD_MASK(match, mask)         ((2UL << 30) | (1UL << 27) | (((match) & 0x7FF) << 16) | ((mask) & 0x7FF))
 
 /* CAN FD Rx FIFO 0 extended Mask helper macro - low. */
-#define CANFD_RX_FIFO0_EXT_MASK_LOW(match)           ((1UL << 29) | (match & 0x1FFFFFFF))
+#define CANFD_RX_FIFO0_EXT_MASK_LOW(match)           ((1UL << 29) | ((match) & 0x1FFFFFFF))
 
 /* CAN FD Rx FIFO 0 extended Mask helper macro - high. */
-#define CANFD_RX_FIFO0_EXT_MASK_HIGH(mask)           ((2UL << 30) | (mask & 0x1FFFFFFF))
+#define CANFD_RX_FIFO0_EXT_MASK_HIGH(mask)           ((2UL << 30) | ((mask) & 0x1FFFFFFF))
 
 /* CAN FD Rx FIFO 1 Mask helper macro. */
-#define CANFD_RX_FIFO1_STD_MASK(match, mask)         ((2UL << 30) | (2UL << 27) | ((match & 0x7FF) << 16) | (mask & 0x7FF))
+#define CANFD_RX_FIFO1_STD_MASK(match, mask)         ((2UL << 30) | (2UL << 27) | (((match) & 0x7FF) << 16) | ((mask) & 0x7FF))
 
 /* CANFD Rx FIFO 1 extended Mask helper macro - low. */
-#define CANFD_RX_FIFO1_EXT_MASK_LOW(match)           ((2UL << 29) | (match & 0x1FFFFFFF))
+#define CANFD_RX_FIFO1_EXT_MASK_LOW(match)           ((2UL << 29) | ((match) & 0x1FFFFFFF))
 
 /* CANFD Rx FIFO 1 extended Mask helper macro - high. */
-#define CANFD_RX_FIFO1_EXT_MASK_HIGH(mask)           ((2UL << 30) | (mask & 0x1FFFFFFF))
+#define CANFD_RX_FIFO1_EXT_MASK_HIGH(mask)           ((2UL << 30) | ((mask) & 0x1FFFFFFF))
 
 /* CAN FD frame data field size. */
 typedef enum
@@ -411,31 +411,32 @@ typedef struct
  */
 #define CANFD_GET_COMMUNICATION_STATE(canfd)    (((canfd)->PSR  & CANFD_PSR_ACT_Msk) >> CANFD_PSR_ACT_Pos)
 
-void CANFD_Open(CANFD_T *canfd, CANFD_FD_T *psCanfdStr);
-void CANFD_Close(CANFD_T *canfd);
-void CANFD_EnableInt(CANFD_T *canfd, uint32_t u32IntLine0, uint32_t u32IntLine1, uint32_t u32TXBTIE, uint32_t u32TXBCIE);
-void CANFD_DisableInt(CANFD_T *canfd, uint32_t u32IntLine0, uint32_t u32IntLine1, uint32_t u32TXBTIE, uint32_t u32TXBCIE);
-uint32_t CANFD_TransmitTxMsg(CANFD_T *canfd, uint32_t u32TxBufIdx, CANFD_FD_MSG_T *psTxMsg);
-uint32_t CANFD_TransmitDMsg(CANFD_T *canfd, uint32_t u32TxBufIdx, CANFD_FD_MSG_T *psTxMsg);
-void CANFD_SetGFC(CANFD_T *canfd, E_CANFD_ACC_NON_MATCH_FRM eNMStdFrm, E_CANFD_ACC_NON_MATCH_FRM eEMExtFrm, uint32_t u32RejRmtStdFrm, uint32_t u32RejRmtExtFrm);
-void CANFD_SetSIDFltr(CANFD_T *canfd, uint32_t u32FltrIdx, uint32_t u32Filter);
-void CANFD_SetXIDFltr(CANFD_T *canfd, uint32_t u32FltrIdx, uint32_t u32FilterLow, uint32_t u32FilterHigh);
-uint32_t CANFD_ReadRxBufMsg(CANFD_T *canfd, uint8_t u8MbIdx, CANFD_FD_MSG_T *psMsgBuf);
-uint32_t CANFD_ReadRxFifoMsg(CANFD_T *canfd, uint8_t u8FifoIdx, CANFD_FD_MSG_T *psMsgBuf);
-void CANFD_CopyDBufToMsgBuf(CANFD_BUF_T *psRxBuffer, CANFD_FD_MSG_T *psMsgBuf);
+void CANFD_Open(CANFD_T *psCanfd, CANFD_FD_T *psCanfdStr);
+void CANFD_Close(const CANFD_T *psCanfd);
+void CANFD_EnableInt(CANFD_T *psCanfd, uint32_t u32IntLine0, uint32_t u32IntLine1, uint32_t u32TXBTIE, uint32_t u32TXBCIE);
+void CANFD_DisableInt(CANFD_T *psCanfd, uint32_t u32IntLine0, uint32_t u32IntLine1, uint32_t u32TXBTIE, uint32_t u32TXBCIE);
+uint32_t CANFD_TransmitTxMsg(CANFD_T *psCanfd, uint32_t u32TxBufIdx, CANFD_FD_MSG_T *psTxMsg);
+uint32_t CANFD_TransmitDMsg(CANFD_T *psCanfd, uint32_t u32TxBufIdx, CANFD_FD_MSG_T *psTxMsg);
+void CANFD_SetGFC(CANFD_T *psCanfd, E_CANFD_ACC_NON_MATCH_FRM eNMStdFrm, E_CANFD_ACC_NON_MATCH_FRM eEMExtFrm, uint32_t u32RejRmtStdFrm, uint32_t u32RejRmtExtFrm);
+void CANFD_SetSIDFltr(const CANFD_T *psCanfd, uint32_t u32FltrIdx, uint32_t u32Filter);
+void CANFD_SetXIDFltr(const CANFD_T *psCanfd, uint32_t u32FltrIdx, uint32_t u32FilterLow, uint32_t u32FilterHigh);
+uint32_t CANFD_ReadRxBufMsg(CANFD_T *psCanfd, uint8_t u8MbIdx, CANFD_FD_MSG_T *psMsgBuf);
+uint32_t CANFD_ReadRxFifoMsg(CANFD_T *psCanfd, uint8_t u8FifoIdx, CANFD_FD_MSG_T *psMsgBuf);
+void CANFD_CopyDBufToMsgBuf(CANFD_BUF_T *psRxBuf, CANFD_FD_MSG_T *psMsgBuf);
 void CANFD_CopyRxFifoToMsgBuf(CANFD_BUF_T *psRxBuf, CANFD_FD_MSG_T *psMsgBuf);
-uint32_t CANFD_GetRxFifoWaterLvl(CANFD_T *canfd, uint32_t u32RxFifoNum);
-void CANFD_TxBufCancelReq(CANFD_T *canfd, uint32_t u32TxBufIdx);
-uint32_t CANFD_IsTxBufCancelFin(CANFD_T *canfd, uint32_t u32TxBufIdx);
-uint32_t CANFD_IsTxBufTransmitOccur(CANFD_T *canfd, uint32_t u32TxBufIdx);
-uint32_t CANFD_GetTxEvntFifoWaterLvl(CANFD_T *canfd);
-void CANFD_CopyTxEvntFifoToUsrBuf(CANFD_T *canfd, uint32_t u32TxEvntNum, CANFD_TX_EVNT_ELEM_T *psTxEvntElem);
-void CANFD_GetBusErrCount(CANFD_T *canfd, uint8_t *pu8TxErrBuf, uint8_t *pu8RxErrBuf);
-int32_t CANFD_RunToNormal(CANFD_T *canfd, uint8_t u8Enable);
+uint32_t CANFD_GetRxFifoWaterLvl(const CANFD_T *psCanfd, uint32_t u32RxFifoNum);
+void CANFD_TxBufCancelReq(CANFD_T *psCanfd, uint32_t u32TxBufIdx);
+uint32_t CANFD_IsTxBufCancelFin(const CANFD_T *psCanfd, uint32_t u32TxBufIdx);
+uint32_t CANFD_IsTxBufTransmitOccur(const CANFD_T *psCanfd, uint32_t u32TxBufIdx);
+uint32_t CANFD_GetTxEvntFifoWaterLvl(const CANFD_T *psCanfd);
+void CANFD_CopyTxEvntFifoToUsrBuf(const CANFD_T *psCanfd, uint32_t u32TxEvntNum, CANFD_TX_EVNT_ELEM_T *psTxEvntElem);
+void CANFD_GetBusErrCount(const CANFD_T *psCanfd, uint8_t *pu8TxErrBuf, uint8_t *pu8RxErrBuf);
+int32_t CANFD_RunToNormal(CANFD_T *psCanfd, uint8_t u8Enable);
 void CANFD_GetDefaultConfig(CANFD_FD_T *psConfig, uint8_t u8OpMode);
-void CANFD_ClearStatusFlag(CANFD_T *canfd, uint32_t u32InterruptFlag);
-uint32_t CANFD_GetStatusFlag(CANFD_T *canfd, uint32_t u32IntTypeFlag);
-
+void CANFD_ClearStatusFlag(CANFD_T *psCanfd, uint32_t u32InterruptFlag);
+uint32_t CANFD_GetStatusFlag(const CANFD_T *psCanfd, uint32_t u32IntTypeFlag);
+void CANFD_CalculateTimingValues(CANFD_T *psCanfd, uint32_t u32NominalBaudRate, uint32_t u32DataBaudRate, uint32_t u32SourceClock_Hz, CANFD_TIMEING_CONFIG_T *psConfig);
+uint32_t CANFD_SetBitRate(CANFD_T *psCanfd, uint32_t u32BaudRate, int32_t u32SourceClock_Hz, uint32_t u32Set_NBTP);
 /*@}*/ /* end of group CANFD_EXPORTED_FUNCTIONS */
 
 /*@}*/ /* end of group CANFD_Driver */

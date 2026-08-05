@@ -119,19 +119,19 @@ extern "C"
 #define UTCPD_ROLECTL_RPVALUE        UTCPD_ROLCTL_RPVALUE_Msk                         /*!< UTCPD_T::ROLECTL: RPVALUE Mask         */
 #define UTCPD_ROLECTL_DRP            UTCPD_ROLCTL_DRP_Msk                             /*!< UTCPD_T::ROLECTL: DRP Mask             */
 
-#define UTCPD_ROLECTL_CC1_RA        (0 << 0)
-#define UTCPD_ROLECTL_CC1_RP        (1 << 0)
-#define UTCPD_ROLECTL_CC1_RD        (2 << 0) 
-#define UTCPD_ROLECTL_CC1_OPEN      (3 << 0)
+#define UTCPD_ROLECTL_CC1_RA        (0UL << 0)
+#define UTCPD_ROLECTL_CC1_RP        (1UL << 0)
+#define UTCPD_ROLECTL_CC1_RD        (2UL << 0) 
+#define UTCPD_ROLECTL_CC1_OPEN      (3UL << 0)
 
-#define UTCPD_ROLECTL_CC2_RA        (0 << 2)
-#define UTCPD_ROLECTL_CC2_RP        (1 << 2)
-#define UTCPD_ROLECTL_CC2_RD        (2 << 2) 
-#define UTCPD_ROLECTL_CC2_OPEN      (3 << 2)
+#define UTCPD_ROLECTL_CC2_RA        (0UL << 2)
+#define UTCPD_ROLECTL_CC2_RP        (1UL << 2)
+#define UTCPD_ROLECTL_CC2_RD        (2UL << 2) 
+#define UTCPD_ROLECTL_CC2_OPEN      (3UL << 2)
 
-#define UTCPD_ROLECTL_RPVALUE_DEF   (0 << 4)
-#define UTCPD_ROLECTL_RPVALUE_1P5A  (1 << 4)
-#define UTCPD_ROLECTL_RPVALUE_3A    (2 << 4)
+#define UTCPD_ROLECTL_RPVALUE_DEF   (0UL << 4)
+#define UTCPD_ROLECTL_RPVALUE_1P5A  (1UL << 4)
+#define UTCPD_ROLECTL_RPVALUE_3A    (2UL << 4)
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  CCSTS constant definitions.                                                                            */
@@ -141,29 +141,29 @@ extern "C"
 #define UTCPD_CCSTS_CONRLT           UTCPD_CCSTS_CONRLT_Msk                           /*!< UTCPD_T::CCSTS: CONRLT Mask            */
 #define UTCPD_CCSTS_LK4CONN          UTCPD_CCSTS_LK4CONN_Msk                          /*!< UTCPD_T::CCSTS: LK4CONN Mask           */
 
-#define UTCPD_UNDER_LK4CONN       	(1 << 5)
-#define UTCPD_LK4CONN_DONE          (0 << 5) 
+#define UTCPD_UNDER_LK4CONN         (1UL << 5)
+#define UTCPD_LK4CONN_DONE          (0UL << 5) 
 
-#define UTCPD_CONN_RESULT_RP        (0 << 4)
-#define UTCPD_CONN_RESULT_RD        (1 << 4) 
+#define UTCPD_CONN_RESULT_RP        (0UL << 4)
+#define UTCPD_CONN_RESULT_RD        (1UL << 4) 
 
-#define UTCPD_CCSTS_CC2STATE_SRC_OPEN	    (0 << 2)
-#define UTCPD_CCSTS_CC2STATE_SRC_RA         (1 << 2) 
-#define UTCPD_CCSTS_CC2STATE_SRC_RD         (2 << 2)
+#define UTCPD_CCSTS_CC2STATE_SRC_OPEN	      (0UL << 2)
+#define UTCPD_CCSTS_CC2STATE_SRC_RA         (1UL << 2) 
+#define UTCPD_CCSTS_CC2STATE_SRC_RD         (2UL << 2)
 
-#define UTCPD_CCSTS_CC2STATE_SNK_OPEN	    (0 << 2)
-#define UTCPD_CCSTS_CC2STATE_SNK_DEF        (1 << 2) 
-#define UTCPD_CCSTS_CC2STATE_SNK_1P5A       (2 << 2)
-#define UTCPD_CCSTS_CC2STATE_SNK_3A         (3 << 2)
+#define UTCPD_CCSTS_CC2STATE_SNK_OPEN	      (0UL << 2)
+#define UTCPD_CCSTS_CC2STATE_SNK_DEF        (1UL << 2) 
+#define UTCPD_CCSTS_CC2STATE_SNK_1P5A       (2UL << 2)
+#define UTCPD_CCSTS_CC2STATE_SNK_3A         (3UL << 2)
 
-#define UTCPD_CCSTS_CC1STATE_SRC_OPEN       (0 << 0) 
-#define UTCPD_CCSTS_CC1STATE_SRC_RA         (1 << 0)  
-#define UTCPD_CCSTS_CC1STATE_SRC_RD         (2 << 0)  
+#define UTCPD_CCSTS_CC1STATE_SRC_OPEN       (0UL << 0) 
+#define UTCPD_CCSTS_CC1STATE_SRC_RA         (1UL << 0)  
+#define UTCPD_CCSTS_CC1STATE_SRC_RD         (2UL << 0)  
 
-#define UTCPD_CCSTS_CC1STATE_SNK_OPEN	    (0 << 0)
-#define UTCPD_CCSTS_CC1STATE_SNK_DEF        (1 << 0) 
-#define UTCPD_CCSTS_CC1STATE_SNK_1P5A       (2 << 0)
-#define UTCPD_CCSTS_CC1STATE_SNK_3A         (3 << 0)
+#define UTCPD_CCSTS_CC1STATE_SNK_OPEN	      (0UL << 0)
+#define UTCPD_CCSTS_CC1STATE_SNK_DEF        (1UL << 0) 
+#define UTCPD_CCSTS_CC1STATE_SNK_1P5A       (2UL << 0)
+#define UTCPD_CCSTS_CC1STATE_SNK_3A         (3UL << 0)
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  PWRSTS constant definitions.                                                                           */
@@ -190,20 +190,21 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 /*  CMD constant definitions.                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
-//#define NPD48_CMD_WAKEI2C                   (0x11)	/* Not Support */
-#define UTCPD_CMD_DISABLE_VBUS_DETECT       (0x22)
-#define UTCPD_CMD_ENABLE_VBUS_DETECT        (0x33)
-#define UTCPD_CMD_DISABLE_SINK_VBUS         (0x44)
-#define UTCPD_CMD_SINK_VBUS                 (0x55)
-#define UTCPD_CMD_DISABLE_SRC_VBUS          (0x66)
-#define UTCPD_CMD_SRC_VBUS_DEFAULT          (0x77)
-#define UTCPD_CMD_SRC_VBUS_NONDEFAULT       (0x88)
-#define UTCPD_CMD_LOOK4CONNECTION           (0x99)
-//#define UTCPD_CMD_RX_ONE_MORE               (0xAA)    /* Not Support */
-//#define UTCPD_CMD_SEND_FRS_SWAP_SIGNAL      (0xCC)	/* Not Support */
-//#define UTCPD_CMD_SEND_RESET_TX_BUF         (0xDD)	/* Not Support */
-//#define UTCPD_CMD_SEND_RESET_RX_BUF         (0xEE)	/* Not Support */
-//#define UTCPD_CMD_I2C_IDLE                  (0xFF)	/* Not Support */
+
+#define UTCPD_CMD_DISABLE_VBUS_DETECT       (0x22U)
+#define UTCPD_CMD_ENABLE_VBUS_DETECT        (0x33U)
+#define UTCPD_CMD_DISABLE_SINK_VBUS         (0x44U)
+#define UTCPD_CMD_SINK_VBUS                 (0x55U)
+#define UTCPD_CMD_DISABLE_SRC_VBUS          (0x66U)
+#define UTCPD_CMD_SRC_VBUS_DEFAULT          (0x77U)
+#define UTCPD_CMD_SRC_VBUS_NONDEFAULT       (0x88U)
+#define UTCPD_CMD_LOOK4CONNECTION           (0x99U)
+/* #define NPD48_CMD_WAKEI2C                   (0x11U)	 Not Support */
+/* #define UTCPD_CMD_RX_ONE_MORE               (0xAAU)  Not Support */
+/* #define UTCPD_CMD_SEND_FRS_SWAP_SIGNAL      (0xCCU)	 Not Support */
+/* #define UTCPD_CMD_SEND_RESET_TX_BUF         (0xDDU)	 Not Support */
+/* #define UTCPD_CMD_SEND_RESET_RX_BUF         (0xEEU)	 Not Support */
+/* #define UTCPD_CMD_I2C_IDLE                  (0xFFU)	 Not Support */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  NPD48_MHINFO constant definitions.                                                                     */
@@ -246,7 +247,7 @@ extern "C"
 #define UTCPD_VCONN_OC_EINT0      (0UL << UTCPD_MUXSEL_VCOCS_Pos)                     /*!< UTCPD_T::MUXSEL: VCONN OC Source From EINT0    */
 #define UTCPD_VCONN_OC_EINT1      (1UL << UTCPD_MUXSEL_VCOCS_Pos)                     /*!< UTCPD_T::MUXSEL: VCONN OC Source From EINT1    */
 #define UTCPD_VCONN_OC_EINT2      (2UL << UTCPD_MUXSEL_VCOCS_Pos)                     /*!< UTCPD_T::MUXSEL: VCONN OC Source From EINT2    */
-#define UTCPD_VCONN_OC_EINT3	  (3UL << UTCPD_MUXSEL_VCOCS_Pos)                     /*!< UTCPD_T::MUXSEL: VCONN OC Source From EINT3    */
+#define UTCPD_VCONN_OC_EINT3	    (3UL << UTCPD_MUXSEL_VCOCS_Pos)                     /*!< UTCPD_T::MUXSEL: VCONN OC Source From EINT3    */
 #define UTCPD_VCONN_OC_ADC_CMP1   (4UL << UTCPD_MUXSEL_VCOCS_Pos)                     /*!< UTCPD_T::MUXSEL: VCONN OC Source From ADC_CMP1 */
 #define UTCPD_VCONN_OC_ACMP0      (5UL << UTCPD_MUXSEL_VCOCS_Pos)                     /*!< UTCPD_T::MUXSEL: VCONN OC Source From ACMP0    */
 #define UTCPD_VCONN_OC_ACMP1      (6UL << UTCPD_MUXSEL_VCOCS_Pos)                     /*!< UTCPD_T::MUXSEL: VCONN OC Source From ACMP1    */
@@ -264,17 +265,17 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 /*  PWRASTS constant definitions.                                                                          */
 /*---------------------------------------------------------------------------------------------------------*/
-#define UTCPD_PWRASTS_SRCENLVL_HIGH  (0x0ul << 0)                                      /*!< UTCPD_T::PWRASTS: SRC Enable Level     */
-#define UTCPD_PWRASTS_SRCENLVL_LOW   (0x1ul << 0)                                      /*!< UTCPD_T::PWRASTS: SRC Enable Level     */
+#define UTCPD_PWRASTS_SRCENLVL_HIGH  (0x0UL << 0)                                      /*!< UTCPD_T::PWRASTS: SRC Enable Level     */
+#define UTCPD_PWRASTS_SRCENLVL_LOW   (0x1UL << 0)                                      /*!< UTCPD_T::PWRASTS: SRC Enable Level     */
 
-#define UTCPD_PWRASTS_SNKENLVL_HIGH  (0x0ul << 1)                                      /*!< UTCPD_T::PWRASTS: SNK Enable Level     */
-#define UTCPD_PWRASTS_SNKENLVL_LOW   (0x1ul << 1)                                      /*!< UTCPD_T::PWRASTS: SNK Enable Level     */
+#define UTCPD_PWRASTS_SNKENLVL_HIGH  (0x0UL << 1)                                      /*!< UTCPD_T::PWRASTS: SNK Enable Level     */
+#define UTCPD_PWRASTS_SNKENLVL_LOW   (0x1UL << 1)                                      /*!< UTCPD_T::PWRASTS: SNK Enable Level     */
 
-#define UTCPD_PWRASTS_FORCEDLVL_HIGH (0x0ul << 2)                                      /*!< UTCPD_T::PWRASTS: Force Discharge Level*/
-#define UTCPD_PWRASTS_FORCEDLVL_LOW  (0x1ul << 2)                                      /*!< UTCPD_T::PWRASTS: Force Discharge Level*/
+#define UTCPD_PWRASTS_FORCEDLVL_HIGH (0x0UL << 2)                                      /*!< UTCPD_T::PWRASTS: Force Discharge Level*/
+#define UTCPD_PWRASTS_FORCEDLVL_LOW  (0x1UL << 2)                                      /*!< UTCPD_T::PWRASTS: Force Discharge Level*/
 
-#define UTCPD_PWRASTS_BLEEDDLVL_HIGH (0x0ul << 3)                                      /*!< UTCPD_T::PWRASTS: Bleed Discharge Level*/
-#define UTCPD_PWRASTS_BLEEDDLVL_LOW  (0x1ul << 3)                                      /*!< UTCPD_T::PWRASTS: Bleed Discharge Level*/
+#define UTCPD_PWRASTS_BLEEDDLVL_HIGH (0x0UL << 3)                                      /*!< UTCPD_T::PWRASTS: Bleed Discharge Level*/
+#define UTCPD_PWRASTS_BLEEDDLVL_LOW  (0x1UL << 3)                                      /*!< UTCPD_T::PWRASTS: Bleed Discharge Level*/
 /*@}*/ /* end of group I2C_EXPORTED_CONSTANTS */
 
 /*---------------------------------------------------------------------------------------------------------*/

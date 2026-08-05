@@ -22,19 +22,18 @@ extern "C"
 #define ENABLE_DBG_MSG          0
 
 #if ENABLE_ERR_MSG
-#define HID_ERRMSG   printf
+#define HID_ERRMSG   (void)usbh_printf
 #else
 #define HID_ERRMSG(...)
 #endif
 
 #if ENABLE_DBG_MSG
-#define HID_DBGMSG   printf
+#define HID_DBGMSG   (void)usbh_printf
 #else
 #define HID_DBGMSG(...)
 #endif
-
+extern int _data_usage_cnt;
 /// @endcond HIDDEN_SYMBOLS
-
 
 /** @addtogroup LIBRARY Library
   @{
@@ -53,116 +52,116 @@ extern "C"
 
 /// @cond HIDDEN_SYMBOLS
 
-#define HID_DESCRIPTOR_TYPE         0x21
-#define REPORT_DESCRIPTOR_TYPE      0x22
+#define HID_DESCRIPTOR_TYPE         0x21U
+#define REPORT_DESCRIPTOR_TYPE      0x22U
 
-#define HID_SUBCLASS_BOOT_DEVICE    0x01   /*!< bInterfaceSubClass: boot device interface   */
+#define HID_SUBCLASS_BOOT_DEVICE    0x01U   /*!< bInterfaceSubClass: boot device interface   */
 
-#define HID_PROTOCOL_KEYBOARD       0x01   /*!< bInterfaceProtocol: Keyboard                */
-#define HID_PROTOCOL_MOUSE          0x02   /*!< bInterfaceProtocol: Mouse                   */
+#define HID_PROTOCOL_KEYBOARD       0x01U   /*!< bInterfaceProtocol: Keyboard                */
+#define HID_PROTOCOL_MOUSE          0x02U   /*!< bInterfaceProtocol: Mouse                   */
 
 /*-----------------------------------------------------------------------------------
  *  Short Item Tags
  */
 
-/* Main item tag (tag & 0xFC) */
-#define TAG_INPUT                   0x80
-#define TAG_OUTPUT                  0x90
-#define TAG_FEATURE                 0xB0
-#define TAG_COLLECTION              0xA0
-#define TAG_END_COLLECTION          0xC0
+/* Main item tag (tag & 0xFCU) */
+#define TAG_INPUT                   0x80U
+#define TAG_OUTPUT                  0x90U
+#define TAG_FEATURE                 0xB0U
+#define TAG_COLLECTION              0xA0U
+#define TAG_END_COLLECTION          0xC0U
 
 
 /* Global item tag (tag & 0xFC) */
-#define TAG_USAGE_PAGE              0x04
-#define TAG_LOGICAL_MIN             0x14
-#define TAG_LOGICAL_MAX             0x24
-#define TAG_PHYSICAL_MIN            0x34
-#define TAG_PHYSICAL_MAX            0x44
-#define TAG_UNIT_EXPONENT           0x54
-#define TAG_UNIT                    0x64
-#define TAG_REPORT_SIZE             0x74
-#define TAG_REPORT_ID               0x84
-#define TAG_REPORT_COUNT            0x94
-#define TAG_PUSH                    0xA4
-#define TAG_POP                     0xB4
+#define TAG_USAGE_PAGE              0x04U
+#define TAG_LOGICAL_MIN             0x14U
+#define TAG_LOGICAL_MAX             0x24U
+#define TAG_PHYSICAL_MIN            0x34U
+#define TAG_PHYSICAL_MAX            0x44U
+#define TAG_UNIT_EXPONENT           0x54U
+#define TAG_UNIT                    0x64U
+#define TAG_REPORT_SIZE             0x74U
+#define TAG_REPORT_ID               0x84U
+#define TAG_REPORT_COUNT            0x94U
+#define TAG_PUSH                    0xA4U
+#define TAG_POP                     0xB4U
 
 /* Local item tag (tag & 0xFC) */
-#define TAG_USAGE                   0x08
-#define TAG_USAGE_MIN               0x18
-#define TAG_USAGE_MAX               0x28
-#define TAG_DESIGNATOR_INDEX        0x38
-#define TAG_DESIGNATOR_MIN          0x48
-#define TAG_DESIGNATOR_MAX          0x58
-#define TAG_STRING_INDEX            0x78
-#define TAG_STRING_MIN              0x88
-#define TAG_STRING_MAX              0x98
-#define TAG_DELIMITER               0xA8
+#define TAG_USAGE                   0x08U
+#define TAG_USAGE_MIN               0x18U
+#define TAG_USAGE_MAX               0x28U
+#define TAG_DESIGNATOR_INDEX        0x38U
+#define TAG_DESIGNATOR_MIN          0x48U
+#define TAG_DESIGNATOR_MAX          0x58U
+#define TAG_STRING_INDEX            0x78U
+#define TAG_STRING_MIN              0x88U
+#define TAG_STRING_MAX              0x98U
+#define TAG_DELIMITER               0xA8U
 
 /* Collection */
-#define COLLECT_PHYSICAL            0x00        /* group of axes                    */
-#define COLLECT_APPLICATION         0x01        /* mouse, keyboard                  */
-#define COLLECT_LOGICAL             0x02        /* interrelated data                */
-#define COLLECT_VENDOR              0xFF        /* 0x80-0xFF Vendor-defined         */
+#define COLLECT_PHYSICAL            0x00U        /* group of axes                    */
+#define COLLECT_APPLICATION         0x01U        /* mouse, keyboard                  */
+#define COLLECT_LOGICAL             0x02U        /* interrelated data                */
+#define COLLECT_VENDOR              0xFFU        /* 0x80-0xFF Vendor-defined         */
 
 /*-----------------------------------------------------------------------------------
  *  Usage Page
  */
-#define UP_GENERIC_DESKTOP          0x01
-#define UP_SIMULATION_CONTROLS      0x02
-#define UP_VR_CONTROLS              0x03
-#define UP_SPORT_CONTROLS           0x04
-#define UP_GAME_CONTROLS            0x05
-#define UP_KEYCODE                  0x07
-#define UP_LEDS                     0x08
-#define UP_BUTTON                   0x09
-#define UP_ORDINAL                  0x0A
-#define UP_TELEPHONY                0x0B
-#define UP_CONSUMER                 0x0C
-#define UP_DIGITIZER                0x0D
-#define UP_PID_PAGE                 0x0F
-#define UP_UNICODE                  0x10
-#define UP_BARCODE_SCANNER          0x8C
+#define UP_GENERIC_DESKTOP          0x01U
+#define UP_SIMULATION_CONTROLS      0x02U
+#define UP_VR_CONTROLS              0x03U
+#define UP_SPORT_CONTROLS           0x04U
+#define UP_GAME_CONTROLS            0x05U
+#define UP_KEYCODE                  0x07U
+#define UP_LEDS                     0x08U
+#define UP_BUTTON                   0x09U
+#define UP_ORDINAL                  0x0AU
+#define UP_TELEPHONY                0x0BU
+#define UP_CONSUMER                 0x0CU
+#define UP_DIGITIZER                0x0DU
+#define UP_PID_PAGE                 0x0FU
+#define UP_UNICODE                  0x10U
+#define UP_BARCODE_SCANNER          0x8CU
 
 /* Usage ID of Generic Desktop Page */
-#define USAGE_ID_POINTER            0x01
-#define USAGE_ID_MOUSE              0x02
-#define USAGE_ID_JOYSTICK           0x04
-#define USAGE_ID_GAMEPAD            0x05
-#define USAGE_ID_KEYBOARD           0x06
-#define USAGE_ID_KEYPAD             0x07
-#define USAGE_ID_X                  0x30
-#define USAGE_ID_Y                  0x31
-#define USAGE_ID_Z                  0x32
-#define USAGE_ID_WHEEL              0x38
+#define USAGE_ID_POINTER            0x01U
+#define USAGE_ID_MOUSE              0x02U
+#define USAGE_ID_JOYSTICK           0x04U
+#define USAGE_ID_GAMEPAD            0x05U
+#define USAGE_ID_KEYBOARD           0x06U
+#define USAGE_ID_KEYPAD             0x07U
+#define USAGE_ID_X                  0x30U
+#define USAGE_ID_Y                  0x31U
+#define USAGE_ID_Z                  0x32U
+#define USAGE_ID_WHEEL              0x38U
 
-#define KEYCODE_CAPS_LOCK           0x39
-#define KEYCODE_SCROLL_LOCK         0x47
-#define KEYCODE_NUM_LOCK            0x53
+#define KEYCODE_CAPS_LOCK           0x39U
+#define KEYCODE_SCROLL_LOCK         0x47U
+#define KEYCODE_NUM_LOCK            0x53U
 
-#define STATE_MASK_NUM_LOCK         0x01
-#define STATE_MASK_CAPS_LOCK        0x02
-#define STATE_MASK_SCROLL_LOCK      0x04
+#define STATE_MASK_NUM_LOCK         0x01U
+#define STATE_MASK_CAPS_LOCK        0x02U
+#define STATE_MASK_SCROLL_LOCK      0x04U
 
 /// @endcond HIDDEN_SYMBOLS
 
 
 /// @cond HIDDEN_SYMBOLS
-#define USB_DT_HID                  (REQ_TYPE_CLASS_DEV | 0x01)
-#define USB_DT_REPORT               (REQ_TYPE_CLASS_DEV | 0x02)
+#define USB_DT_HID                  (REQ_TYPE_CLASS_DEV | 0x01U)
+#define USB_DT_REPORT               (REQ_TYPE_CLASS_DEV | 0x02U)
 /// @endcond HIDDEN_SYMBOLS
 
-#define HID_REPORT_GET              0x01   /*!< HID Class command Get_Report_Request code.        */
-#define HID_GET_IDLE                0x02   /*!< HID Class command Get_Idle code.                  */
-#define HID_GET_PROTOCOL            0x03   /*!< HID Class command Get_Protocol code.              */
-#define HID_REPORT_SET              0x09   /*!< HID Class command Set_Report_Request code.        */
-#define HID_SET_IDLE                0x0A   /*!< HID Class command Set_Idle code.                  */
-#define HID_SET_PROTOCOL            0x0B   /*!< HID Class command Set_Protocol code.              */
+#define HID_REPORT_GET              0x01U   /*!< HID Class command Get_Report_Request code.        */
+#define HID_GET_IDLE                0x02U   /*!< HID Class command Get_Idle code.                  */
+#define HID_GET_PROTOCOL            0x03U   /*!< HID Class command Get_Protocol code.              */
+#define HID_REPORT_SET              0x09U   /*!< HID Class command Set_Report_Request code.        */
+#define HID_SET_IDLE                0x0AU   /*!< HID Class command Set_Idle code.                  */
+#define HID_SET_PROTOCOL            0x0BU   /*!< HID Class command Set_Protocol code.              */
 
 /* HID Report type */
-#define RT_INPUT                    1      /*!< Report type: Input               \hideinitializer */
-#define RT_OUTPUT                   2      /*!< Report type: Output              \hideinitializer */
-#define RT_FEATURE                  3      /*!< Report type: Feature             \hideinitializer */
+#define RT_INPUT                    1U      /*!< Report type: Input               \hideinitializer */
+#define RT_OUTPUT                   2U      /*!< Report type: Output              \hideinitializer */
+#define RT_FEATURE                  3U      /*!< Report type: Feature             \hideinitializer */
 
 
 /*@}*/ /* end of group USBH_EXPORTED_CONSTANTS */
@@ -239,10 +238,6 @@ typedef struct report_info
     struct report_info  *next;
 } RP_INFO_T;
 
-static uint8_t  _designator_index, _designator_min, _designator_max;
-static uint8_t  _string_index, _string_max, _string_min;
-
-
 typedef struct rp_desc_info
 {
     uint8_t     has_report_id;          /* If a Report ID tag is used anywhere in Report descriptor, all data reports for the device are preceded by a single byte ID field. */
@@ -254,7 +249,6 @@ typedef struct rp_desc_info
 } RPD_T;
 
 /// @endcond HIDDEN_SYMBOLS
-
 
 /*---------------------------------------------------------------------------------------------*/
 /*  HID device                                                                                 */
@@ -307,6 +301,12 @@ typedef struct usbhid_mouse_event
     signed int    wheel_min;            /*!< Logical minimum of mouse wheel value              */
     signed int    wheel_max;            /*!< Logical maxmum of mouse wheel value               */
     signed int    wheel;                /*!< mouse wheel value                                 */
+    int           X_bits;               /*!< X axis bit resolution                             */
+    int           Y_bits;               /*!< Y axis bit resolution                             */
+    int           wheel_bits;           /*!< wheel bit resolution                              */
+    uint32_t      X_raw;                /*!< mouse report X axis raw data                      */
+    uint32_t      Y_raw;                /*!< mouse report Y axis raw data                      */
+    uint32_t      wheel_raw;            /*!< mouse report wheel raw data                       */
 } MOUSE_EVENT_T;
 
 typedef void (HID_MOUSE_FUNC)(struct usbhid_dev *hdev, MOUSE_EVENT_T *mouse);      /*!< HID mouse event callback \hideinitializer */
@@ -314,18 +314,19 @@ typedef void (HID_KEYBOARD_FUNC)(struct usbhid_dev *hdev, KEYBOARD_EVENT_T *kbd)
 
 /*@}*/ /* end of group USBH_EXPORTED_STRUCTURES */
 
-
 /** @addtogroup USBH_EXPORTED_FUNCTIONS USB Host Exported Functions
   @{
 */
 
 void usbh_hid_regitser_mouse_callback(HID_MOUSE_FUNC *func);
 void usbh_hid_regitser_keyboard_callback(HID_KEYBOARD_FUNC *func);
+HID_KEYBOARD_FUNC *usbh_hid_get_keyboard_callback(void);
+HID_MOUSE_FUNC *usbh_hid_get_mouse_callback(void);
 
 /// @cond HIDDEN_SYMBOLS
 int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface);
-int hid_parse_keyboard_reports(HID_DEV_T *hdev, uint8_t *data, int data_len);
-int hid_parse_mouse_reports(HID_DEV_T *hdev, uint8_t *data, int data_len);
+int hid_parse_keyboard_reports(HID_DEV_T *hdev, const uint8_t *data, int data_len);
+int hid_parse_mouse_reports(HID_DEV_T *hdev, const uint8_t *data, int data_len);
 int32_t  usbh_hid_set_report_non_blocking(HID_DEV_T *hdev, int rtp_typ, int rtp_id, uint8_t *data, int len);
 /// @endcond HIDDEN_SYMBOLS
 

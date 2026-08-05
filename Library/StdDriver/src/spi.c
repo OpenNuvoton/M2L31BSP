@@ -19,7 +19,7 @@
 /** @addtogroup SPI_EXPORTED_FUNCTIONS SPI Exported Functions
   @{
 */
-static uint32_t SPII2S_GetSourceClockFreq(SPI_T *i2s);
+static uint32_t SPII2S_GetSourceClockFreq(const SPI_T *i2s);
 
 /**
   * @brief  This function make SPI module be ready to transfer.
@@ -46,14 +46,18 @@ uint32_t SPI_Open(SPI_T *spi,
                   uint32_t u32DataWidth,
                   uint32_t u32BusClock)
 {
-    uint32_t u32ClkSrc = 0U, u32Div, u32HCLKFreq, u32RetValue=0U;
+    uint32_t u32HCLKFreq;
+    uint32_t u32RetValue = 0U;
+    uint32_t u32CfgDataWidth;
 
     /* Disable I2S mode */
     spi->I2SCTL &= ~SPI_I2SCTL_I2SEN_Msk;
 
-    if(u32DataWidth == 32U)
+    u32CfgDataWidth = u32DataWidth;
+
+    if(u32CfgDataWidth == 32U)
     {
-        u32DataWidth = 0U;
+        u32CfgDataWidth = 0U;
     }
 
     /* Get system clock frequency */
@@ -61,11 +65,12 @@ uint32_t SPI_Open(SPI_T *spi,
 
     if(u32MasterSlave == SPI_MASTER)
     {
+        uint32_t u32ClkSrc;
         /* Default setting: slave selection signal is active low; disable automatic slave selection function. */
         spi->SSCTL = SPI_SS_ACTIVE_LOW;
 
         /* Default setting: MSB first, disable unit transfer interrupt, SP_CYCLE = 0. */
-        spi->CTL = u32MasterSlave | (u32DataWidth << SPI_CTL_DWIDTH_Pos) | (u32SPIMode) | SPI_CTL_SPIEN_Msk;
+        spi->CTL = (u32CfgDataWidth << SPI_CTL_DWIDTH_Pos) | (u32SPIMode) | SPI_CTL_SPIEN_Msk;
 
         if(u32BusClock >= u32HCLKFreq)
         {
@@ -192,10 +197,10 @@ uint32_t SPI_Open(SPI_T *spi,
         }
         else
         {
-            u32Div = (((u32ClkSrc * 10U) / u32BusClock + 5U) / 10U) - 1U; /* Round to the nearest integer */
+            uint32_t u32Div;
+            u32Div = ((((u32ClkSrc * 10U) / u32BusClock) + 5U) / 10U) - 1U; /* Round to the nearest integer */
             if(u32Div > 0xFFU)
             {
-                u32Div = 0xFFU;
                 spi->CLKDIV |= SPI_CLKDIV_DIVIDER_Msk;
                 /* Return master peripheral clock rate */
                 u32RetValue = (u32ClkSrc / (0xFFU + 1U));
@@ -214,7 +219,7 @@ uint32_t SPI_Open(SPI_T *spi,
         spi->SSCTL = SPI_SS_ACTIVE_LOW;
 
         /* Default setting: MSB first, disable unit transfer interrupt, SP_CYCLE = 0. */
-        spi->CTL = u32MasterSlave | (u32DataWidth << SPI_CTL_DWIDTH_Pos) | (u32SPIMode) | SPI_CTL_SPIEN_Msk;
+        spi->CTL = u32MasterSlave | (u32CfgDataWidth << SPI_CTL_DWIDTH_Pos) | (u32SPIMode) | SPI_CTL_SPIEN_Msk;
 
         /* Set DIVIDER = 0 */
         spi->CLKDIV = 0U;
@@ -255,7 +260,7 @@ uint32_t SPI_Open(SPI_T *spi,
   * @return None
   * @details This function will reset SPI controller.
   */
-void SPI_Close(SPI_T *spi)
+void SPI_Close(const SPI_T *spi)
 {
     if(spi == SPI0)
     {
@@ -345,8 +350,9 @@ void SPI_EnableAutoSS(SPI_T *spi, uint32_t u32SSPinMask, uint32_t u32ActiveLevel
   */
 uint32_t SPI_SetBusClock(SPI_T *spi, uint32_t u32BusClock)
 {
-    uint32_t u32ClkSrc, u32HCLKFreq;
-    uint32_t u32Div, u32RetValue;
+    uint32_t u32ClkSrc;
+    uint32_t u32HCLKFreq;
+    uint32_t u32RetValue;
 
     /* Get system clock frequency */
     u32HCLKFreq = CLK_GetHCLKFreq();
@@ -355,13 +361,21 @@ uint32_t SPI_SetBusClock(SPI_T *spi, uint32_t u32BusClock)
     {
         /* Select PCLK as the clock source of SPI */
         if(spi == SPI0)
+        {
             CLK->CLKSEL2 = (CLK->CLKSEL2 & (~CLK_CLKSEL2_SPI0SEL_Msk)) | CLK_CLKSEL2_SPI0SEL_PCLK1;
+        }
         else if(spi == SPI1)
+        {
             CLK->CLKSEL2 = (CLK->CLKSEL2 & (~CLK_CLKSEL2_SPI1SEL_Msk)) | CLK_CLKSEL2_SPI1SEL_PCLK0;
+        }
         else if(spi == SPI2)
+        {
             CLK->CLKSEL3 = (CLK->CLKSEL3 & (~CLK_CLKSEL3_SPI2SEL_Msk)) | CLK_CLKSEL3_SPI2SEL_PCLK1;
+        }
         else
+        {
             CLK->CLKSEL3 = (CLK->CLKSEL3 & (~CLK_CLKSEL3_SPI3SEL_Msk)) | CLK_CLKSEL3_SPI3SEL_PCLK0;
+        }
     }
 
     /* Check clock source of SPI */
@@ -469,10 +483,10 @@ uint32_t SPI_SetBusClock(SPI_T *spi, uint32_t u32BusClock)
     }
     else
     {
-        u32Div = (((u32ClkSrc * 10U) / u32BusClock + 5U) / 10U) - 1U; /* Round to the nearest integer */
+        uint32_t u32Div;
+        u32Div = ((((u32ClkSrc * 10U) / u32BusClock) + 5U) / 10U) - 1U; /* Round to the nearest integer */
         if(u32Div > 0x1FFU)
         {
-            u32Div = 0x1FFU;
             spi->CLKDIV |= SPI_CLKDIV_DIVIDER_Msk;
             /* Return master peripheral clock rate */
             u32RetValue = (u32ClkSrc / (0xFFU + 1U));
@@ -509,7 +523,7 @@ void SPI_SetFIFO(SPI_T *spi, uint32_t u32TxThreshold, uint32_t u32RxThreshold)
   * @return Actual SPI bus clock frequency in Hz.
   * @details This function will calculate the actual SPI bus clock rate according to the SPInSEL and DIVIDER settings. Only available in Master mode.
   */
-uint32_t SPI_GetBusClock(SPI_T *spi)
+uint32_t SPI_GetBusClock(const SPI_T *spi)
 {
     uint32_t u32Div;
     uint32_t u32ClkSrc;
@@ -789,9 +803,10 @@ void SPI_DisableInt(SPI_T *spi, uint32_t u32Mask)
   * @return Interrupt flags of selected sources.
   * @details Get SPI related interrupt flags specified by u32Mask parameter.
   */
-uint32_t SPI_GetIntFlag(SPI_T *spi, uint32_t u32Mask)
+uint32_t SPI_GetIntFlag(const SPI_T *spi, uint32_t u32Mask)
 {
-    uint32_t u32IntFlag = 0U, u32TmpVal;
+    uint32_t u32IntFlag = 0U;
+    uint32_t u32TmpVal;
 
     u32TmpVal = spi->STATUS & SPI_STATUS_UNITIF_Msk;
     /* Check unit transfer interrupt flag */
@@ -945,9 +960,10 @@ void SPI_ClearIntFlag(SPI_T *spi, uint32_t u32Mask)
   * @return Flags of selected sources.
   * @details Get SPI related status specified by u32Mask parameter.
   */
-uint32_t SPI_GetStatus(SPI_T *spi, uint32_t u32Mask)
+uint32_t SPI_GetStatus(const SPI_T *spi, uint32_t u32Mask)
 {
-    uint32_t u32Flag = 0U, u32TmpValue;
+    uint32_t u32Flag = 0U;
+    uint32_t u32TmpValue;
 
     u32TmpValue = spi->STATUS & SPI_STATUS_BUSY_Msk;
     /* Check busy status */
@@ -1015,7 +1031,7 @@ uint32_t SPI_GetStatus(SPI_T *spi, uint32_t u32Mask)
   * @return I2S source clock frequency (Hz).
   * @details Return the source clock frequency according to the setting of SPI0SEL (CLKSEL2[27:26]).
   */
-static uint32_t SPII2S_GetSourceClockFreq(SPI_T *i2s)
+static uint32_t SPII2S_GetSourceClockFreq(const SPI_T *i2s)
 {
     uint32_t u32Freq;
 
@@ -1131,8 +1147,7 @@ static uint32_t SPII2S_GetSourceClockFreq(SPI_T *i2s)
   */
 uint32_t SPII2S_Open(SPI_T *i2s, uint32_t u32MasterSlave, uint32_t u32SampleRate, uint32_t u32WordWidth, uint32_t u32Channels, uint32_t u32DataFormat)
 {
-    uint32_t u32Divider;
-    uint32_t u32BitRate, u32SrcClk, u32RetValue;
+    uint32_t u32RetValue;
 
     /* Reset SPI/I2S */
     if(i2s == SPI0)
@@ -1164,6 +1179,11 @@ uint32_t SPII2S_Open(SPI_T *i2s, uint32_t u32MasterSlave, uint32_t u32SampleRate
 
     if(u32MasterSlave == SPI_MASTER)
     {
+        uint32_t u32Divider;
+        uint32_t u32BitRate;
+        uint32_t u32SrcClk;
+        uint32_t u32RealSampleRate;
+
         /* Get the source clock rate */
         u32SrcClk = SPII2S_GetSourceClockFreq(i2s);
 
@@ -1182,13 +1202,13 @@ uint32_t SPII2S_Open(SPI_T *i2s, uint32_t u32MasterSlave, uint32_t u32SampleRate
         u32BitRate = u32SrcClk / ((u32Divider + 1U) * 2U);
 
         /* Calculate real sample rate */
-        u32SampleRate = u32BitRate / (((u32WordWidth >> SPI_I2SCTL_WDWIDTH_Pos) + 1U) * 16U);
+        u32RealSampleRate = u32BitRate / (((u32WordWidth >> SPI_I2SCTL_WDWIDTH_Pos) + 1U) * 16U);
 
         /* Enable TX function, RX function and I2S mode. */
         i2s->I2SCTL |= (SPI_I2SCTL_RXEN_Msk | SPI_I2SCTL_TXEN_Msk | SPI_I2SCTL_I2SEN_Msk);
 
         /* Return the real sample rate */
-        u32RetValue = u32SampleRate;
+        u32RetValue = u32RealSampleRate;
     }
     else
     {
@@ -1381,7 +1401,8 @@ void SPII2S_DisableInt(SPI_T *i2s, uint32_t u32Mask)
 uint32_t SPII2S_EnableMCLK(SPI_T *i2s, uint32_t u32BusClock)
 {
     uint32_t u32Divider;
-    uint32_t u32SrcClk, u32RetValue;
+    uint32_t u32SrcClk;
+    uint32_t u32RetValue;
 
     u32SrcClk = SPII2S_GetSourceClockFreq(i2s);
     if(u32BusClock == u32SrcClk)

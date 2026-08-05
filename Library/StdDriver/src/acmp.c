@@ -16,12 +16,34 @@
   @{
 */
 
-int32_t g_ACMP_i32ErrCode = 0;  /*!< ACMP global error code */
+static int32_t g_ACMP_i32ErrCode = 0;  /*!< ACMP global error code */
 
 /** @addtogroup ACMP_EXPORTED_FUNCTIONS ACMP Exported Functions
   @{
 */
 
+
+/**
+  * @brief      Get the error code of ACMP module
+  * @param      None
+  * @return     The error code of ACMP module
+  * @details    This function return the error code of ACMP module.
+  */
+int32_t ACMP_GetErrCode(void)
+{
+    return g_ACMP_i32ErrCode;
+}
+
+/**
+  * @brief      Set the error code of ACMP module
+  * @param      The error code of ACMP module
+  * @return     None
+  * @details    This function set the error code of ACMP module.
+  */
+void ACMP_SetErrCode(int32_t err)
+{
+    g_ACMP_i32ErrCode = err;
+}
 
 /**
   * @brief  Configure the specified ACMP module
@@ -53,7 +75,7 @@ void ACMP_Open(ACMP_T *acmp, uint32_t u32ChNum, uint32_t u32NegSrc, uint32_t u32
     /* Do calibration for ACMP to decrease the effect of electrical random noise. */
     if (acmp == ACMP01)
     {
-        if (((acmp->CALSR & ACMP_CALSR_DONE0_Msk) == 0) || ((acmp->CALSR & ACMP_CALSR_DONE1_Msk) == 0))
+        if (((acmp->CALSR & ACMP_CALSR_DONE0_Msk) == 0UL) || ((acmp->CALSR & ACMP_CALSR_DONE1_Msk) == 0UL))
         {
             /* Must reset ACMP before ACMP calibration */
             SYS->IPRST1 |= (SYS_IPRST1_ACMP01RST_Msk);
@@ -68,8 +90,8 @@ void ACMP_Open(ACMP_T *acmp, uint32_t u32ChNum, uint32_t u32NegSrc, uint32_t u32
                            (ACMP_CTL_NEGSEL_CRV);
 
             acmp->CALCTL |= ACMP_CALCTL_CALTRG0_Msk;            /* Start to calibration */
-            u32Delay = SystemCoreClock;
-            while ((acmp->CALSR & ACMP_CALSR_DONE0_Msk) == 0)   /* Wait calibration finish */
+
+            while ((acmp->CALSR & ACMP_CALSR_DONE0_Msk) == 0UL)   /* Wait calibration finish */
             {
                 if (--u32Delay == 0)
                 {
@@ -88,7 +110,7 @@ void ACMP_Open(ACMP_T *acmp, uint32_t u32ChNum, uint32_t u32NegSrc, uint32_t u32
 
             acmp->CALCTL |= ACMP_CALCTL_CALTRG1_Msk;            /* Start to calibration */
             u32Delay = SystemCoreClock;
-            while ((acmp->CALSR & ACMP_CALSR_DONE1_Msk) == 0)   /* Wait calibration finish */
+            while ((acmp->CALSR & ACMP_CALSR_DONE1_Msk) == 0UL)   /* Wait calibration finish */
             {
                 if (--u32Delay == 0)
                 {
@@ -103,7 +125,7 @@ void ACMP_Open(ACMP_T *acmp, uint32_t u32ChNum, uint32_t u32NegSrc, uint32_t u32
     if (acmp == ACMP2)
     {
         /* Do calibration for ACMP to decrease the effect of electrical random noise. */
-        if ((acmp->CALSR & ACMP_CALSR_DONE2_Msk) == 0)
+        if ((acmp->CALSR & ACMP_CALSR_DONE2_Msk) == 0UL)
         {
             /* Must reset ACMP before ACMP calibration */
             SYS->IPRST3 |= (SYS_IPRST3_ACMP2RST_Msk);
@@ -119,9 +141,9 @@ void ACMP_Open(ACMP_T *acmp, uint32_t u32ChNum, uint32_t u32NegSrc, uint32_t u32
 
             acmp->CALCTL |= ACMP_CALCTL_CALTRG2_Msk;            /* Start to calibration */
             u32Delay = SystemCoreClock;
-            while ((acmp->CALSR & ACMP_CALSR_DONE2_Msk) == 0)   /* Wait calibration finish */
+            while ((acmp->CALSR & ACMP_CALSR_DONE2_Msk) == 0UL)   /* Wait calibration finish */
             {
-                if (--u32Delay == 0)
+                if (--u32Delay == 0UL)
                 {
                     g_ACMP_i32ErrCode = ACMP_TIMEOUT_ERR;
                     break;

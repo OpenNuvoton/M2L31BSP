@@ -14,13 +14,14 @@
 #include "NuMicro.h"
 
 extern void *__Vectors;                   /* see startup file */
+extern const uint32_t gau32ClkSrcTbl[8];
 
 /*----------------------------------------------------------------------------
   Clock Variable definitions
  *----------------------------------------------------------------------------*/
-uint32_t SystemCoreClock  = __HSI;              /*!< System Clock Frequency (Core Clock) */
-uint32_t CyclesPerUs      = (__HSI / 1000000);  /*!< Cycles per micro second             */
-uint32_t PllClock         = __HSI;              /*!< PLL Output Clock Frequency          */
+uint32_t SystemCoreClock  = __HSI;                /*!< System Clock Frequency (Core Clock) */
+uint32_t CyclesPerUs      = (__HSI / 1000000UL);  /*!< Cycles per micro second             */
+uint32_t PllClock         = __HSI;                /*!< PLL Output Clock Frequency          */
 const uint32_t gau32ClkSrcTbl[8] = {__HXT, __LXT, 0UL, __LIRC, 0UL, __MIRC, __HIRC48, __HIRC};
 
 
@@ -36,7 +37,8 @@ const uint32_t gau32ClkSrcTbl[8] = {__HXT, __LXT, 0UL, __LIRC, 0UL, __MIRC, __HI
  */
 void SystemCoreClockUpdate(void)
 {
-    uint32_t u32Freq, u32ClkSrc;
+    uint32_t u32Freq;
+    uint32_t u32ClkSrc;
     uint32_t u32HclkDiv;
 
     u32ClkSrc = CLK->CLKSEL0 & CLK_CLKSEL0_HCLK0SEL_Msk;
@@ -55,15 +57,17 @@ void SystemCoreClockUpdate(void)
         u32Freq = PllClock;
     }
 
-    u32HclkDiv = (CLK->CLKDIV0 & CLK_CLKDIV0_HCLK0DIV_Msk) + 1;
+    u32HclkDiv = (CLK->CLKDIV0 & CLK_CLKDIV0_HCLK0DIV_Msk) + 1UL;
 
     /* Update System Core Clock */
     SystemCoreClock = u32Freq / u32HclkDiv;
 
-    CyclesPerUs = (SystemCoreClock + 500000) / 1000000;
+    CyclesPerUs = (SystemCoreClock + 500000UL) / 1000000UL;
 
-    if (CyclesPerUs ==0)
-        CyclesPerUs = 1;    // avoid the SYSTICK cannot count to value
+    if (CyclesPerUs == 0UL)
+    {
+        CyclesPerUs = 1UL;    // avoid the SYSTICK cannot count to value
+    }
 }
 
 
@@ -100,7 +104,9 @@ void AssertError(uint8_t *file, uint32_t line)
     printf("[%s] line %u : wrong parameters.\r\n", file, line);
 
     /* Infinite loop */
-    while (1) ;
+    while (1)
+    {
+    };
 }
 #endif
 
@@ -115,9 +121,9 @@ void AssertError(uint8_t *file, uint32_t line)
  */
 #if 1
 #if defined( __ICCARM__ )
-    __WEAK
+__WEAK
 #else
-    __attribute__((weak))
+__attribute__((weak))
 #endif
 void Uart0DefaultMPF(void)
 {

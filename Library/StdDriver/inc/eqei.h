@@ -30,37 +30,37 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 /* EQEI counting mode selection constants definitions                                                      */
 /*---------------------------------------------------------------------------------------------------------*/
-#define EQEI_CTL_X4_FREE_COUNTING_MODE       (0x0<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in X4 free-counting mode      \hideinitializer */
-#define EQEI_CTL_X2_FREE_COUNTING_MODE       (0x1<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in X2 free-counting mode      \hideinitializer */
-#define EQEI_CTL_X4_COMPARE_COUNTING_MODE    (0x2<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in X4 compare-counting mode   \hideinitializer */
-#define EQEI_CTL_X2_COMPARE_COUNTING_MODE    (0x3<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in X2 compare-counting mode   \hideinitializer */
-#define EQEI_CTL_PHASE_COUNTING_MODE_TYPE1   (0x4<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in phase counting mode type 1 \hideinitializer */
-#define EQEI_CTL_PHASE_COUNTING_MODE_TYPE2   (0x5<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in phase counting mode type 1 \hideinitializer */
-#define EQEI_CTL_DIRECTIONAL_COUNTING_MODE   (0x6<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in directional counting mode  \hideinitializer */
+#define EQEI_CTL_X4_FREE_COUNTING_MODE       (0x0UL<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in X4 free-counting mode      \hideinitializer */
+#define EQEI_CTL_X2_FREE_COUNTING_MODE       (0x1UL<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in X2 free-counting mode      \hideinitializer */
+#define EQEI_CTL_X4_COMPARE_COUNTING_MODE    (0x2UL<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in X4 compare-counting mode   \hideinitializer */
+#define EQEI_CTL_X2_COMPARE_COUNTING_MODE    (0x3UL<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in X2 compare-counting mode   \hideinitializer */
+#define EQEI_CTL_PHASE_COUNTING_MODE_TYPE1   (0x4UL<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in phase counting mode type 1 \hideinitializer */
+#define EQEI_CTL_PHASE_COUNTING_MODE_TYPE2   (0x5UL<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in phase counting mode type 1 \hideinitializer */
+#define EQEI_CTL_DIRECTIONAL_COUNTING_MODE   (0x6UL<<EQEI_CTL_MODE_Pos) /*!<EQEI operate in directional counting mode  \hideinitializer */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* EQEI noise filter clock pre-divide selection constants definitions                                      */
 /*---------------------------------------------------------------------------------------------------------*/
-#define EQEI_CTL_NFCLKSEL_DIV1   (0x0<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK    \hideinitializer */
-#define EQEI_CTL_NFCLKSEL_DIV2   (0x1<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/2  \hideinitializer */
-#define EQEI_CTL_NFCLKSEL_DIV4   (0x2<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/4  \hideinitializer */
-#define EQEI_CTL_NFCLKSEL_DIV16  (0x3<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/16 \hideinitializer */
-#define EQEI_CTL_NFCLKSEL_DIV32  (0x4<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/32 \hideinitializer */
-#define EQEI_CTL_NFCLKSEL_DIV64  (0x5<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/64 \hideinitializer */
+#define EQEI_CTL_NFCLKSEL_DIV1   (0x0UL<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK    \hideinitializer */
+#define EQEI_CTL_NFCLKSEL_DIV2   (0x1UL<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/2  \hideinitializer */
+#define EQEI_CTL_NFCLKSEL_DIV4   (0x2UL<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/4  \hideinitializer */
+#define EQEI_CTL_NFCLKSEL_DIV16  (0x3UL<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/16 \hideinitializer */
+#define EQEI_CTL_NFCLKSEL_DIV32  (0x4UL<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/32 \hideinitializer */
+#define EQEI_CTL_NFCLKSEL_DIV64  (0x5UL<<EQEI_CTL_NFCLKSEL_Pos) /*!< The sampling frequency of the noise filter is EQEI_CLK/64 \hideinitializer */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* EQEI Clock Rate Setting without Quadrature Mode definitions                                             */
 /*---------------------------------------------------------------------------------------------------------*/
-#define EQEI_CTL2_X1_COUNT_FALLING             (0x0<<EQEI_CTL2_CRS_Pos)  /*!<EQEI counter only counts the falling edge       \hideinitializer */
-#define EQEI_CTL2_X1_COUNT_RISING              (0x1<<EQEI_CTL2_CRS_Pos)  /*!<EQEI counter only counts the rising  edge       \hideinitializer */
-#define EQEI_CTL2_X2_COUNT_FALLING_AND_RISING  (0x2<<EQEI_CTL2_CRS_Pos)  /*!<EQEI counter counts the rising and falling edge \hideinitializer */
+#define EQEI_CTL2_X1_COUNT_FALLING             (0x0UL<<EQEI_CTL2_CRS_Pos)  /*!<EQEI counter only counts the falling edge       \hideinitializer */
+#define EQEI_CTL2_X1_COUNT_RISING              (0x1UL<<EQEI_CTL2_CRS_Pos)  /*!<EQEI counter only counts the rising  edge       \hideinitializer */
+#define EQEI_CTL2_X2_COUNT_FALLING_AND_RISING  (0x2UL<<EQEI_CTL2_CRS_Pos)  /*!<EQEI counter counts the rising and falling edge \hideinitializer */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* EQEI Direction Signal Source Select definitions                                                         */
 /*---------------------------------------------------------------------------------------------------------*/
-#define EQEI_CTL2_DIRCTION_FROM_EQEI_CALC   (0x0<<EQEI_CTL2_DIRSRC_Pos)  /*!<Direction signal is determined from EQEI system calculation   \hideinitializer */
-#define EQEI_CTL2_DIRCTION_TIED_HIGH        (0x2<<EQEI_CTL2_DIRSRC_Pos)  /*!<Direction signal is tied 1 only for direction up count mode   \hideinitializer */
-#define EQEI_CTL2_DIRCTION_TIED_LOW         (0x3<<EQEI_CTL2_DIRSRC_Pos)  /*!<Direction signal is tied 0 only for direction down count mode \hideinitializer */
+#define EQEI_CTL2_DIRCTION_FROM_EQEI_CALC   (0x0UL<<EQEI_CTL2_DIRSRC_Pos)  /*!<Direction signal is determined from EQEI system calculation   \hideinitializer */
+#define EQEI_CTL2_DIRCTION_TIED_HIGH        (0x2UL<<EQEI_CTL2_DIRSRC_Pos)  /*!<Direction signal is tied 1 only for direction up count mode   \hideinitializer */
+#define EQEI_CTL2_DIRCTION_TIED_LOW         (0x3UL<<EQEI_CTL2_DIRSRC_Pos)  /*!<Direction signal is tied 0 only for direction down count mode \hideinitializer */
 
 /*@}*/ /* end of group EQEI_EXPORTED_CONSTANTS */
 
@@ -245,7 +245,7 @@ extern "C"
   * @details    This macro get EQEI counting direction.
   * \hideinitializer
   */
-#define EQEI_GET_DIR(eqei)    (((eqei)->STATUS & (EQEI_STATUS_DIRF_Msk))?1:0)
+#define EQEI_GET_DIR(eqei)    (((eqei)->STATUS & (EQEI_STATUS_DIRF_Msk))?1U:0U)
 
 /**
   * @brief      Get EQEI counter hold value
@@ -289,7 +289,7 @@ extern "C"
   * @details    This macro get EQEI specified interrupt flag status.
   * \hideinitializer
   */
-#define EQEI_GET_INT_FLAG(eqei, u32IntSel)        (((eqei)->STATUS & (u32IntSel))?1:0)
+#define EQEI_GET_INT_FLAG(eqei, u32IntSel)        (((eqei)->STATUS & (u32IntSel))?1U:0U)
 
 
 /**

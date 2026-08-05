@@ -67,24 +67,24 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 #define RTC_WAIT_COUNT          0xFFFFFFFFUL      /*!< Initial Time-out Value \hideinitializer */
 #define RTC_YEAR2000            2000UL            /*!< RTC Reference for compute year data \hideinitializer */
-#define RTC_FCR_REFERENCE       32761UL           /*!< RTC Reference for frequency compensation \hideinitializer */
+#define RTC_FCR_REFERENCE       32761L            /*!< RTC Reference for frequency compensation \hideinitializer */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  RTC Tamper Constant Definitions                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
-#define RTC_TAMPER0_SELECT (0x1ul << 0)     /*!< Select Tamper 0 \hideinitializer */
-#define RTC_TAMPER1_SELECT (0x1ul << 1)     /*!< Select Tamper 1 \hideinitializer */
-#define RTC_TAMPER2_SELECT (0x1ul << 2)     /*!< Select Tamper 2 \hideinitializer */
-#define RTC_TAMPER3_SELECT (0x1ul << 3)     /*!< Select Tamper 3 \hideinitializer */
-#define RTC_TAMPER4_SELECT (0x1ul << 4)     /*!< Select Tamper 4 \hideinitializer */
-#define RTC_TAMPER5_SELECT (0x1ul << 5)     /*!< Select Tamper 5 \hideinitializer */
+#define RTC_TAMPER0_SELECT (0x1UL << 0)     /*!< Select Tamper 0 \hideinitializer */
+#define RTC_TAMPER1_SELECT (0x1UL << 1)     /*!< Select Tamper 1 \hideinitializer */
+#define RTC_TAMPER2_SELECT (0x1UL << 2)     /*!< Select Tamper 2 \hideinitializer */
+#define RTC_TAMPER3_SELECT (0x1UL << 3)     /*!< Select Tamper 3 \hideinitializer */
+#define RTC_TAMPER4_SELECT (0x1UL << 4)     /*!< Select Tamper 4 \hideinitializer */
+#define RTC_TAMPER5_SELECT (0x1UL << 5)     /*!< Select Tamper 5 \hideinitializer */
 #define RTC_MAX_TAMPER_PIN_NUM  6UL             /*!< Tamper Pin number \hideinitializer */
 
-#define RTC_TAMPER_HIGH_LEVEL_DETECT 1ul    /*!< Tamper pin detect voltage level is high \hideinitializer */
-#define RTC_TAMPER_LOW_LEVEL_DETECT  0ul    /*!< Tamper pin detect voltage level is low  \hideinitializer */
+#define RTC_TAMPER_HIGH_LEVEL_DETECT 1UL    /*!< Tamper pin detect voltage level is high \hideinitializer */
+#define RTC_TAMPER_LOW_LEVEL_DETECT  0UL    /*!< Tamper pin detect voltage level is low  \hideinitializer */
 
-#define RTC_TAMPER_DEBOUNCE_ENABLE   1ul    /*!< Enable RTC tamper pin de-bounce function \hideinitializer */
-#define RTC_TAMPER_DEBOUNCE_DISABLE  0ul    /*!< Disable RTC tamper pin de-bounce function \hideinitializer */
+#define RTC_TAMPER_DEBOUNCE_ENABLE   1UL    /*!< Enable RTC tamper pin de-bounce function \hideinitializer */
+#define RTC_TAMPER_DEBOUNCE_DISABLE  0UL    /*!< Disable RTC tamper pin de-bounce function \hideinitializer */
 
 
 
@@ -158,7 +158,7 @@ typedef struct
   * @details    According to current date, return this year is leap year or not.
   * \hideinitializer
   */
-#define RTC_IS_LEAP_YEAR()              (RTC->LEAPYEAR & RTC_LEAPYEAR_LEAPYEAR_Msk ? 1:0)
+#define RTC_IS_LEAP_YEAR()              ((RTC->LEAPYEAR & RTC_LEAPYEAR_LEAPYEAR_Msk) ? 1UL:0UL)
 
 /**
   * @brief      Clear RTC Alarm Interrupt Flag
@@ -210,7 +210,7 @@ typedef struct
   * @details    This macro indicates RTC alarm interrupt occurred or not.
   * \hideinitializer
   */
-#define RTC_GET_ALARM_INT_FLAG()        ((RTC->INTSTS & RTC_INTSTS_ALMIF_Msk)? 1:0)
+#define RTC_GET_ALARM_INT_FLAG()        ((RTC->INTSTS & RTC_INTSTS_ALMIF_Msk)? 1UL:0UL)
 
 /**
   * @brief      Get RTC Time Tick Interrupt Flag
@@ -223,7 +223,7 @@ typedef struct
   * @details    This macro indicates RTC time tick interrupt occurred or not.
   * \hideinitializer
   */
-#define RTC_GET_TICK_INT_FLAG()         ((RTC->INTSTS & RTC_INTSTS_TICKIF_Msk)? 1:0)
+#define RTC_GET_TICK_INT_FLAG()         ((RTC->INTSTS & RTC_INTSTS_TICKIF_Msk)? 1UL:0UL)
 
 /**
   * @brief      Set I/O Control By GPIO
@@ -260,7 +260,7 @@ typedef struct
   * @details    This macro indicates the PF.4~11 pin I/O control property.
   * \hideinitializer
   */
-#define RTC_GET_IOCTL_PROPERTY()             ((RTC->LXTCTL & RTC_LXTCTL_IOCTLSEL_Msk)? 1:0)
+#define RTC_GET_IOCTL_PROPERTY()             ((RTC->LXTCTL & RTC_LXTCTL_IOCTLSEL_Msk)? 1UL:0UL)
 
 /**
   * @brief      Get RTC Tamper Interrupt Flag
@@ -273,7 +273,7 @@ typedef struct
   * @details    This macro indicates RTC snooper pin interrupt occurred or not.
   * \hideinitializer
   */
-#define RTC_GET_TAMPER_INT_FLAG()      ((RTC->INTSTS & (0x3F00))? 1:0)
+#define RTC_GET_TAMPER_INT_FLAG()      ((RTC->INTSTS & (0x3F00UL))? 1UL:0UL)
 
 /**
   * @brief      Get RTC TAMPER Interrupt Status
@@ -287,7 +287,7 @@ typedef struct
   * @details    This macro indicates RTC snooper pin interrupt occurred or not.
   * \hideinitializer
   */
-#define RTC_GET_TAMPER_INT_STATUS()      ((RTC->INTSTS & (0x3F00)))
+#define RTC_GET_TAMPER_INT_STATUS()      ((RTC->INTSTS & (0x3F00UL)))
 
 /**
   * @brief      Enable RTC Tick Wake-up Function

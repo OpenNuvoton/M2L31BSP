@@ -665,313 +665,313 @@ typedef struct
 @{ */
 
 #define RMC_ISPCTL_ISPEN_Pos             (0)                                               /*!< RMC_T::ISPCTL: ISPEN Position          */
-#define RMC_ISPCTL_ISPEN_Msk             (0x1ul << RMC_ISPCTL_ISPEN_Pos)                   /*!< RMC_T::ISPCTL: ISPEN Mask              */
+#define RMC_ISPCTL_ISPEN_Msk             (0x1UL << RMC_ISPCTL_ISPEN_Pos)                   /*!< RMC_T::ISPCTL: ISPEN Mask              */
 
 #define RMC_ISPCTL_BS_Pos                (1)                                               /*!< RMC_T::ISPCTL: BS Position             */
-#define RMC_ISPCTL_BS_Msk                (0x1ul << RMC_ISPCTL_BS_Pos)                      /*!< RMC_T::ISPCTL: BS Mask                 */
+#define RMC_ISPCTL_BS_Msk                (0x1UL << RMC_ISPCTL_BS_Pos)                      /*!< RMC_T::ISPCTL: BS Mask                 */
 
 #define RMC_ISPCTL_APUEN_Pos             (3)                                               /*!< RMC_T::ISPCTL: APUEN Position          */
-#define RMC_ISPCTL_APUEN_Msk             (0x1ul << RMC_ISPCTL_APUEN_Pos)                   /*!< RMC_T::ISPCTL: APUEN Mask              */
+#define RMC_ISPCTL_APUEN_Msk             (0x1UL << RMC_ISPCTL_APUEN_Pos)                   /*!< RMC_T::ISPCTL: APUEN Mask              */
 
 #define RMC_ISPCTL_CFGUEN_Pos            (4)                                               /*!< RMC_T::ISPCTL: CFGUEN Position         */
-#define RMC_ISPCTL_CFGUEN_Msk            (0x1ul << RMC_ISPCTL_CFGUEN_Pos)                  /*!< RMC_T::ISPCTL: CFGUEN Mask             */
+#define RMC_ISPCTL_CFGUEN_Msk            (0x1UL << RMC_ISPCTL_CFGUEN_Pos)                  /*!< RMC_T::ISPCTL: CFGUEN Mask             */
 
 #define RMC_ISPCTL_LDUEN_Pos             (5)                                               /*!< RMC_T::ISPCTL: LDUEN Position          */
-#define RMC_ISPCTL_LDUEN_Msk             (0x1ul << RMC_ISPCTL_LDUEN_Pos)                   /*!< RMC_T::ISPCTL: LDUEN Mask              */
+#define RMC_ISPCTL_LDUEN_Msk             (0x1UL << RMC_ISPCTL_LDUEN_Pos)                   /*!< RMC_T::ISPCTL: LDUEN Mask              */
 
 #define RMC_ISPCTL_ISPFF_Pos             (6)                                               /*!< RMC_T::ISPCTL: ISPFF Position          */
-#define RMC_ISPCTL_ISPFF_Msk             (0x1ul << RMC_ISPCTL_ISPFF_Pos)                   /*!< RMC_T::ISPCTL: ISPFF Mask              */
+#define RMC_ISPCTL_ISPFF_Msk             (0x1UL << RMC_ISPCTL_ISPFF_Pos)                   /*!< RMC_T::ISPCTL: ISPFF Mask              */
 
 #define RMC_ISPCTL_MPEN_Pos              (8)                                               /*!< RMC_T::ISPCTL: MPEN Position           */
-#define RMC_ISPCTL_MPEN_Msk              (0x1ul << RMC_ISPCTL_MPEN_Pos)                    /*!< RMC_T::ISPCTL: MPEN Mask               */
+#define RMC_ISPCTL_MPEN_Msk              (0x1UL << RMC_ISPCTL_MPEN_Pos)                    /*!< RMC_T::ISPCTL: MPEN Mask               */
 
 #define RMC_ISPCTL_INTEN_Pos             (24)                                              /*!< RMC_T::ISPCTL: INTEN Position          */
-#define RMC_ISPCTL_INTEN_Msk             (0x1ul << RMC_ISPCTL_INTEN_Pos)                   /*!< RMC_T::ISPCTL: INTEN Mask              */
+#define RMC_ISPCTL_INTEN_Msk             (0x1UL << RMC_ISPCTL_INTEN_Pos)                   /*!< RMC_T::ISPCTL: INTEN Mask              */
 
 #define RMC_ISPADDR_ISPADDR_Pos          (0)                                               /*!< RMC_T::ISPADDR: ISPADDR Position       */
-#define RMC_ISPADDR_ISPADDR_Msk          (0xfffffffful << RMC_ISPADDR_ISPADDR_Pos)         /*!< RMC_T::ISPADDR: ISPADDR Mask           */
+#define RMC_ISPADDR_ISPADDR_Msk          (0xffffffffUL << RMC_ISPADDR_ISPADDR_Pos)         /*!< RMC_T::ISPADDR: ISPADDR Mask           */
 
 #define RMC_ISPDAT_ISPDAT_Pos            (0)                                               /*!< RMC_T::ISPDAT: ISPDAT Position         */
-#define RMC_ISPDAT_ISPDAT_Msk            (0xfffffffful << RMC_ISPDAT_ISPDAT_Pos)           /*!< RMC_T::ISPDAT: ISPDAT Mask             */
+#define RMC_ISPDAT_ISPDAT_Msk            (0xffffffffUL << RMC_ISPDAT_ISPDAT_Pos)           /*!< RMC_T::ISPDAT: ISPDAT Mask             */
 
 #define RMC_ISPCMD_CMD_Pos               (0)                                               /*!< RMC_T::ISPCMD: CMD Position            */
-#define RMC_ISPCMD_CMD_Msk               (0x7ful << RMC_ISPCMD_CMD_Pos)                    /*!< RMC_T::ISPCMD: CMD Mask                */
+#define RMC_ISPCMD_CMD_Msk               (0x7fUL << RMC_ISPCMD_CMD_Pos)                    /*!< RMC_T::ISPCMD: CMD Mask                */
 
 #define RMC_ISPTRG_ISPGO_Pos             (0)                                               /*!< RMC_T::ISPTRG: ISPGO Position          */
-#define RMC_ISPTRG_ISPGO_Msk             (0x1ul << RMC_ISPTRG_ISPGO_Pos)                   /*!< RMC_T::ISPTRG: ISPGO Mask              */
+#define RMC_ISPTRG_ISPGO_Msk             (0x1UL << RMC_ISPTRG_ISPGO_Pos)                   /*!< RMC_T::ISPTRG: ISPGO Mask              */
 
 #define RMC_DFBA_DFBA_Pos                (0)                                               /*!< RMC_T::DFBA: DFBA Position             */
-#define RMC_DFBA_DFBA_Msk                (0xfffffffful << RMC_DFBA_DFBA_Pos)               /*!< RMC_T::DFBA: DFBA Mask                 */
+#define RMC_DFBA_DFBA_Msk                (0xffffffffUL << RMC_DFBA_DFBA_Pos)               /*!< RMC_T::DFBA: DFBA Mask                 */
 
 #define RMC_FTCTL_CACHEINV_Pos           (9)                                               /*!< RMC_T::FTCTL: CACHEINV Position        */
-#define RMC_FTCTL_CACHEINV_Msk           (0x1ul << RMC_FTCTL_CACHEINV_Pos)                 /*!< RMC_T::FTCTL: CACHEINV Mask            */
+#define RMC_FTCTL_CACHEINV_Msk           (0x1UL << RMC_FTCTL_CACHEINV_Pos)                 /*!< RMC_T::FTCTL: CACHEINV Mask            */
 
 #define RMC_ISPSTS_ISPBUSY_Pos           (0)                                               /*!< RMC_T::ISPSTS: ISPBUSY Position        */
-#define RMC_ISPSTS_ISPBUSY_Msk           (0x1ul << RMC_ISPSTS_ISPBUSY_Pos)                 /*!< RMC_T::ISPSTS: ISPBUSY Mask            */
+#define RMC_ISPSTS_ISPBUSY_Msk           (0x1UL << RMC_ISPSTS_ISPBUSY_Pos)                 /*!< RMC_T::ISPSTS: ISPBUSY Mask            */
 
 #define RMC_ISPSTS_CBS_Pos               (2)                                               /*!< RMC_T::ISPSTS: CBS Position            */
-#define RMC_ISPSTS_CBS_Msk               (0x1ul << RMC_ISPSTS_CBS_Pos)                     /*!< RMC_T::ISPSTS: CBS Mask                */
+#define RMC_ISPSTS_CBS_Msk               (0x1UL << RMC_ISPSTS_CBS_Pos)                     /*!< RMC_T::ISPSTS: CBS Mask                */
 
 #define RMC_ISPSTS_ISPFF_Pos             (6)                                               /*!< RMC_T::ISPSTS: ISPFF Position          */
-#define RMC_ISPSTS_ISPFF_Msk             (0x1ul << RMC_ISPSTS_ISPFF_Pos)                   /*!< RMC_T::ISPSTS: ISPFF Mask              */
+#define RMC_ISPSTS_ISPFF_Msk             (0x1UL << RMC_ISPSTS_ISPFF_Pos)                   /*!< RMC_T::ISPSTS: ISPFF Mask              */
 
 #define RMC_ISPSTS_ALLONE_Pos            (7)                                               /*!< RMC_T::ISPSTS: ALLONE Position         */
-#define RMC_ISPSTS_ALLONE_Msk            (0x1ul << RMC_ISPSTS_ALLONE_Pos)                  /*!< RMC_T::ISPSTS: ALLONE Mask             */
+#define RMC_ISPSTS_ALLONE_Msk            (0x1UL << RMC_ISPSTS_ALLONE_Pos)                  /*!< RMC_T::ISPSTS: ALLONE Mask             */
 
 #define RMC_ISPSTS_VECMAP_Pos            (9)                                               /*!< RMC_T::ISPSTS: VECMAP Position         */
-#define RMC_ISPSTS_VECMAP_Msk            (0x7ffful << RMC_ISPSTS_VECMAP_Pos)               /*!< RMC_T::ISPSTS: VECMAP Mask             */
+#define RMC_ISPSTS_VECMAP_Msk            (0x7fffUL << RMC_ISPSTS_VECMAP_Pos)               /*!< RMC_T::ISPSTS: VECMAP Mask             */
 
 #define RMC_ISPSTS_INTFLAG_Pos           (24)                                              /*!< RMC_T::ISPSTS: INTFLAG Position        */
-#define RMC_ISPSTS_INTFLAG_Msk           (0x1ul << RMC_ISPSTS_INTFLAG_Pos)                 /*!< RMC_T::ISPSTS: INTFLAG Mask            */
+#define RMC_ISPSTS_INTFLAG_Msk           (0x1UL << RMC_ISPSTS_INTFLAG_Pos)                 /*!< RMC_T::ISPSTS: INTFLAG Mask            */
 
 #define RMC_ISPSTS_SCFF_Pos              (25)                                              /*!< RMC_T::ISPSTS: SCFF Position           */
-#define RMC_ISPSTS_SCFF_Msk              (0x1ul << RMC_ISPSTS_SCFF_Pos)                    /*!< RMC_T::ISPSTS: SCFF Mask               */
+#define RMC_ISPSTS_SCFF_Msk              (0x1UL << RMC_ISPSTS_SCFF_Pos)                    /*!< RMC_T::ISPSTS: SCFF Mask               */
 
 #define RMC_ISPSTS_FBS_Pos               (30)                                              /*!< RMC_T::ISPSTS: FBS Position            */
-#define RMC_ISPSTS_FBS_Msk               (0x1ul << RMC_ISPSTS_FBS_Pos)                     /*!< RMC_T::ISPSTS: FBS Mask                */
+#define RMC_ISPSTS_FBS_Msk               (0x1UL << RMC_ISPSTS_FBS_Pos)                     /*!< RMC_T::ISPSTS: FBS Mask                */
 
 #define RMC_CYCCTL_CYCLE_Pos             (0)                                               /*!< RMC_T::CYCCTL: CYCLE Position          */
-#define RMC_CYCCTL_CYCLE_Msk             (0xful << RMC_CYCCTL_CYCLE_Pos)                   /*!< RMC_T::CYCCTL: CYCLE Mask              */
+#define RMC_CYCCTL_CYCLE_Msk             (0xfUL << RMC_CYCCTL_CYCLE_Pos)                   /*!< RMC_T::CYCCTL: CYCLE Mask              */
 
 #define RMC_XOMR0STS_SIZE_Pos            (0)                                               /*!< RMC_T::XOMR0STS: SIZE Position         */
-#define RMC_XOMR0STS_SIZE_Msk            (0xfful << RMC_XOMR0STS_SIZE_Pos)                 /*!< RMC_T::XOMR0STS: SIZE Mask             */
+#define RMC_XOMR0STS_SIZE_Msk            (0xffUL << RMC_XOMR0STS_SIZE_Pos)                 /*!< RMC_T::XOMR0STS: SIZE Mask             */
 
 #define RMC_XOMR0STS_BASE_Pos            (8)                                               /*!< RMC_T::XOMR0STS: BASE Position         */
-#define RMC_XOMR0STS_BASE_Msk            (0xfffffful << RMC_XOMR0STS_BASE_Pos)             /*!< RMC_T::XOMR0STS: BASE Mask             */
+#define RMC_XOMR0STS_BASE_Msk            (0xffffffUL << RMC_XOMR0STS_BASE_Pos)             /*!< RMC_T::XOMR0STS: BASE Mask             */
 
 #define RMC_XOMR1STS_SIZE_Pos            (0)                                               /*!< RMC_T::XOMR1STS: SIZE Position         */
-#define RMC_XOMR1STS_SIZE_Msk            (0xfful << RMC_XOMR1STS_SIZE_Pos)                 /*!< RMC_T::XOMR1STS: SIZE Mask             */
+#define RMC_XOMR1STS_SIZE_Msk            (0xffUL << RMC_XOMR1STS_SIZE_Pos)                 /*!< RMC_T::XOMR1STS: SIZE Mask             */
 
 #define RMC_XOMR1STS_BASE_Pos            (8)                                               /*!< RMC_T::XOMR1STS: BASE Position         */
-#define RMC_XOMR1STS_BASE_Msk            (0xfffffful << RMC_XOMR1STS_BASE_Pos)             /*!< RMC_T::XOMR1STS: BASE Mask             */
+#define RMC_XOMR1STS_BASE_Msk            (0xffffffUL << RMC_XOMR1STS_BASE_Pos)             /*!< RMC_T::XOMR1STS: BASE Mask             */
 
 #define RMC_XOMR2STS_SIZE_Pos            (0)                                               /*!< RMC_T::XOMR2STS: SIZE Position         */
-#define RMC_XOMR2STS_SIZE_Msk            (0xfful << RMC_XOMR2STS_SIZE_Pos)                 /*!< RMC_T::XOMR2STS: SIZE Mask             */
+#define RMC_XOMR2STS_SIZE_Msk            (0xffUL << RMC_XOMR2STS_SIZE_Pos)                 /*!< RMC_T::XOMR2STS: SIZE Mask             */
 
 #define RMC_XOMR2STS_BASE_Pos            (8)                                               /*!< RMC_T::XOMR2STS: BASE Position         */
-#define RMC_XOMR2STS_BASE_Msk            (0xfffffful << RMC_XOMR2STS_BASE_Pos)             /*!< RMC_T::XOMR2STS: BASE Mask             */
+#define RMC_XOMR2STS_BASE_Msk            (0xffffffUL << RMC_XOMR2STS_BASE_Pos)             /*!< RMC_T::XOMR2STS: BASE Mask             */
 
 #define RMC_XOMR3STS_SIZE_Pos            (0)                                               /*!< RMC_T::XOMR3STS: SIZE Position         */
-#define RMC_XOMR3STS_SIZE_Msk            (0xfful << RMC_XOMR3STS_SIZE_Pos)                 /*!< RMC_T::XOMR3STS: SIZE Mask             */
+#define RMC_XOMR3STS_SIZE_Msk            (0xffUL << RMC_XOMR3STS_SIZE_Pos)                 /*!< RMC_T::XOMR3STS: SIZE Mask             */
 
 #define RMC_XOMR3STS_BASE_Pos            (8)                                               /*!< RMC_T::XOMR3STS: BASE Position         */
-#define RMC_XOMR3STS_BASE_Msk            (0xfffffful << RMC_XOMR3STS_BASE_Pos)             /*!< RMC_T::XOMR3STS: BASE Mask             */
+#define RMC_XOMR3STS_BASE_Msk            (0xffffffUL << RMC_XOMR3STS_BASE_Pos)             /*!< RMC_T::XOMR3STS: BASE Mask             */
 
 #define RMC_XOMSTS_XOMR0ON_Pos           (0)                                               /*!< RMC_T::XOMSTS: XOMR0ON Position        */
-#define RMC_XOMSTS_XOMR0ON_Msk           (0x1ul << RMC_XOMSTS_XOMR0ON_Pos)                 /*!< RMC_T::XOMSTS: XOMR0ON Mask            */
+#define RMC_XOMSTS_XOMR0ON_Msk           (0x1UL << RMC_XOMSTS_XOMR0ON_Pos)                 /*!< RMC_T::XOMSTS: XOMR0ON Mask            */
 
 #define RMC_XOMSTS_XOMR1ON_Pos           (1)                                               /*!< RMC_T::XOMSTS: XOMR1ON Position        */
-#define RMC_XOMSTS_XOMR1ON_Msk           (0x1ul << RMC_XOMSTS_XOMR1ON_Pos)                 /*!< RMC_T::XOMSTS: XOMR1ON Mask            */
+#define RMC_XOMSTS_XOMR1ON_Msk           (0x1UL << RMC_XOMSTS_XOMR1ON_Pos)                 /*!< RMC_T::XOMSTS: XOMR1ON Mask            */
 
 #define RMC_XOMSTS_XOMR2ON_Pos           (2)                                               /*!< RMC_T::XOMSTS: XOMR2ON Position        */
-#define RMC_XOMSTS_XOMR2ON_Msk           (0x1ul << RMC_XOMSTS_XOMR2ON_Pos)                 /*!< RMC_T::XOMSTS: XOMR2ON Mask            */
+#define RMC_XOMSTS_XOMR2ON_Msk           (0x1UL << RMC_XOMSTS_XOMR2ON_Pos)                 /*!< RMC_T::XOMSTS: XOMR2ON Mask            */
 
 #define RMC_XOMSTS_XOMR3ON_Pos           (3)                                               /*!< RMC_T::XOMSTS: XOMR3ON Position        */
-#define RMC_XOMSTS_XOMR3ON_Msk           (0x1ul << RMC_XOMSTS_XOMR3ON_Pos)                 /*!< RMC_T::XOMSTS: XOMR3ON Mask            */
+#define RMC_XOMSTS_XOMR3ON_Msk           (0x1UL << RMC_XOMSTS_XOMR3ON_Pos)                 /*!< RMC_T::XOMSTS: XOMR3ON Mask            */
 
 #define RMC_XOMSTS_XOMPEF_Pos            (4)                                               /*!< RMC_T::XOMSTS: XOMPEF Position         */
-#define RMC_XOMSTS_XOMPEF_Msk            (0x1ul << RMC_XOMSTS_XOMPEF_Pos)                  /*!< RMC_T::XOMSTS: XOMPEF Mask             */
+#define RMC_XOMSTS_XOMPEF_Msk            (0x1UL << RMC_XOMSTS_XOMPEF_Pos)                  /*!< RMC_T::XOMSTS: XOMPEF Mask             */
 
 #define RMC_APWPROT0_APPROEN0_Pos        (0)                                               /*!< RMC_T::APWPROT0: APPROEN0 Position     */
-#define RMC_APWPROT0_APPROEN0_Msk        (0x1ul << RMC_APWPROT0_APPROEN0_Pos)              /*!< RMC_T::APWPROT0: APPROEN0 Mask         */
+#define RMC_APWPROT0_APPROEN0_Msk        (0x1UL << RMC_APWPROT0_APPROEN0_Pos)              /*!< RMC_T::APWPROT0: APPROEN0 Mask         */
 
 #define RMC_APWPROT0_APPROEN1_Pos        (1)                                               /*!< RMC_T::APWPROT0: APPROEN1 Position     */
-#define RMC_APWPROT0_APPROEN1_Msk        (0x1ul << RMC_APWPROT0_APPROEN1_Pos)              /*!< RMC_T::APWPROT0: APPROEN1 Mask         */
+#define RMC_APWPROT0_APPROEN1_Msk        (0x1UL << RMC_APWPROT0_APPROEN1_Pos)              /*!< RMC_T::APWPROT0: APPROEN1 Mask         */
 
 #define RMC_APWPROT0_APPROEN2_Pos        (2)                                               /*!< RMC_T::APWPROT0: APPROEN2 Position     */
-#define RMC_APWPROT0_APPROEN2_Msk        (0x1ul << RMC_APWPROT0_APPROEN2_Pos)              /*!< RMC_T::APWPROT0: APPROEN2 Mask         */
+#define RMC_APWPROT0_APPROEN2_Msk        (0x1UL << RMC_APWPROT0_APPROEN2_Pos)              /*!< RMC_T::APWPROT0: APPROEN2 Mask         */
 
 #define RMC_APWPROT0_APPROEN3_Pos        (3)                                               /*!< RMC_T::APWPROT0: APPROEN3 Position     */
-#define RMC_APWPROT0_APPROEN3_Msk        (0x1ul << RMC_APWPROT0_APPROEN3_Pos)              /*!< RMC_T::APWPROT0: APPROEN3 Mask         */
+#define RMC_APWPROT0_APPROEN3_Msk        (0x1UL << RMC_APWPROT0_APPROEN3_Pos)              /*!< RMC_T::APWPROT0: APPROEN3 Mask         */
 
 #define RMC_APWPROT0_APPROEN4_Pos        (4)                                               /*!< RMC_T::APWPROT0: APPROEN4 Position     */
-#define RMC_APWPROT0_APPROEN4_Msk        (0x1ul << RMC_APWPROT0_APPROEN4_Pos)              /*!< RMC_T::APWPROT0: APPROEN4 Mask         */
+#define RMC_APWPROT0_APPROEN4_Msk        (0x1UL << RMC_APWPROT0_APPROEN4_Pos)              /*!< RMC_T::APWPROT0: APPROEN4 Mask         */
 
 #define RMC_APWPROT0_APPROEN5_Pos        (5)                                               /*!< RMC_T::APWPROT0: APPROEN5 Position     */
-#define RMC_APWPROT0_APPROEN5_Msk        (0x1ul << RMC_APWPROT0_APPROEN5_Pos)              /*!< RMC_T::APWPROT0: APPROEN5 Mask         */
+#define RMC_APWPROT0_APPROEN5_Msk        (0x1UL << RMC_APWPROT0_APPROEN5_Pos)              /*!< RMC_T::APWPROT0: APPROEN5 Mask         */
 
 #define RMC_APWPROT0_APPROEN6_Pos        (6)                                               /*!< RMC_T::APWPROT0: APPROEN6 Position     */
-#define RMC_APWPROT0_APPROEN6_Msk        (0x1ul << RMC_APWPROT0_APPROEN6_Pos)              /*!< RMC_T::APWPROT0: APPROEN6 Mask         */
+#define RMC_APWPROT0_APPROEN6_Msk        (0x1UL << RMC_APWPROT0_APPROEN6_Pos)              /*!< RMC_T::APWPROT0: APPROEN6 Mask         */
 
 #define RMC_APWPROT0_APPROEN7_Pos        (7)                                               /*!< RMC_T::APWPROT0: APPROEN7 Position     */
-#define RMC_APWPROT0_APPROEN7_Msk        (0x1ul << RMC_APWPROT0_APPROEN7_Pos)              /*!< RMC_T::APWPROT0: APPROEN7 Mask         */
+#define RMC_APWPROT0_APPROEN7_Msk        (0x1UL << RMC_APWPROT0_APPROEN7_Pos)              /*!< RMC_T::APWPROT0: APPROEN7 Mask         */
 
 #define RMC_APWPROT0_APPROEN8_Pos        (8)                                               /*!< RMC_T::APWPROT0: APPROEN8 Position     */
-#define RMC_APWPROT0_APPROEN8_Msk        (0x1ul << RMC_APWPROT0_APPROEN8_Pos)              /*!< RMC_T::APWPROT0: APPROEN8 Mask         */
+#define RMC_APWPROT0_APPROEN8_Msk        (0x1UL << RMC_APWPROT0_APPROEN8_Pos)              /*!< RMC_T::APWPROT0: APPROEN8 Mask         */
 
 #define RMC_APWPROT0_APPROEN9_Pos        (9)                                               /*!< RMC_T::APWPROT0: APPROEN9 Position     */
-#define RMC_APWPROT0_APPROEN9_Msk        (0x1ul << RMC_APWPROT0_APPROEN9_Pos)              /*!< RMC_T::APWPROT0: APPROEN9 Mask         */
+#define RMC_APWPROT0_APPROEN9_Msk        (0x1UL << RMC_APWPROT0_APPROEN9_Pos)              /*!< RMC_T::APWPROT0: APPROEN9 Mask         */
 
 #define RMC_APWPROT0_APPROEN10_Pos       (10)                                              /*!< RMC_T::APWPROT0: APPROEN10 Position    */
-#define RMC_APWPROT0_APPROEN10_Msk       (0x1ul << RMC_APWPROT0_APPROEN10_Pos)             /*!< RMC_T::APWPROT0: APPROEN10 Mask        */
+#define RMC_APWPROT0_APPROEN10_Msk       (0x1UL << RMC_APWPROT0_APPROEN10_Pos)             /*!< RMC_T::APWPROT0: APPROEN10 Mask        */
 
 #define RMC_APWPROT0_APPROEN11_Pos       (11)                                              /*!< RMC_T::APWPROT0: APPROEN11 Position    */
-#define RMC_APWPROT0_APPROEN11_Msk       (0x1ul << RMC_APWPROT0_APPROEN11_Pos)             /*!< RMC_T::APWPROT0: APPROEN11 Mask        */
+#define RMC_APWPROT0_APPROEN11_Msk       (0x1UL << RMC_APWPROT0_APPROEN11_Pos)             /*!< RMC_T::APWPROT0: APPROEN11 Mask        */
 
 #define RMC_APWPROT0_APPROEN12_Pos       (12)                                              /*!< RMC_T::APWPROT0: APPROEN12 Position    */
-#define RMC_APWPROT0_APPROEN12_Msk       (0x1ul << RMC_APWPROT0_APPROEN12_Pos)             /*!< RMC_T::APWPROT0: APPROEN12 Mask        */
+#define RMC_APWPROT0_APPROEN12_Msk       (0x1UL << RMC_APWPROT0_APPROEN12_Pos)             /*!< RMC_T::APWPROT0: APPROEN12 Mask        */
 
 #define RMC_APWPROT0_APPROEN13_Pos       (13)                                              /*!< RMC_T::APWPROT0: APPROEN13 Position    */
-#define RMC_APWPROT0_APPROEN13_Msk       (0x1ul << RMC_APWPROT0_APPROEN13_Pos)             /*!< RMC_T::APWPROT0: APPROEN13 Mask        */
+#define RMC_APWPROT0_APPROEN13_Msk       (0x1UL << RMC_APWPROT0_APPROEN13_Pos)             /*!< RMC_T::APWPROT0: APPROEN13 Mask        */
 
 #define RMC_APWPROT0_APPROEN14_Pos       (14)                                              /*!< RMC_T::APWPROT0: APPROEN14 Position    */
-#define RMC_APWPROT0_APPROEN14_Msk       (0x1ul << RMC_APWPROT0_APPROEN14_Pos)             /*!< RMC_T::APWPROT0: APPROEN14 Mask        */
+#define RMC_APWPROT0_APPROEN14_Msk       (0x1UL << RMC_APWPROT0_APPROEN14_Pos)             /*!< RMC_T::APWPROT0: APPROEN14 Mask        */
 
 #define RMC_APWPROT0_APPROEN15_Pos       (15)                                              /*!< RMC_T::APWPROT0: APPROEN15 Position    */
-#define RMC_APWPROT0_APPROEN15_Msk       (0x1ul << RMC_APWPROT0_APPROEN15_Pos)             /*!< RMC_T::APWPROT0: APPROEN15 Mask        */
+#define RMC_APWPROT0_APPROEN15_Msk       (0x1UL << RMC_APWPROT0_APPROEN15_Pos)             /*!< RMC_T::APWPROT0: APPROEN15 Mask        */
 
 #define RMC_APWPROT0_APPROEN16_Pos       (16)                                              /*!< RMC_T::APWPROT0: APPROEN16 Position    */
-#define RMC_APWPROT0_APPROEN16_Msk       (0x1ul << RMC_APWPROT0_APPROEN16_Pos)             /*!< RMC_T::APWPROT0: APPROEN16 Mask        */
+#define RMC_APWPROT0_APPROEN16_Msk       (0x1UL << RMC_APWPROT0_APPROEN16_Pos)             /*!< RMC_T::APWPROT0: APPROEN16 Mask        */
 
 #define RMC_APWPROT0_APPROEN17_Pos       (17)                                              /*!< RMC_T::APWPROT0: APPROEN17 Position    */
-#define RMC_APWPROT0_APPROEN17_Msk       (0x1ul << RMC_APWPROT0_APPROEN17_Pos)             /*!< RMC_T::APWPROT0: APPROEN17 Mask        */
+#define RMC_APWPROT0_APPROEN17_Msk       (0x1UL << RMC_APWPROT0_APPROEN17_Pos)             /*!< RMC_T::APWPROT0: APPROEN17 Mask        */
 
 #define RMC_APWPROT0_APPROEN18_Pos       (18)                                              /*!< RMC_T::APWPROT0: APPROEN18 Position    */
-#define RMC_APWPROT0_APPROEN18_Msk       (0x1ul << RMC_APWPROT0_APPROEN18_Pos)             /*!< RMC_T::APWPROT0: APPROEN18 Mask        */
+#define RMC_APWPROT0_APPROEN18_Msk       (0x1UL << RMC_APWPROT0_APPROEN18_Pos)             /*!< RMC_T::APWPROT0: APPROEN18 Mask        */
 
 #define RMC_APWPROT0_APPROEN19_Pos       (19)                                              /*!< RMC_T::APWPROT0: APPROEN19 Position    */
-#define RMC_APWPROT0_APPROEN19_Msk       (0x1ul << RMC_APWPROT0_APPROEN19_Pos)             /*!< RMC_T::APWPROT0: APPROEN19 Mask        */
+#define RMC_APWPROT0_APPROEN19_Msk       (0x1UL << RMC_APWPROT0_APPROEN19_Pos)             /*!< RMC_T::APWPROT0: APPROEN19 Mask        */
 
 #define RMC_APWPROT0_APPROEN20_Pos       (20)                                              /*!< RMC_T::APWPROT0: APPROEN20 Position    */
-#define RMC_APWPROT0_APPROEN20_Msk       (0x1ul << RMC_APWPROT0_APPROEN20_Pos)             /*!< RMC_T::APWPROT0: APPROEN20 Mask        */
+#define RMC_APWPROT0_APPROEN20_Msk       (0x1UL << RMC_APWPROT0_APPROEN20_Pos)             /*!< RMC_T::APWPROT0: APPROEN20 Mask        */
 
 #define RMC_APWPROT0_APPROEN21_Pos       (21)                                              /*!< RMC_T::APWPROT0: APPROEN21 Position    */
-#define RMC_APWPROT0_APPROEN21_Msk       (0x1ul << RMC_APWPROT0_APPROEN21_Pos)             /*!< RMC_T::APWPROT0: APPROEN21 Mask        */
+#define RMC_APWPROT0_APPROEN21_Msk       (0x1UL << RMC_APWPROT0_APPROEN21_Pos)             /*!< RMC_T::APWPROT0: APPROEN21 Mask        */
 
 #define RMC_APWPROT0_APPROEN22_Pos       (22)                                              /*!< RMC_T::APWPROT0: APPROEN22 Position    */
-#define RMC_APWPROT0_APPROEN22_Msk       (0x1ul << RMC_APWPROT0_APPROEN22_Pos)             /*!< RMC_T::APWPROT0: APPROEN22 Mask        */
+#define RMC_APWPROT0_APPROEN22_Msk       (0x1UL << RMC_APWPROT0_APPROEN22_Pos)             /*!< RMC_T::APWPROT0: APPROEN22 Mask        */
 
 #define RMC_APWPROT0_APPROEN23_Pos       (23)                                              /*!< RMC_T::APWPROT0: APPROEN23 Position    */
-#define RMC_APWPROT0_APPROEN23_Msk       (0x1ul << RMC_APWPROT0_APPROEN23_Pos)             /*!< RMC_T::APWPROT0: APPROEN23 Mask        */
+#define RMC_APWPROT0_APPROEN23_Msk       (0x1UL << RMC_APWPROT0_APPROEN23_Pos)             /*!< RMC_T::APWPROT0: APPROEN23 Mask        */
 
 #define RMC_APWPROT0_APPROEN24_Pos       (24)                                              /*!< RMC_T::APWPROT0: APPROEN24 Position    */
-#define RMC_APWPROT0_APPROEN24_Msk       (0x1ul << RMC_APWPROT0_APPROEN24_Pos)             /*!< RMC_T::APWPROT0: APPROEN24 Mask        */
+#define RMC_APWPROT0_APPROEN24_Msk       (0x1UL << RMC_APWPROT0_APPROEN24_Pos)             /*!< RMC_T::APWPROT0: APPROEN24 Mask        */
 
 #define RMC_APWPROT0_APPROEN25_Pos       (25)                                              /*!< RMC_T::APWPROT0: APPROEN25 Position    */
-#define RMC_APWPROT0_APPROEN25_Msk       (0x1ul << RMC_APWPROT0_APPROEN25_Pos)             /*!< RMC_T::APWPROT0: APPROEN25 Mask        */
+#define RMC_APWPROT0_APPROEN25_Msk       (0x1UL << RMC_APWPROT0_APPROEN25_Pos)             /*!< RMC_T::APWPROT0: APPROEN25 Mask        */
 
 #define RMC_APWPROT0_APPROEN26_Pos       (26)                                              /*!< RMC_T::APWPROT0: APPROEN26 Position    */
-#define RMC_APWPROT0_APPROEN26_Msk       (0x1ul << RMC_APWPROT0_APPROEN26_Pos)             /*!< RMC_T::APWPROT0: APPROEN26 Mask        */
+#define RMC_APWPROT0_APPROEN26_Msk       (0x1UL << RMC_APWPROT0_APPROEN26_Pos)             /*!< RMC_T::APWPROT0: APPROEN26 Mask        */
 
 #define RMC_APWPROT0_APPROEN27_Pos       (27)                                              /*!< RMC_T::APWPROT0: APPROEN27 Position    */
-#define RMC_APWPROT0_APPROEN27_Msk       (0x1ul << RMC_APWPROT0_APPROEN27_Pos)             /*!< RMC_T::APWPROT0: APPROEN27 Mask        */
+#define RMC_APWPROT0_APPROEN27_Msk       (0x1UL << RMC_APWPROT0_APPROEN27_Pos)             /*!< RMC_T::APWPROT0: APPROEN27 Mask        */
 
 #define RMC_APWPROT0_APPROEN28_Pos       (28)                                              /*!< RMC_T::APWPROT0: APPROEN28 Position    */
-#define RMC_APWPROT0_APPROEN28_Msk       (0x1ul << RMC_APWPROT0_APPROEN28_Pos)             /*!< RMC_T::APWPROT0: APPROEN28 Mask        */
+#define RMC_APWPROT0_APPROEN28_Msk       (0x1UL << RMC_APWPROT0_APPROEN28_Pos)             /*!< RMC_T::APWPROT0: APPROEN28 Mask        */
 
 #define RMC_APWPROT0_APPROEN29_Pos       (29)                                              /*!< RMC_T::APWPROT0: APPROEN29 Position    */
-#define RMC_APWPROT0_APPROEN29_Msk       (0x1ul << RMC_APWPROT0_APPROEN29_Pos)             /*!< RMC_T::APWPROT0: APPROEN29 Mask        */
+#define RMC_APWPROT0_APPROEN29_Msk       (0x1UL << RMC_APWPROT0_APPROEN29_Pos)             /*!< RMC_T::APWPROT0: APPROEN29 Mask        */
 
 #define RMC_APWPROT0_APPROEN30_Pos       (30)                                              /*!< RMC_T::APWPROT0: APPROEN30 Position    */
-#define RMC_APWPROT0_APPROEN30_Msk       (0x1ul << RMC_APWPROT0_APPROEN30_Pos)             /*!< RMC_T::APWPROT0: APPROEN30 Mask        */
+#define RMC_APWPROT0_APPROEN30_Msk       (0x1UL << RMC_APWPROT0_APPROEN30_Pos)             /*!< RMC_T::APWPROT0: APPROEN30 Mask        */
 
 #define RMC_APWPROT0_APPROEN31_Pos       (31)                                              /*!< RMC_T::APWPROT0: APPROEN31 Position    */
-#define RMC_APWPROT0_APPROEN31_Msk       (0x1ul << RMC_APWPROT0_APPROEN31_Pos)             /*!< RMC_T::APWPROT0: APPROEN31 Mask        */
+#define RMC_APWPROT0_APPROEN31_Msk       (0x1UL << RMC_APWPROT0_APPROEN31_Pos)             /*!< RMC_T::APWPROT0: APPROEN31 Mask        */
 
 #define RMC_APWPROT1_APPROEN32_Pos       (0)                                               /*!< RMC_T::APWPROT1: APPROEN32 Position    */
-#define RMC_APWPROT1_APPROEN32_Msk       (0x1ul << RMC_APWPROT1_APPROEN32_Pos)             /*!< RMC_T::APWPROT1: APPROEN32 Mask        */
+#define RMC_APWPROT1_APPROEN32_Msk       (0x1UL << RMC_APWPROT1_APPROEN32_Pos)             /*!< RMC_T::APWPROT1: APPROEN32 Mask        */
 
 #define RMC_APWPROT1_APPROEN33_Pos       (1)                                               /*!< RMC_T::APWPROT1: APPROEN33 Position    */
-#define RMC_APWPROT1_APPROEN33_Msk       (0x1ul << RMC_APWPROT1_APPROEN33_Pos)             /*!< RMC_T::APWPROT1: APPROEN33 Mask        */
+#define RMC_APWPROT1_APPROEN33_Msk       (0x1UL << RMC_APWPROT1_APPROEN33_Pos)             /*!< RMC_T::APWPROT1: APPROEN33 Mask        */
 
 #define RMC_APWPROT1_APPROEN34_Pos       (2)                                               /*!< RMC_T::APWPROT1: APPROEN34 Position    */
-#define RMC_APWPROT1_APPROEN34_Msk       (0x1ul << RMC_APWPROT1_APPROEN34_Pos)             /*!< RMC_T::APWPROT1: APPROEN34 Mask        */
+#define RMC_APWPROT1_APPROEN34_Msk       (0x1UL << RMC_APWPROT1_APPROEN34_Pos)             /*!< RMC_T::APWPROT1: APPROEN34 Mask        */
 
 #define RMC_APWPROT1_APPROEN35_Pos       (3)                                               /*!< RMC_T::APWPROT1: APPROEN35 Position    */
-#define RMC_APWPROT1_APPROEN35_Msk       (0x1ul << RMC_APWPROT1_APPROEN35_Pos)             /*!< RMC_T::APWPROT1: APPROEN35 Mask        */
+#define RMC_APWPROT1_APPROEN35_Msk       (0x1UL << RMC_APWPROT1_APPROEN35_Pos)             /*!< RMC_T::APWPROT1: APPROEN35 Mask        */
 
 #define RMC_APWPROT1_APPROEN36_Pos       (4)                                               /*!< RMC_T::APWPROT1: APPROEN36 Position    */
-#define RMC_APWPROT1_APPROEN36_Msk       (0x1ul << RMC_APWPROT1_APPROEN36_Pos)             /*!< RMC_T::APWPROT1: APPROEN36 Mask        */
+#define RMC_APWPROT1_APPROEN36_Msk       (0x1UL << RMC_APWPROT1_APPROEN36_Pos)             /*!< RMC_T::APWPROT1: APPROEN36 Mask        */
 
 #define RMC_APWPROT1_APPROEN37_Pos       (5)                                               /*!< RMC_T::APWPROT1: APPROEN37 Position    */
-#define RMC_APWPROT1_APPROEN37_Msk       (0x1ul << RMC_APWPROT1_APPROEN37_Pos)             /*!< RMC_T::APWPROT1: APPROEN37 Mask        */
+#define RMC_APWPROT1_APPROEN37_Msk       (0x1UL << RMC_APWPROT1_APPROEN37_Pos)             /*!< RMC_T::APWPROT1: APPROEN37 Mask        */
 
 #define RMC_APWPROT1_APPROEN38_Pos       (6)                                               /*!< RMC_T::APWPROT1: APPROEN38 Position    */
-#define RMC_APWPROT1_APPROEN38_Msk       (0x1ul << RMC_APWPROT1_APPROEN38_Pos)             /*!< RMC_T::APWPROT1: APPROEN38 Mask        */
+#define RMC_APWPROT1_APPROEN38_Msk       (0x1UL << RMC_APWPROT1_APPROEN38_Pos)             /*!< RMC_T::APWPROT1: APPROEN38 Mask        */
 
 #define RMC_APWPROT1_APPROEN39_Pos       (7)                                               /*!< RMC_T::APWPROT1: APPROEN39 Position    */
-#define RMC_APWPROT1_APPROEN39_Msk       (0x1ul << RMC_APWPROT1_APPROEN39_Pos)             /*!< RMC_T::APWPROT1: APPROEN39 Mask        */
+#define RMC_APWPROT1_APPROEN39_Msk       (0x1UL << RMC_APWPROT1_APPROEN39_Pos)             /*!< RMC_T::APWPROT1: APPROEN39 Mask        */
 
 #define RMC_APWPROT1_APPROEN40_Pos       (8)                                               /*!< RMC_T::APWPROT1: APPROEN40 Position    */
-#define RMC_APWPROT1_APPROEN40_Msk       (0x1ul << RMC_APWPROT1_APPROEN40_Pos)             /*!< RMC_T::APWPROT1: APPROEN40 Mask        */
+#define RMC_APWPROT1_APPROEN40_Msk       (0x1UL << RMC_APWPROT1_APPROEN40_Pos)             /*!< RMC_T::APWPROT1: APPROEN40 Mask        */
 
 #define RMC_APWPROT1_APPROEN41_Pos       (9)                                               /*!< RMC_T::APWPROT1: APPROEN41 Position    */
-#define RMC_APWPROT1_APPROEN41_Msk       (0x1ul << RMC_APWPROT1_APPROEN41_Pos)             /*!< RMC_T::APWPROT1: APPROEN41 Mask        */
+#define RMC_APWPROT1_APPROEN41_Msk       (0x1UL << RMC_APWPROT1_APPROEN41_Pos)             /*!< RMC_T::APWPROT1: APPROEN41 Mask        */
 
 #define RMC_APWPROT1_APPROEN42_Pos       (10)                                              /*!< RMC_T::APWPROT1: APPROEN42 Position    */
-#define RMC_APWPROT1_APPROEN42_Msk       (0x1ul << RMC_APWPROT1_APPROEN42_Pos)             /*!< RMC_T::APWPROT1: APPROEN42 Mask        */
+#define RMC_APWPROT1_APPROEN42_Msk       (0x1UL << RMC_APWPROT1_APPROEN42_Pos)             /*!< RMC_T::APWPROT1: APPROEN42 Mask        */
 
 #define RMC_APWPROT1_APPROEN43_Pos       (11)                                              /*!< RMC_T::APWPROT1: APPROEN43 Position    */
-#define RMC_APWPROT1_APPROEN43_Msk       (0x1ul << RMC_APWPROT1_APPROEN43_Pos)             /*!< RMC_T::APWPROT1: APPROEN43 Mask        */
+#define RMC_APWPROT1_APPROEN43_Msk       (0x1UL << RMC_APWPROT1_APPROEN43_Pos)             /*!< RMC_T::APWPROT1: APPROEN43 Mask        */
 
 #define RMC_APWPROT1_APPROEN44_Pos       (12)                                              /*!< RMC_T::APWPROT1: APPROEN44 Position    */
-#define RMC_APWPROT1_APPROEN44_Msk       (0x1ul << RMC_APWPROT1_APPROEN44_Pos)             /*!< RMC_T::APWPROT1: APPROEN44 Mask        */
+#define RMC_APWPROT1_APPROEN44_Msk       (0x1UL << RMC_APWPROT1_APPROEN44_Pos)             /*!< RMC_T::APWPROT1: APPROEN44 Mask        */
 
 #define RMC_APWPROT1_APPROEN45_Pos       (13)                                              /*!< RMC_T::APWPROT1: APPROEN45 Position    */
-#define RMC_APWPROT1_APPROEN45_Msk       (0x1ul << RMC_APWPROT1_APPROEN45_Pos)             /*!< RMC_T::APWPROT1: APPROEN45 Mask        */
+#define RMC_APWPROT1_APPROEN45_Msk       (0x1UL << RMC_APWPROT1_APPROEN45_Pos)             /*!< RMC_T::APWPROT1: APPROEN45 Mask        */
 
 #define RMC_APWPROT1_APPROEN46_Pos       (14)                                              /*!< RMC_T::APWPROT1: APPROEN46 Position    */
-#define RMC_APWPROT1_APPROEN46_Msk       (0x1ul << RMC_APWPROT1_APPROEN46_Pos)             /*!< RMC_T::APWPROT1: APPROEN46 Mask        */
+#define RMC_APWPROT1_APPROEN46_Msk       (0x1UL << RMC_APWPROT1_APPROEN46_Pos)             /*!< RMC_T::APWPROT1: APPROEN46 Mask        */
 
 #define RMC_APWPROT1_APPROEN47_Pos       (15)                                              /*!< RMC_T::APWPROT1: APPROEN47 Position    */
-#define RMC_APWPROT1_APPROEN47_Msk       (0x1ul << RMC_APWPROT1_APPROEN47_Pos)             /*!< RMC_T::APWPROT1: APPROEN47 Mask        */
+#define RMC_APWPROT1_APPROEN47_Msk       (0x1UL << RMC_APWPROT1_APPROEN47_Pos)             /*!< RMC_T::APWPROT1: APPROEN47 Mask        */
 
 #define RMC_APWPROT1_APPROEN48_Pos       (16)                                              /*!< RMC_T::APWPROT1: APPROEN48 Position    */
-#define RMC_APWPROT1_APPROEN48_Msk       (0x1ul << RMC_APWPROT1_APPROEN48_Pos)             /*!< RMC_T::APWPROT1: APPROEN48 Mask        */
+#define RMC_APWPROT1_APPROEN48_Msk       (0x1UL << RMC_APWPROT1_APPROEN48_Pos)             /*!< RMC_T::APWPROT1: APPROEN48 Mask        */
 
 #define RMC_APWPROT1_APPROEN49_Pos       (17)                                              /*!< RMC_T::APWPROT1: APPROEN49 Position    */
-#define RMC_APWPROT1_APPROEN49_Msk       (0x1ul << RMC_APWPROT1_APPROEN49_Pos)             /*!< RMC_T::APWPROT1: APPROEN49 Mask        */
+#define RMC_APWPROT1_APPROEN49_Msk       (0x1UL << RMC_APWPROT1_APPROEN49_Pos)             /*!< RMC_T::APWPROT1: APPROEN49 Mask        */
 
 #define RMC_APWPROT1_APPROEN50_Pos       (18)                                              /*!< RMC_T::APWPROT1: APPROEN50 Position    */
-#define RMC_APWPROT1_APPROEN50_Msk       (0x1ul << RMC_APWPROT1_APPROEN50_Pos)             /*!< RMC_T::APWPROT1: APPROEN50 Mask        */
+#define RMC_APWPROT1_APPROEN50_Msk       (0x1UL << RMC_APWPROT1_APPROEN50_Pos)             /*!< RMC_T::APWPROT1: APPROEN50 Mask        */
 
 #define RMC_APWPROT1_APPROEN51_Pos       (19)                                              /*!< RMC_T::APWPROT1: APPROEN51 Position    */
-#define RMC_APWPROT1_APPROEN51_Msk       (0x1ul << RMC_APWPROT1_APPROEN51_Pos)             /*!< RMC_T::APWPROT1: APPROEN51 Mask        */
+#define RMC_APWPROT1_APPROEN51_Msk       (0x1UL << RMC_APWPROT1_APPROEN51_Pos)             /*!< RMC_T::APWPROT1: APPROEN51 Mask        */
 
 #define RMC_APWPROT1_APPROEN52_Pos       (20)                                              /*!< RMC_T::APWPROT1: APPROEN52 Position    */
-#define RMC_APWPROT1_APPROEN52_Msk       (0x1ul << RMC_APWPROT1_APPROEN52_Pos)             /*!< RMC_T::APWPROT1: APPROEN52 Mask        */
+#define RMC_APWPROT1_APPROEN52_Msk       (0x1UL << RMC_APWPROT1_APPROEN52_Pos)             /*!< RMC_T::APWPROT1: APPROEN52 Mask        */
 
 #define RMC_APWPROT1_APPROEN53_Pos       (21)                                              /*!< RMC_T::APWPROT1: APPROEN53 Position    */
-#define RMC_APWPROT1_APPROEN53_Msk       (0x1ul << RMC_APWPROT1_APPROEN53_Pos)             /*!< RMC_T::APWPROT1: APPROEN53 Mask        */
+#define RMC_APWPROT1_APPROEN53_Msk       (0x1UL << RMC_APWPROT1_APPROEN53_Pos)             /*!< RMC_T::APWPROT1: APPROEN53 Mask        */
 
 #define RMC_APWPROT1_APPROEN54_Pos       (22)                                              /*!< RMC_T::APWPROT1: APPROEN54 Position    */
-#define RMC_APWPROT1_APPROEN54_Msk       (0x1ul << RMC_APWPROT1_APPROEN54_Pos)             /*!< RMC_T::APWPROT1: APPROEN54 Mask        */
+#define RMC_APWPROT1_APPROEN54_Msk       (0x1UL << RMC_APWPROT1_APPROEN54_Pos)             /*!< RMC_T::APWPROT1: APPROEN54 Mask        */
 
 #define RMC_APWPROT1_APPROEN55_Pos       (23)                                              /*!< RMC_T::APWPROT1: APPROEN55 Position    */
-#define RMC_APWPROT1_APPROEN55_Msk       (0x1ul << RMC_APWPROT1_APPROEN55_Pos)             /*!< RMC_T::APWPROT1: APPROEN55 Mask        */
+#define RMC_APWPROT1_APPROEN55_Msk       (0x1UL << RMC_APWPROT1_APPROEN55_Pos)             /*!< RMC_T::APWPROT1: APPROEN55 Mask        */
 
 #define RMC_APWPROT1_APPROEN56_Pos       (24)                                              /*!< RMC_T::APWPROT1: APPROEN56 Position    */
-#define RMC_APWPROT1_APPROEN56_Msk       (0x1ul << RMC_APWPROT1_APPROEN56_Pos)             /*!< RMC_T::APWPROT1: APPROEN56 Mask        */
+#define RMC_APWPROT1_APPROEN56_Msk       (0x1UL << RMC_APWPROT1_APPROEN56_Pos)             /*!< RMC_T::APWPROT1: APPROEN56 Mask        */
 
 #define RMC_APWPROT1_APPROEN57_Pos       (25)                                              /*!< RMC_T::APWPROT1: APPROEN57 Position    */
-#define RMC_APWPROT1_APPROEN57_Msk       (0x1ul << RMC_APWPROT1_APPROEN57_Pos)             /*!< RMC_T::APWPROT1: APPROEN57 Mask        */
+#define RMC_APWPROT1_APPROEN57_Msk       (0x1UL << RMC_APWPROT1_APPROEN57_Pos)             /*!< RMC_T::APWPROT1: APPROEN57 Mask        */
 
 #define RMC_APWPROT1_APPROEN58_Pos       (26)                                              /*!< RMC_T::APWPROT1: APPROEN58 Position    */
-#define RMC_APWPROT1_APPROEN58_Msk       (0x1ul << RMC_APWPROT1_APPROEN58_Pos)             /*!< RMC_T::APWPROT1: APPROEN58 Mask        */
+#define RMC_APWPROT1_APPROEN58_Msk       (0x1UL << RMC_APWPROT1_APPROEN58_Pos)             /*!< RMC_T::APWPROT1: APPROEN58 Mask        */
 
 #define RMC_APWPROT1_APPROEN59_Pos       (27)                                              /*!< RMC_T::APWPROT1: APPROEN59 Position    */
-#define RMC_APWPROT1_APPROEN59_Msk       (0x1ul << RMC_APWPROT1_APPROEN59_Pos)             /*!< RMC_T::APWPROT1: APPROEN59 Mask        */
+#define RMC_APWPROT1_APPROEN59_Msk       (0x1UL << RMC_APWPROT1_APPROEN59_Pos)             /*!< RMC_T::APWPROT1: APPROEN59 Mask        */
 
 #define RMC_APWPROT1_APPROEN60_Pos       (28)                                              /*!< RMC_T::APWPROT1: APPROEN60 Position    */
-#define RMC_APWPROT1_APPROEN60_Msk       (0x1ul << RMC_APWPROT1_APPROEN60_Pos)             /*!< RMC_T::APWPROT1: APPROEN60 Mask        */
+#define RMC_APWPROT1_APPROEN60_Msk       (0x1UL << RMC_APWPROT1_APPROEN60_Pos)             /*!< RMC_T::APWPROT1: APPROEN60 Mask        */
 
 #define RMC_APWPROT1_APPROEN61_Pos       (29)                                              /*!< RMC_T::APWPROT1: APPROEN61 Position    */
-#define RMC_APWPROT1_APPROEN61_Msk       (0x1ul << RMC_APWPROT1_APPROEN61_Pos)             /*!< RMC_T::APWPROT1: APPROEN61 Mask        */
+#define RMC_APWPROT1_APPROEN61_Msk       (0x1UL << RMC_APWPROT1_APPROEN61_Pos)             /*!< RMC_T::APWPROT1: APPROEN61 Mask        */
 
 #define RMC_APWPROT1_APPROEN62_Pos       (30)                                              /*!< RMC_T::APWPROT1: APPROEN62 Position    */
-#define RMC_APWPROT1_APPROEN62_Msk       (0x1ul << RMC_APWPROT1_APPROEN62_Pos)             /*!< RMC_T::APWPROT1: APPROEN62 Mask        */
+#define RMC_APWPROT1_APPROEN62_Msk       (0x1UL << RMC_APWPROT1_APPROEN62_Pos)             /*!< RMC_T::APWPROT1: APPROEN62 Mask        */
 
 #define RMC_APWPROT1_APPROEN63_Pos       (31)                                              /*!< RMC_T::APWPROT1: APPROEN63 Position    */
-#define RMC_APWPROT1_APPROEN63_Msk       (0x1ul << RMC_APWPROT1_APPROEN63_Pos)             /*!< RMC_T::APWPROT1: APPROEN63 Mask        */
+#define RMC_APWPROT1_APPROEN63_Msk       (0x1UL << RMC_APWPROT1_APPROEN63_Pos)             /*!< RMC_T::APWPROT1: APPROEN63 Mask        */
 
 #define RMC_APWPKEEP_APWPKEEP0_Pos       (0)                                               /*!< RMC_T::APWPKEEP: APWPKEEP0 Position    */
-#define RMC_APWPKEEP_APWPKEEP0_Msk       (0xfffful << RMC_APWPKEEP_APWPKEEP0_Pos)          /*!< RMC_T::APWPKEEP: APWPKEEP0 Mask        */
+#define RMC_APWPKEEP_APWPKEEP0_Msk       (0xffffUL << RMC_APWPKEEP_APWPKEEP0_Pos)          /*!< RMC_T::APWPKEEP: APWPKEEP0 Mask        */
 
 #define RMC_APWPKEEP_APWPKEEP1_Pos       (16)                                              /*!< RMC_T::APWPKEEP: APWPKEEP1 Position    */
-#define RMC_APWPKEEP_APWPKEEP1_Msk       (0xfffful << RMC_APWPKEEP_APWPKEEP1_Pos)          /*!< RMC_T::APWPKEEP: APWPKEEP1 Mask        */
+#define RMC_APWPKEEP_APWPKEEP1_Msk       (0xffffUL << RMC_APWPKEEP_APWPKEEP1_Pos)          /*!< RMC_T::APWPKEEP: APWPKEEP1 Mask        */
 
 #define RMC_SCACT_SCACT_Pos              (0)                                               /*!< RMC_T::SCACT: SCACT Position           */
-#define RMC_SCACT_SCACT_Msk              (0x1ul << RMC_SCACT_SCACT_Pos)                    /*!< RMC_T::SCACT: SCACT Mask               */
+#define RMC_SCACT_SCACT_Msk              (0x1UL << RMC_SCACT_SCACT_Pos)                    /*!< RMC_T::SCACT: SCACT Mask               */
 
 /**@}*/ /* RMC_CONST */
 /**@}*/ /* end of RMC register group */

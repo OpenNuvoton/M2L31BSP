@@ -16,11 +16,34 @@
   @{
 */
 
-int32_t g_EADC_i32ErrCode = 0;   /*!< EADC global error code */
+static int32_t g_EADC_i32ErrCode = 0;   /*!< EADC global error code */
 
 /** @addtogroup EADC_EXPORTED_FUNCTIONS EADC Exported Functions
   @{
 */
+
+/* Restrict error code to module scope. */
+/**
+  * @brief      Get the error code of EADC module
+  * @param      None
+  * @return     The error code of EADC module
+  * @details    This function return the error code of EADC module.
+  */
+int32_t EADC_GetErrCode(void)
+{
+    return g_EADC_i32ErrCode;
+}
+
+/**
+  * @brief      Set the error code of EADC module
+  * @param      The error code of EADC module
+  * @return     None
+  * @details    This function set the error code of EADC module.
+  */
+void EADC_SetErrCode(int32_t err)
+{
+    g_EADC_i32ErrCode = err;
+}
 
 /**
   * @brief This function make EADC_module be ready to convert.
@@ -35,7 +58,11 @@ int32_t g_EADC_i32ErrCode = 0;   /*!< EADC global error code */
   */
 void EADC_Open(EADC_T *eadc, uint32_t u32InputMode)
 {
-    uint32_t u32Delay = SystemCoreClock;
+    /*  Defensive check */
+    if (eadc == (EADC_T *) NULL)
+    {
+        return;
+    }
 
     /* select EADC0 as ADC controller, not LPADC0. */
     SYS->IVSCTL &= ~SYS_IVSCTL_ADCCSEL_Msk;
@@ -44,32 +71,46 @@ void EADC_Open(EADC_T *eadc, uint32_t u32InputMode)
     eadc->TEST |= EADC_TEST_DECADD_Msk;
 
     /* Enable EADC Boost mode */
-    outpw(EADC0_BASE+0xFF4, inpw(EADC0_BASE+0xFF4) | BIT1);
+    {
+        /* [MISRA] Avoid casting composite expressions (EADC0_BASE) by using the function argument. */
+        const uintptr_t baseAddr = (uintptr_t)eadc;
+        const uintptr_t boostOff = (uintptr_t)0xFF4UL;
+        const uintptr_t regAddr  = baseAddr + boostOff;
 
-    eadc->CTL &= (~EADC_CTL_DIFFEN_Msk);
+        /* [MISRA] Convert address once (single-object cast) for inpw/outpw interfaces. */
+        const uint32_t regAddr32 = (uint32_t)regAddr;
 
+        const uint32_t regVal = inpw(regAddr32);
+        outpw(regAddr32, (regVal | (1UL << 1UL)));
+    }
+
+    eadc->CTL &= ~EADC_CTL_DIFFEN_Msk;
     eadc->CTL |= (u32InputMode | EADC_CTL_ADCEN_Msk);
 
     /* Do calibration for EADC to decrease the effect of electrical random noise. */
-    if ((eadc->CALSR & EADC_CALSR_CALIF_Msk) == 0)
+    if ((eadc->CALSR & EADC_CALSR_CALIF_Msk) == 0UL)
     {
+        /* Use independent timeout counters for reset and calibration loops. */
+        uint32_t u32DelayReset = (uint32_t)SystemCoreClock;
+        uint32_t u32DelayCal   = (uint32_t)SystemCoreClock;
+
         /* Must reset EADC before EADC calibration */
         EADC_CONV_RESET(eadc);
-        while((eadc->CTL & EADC_CTL_ADCRST_Msk) == EADC_CTL_ADCRST_Msk)
+        while ((eadc->CTL & EADC_CTL_ADCRST_Msk) == EADC_CTL_ADCRST_Msk)
         {
-            if (--u32Delay == 0)
+            if (--u32DelayReset == 0UL)
             {
                 g_EADC_i32ErrCode = EADC_TIMEOUT_ERR;
                 break;
             }
         }
 
-        eadc->CALSR |= EADC_CALSR_CALIF_Msk;        /* Clear Calibration Finish Interrupt Flag */
-        eadc->CALCTL |= EADC_CALCTL_CAL_Msk;        /* Enable Calibration function */
-        u32Delay = SystemCoreClock;
-        while((eadc->CALSR & EADC_CALSR_CALIF_Msk) != EADC_CALSR_CALIF_Msk) /* Wait calibration finish */
+        eadc->CALSR  |= EADC_CALSR_CALIF_Msk;        /* Clear Calibration Finish Interrupt Flag */
+        eadc->CALCTL |= EADC_CALCTL_CAL_Msk;         /* Enable Calibration function */
+
+        while ((eadc->CALSR & EADC_CALSR_CALIF_Msk) != EADC_CALSR_CALIF_Msk) /* Wait calibration finish */
         {
-            if (--u32Delay == 0)
+            if (--u32DelayCal == 0UL)
             {
                 g_EADC_i32ErrCode = EADC_TIMEOUT_ERR;
                 break;
@@ -141,15 +182,19 @@ void EADC_ConfigSampleModule(EADC_T *eadc, \
                              uint32_t u32TriggerSrc, \
                              uint32_t u32Channel)
 {
-    if (u32ModuleNum < 19)
+    if (u32ModuleNum < 19UL)
     {
-        eadc->SCTL[u32ModuleNum] &= ~(EADC_SCTL_EXTFEN_Msk | EADC_SCTL_EXTREN_Msk | EADC_SCTL_TRGSEL_Msk | EADC_SCTL_CHSEL_Msk);
+        eadc->SCTL[u32ModuleNum] &=
+            ~(EADC_SCTL_EXTFEN_Msk | EADC_SCTL_EXTREN_Msk | EADC_SCTL_TRGSEL_Msk | EADC_SCTL_CHSEL_Msk);
         eadc->SCTL[u32ModuleNum] |= (u32TriggerSrc | u32Channel);
     }
     else
     {
-        eadc->SCTL19[u32ModuleNum-19] &= ~(EADC_SCTL_EXTFEN_Msk | EADC_SCTL_EXTREN_Msk | EADC_SCTL_TRGSEL_Msk | EADC_SCTL_CHSEL_Msk);
-        eadc->SCTL19[u32ModuleNum-19] |= (u32TriggerSrc | u32Channel);
+        const uint32_t idx = (u32ModuleNum - 19UL);
+
+        eadc->SCTL19[idx] &=
+            ~(EADC_SCTL_EXTFEN_Msk | EADC_SCTL_EXTREN_Msk | EADC_SCTL_TRGSEL_Msk | EADC_SCTL_CHSEL_Msk);
+        eadc->SCTL19[idx] |= (u32TriggerSrc | u32Channel);
     }
 }
 
@@ -173,15 +218,21 @@ void EADC_SetTriggerDelayTime(EADC_T *eadc, \
                               uint32_t u32TriggerDelayTime, \
                               uint32_t u32DelayClockDivider)
 {
-    if (u32ModuleNum < 19)
+    if (u32ModuleNum < 19UL)
     {
         eadc->SCTL[u32ModuleNum] &= ~(EADC_SCTL_TRGDLYDIV_Msk | EADC_SCTL_TRGDLYCNT_Msk);
-        eadc->SCTL[u32ModuleNum] |= ((u32TriggerDelayTime << EADC_SCTL_TRGDLYCNT_Pos) | u32DelayClockDivider);
+        eadc->SCTL[u32ModuleNum] |=
+            (((u32TriggerDelayTime << EADC_SCTL_TRGDLYCNT_Pos) & EADC_SCTL_TRGDLYCNT_Msk) |
+             (u32DelayClockDivider & EADC_SCTL_TRGDLYDIV_Msk));
     }
     else
     {
-        eadc->SCTL19[u32ModuleNum-19] &= ~(EADC_SCTL_TRGDLYDIV_Msk | EADC_SCTL_TRGDLYCNT_Msk);
-        eadc->SCTL19[u32ModuleNum-19] |= ((u32TriggerDelayTime << EADC_SCTL_TRGDLYCNT_Pos) | u32DelayClockDivider);
+        const uint32_t idx = (u32ModuleNum - 19UL);
+
+        eadc->SCTL19[idx] &= ~(EADC_SCTL_TRGDLYDIV_Msk | EADC_SCTL_TRGDLYCNT_Msk);
+        eadc->SCTL19[idx] |=
+            (((u32TriggerDelayTime << EADC_SCTL_TRGDLYCNT_Pos) & EADC_SCTL_TRGDLYCNT_Msk) |
+             (u32DelayClockDivider & EADC_SCTL_TRGDLYDIV_Msk));
     }
 }
 
@@ -196,15 +247,20 @@ void EADC_SetTriggerDelayTime(EADC_T *eadc, \
   */
 void EADC_SetExtendSampleTime(EADC_T *eadc, uint32_t u32ModuleNum, uint32_t u32ExtendSampleTime)
 {
-    if (u32ModuleNum < 19)
+    if (u32ModuleNum < 19UL)
     {
         eadc->SCTL[u32ModuleNum] &= ~EADC_SCTL_EXTSMPT_Msk;
-        eadc->SCTL[u32ModuleNum] |= (u32ExtendSampleTime << EADC_SCTL_EXTSMPT_Pos);
+        eadc->SCTL[u32ModuleNum] |=
+            ((u32ExtendSampleTime << EADC_SCTL_EXTSMPT_Pos) & EADC_SCTL_EXTSMPT_Msk);
+
     }
     else
     {
-        eadc->SCTL19[u32ModuleNum-19] &= ~EADC_SCTL_EXTSMPT_Msk;
-        eadc->SCTL19[u32ModuleNum-19] |= (u32ExtendSampleTime << EADC_SCTL_EXTSMPT_Pos);
+        const uint32_t idx = (u32ModuleNum - 19UL);
+
+        eadc->SCTL19[idx] &= ~EADC_SCTL_EXTSMPT_Msk;
+        eadc->SCTL19[idx] |=
+            ((u32ExtendSampleTime << EADC_SCTL_EXTSMPT_Pos) & EADC_SCTL_EXTSMPT_Msk);
     }
 }
 

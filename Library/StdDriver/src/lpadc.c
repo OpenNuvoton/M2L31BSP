@@ -16,11 +16,35 @@
   @{
 */
 
-int32_t g_LPADC_i32ErrCode = 0;   /*!< LPADC global error code */
+static int32_t g_LPADC_i32ErrCode = 0;   /*!< LPADC global error code */
 
 /** @addtogroup LPADC_EXPORTED_FUNCTIONS LPADC Exported Functions
   @{
 */
+
+
+/* Restrict error code to module scope. */
+/**
+  * @brief      Get the error code of LPADC module
+  * @param      None
+  * @return     The error code of LPADC module
+  * @details    This function return the error code of LPADC module.
+  */
+int32_t LPADC_GetErrCode(void)
+{
+    return g_LPADC_i32ErrCode;
+}
+
+/**
+  * @brief      Set the error code of LPADC module
+  * @param      The error code of LPADC module
+  * @return     None
+  * @details    This function set the error code of LPADC module.
+  */
+void LPADC_SetErrCode(int32_t err)
+{
+    g_LPADC_i32ErrCode = err;
+}
 
 /**
   * @brief This API configures LPADC module to be ready for convert the input from selected channel
@@ -67,7 +91,7 @@ void LPADC_Open(LPADC_T *lpadc,
     }
 
     /* Do calibration for LPADC to decrease the effect of electrical random noise. */
-    if ((lpadc->ADCALSTS & LPADC_ADCALSTS_CALIF_Msk) == 0)
+    if ((lpadc->ADCALSTS & LPADC_ADCALSTS_CALIF_Msk) == 0UL)
     {
         /* Must reset LPADC before LPADC calibration */
         lpadc->ADCR |= LPADC_ADCR_RESET_Msk;
@@ -107,12 +131,17 @@ void LPADC_Open(LPADC_T *lpadc,
   * @param[in] lpadc The pointer of the specified LPADC module
   * @return None
   */
-void LPADC_Close(LPADC_T *lpadc)
+void LPADC_Close(const LPADC_T *lpadc)
 {
-    SYS_UnlockReg();
+    /* Defensive check for NULL pointer */
+    if (lpadc == (const LPADC_T *)NULL)
+    {
+        return;
+    }
+
     LPSCC->IPRST0 |= (LPSCC_IPRST0_LPADC0RST_Msk);
     LPSCC->IPRST0 &= ~(LPSCC_IPRST0_LPADC0RST_Msk);
-    SYS_LockReg();
+
     return;
 }
 
@@ -146,11 +175,14 @@ void LPADC_EnableHWTrigger(LPADC_T *lpadc,
 
     if(u32Source == LPADC_ADCR_TRGS_STADC)
     {
+        /* STADC trigger use trigger condition parameter */
         lpadc->ADCR = (lpadc->ADCR & ~(LPADC_ADCR_TRGS_Msk | LPADC_ADCR_TRGCOND_Msk)) |
-                      ((u32Source) | (u32Param) | LPADC_ADCR_TRGEN_Msk);
+                      (/* (u32Source) | */  /* [MISRA] Operator '|' with one operand equal to zero is redundant */
+                          (u32Param) | LPADC_ADCR_TRGEN_Msk);
     }
     else
     {
+        /* Other trigger source does NOT use trigger condition parameter */
         lpadc->ADCR = (lpadc->ADCR & ~(LPADC_ADCR_TRGS_Msk | LPADC_ADCR_TRGCOND_Msk)) |
                       ((u32Source) | LPADC_ADCR_TRGEN_Msk);
     }
@@ -184,12 +216,17 @@ void LPADC_DisableHWTrigger(LPADC_T *lpadc)
 void LPADC_EnableInt(LPADC_T *lpadc, uint32_t u32Mask)
 {
     if((u32Mask) & LPADC_ADF_INT)
+    {
         lpadc->ADCR |= LPADC_ADCR_ADIE_Msk;
+    }
     if((u32Mask) & LPADC_CMP0_INT)
+    {
         lpadc->ADCMPR[0] |= LPADC_ADCMPR_CMPIE_Msk;
+    }
     if((u32Mask) & LPADC_CMP1_INT)
+    {
         lpadc->ADCMPR[1] |= LPADC_ADCMPR_CMPIE_Msk;
-
+    }
     return;
 }
 
@@ -207,12 +244,17 @@ void LPADC_EnableInt(LPADC_T *lpadc, uint32_t u32Mask)
 void LPADC_DisableInt(LPADC_T *lpadc, uint32_t u32Mask)
 {
     if((u32Mask) & LPADC_ADF_INT)
+    {
         lpadc->ADCR &= ~LPADC_ADCR_ADIE_Msk;
+    }
     if((u32Mask) & LPADC_CMP0_INT)
+    {
         lpadc->ADCMPR[0] &= ~LPADC_ADCMPR_CMPIE_Msk;
+    }
     if((u32Mask) & LPADC_CMP1_INT)
+    {
         lpadc->ADCMPR[1] &= ~LPADC_ADCMPR_CMPIE_Msk;
-
+    }
     return;
 }
 
@@ -227,8 +269,19 @@ void LPADC_DisableInt(LPADC_T *lpadc, uint32_t u32Mask)
   */
 void LPADC_SetExtendSampleTime(LPADC_T *lpadc, uint32_t u32ModuleNum, uint32_t u32ExtendSampleTime)
 {
-    lpadc->ESMPCTL = (lpadc->ESMPCTL & ~LPADC_ESMPCTL_EXTSMPT_Msk) |
-                     (u32ExtendSampleTime << LPADC_ESMPCTL_EXTSMPT_Pos);
+    /* [MISRA] Explicitly mark unused parameter to satisfy MISRA rule. */
+    (void)u32ModuleNum;
+
+    /* Defensive check for NULL pointer. */
+    if (lpadc == (const LPADC_T *)NULL)
+    {
+        return;
+    }
+
+    /* Set extend sample time. */
+    lpadc->ESMPCTL =
+        (lpadc->ESMPCTL & ~LPADC_ESMPCTL_EXTSMPT_Msk) |
+        ((u32ExtendSampleTime << LPADC_ESMPCTL_EXTSMPT_Pos) & LPADC_ESMPCTL_EXTSMPT_Msk);
 }
 
 /**
@@ -256,11 +309,14 @@ void LPADC_SelectAutoOperationMode(LPADC_T *lpadc, uint32_t u32TrigSel)
     lpadc->AUTOCTL &= ~(LPADC_AUTOCTL_AUTOEN_Msk);
 
     if (u32TrigSel == LPADC_AUTOCTL_TRIGSEL_SOFTWARE)
+    {
         lpadc->AUTOCTL = (lpadc->AUTOCTL & ~(LPADC_AUTOCTL_TRIGSEL_Msk | LPADC_AUTOCTL_TRIGEN_Msk));
+    }
     else
+    {
         lpadc->AUTOCTL = (lpadc->AUTOCTL & ~(LPADC_AUTOCTL_TRIGSEL_Msk | LPADC_AUTOCTL_TRIGEN_Msk)) |
                          (u32TrigSel | LPADC_AUTOCTL_TRIGEN_Msk);
-
+    }
     /* Automatic Operation Mode Enable */
     lpadc->AUTOCTL |= LPADC_AUTOCTL_AUTOEN_Msk;
 }

@@ -90,12 +90,6 @@ static uint32_t ulTimerCountsForOneTick = 0;
 
 extern void PowerDownFunction(void);
 
-#define RTC_TIME_HZCNT_Pos               (24)                                              /*!< RTC_T::TIME: HZCNT Position            */
-#define RTC_TIME_HZCNT_Msk               (0x7ful << RTC_TIME_HZCNT_Pos)                    /*!< RTC_T::TIME: HZCNT Mask                */
-
-#define RTC_TALM_HZCNT_Pos               (24)                                              /*!< RTC_T::TALM: HZCNT Position            */
-#define RTC_TALM_HZCNT_Msk               (0x7ful << RTC_TALM_HZCNT_Pos)                    /*!< RTC_T::TALM: HZCNT Mask                */
-
 static void TimeAdd(S_RTC_TIME_DATA_T *t, volatile uint32_t *pu32RtcTicks, uint32_t u32rtcTicks)
 {
     uint32_t h, m, s, tick;

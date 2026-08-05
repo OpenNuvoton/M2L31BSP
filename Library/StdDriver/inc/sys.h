@@ -9,6 +9,8 @@
 #ifndef __SYS_H__
 #define __SYS_H__
 
+#include "NuMicro.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -31,74 +33,74 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 /*  Module Reset Control Resister constant definitions.                                                    */
 /*---------------------------------------------------------------------------------------------------------*/
-#define CHIP_RST        ((0UL<<24) | SYS_IPRST0_CHIPRST_Pos)        /*!< Reset CHIP \hideinitializer    */
-#define CPU_RST         ((0UL<<24) | SYS_IPRST0_CPURST_Pos)         /*!< Reset CPU \hideinitializer     */
-#define PDMA0_RST       ((0UL<<24) | SYS_IPRST0_PDMA0RST_Pos)       /*!< Reset PDMA0 \hideinitializer   */
-#define EBI_RST         ((0UL<<24) | SYS_IPRST0_EBIRST_Pos)         /*!< Reset EBI \hideinitializer     */
-#define USBH_RST        ((0UL<<24) | SYS_IPRST0_USBHRST_Pos)        /*!< Reset USBH \hideinitializer    */
-#define CRC_RST         ((0UL<<24) | SYS_IPRST0_CRCRST_Pos)         /*!< Reset CRC \hideinitializer     */
-#define CRPT_RST        ((0UL<<24) | SYS_IPRST0_CRPTRST_Pos)        /*!< Reset CRPT \hideinitializer    */
-#define CANFD0_RST      ((0UL<<24) | SYS_IPRST0_CANFD0RST_Pos)      /*!< Reset CANFD0 \hideinitializer  */
-#define CANFD1_RST      ((0UL<<24) | SYS_IPRST0_CANFD1RST_Pos)      /*!< Reset CANFD1 \hideinitializer  */
+#define CHIP_RST        (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_CHIPRST_Pos)        /*!< Reset CHIP \hideinitializer    */
+#define CPU_RST         (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_CPURST_Pos)         /*!< Reset CPU \hideinitializer     */
+#define PDMA0_RST       (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_PDMA0RST_Pos)       /*!< Reset PDMA0 \hideinitializer   */
+#define EBI_RST         (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_EBIRST_Pos)         /*!< Reset EBI \hideinitializer     */
+#define USBH_RST        (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_USBHRST_Pos)        /*!< Reset USBH \hideinitializer    */
+#define CRC_RST         (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_CRCRST_Pos)         /*!< Reset CRC \hideinitializer     */
+#define CRPT_RST        (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_CRPTRST_Pos)        /*!< Reset CRPT \hideinitializer    */
+#define CANFD0_RST      (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_CANFD0RST_Pos)      /*!< Reset CANFD0 \hideinitializer  */
+#define CANFD1_RST      (((uint32_t)0UL<<24) | (uint32_t)SYS_IPRST0_CANFD1RST_Pos)      /*!< Reset CANFD1 \hideinitializer  */
 
-#define GPIO_RST        ((4UL<<24) | SYS_IPRST1_GPIORST_Pos)        /*!< Reset GPIO \hideinitializer    */
-#define TMR0_RST        ((4UL<<24) | SYS_IPRST1_TMR0RST_Pos)        /*!< Reset TMR0 \hideinitializer    */
-#define TMR1_RST        ((4UL<<24) | SYS_IPRST1_TMR1RST_Pos)        /*!< Reset TMR1 \hideinitializer    */
-#define TMR2_RST        ((4UL<<24) | SYS_IPRST1_TMR2RST_Pos)        /*!< Reset TMR2 \hideinitializer    */
-#define TMR3_RST        ((4UL<<24) | SYS_IPRST1_TMR3RST_Pos)        /*!< Reset TMR3 \hideinitializer    */
-#define ACMP01_RST      ((4UL<<24) | SYS_IPRST1_ACMP01RST_Pos)      /*!< Reset ACMP01 \hideinitializer  */
-#define I2C0_RST        ((4UL<<24) | SYS_IPRST1_I2C0RST_Pos)        /*!< Reset I2C0 \hideinitializer    */
-#define I2C1_RST        ((4UL<<24) | SYS_IPRST1_I2C1RST_Pos)        /*!< Reset I2C1 \hideinitializer    */
-#define I2C2_RST        ((4UL<<24) | SYS_IPRST1_I2C2RST_Pos)        /*!< Reset I2C2 \hideinitializer    */
-#define I2C3_RST        ((4UL<<24) | SYS_IPRST1_I2C3RST_Pos)        /*!< Reset I2C3 \hideinitializer    */
-#define QSPI0_RST       ((4UL<<24) | SYS_IPRST1_QSPI0RST_Pos)       /*!< Reset QSPI0 \hideinitializer   */
-#define SPI0_RST        ((4UL<<24) | SYS_IPRST1_SPI0RST_Pos)        /*!< Reset SPI0 \hideinitializer    */
-#define SPI1_RST        ((4UL<<24) | SYS_IPRST1_SPI1RST_Pos)        /*!< Reset SPI1 \hideinitializer    */
-#define SPI2_RST        ((4UL<<24) | SYS_IPRST1_SPI2RST_Pos)        /*!< Reset SPI2 \hideinitializer    */
-#define UART0_RST       ((4UL<<24) | SYS_IPRST1_UART0RST_Pos)       /*!< Reset UART0 \hideinitializer   */
-#define UART1_RST       ((4UL<<24) | SYS_IPRST1_UART1RST_Pos)       /*!< Reset UART1 \hideinitializer   */
-#define UART2_RST       ((4UL<<24) | SYS_IPRST1_UART2RST_Pos)       /*!< Reset UART2 \hideinitializer   */
-#define UART3_RST       ((4UL<<24) | SYS_IPRST1_UART3RST_Pos)       /*!< Reset UART3 \hideinitializer   */
-#define UART4_RST       ((4UL<<24) | SYS_IPRST1_UART4RST_Pos)       /*!< Reset UART4 \hideinitializer   */
-#define UART5_RST       ((4UL<<24) | SYS_IPRST1_UART5RST_Pos)       /*!< Reset UART5 \hideinitializer   */
-#define UART6_RST       ((4UL<<24) | SYS_IPRST1_UART6RST_Pos)       /*!< Reset UART6 \hideinitializer   */
-#define UART7_RST       ((4UL<<24) | SYS_IPRST1_UART7RST_Pos)       /*!< Reset UART7 \hideinitializer   */
-#define OTG_RST         ((4UL<<24) | SYS_IPRST1_OTGRST_Pos)         /*!< Reset OTG \hideinitializer     */
-#define USBD_RST        ((4UL<<24) | SYS_IPRST1_USBDRST_Pos)        /*!< Reset USBD \hideinitializer    */
-#define EADC0_RST       ((4UL<<24) | SYS_IPRST1_EADC0RST_Pos)       /*!< Reset EADC0 \hideinitializer   */
-#define TRNG_RST        ((4UL<<24) | SYS_IPRST1_TRNGRST_Pos)        /*!< Reset TRNG \hideinitializer    */
+#define GPIO_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_GPIORST_Pos)        /*!< Reset GPIO \hideinitializer    */
+#define TMR0_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_TMR0RST_Pos)        /*!< Reset TMR0 \hideinitializer    */
+#define TMR1_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_TMR1RST_Pos)        /*!< Reset TMR1 \hideinitializer    */
+#define TMR2_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_TMR2RST_Pos)        /*!< Reset TMR2 \hideinitializer    */
+#define TMR3_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_TMR3RST_Pos)        /*!< Reset TMR3 \hideinitializer    */
+#define ACMP01_RST      (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_ACMP01RST_Pos)      /*!< Reset ACMP01 \hideinitializer  */
+#define I2C0_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_I2C0RST_Pos)        /*!< Reset I2C0 \hideinitializer    */
+#define I2C1_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_I2C1RST_Pos)        /*!< Reset I2C1 \hideinitializer    */
+#define I2C2_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_I2C2RST_Pos)        /*!< Reset I2C2 \hideinitializer    */
+#define I2C3_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_I2C3RST_Pos)        /*!< Reset I2C3 \hideinitializer    */
+#define QSPI0_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_QSPI0RST_Pos)       /*!< Reset QSPI0 \hideinitializer   */
+#define SPI0_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_SPI0RST_Pos)        /*!< Reset SPI0 \hideinitializer    */
+#define SPI1_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_SPI1RST_Pos)        /*!< Reset SPI1 \hideinitializer    */
+#define SPI2_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_SPI2RST_Pos)        /*!< Reset SPI2 \hideinitializer    */
+#define UART0_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_UART0RST_Pos)       /*!< Reset UART0 \hideinitializer   */
+#define UART1_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_UART1RST_Pos)       /*!< Reset UART1 \hideinitializer   */
+#define UART2_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_UART2RST_Pos)       /*!< Reset UART2 \hideinitializer   */
+#define UART3_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_UART3RST_Pos)       /*!< Reset UART3 \hideinitializer   */
+#define UART4_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_UART4RST_Pos)       /*!< Reset UART4 \hideinitializer   */
+#define UART5_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_UART5RST_Pos)       /*!< Reset UART5 \hideinitializer   */
+#define UART6_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_UART6RST_Pos)       /*!< Reset UART6 \hideinitializer   */
+#define UART7_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_UART7RST_Pos)       /*!< Reset UART7 \hideinitializer   */
+#define OTG_RST         (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_OTGRST_Pos)         /*!< Reset OTG \hideinitializer     */
+#define USBD_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_USBDRST_Pos)        /*!< Reset USBD \hideinitializer    */
+#define EADC0_RST       (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_EADC0RST_Pos)       /*!< Reset EADC0 \hideinitializer   */
+#define TRNG_RST        (((uint32_t)4UL<<24) | (uint32_t)SYS_IPRST1_TRNGRST_Pos)        /*!< Reset TRNG \hideinitializer    */
 
-#define SPI3_RST        ((8UL<<24) | SYS_IPRST2_SPI3RST_Pos)        /*!< Reset SPI3 \hideinitializer    */
-#define USCI0_RST       ((8UL<<24) | SYS_IPRST2_USCI0RST_Pos)       /*!< Reset USCI0 \hideinitializer   */
-#define USCI1_RST       ((8UL<<24) | SYS_IPRST2_USCI1RST_Pos)       /*!< Reset USCI1 \hideinitializer   */
-#define WWDT_RST        ((8UL<<24) | SYS_IPRST2_WWDTRST_Pos)        /*!< Reset WWDT \hideinitializer    */
-#define DAC_RST         ((8UL<<24) | SYS_IPRST2_DACRST_Pos)         /*!< Reset DAC \hideinitializer     */
-#define EPWM0_RST       ((8UL<<24) | SYS_IPRST2_EPWM0RST_Pos)       /*!< Reset EPWM0 \hideinitializer   */
-#define EPWM1_RST       ((8UL<<24) | SYS_IPRST2_EPWM1RST_Pos)       /*!< Reset EPWM1 \hideinitializer   */
-#define EQEI0_RST       ((8UL<<24) | SYS_IPRST2_EQEI0RST_Pos)       /*!< Reset EQEI0 \hideinitializer   */
-#define EQEI1_RST       ((8UL<<24) | SYS_IPRST2_EQEI1RST_Pos)       /*!< Reset EQEI1 \hideinitializer   */
-#define TK_RST          ((8UL<<24) | SYS_IPRST2_TKRST_Pos)          /*!< Reset TK \hideinitializer      */
-#define ECAP0_RST       ((8UL<<24) | SYS_IPRST2_ECAP0RST_Pos)       /*!< Reset ECAP0 \hideinitializer   */
-#define ECAP1_RST       ((8UL<<24) | SYS_IPRST2_ECAP1RST_Pos)       /*!< Reset ECAP1 \hideinitializer   */
+#define SPI3_RST        (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_SPI3RST_Pos)        /*!< Reset SPI3 \hideinitializer    */
+#define USCI0_RST       (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_USCI0RST_Pos)       /*!< Reset USCI0 \hideinitializer   */
+#define USCI1_RST       (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_USCI1RST_Pos)       /*!< Reset USCI1 \hideinitializer   */
+#define WWDT_RST        (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_WWDTRST_Pos)        /*!< Reset WWDT \hideinitializer    */
+#define DAC_RST         (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_DACRST_Pos)         /*!< Reset DAC \hideinitializer     */
+#define EPWM0_RST       (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_EPWM0RST_Pos)       /*!< Reset EPWM0 \hideinitializer   */
+#define EPWM1_RST       (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_EPWM1RST_Pos)       /*!< Reset EPWM1 \hideinitializer   */
+#define EQEI0_RST       (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_EQEI0RST_Pos)       /*!< Reset EQEI0 \hideinitializer   */
+#define EQEI1_RST       (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_EQEI1RST_Pos)       /*!< Reset EQEI1 \hideinitializer   */
+#define TK_RST          (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_TKRST_Pos)          /*!< Reset TK \hideinitializer      */
+#define ECAP0_RST       (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_ECAP0RST_Pos)       /*!< Reset ECAP0 \hideinitializer   */
+#define ECAP1_RST       (((uint32_t)8UL<<24) | (uint32_t)SYS_IPRST2_ECAP1RST_Pos)       /*!< Reset ECAP1 \hideinitializer   */
 
-#define ACMP2_RST       ((0x18UL<<24) | SYS_IPRST3_ACMP2RST_Pos)    /*!< Reset ACMP2 \hideinitializer   */
-#define PWM0_RST        ((0x18UL<<24) | SYS_IPRST3_PWM0RST_Pos)     /*!< Reset PWM0 \hideinitializer    */
-#define PWM1_RST        ((0x18UL<<24) | SYS_IPRST3_PWM1RST_Pos)     /*!< Reset PWM1 \hideinitializer    */
-#define UTCPD0_RST      ((0x18UL<<24) | SYS_IPRST3_UTCPD0RST_Pos)   /*!< Reset UTCPD0 \hideinitializer  */
+#define ACMP2_RST       (((uint32_t)0x18UL<<24) | (uint32_t)SYS_IPRST3_ACMP2RST_Pos)    /*!< Reset ACMP2 \hideinitializer   */
+#define PWM0_RST        (((uint32_t)0x18UL<<24) | (uint32_t)SYS_IPRST3_PWM0RST_Pos)     /*!< Reset PWM0 \hideinitializer    */
+#define PWM1_RST        (((uint32_t)0x18UL<<24) | (uint32_t)SYS_IPRST3_PWM1RST_Pos)     /*!< Reset PWM1 \hideinitializer    */
+#define UTCPD0_RST      (((uint32_t)0x18UL<<24) | (uint32_t)SYS_IPRST3_UTCPD0RST_Pos)   /*!< Reset UTCPD0 \hideinitializer  */
 
-#define LPPDMA0_RST     ((0x80UL<<24) | LPSCC_IPRST0_LPPDMA0RST_Pos) /*!< Reset LPPDMA0 \hideinitializer */
-#define LPGPIO_RST      ((0x80UL<<24) | LPSCC_IPRST0_LPGPIORST_Pos) /*!< Reset LPGPIO \hideinitializer  */
-#define LPSRAM_RST      ((0x80UL<<24) | LPSCC_IPRST0_LPSRAMRST_Pos) /*!< Reset LPSRAM \hideinitializer  */
-#define WDT_RST         ((0x80UL<<24) | LPSCC_IPRST0_WDTRST_Pos)    /*!< Reset WDT \hideinitializer     */
-#define LPSPI0_RST      ((0x80UL<<24) | LPSCC_IPRST0_LPSPI0RST_Pos) /*!< Reset LPSPI0 \hideinitializer  */
-#define LPI2C0_RST      ((0x80UL<<24) | LPSCC_IPRST0_LPI2C0RST_Pos) /*!< Reset LPI2C0 \hideinitializer  */
-#define LPUART0_RST     ((0x80UL<<24) | LPSCC_IPRST0_LPUART0RST_Pos) /*!< Reset LPUART0 \hideinitializer */
-#define LPTMR0_RST      ((0x80UL<<24) | LPSCC_IPRST0_LPTMR0RST_Pos) /*!< Reset LPTMR0 \hideinitializer  */
-#define LPTMR1_RST      ((0x80UL<<24) | LPSCC_IPRST0_LPTMR1RST_Pos) /*!< Reset LPTMR1 \hideinitializer  */
-#define TTMR0_RST       ((0x80UL<<24) | LPSCC_IPRST0_TTMR0RST_Pos)  /*!< Reset TTMR0 \hideinitializer   */
-#define TTMR1_RST       ((0x80UL<<24) | LPSCC_IPRST0_TTMR1RST_Pos)  /*!< Reset TTMR1 \hideinitializer   */
-#define LPADC0_RST      ((0x80UL<<24) | LPSCC_IPRST0_LPADC0RST_Pos) /*!< Reset LPADC0 \hideinitializer  */
-#define OPA_RST         ((0x80UL<<24) | LPSCC_IPRST0_OPARST_Pos)    /*!< Reset OPA \hideinitializer     */
+#define LPPDMA0_RST     (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPPDMA0RST_Pos) /*!< Reset LPPDMA0 \hideinitializer */
+#define LPGPIO_RST      (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPGPIORST_Pos) /*!< Reset LPGPIO \hideinitializer  */
+#define LPSRAM_RST      (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPSRAMRST_Pos) /*!< Reset LPSRAM \hideinitializer  */
+#define WDT_RST         (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_WDTRST_Pos)    /*!< Reset WDT \hideinitializer     */
+#define LPSPI0_RST      (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPSPI0RST_Pos) /*!< Reset LPSPI0 \hideinitializer  */
+#define LPI2C0_RST      (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPI2C0RST_Pos) /*!< Reset LPI2C0 \hideinitializer  */
+#define LPUART0_RST     (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPUART0RST_Pos) /*!< Reset LPUART0 \hideinitializer */
+#define LPTMR0_RST      (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPTMR0RST_Pos) /*!< Reset LPTMR0 \hideinitializer  */
+#define LPTMR1_RST      (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPTMR1RST_Pos) /*!< Reset LPTMR1 \hideinitializer  */
+#define TTMR0_RST       (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_TTMR0RST_Pos)  /*!< Reset TTMR0 \hideinitializer   */
+#define TTMR1_RST       (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_TTMR1RST_Pos)  /*!< Reset TTMR1 \hideinitializer   */
+#define LPADC0_RST      (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_LPADC0RST_Pos) /*!< Reset LPADC0 \hideinitializer  */
+#define OPA_RST         (((uint32_t)0x80UL<<24) | (uint32_t)LPSCC_IPRST0_OPARST_Pos)    /*!< Reset OPA \hideinitializer     */
 
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -1575,8 +1577,6 @@ Example 1: If user want to set PA.0 as SC0_CLK in initial function,
 
 /*@}*/ /* end of group SYS_EXPORTED_CONSTANTS */
 
-extern int32_t g_SYS_i32ErrCode;
-
 /** @addtogroup SYS_EXPORTED_FUNCTIONS SYS Exported Functions
   @{
 */
@@ -1789,7 +1789,7 @@ extern int32_t g_SYS_i32ErrCode;
   *             The register write-protection function should be disabled before using this macro.
   * \hideinitializer
   */
-#define SYS_DISABLE_POR()               (SYS->PORDISAN = 0x5AA5)
+#define SYS_DISABLE_POR()               (SYS->PORDISAN = 0x5AA5UL)
 
 /**
   * @brief      Enable Power-on Reset function
@@ -1799,7 +1799,7 @@ extern int32_t g_SYS_i32ErrCode;
   *             The register write-protection function should be disabled before using this macro.
   * \hideinitializer
   */
-#define SYS_ENABLE_POR()               (SYS->PORDISAN = 0)
+#define SYS_ENABLE_POR()               (SYS->PORDISAN = 0UL)
 
 /**
   * @brief      Clear reset source flag
@@ -1824,8 +1824,8 @@ extern int32_t g_SYS_i32ErrCode;
 /* static inline functions                                                                                 */
 /*---------------------------------------------------------------------------------------------------------*/
 /* Declare these inline functions here to avoid MISRA C 2004 rule 8.1 error */
-__STATIC_INLINE void SYS_UnlockReg(void);
-__STATIC_INLINE void SYS_LockReg(void);
+static inline void SYS_UnlockReg(void);
+static inline void SYS_LockReg(void);
 
 /**
   * @brief      Disable register write-protection function
@@ -1834,7 +1834,7 @@ __STATIC_INLINE void SYS_LockReg(void);
   * @details    This function disable register write-protection function.
   *             To unlock the protected register to allow write access.
   */
-__STATIC_INLINE void SYS_UnlockReg(void)
+static inline void SYS_UnlockReg(void)
 {
     do
     {
@@ -1852,7 +1852,7 @@ __STATIC_INLINE void SYS_UnlockReg(void)
   * @details    This function is used to enable register write-protection function.
   *             To lock the protected register to forbid write access.
   */
-__STATIC_INLINE void SYS_LockReg(void)
+static inline void SYS_LockReg(void)
 {
     SYS->REGLCTL = 0UL;
 }
@@ -1871,6 +1871,8 @@ void     SYS_DisableBOD(void);
 int32_t  SYS_SetPowerLevel(uint32_t u32PowerLevel);
 void     SYS_SetVRef(uint32_t u32VRefCTL);
 int32_t  SYS_SetSSRAMPowerMode(uint32_t u32SRAMSel, uint32_t u32PowerMode);
+int32_t SYS_GetErrCode(void);
+void SYS_SetErrCode(int32_t err);
 
 /*@}*/ /* end of group SYS_EXPORTED_FUNCTIONS */
 

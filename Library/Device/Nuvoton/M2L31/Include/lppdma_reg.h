@@ -362,124 +362,124 @@ typedef struct
 @{ */
 
 #define LPPDMA_DSCT_CTL_OPMODE_Pos       (0)                                               /*!< LPDSCT_T::CTL: OPMODE Position         */
-#define LPPDMA_DSCT_CTL_OPMODE_Msk       (0x3ul << LPPDMA_DSCT_CTL_OPMODE_Pos)             /*!< LPDSCT_T::CTL: OPMODE Mask             */
+#define LPPDMA_DSCT_CTL_OPMODE_Msk       (0x3UL << LPPDMA_DSCT_CTL_OPMODE_Pos)             /*!< LPDSCT_T::CTL: OPMODE Mask             */
 
 #define LPPDMA_DSCT_CTL_TXTYPE_Pos       (2)                                               /*!< LPDSCT_T::CTL: TXTYPE Position         */
-#define LPPDMA_DSCT_CTL_TXTYPE_Msk       (0x1ul << LPPDMA_DSCT_CTL_TXTYPE_Pos)             /*!< LPDSCT_T::CTL: TXTYPE Mask             */
+#define LPPDMA_DSCT_CTL_TXTYPE_Msk       (0x1UL << LPPDMA_DSCT_CTL_TXTYPE_Pos)             /*!< LPDSCT_T::CTL: TXTYPE Mask             */
 
 #define LPPDMA_DSCT_CTL_BURSIZE_Pos      (4)                                               /*!< LPDSCT_T::CTL: BURSIZE Position        */
-#define LPPDMA_DSCT_CTL_BURSIZE_Msk      (0x7ul << LPPDMA_DSCT_CTL_BURSIZE_Pos)            /*!< LPDSCT_T::CTL: BURSIZE Mask            */
+#define LPPDMA_DSCT_CTL_BURSIZE_Msk      (0x7UL << LPPDMA_DSCT_CTL_BURSIZE_Pos)            /*!< LPDSCT_T::CTL: BURSIZE Mask            */
 
 #define LPPDMA_DSCT_CTL_TBINTDIS_Pos     (7)                                               /*!< LPDSCT_T::CTL: TBINTDIS Position       */
-#define LPPDMA_DSCT_CTL_TBINTDIS_Msk     (0x1ul << LPPDMA_DSCT_CTL_TBINTDIS_Pos)           /*!< LPDSCT_T::CTL: TBINTDIS Mask           */
+#define LPPDMA_DSCT_CTL_TBINTDIS_Msk     (0x1UL << LPPDMA_DSCT_CTL_TBINTDIS_Pos)           /*!< LPDSCT_T::CTL: TBINTDIS Mask           */
 
 #define LPPDMA_DSCT_CTL_SAINC_Pos        (8)                                               /*!< LPDSCT_T::CTL: SAINC Position          */
-#define LPPDMA_DSCT_CTL_SAINC_Msk        (0x3ul << LPPDMA_DSCT_CTL_SAINC_Pos)              /*!< LPDSCT_T::CTL: SAINC Mask              */
+#define LPPDMA_DSCT_CTL_SAINC_Msk        (0x3UL << LPPDMA_DSCT_CTL_SAINC_Pos)              /*!< LPDSCT_T::CTL: SAINC Mask              */
 
 #define LPPDMA_DSCT_CTL_DAINC_Pos        (10)                                              /*!< LPDSCT_T::CTL: DAINC Position          */
-#define LPPDMA_DSCT_CTL_DAINC_Msk        (0x3ul << LPPDMA_DSCT_CTL_DAINC_Pos)              /*!< LPDSCT_T::CTL: DAINC Mask              */
+#define LPPDMA_DSCT_CTL_DAINC_Msk        (0x3UL << LPPDMA_DSCT_CTL_DAINC_Pos)              /*!< LPDSCT_T::CTL: DAINC Mask              */
 
 #define LPPDMA_DSCT_CTL_TXWIDTH_Pos      (12)                                              /*!< LPDSCT_T::CTL: TXWIDTH Position        */
-#define LPPDMA_DSCT_CTL_TXWIDTH_Msk      (0x3ul << LPPDMA_DSCT_CTL_TXWIDTH_Pos)            /*!< LPDSCT_T::CTL: TXWIDTH Mask            */
+#define LPPDMA_DSCT_CTL_TXWIDTH_Msk      (0x3UL << LPPDMA_DSCT_CTL_TXWIDTH_Pos)            /*!< LPDSCT_T::CTL: TXWIDTH Mask            */
 
 #define LPPDMA_DSCT_CTL_TXCNT_Pos        (16)                                              /*!< LPDSCT_T::CTL: TXCNT Position          */
-#define LPPDMA_DSCT_CTL_TXCNT_Msk        (0xfffful << LPPDMA_DSCT_CTL_TXCNT_Pos)           /*!< LPDSCT_T::CTL: TXCNT Mask              */
+#define LPPDMA_DSCT_CTL_TXCNT_Msk        (0xffffUL << LPPDMA_DSCT_CTL_TXCNT_Pos)           /*!< LPDSCT_T::CTL: TXCNT Mask              */
 
 #define LPPDMA_DSCT_SA_SA_Pos            (0)                                               /*!< LPDSCT_T::SA: SA Position              */
-#define LPPDMA_DSCT_SA_SA_Msk            (0xfffffffful << LPPDMA_DSCT_SA_SA_Pos)           /*!< LPDSCT_T::SA: SA Mask                  */
+#define LPPDMA_DSCT_SA_SA_Msk            (0xffffffffUL << LPPDMA_DSCT_SA_SA_Pos)           /*!< LPDSCT_T::SA: SA Mask                  */
 
 #define LPPDMA_DSCT_DA_DA_Pos            (0)                                               /*!< LPDSCT_T::DA: DA Position              */
-#define LPPDMA_DSCT_DA_DA_Msk            (0xfffffffful << LPPDMA_DSCT_DA_DA_Pos)           /*!< LPDSCT_T::DA: DA Mask                  */
+#define LPPDMA_DSCT_DA_DA_Msk            (0xffffffffUL << LPPDMA_DSCT_DA_DA_Pos)           /*!< LPDSCT_T::DA: DA Mask                  */
 
 #define LPPDMA_DSCT_NEXT_NEXT_Pos        (0)                                               /*!< LPDSCT_T::NEXT: NEXT Position          */
-#define LPPDMA_DSCT_NEXT_NEXT_Msk        (0xfffful << LPPDMA_DSCT_NEXT_NEXT_Pos)           /*!< LPDSCT_T::NEXT: NEXT Mask              */
+#define LPPDMA_DSCT_NEXT_NEXT_Msk        (0xffffUL << LPPDMA_DSCT_NEXT_NEXT_Pos)           /*!< LPDSCT_T::NEXT: NEXT Mask              */
 
 #define LPPDMA_DSCT_NEXT_EXENEXT_Pos     (16)                                              /*!< LPDSCT_T::NEXT: EXENEXT Position       */
-#define LPPDMA_DSCT_NEXT_EXENEXT_Msk     (0xfffful << LPPDMA_DSCT_NEXT_EXENEXT_Pos)        /*!< LPDSCT_T::NEXT: EXENEXT Mask           */
+#define LPPDMA_DSCT_NEXT_EXENEXT_Msk     (0xffffUL << LPPDMA_DSCT_NEXT_EXENEXT_Pos)        /*!< LPDSCT_T::NEXT: EXENEXT Mask           */
 
 #define LPPDMA_CURSCAT_CURADDR_Pos       (0)                                               /*!< LPPDMA_T::CURSCAT: CURADDR Position    */
-#define LPPDMA_CURSCAT_CURADDR_Msk       (0xfffffffful << LPPDMA_CURSCAT_CURADDR_Pos)      /*!< LPPDMA_T::CURSCAT: CURADDR Mask        */
+#define LPPDMA_CURSCAT_CURADDR_Msk       (0xffffffffUL << LPPDMA_CURSCAT_CURADDR_Pos)      /*!< LPPDMA_T::CURSCAT: CURADDR Mask        */
 
 #define LPPDMA_CHCTL_CHENn_Pos           (0)                                               /*!< LPPDMA_T::CHCTL: CHENn Position        */
-#define LPPDMA_CHCTL_CHENn_Msk           (0xful << LPPDMA_CHCTL_CHENn_Pos)                 /*!< LPPDMA_T::CHCTL: CHENn Mask            */
+#define LPPDMA_CHCTL_CHENn_Msk           (0xfUL << LPPDMA_CHCTL_CHENn_Pos)                 /*!< LPPDMA_T::CHCTL: CHENn Mask            */
 
 #define LPPDMA_PAUSE_PAUSEn_Pos          (0)                                               /*!< LPPDMA_T::PAUSE: PAUSEn Position       */
-#define LPPDMA_PAUSE_PAUSEn_Msk          (0xful << LPPDMA_PAUSE_PAUSEn_Pos)                /*!< LPPDMA_T::PAUSE: PAUSEn Mask           */
+#define LPPDMA_PAUSE_PAUSEn_Msk          (0xfUL << LPPDMA_PAUSE_PAUSEn_Pos)                /*!< LPPDMA_T::PAUSE: PAUSEn Mask           */
 
 #define LPPDMA_SWREQ_SWREQn_Pos          (0)                                               /*!< LPPDMA_T::SWREQ: SWREQn Position       */
-#define LPPDMA_SWREQ_SWREQn_Msk          (0xful << LPPDMA_SWREQ_SWREQn_Pos)                /*!< LPPDMA_T::SWREQ: SWREQn Mask           */
+#define LPPDMA_SWREQ_SWREQn_Msk          (0xfUL << LPPDMA_SWREQ_SWREQn_Pos)                /*!< LPPDMA_T::SWREQ: SWREQn Mask           */
 
 #define LPPDMA_TRGSTS_REQSTSn_Pos        (0)                                               /*!< LPPDMA_T::TRGSTS: REQSTSn Position     */
-#define LPPDMA_TRGSTS_REQSTSn_Msk        (0xful << LPPDMA_TRGSTS_REQSTSn_Pos)              /*!< LPPDMA_T::TRGSTS: REQSTSn Mask         */
+#define LPPDMA_TRGSTS_REQSTSn_Msk        (0xfUL << LPPDMA_TRGSTS_REQSTSn_Pos)              /*!< LPPDMA_T::TRGSTS: REQSTSn Mask         */
 
 #define LPPDMA_PRISET_FPRISETn_Pos       (0)                                               /*!< LPPDMA_T::PRISET: FPRISETn Position    */
-#define LPPDMA_PRISET_FPRISETn_Msk       (0xful << LPPDMA_PRISET_FPRISETn_Pos)             /*!< LPPDMA_T::PRISET: FPRISETn Mask        */
+#define LPPDMA_PRISET_FPRISETn_Msk       (0xfUL << LPPDMA_PRISET_FPRISETn_Pos)             /*!< LPPDMA_T::PRISET: FPRISETn Mask        */
 
 #define LPPDMA_PRICLR_FPRICLRn_Pos       (0)                                               /*!< LPPDMA_T::PRICLR: FPRICLRn Position    */
-#define LPPDMA_PRICLR_FPRICLRn_Msk       (0xful << LPPDMA_PRICLR_FPRICLRn_Pos)             /*!< LPPDMA_T::PRICLR: FPRICLRn Mask        */
+#define LPPDMA_PRICLR_FPRICLRn_Msk       (0xfUL << LPPDMA_PRICLR_FPRICLRn_Pos)             /*!< LPPDMA_T::PRICLR: FPRICLRn Mask        */
 
 #define LPPDMA_INTEN_INTENn_Pos          (0)                                               /*!< LPPDMA_T::INTEN: INTENn Position       */
-#define LPPDMA_INTEN_INTENn_Msk          (0xful << LPPDMA_INTEN_INTENn_Pos)                /*!< LPPDMA_T::INTEN: INTENn Mask           */
+#define LPPDMA_INTEN_INTENn_Msk          (0xfUL << LPPDMA_INTEN_INTENn_Pos)                /*!< LPPDMA_T::INTEN: INTENn Mask           */
 
 #define LPPDMA_INTSTS_ABTIF_Pos          (0)                                               /*!< LPPDMA_T::INTSTS: ABTIF Position       */
-#define LPPDMA_INTSTS_ABTIF_Msk          (0x1ul << LPPDMA_INTSTS_ABTIF_Pos)                /*!< LPPDMA_T::INTSTS: ABTIF Mask           */
+#define LPPDMA_INTSTS_ABTIF_Msk          (0x1UL << LPPDMA_INTSTS_ABTIF_Pos)                /*!< LPPDMA_T::INTSTS: ABTIF Mask           */
 
 #define LPPDMA_INTSTS_TDIF_Pos           (1)                                               /*!< LPPDMA_T::INTSTS: TDIF Position        */
-#define LPPDMA_INTSTS_TDIF_Msk           (0x1ul << LPPDMA_INTSTS_TDIF_Pos)                 /*!< LPPDMA_T::INTSTS: TDIF Mask            */
+#define LPPDMA_INTSTS_TDIF_Msk           (0x1UL << LPPDMA_INTSTS_TDIF_Pos)                 /*!< LPPDMA_T::INTSTS: TDIF Mask            */
 
 #define LPPDMA_INTSTS_ALIGNF_Pos         (2)                                               /*!< LPPDMA_T::INTSTS: ALIGNF Position      */
-#define LPPDMA_INTSTS_ALIGNF_Msk         (0x1ul << LPPDMA_INTSTS_ALIGNF_Pos)               /*!< LPPDMA_T::INTSTS: ALIGNF Mask          */
+#define LPPDMA_INTSTS_ALIGNF_Msk         (0x1UL << LPPDMA_INTSTS_ALIGNF_Pos)               /*!< LPPDMA_T::INTSTS: ALIGNF Mask          */
 
 #define LPPDMA_INTSTS_WKF_Pos            (3)                                               /*!< LPPDMA_T::INTSTS: WKF Position         */
-#define LPPDMA_INTSTS_WKF_Msk            (0x1ul << LPPDMA_INTSTS_WKF_Pos)                  /*!< LPPDMA_T::INTSTS: WKF Mask             */
+#define LPPDMA_INTSTS_WKF_Msk            (0x1UL << LPPDMA_INTSTS_WKF_Pos)                  /*!< LPPDMA_T::INTSTS: WKF Mask             */
 
 #define LPPDMA_ABTSTS_ABTIF0_Pos         (0)                                               /*!< LPPDMA_T::ABTSTS: ABTIF0 Position      */
-#define LPPDMA_ABTSTS_ABTIF0_Msk         (0x1ul << LPPDMA_ABTSTS_ABTIF0_Pos)               /*!< LPPDMA_T::ABTSTS: ABTIF0 Mask          */
+#define LPPDMA_ABTSTS_ABTIF0_Msk         (0x1UL << LPPDMA_ABTSTS_ABTIF0_Pos)               /*!< LPPDMA_T::ABTSTS: ABTIF0 Mask          */
 
 #define LPPDMA_ABTSTS_ABTIF1_Pos         (1)                                               /*!< LPPDMA_T::ABTSTS: ABTIF1 Position      */
-#define LPPDMA_ABTSTS_ABTIF1_Msk         (0x1ul << LPPDMA_ABTSTS_ABTIF1_Pos)               /*!< LPPDMA_T::ABTSTS: ABTIF1 Mask          */
+#define LPPDMA_ABTSTS_ABTIF1_Msk         (0x1UL << LPPDMA_ABTSTS_ABTIF1_Pos)               /*!< LPPDMA_T::ABTSTS: ABTIF1 Mask          */
 
 #define LPPDMA_ABTSTS_ABTIF2_Pos         (2)                                               /*!< LPPDMA_T::ABTSTS: ABTIF2 Position      */
-#define LPPDMA_ABTSTS_ABTIF2_Msk         (0x1ul << LPPDMA_ABTSTS_ABTIF2_Pos)               /*!< LPPDMA_T::ABTSTS: ABTIF2 Mask          */
+#define LPPDMA_ABTSTS_ABTIF2_Msk         (0x1UL << LPPDMA_ABTSTS_ABTIF2_Pos)               /*!< LPPDMA_T::ABTSTS: ABTIF2 Mask          */
 
 #define LPPDMA_ABTSTS_ABTIF3_Pos         (3)                                               /*!< LPPDMA_T::ABTSTS: ABTIF3 Position      */
-#define LPPDMA_ABTSTS_ABTIF3_Msk         (0x1ul << LPPDMA_ABTSTS_ABTIF3_Pos)               /*!< LPPDMA_T::ABTSTS: ABTIF3 Mask          */
+#define LPPDMA_ABTSTS_ABTIF3_Msk         (0x1UL << LPPDMA_ABTSTS_ABTIF3_Pos)               /*!< LPPDMA_T::ABTSTS: ABTIF3 Mask          */
 
 #define LPPDMA_TDSTS_TDIF0_Pos           (0)                                               /*!< LPPDMA_T::TDSTS: TDIF0 Position        */
-#define LPPDMA_TDSTS_TDIF0_Msk           (0x1ul << LPPDMA_TDSTS_TDIF0_Pos)                 /*!< LPPDMA_T::TDSTS: TDIF0 Mask            */
+#define LPPDMA_TDSTS_TDIF0_Msk           (0x1UL << LPPDMA_TDSTS_TDIF0_Pos)                 /*!< LPPDMA_T::TDSTS: TDIF0 Mask            */
 
 #define LPPDMA_TDSTS_TDIF1_Pos           (1)                                               /*!< LPPDMA_T::TDSTS: TDIF1 Position        */
-#define LPPDMA_TDSTS_TDIF1_Msk           (0x1ul << LPPDMA_TDSTS_TDIF1_Pos)                 /*!< LPPDMA_T::TDSTS: TDIF1 Mask            */
+#define LPPDMA_TDSTS_TDIF1_Msk           (0x1UL << LPPDMA_TDSTS_TDIF1_Pos)                 /*!< LPPDMA_T::TDSTS: TDIF1 Mask            */
 
 #define LPPDMA_TDSTS_TDIF2_Pos           (2)                                               /*!< LPPDMA_T::TDSTS: TDIF2 Position        */
-#define LPPDMA_TDSTS_TDIF2_Msk           (0x1ul << LPPDMA_TDSTS_TDIF2_Pos)                 /*!< LPPDMA_T::TDSTS: TDIF2 Mask            */
+#define LPPDMA_TDSTS_TDIF2_Msk           (0x1UL << LPPDMA_TDSTS_TDIF2_Pos)                 /*!< LPPDMA_T::TDSTS: TDIF2 Mask            */
 
 #define LPPDMA_TDSTS_TDIF3_Pos           (3)                                               /*!< LPPDMA_T::TDSTS: TDIF3 Position        */
-#define LPPDMA_TDSTS_TDIF3_Msk           (0x1ul << LPPDMA_TDSTS_TDIF3_Pos)                 /*!< LPPDMA_T::TDSTS: TDIF3 Mask            */
+#define LPPDMA_TDSTS_TDIF3_Msk           (0x1UL << LPPDMA_TDSTS_TDIF3_Pos)                 /*!< LPPDMA_T::TDSTS: TDIF3 Mask            */
 
 #define LPPDMA_ALIGN_ALIGNn_Pos          (0)                                               /*!< LPPDMA_T::ALIGN: ALIGNn Position       */
-#define LPPDMA_ALIGN_ALIGNn_Msk          (0xful << LPPDMA_ALIGN_ALIGNn_Pos)                /*!< LPPDMA_T::ALIGN: ALIGNn Mask           */
+#define LPPDMA_ALIGN_ALIGNn_Msk          (0xfUL << LPPDMA_ALIGN_ALIGNn_Pos)                /*!< LPPDMA_T::ALIGN: ALIGNn Mask           */
 
 #define LPPDMA_TACTSTS_TXACTFn_Pos       (0)                                               /*!< LPPDMA_T::TACTSTS: TXACTFn Position    */
-#define LPPDMA_TACTSTS_TXACTFn_Msk       (0xful << LPPDMA_TACTSTS_TXACTFn_Pos)             /*!< LPPDMA_T::TACTSTS: TXACTFn Mask        */
+#define LPPDMA_TACTSTS_TXACTFn_Msk       (0xfUL << LPPDMA_TACTSTS_TXACTFn_Pos)             /*!< LPPDMA_T::TACTSTS: TXACTFn Mask        */
 
 #define LPPDMA_SCATBA_SCATBA_Pos         (16)                                              /*!< LPPDMA_T::SCATBA: SCATBA Position      */
-#define LPPDMA_SCATBA_SCATBA_Msk         (0xfffful << LPPDMA_SCATBA_SCATBA_Pos)            /*!< LPPDMA_T::SCATBA: SCATBA Mask          */
+#define LPPDMA_SCATBA_SCATBA_Msk         (0xffffUL << LPPDMA_SCATBA_SCATBA_Pos)            /*!< LPPDMA_T::SCATBA: SCATBA Mask          */
 
 #define LPPDMA_CHRST_CHnRST_Pos          (0)                                               /*!< LPPDMA_T::CHRST: CHnRST Position       */
-#define LPPDMA_CHRST_CHnRST_Msk          (0xful << LPPDMA_CHRST_CHnRST_Pos)                /*!< LPPDMA_T::CHRST: CHnRST Mask           */
+#define LPPDMA_CHRST_CHnRST_Msk          (0xfUL << LPPDMA_CHRST_CHnRST_Pos)                /*!< LPPDMA_T::CHRST: CHnRST Mask           */
 
 #define LPPDMA_REQSEL0_3_REQSRC0_Pos     (0)                                               /*!< LPPDMA_T::REQSEL0_3: REQSRC0 Position  */
-#define LPPDMA_REQSEL0_3_REQSRC0_Msk     (0x7ful << LPPDMA_REQSEL0_3_REQSRC0_Pos)          /*!< LPPDMA_T::REQSEL0_3: REQSRC0 Mask      */
+#define LPPDMA_REQSEL0_3_REQSRC0_Msk     (0x7fUL << LPPDMA_REQSEL0_3_REQSRC0_Pos)          /*!< LPPDMA_T::REQSEL0_3: REQSRC0 Mask      */
 
 #define LPPDMA_REQSEL0_3_REQSRC1_Pos     (8)                                               /*!< LPPDMA_T::REQSEL0_3: REQSRC1 Position  */
-#define LPPDMA_REQSEL0_3_REQSRC1_Msk     (0x7ful << LPPDMA_REQSEL0_3_REQSRC1_Pos)          /*!< LPPDMA_T::REQSEL0_3: REQSRC1 Mask      */
+#define LPPDMA_REQSEL0_3_REQSRC1_Msk     (0x7fUL << LPPDMA_REQSEL0_3_REQSRC1_Pos)          /*!< LPPDMA_T::REQSEL0_3: REQSRC1 Mask      */
 
 #define LPPDMA_REQSEL0_3_REQSRC2_Pos     (16)                                              /*!< LPPDMA_T::REQSEL0_3: REQSRC2 Position  */
-#define LPPDMA_REQSEL0_3_REQSRC2_Msk     (0x7ful << LPPDMA_REQSEL0_3_REQSRC2_Pos)          /*!< LPPDMA_T::REQSEL0_3: REQSRC2 Mask      */
+#define LPPDMA_REQSEL0_3_REQSRC2_Msk     (0x7fUL << LPPDMA_REQSEL0_3_REQSRC2_Pos)          /*!< LPPDMA_T::REQSEL0_3: REQSRC2 Mask      */
 
 #define LPPDMA_REQSEL0_3_REQSRC3_Pos     (24)                                              /*!< LPPDMA_T::REQSEL0_3: REQSRC3 Position  */
-#define LPPDMA_REQSEL0_3_REQSRC3_Msk     (0x7ful << LPPDMA_REQSEL0_3_REQSRC3_Pos)          /*!< LPPDMA_T::REQSEL0_3: REQSRC3 Mask      */
+#define LPPDMA_REQSEL0_3_REQSRC3_Msk     (0x7fUL << LPPDMA_REQSEL0_3_REQSRC3_Pos)          /*!< LPPDMA_T::REQSEL0_3: REQSRC3 Mask      */
 
 /**@}*/ /* LPPDMA_CONST */
 /**@}*/ /* end of LPPDMA register group */

@@ -37,10 +37,6 @@
   @{
 */
 
-/* // @cond HIDDEN_SYMBOLS */
-
-/* // @endcond HIDDEN_SYMBOLS */
-
 /**
   * @brief  Open PRNG function
   * @param[in]  crpt         The pointer of CRPT module
@@ -77,7 +73,7 @@ void PRNG_Open(CRPT_T *crpt, uint32_t u32KeySize, uint32_t u32SeedReload, uint32
   */
 int32_t PRNG_Start(CRPT_T *crpt)
 {
-	  int32_t i32TimeOutCnt = SystemCoreClock; 
+    int32_t i32TimeOutCnt = SystemCoreClock;
     crpt->PRNG_CTL |= CRPT_PRNG_CTL_START_Msk;
 
     /* Waiting for PRNG Busy */
@@ -99,14 +95,22 @@ int32_t PRNG_Start(CRPT_T *crpt)
   */
 void PRNG_Read(CRPT_T *crpt, uint32_t u32RandKey[])
 {
-    uint32_t  i, wcnt;
-    uint32_t au32WcntTbl[7] = {4, 6, 6, 7, 8, 8, 8};
+    uint32_t i;
+    uint32_t wcnt;
+
+    const uint32_t au32WcntTbl[7] = { 4UL, 6UL, 6UL, 7UL, 8UL, 8UL, 8UL };
 
     wcnt = ((crpt->PRNG_CTL & CRPT_PRNG_CTL_KEYSZ_Msk) >> CRPT_PRNG_CTL_KEYSZ_Pos);
-    if( wcnt > 6 ) return;
-    else wcnt = au32WcntTbl[wcnt];
+    if( wcnt > 6UL )
+    {
+        return;
+    }
+    else
+    {
+        wcnt = au32WcntTbl[wcnt];
+    }
 
-    for(i = 0U; i < wcnt; i++)
+    for(i = 0UL; i < wcnt; i++)
     {
         u32RandKey[i] = crpt->PRNG_KEY[i];
     }
@@ -145,11 +149,11 @@ void AES_Open(CRPT_T *crpt, uint32_t u32Channel, uint32_t u32EncDec,
 {
     (void)u32Channel;
 
-    crpt->AES_CTL = (u32EncDec << CRPT_AES_CTL_ENCRPT_Pos) |
-                    (u32OpMode << CRPT_AES_CTL_OPMODE_Pos) |
-                    (u32KeySize << CRPT_AES_CTL_KEYSZ_Pos) |
-                    (u32SwapType << CRPT_AES_CTL_OUTSWAP_Pos);
-
+    crpt->AES_CTL =
+        (((uint32_t)u32EncDec  << CRPT_AES_CTL_ENCRPT_Pos)  |
+         ((uint32_t)u32OpMode  << CRPT_AES_CTL_OPMODE_Pos)  |
+         ((uint32_t)u32KeySize << CRPT_AES_CTL_KEYSZ_Pos)   |
+         ((uint32_t)u32SwapType << CRPT_AES_CTL_OUTSWAP_Pos));
 }
 
 /**
@@ -166,7 +170,8 @@ void AES_Start(CRPT_T *crpt, uint32_t u32Channel, uint32_t u32DMAMode)
 {
     (void)u32Channel;
 
-    crpt->AES_CTL |= CRPT_AES_CTL_START_Msk | (u32DMAMode << CRPT_AES_CTL_DMALAST_Pos);
+    crpt->AES_CTL |= (CRPT_AES_CTL_START_Msk | ((uint32_t)u32DMAMode << CRPT_AES_CTL_DMALAST_Pos));
+
 }
 
 /**
@@ -180,16 +185,19 @@ void AES_Start(CRPT_T *crpt, uint32_t u32Channel, uint32_t u32DMAMode)
   *         - \ref AES_KEY_SIZE_256
   * @return None
   */
-void AES_SetKey(CRPT_T *crpt, uint32_t u32Channel, uint32_t au32Keys[], uint32_t u32KeySize)
+void AES_SetKey(CRPT_T *crpt, uint32_t u32Channel, const uint32_t au32Keys[], uint32_t u32KeySize)
 {
-    uint32_t  i, wcnt, key_reg_addr;
+    uint32_t i;
+    uint32_t wcnt;
+    uint32_t key_reg_addr;
 
     (void) u32Channel;
 
     key_reg_addr = (uint32_t)&crpt->AES_KEY[0];
-    wcnt = 4UL + u32KeySize * 2UL;
 
-    for(i = 0U; i < wcnt; i++)
+    wcnt = 4UL + (u32KeySize * 2UL);
+
+    for(i = 0UL; i < wcnt; i++)
     {
         outpw(key_reg_addr, au32Keys[i]);
         key_reg_addr += 4UL;
@@ -203,15 +211,17 @@ void AES_SetKey(CRPT_T *crpt, uint32_t u32Channel, uint32_t au32Keys[], uint32_t
   * @param[in]  au32IV      A four entry word array contains AES initial vectors.
   * @return None
   */
-void AES_SetInitVect(CRPT_T *crpt, uint32_t u32Channel, uint32_t au32IV[])
+void AES_SetInitVect(CRPT_T *crpt, uint32_t u32Channel, const uint32_t au32IV[])
 {
-    uint32_t  i, key_reg_addr;
+    uint32_t i;
+    uint32_t key_reg_addr;
+
 
     (void) u32Channel;
 
     key_reg_addr = (uint32_t)&crpt->AES_IV[0];
 
-    for(i = 0U; i < 4U; i++)
+    for(i = 0UL; i < 4UL; i++)
     {
         outpw(key_reg_addr, au32IV[i]);
         key_reg_addr += 4UL;

@@ -47,6 +47,8 @@ void DAC_Open(DAC_T *dac,
               uint32_t u32Ch,
               uint32_t u32TrgSrc)
 {
+    (void)u32Ch;
+
     dac->CTL &= ~(DAC_CTL_ETRGSEL_Msk | DAC_CTL_TRGSEL_Msk | DAC_CTL_TRGEN_Msk);
     dac->CTL |= (u32TrgSrc | DAC_CTL_DACEN_Msk);
 }
@@ -60,6 +62,8 @@ void DAC_Open(DAC_T *dac,
   */
 void DAC_Close(DAC_T *dac, uint32_t u32Ch)
 {
+    (void)u32Ch;
+
     dac->CTL &= (~DAC_CTL_DACEN_Msk);
 }
 

@@ -80,35 +80,48 @@ int32_t RNG_Open(void)
  */
 int32_t RNG_Random(uint32_t *pu32Buf, int32_t i32WordCnt)
 {
-    int32_t i;
-    int32_t timeout = 0x10000;
+    int32_t  i32Idx = 0;
+    int32_t  i32Remaining;
+    uint8_t  u8Err = 0U;
 
-    i = 0;
-    do
+    i32Remaining = i32WordCnt;
+
+    while ((i32Remaining > 0) && (u8Err == 0U))
     {
-        /* Start DRBG */
-        TRNG->CTL |= TRNG_CTL_MODE_DRBG | TRNG_CTL_START_Msk;
+        int32_t  i32Timeout = 0x10000L; /* Signed timeout counter */
 
-        /* Waiting for Busy */
-        while((TRNG->STS & TRNG_STS_DVIF_Msk) == 0)
+        /* Start DRBG */
+        TRNG->CTL |= (TRNG_CTL_MODE_DRBG | TRNG_CTL_START_Msk);
+
+        /* Waiting for data valid flag (DVIF) */
+        while (((TRNG->STS & TRNG_STS_DVIF_Msk) == 0UL) && (i32Timeout > 0L))
         {
-            if(timeout-- < 0)
-                return 0;
+            i32Timeout--;
         }
 
-        pu32Buf[i++] = TRNG->DATA[0];
-        if(--i32WordCnt <= 0) break;
-        pu32Buf[i++] = TRNG->DATA[1];
-        if(--i32WordCnt <= 0) break;
-        pu32Buf[i++] = TRNG->DATA[2];
-        if(--i32WordCnt <= 0) break;
-        pu32Buf[i++] = TRNG->DATA[3];
-        if(--i32WordCnt <= 0) break;
+        if (i32Timeout == 0L)
+        {
+            u8Err = 1U;
+        }
+        else
+        {
+            uint32_t u32Word;
 
+            for (u32Word = 0UL; (u32Word < 4UL) && (i32Remaining > 0); u32Word++)
+            {
+                pu32Buf[i32Idx] = TRNG->DATA[u32Word];
+                i32Idx++;
+                i32Remaining--;
+            }
+        }
     }
-    while(i32WordCnt);
 
-    return i;
+    if (u8Err != 0U)
+    {
+        return 0L;
+    }
+
+    return i32Idx;
 }
 
 /**
@@ -123,44 +136,52 @@ int32_t RNG_Random(uint32_t *pu32Buf, int32_t i32WordCnt)
  */
 int32_t RNG_EntropyPoll(uint8_t* pu8Out, int32_t i32Len)
 {
-    int32_t timeout;
-    int32_t i,cnt, len;
-    uint32_t u32Entropy;
+    uint32_t u32Remaining;
+    uint32_t u32Written;
+    uint32_t u32ByteIdx;
 
-    if((TRNG->STS & (TRNG_STS_LDORDY_Msk | TRNG_STS_TRNGRDY_Msk)) != (TRNG_STS_LDORDY_Msk | TRNG_STS_TRNGRDY_Msk))
+    u32Remaining = (uint32_t)i32Len;
+    u32Written   = 0UL;
+
+    if ((TRNG->STS & (TRNG_STS_LDORDY_Msk | TRNG_STS_TRNGRDY_Msk)) !=
+            (TRNG_STS_LDORDY_Msk | TRNG_STS_TRNGRDY_Msk))
     {
-        /* TRNG is not in active */
-        printf("trng is not active\n");
-        return -1;
+        return -1L;
     }
 
-    len = i32Len;
-    cnt = (len + 3) / 4;
-    for(i = 0; i < cnt; i++)
+    while (u32Remaining > 0UL)
     {
-        /* Trigger entropy generate */
+        uint32_t u32Entropy;
+        uint32_t u32Timeout;
+
+        /* Trigger entropy generation */
         TRNG->CTL |= TRNG_CTL_START_Msk;
 
-        timeout = SystemCoreClock;
-        while((TRNG->STS & TRNG_STS_DVIF_Msk) == 0)
+        /* Wait for data valid flag */
+        u32Timeout = (uint32_t)SystemCoreClock;
+        while ((TRNG->STS & TRNG_STS_DVIF_Msk) == 0UL)
         {
-            if(timeout-- <= 0)
+            if (u32Timeout == 0UL)
             {
-                /* Timeout error */
-                printf("timeout\n");
-                return -1;
+                return -1L;
             }
+
+            u32Timeout--;
         }
-        /* Get one byte entroy */
+
+        /* Read one 32-bit entropy word */
         u32Entropy = TRNG->DATA[0];
-        *pu8Out++ = u32Entropy & 0xff;
-        if(len-- <= 0) break;
-        *pu8Out++ = (u32Entropy >>  8) & 0xff;
-        if(len-- <= 0) break;
-        *pu8Out++ = (u32Entropy >> 16) & 0xff;
-        if(len-- <= 0) break;
-        *pu8Out++ = (u32Entropy >> 24) & 0xff;
-        if(len-- <= 0) break;
+
+        /* Extract up to 4 bytes from the entropy word */
+        for (u32ByteIdx = 0UL; (u32ByteIdx < 4UL) && (u32Remaining > 0UL); u32ByteIdx++)
+        {
+            uint32_t u32Shift;
+            u32Shift = (u32ByteIdx * 8UL);
+            pu8Out[u32Written] = (uint8_t)((u32Entropy >> u32Shift) & 0xFFUL);
+
+            u32Written++;
+            u32Remaining--;
+        }
     }
 
     return i32Len;
