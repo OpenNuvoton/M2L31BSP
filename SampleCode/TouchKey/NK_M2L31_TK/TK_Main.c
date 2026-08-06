@@ -58,14 +58,16 @@ int8_t SliderPercentage(int8_t *pu8SliderBuf, uint8_t u8Count)
   */
 void TK_RawDataView(void)
 {
-
     int8_t ai8Signal[TKLIB_TOL_NUM_KEY];
-    uint32_t u32ChnMsk, i;
-    static uint32_t u32ChnOnMsk = 0;
+    uint32_t i, u32ChnMsk; 
+#ifdef DEMO_FREERUN
     uint32_t u32KeyChnMsk;
-    //int8_t i8Count, i8State;
-
-    u32ChnMsk = u32KeyChnMsk = TK_GetEnabledChannelMask(TK_KEY);
+    static uint32_t u32ChnOnMsk = 0;
+   
+    u32KeyChnMsk = TK_GetEnabledChannelMask(TK_KEY);
+#endif
+    
+    u32ChnMsk = TK_GetEnabledChannelMask(TK_KEY);
     u32ChnMsk |= TK_GetEnabledChannelMask(TK_SLIDER);
     u32ChnMsk |= TK_GetEnabledChannelMask(TK_WHEEL);
 
@@ -88,7 +90,6 @@ void TK_RawDataView(void)
                     {
                         if(TK_DebounceChannel(i) == E_SIGNAL_OVER_DEBOUNCED)
                         {   //Turn On Indicator.
-
 #ifdef DEMO_FREERUN
                             if((u32ChnOnMsk & (1 << i)) == 0 )
                             {
