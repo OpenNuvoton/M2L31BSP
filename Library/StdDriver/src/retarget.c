@@ -276,14 +276,11 @@ uint32_t ProcessHardFault(uint32_t lr, uint32_t msp, uint32_t psp)
     /* Explicitly reference sp to avoid unused warning in some toolchains/configs. */
     (void)*sp;
 
-    /* Explicit infinite loop */
-    while (1U)
+    /* Explicit infinite loop. No return statement is needed because this path never exits. */
+    for (;;)
     {
         /* stay here */
     }
-
-    /* Unreachable in normal flow, kept to satisfy some compilers/static analyzers. */
-    return lr;
 }
 
 
