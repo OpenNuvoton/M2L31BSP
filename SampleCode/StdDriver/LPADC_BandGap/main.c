@@ -123,6 +123,7 @@ void LPADC_FunctionTest()
     i32ConversionData = LPADC_GET_CONVERSION_DATA(LPADC0, 29);
     printf("LPADC Conversion result of Band-gap: 0x%X (%d)\n", i32ConversionData, i32ConversionData);
     printf("Band-gap voltage is %dmV if Reference voltage is 3.3V\n", (3300*i32ConversionData)/4095);
+    printf("Reference voltage is %4dmV if Band-gap voltage is 1200mV\n", (1200*4095)/i32ConversionData);
 }
 
 void LPADC0_IRQHandler(void)
