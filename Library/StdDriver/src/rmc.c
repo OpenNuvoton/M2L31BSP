@@ -41,18 +41,6 @@ static int32_t RMC_WaitISPDone(uint32_t u32Timeout)
     return (u32Remain == 0UL) ? -1L : 0L;
 }
 
-/* Wait until ISPSTS.ISPBUSY is cleared or timeout occurs. */
-static int32_t RMC_WaitISPBusyClear(uint32_t u32Timeout)
-{
-    uint32_t u32Remain;
-    u32Remain = u32Timeout;
-    while ((u32Remain > 0UL) && ((RMC->ISPSTS & RMC_ISPSTS_ISPBUSY_Msk) != 0UL))
-    {
-        u32Remain--;
-    }
-
-    return (u32Remain == 0UL) ? -1L : 0L;
-}
 
 /* Clear data buffer and check ISPSTS fail flag. */
 static int32_t RMC_ClearDataBuffer(void)
