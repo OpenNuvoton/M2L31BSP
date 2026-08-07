@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     irqn.h
  * @version  V1.00
- * @brief    IRQ number definition for M3351
+ * @brief    IRQ number definition for M2L31
  *
  * SPDX-License-Identifier: Apache-2.0
  * @copyright Copyright (C) 2025 Nuvoton Technology Corp. All rights reserved.
