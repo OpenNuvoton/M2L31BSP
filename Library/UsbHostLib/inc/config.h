@@ -57,7 +57,7 @@ extern int usbh_printf(const char *fmt, ...);        ///< For USB Library Usage:
 /* USB transfer memory pool. For non-cache DMA memory allocation. */
 
 #define DMA_MEM_UNIT_SIZE    1024      /*!< A fixed hard coding setting. Do not change it!            */
-#define DMA_MEM_UNIT_NUM       20      /*!< Increase this or heap size if memory allocate failed.     */
+#define DMA_MEM_UNIT_NUM       16      /*!< Increase this or heap size if memory allocate failed.     */
 /*----------------------------------------------------------------------------------------*/
 /*   Re-defined staff for various compiler                                                */
 /*----------------------------------------------------------------------------------------*/
