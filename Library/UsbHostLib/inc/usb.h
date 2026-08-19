@@ -1,9 +1,9 @@
 /**************************************************************************//**
  * @file     usb.h
+ * @version  V1.00
  * @brief    USB Host library header file.
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 
 #ifndef _USBH_H_
@@ -273,6 +273,8 @@ typedef struct __attribute__((__packed__)) usb_endpoint_descriptor    /*!< Endpo
 #define EP_ATTR_TT_BULK                0x02U
 #define EP_ATTR_TT_INT                 0x03U
 
+#define USB_EP_DESC_MANDATORY_LEN      0x07U    /* Mandatory prefix length of a USB endpoint descriptor */
+
 /*----------------------------------------------------------------------------------*/
 /*  USB Host controller driver                                                      */
 /*----------------------------------------------------------------------------------*/
@@ -368,7 +370,7 @@ typedef struct iface_t
 /*  URB (USB Request Block)                                                         */
 /*----------------------------------------------------------------------------------*/
 
-#define IF_PER_UTR             8U      /* number of frames per UTR isochronous transfer (DO NOT modify it!)  */
+#define IF_PER_UTR             8      /* number of frames per UTR isochronous transfer (DO NOT modify it!)  */
 
 typedef void (*FUNC_UTR_T)(struct utr_t *);
 
@@ -423,14 +425,15 @@ extern void usbh_dump_ep_info(EP_INFO_T *ep);
  */
 extern void usbh_memory_init(void);
 extern uint32_t  usbh_memory_used(void);
-extern void *usbh_alloc_mem(uint32_t size);
-extern int usbh_free_mem(const void *p, uint32_t size);
+extern void * usbh_alloc_mem(int size);
+extern uint8_t * usbh_alloc_buff(int size);
+extern void usbh_free_mem(void *p, int size);
 extern int  alloc_dev_address(void);
 extern void free_dev_address(int dev_addr);
 extern UDEV_T * alloc_device(void);
 extern void free_device(UDEV_T *udev);
 extern UTR_T * alloc_utr(UDEV_T *udev);
-extern void free_utr(const UTR_T *utr);
+extern void free_utr(UTR_T *utr);
 extern ED_T * alloc_ohci_ED(void);
 extern void free_ohci_ED(const ED_T *ed);
 extern TD_T * alloc_ohci_TD(UTR_T *utr);
@@ -440,7 +443,7 @@ extern void free_ohci_TD(const TD_T *td);
 extern void usbh_hub_init(void);
 extern int  connect_device(UDEV_T *udev);
 extern void disconnect_device(UDEV_T *udev);
-extern int  usbh_register_driver(UDEV_DRV_T *udrv);
+extern int  usbh_register_driver(UDEV_DRV_T *driver);
 extern EP_INFO_T * usbh_iface_find_ep(IFACE_T *iface, uint8_t ep_addr, uint8_t dir_type);
 extern int  usbh_reset_device(UDEV_T *udev);
 
@@ -448,7 +451,6 @@ extern int  usbh_reset_device(UDEV_T *udev);
  *  USB Standard Request functions
  */
 extern int usbh_get_device_descriptor(UDEV_T *udev, DESC_DEV_T *desc_buff);
-extern int usbh_get_config_descripotr_total_length(UDEV_T *udev, DESC_CONF_T *conf_header);
 extern int usbh_get_config_descriptor(UDEV_T *udev, uint8_t *desc_buff, int buff_len);
 extern int usbh_set_configuration(UDEV_T *udev, uint8_t conf_val);
 extern int usbh_set_interface(IFACE_T *iface, uint16_t alt_setting);

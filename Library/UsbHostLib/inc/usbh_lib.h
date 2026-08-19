@@ -1,9 +1,9 @@
 /**************************************************************************//**
  * @file     usbh_lib.h
+ * @version  V1.10
  * @brief    USB Host library exported header file.
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 #ifndef  _USBH_LIB_H_
 #define  _USBH_LIB_H_
@@ -28,7 +28,6 @@ extern "C"
 */
 
 #define USBH_OK                     0      /*!< No error.                                       */
-#define USBH_ERR_MEM_FREE_INVALID   -5     /*!< Try to free an invalid memory block             */
 #define USBH_ERR_MEMORY_OUT         -10    /*!< Out of memory.                                  */
 #define USBH_ERR_IF_ALT_LIMIT       -11    /*!< Number of alternative interface > MAX_ALT_PER_IFACE */
 #define USBH_ERR_IF_EP_LIMIT        -15    /*!< Number of endpoints > MAX_EP_PER_IFACE          */
@@ -50,7 +49,7 @@ extern "C"
 #define USBH_ERR_DISCONNECTED       -259   /*!< USB device was disconnected                     */
 
 #define USBH_ERR_TRANSACTION        -271   /*!< USB transaction timeout, CRC, Bad PID, etc.     */
-#define USBH_ERR_BABBLE_DETECTED    -272   /*!< A ¡§babble¡¨ is detected during the transaction   */
+#define USBH_ERR_BABBLE_DETECTED    -272   /*!< A "babble" is detected during the transaction   */
 #define USBH_ERR_DATA_BUFF          -274   /*!< Data buffer overrun or underrun                 */
 
 #define USBH_ERR_CC_NO_ERR          -280   /*!< OHCI CC code - no error                         */
@@ -106,7 +105,7 @@ extern "C"
 #define UAC_RET_IS_STREAMING        -2015  /*!< Audio pipe is on streaming.                     */
 
 
-/*@}*/ /* end of group USBH_EXPORTED_CONSTANTS */
+/**@}*/ /* end of group USBH_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup USBH_EXPORTED_TYPEDEF USB Host Typedef
@@ -126,7 +125,7 @@ typedef void (HID_IW_FUNC)(struct usbhid_dev *hdev, uint16_t ep_addr, int status
 struct uac_dev_t;
 typedef int (UAC_CB_FUNC)(struct uac_dev_t *dev, uint8_t *data, int len);    /*!< audio in callback function \hideinitializer */
 
-/*@}*/ /* end of group USBH_EXPORTED_STRUCT */
+/**@}*/ /* end of group USBH_EXPORTED_STRUCT */
 
 
 
@@ -209,7 +208,7 @@ extern int  usbh_umas_reset_disk(int drv_no);
 /*------------------------------------------------------------------*/
 extern void usbh_uac_init(void);
 extern int usbh_uac_open(struct uac_dev_t *uac);
-extern struct uac_dev_t *usbh_uac_get_device_list(void);
+extern struct uac_dev_t * usbh_uac_get_device_list(void);
 extern int usbh_uac_get_channel_number(struct uac_dev_t *uac, uint8_t target);
 extern int usbh_uac_get_bit_resolution(struct uac_dev_t *uac, uint8_t target, uint8_t *byte_cnt);
 extern int usbh_uac_get_sampling_rate(struct uac_dev_t *uac, uint8_t target, uint32_t *srate_list, int max_cnt, uint8_t *type);
@@ -234,11 +233,11 @@ extern uint32_t  usbh_memory_used(void);
 /// @endcond HIDDEN_SYMBOLS
 
 
-/*@}*/ /* end of group USBH_EXPORTED_FUNCTIONS */
+/**@}*/ /* end of group USBH_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group USBH_Library */
+/**@}*/ /* end of group USBH_Library */
 
-/*@}*/ /* end of group LIBRARY */
+/**@}*/ /* end of group LIBRARY */
 
 #ifdef __cplusplus
 }
@@ -246,7 +245,7 @@ extern uint32_t  usbh_memory_used(void);
 
 #endif  /* _USBH_LIB_H_ */
 
-
+/*** (C) COPYRIGHT 2020 Nuvoton Technology Corp. ***/
 
 
 

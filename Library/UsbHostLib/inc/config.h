@@ -1,9 +1,9 @@
 /**************************************************************************//**
  * @file     config.h
+ * @version  V1.00
  * @brief    This header file defines the configuration of USB Host library.
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 
 #ifndef  _USBH_CONFIG_H_
@@ -11,14 +11,12 @@
 
 #include <stdarg.h>
 
-#define USBNULL                ((void*)0)                 ///< For USB Library Usage: USBNULL pointer
-extern int usbh_printf(const char *fmt, ...);        ///< For USB Library Usage: debug print function
 /// @cond HIDDEN_SYMBOLS
 
 /*----------------------------------------------------------------------------------------*/
 /*   Hardware settings                                                                    */
 /*----------------------------------------------------------------------------------------*/
-#define HCLK_MHZ               192          /* used for loop-delay. must be larger than 
+#define HCLK_MHZ               192          /* used for loop-delay. must be larger than
                                                true HCLK clock MHz                        */
 
 #define ENABLE_OHCI_IRQ()      NVIC_EnableIRQ(USBH_IRQn)
@@ -26,12 +24,12 @@ extern int usbh_printf(const char *fmt, ...);        ///< For USB Library Usage:
 
 #define ENABLE_OHCI                         /* Enable OHCI host controller                */
 
-#define OHCI_ISO_DELAY         4            /* preserved number frames while scheduling 
+#define OHCI_ISO_DELAY         4            /* preserved number frames while scheduling
                                                OHCI isochronous transfer                  */
 
-#define MAX_DESC_BUFF_SIZE     512          /* To hold the configuration descriptor, USB 
+#define MAX_DESC_BUFF_SIZE     512          /* To hold the configuration descriptor, USB
                                                core will allocate a buffer with this size
-                                               for each connected device. USB core does 
+                                               for each connected device. USB core does
                                                not release it until device disconnected.  */
 
 /*----------------------------------------------------------------------------------------*/
@@ -51,13 +49,9 @@ extern int usbh_printf(const char *fmt, ...);        ///< For USB Library Usage:
    are all allocated from this pool. Allocated unit size is determined by MEM_POOL_UNIT_SIZE.
    May allocate one or more units depend on hardware descriptor type.                                 */
 
-#define HW_MEM_UNIT_SIZE       64      /*!< A fixed hard coding setting. Do not change it!            */
-#define HW_MEM_UNIT_NUM        48      /*!< Increase this or heap size if memory allocate failed.     */
+#define MEM_POOL_UNIT_SIZE     64      /*!< A fixed hard coding setting. Do not change it!            */
+#define MEM_POOL_UNIT_NUM     256      /*!< Increase this or heap size if memory allocate failed.     */
 
-/* USB transfer memory pool. For non-cache DMA memory allocation. */
-
-#define DMA_MEM_UNIT_SIZE    1024      /*!< A fixed hard coding setting. Do not change it!            */
-#define DMA_MEM_UNIT_NUM       16      /*!< Increase this or heap size if memory allocate failed.     */
 /*----------------------------------------------------------------------------------------*/
 /*   Re-defined staff for various compiler                                                */
 /*----------------------------------------------------------------------------------------*/
@@ -74,16 +68,18 @@ extern int usbh_printf(const char *fmt, ...);        ///< For USB Library Usage:
 //#define ENABLE_VERBOSE_DEBUG              /* verbos debug messages                      */
 //#define DUMP_DESCRIPTOR                     /* dump descriptors                           */
 
+extern int usbh_printf(const char *fmt, ...); ///< For USB Library Usage: debug print function
+
 #ifdef ENABLE_ERROR_MSG
-    #define USB_error            (void)usbh_printf
+#define USB_error            (void)usbh_printf
 #else
-    #define USB_error(...)
+#define USB_error(...)
 #endif
 
 #ifdef ENABLE_DEBUG_MSG
-    #define USB_debug            (void)usbh_printf
-    #ifdef ENABLE_VERBOSE_DEBUG
-        #define USB_vdebug         (void)usbh_printf
+#define USB_debug            (void)usbh_printf
+#ifdef ENABLE_VERBOSE_DEBUG
+#define USB_vdebug         (void)usbh_printf
 #else
 #define USB_vdebug(...)
 #endif

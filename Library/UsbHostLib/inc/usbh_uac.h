@@ -1,9 +1,9 @@
 /**************************************************************************//**
  * @file     usbh_uac.h
+ * @version  V1.10
  * @brief    USB Host UAC class driver header file.
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 #ifndef  _USBH_UAC_H_
 #define  _USBH_UAC_H_
@@ -26,12 +26,13 @@
   @{
 */
 
+
 #define CONFIG_UAC_MAX_DEV           3      /*!< Maximum number of Audio Class device.                     */
-#define NUM_UTR                      2U      /*!< Number of UTR used for audio in/out transfer.             */
+#define NUM_UTR                      2U     /*!< Number of UTR used for audio in/out transfer.             */
 #define UAC_REQ_TIMEOUT              50     /*!< UAC control request timeout value in tick (10ms unit)     */
 
-#define UAC_SPEAKER                  1U      /*!< Control target is speaker of UAC device. \hideinitializer */
-#define UAC_MICROPHONE               2U      /*!< Control target is microphone of UAC device. \hideinitializer */
+#define UAC_SPEAKER                  1U     /*!< Control target is speaker of UAC device. \hideinitializer */
+#define UAC_MICROPHONE               2U     /*!< Control target is microphone of UAC device. \hideinitializer */
 
 /*
  * Audio Class-Specific Request Codes
@@ -63,7 +64,7 @@
 #define UAC_CH_SIDE_RIGHT            11     /*!< Select Side Right (SR) channel.      \hideinitializer */
 #define UAC_CH_TOP                   12     /*!< Select Top (T) channel.              \hideinitializer */
 
-/*@}*/ /* end of group USBH_EXPORTED_CONSTANTS */
+/**@}*/ /* end of group USBH_EXPORTED_CONSTANTS */
 
 
 
@@ -118,7 +119,7 @@ typedef struct uac_dev_t
 } UAC_DEV_T;                                /*! audio class device structure              */
 
 
-/*@}*/ /* end of group USBH_EXPORTED_STRUCTURES */
+/**@}*/ /* end of group USBH_EXPORTED_STRUCTURES */
 
 
 /// @cond HIDDEN_SYMBOLS
@@ -135,9 +136,9 @@ extern int usbh_uac_find_max_alt(IFACE_T *iface, uint8_t dir, uint8_t attr, uint
 extern "C" {
 #endif
 
-/*@}*/ /* end of group USBH_Library */
+/**@}*/ /* end of group USBH_Library */
 
-/*@}*/ /* end of group LIBRARY */
+/**@}*/ /* end of group LIBRARY */
 
 
 #ifdef __cplusplus

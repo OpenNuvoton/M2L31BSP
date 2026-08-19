@@ -1,11 +1,12 @@
 /**************************************************************************//**
  * @file     cdc_driver.c
- * @brief    MCU USB Host CDC driver
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @version  V1.00
+ * @brief    M2354 MCU USB Host CDC driver
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,18 +16,34 @@
 #include "usbh_lib.h"
 #include "usbh_cdc.h"
 
+
 /// @cond HIDDEN_SYMBOLS
-static CDC_DEV_T *g_cdev_list = USBNULL;
+
+static CDC_DEV_T *g_cdev_list = NULL;
+
+/// @endcond HIDDEN_SYMBOLS
 
 static CDC_DEV_T *alloc_cdc_device(void)
 {
     CDC_DEV_T  *cdev;
 
+    /**
+     * @static_deviation
+     * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
+     * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is
+     *                       the single conversion point where the raw block becomes a
+     *                       typed CDC_DEV_T object. usbh_alloc_mem() is the library's one
+     *                       generic heap allocator shared by every device/interface/buffer
+     *                       type, so a per-type allocator is not a practical alternative;
+     *                       the requested size always matches sizeof(CDC_DEV_T), so this
+     *                       cast only names an already-correct binary layout and changes
+     *                       no data or control flow versus the previous unnamed cast.<br>
+     */
+    /* cppcheck-suppress misra-c2012-11.5 */
     cdev = (CDC_DEV_T *)usbh_alloc_mem(sizeof(CDC_DEV_T));
-	
-    if(cdev == USBNULL)
+    if(cdev == NULL)
     {
-        return USBNULL;
+        return NULL;
     }
 
     (void)memset((char *)cdev, 0, sizeof(CDC_DEV_T));
@@ -34,16 +51,18 @@ static CDC_DEV_T *alloc_cdc_device(void)
     return cdev;
 }
 
-static void  free_cdc_device(const CDC_DEV_T *cdev)
+/// @cond HIDDEN_SYMBOLS
+
+static void  free_cdc_device(CDC_DEV_T *cdev)
 {
-    (void)usbh_free_mem(cdev, sizeof(CDC_DEV_T));
+    usbh_free_mem(cdev, sizeof(CDC_DEV_T));
 }
 
 static void add_new_cdc_device(CDC_DEV_T *cdev)
 {
-    if(g_cdev_list == USBNULL)
+    if(g_cdev_list == NULL)
     {
-        cdev->next = USBNULL;
+        cdev->next = NULL;
         g_cdev_list = cdev;
     }
     else
@@ -57,25 +76,22 @@ static void remove_cdc_device(CDC_DEV_T *cdev)
 {
     CDC_DEV_T  *p;
 
-    if (g_cdev_list == cdev)
+    if(g_cdev_list == cdev)
     {
         g_cdev_list = g_cdev_list->next;
         return;
     }
 
     p = g_cdev_list;
-
-    while(p != USBNULL)
+    while(p != NULL)
     {
         if(p->next == cdev)
         {
             p->next = cdev->next;
             return;
         }
-
         p = p->next;
     }
-
     CDC_DBGMSG("Warning! remove_cdc_device 0x%x not found!\n", (int)cdev);
 }
 
@@ -84,22 +100,18 @@ static void remove_cdc_device(CDC_DEV_T *cdev)
  */
 static CDC_DEV_T * find_cdc_com_iface(const IFACE_T *iface_data)
 {
-    CDC_DEV_T *p;
-    int        if_num = iface_data->if_num;
+    CDC_DEV_T  *p;
 
     p = g_cdev_list;
-
-    while (p != USBNULL)
+    while(p != NULL)
     {
-        if (p->ifnum_data == if_num)
+        if(p->ifnum_data == (int)iface_data->if_num)
         {
             return p;
         }
-
         p = p->next;
     }
-
-    return USBNULL;
+    return NULL;
 }
 
 /*
@@ -110,26 +122,23 @@ static CDC_DEV_T * find_cdc_data_iface(int ifnum)
     CDC_DEV_T  *p;
 
     p = g_cdev_list;
-
-    while (p != USBNULL)
+    while(p != NULL)
     {
-        if ((p->iface_cdc == USBNULL) && (p->iface_data != USBNULL) &&
+        if((p->iface_cdc == NULL) && (p->iface_data != NULL) &&
                 (p->ifnum_data == ifnum))
         {
             return p;
         }
-
         p = p->next;
     }
-
-    return USBNULL;
+    return NULL;
 }
 
 static int  cdc_probe(IFACE_T *iface)
 {
     UDEV_T       *udev = iface->udev;
-    ALT_IFACE_T  *aif = iface->aif;
-    DESC_IF_T    *ifd;
+    const ALT_IFACE_T  *aif = iface->aif;
+    const DESC_IF_T    *ifd;
     CDC_DEV_T    *cdev;
     CDC_DEV_T    *d;
     int          ret;
@@ -149,24 +158,21 @@ static int  cdc_probe(IFACE_T *iface)
     if(ifd->bInterfaceClass == USB_CLASS_DATA)
     {
         cdev = find_cdc_com_iface(iface);      /* If this CDC device may have been created in the previous inetrface probing? */
-
-        if (cdev == USBNULL)
+        if(cdev == NULL)
         {
             CDC_DBGMSG("Warning! CDC device DTAT interface %d cannot find COMM interface!\n", iface->if_num);
 
             /* create a temporary CDC device holder */
             cdev = alloc_cdc_device();
-
-            if (cdev == USBNULL)
+            if(cdev == NULL)
             {
                 return USBH_ERR_NOT_FOUND;
             }
 
             cdev->udev = udev;
-            (void)add_new_cdc_device(cdev);
+            add_new_cdc_device(cdev);
             cdev->ifnum_data = iface->if_num;
         }
-
         cdev->iface_data = iface;
         iface->context = cdev;
         return 0;
@@ -175,8 +181,7 @@ static int  cdc_probe(IFACE_T *iface)
     /*------- Is CDC COMM interface ----------*/
 
     cdev = alloc_cdc_device();
-
-    if(cdev == USBNULL)
+    if(cdev == NULL)
     {
         return USBH_ERR_NOT_FOUND;
     }
@@ -186,8 +191,7 @@ static int  cdc_probe(IFACE_T *iface)
     iface->context = (void *)cdev;
 
     ret = cdc_config_parser(cdev);
-
-    if (ret != 0)
+    if(ret != 0)
     {
         CDC_DBGMSG("Parsing CDC desceiptor failed! 0x%x\n", ret);
         free_cdc_device(cdev);
@@ -198,7 +202,6 @@ static int  cdc_probe(IFACE_T *iface)
 
     /* find temporary CDC device holder of data interface */
     d = find_cdc_data_iface(cdev->ifnum_data);      /* If this CDC device may have been created in the previous inetrface probing? */
-
     if(d)
     {
         cdev->iface_data = d->iface_data;
@@ -210,6 +213,31 @@ static int  cdc_probe(IFACE_T *iface)
     return 0;
 }
 
+/// @endcond HIDDEN_SYMBOLS
+
+/**
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
+ * <b>Justification:</b> iface->context stores a generic void * set by cdc_probe() to the
+ *                       owning CDC_DEV_T. This accessor centralizes what was previously
+ *                       an inline `(CDC_DEV_T *)iface->context` cast duplicated at each
+ *                       call site into the single conversion point used when tearing down
+ *                       the CDC device on interface disconnect. IFACE_T->context is a
+ *                       shared framework field reused as-is by every USB class driver
+ *                       (cdc/hid/uac/hub), so giving it a distinct type per class is not a
+ *                       practical alternative; cdc_probe() is the only place that assigns
+ *                       iface->context and it always stores a CDC_DEV_T* address, so this
+ *                       accessor only documents that existing guarantee and does not
+ *                       change behavior.<br>
+ */
+static CDC_DEV_T *cdc_dev_from_iface(IFACE_T *iface)
+{
+    /* cppcheck-suppress misra-c2012-11.5 */
+    return (CDC_DEV_T *)iface->context;
+}
+
+/// @cond HIDDEN_SYMBOLS
+
 static void  cdc_disconnect(IFACE_T *iface)
 {
     IFACE_T     *if_cdc;
@@ -219,9 +247,9 @@ static void  cdc_disconnect(IFACE_T *iface)
 
     CDC_DBGMSG("CDC device interface %d disconnected!\n", iface->if_num);
 
-    cdev = (CDC_DEV_T *)(iface->context);
+    cdev = cdc_dev_from_iface(iface);
 
-    if (cdev == USBNULL)
+    if(cdev == NULL)
     {
         return;              /* should have been disconnected. */
     }
@@ -234,42 +262,43 @@ static void  cdc_disconnect(IFACE_T *iface)
      */
     if(if_cdc)
     {
-        for(i = 0; i < if_cdc->aif->ifd->bNumEndpoints; i++)
+        for(i = 0; i < (int)if_cdc->aif->ifd->bNumEndpoints; i++)
         {
-            if_cdc->udev->hc_driver->quit_xfer(USBNULL, &(if_cdc->aif->ep[i]));
+            if_cdc->udev->hc_driver->quit_xfer(NULL, &(if_cdc->aif->ep[i]));
         }
     }
 
     if(if_data)
     {
-        for(i = 0; i < if_data->aif->ifd->bNumEndpoints; i++)
+        for(i = 0; i < (int)if_data->aif->ifd->bNumEndpoints; i++)
         {
-            if_data->udev->hc_driver->quit_xfer(USBNULL, &(if_data->aif->ep[i]));
+            if_data->udev->hc_driver->quit_xfer(NULL, &(if_data->aif->ep[i]));
         }
     }
 
-    if (cdev->utr_sts != USBNULL)
+    if(cdev->utr_sts)
     {
         (void)usbh_quit_utr(cdev->utr_sts);             /* Quit the UTR                               */
         free_utr(cdev->utr_sts);
-        cdev->utr_sts = USBNULL;
+        cdev->utr_sts = NULL;
     }
-
     if(cdev->utr_rx)
     {
         (void)usbh_quit_utr(cdev->utr_rx);             /* Quit the UTR                               */
         free_utr(cdev->utr_rx);
-        cdev->utr_rx = USBNULL;
+        cdev->utr_rx = NULL;
     }
 
-    if_cdc->context = USBNULL;
-    if_data->context = USBNULL;
+    if_cdc->context = NULL;
+    if_data->context = NULL;
 
     remove_cdc_device(cdev);
     free_cdc_device(cdev);
 }
 
-/// @cond HIDDEN_SYMBOLS
+
+/// @endcond HIDDEN_SYMBOLS
+
 
 /**
   * @brief    Init USB Host CDC driver.
@@ -281,13 +310,13 @@ void usbh_cdc_init(void)
     {
         cdc_probe,
         cdc_disconnect,
-        USBNULL,
-        USBNULL,
-    };	
-
-    g_cdev_list = USBNULL;
+        NULL,
+        NULL,
+    };
+    g_cdev_list = NULL;
     (void)usbh_register_driver(&cdc_driver);
 }
+
 
 /**
  *  @brief   Get a list of currently connected USB Hid devices.
@@ -302,4 +331,6 @@ CDC_DEV_T * usbh_cdc_get_device_list(void)
     return g_cdev_list;
 }
 
+
+/*** (C) COPYRIGHT 2020 Nuvoton Technology Corp. ***/
 

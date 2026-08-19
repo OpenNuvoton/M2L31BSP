@@ -1,11 +1,12 @@
 /**************************************************************************//**
  * @file     hid_driver.c
- * @brief    MCU USB Host HID driver
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @version  V1.00
+ * @brief    M2354 MCU USB Host HID driver
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
+#include <stdio.h>
 #include <string.h>
 
 #include "NuMicro.h"
@@ -14,40 +15,42 @@
 #include "usbh_lib.h"
 #include "usbh_hid.h"
 
+
 /// @cond HIDDEN_SYMBOLS
+
 static HID_DEV_T  g_hid_dev[CONFIG_HID_MAX_DEV];
 
-static HID_DEV_T *g_hdev_list = USBNULL;
+static HID_DEV_T *g_hdev_list = NULL;
 
 static HID_DEV_T *alloc_hid_device(void)
 {
     int     i;
 
-    for (i = 0; i < CONFIG_HID_MAX_DEV; i++)
+    for(i = 0; i < CONFIG_HID_MAX_DEV; i++)
     {
-        if (g_hid_dev[i].iface == USBNULL)
+        if(g_hid_dev[i].iface == NULL)
         {
             (void)memset((char *)&g_hid_dev[i], 0, sizeof(HID_DEV_T));
             g_hid_dev[i].uid = get_ticks();
             return &g_hid_dev[i];
         }
     }
-
-    return USBNULL;
+    return NULL;
 }
 
 static void  free_hid_device(HID_DEV_T *hid_dev)
 {
-    hid_dev->iface = USBNULL;
+    hid_dev->iface = NULL;
     (void)memset((char *)hid_dev, 0, sizeof(HID_DEV_T));
 }
+
 
 static int hid_probe(IFACE_T *iface)
 {
     UDEV_T       *udev = iface->udev;
     ALT_IFACE_T  *aif = iface->aif;
     const DESC_IF_T    *ifd;
-    const EP_INFO_T    *ep = USBNULL;
+    const EP_INFO_T    *ep = NULL;
     HID_DEV_T    *hdev;
     HID_DEV_T    *p;
     int          i;
@@ -55,7 +58,7 @@ static int hid_probe(IFACE_T *iface)
     ifd = aif->ifd;
 
     /* Is this interface HID class? */
-    if (ifd->bInterfaceClass != USB_CLASS_HID)
+    if(ifd->bInterfaceClass != USB_CLASS_HID)
     {
         return USBH_ERR_NOT_MATCHED;
     }
@@ -67,7 +70,7 @@ static int hid_probe(IFACE_T *iface)
     /*
      *  Try to find any interrupt endpoints
      */
-    for(i = 0; i < aif->ifd->bNumEndpoints; i++)
+    for(i = 0; i < (int)aif->ifd->bNumEndpoints; i++)
     {
         if((aif->ep[i].bmAttributes & EP_ATTR_TT_MASK) == EP_ATTR_TT_INT)
         {
@@ -76,14 +79,13 @@ static int hid_probe(IFACE_T *iface)
         }
     }
 
-    if (ep == USBNULL)
+    if(ep == NULL)
     {
         return USBH_ERR_NOT_MATCHED;   // No endpoints, Ignore this interface
     }
 
     hdev = alloc_hid_device();
-
-    if (hdev == USBNULL)
+    if(hdev == NULL)
     {
         return HID_RET_OUT_OF_MEMORY;
     }
@@ -93,7 +95,7 @@ static int hid_probe(IFACE_T *iface)
     hdev->idProduct = udev->descriptor.idProduct;
     hdev->bSubClassCode = ifd->bInterfaceSubClass;
     hdev->bProtocolCode = ifd->bInterfaceProtocol;
-    hdev->next = USBNULL;
+    hdev->next = NULL;
     iface->context = (void *)hdev;
 
     (void)hid_parse_report_descriptor(hdev, iface);
@@ -101,17 +103,16 @@ static int hid_probe(IFACE_T *iface)
     /*
      *  Chaining newly found HID device to end of HID device list.
      */
-    if (g_hdev_list == USBNULL)
+    if(g_hdev_list == NULL)
     {
         g_hdev_list = hdev;
     }
     else
     {
-        for (p = g_hdev_list; p->next != USBNULL; p = p->next)
+        for(p = g_hdev_list; p->next != NULL; p = p->next)
         {
             ;
         }
-
         p->next = hdev;
     }
 
@@ -119,6 +120,31 @@ static int hid_probe(IFACE_T *iface)
 
     return 0;
 }
+
+/// @endcond HIDDEN_SYMBOLS
+
+/**
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
+ * <b>Justification:</b> iface->context stores a generic void * set by usbhid_probe() to
+ *                       the owning HID_DEV_T. This accessor centralizes what was
+ *                       previously an inline `(HID_DEV_T *)(iface->context)` cast into
+ *                       the single conversion point used when tearing down the HID
+ *                       device on interface disconnect. IFACE_T->context is a shared
+ *                       framework field reused as-is by every USB class driver
+ *                       (cdc/hid/uac/hub), so giving it a distinct type per class is not
+ *                       a practical alternative; usbhid_probe() is the only place that
+ *                       assigns iface->context and it always stores a HID_DEV_T*
+ *                       address, so this accessor only documents that existing
+ *                       guarantee and does not change behavior.<br>
+ */
+static HID_DEV_T *hid_dev_from_iface(IFACE_T *iface)
+{
+    /* cppcheck-suppress misra-c2012-11.5 */
+    return (HID_DEV_T *)iface->context;
+}
+
+/// @cond HIDDEN_SYMBOLS
 
 static void  hid_disconnect(IFACE_T *iface)
 {
@@ -128,43 +154,41 @@ static void  hid_disconnect(IFACE_T *iface)
     RP_INFO_T   *next_rp;
     int         i;
 
-    hdev = (HID_DEV_T *)(iface->context);
+    hdev = hid_dev_from_iface(iface);
 
-    for (i = 0; i < iface->aif->ifd->bNumEndpoints; i++)
+    for(i = 0; i < (int)iface->aif->ifd->bNumEndpoints; i++)
     {
-        iface->udev->hc_driver->quit_xfer(USBNULL, &(iface->aif->ep[i]));
+        iface->udev->hc_driver->quit_xfer(NULL, &(iface->aif->ep[i]));
     }
 
     /*
      *  Abort all UTR of this HID device (interface)
      */
-    for (i = 0; i < CONFIG_HID_DEV_MAX_PIPE; i++)
+    for(i = 0; i < CONFIG_HID_DEV_MAX_PIPE; i++)
     {
         UTR_T       *utr;
         utr = hdev->utr_list[i];
-
-        if (utr != USBNULL)
+        if(utr != NULL)
         {
-            (void)usbh_quit_utr(utr);             /* Quit the UTR                               */
-            (void)usbh_free_mem(utr->buff, utr->ep->wMaxPacketSize);
+            (void)usbh_quit_utr(utr);       /* Quit the UTR */
+            usbh_free_mem(utr->buff, utr->ep->wMaxPacketSize);
             free_utr(utr);
         }
     }
 
-    if (hdev->rpd.utr_led != USBNULL)
+    if(hdev->rpd.utr_led != NULL)
     {
         (void)usbh_quit_utr(hdev->rpd.utr_led);   /* Quit the UTR                               */
         free_utr(hdev->rpd.utr_led);
     }
 
-    if (hdev->rpd.report != USBNULL)
+    if(hdev->rpd.report != NULL)
     {
         rp = hdev->rpd.report;
-
-        while (rp != USBNULL)
+        while(rp != NULL)
         {
             next_rp = rp->next;
-            (void)usbh_free_mem(rp, sizeof(RP_INFO_T));
+            usbh_free_mem(rp, sizeof(RP_INFO_T));
             rp = next_rp;
         }
     }
@@ -172,21 +196,21 @@ static void  hid_disconnect(IFACE_T *iface)
     /*
      *  remove it from HID device list
      */
-    for (i = 0; i < CONFIG_HID_MAX_DEV; i++)
+    for(i = 0; i < CONFIG_HID_MAX_DEV; i++)
     {
         if(g_hid_dev[i].iface == iface)
         {
             hdev = &g_hid_dev[i];
 
-            if (hdev == g_hdev_list)
+            if(hdev == g_hdev_list)
             {
                 g_hdev_list = g_hdev_list->next;
             }
             else
             {
-                for (p = g_hdev_list; p != USBNULL; p = p->next)
+                for(p = g_hdev_list; p != NULL; p = p->next)
                 {
-                    if (p->next == hdev)
+                    if(p->next == hdev)
                     {
                         p->next = hdev->next;
                         break;
@@ -203,6 +227,7 @@ static void  hid_disconnect(IFACE_T *iface)
 
 /// @endcond HIDDEN_SYMBOLS
 
+
 /**
   * @brief    Initialize USB Host HID driver.
   * @return   None
@@ -213,14 +238,15 @@ void usbh_hid_init(void)
     {
         hid_probe,
         hid_disconnect,
-        USBNULL,                       /* suspend */
-        USBNULL                        /* resume */
+        NULL,                       /* suspend */
+        NULL,                       /* resume */
     };
 
     (void)memset((char *)&g_hid_dev[0], 0, sizeof(g_hid_dev));
-    g_hdev_list = USBNULL;
+    g_hdev_list = NULL;
     (void)usbh_register_driver(&hid_driver);
 }
+
 
 /**
  *  @brief   Get a list of currently connected USB Hid devices.
@@ -234,4 +260,7 @@ HID_DEV_T * usbh_hid_get_device_list(void)
 {
     return g_hdev_list;
 }
+
+
+/*** (C) COPYRIGHT 2020 Nuvoton Technology Corp. ***/
 

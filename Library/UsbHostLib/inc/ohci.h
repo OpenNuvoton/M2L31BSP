@@ -1,9 +1,9 @@
 /**************************************************************************//**
  * @file     ohci.h
+ * @version  V1.00
  * @brief    USB OHCI host controller driver header file.
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 
 #ifndef _USBH_OHCI_H_
@@ -25,6 +25,7 @@ struct udev_t;
 #define HCFS_OPER                 (2UL << USBH_HcControl_HCFS_Pos)
 #define HCFS_SUSPEND              (3UL << USBH_HcControl_HCFS_Pos)
 
+
 /*----------------------------------------------------------------------------------------*/
 /*   Endpoint descriptor                                                                  */
 /*----------------------------------------------------------------------------------------*/
@@ -38,29 +39,29 @@ typedef struct ed_t
     /* The following members are used by USB Host libary.   */
     uint8_t     bInterval;
     uint16_t    next_sf;          /* for isochronous transfer, recording the next SF      */
-    struct ed_t *next;            /* point to the next ED in remove list                  */
+    struct ed_t * next;           /* point to the next ED in remove list                  */
 } ED_T;
 
-#define ED_CTRL_FA_Pos            0U        /* Info[6:0]   - Function address             */
-#define ED_CTRL_EN_Pos            7U        /* Info[10:7]  - Endpoint number              */
-#define ED_CTRL_DIR_Pos           11U       /* Info[12:11] - Direction                    */
-#define ED_CTRL_MPS_Pos           16U       /* Info[26:16] - Maximum packet size          */
+#define ED_CTRL_FA_Pos            0U         /* Info[6:0]   - Function address             */
+#define ED_CTRL_EN_Pos            7U         /* Info[10:7]  - Endpoint number              */
+#define ED_CTRL_DIR_Pos           11U        /* Info[12:11] - Direction                    */
+#define ED_CTRL_MPS_Pos           16U        /* Info[26:16] - Maximum packet size          */
 
 #define ED_FUNC_ADDR_Msk          (0x7fU)
-#define ED_EP_ADDR_Msk            ((uint32_t)0xfU<<7U)
-#define ED_DIR_Msk                ((uint32_t)0x3U<<11U)
-#define ED_SPEED_Msk              ((uint32_t)1U<<13U)
-#define ED_MAX_PK_SIZE_Msk        ((uint32_t)0x7ffU<<16U)
+#define ED_EP_ADDR_Msk            (0xfU<<7U)
+#define ED_DIR_Msk                (0x3UL<<11U)
+#define ED_SPEED_Msk              (1UL<<13U)
+#define ED_MAX_PK_SIZE_Msk        (0x7ffUL<<16U)
 
 #define ED_DIR_BY_TD              ((uint32_t)0U<<ED_CTRL_DIR_Pos)
 #define ED_DIR_OUT                ((uint32_t)1U<<ED_CTRL_DIR_Pos)
 #define ED_DIR_IN                 ((uint32_t)2U<<ED_CTRL_DIR_Pos)
-#define ED_SPEED_FULL             ((uint32_t)0U<<13U)  /* Info[13] - 0: is full speed device         */
-#define ED_SPEED_LOW              ((uint32_t)1U<<13U)  /* Info[13] - 1: is low speed device          */
-#define ED_SKIP                   ((uint32_t)1U<<14U)  /* Info[14] - 1: HC skip this ED              */
-#define ED_FORMAT_GENERAL         ((uint32_t)0U<<15U)  /* Info[15] - 0: is a general TD              */
-#define ED_FORMAT_ISO             ((uint32_t)1U<<15U)  /* Info[15] - 1: is an isochronous TD         */
-#define ED_HEADP_HALT             ((uint32_t)1U<<0U)   /* HeadP[0] - 1: Halt; 0: Not                 */
+#define ED_SPEED_FULL             (0UL<<13U)   /* Info[13] - 0: is full speed device         */
+#define ED_SPEED_LOW              (1UL<<13U)   /* Info[13] - 1: is low speed device          */
+#define ED_SKIP                   (1UL<<14U)   /* Info[14] - 1: HC skip this ED              */
+#define ED_FORMAT_GENERAL         (0UL<<15U)   /* Info[15] - 0: is a general TD              */
+#define ED_FORMAT_ISO             (1UL<<15U)   /* Info[15] - 1: is an isochronous TD         */
+#define ED_HEADP_HALT             (1U<<0U)    /* HeadP[0] - 1: Halt; 0: Not                 */
 
 
 /*----------------------------------------------------------------------------------------*/
@@ -106,23 +107,24 @@ enum OCHI_CC_CODE
 
 /* TD control field */
 #define TD_CC                     0xF0000000U
-#define TD_CC_GET(td)             (((td) >> 28) & 0x0FU)
-#define TD_CC_SET(td, cc)         (td) = ((td) & 0x0FFFFFFFU) | (((uint32_t)(cc) & 0x0FU) << 28U)
+#define TD_CC_GET(td)             (((td) >>28U) & 0x0FU)
+#define TD_CC_SET(td, cc)         (td) = ((td) & 0x0FFFFFFFU) | (((cc) & 0x0FU) << 28U)
 #define TD_T_DATA0                0x02000000U
 #define TD_T_DATA1                0x03000000U
 #define TD_R                      0x00040000U
 #define TD_DP                     0x00180000U
 #define TD_DP_IN                  0x00100000U
 #define TD_DP_OUT                 0x00080000U
-#define MAXPSW                    8
+#define MAXPSW                    8U
 /* steel TD reserved bits to keep driver data */
-#define TD_TYPE_Msk               ((uint32_t)0x3U<<16U)
-#define TD_TYPE_CTRL              ((uint32_t)0x0U<<16U)
-#define TD_TYPE_BULK              ((uint32_t)0x1U<<16U)
-#define TD_TYPE_INT               ((uint32_t)0x2U<<16U)
-#define TD_TYPE_ISO               ((uint32_t)0x3U<<16U)
-#define TD_CTRL_Msk               ((uint32_t)0x7U<<15U)
-#define TD_CTRL_DATA              ((uint32_t)1U<<15U)
+#define TD_TYPE_Msk               (0x3UL<<16U)
+#define TD_TYPE_CTRL              (0x0UL<<16U)
+#define TD_TYPE_BULK              (0x1UL<<16U)
+#define TD_TYPE_INT               (0x2UL<<16U)
+#define TD_TYPE_ISO               (0x3UL<<16U)
+#define TD_CTRL_Msk               (0x7UL<<15U)
+#define TD_CTRL_DATA              (1UL<<15U)
+
 
 /*
  * The HCCA (Host Controller Communications Area) is a 256 byte
@@ -137,6 +139,9 @@ typedef struct
     uint32_t   done_head;                   /* info returned for an interrupt             */
     uint8_t    reserved_for_hc[116];
 } HCCA_T;
+
+
+extern void USBH_IRQHandler(void);
 
 /// @endcond
 

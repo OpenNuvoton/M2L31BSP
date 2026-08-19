@@ -1,11 +1,12 @@
 /**************************************************************************//**
  * @file     mem_alloc.c
+ * @version  V1.10
  * @brief   USB host library memory allocation functions.
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -13,74 +14,100 @@
 
 #include "usb.h"
 
+
 /// @cond HIDDEN_SYMBOLS
 
 //#define MEM_DEBUG
 
 #ifdef MEM_DEBUG
-    #define mem_debug       (void)usbh_printf
+#define mem_debug       (void)usbh_printf
 #else
 #define mem_debug(...)
 #endif
 
 #ifdef __ICCARM__
 #pragma data_alignment=32
-    static uint8_t _hw_mem_pool[HW_MEM_UNIT_NUM][HW_MEM_UNIT_SIZE];
+static uint8_t  _mem_pool[MEM_POOL_UNIT_NUM][MEM_POOL_UNIT_SIZE];
 #else
-    static uint8_t _hw_mem_pool[HW_MEM_UNIT_NUM][HW_MEM_UNIT_SIZE] __attribute__((aligned(64)));
+static uint8_t _mem_pool[MEM_POOL_UNIT_NUM][MEM_POOL_UNIT_SIZE] __attribute__((aligned(32)));
 #endif
+static uint8_t  _unit_used[MEM_POOL_UNIT_NUM];
 
-#ifdef __ICCARM__
-    #pragma data_alignment = 32
-    static uint8_t _dma_mem_pool[DMA_MEM_UNIT_NUM][DMA_MEM_UNIT_SIZE];
-#else
-    static uint8_t _dma_mem_pool[DMA_MEM_UNIT_NUM][DMA_MEM_UNIT_SIZE] __attribute__((aligned(32)));
-#endif
+static volatile int  _usbh_mem_used;
+static volatile int  _usbh_max_mem_used;
+static volatile int  _mem_pool_used;
 
-static uint8_t  _hw_unit_used[HW_MEM_UNIT_NUM];
-static uint8_t  _dma_unit_used[DMA_MEM_UNIT_NUM];
-
-static volatile int  _hw_mem_pool_used;
-static volatile int  _dma_men_pool_used;
 
 UDEV_T * g_udev_list;
 
 static uint8_t  _dev_addr_pool[128];
 static volatile int  _device_addr;
 
+/// @endcond HIDDEN_SYMBOLS
+
+/**
+ * @brief     Allocate a raw block of memory from the C heap.
+ * @param[in] size  Number of bytes to allocate.
+ * @return    Pointer to the allocated block, or NULL if allocation failed.
+ *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 21.3<br>
+ * <b>Justification:</b> The USB Host library requires dynamic memory for its system allocator.
+ *                       malloc() is intentionally used here as the single, contained heap entry
+ *                       point; the deviation is isolated to this wrapper so the rest of the
+ *                       library does not call <stdlib.h> allocators directly.
+ */
+static void *usbh_sys_malloc(size_t size)
+{
+    /* cppcheck-suppress misra-c2012-21.3 */
+    return malloc(size);
+}
+
+/**
+ * @brief     Release a block of memory previously obtained from usbh_sys_malloc().
+ * @param[in] ptr  Pointer to the memory block to free. NULL is safely ignored by free().
+ * @return    None.
+ *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 21.3<br>
+ * <b>Justification:</b> Pairs with usbh_sys_malloc(). free() is intentionally used here as the
+ *                       single, contained heap release point; the deviation is isolated to this
+ *                       wrapper so the rest of the library does not call <stdlib.h> allocators
+ *                       directly.
+ */
+static void usbh_sys_free(void *ptr)
+{
+    /* cppcheck-suppress misra-c2012-21.3 */
+    free(ptr);
+}
+
 /*--------------------------------------------------------------------------*/
 /*   Memory alloc/free recording                                            */
 /*--------------------------------------------------------------------------*/
 
+/// @cond HIDDEN_SYMBOLS
+
 void usbh_memory_init(void)
 {
-    if ((int)sizeof(TD_T) > (int)HW_MEM_UNIT_SIZE)
+    if(sizeof(TD_T) > (size_t)MEM_POOL_UNIT_SIZE)
     {
         USB_error("TD_T - MEM_POOL_UNIT_SIZE too small!\n");
-
-        while (1)
-        {
-            ;
-        }
+        while(1){}
     }
 
-    if ((int)sizeof(ED_T) > (int)HW_MEM_UNIT_SIZE)
+    if(sizeof(ED_T) > (size_t)MEM_POOL_UNIT_SIZE)
     {
         USB_error("ED_T - MEM_POOL_UNIT_SIZE too small!\n");
-
-        while (1)
-        {
-            ;
-        }
+        while(1) {}
     }
 
-    (void)memset(_hw_unit_used, 0, sizeof(_hw_unit_used));
-    _hw_mem_pool_used = 0;
+    _usbh_mem_used = 0L;
+    _usbh_max_mem_used = 0L;
 
-    (void)memset(_dma_unit_used, 0, sizeof(_dma_unit_used));
-    _dma_men_pool_used = 0;
+    (void)memset(_unit_used, 0, sizeof(_unit_used));
+    _mem_pool_used = 0;
 
-    g_udev_list = USBNULL;
+    g_udev_list = NULL;
 
     (void)memset(_dev_addr_pool, 0, sizeof(_dev_addr_pool));
     _device_addr = 1;
@@ -88,198 +115,135 @@ void usbh_memory_init(void)
 
 uint32_t  usbh_memory_used(void)
 {
-    int  hw_used;
-    int  dma_used;
-
-    hw_used = _hw_mem_pool_used;
-    dma_used = _dma_men_pool_used;
-
-    USB_debug("USB H/W memory: %d/%d, DMA memory: %d/%d\n", hw_used, HW_MEM_UNIT_NUM,
-              dma_used, DMA_MEM_UNIT_NUM);
-    return (uint32_t)dma_used;
+    USB_debug("USB static memory: %d/%d, heap used: %d\n", _mem_pool_used, MEM_POOL_UNIT_NUM, _usbh_mem_used);
+    return _usbh_mem_used;
 }
 
-void *usbh_alloc_mem(uint32_t size)
+static void  memory_counter(int size)
 {
-    uint32_t  i;
-    uint32_t  start;
-    uint32_t  found;
-    uint32_t  size_kb;
-    uint32_t  wanted;
-    uint32_t  clear_len;
+    _usbh_mem_used += size;
+    if(_usbh_mem_used > _usbh_max_mem_used)
+    {
+        _usbh_max_mem_used = _usbh_mem_used;
+    }
+}
+
+/// @endcond HIDDEN_SYMBOLS
+
+/**
+ * @brief     Allocate a zero-initialized block from the USB Host heap.
+ * @param[in] size  Number of bytes to allocate.
+ * @return    Pointer to the allocated memory, or NULL if allocation failed.
+ */
+void * usbh_alloc_mem(int size)
+{
     void  *p;
 
-    start = 0U;
-    found = 0;
+    p = usbh_sys_malloc((size_t)size);
 
-    if (size == 0U)
+    if(p == NULL)
     {
-        return USBNULL;
+        USB_error("usbh_alloc_mem failed! %d\n", size);
+        return NULL;
     }
 
-    size_kb = size / 1024U;
-    wanted = (size + (uint32_t)DMA_MEM_UNIT_SIZE - 1U) / (uint32_t)DMA_MEM_UNIT_SIZE;
-
-    if (wanted > (uint32_t)DMA_MEM_UNIT_NUM)
-    {
-        /* Requested size can never fit in the pool. Bail out here to avoid an
-         * unsigned underflow of (DMA_MEM_UNIT_NUM - wanted) below, which would
-         * otherwise wrap to a huge loop bound and drive out-of-bounds
-         * accesses to _dma_unit_used[]/_dma_mem_pool[].                      */
-        USB_error("%s failed to allocate %d KB!!! (%d / %d)\n", __func__,
-                  (int)size_kb, _dma_men_pool_used, DMA_MEM_UNIT_NUM);
-        return USBNULL;
-    }
-
-    for (i = 0U; (i < (uint32_t)DMA_MEM_UNIT_NUM) && (found < wanted); i++)
-    {
-        if (_dma_unit_used[i] == 0U)
-        {
-            if (found == 0U)
-            {
-                start = i;
-            }
-
-            found++;
-        }
-        else
-        {
-            found = 0;
-        }
-    }
-
-    if (found < wanted)
-    {
-        USB_error("%s failed to allocate %d KB!!! (%d / %d)\n", __func__,
-                  (int)size_kb, _dma_men_pool_used, DMA_MEM_UNIT_NUM);
-        return USBNULL;
-    }
-
-    /* Go allocate it */
-    if ((start >= (uint32_t)DMA_MEM_UNIT_NUM) ||
-            (wanted > ((uint32_t)DMA_MEM_UNIT_NUM - start)))
-    {
-        USB_error("%s failed to allocate %d KB!!! (%d / %d)\n", __func__,
-                  (int)size_kb, _dma_men_pool_used, DMA_MEM_UNIT_NUM);
-        return USBNULL;
-    }
-
-    {
-        uint32_t  allocated;
-
-        i = start;
-        allocated = 0U;
-
-        while ((i < (uint32_t)DMA_MEM_UNIT_NUM) && (allocated < wanted))
-        {
-            _dma_unit_used[i] = 1;
-            i++;
-            allocated++;
-        }
-    }
-
-    _dma_men_pool_used += (int)wanted;
-
-    clear_len = (uint32_t)DMA_MEM_UNIT_SIZE * wanted;
-
-    (void)memset(&_dma_mem_pool[start], 0, clear_len);
-    p = (void *)&_dma_mem_pool[start];
+    (void)memset(p, 0, size);
+    memory_counter(size);
     return p;
 }
 
-int usbh_free_mem(const void *p, uint32_t size)
+/**
+ * @brief     Allocate a zero-initialized byte buffer from the USB Host heap.
+ * @param[in] size  Number of bytes to allocate.
+ * @return    Pointer to the allocated byte buffer, or NULL if allocation failed.
+ *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
+ * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This wrapper
+ *                       is the single conversion point for USB transfer and descriptor
+ *                       byte buffers, centralizing the Rule 11.5 cast instead of
+ *                       duplicating it at every `(uint8_t *)usbh_alloc_mem(...)` call
+ *                       site. usbh_alloc_mem() is the library's one generic heap
+ *                       allocator shared by every buffer type, so a per-type allocator is
+ *                       not a practical alternative; the requested size is caller-supplied
+ *                       and unchanged by this wrapper, so no data or control-flow change
+ *                       results.<br>
+ */
+uint8_t * usbh_alloc_buff(int size)
 {
-    uint32_t i;
-    uint32_t start;
-    uint32_t wanted;
-    uintptr_t paddr;
-    uintptr_t base;
-
-    /* Deviation: MISRAC2012-Rule-11.6 - conversion between a void pointer and
-     * an object of arithmetic type. This API must accept an arbitrary caller
-     * pointer and validate whether it falls inside the DMA pool before any
-     * pointer arithmetic is performed. On this 32-bit MCU target, uintptr_t is
-     * used to obtain an integer representation solely for range/alignment
-     * checking; the integer value is never converted back into a pointer used
-     * for memory access outside of the already-validated _dma_mem_pool[] array
-     * indexing below. An extra cast layer cannot remove this MISRA category by
-     * definition, so this conversion is intentionally retained. */
-    //cstat -MISRAC2012-Rule-11.6
-    paddr = (uintptr_t)p;
-    base = (uintptr_t)(&_dma_mem_pool[0]);
-    //cstat +MISRAC2012-Rule-11.6
-
-    if ((paddr < base) || (paddr > (base + (((uint32_t)DMA_MEM_UNIT_NUM - 1U) * ((uint32_t)DMA_MEM_UNIT_SIZE)))))
-    {
-        USB_error("%s - invalid DMA address 0x%x!\n", __func__, (uint32_t)paddr);
-        return USBH_ERR_MEM_FREE_INVALID;
-    }
-
-    start = (uint32_t)((paddr - base) / (uintptr_t)DMA_MEM_UNIT_SIZE);
-
-    if ((uintptr_t)&_dma_mem_pool[start] != paddr)
-    {
-        USB_error("%s paddr not block aligned: 0x%x\n", __func__, (uint32_t)paddr);
-        return USBH_ERR_MEM_FREE_INVALID;
-    }
-
-    wanted = (size + (uint32_t)DMA_MEM_UNIT_SIZE - 1U) / (uint32_t)DMA_MEM_UNIT_SIZE;
-
-    if ((paddr + ((uintptr_t)wanted * (uintptr_t)DMA_MEM_UNIT_SIZE)) > (base + ((uint32_t)DMA_MEM_UNIT_NUM * (uint32_t)DMA_MEM_UNIT_SIZE)))
-    {
-        USB_error("%s - invalid DMA address 0x%x, size %d!\n", __func__, (uint32_t)paddr, (int)size);
-        return USBH_ERR_MEM_FREE_INVALID;
-    }
-
-    for (i = start; i < (start + wanted); i++)
-    {
-        if (_dma_unit_used[i] == 0U)
-        {
-            USB_error("%s warning - try to free an unused block %d!\n", __func__, i);
-        }
-
-        _dma_unit_used[i] = 0;
-    }
-
-    _dma_men_pool_used -= (int)wanted;
-
-    return USBH_OK;
+    /* cppcheck-suppress misra-c2012-11.5 */
+    return (uint8_t *)usbh_alloc_mem(size);
 }
+
+/**
+ * @brief     Free a memory block previously allocated by usbh_alloc_mem().
+ * @param[in] p     Pointer to the memory block to free.
+ * @param[in] size  Size of the block in bytes, used to update the usage counter.
+ * @return    None.
+ */
+void usbh_free_mem(void *p, int size)
+{
+    usbh_sys_free(p);
+    memory_counter(-size);
+}
+
 
 /*--------------------------------------------------------------------------*/
 /*   USB device allocate/free                                               */
 /*--------------------------------------------------------------------------*/
 
+/**
+ * @brief     Allocate and initialize a new USB device (UDEV_T) object.
+ * @return    Pointer to the newly allocated USB device, or NULL if allocation failed.
+ *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
+ * <b>Justification:</b> usbh_sys_malloc() provides generic storage as void *. This is the
+ *                       single conversion point where the raw block becomes a typed
+ *                       UDEV_T object for the global device list. usbh_sys_malloc() is
+ *                       the library's one generic heap allocator shared by every object
+ *                       type, so a per-type allocator is not a practical alternative; the
+ *                       allocated block size always matches sizeof(*udev), so this cast
+ *                       only names an already-correct binary layout and changes no data
+ *                       or control flow.<br>
+ */
 UDEV_T * alloc_device(void)
 {
     UDEV_T  *udev;
 
-    udev = usbh_alloc_mem(sizeof(*udev));
-    if (udev == USBNULL)
+    /* cppcheck-suppress misra-c2012-11.5 */
+    udev = usbh_sys_malloc(sizeof(*udev));
+
+    if(udev == NULL)
     {
         USB_error("alloc_device failed!\n");
-        return USBNULL;
+        return NULL;
     }
-
     (void)memset(udev, 0, sizeof(*udev));
+    memory_counter(sizeof(*udev));
     udev->cur_conf = -1;                    /* must! used to identify the first SET CONFIGURATION */
     udev->next = g_udev_list;               /* chain to global device list */
     g_udev_list = udev;
     return udev;
 }
 
+/**
+ * @brief     Free a USB device object and remove it from the global device list.
+ * @param[in] udev  The USB device to be freed. NULL is safely ignored.
+ * @return    None.
+ */
 void free_device(UDEV_T *udev)
 {
     UDEV_T  *d;
 
-    if (udev == USBNULL)
+    if(udev == NULL)
     {
         return;
     }
 
-    if (udev->cfd_buff != USBNULL)
+    if(udev->cfd_buff != NULL)
     {
-        (void)usbh_free_mem(udev->cfd_buff, MAX_DESC_BUFF_SIZE);
+        usbh_free_mem(udev->cfd_buff, MAX_DESC_BUFF_SIZE);
     }
 
     /*
@@ -292,21 +256,22 @@ void free_device(UDEV_T *udev)
     else
     {
         d = g_udev_list;
-
-        while (d != USBNULL)
+        while(d != NULL)
         {
-            if (d->next == udev)
+            if(d->next == udev)
             {
                 d->next = udev->next;
                 break;
             }
-
             d = d->next;
         }
     }
 
-    (void)usbh_free_mem(udev, sizeof(*udev));
+    usbh_sys_free(udev);
+    memory_counter(-sizeof(*udev));
 }
+
+/// @cond HIDDEN_SYMBOLS
 
 int  alloc_dev_address(void)
 {
@@ -317,17 +282,15 @@ int  alloc_dev_address(void)
         _device_addr = 1;
     }
 
-    while (1)
+    while(1)
     {
-        if (_dev_addr_pool[_device_addr] == 0U)
+        if(_dev_addr_pool[_device_addr] == 0U)
         {
             _dev_addr_pool[_device_addr] = 1;
             return _device_addr;
         }
-
         _device_addr++;
-
-        if (_device_addr >= 128)
+        if(_device_addr >= 128)
         {
             _device_addr = 1;
         }
@@ -342,37 +305,65 @@ void  free_dev_address(int dev_addr)
     }
 }
 
+/// @endcond HIDDEN_SYMBOLS
+
 /*--------------------------------------------------------------------------*/
 /*   UTR (USB Transfer Request) allocate/free                               */
 /*--------------------------------------------------------------------------*/
 
+/**
+ * @brief     Allocate and initialize a new USB transfer request (UTR_T) object.
+ * @param[in] udev  The USB device that owns this transfer request.
+ * @return    Pointer to the newly allocated UTR, or NULL if allocation failed.
+ *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
+ * <b>Justification:</b> usbh_sys_malloc() provides generic storage as void *. This is the
+ *                       single conversion point where the raw block becomes a typed
+ *                       UTR_T transfer request object. usbh_sys_malloc() is the library's
+ *                       one generic heap allocator shared by every object type, so a
+ *                       per-type allocator is not a practical alternative; the allocated
+ *                       block size always matches sizeof(*utr), so this cast only names
+ *                       an already-correct binary layout and changes no data or control
+ *                       flow.<br>
+ */
 UTR_T * alloc_utr(UDEV_T *udev)
 {
     UTR_T  *utr;
 
-    utr = usbh_alloc_mem(sizeof(*utr));
-    if(utr == USBNULL)
+    /* cppcheck-suppress misra-c2012-11.5 */
+    utr = usbh_sys_malloc(sizeof(*utr));
+
+    if(utr == NULL)
     {
         USB_error("alloc_utr failed!\n");
-        return USBNULL;
+        return NULL;
     }
-
+    memory_counter(sizeof(*utr));
     (void)memset(utr, 0, sizeof(*utr));
     utr->udev = udev;
     mem_debug("[ALLOC] [UTR] - 0x%x\n", (int)utr);
     return utr;
 }
 
-void free_utr(const UTR_T *utr)
+/**
+ * @brief     Free a USB transfer request (UTR_T) object.
+ * @param[in] utr  The transfer request to be freed. NULL is safely ignored.
+ * @return    None.
+ */
+void free_utr(UTR_T *utr)
 {
-    if (utr == USBNULL)
+    if(utr == NULL)
     {
         return;
     }
 
     mem_debug("[FREE] [UTR] - 0x%x\n", (int)utr);
-    (void)usbh_free_mem(utr, sizeof(*utr));
+    usbh_sys_free(utr);
+    memory_counter(-(int)sizeof(*utr));
 }
+
+/// @cond HIDDEN_SYMBOLS
 
 /*--------------------------------------------------------------------------*/
 /*   OHCI ED allocate/free                                                  */
@@ -381,41 +372,39 @@ void free_utr(const UTR_T *utr)
 ED_T * alloc_ohci_ED(void)
 {
     int    i;
-    ED_T   *ed;
 
-    for (i = 0; i < HW_MEM_UNIT_NUM; i++)
+    for(i = 0; i < MEM_POOL_UNIT_NUM; i++)
     {
-        if (_hw_unit_used[i] == 0U)
+        if(_unit_used[i] == 0U)
         {
-            _hw_unit_used[i] = 1;
-            _hw_mem_pool_used++;
+            ED_T   *ed;
 
-            ed = (ED_T *)&_hw_mem_pool[i];
+            _unit_used[i] = 1;
+            _mem_pool_used++;
+            ed = (ED_T *)&_mem_pool[i];
             (void)memset(ed, 0, sizeof(*ed));
             mem_debug("[ALLOC] [ED] - 0x%x\n", (int)ed);
             return ed;
         }
     }
-
     USB_error("alloc_ohci_ED failed!\n");
-    return USBNULL;
+    return NULL;
 }
 
 void free_ohci_ED(const ED_T *ed)
 {
     int      i;
 
-    for (i = 0; i < HW_MEM_UNIT_NUM; i++)
+    for(i = 0; i < MEM_POOL_UNIT_NUM; i++)
     {
-        if ((uint32_t)&_hw_mem_pool[i] == (uint32_t)ed)
+        if((uint32_t)&_mem_pool[i] == (uint32_t)ed)
         {
-            _hw_unit_used[i] = 0;
-            _hw_mem_pool_used--;
             mem_debug("[FREE]  [ED] - 0x%x\n", (int)ed);
+            _unit_used[i] = 0;
+            _mem_pool_used--;
             return;
         }
     }
-
     USB_debug("free_ohci_ED - not found! (ignored in case of multiple UTR)\n");
 }
 
@@ -425,16 +414,16 @@ void free_ohci_ED(const ED_T *ed)
 TD_T * alloc_ohci_TD(UTR_T *utr)
 {
     int    i;
-    TD_T   *td;
 
-    for (i = 0; i < HW_MEM_UNIT_NUM; i++)
+    for(i = 0; i < MEM_POOL_UNIT_NUM; i++)
     {
-        if (_hw_unit_used[i] == 0U)
+        if(_unit_used[i] == 0U)
         {
-            _hw_unit_used[i] = 1;
-            _hw_mem_pool_used++;
+            TD_T   *td;
 
-            td = (TD_T *)&_hw_mem_pool[i];
+            _unit_used[i] = 1;
+            _mem_pool_used++;
+            td = (TD_T *)&_mem_pool[i];
 
             (void)memset(td, 0, sizeof(*td));
             td->utr = utr;
@@ -442,28 +431,27 @@ TD_T * alloc_ohci_TD(UTR_T *utr)
             return td;
         }
     }
-
     USB_error("alloc_ohci_TD failed!\n");
-    return USBNULL;
+    return NULL;
 }
 
 void free_ohci_TD(const TD_T *td)
 {
     int   i;
 
-    for (i = 0; i < HW_MEM_UNIT_NUM; i++)
+    for(i = 0; i < MEM_POOL_UNIT_NUM; i++)
     {
-        if ((uint32_t)&_hw_mem_pool[i] == (uint32_t)td)
+        if((uint32_t)&_mem_pool[i] == (uint32_t)td)
         {
-            _hw_unit_used[i] = 0;
-            _hw_mem_pool_used--;
             mem_debug("[FREE]  [TD] - 0x%x\n", (int)td);
+            _unit_used[i] = 0;
+            _mem_pool_used--;
             return;
         }
     }
-
     USB_error("free_ohci_TD - not found!\n");
 }
+
 /// @endcond HIDDEN_SYMBOLS
 
 /*** (C) COPYRIGHT 2020 Nuvoton Technology Corp. ***/

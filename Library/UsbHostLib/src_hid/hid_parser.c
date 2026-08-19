@@ -1,22 +1,61 @@
 /**************************************************************************//**
  * @file     hid_parser.c
- * @brief    MCU USB Host HID report descriptor parser
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
-*****************************************************************************/
+ * @version  V1.00
+ * @brief    M2354 MCU USB Host HID report descriptor parser
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ *****************************************************************************/
 
+#include <stdio.h>
 #include <string.h>
+
 #include "NuMicro.h"
+
 #include "usb.h"
-#include "usbh_lib.h"
 #include "usbh_hid.h"
+#include "usbh_lib.h"
+
 
 /// @cond HIDDEN_SYMBOLS
 
-int _data_usage_cnt;
 
-static int hid_parse_item(HID_DEV_T *hdev, const uint8_t *buff);
+static int hid_parse_item(HID_DEV_T *hdev, uint8_t *buff);
+
+static void hid_read_config_descriptor(const uint8_t *bptr, DESC_CONF_T *config)
+{
+    config->bLength = bptr[0];
+    config->bDescriptorType = bptr[1];
+    config->wTotalLength = (uint16_t)((uint16_t)bptr[2] | ((uint16_t)bptr[3] << 8U));
+    config->bNumInterfaces = bptr[4];
+    config->bConfigurationValue = bptr[5];
+    config->iConfiguration = bptr[6];
+    config->bmAttributes = bptr[7];
+    config->MaxPower = bptr[8];
+}
+
+static void hid_read_interface_descriptor(const uint8_t *bptr, DESC_IF_T *interface)
+{
+    interface->bLength = bptr[0];
+    interface->bDescriptorType = bptr[1];
+    interface->bInterfaceNumber = bptr[2];
+    interface->bAlternateSetting = bptr[3];
+    interface->bNumEndpoints = bptr[4];
+    interface->bInterfaceClass = bptr[5];
+    interface->bInterfaceSubClass = bptr[6];
+    interface->bInterfaceProtocol = bptr[7];
+    interface->iInterface = bptr[8];
+}
+
+static void hid_read_hid_descriptor(const uint8_t *bptr, DESC_HID_T *hidd)
+{
+    hidd->bLength = bptr[0];
+    hidd->bDescriptorType = bptr[1];
+    hidd->bcdHID = (uint16_t)((uint16_t)bptr[2] | ((uint16_t)bptr[3] << 8U));
+    hidd->bCountryCode = bptr[4];
+    hidd->bNumDescriptors = bptr[5];
+    hidd->bRPDescType = bptr[6];
+    hidd->wDescriptorLength = (uint16_t)((uint16_t)bptr[7] | ((uint16_t)bptr[8] << 8U));
+}
 
 #if ENABLE_DBG_MSG
 struct string_table
@@ -60,10 +99,13 @@ static const struct string_table desktop_page_list[] =
 
 #endif
 
+
 /*
  * Varibles used on parsing HID report descriptor
  */
 static RP_INFO_T   _rp_info;      /* describing the current report */
+
+static int _data_usage_cnt;
 
 static void print_usage_page(void)
 {
@@ -74,17 +116,17 @@ static void print_usage_page(void)
     {
         if(usage_page_list[i].code == _rp_info.usage_page)
         {
-            USB_debug("(%s)", usage_page_list[i].string);
+            printf("(%s)", usage_page_list[i].string);
             return;
         }
     }
-
-    USB_debug("(?? - 0x%x)", _rp_info.usage_page);
+    printf("(?? - 0x%x)", _rp_info.usage_page);
 #endif
 }
 
 static void print_usage(uint8_t usage)
 {
+    (void)usage;
 #if ENABLE_DBG_MSG
     int   i, count;
     struct string_table  *p;
@@ -103,79 +145,67 @@ static void print_usage(uint8_t usage)
     {
         if(p->code == usage)
         {
-            USB_debug("(%s)", p->string);
+            printf("(%s)", p->string);
             return;
         }
     }
-
-    USB_debug("(?? - 0x%x)", usage);
-#else
-    (void)(usage);
+    printf("(?? - 0x%x)", usage);
 #endif
 }
 
 static void read_main_item_status(const uint8_t *buff)
 {
     HID_DBGMSG("(");
-
-    if (buff[0] & 0x01U)
+    if(buff[0] & 0x01U)
     {
         _rp_info.status.constant = 1;
         _rp_info.status.variable = 0;
         HID_DBGMSG("Constant ");
     }
-
-    if (buff[0] & 0x02U)
+    if(buff[0] & 0x02U)
     {
         _rp_info.status.constant = 0;
         _rp_info.status.variable = 1;
         HID_DBGMSG("Variable ");
     }
-
-    if (buff[0] & 0x04U)
+    if(buff[0] & 0x04U)
     {
         _rp_info.status.relative = 1;
         HID_DBGMSG("Relative ");
     }
-
-    if (buff[0] & 0x08U)
+    if(buff[0] & 0x08U)
     {
         _rp_info.status.wrap = 1;
         HID_DBGMSG("Wrap ");
     }
-
-    if (buff[0] & 0x10U)
+    if(buff[0] & 0x10U)
     {
         _rp_info.status.non_linear = 1;
         HID_DBGMSG("Non-linear ");
     }
-
-    if (buff[0] & 0x20U)
+    if(buff[0] & 0x20U)
     {
         _rp_info.status.no_preferred = 1;
         HID_DBGMSG("Not-prefered ");
     }
-
-    if (buff[0] & 0x40U)
+    if(buff[0] & 0x40U)
     {
         _rp_info.status.null_state = 1;
-        HID_DBGMSG("USBNULL-state ");
+        HID_DBGMSG("Null-state ");
     }
-
-    if (buff[0] & 0x80U)
+    if(buff[0] & 0x80U)
     {
         _rp_info.status.is_volatile = 1;
         HID_DBGMSG("Volatile ");
     }
-
-    if (buff[1] & 0x01U)
+    if(buff[1] & 0x01U)
     {
         _rp_info.status.buffered_bytes = 1;
         HID_DBGMSG("Buffered-bytes ");
     }
-
     HID_DBGMSG(")");
 }
+
 
 /**
  *  @brief  Parse report descriptor and get information from descriptors.
@@ -188,16 +218,14 @@ static void read_main_item_status(const uint8_t *buff)
 int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface)
 {
     UDEV_T         *udev = iface->udev;
-    const DESC_CONF_T    *config;
-    const DESC_IF_T      *ifd = USBNULL;
-    const DESC_HID_T     *hidd;
-    uint8_t        *cfg_buff;
+    DESC_CONF_T    config;
+    DESC_IF_T      ifd;
+    DESC_HID_T     hidd;
+    uint8_t        *bptr;
     uint8_t        *desc_buff;
-    int            desc_buff_len;
-    int            desc_offset;
-    int            parsed_len;
-    int            remain_len;
-    int            size;
+    int desc_buff_len;
+    int remain_len;
+    int size;
 
     HID_DBGMSG("HID interface %d parsing report descriptor...\n", iface->if_num);
 
@@ -206,91 +234,90 @@ int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface)
 
     hdev->rpd.has_report_id = 0;
 
-    cfg_buff = udev->cfd_buff;
-    config = (const DESC_CONF_T *)cfg_buff;
+    bptr = udev->cfd_buff;
+    hid_read_config_descriptor(bptr, &config);
 
     /* step over configuration descritpor */
-    parsed_len = config->bLength;
-    size = config->wTotalLength - config->bLength;
+    bptr = &bptr[config.bLength];
+    size = (int)config.wTotalLength - (int)config.bLength;
 
     /*------------------------------------------------------------------------------------*/
     /*  Find the Interface Descriptor of this HID interface                               */
     /*------------------------------------------------------------------------------------*/
-    while (size >= (int)sizeof(DESC_IF_T))
+    while(size >= (int)sizeof(DESC_IF_T))
     {
-        ifd = (const DESC_IF_T *)&cfg_buff[parsed_len];
+        hid_read_interface_descriptor(bptr, &ifd);
 
-        if ((ifd->bDescriptorType == USB_DT_INTERFACE) && (ifd->bInterfaceNumber == iface->if_num) &&
-                (ifd->bInterfaceClass == USB_CLASS_HID))
+        if((ifd.bDescriptorType == USB_DT_INTERFACE) && (ifd.bInterfaceNumber == iface->if_num) &&
+                (ifd.bInterfaceClass == USB_CLASS_HID))
         {
             break;
         }
 
-        if (ifd->bLength == 0)
+        if(ifd.bLength == 0U)
         {
             return -1;
         }
 
-        parsed_len += ifd->bLength;
-        size -= ifd->bLength;
+        bptr = &bptr[ifd.bLength];
+        size -= (int)ifd.bLength;
     }
 
-    if (size < (int)sizeof(DESC_IF_T))
+    if(size < (int)sizeof(DESC_IF_T))
     {
         HID_ERRMSG("Can't find the HID interface!\n");
         return HID_RET_PARSING;
     }
 
-    parsed_len += ifd->bLength;
-    size -= ifd->bLength;
+    bptr = &bptr[ifd.bLength];
+    size -= (int)ifd.bLength;
 
     /*------------------------------------------------------------------------------------*/
     /*  Continue to find the subsequent HID Descriptor                                    */
     /*------------------------------------------------------------------------------------*/
-    while (size >= (int)sizeof(DESC_HID_T))
+    while(size >= (int)sizeof(DESC_HID_T))
     {
-        hidd = (const DESC_HID_T *)&cfg_buff[parsed_len];
+        hid_read_hid_descriptor(bptr, &hidd);
 
-        if ((hidd->bDescriptorType == HID_DESCRIPTOR_TYPE) &&
-                (hidd->bRPDescType == REPORT_DESCRIPTOR_TYPE))
+        if((hidd.bDescriptorType == HID_DESCRIPTOR_TYPE) &&
+                (hidd.bRPDescType == REPORT_DESCRIPTOR_TYPE))
         {
             break;
         }
 
-        if (hidd->bLength == 0)
+        if(hidd.bLength == 0U)
         {
             return HID_RET_PARSING;
         }
 
-        parsed_len += ifd->bLength;
-        size -= ifd->bLength;
+        bptr = &bptr[hidd.bLength];
+        size -= (int)hidd.bLength;
     }
 
-    if (size < (int)sizeof(DESC_HID_T))
+    if(size < (int)sizeof(DESC_HID_T))
     {
         HID_ERRMSG("Can't find the HID interface!\n");
         return HID_RET_PARSING;
     }
 
-    hidd = (const DESC_HID_T *)&cfg_buff[parsed_len];
+    hid_read_hid_descriptor(bptr, &hidd);
 
     HID_DBGMSG("[HID Descriptor]\n");
-    HID_DBGMSG("bLength = %d\n", hidd->bLength);
-    HID_DBGMSG("bDescriptorType = 0x%x\n", hidd->bDescriptorType);
-    HID_DBGMSG("bcdHID = 0x%x\n", hidd->bcdHID);
-    HID_DBGMSG("bCountryCode = 0x%x\n", hidd->bCountryCode);
-    HID_DBGMSG("bNumDescriptors = %d\n", hidd->bNumDescriptors);
-    HID_DBGMSG("bRPDescType = 0x%x\n", hidd->bRPDescType);
-    HID_DBGMSG("wDescriptorLength = %d\n", hidd->wDescriptorLength);
+    HID_DBGMSG("bLength = %d\n", hidd.bLength);
+    HID_DBGMSG("bDescriptorType = 0x%x\n", hidd.bDescriptorType);
+    HID_DBGMSG("bcdHID = 0x%x\n", hidd.bcdHID);
+    HID_DBGMSG("bCountryCode = 0x%x\n", hidd.bCountryCode);
+    HID_DBGMSG("bNumDescriptors = %d\n", hidd.bNumDescriptors);
+    HID_DBGMSG("bRPDescType = 0x%x\n", hidd.bRPDescType);
+    HID_DBGMSG("wDescriptorLength = %d\n", hidd.wDescriptorLength);
 
-    HID_DBGMSG("Report descriptor found, length=%d. %d\n", hidd->wDescriptorLength, hidd->bLength);
+    HID_DBGMSG("Report descriptor found, length=%d. %d\n", hidd.wDescriptorLength, hidd.bLength);
 
-    desc_buff_len = hidd->wDescriptorLength + 8;
-    desc_buff = (uint8_t *)usbh_alloc_mem(desc_buff_len);
+    desc_buff_len = hidd.wDescriptorLength + 8U;
+    desc_buff = usbh_alloc_buff(desc_buff_len);
 
     remain_len = usbh_hid_get_report_descriptor(hdev, desc_buff, desc_buff_len);
-
-    if (remain_len <= 0)
+    if(remain_len <= 0)
     {
         (void)usbh_free_mem(desc_buff, desc_buff_len);
         return remain_len;
@@ -302,20 +329,18 @@ int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface)
     /*------------------------------------------------------------------------------------*/
     /*  Parsing items                                                                     */
     /*------------------------------------------------------------------------------------*/
-    desc_offset = 0;
-
-    while (remain_len > 0)
+    bptr = desc_buff;
+    while(remain_len > 0)
     {
-        size = hid_parse_item(hdev, &desc_buff[desc_offset]);
-
+        size = hid_parse_item(hdev, bptr);
         //printf("size = %d/%d\n", size, remain_len);
-        if (size <= 0)
+        if(size <= 0)
         {
             (void)usbh_free_mem(desc_buff, desc_buff_len);
             return HID_RET_PARSING;
         }
 
-        desc_offset += size;
+        bptr = &bptr[size];
         remain_len -= size;
     }
 
@@ -324,27 +349,26 @@ int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface)
     /*------------------------------------------------------------------------------------*/
     /*  For keyboard device, turn on all LEDs for 0.5 seconds and then turn off.          */
     /*------------------------------------------------------------------------------------*/
-    if ((hdev->bSubClassCode == HID_SUBCLASS_BOOT_DEVICE) && (hdev->bProtocolCode == HID_PROTOCOL_KEYBOARD))
+    if((hdev->bSubClassCode == HID_SUBCLASS_BOOT_DEVICE) && (hdev->bProtocolCode == HID_PROTOCOL_KEYBOARD))
     {
         const RP_INFO_T   *report;
 
-        for (report = hdev->rpd.report; report != USBNULL; report = report->next)
+        for(report = hdev->rpd.report; report != NULL; report = report->next)
         {
-            if ((report->usage_page == UP_LEDS) && (report->report_size == 1U) && report->status.variable)
+            if((report->usage_page == UP_LEDS) && (report->report_size == 1U) && report->status.variable)
             {
-                uint8_t  i;
+                uint8_t i;
                 uint8_t ret;
                 uint8_t leds = 0;
 
-                for (i = 0; (i < 8U) && (i < report->report_count); i++)
+                for(i = 0; (i < 8U) && (i < report->report_count); i++)
                 {
                     leds = (leds << 1) | 0x1U;
                 }
 
                 /* turn-on keyboard NumLock, CapsLock, ScrollLock LEDs */
                 ret = usbh_hid_set_report(hdev, RT_OUTPUT, 0, &leds, 1);
-
-                if (ret != 1U)
+                if(ret != 1U)
                 {
                     HID_ERRMSG("Failed to turn on LEDs! 0x%x, %d\n", leds, ret);
                 }
@@ -355,8 +379,7 @@ int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface)
                     /* turn-off all LEDs */
                     leds = 0x00;
                     ret = usbh_hid_set_report(hdev, RT_OUTPUT, 0, &leds, 1);
-
-                    if (ret != 1U)
+                    if(ret != 1U)
                     {
                         HID_ERRMSG("Failed to turn off LEDs! %d\n", ret);
                     }
@@ -368,54 +391,71 @@ int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface)
     return 0;
 }
 
+/// @endcond HIDDEN_SYMBOLS
+
+/**
+ * @brief     Allocate and append a new HID report-info node to a HID device's report list.
+ * @param[in] hdev  The HID device that owns the report descriptor list.
+ * @param[in] type  Report type to assign to the newly created report-info node.
+ * @return    0 on success, or a negative USBH_ERR_xxx / HID error code on failure.
+ *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
+ * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is
+ *                       the single conversion point where the raw block becomes a
+ *                       typed RP_INFO_T report-info object. usbh_alloc_mem() is the
+ *                       library's one generic heap allocator shared by every object
+ *                       type, so a per-type allocator is not a practical alternative;
+ *                       the allocated block size always matches sizeof(RP_INFO_T), so
+ *                       this cast only names an already-correct binary layout and
+ *                       changes no data or control flow.<br>
+ */
 static int hid_add_report(HID_DEV_T *hdev, uint8_t type)
 {
     RP_INFO_T   *report;
     RP_INFO_T   *p;
 
+    /* cppcheck-suppress misra-c2012-11.5 */
     report = (RP_INFO_T *)usbh_alloc_mem(sizeof(RP_INFO_T));
-
-    if (report == USBNULL)
+    if(report == NULL)
     {
         HID_ERRMSG("hid_add_report allocate memory failed!!\n");
         return USBH_ERR_MEMORY_OUT;
     }
-
     (void)memcpy(report, &_rp_info, sizeof(RP_INFO_T));
     report->type = type;
 
     HID_DBGMSG("\nCreate a report. %d x %d (%d)\n", report->report_count, report->report_size, report->report_id);
 
-    if (hdev->rpd.report == USBNULL)
+    if(hdev->rpd.report == NULL)
     {
         hdev->rpd.report = report;
     }
     else
     {
         p = hdev->rpd.report;
-
-        while (p->next  != USBNULL)
+        while(p->next != NULL)
         {
             p = p->next;
         }
-
         p->next = report;
     }
-
     return 0;
 }
 
+/// @cond HIDDEN_SYMBOLS
+
 static signed int hid_read_item_value(uint8_t bSize, const uint8_t *buff)
 {
-    if (bSize == 1U)
+    if(bSize == 1U)
     {
         return (signed char)buff[0];
     }
-    else if (bSize == 2U)
+    else if(bSize == 2U)
     {
         return (signed short)(uint16_t)((uint16_t)buff[0] | ((uint16_t)buff[1] << 8U));
     }
-    else if (bSize == 4U)
+    else if(bSize == 4U)
     {
         return (signed int)(uint32_t)((uint32_t)buff[0] | ((uint32_t)buff[1] << 8U) | ((uint32_t)buff[2] << 16U) | ((uint32_t)buff[3] << 24U));
     }
@@ -425,28 +465,29 @@ static signed int hid_read_item_value(uint8_t bSize, const uint8_t *buff)
     }
 }
 
-static int hid_parse_item(HID_DEV_T *hdev, const uint8_t *buff)
+
+static int hid_parse_item(HID_DEV_T *hdev, uint8_t *buff)
 {
-    static uint8_t   _data_usages[16];
-    uint8_t     bTag;
-    uint8_t     bSize;
-    uint8_t     tag;
-    int         item_len;
-    int         i;
+    static uint8_t _data_usages[16];
+    uint8_t bTag;
+    uint8_t bSize;
+    uint8_t tag;
+    int item_len;
+    int i;
 
     bTag  = (buff[0] >> 4) & 0xFU;
     //bType = (buff[0] >> 2) & 0x3;
     bSize = buff[0] & 0x3U;
     tag = (buff[0] & 0xFCU);
 
-    if (bTag == 0xFU)
+    if(bTag == 0xFU)
     {
         bSize = buff[1];
         item_len = (int)bSize + 3;
     }
     else
     {
-        if (bSize == 0x3U)
+        if(bSize == 0x3U)
         {
             bSize = 4;
         }
@@ -455,13 +496,11 @@ static int hid_parse_item(HID_DEV_T *hdev, const uint8_t *buff)
     }
 
 #if ENABLE_DBG_MSG
-
-    for (i = 0; i < item_len; i++)
+    for(i = 0; i < item_len; i++)
     {
-        USB_debug("%02x ", buff[i]);
+        printf("%02x ", buff[i]);
     }
-
-    USB_debug("- ");
+    printf("- ");
 #endif
 
     switch(tag)
@@ -473,51 +512,43 @@ static int hid_parse_item(HID_DEV_T *hdev, const uint8_t *buff)
         case TAG_INPUT:
             HID_DBGMSG("Input ");
             read_main_item_status(&buff[1]);
-
-            if (_data_usage_cnt > 0)
+            if(_data_usage_cnt > 0)
             {
                 int  report_count = _rp_info.report_count;
 
-                for (i = 0; i < _data_usage_cnt; i++)
+                for(i = 0; i < _data_usage_cnt; i++)
                 {
                     _rp_info.report_count = 1;
                     _rp_info.data_usage = _data_usages[i];
-
-                    if (hid_add_report(hdev, TAG_INPUT) != 0)
+                    if(hid_add_report(hdev, TAG_INPUT) != 0)
                     {
                         return USBH_ERR_MEMORY_OUT;
                     }
-
                     report_count--;
                 }
-
                 _rp_info.report_count = report_count;
                 _rp_info.data_usage = 0;
                 _data_usage_cnt = 0;
             }
-
-            if (_rp_info.report_count > 0U)
+            if(_rp_info.report_count > 0U)
             {
-                if (hid_add_report(hdev, TAG_INPUT) != 0)
+                if(hid_add_report(hdev, TAG_INPUT) != 0)
                 {
                     return USBH_ERR_MEMORY_OUT;
                 }
             }
-
             break;
 
         case TAG_OUTPUT:
             HID_DBGMSG("Output ");
             read_main_item_status(&buff[1]);
-
-            if (_rp_info.report_count > 0U)
+            if(_rp_info.report_count > 0U)
             {
-                if (hid_add_report(hdev, TAG_OUTPUT) != 0)
+                if(hid_add_report(hdev, TAG_OUTPUT) != 0)
                 {
                     return USBH_ERR_MEMORY_OUT;
                 }
             }
-
             break;
 
         case TAG_FEATURE:
@@ -527,24 +558,22 @@ static int hid_parse_item(HID_DEV_T *hdev, const uint8_t *buff)
 
         case TAG_COLLECTION:
             HID_DBGMSG("Collection ");
-
-            if (buff[1] == 0x00U)
+            if(buff[1] == 0x00U)
             {
                 HID_DBGMSG("Physical");
             }
-            else if (buff[1] == 0x01U)
+            else if(buff[1] == 0x01U)
             {
                 HID_DBGMSG("Application");
             }
-            else if (buff[1] == 0x02U)
+            else if(buff[1] == 0x02U)
             {
                 HID_DBGMSG("Logical");
             }
             else
             {
-                ///  Other collection types are reserved for future use, and should be treated as "Application Collection".
+                //  Other collection types are reserved for future use, and should be treated as "Application Collection".
             }
-
             break;
 
         case TAG_END_COLLECTION:
@@ -620,16 +649,15 @@ static int hid_parse_item(HID_DEV_T *hdev, const uint8_t *buff)
         /*------------------------------------------------------------------------------------*/
 
         case TAG_USAGE:
-            if ((buff[1] == USAGE_ID_X) || (buff[1] == USAGE_ID_Y) || (buff[1] == USAGE_ID_WHEEL))
+            if((buff[1] == USAGE_ID_X) || (buff[1] == USAGE_ID_Y) || (buff[1] == USAGE_ID_WHEEL))
             {
-                _data_usages[_data_usage_cnt] = buff[1];    /* interested usages */
+                _data_usages[_data_usage_cnt] = buff[1]; /* interested usages */
                 _data_usage_cnt++;
             }
             else
             {
                 _rp_info.app_usage = buff[1];
             }
-
             HID_DBGMSG("Usage ");
             print_usage(buff[1]);
             break;
@@ -682,22 +710,22 @@ static int hid_parse_item(HID_DEV_T *hdev, const uint8_t *buff)
             HID_DBGMSG("Unknow tag: 0x%x\n", tag);
             break;
     }
-
     HID_DBGMSG("\n");
 
     return item_len;
 }
 
+
 int hid_parse_keyboard_reports(HID_DEV_T *hdev, const uint8_t *data, int data_len)
 {
     RP_INFO_T   *report;
-    int         i;
-    int         bit;
-    int         byte_idx = 0;
-    int         bit_idx = 0;
-    int         has_kbd_event = 0;
-    int         report_id = 0;
-    static KEYBOARD_EVENT_T  _keyboard_event;
+    int i;
+    int bit;
+    int byte_idx = 0;
+    int bit_idx = 0;
+    int has_kbd_event = 0;
+    int report_id = 0;
+    static KEYBOARD_EVENT_T _keyboard_event;
 
     (void)memset(&_keyboard_event, 0, sizeof(_keyboard_event));
     _keyboard_event.lock_state = hdev->rpd.lock_state;
@@ -705,21 +733,21 @@ int hid_parse_keyboard_reports(HID_DEV_T *hdev, const uint8_t *data, int data_le
     /*
      *  Does this device use report ID?
      */
-    if (hdev->rpd.has_report_id)
+    if(hdev->rpd.has_report_id)
     {
         report_id = data[0];
         bit_idx = 8;
         byte_idx = 1;
     }
 
-    for (report = hdev->rpd.report; report != USBNULL; report = report->next)
+    for(report = hdev->rpd.report; report != NULL; report = report->next)
     {
-        if (hdev->rpd.has_report_id && (report->report_id != (uint8_t)report_id))
+        if(hdev->rpd.has_report_id && (report->report_id != (uint8_t)report_id))
         {
             continue;
         }
 
-        if (report->type != TAG_INPUT)
+        if(report->type != TAG_INPUT)
         {
             continue;
         }
@@ -727,67 +755,63 @@ int hid_parse_keyboard_reports(HID_DEV_T *hdev, const uint8_t *data, int data_le
         /*----------------------------------------------------------------------*/
         /*  Extract keyboard report; only KeyCode reports are interested        */
         /*----------------------------------------------------------------------*/
-        if ((report->usage_page == UP_KEYCODE) && (report->app_usage == USAGE_ID_KEYBOARD))
+        if((report->usage_page == UP_KEYCODE) && (report->app_usage == USAGE_ID_KEYBOARD))
         {
-            if ((report->report_size != (uint8_t)1) && (report->report_size != (uint8_t)8))
+            if ((report->report_size != 1U) && (report->report_size != 8U))
             {
                 /* unlikely! seems violate HID spec. */
                 HID_ERRMSG("Keycode report size %d is not supported!\n", report->report_size);
                 return USBH_ERR_NOT_SUPPORTED;
             }
 
-            if (report->report_size == (uint8_t)1)
+            if(report->report_size == 1U)
             {
-                for (i = 0; i < (int)report->report_count; i++)
+                uint32_t usage_val = 0;
+                for(i = 0; i < (int)report->report_count; i++)
                 {
-                    uint32_t usage_val = 0;
                     bit = (data[byte_idx] >> ((uint32_t)bit_idx % 8U)) & 0x1U;
                     usage_val |= ((uint32_t)bit << (uint32_t)i);
 
-                    if (bit_idx < 8)            /* is in the first byte         */
+                    if(bit_idx < 8)             /* is in the first byte         */
                     {
                         _keyboard_event.modifier |= usage_val;
                     }
-                    else if (bit_idx < 16)      /* is in the second byte (reserved)  */
+                    else if(bit_idx < 16)       /* is in the second byte (reserved)  */
                     {
                     }
                     else
                     {
-                        if (bit_idx < (8 * 8))
+                        if(bit_idx < (8 * 8))
                         {
                             _keyboard_event.keycode[(bit_idx - 16) / 8] |= usage_val;
                         }
                     }
-
                     bit_idx++;
                 }
-
                 byte_idx = (bit_idx / 8);
             }
-            else   /* report->report_size == 8 */
+            else/* report->report_size == 8 */
             {
-                for (i = 0; i < (int)report->report_count; i++)
+                for(i = 0; i < (int)report->report_count; i++)
                 {
-                    if (byte_idx == 0)
+                    if(byte_idx == 0)
                     {
                         _keyboard_event.modifier = data[byte_idx];
                     }
-                    else if (byte_idx == 1)
+                    else if(byte_idx == 1)
                     {
                         /* reserved byte */
                     }
                     else
                     {
-                        if (byte_idx < 8)
+                        if(byte_idx < 8)
                         {
                             _keyboard_event.keycode[byte_idx - 2] = data[byte_idx];
                         }
                     }
-
                     byte_idx++;
                 }
             }
-
             has_kbd_event = 1;
         }
         else
@@ -797,17 +821,15 @@ int hid_parse_keyboard_reports(HID_DEV_T *hdev, const uint8_t *data, int data_le
             byte_idx = (bit_idx / 8);
         }
 
-        if (byte_idx >= data_len)
+        if(byte_idx >= data_len)
         {
             break;
         }
     }
 
-    /* Get the keyboard event callback function registered to HID class driver */
-    static HID_KEYBOARD_FUNC *_ptr_keyboard_callback;
-    _ptr_keyboard_callback = usbh_hid_get_keyboard_callback();
+    HID_KEYBOARD_FUNC *_ptr_keyboard_callback =  usbh_hid_get_keyboard_callback();
 
-    if ((has_kbd_event) && (_ptr_keyboard_callback != USBNULL))
+    if ((has_kbd_event) && (_ptr_keyboard_callback != NULL))
     {
         uint8_t   pressed_lock_keys = 0;
         char      update_LEDs = 0;
@@ -815,22 +837,19 @@ int hid_parse_keyboard_reports(HID_DEV_T *hdev, const uint8_t *data, int data_le
         /*----------------------------------------------------------------------*/
         /*  Scan received key code sequence                                     */
         /*----------------------------------------------------------------------*/
-        for (i = 0; i < 6; i++)
+        for(i = 0; i < 6; i++)
         {
-            switch (_keyboard_event.keycode[i])
+            switch(_keyboard_event.keycode[i])
             {
                 case KEYCODE_NUM_LOCK:
                     pressed_lock_keys |= STATE_MASK_NUM_LOCK;
                     break;
-
                 case KEYCODE_CAPS_LOCK:
                     pressed_lock_keys |= STATE_MASK_CAPS_LOCK;
                     break;
-
                 case KEYCODE_SCROLL_LOCK:
                     pressed_lock_keys |= STATE_MASK_SCROLL_LOCK;
                     break;
-
                 case 0:         /* empty */
                 case 1:         /* error */
                     break;
@@ -845,9 +864,9 @@ int hid_parse_keyboard_reports(HID_DEV_T *hdev, const uint8_t *data, int data_le
         /*----------------------------------------------------------------------*/
         /*  Update lock keys (Num Lock, Caps Lock, Scroll Lock)                 */
         /*----------------------------------------------------------------------*/
-        for (i = 0; i < 3; i++)
+        for(i = 0; i < 3; i++)
         {
-            if ((pressed_lock_keys & (1U << (uint32_t)i)) && (!(hdev->rpd.last_pressed_lock_keys & (1U << (uint32_t)i))))
+            if((pressed_lock_keys & (1U << (uint32_t)i)) && (!(hdev->rpd.last_pressed_lock_keys & (1U << (uint32_t)i))))
             {
                 /*
                  * A lock key pressed and it is not pressed in the last time.
@@ -857,18 +876,16 @@ int hid_parse_keyboard_reports(HID_DEV_T *hdev, const uint8_t *data, int data_le
                 update_LEDs = 1;
             }
         }
-
         hdev->rpd.last_pressed_lock_keys = pressed_lock_keys;  /* record the lock key press state for next time. */
         hdev->rpd.lock_state = _keyboard_event.lock_state;
 
-        if (update_LEDs)
+        if(update_LEDs)
         {
             (void)usbh_hid_set_report_non_blocking(hdev, RT_OUTPUT, 0, &_keyboard_event.lock_state, 1);
         }
 
         _ptr_keyboard_callback(hdev, &_keyboard_event);
     }
-
     return 0;
 }
 
@@ -881,28 +898,28 @@ int hid_parse_mouse_reports(HID_DEV_T *hdev, const uint8_t *data, int data_len)
     int         bit;
     int         has_mouse_event = 0;
     int         report_id = 0;
-    static MOUSE_EVENT_T  _mouse_event;
+    static MOUSE_EVENT_T _mouse_event;
 
     (void)memset(&_mouse_event, 0, sizeof(_mouse_event));
 
     /*
      *  Does this device use report ID?
      */
-    if (hdev->rpd.has_report_id)
+    if(hdev->rpd.has_report_id)
     {
         report_id = data[0];
         bit_idx = 8;
         byte_idx = 1;
     }
 
-    for (report = hdev->rpd.report; report != USBNULL; report = report->next)
+    for(report = hdev->rpd.report; report != NULL; report = report->next)
     {
-        if (hdev->rpd.has_report_id && (report->report_id != (uint8_t)report_id))
+        if(hdev->rpd.has_report_id && (report->report_id != (uint8_t)report_id))
         {
             continue;
         }
 
-        if (report->type != TAG_INPUT)
+        if(report->type != TAG_INPUT)
         {
             continue;
         }
@@ -910,15 +927,14 @@ int hid_parse_mouse_reports(HID_DEV_T *hdev, const uint8_t *data, int data_len)
         /*----------------------------------------------------------------------*/
         /*  Extract mouse button report                                         */
         /*----------------------------------------------------------------------*/
-        if ((report->usage_page == UP_BUTTON) &&
+        if((report->usage_page == UP_BUTTON) &&
                 ((report->app_usage == USAGE_ID_MOUSE) || (report->app_usage == USAGE_ID_POINTER)))
         {
             /* Get button data */
-            if (report->status.variable)
+            if(report->status.variable)
             {
                 _mouse_event.button_cnt = report->report_count;
-
-                for (i = 0; i < (int)report->report_count; i++)
+                for(i = 0; i < (int)report->report_count; i++)
                 {
                     bit = (data[byte_idx] >> ((uint32_t)bit_idx % 8U)) & 0x1U;
                     _mouse_event.button_map |= ((uint32_t)bit << (uint32_t)i);
@@ -932,70 +948,64 @@ int hid_parse_mouse_reports(HID_DEV_T *hdev, const uint8_t *data, int data_len)
                 bit_idx += (int)report->report_count * (int)report->report_size;
                 byte_idx = (bit_idx / 8);
             }
-
             has_mouse_event = 1;
         }
 
         /*----------------------------------------------------------------------*/
         /*  Extract mouse X, Y, and WHEEL reports                               */
         /*----------------------------------------------------------------------*/
-        else if ((report->usage_page == UP_GENERIC_DESKTOP) &&
-                 ((report->app_usage == USAGE_ID_MOUSE) || (report->app_usage == USAGE_ID_POINTER) ||
-                  (report->data_usage == USAGE_ID_WHEEL)))
+        else if((report->usage_page == UP_GENERIC_DESKTOP) &&
+                ((report->app_usage == USAGE_ID_MOUSE) || (report->app_usage == USAGE_ID_POINTER) ||
+                 (report->data_usage == USAGE_ID_WHEEL)))
         {
-            uint32_t   usage_val = 0;
-            signed     s_val = 0;
+            signed int   usage_val = 0;
 
-            for (i = 0; i < (int)report->report_size; i++)
+            for(i = 0; i < (int)report->report_size; i++)
             {
+                uint32_t shifted;
+
                 bit = (data[byte_idx] >> ((uint32_t)bit_idx % 8U)) & 0x1U;
-                usage_val |= ((uint32_t)bit << (uint32_t)i);
+                shifted = (uint32_t)bit << (uint32_t)i;
+                usage_val |= (signed int)shifted;
                 bit_idx++;
                 byte_idx = (bit_idx / 8);
             }
 
-            if (report->report_size <= 8U)
+            if(report->report_size <= 8U)
             {
-                s_val = (signed char)usage_val;
+                usage_val = (signed char)usage_val;
             }
-            else if (report->report_size <= 16U)
+            else if(report->report_size <= 16U)
             {
-                s_val = (signed short)usage_val;
+                usage_val = (signed short)usage_val;
             }
             else
             {
-                // unlikely! seems violate HID spec. */
+                /* no action required */
             }
 
-            if (report->data_usage == USAGE_ID_X)
+            if(report->data_usage == USAGE_ID_X)
             {
-                _mouse_event.X = s_val;
-                _mouse_event.X_raw = usage_val;
-                _mouse_event.X_bits = report->report_size;
+                _mouse_event.X = usage_val;
                 _mouse_event.axis_relative = report->status.relative;
                 _mouse_event.axis_min = report->logical_min;
                 _mouse_event.axis_max = report->logical_max;
             }
-            else if (report->data_usage == USAGE_ID_Y)
+            else if(report->data_usage == USAGE_ID_Y)
             {
-                _mouse_event.Y = s_val;
-                _mouse_event.Y_raw = usage_val;
-                _mouse_event.Y_bits = report->report_size;
+                _mouse_event.Y = usage_val;
             }
-            else if (report->data_usage == USAGE_ID_WHEEL)
+            else if(report->data_usage == USAGE_ID_WHEEL)
             {
-                _mouse_event.wheel = s_val;
-                _mouse_event.wheel_raw = usage_val;
-                _mouse_event.wheel_bits = report->report_size;
+                _mouse_event.wheel = usage_val;
                 _mouse_event.wheel_relative = report->status.relative;
                 _mouse_event.wheel_min = report->logical_min;
                 _mouse_event.wheel_max = report->logical_max;
             }
             else
             {
-                // unlikely! seems violate HID spec. */
+                /* no action required */
             }
-
             has_mouse_event = 1;
         }
         else
@@ -1005,17 +1015,15 @@ int hid_parse_mouse_reports(HID_DEV_T *hdev, const uint8_t *data, int data_len)
             byte_idx = (bit_idx / 8);
         }
 
-        if (byte_idx >= data_len)
+        if(byte_idx >= data_len)
         {
             break;
         }
     }
 
-    static HID_MOUSE_FUNC *_ptr_mouse_callback;
-    /* Get the mouse event callback function registered to HID class driver */
-    _ptr_mouse_callback = usbh_hid_get_mouse_callback();
+    HID_MOUSE_FUNC *_ptr_mouse_callback = usbh_hid_get_mouse_callback();
 
-    if ((has_mouse_event) && (_ptr_mouse_callback != USBNULL))
+    if ((has_mouse_event) && (_ptr_mouse_callback != NULL))
     {
         _ptr_mouse_callback(hdev, &_mouse_event);
         // HID_DBGMSG("X: %d, Y: %d, W: %d, button: 0x%x\n", _mouse_event.X, _mouse_event.Y, _mouse_event.wheel, _mouse_event.button_map);

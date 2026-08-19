@@ -1,9 +1,9 @@
 /**************************************************************************//**
  * @file     msc_xfer.c
+ * @version  V1.00
  * @brief    Lightweight USB mass storage class transfer layer
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
 *****************************************************************************/
 
 #include <stdio.h>
@@ -17,10 +17,9 @@
 
 static void bulk_xfer_done(UTR_T *utr)
 {
+    (void)utr;
 #ifdef MSC_DEBUG
     msc_debug_msg("BULK XFER done - %d\n", utr->status);
-#else
-    (void)(utr);
 #endif
 }
 
@@ -31,8 +30,7 @@ static int msc_bulk_transfer(MSC_T *msc, EP_INFO_T *ep, uint8_t *data_buff, int 
     int       ret;
 
     utr = alloc_utr(msc->iface->udev);
-
-    if (!utr)
+    if(!utr)
     {
         return USBH_ERR_MEMORY_OUT;
     }
@@ -45,30 +43,28 @@ static int msc_bulk_transfer(MSC_T *msc, EP_INFO_T *ep, uint8_t *data_buff, int 
     utr->bIsTransferDone = 0;
 
     ret = usbh_bulk_xfer(utr);
-
-    if (ret < 0)
+    if(ret < 0)
     {
         return ret;
     }
 
     t0 = get_ticks();
-
-    while (utr->bIsTransferDone == 0U)
+    while(utr->bIsTransferDone == 0U)
     {
-        if ((get_ticks() - t0) > ((uint32_t)timeout_ticks))
+        if((get_ticks() - t0) > (uint32_t)timeout_ticks)
         {
             (void)usbh_quit_utr(utr);
             free_utr(utr);
             return USBH_ERR_TIMEOUT;
         }
     }
-
     ret = utr->status;
     free_utr(utr);
     msc_debug_msg("    <BULK> status: %d, xfer_len: %d\n", utr->status, utr->xfer_len);
 
     return ret;
 }
+
 
 static int  do_scsi_command(MSC_T *msc, uint8_t *buff, uint32_t data_len, int bIsDataIn, int timeout_ticks)
 {
@@ -84,7 +80,6 @@ static int  do_scsi_command(MSC_T *msc, uint8_t *buff, uint32_t data_len, int bI
     cmd_blk->Lun = msc->lun;
 
     ret = msc_bulk_transfer(msc, msc->ep_bulk_out, (uint8_t *)cmd_blk, 31, timeout_ticks);
-
     if(ret < 0)
     {
         return ret;
@@ -92,9 +87,9 @@ static int  do_scsi_command(MSC_T *msc, uint8_t *buff, uint32_t data_len, int bI
 
     msc_debug_msg("    [XFER] MSC CMD OK.\n");
 
-    if (data_len > 0U)
+    if(data_len > 0U)
     {
-        if (bIsDataIn)
+        if(bIsDataIn)
         {
             ret = msc_bulk_transfer(msc, msc->ep_bulk_in, buff, data_len, 500);
         }
@@ -102,30 +97,26 @@ static int  do_scsi_command(MSC_T *msc, uint8_t *buff, uint32_t data_len, int bI
         {
             ret = msc_bulk_transfer(msc, msc->ep_bulk_out, buff, data_len, 500);
         }
-
-        if (ret < 0)
+        if(ret < 0)
         {
             return ret;
         }
-
         msc_debug_msg("    [XFER] MSC DATA OK.\n");
     }
 
     ret = msc_bulk_transfer(msc, msc->ep_bulk_in, (uint8_t *)cmd_status, 13, timeout_ticks);
-
-    if (ret < 0)
+    if(ret < 0)
     {
         return ret;
     }
 
     msc_debug_msg("    [XFER] MSC STATUS OK.\n");
 
-    if (cmd_status->Status != 0U)
+    if(cmd_status->Status != 0U)
     {
         msc_debug_msg("    !! CSW status error.\n");
         return UMAS_ERR_CMD_STATUS;
     }
-
     msc_debug_msg("    [CSW] status OK.\n");
 
     msc_debug_msg("SCSI command 0x%0x done.\n", cmd_blk->CDB[0]);

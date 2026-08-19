@@ -1,9 +1,9 @@
 /**************************************************************************//**
  * @file     usbh_hid.h
+ * @version  V1.10
  * @brief    USB Host HID class driver header file.
- *
- * SPDX-License-Identifier: Apache-2.0
- * @copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
+ * @copyright SPDX-License-Identifier: Apache-2.0
+ * @copyright Copyright (C) 2020 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
 #ifndef  _USBH_HID_H_
 #define  _USBH_HID_H_
@@ -32,8 +32,9 @@ extern "C"
 #else
 #define HID_DBGMSG(...)
 #endif
-extern int _data_usage_cnt;
+
 /// @endcond HIDDEN_SYMBOLS
+
 
 /** @addtogroup LIBRARY Library
   @{
@@ -55,16 +56,16 @@ extern int _data_usage_cnt;
 #define HID_DESCRIPTOR_TYPE         0x21U
 #define REPORT_DESCRIPTOR_TYPE      0x22U
 
-#define HID_SUBCLASS_BOOT_DEVICE    0x01U   /*!< bInterfaceSubClass: boot device interface   */
+#define HID_SUBCLASS_BOOT_DEVICE    0x01U  /*!< bInterfaceSubClass: boot device interface   */
 
-#define HID_PROTOCOL_KEYBOARD       0x01U   /*!< bInterfaceProtocol: Keyboard                */
-#define HID_PROTOCOL_MOUSE          0x02U   /*!< bInterfaceProtocol: Mouse                   */
+#define HID_PROTOCOL_KEYBOARD       0x01U  /*!< bInterfaceProtocol: Keyboard                */
+#define HID_PROTOCOL_MOUSE          0x02U  /*!< bInterfaceProtocol: Mouse                   */
 
 /*-----------------------------------------------------------------------------------
  *  Short Item Tags
  */
 
-/* Main item tag (tag & 0xFCU) */
+/* Main item tag (tag & 0xFC) */
 #define TAG_INPUT                   0x80U
 #define TAG_OUTPUT                  0x90U
 #define TAG_FEATURE                 0xB0U
@@ -99,10 +100,10 @@ extern int _data_usage_cnt;
 #define TAG_DELIMITER               0xA8U
 
 /* Collection */
-#define COLLECT_PHYSICAL            0x00U        /* group of axes                    */
-#define COLLECT_APPLICATION         0x01U        /* mouse, keyboard                  */
-#define COLLECT_LOGICAL             0x02U        /* interrelated data                */
-#define COLLECT_VENDOR              0xFFU        /* 0x80-0xFF Vendor-defined         */
+#define COLLECT_PHYSICAL            0x00U       /* group of axes                    */
+#define COLLECT_APPLICATION         0x01U       /* mouse, keyboard                  */
+#define COLLECT_LOGICAL             0x02U       /* interrelated data                */
+#define COLLECT_VENDOR              0xFFU       /* 0x80-0xFF Vendor-defined         */
 
 /*-----------------------------------------------------------------------------------
  *  Usage Page
@@ -151,20 +152,20 @@ extern int _data_usage_cnt;
 #define USB_DT_REPORT               (REQ_TYPE_CLASS_DEV | 0x02U)
 /// @endcond HIDDEN_SYMBOLS
 
-#define HID_REPORT_GET              0x01U   /*!< HID Class command Get_Report_Request code.        */
-#define HID_GET_IDLE                0x02U   /*!< HID Class command Get_Idle code.                  */
-#define HID_GET_PROTOCOL            0x03U   /*!< HID Class command Get_Protocol code.              */
-#define HID_REPORT_SET              0x09U   /*!< HID Class command Set_Report_Request code.        */
-#define HID_SET_IDLE                0x0AU   /*!< HID Class command Set_Idle code.                  */
-#define HID_SET_PROTOCOL            0x0BU   /*!< HID Class command Set_Protocol code.              */
+#define HID_REPORT_GET              0x01   /*!< HID Class command Get_Report_Request code.        */
+#define HID_GET_IDLE                0x02   /*!< HID Class command Get_Idle code.                  */
+#define HID_GET_PROTOCOL            0x03   /*!< HID Class command Get_Protocol code.              */
+#define HID_REPORT_SET              0x09   /*!< HID Class command Set_Report_Request code.        */
+#define HID_SET_IDLE                0x0A   /*!< HID Class command Set_Idle code.                  */
+#define HID_SET_PROTOCOL            0x0B   /*!< HID Class command Set_Protocol code.              */
 
 /* HID Report type */
-#define RT_INPUT                    1U      /*!< Report type: Input               \hideinitializer */
-#define RT_OUTPUT                   2U      /*!< Report type: Output              \hideinitializer */
-#define RT_FEATURE                  3U      /*!< Report type: Feature             \hideinitializer */
+#define RT_INPUT                    1      /*!< Report type: Input               \hideinitializer */
+#define RT_OUTPUT                   2      /*!< Report type: Output              \hideinitializer */
+#define RT_FEATURE                  3      /*!< Report type: Feature             \hideinitializer */
 
 
-/*@}*/ /* end of group USBH_EXPORTED_CONSTANTS */
+/**@}*/ /* end of group USBH_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup USBH_EXPORTED_STRUCTURES USB Host Exported Structures
@@ -238,6 +239,7 @@ typedef struct report_info
     struct report_info  *next;
 } RP_INFO_T;
 
+
 typedef struct rp_desc_info
 {
     uint8_t     has_report_id;          /* If a Report ID tag is used anywhere in Report descriptor, all data reports for the device are preceded by a single byte ID field. */
@@ -249,6 +251,7 @@ typedef struct rp_desc_info
 } RPD_T;
 
 /// @endcond HIDDEN_SYMBOLS
+
 
 /*---------------------------------------------------------------------------------------------*/
 /*  HID device                                                                                 */
@@ -264,7 +267,7 @@ typedef struct usbhid_dev
     HID_IW_FUNC   *write_func;          /*!< Interrupt-out callback function                   */
     UTR_T         *utr_list[CONFIG_HID_DEV_MAX_PIPE];  /*!< UTR list of all INT in and out pipes in running  */
     UTR_T         *out_utr_list;        /*!< UTR list of INT out endpoints                     */
-    void          *iface;               /*!< This HID interface                                */
+    IFACE_T       *iface;               /*!< This HID interface                                */
     uint32_t      uid;                  /*!< The unique ID to identify a HID device.           */
     RPD_T         rpd;                  /*!< Information of Report Descriptor                  */
     struct usbhid_dev   *next;          /*!< Point to the next HID device                      */
@@ -301,18 +304,13 @@ typedef struct usbhid_mouse_event
     signed int    wheel_min;            /*!< Logical minimum of mouse wheel value              */
     signed int    wheel_max;            /*!< Logical maxmum of mouse wheel value               */
     signed int    wheel;                /*!< mouse wheel value                                 */
-    int           X_bits;               /*!< X axis bit resolution                             */
-    int           Y_bits;               /*!< Y axis bit resolution                             */
-    int           wheel_bits;           /*!< wheel bit resolution                              */
-    uint32_t      X_raw;                /*!< mouse report X axis raw data                      */
-    uint32_t      Y_raw;                /*!< mouse report Y axis raw data                      */
-    uint32_t      wheel_raw;            /*!< mouse report wheel raw data                       */
 } MOUSE_EVENT_T;
 
 typedef void (HID_MOUSE_FUNC)(struct usbhid_dev *hdev, MOUSE_EVENT_T *mouse);      /*!< HID mouse event callback \hideinitializer */
 typedef void (HID_KEYBOARD_FUNC)(struct usbhid_dev *hdev, KEYBOARD_EVENT_T *kbd);  /*!< HID keyboard event callback \hideinitializer */
 
-/*@}*/ /* end of group USBH_EXPORTED_STRUCTURES */
+/**@}*/ /* end of group USBH_EXPORTED_STRUCTURES */
+
 
 /** @addtogroup USBH_EXPORTED_FUNCTIONS USB Host Exported Functions
   @{
@@ -320,8 +318,8 @@ typedef void (HID_KEYBOARD_FUNC)(struct usbhid_dev *hdev, KEYBOARD_EVENT_T *kbd)
 
 void usbh_hid_regitser_mouse_callback(HID_MOUSE_FUNC *func);
 void usbh_hid_regitser_keyboard_callback(HID_KEYBOARD_FUNC *func);
-HID_KEYBOARD_FUNC *usbh_hid_get_keyboard_callback(void);
 HID_MOUSE_FUNC *usbh_hid_get_mouse_callback(void);
+HID_KEYBOARD_FUNC *usbh_hid_get_keyboard_callback(void);
 
 /// @cond HIDDEN_SYMBOLS
 int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface);
@@ -330,17 +328,19 @@ int hid_parse_mouse_reports(HID_DEV_T *hdev, const uint8_t *data, int data_len);
 int32_t  usbh_hid_set_report_non_blocking(HID_DEV_T *hdev, int rtp_typ, int rtp_id, uint8_t *data, int len);
 /// @endcond HIDDEN_SYMBOLS
 
-/*@}*/ /* end of group USBH_EXPORTED_FUNCTIONS */
+/**@}*/ /* end of group USBH_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group USBH_Library */
+/**@}*/ /* end of group USBH_Library */
 
-/*@}*/ /* end of group Library */
+/**@}*/ /* end of group Library */
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* _USBH_HID_H_ */
+
+/*** (C) COPYRIGHT 2020 Nuvoton Technology Corp. ***/
 
 
 
