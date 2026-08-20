@@ -15,7 +15,6 @@
 #include "usb.h"
 #include "hub.h"
 
-
 /**
  * @brief  Default debug output function for USB Host Library.
  *         Routes output through standard printf (retargeted to UART by application).
@@ -140,9 +139,12 @@ void  usbh_core_init(void)
 
     _ohci->HcPhyControl &= ~USBH_HcPhyControl_STBYEN_Msk; /* Never enter the standby mode */
 
+#if 1
     _ohci->HcMiscControl |= USBH_HcMiscControl_OCAL_Msk; /* Over-current active low */
-    //_ohci->HcMiscControl &= ~USBH_HcMiscControl_OCAL_Msk; /* Over-current active high */
-
+#else
+    _ohci->HcMiscControl &= ~USBH_HcMiscControl_OCAL_Msk; /* Over-current active high */
+#endif
+	
 #ifdef ENABLE_OHCI
     ohci_driver.init();
     ENABLE_OHCI_IRQ();
@@ -190,8 +192,9 @@ void usbh_suspend(void)
 #ifdef ENABLE_OHCI
     /* set port suspend if connected */
     if(_ohci->HcRhPortStatus1 & USBH_HcRhPortStatus1_CCS_Msk)
+		{
         _ohci->HcRhPortStatus1 = USBH_HcRhPortStatus1_PSS_Msk;    /* set port suspend    */
-
+    }
     /* enable Device Remote Wakeup */
     _ohci->HcRhStatus |= USBH_HcRhStatus_DRWE_Msk;
 
@@ -214,8 +217,9 @@ void usbh_resume(void)
     _ohci->HcControl = (_ohci->HcControl & ~USBH_HcControl_HCFS_Msk) | (1U << USBH_HcControl_HCFS_Pos);
 
     if(_ohci->HcRhPortStatus1 & USBH_HcRhPortStatus1_PSS_Msk)
+		{
         _ohci->HcRhPortStatus1 = USBH_HcRhPortStatus1_POCI_Msk;   /* clear suspend status */
-
+    }
     delay_us(30000);                       /* wait at least 20ms for Host to resume device */
 
     /* enter operational state */

@@ -140,9 +140,6 @@ typedef struct
     uint8_t    reserved_for_hc[116];
 } HCCA_T;
 
-
-extern void USBH_IRQHandler(void);
-
 /// @endcond
 
 #endif  /* _USBH_OHCI_H_ */

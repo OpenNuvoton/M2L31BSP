@@ -540,9 +540,6 @@ typedef volatile unsigned short vu16;
 
 #define E_SUCCESS     (0)
 
-#ifndef NULL
-#define NULL      (0)                  ///< NULL pointer
-#endif
 
 #define TRUE          (1UL)                ///< Boolean true, define to use in API parameters or return value
 #define FALSE         (0UL)                ///< Boolean false, define to use in API parameters or return value

@@ -36,6 +36,7 @@ static ED_T  * _Ied[6];
 
 static ED_T  *ed_remove_list;
 
+void USBH_IRQHandler(void);
 /// @endcond HIDDEN_SYMBOLS
 
 /**

@@ -14,6 +14,7 @@ extern "C"
 {
 #endif
 
+#include <stdio.h>
 
 /** @addtogroup Standard_Driver Standard Driver
   @{
