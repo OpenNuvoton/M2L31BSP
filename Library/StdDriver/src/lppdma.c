@@ -34,7 +34,7 @@ static uint32_t g_u32ChSelect[LPPDMA_CH_MAX];
  *
  * @details     This function enable the LPPDMA channels.
  */
-void LPPDMA_Open(LPPDMA_T * lppdma,uint32_t u32Mask)
+void LPPDMA_Open(LPPDMA_T *lppdma, uint32_t u32Mask)
 {
     uint32_t i;
 
@@ -59,7 +59,7 @@ void LPPDMA_Open(LPPDMA_T * lppdma,uint32_t u32Mask)
  *
  * @details     This function disable all LPPDMA channels.
  */
-void LPPDMA_Close(LPPDMA_T * lppdma)
+void LPPDMA_Close(LPPDMA_T *lppdma)
 {
     lppdma->CHCTL = 0UL;
 }
@@ -79,7 +79,7 @@ void LPPDMA_Close(LPPDMA_T * lppdma)
  *
  * @details     This function set the selected channel data width and transfer count.
  */
-void LPPDMA_SetTransferCnt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Width, uint32_t u32TransCount)
+void LPPDMA_SetTransferCnt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Width, uint32_t u32TransCount)
 {
     lppdma->LPDSCT[u32Ch].CTL &= ~(LPPDMA_DSCT_CTL_TXCNT_Msk | LPPDMA_DSCT_CTL_TXWIDTH_Msk);
     lppdma->LPDSCT[u32Ch].CTL |= (u32Width | ((u32TransCount - 1UL) << LPPDMA_DSCT_CTL_TXCNT_Pos));
@@ -103,7 +103,7 @@ void LPPDMA_SetTransferCnt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Width, 
  *
  * @details     This function set the selected channel source/destination address and attribute.
  */
-void LPPDMA_SetTransferAddr(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32SrcAddr, uint32_t u32SrcCtrl, uint32_t u32DstAddr, uint32_t u32DstCtrl)
+void LPPDMA_SetTransferAddr(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32SrcAddr, uint32_t u32SrcCtrl, uint32_t u32DstAddr, uint32_t u32DstCtrl)
 {
     lppdma->LPDSCT[u32Ch].SA = u32SrcAddr;
     lppdma->LPDSCT[u32Ch].DA = u32DstAddr;
@@ -139,7 +139,7 @@ void LPPDMA_SetTransferAddr(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32SrcAdd
  *
  * @details     This function set the selected channel transfer mode. Include peripheral setting.
  */
-void LPPDMA_SetTransferMode(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Peripheral, uint32_t u32ScatterEn, uint32_t u32DescAddr)
+void LPPDMA_SetTransferMode(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Peripheral, uint32_t u32ScatterEn, uint32_t u32DescAddr)
 {
     g_u32ChSelect[u32Ch] = u32Peripheral;
 
@@ -199,7 +199,7 @@ void LPPDMA_SetTransferMode(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Periph
  *
  * @details     This function set the selected channel burst type and size.
  */
-void LPPDMA_SetBurstType(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32BurstType, uint32_t u32BurstSize)
+void LPPDMA_SetBurstType(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32BurstType, uint32_t u32BurstSize)
 {
     lppdma->LPDSCT[u32Ch].CTL &= ~(LPPDMA_DSCT_CTL_TXTYPE_Msk | LPPDMA_DSCT_CTL_BURSIZE_Msk);
     lppdma->LPDSCT[u32Ch].CTL |= (u32BurstType | u32BurstSize);
@@ -215,7 +215,7 @@ void LPPDMA_SetBurstType(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32BurstType
  *
  * @details     This function trigger the selected channel.
  */
-void LPPDMA_Trigger(LPPDMA_T * lppdma,uint32_t u32Ch)
+void LPPDMA_Trigger(LPPDMA_T *lppdma, uint32_t u32Ch)
 {
     if (g_u32ChSelect[u32Ch] == LPPDMA_MEM)
     {
@@ -240,7 +240,7 @@ void LPPDMA_Trigger(LPPDMA_T * lppdma,uint32_t u32Ch)
  *
  * @details     This function enable the selected channel interrupt.
  */
-void LPPDMA_EnableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask)
+void LPPDMA_EnableInt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Mask)
 {
     if (u32Mask & LPPDMA_INT_TRANS_DONE)
     {
@@ -266,7 +266,7 @@ void LPPDMA_EnableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask)
  *
  * @details     This function disable the selected channel interrupt.
  */
-void LPPDMA_DisableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask)
+void LPPDMA_DisableInt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Mask)
 {
     if (u32Mask & LPPDMA_INT_TRANS_DONE)
     {

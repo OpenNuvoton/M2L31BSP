@@ -299,22 +299,22 @@ extern "C"
  * @return      None
  *
  * @details     This macro reset the selected channel.
- * \hideinitializer 
+ * \hideinitializer
  */
 #define LPPDMA_RESET(lppdma,u32Ch) ((uint32_t)((lppdma)->CHRST = (1UL << (u32Ch))))
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define PDMA functions prototype                                                                          */
 /*---------------------------------------------------------------------------------------------------------*/
-void LPPDMA_Open(LPPDMA_T * lppdma,uint32_t u32Mask);
-void LPPDMA_Close(LPPDMA_T * lppdma);
-void LPPDMA_SetTransferCnt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Width, uint32_t u32TransCount);
-void LPPDMA_SetTransferAddr(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32SrcAddr, uint32_t u32SrcCtrl, uint32_t u32DstAddr, uint32_t u32DstCtrl);
-void LPPDMA_SetTransferMode(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Peripheral, uint32_t u32ScatterEn, uint32_t u32DescAddr);
-void LPPDMA_SetBurstType(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32BurstType, uint32_t u32BurstSize);
-void LPPDMA_Trigger(LPPDMA_T * lppdma,uint32_t u32Ch);
-void LPPDMA_EnableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask);
-void LPPDMA_DisableInt(LPPDMA_T * lppdma,uint32_t u32Ch, uint32_t u32Mask);
+void LPPDMA_Open(LPPDMA_T *lppdma, uint32_t u32Mask);
+void LPPDMA_Close(LPPDMA_T *lppdma);
+void LPPDMA_SetTransferCnt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Width, uint32_t u32TransCount);
+void LPPDMA_SetTransferAddr(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32SrcAddr, uint32_t u32SrcCtrl, uint32_t u32DstAddr, uint32_t u32DstCtrl);
+void LPPDMA_SetTransferMode(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Peripheral, uint32_t u32ScatterEn, uint32_t u32DescAddr);
+void LPPDMA_SetBurstType(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32BurstType, uint32_t u32BurstSize);
+void LPPDMA_Trigger(LPPDMA_T *lppdma, uint32_t u32Ch);
+void LPPDMA_EnableInt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Mask);
+void LPPDMA_DisableInt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Mask);
 
 
 /*@}*/ /* end of group LPPDMA_EXPORTED_FUNCTIONS */

@@ -54,7 +54,7 @@ extern "C"
 /* USCI_SPI Status Mask */
 #define USPI_BUSY_MASK               (0x01UL)                          /*!< Busy status mask \hideinitializer */
 #define USPI_RX_EMPTY_MASK           (0x02UL)                          /*!< RX empty status mask \hideinitializer */
-#define USPI_RX_FULL_MASK            (0x04UL)                          /*!< RX fULl status mask \hideinitializer */
+#define USPI_RX_FULL_MASK            (0x04UL)                          /*!< RX full status mask \hideinitializer */
 #define USPI_TX_EMPTY_MASK           (0x08UL)                          /*!< TX empty status mask \hideinitializer */
 #define USPI_TX_FULL_MASK            (0x10UL)                          /*!< TX full status mask \hideinitializer */
 #define USPI_SSLINE_STS_MASK         (0x20UL)                          /*!< USCI_SPI_SS line status mask \hideinitializer */
