@@ -34,6 +34,7 @@ extern __NO_RETURN void __PROGRAM_START(void);
  *----------------------------------------------------------------------------*/
 __NO_RETURN void Reset_Handler(void);
 __NO_RETURN void Default_Handler(void);
+void Reset_Handler_PreInit(void);
 
 /*----------------------------------------------------------------------------
   Exception / Interrupt Handlers
