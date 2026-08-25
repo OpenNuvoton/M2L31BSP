@@ -35,7 +35,7 @@ static uint32_t u32ChSelect[PDMA_CH_MAX];
  *
  * @details     This function enable the PDMA channels.
  */
-void PDMA_Open(PDMA_T * pdma,uint32_t u32Mask)
+void PDMA_Open(PDMA_T *pdma, uint32_t u32Mask)
 {
     uint32_t i;
 
@@ -60,7 +60,7 @@ void PDMA_Open(PDMA_T * pdma,uint32_t u32Mask)
  *
  * @details     This function disable all PDMA channels.
  */
-void PDMA_Close(PDMA_T * pdma)
+void PDMA_Close(PDMA_T *pdma)
 {
     pdma->CHCTL = 0UL;
 }
@@ -80,7 +80,7 @@ void PDMA_Close(PDMA_T * pdma)
  *
  * @details     This function set the selected channel data width and transfer count.
  */
-void PDMA_SetTransferCnt(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32Width, uint32_t u32TransCount)
+void PDMA_SetTransferCnt(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32Width, uint32_t u32TransCount)
 {
     pdma->DSCT[u32Ch].CTL &= ~(PDMA_DSCT_CTL_TXCNT_Msk | PDMA_DSCT_CTL_TXWIDTH_Msk);
     pdma->DSCT[u32Ch].CTL |= (u32Width | ((u32TransCount - 1UL) << PDMA_DSCT_CTL_TXCNT_Pos));
@@ -104,7 +104,7 @@ void PDMA_SetTransferCnt(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32Width, uint32
  *
  * @details     This function set the selected channel source/destination address and attribute.
  */
-void PDMA_SetTransferAddr(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32SrcAddr, uint32_t u32SrcCtrl, uint32_t u32DstAddr, uint32_t u32DstCtrl)
+void PDMA_SetTransferAddr(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32SrcAddr, uint32_t u32SrcCtrl, uint32_t u32DstAddr, uint32_t u32DstCtrl)
 {
     pdma->DSCT[u32Ch].SA = u32SrcAddr;
     pdma->DSCT[u32Ch].DA = u32DstAddr;
@@ -215,7 +215,7 @@ void PDMA_SetTransferAddr(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32SrcAddr, uin
  *
  * @details     This function set the selected channel transfer mode. Include peripheral setting.
  */
-void PDMA_SetTransferMode(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32Peripheral, uint32_t u32ScatterEn, uint32_t u32DescAddr)
+void PDMA_SetTransferMode(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32Peripheral, uint32_t u32ScatterEn, uint32_t u32DescAddr)
 {
     u32ChSelect[u32Ch] = u32Peripheral;
     switch(u32Ch)
@@ -305,7 +305,7 @@ void PDMA_SetTransferMode(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32Peripheral, 
  *
  * @details     This function set the selected channel burst type and size.
  */
-void PDMA_SetBurstType(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32BurstType, uint32_t u32BurstSize)
+void PDMA_SetBurstType(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32BurstType, uint32_t u32BurstSize)
 {
     pdma->DSCT[u32Ch].CTL &= ~(PDMA_DSCT_CTL_TXTYPE_Msk | PDMA_DSCT_CTL_BURSIZE_Msk);
     pdma->DSCT[u32Ch].CTL |= (u32BurstType | u32BurstSize);
@@ -322,7 +322,7 @@ void PDMA_SetBurstType(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32BurstType, uint
  *
  * @details     This function enable timeout function of the selected channel(s).
  */
-void PDMA_EnableTimeout(PDMA_T * pdma,uint32_t u32Mask)
+void PDMA_EnableTimeout(PDMA_T *pdma, uint32_t u32Mask)
 {
     pdma->TOUTEN |= u32Mask;
 }
@@ -338,7 +338,7 @@ void PDMA_EnableTimeout(PDMA_T * pdma,uint32_t u32Mask)
  *
  * @details     This function disable timeout function of the selected channel(s).
  */
-void PDMA_DisableTimeout(PDMA_T * pdma,uint32_t u32Mask)
+void PDMA_DisableTimeout(PDMA_T *pdma, uint32_t u32Mask)
 {
     pdma->TOUTEN &= ~u32Mask;
 }
@@ -356,7 +356,7 @@ void PDMA_DisableTimeout(PDMA_T * pdma,uint32_t u32Mask)
  * @details     This function set the timeout count.
  * @note        M2L31 only supported channel 0/1.
  */
-void PDMA_SetTimeOut(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32OnOff, uint32_t u32TimeOutCnt)
+void PDMA_SetTimeOut(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32OnOff, uint32_t u32TimeOutCnt)
 {
     switch(u32Ch)
     {
@@ -390,7 +390,7 @@ void PDMA_SetTimeOut(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32OnOff, uint32_t u
  *
  * @details     This function trigger the selected channel.
  */
-void PDMA_Trigger(PDMA_T * pdma,uint32_t u32Ch)
+void PDMA_Trigger(PDMA_T *pdma, uint32_t u32Ch)
 {
     if(u32ChSelect[u32Ch] == PDMA_MEM)
     {
@@ -413,7 +413,7 @@ void PDMA_Trigger(PDMA_T * pdma,uint32_t u32Ch)
  *
  * @details     This function enable the selected channel interrupt.
  */
-void PDMA_EnableInt(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32Mask)
+void PDMA_EnableInt(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32Mask)
 {
     if (u32Mask & PDMA_INT_TRANS_DONE)
     {
@@ -445,7 +445,7 @@ void PDMA_EnableInt(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32Mask)
  *
  * @details     This function disable the selected channel interrupt.
  */
-void PDMA_DisableInt(PDMA_T * pdma,uint32_t u32Ch, uint32_t u32Mask)
+void PDMA_DisableInt(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32Mask)
 {
     if (u32Mask & PDMA_INT_TRANS_DONE)
     {

@@ -37,7 +37,7 @@
  *    @details      The function is used to clear LPUART specified interrupt flag.
  */
 
-void LPUART_ClearIntFlag(LPUART_T* lpuart, uint32_t u32InterruptFlag)
+void LPUART_ClearIntFlag(LPUART_T *lpuart, uint32_t u32InterruptFlag)
 {
 
     if(u32InterruptFlag & LPUART_INTSTS_RLSINT_Msk)   /* Clear Receive Line Status Interrupt */
@@ -78,7 +78,7 @@ void LPUART_ClearIntFlag(LPUART_T* lpuart, uint32_t u32InterruptFlag)
  *
  *  @details    The function is used to disable LPUART interrupt.
  */
-void LPUART_Close(LPUART_T* lpuart)
+void LPUART_Close(LPUART_T *lpuart)
 {
     lpuart->INTEN = 0UL;
 }
@@ -93,7 +93,7 @@ void LPUART_Close(LPUART_T* lpuart)
  *
  *  @details    The function is used to disable LPUART auto flow control.
  */
-void LPUART_DisableFlowCtrl(LPUART_T* lpuart)
+void LPUART_DisableFlowCtrl(LPUART_T *lpuart)
 {
     lpuart->INTEN &= ~(LPUART_INTEN_ATORTSEN_Msk | LPUART_INTEN_ATOCTSEN_Msk);
 }
@@ -116,7 +116,7 @@ void LPUART_DisableFlowCtrl(LPUART_T* lpuart)
  *
  *    @details      The function is used to disable LPUART specified interrupt and disable NVIC LPUART IRQ.
  */
-void LPUART_DisableInt(LPUART_T*  lpuart, uint32_t u32InterruptFlag)
+void LPUART_DisableInt(LPUART_T *lpuart, uint32_t u32InterruptFlag)
 {
     /* Disable LPUART specified interrupt */
     LPUART_DISABLE_INT(lpuart, u32InterruptFlag);
@@ -132,7 +132,7 @@ void LPUART_DisableInt(LPUART_T*  lpuart, uint32_t u32InterruptFlag)
  *
  *    @details      The function is used to Enable LPUART auto flow control.
  */
-void LPUART_EnableFlowCtrl(LPUART_T* lpuart)
+void LPUART_EnableFlowCtrl(LPUART_T *lpuart)
 {
     /* Set RTS pin output is low level active */
     lpuart->MODEM |= LPUART_MODEM_RTSACTLV_Msk;
@@ -162,7 +162,7 @@ void LPUART_EnableFlowCtrl(LPUART_T* lpuart)
  *
  *    @details      The function is used to enable LPUART specified interrupt and enable NVIC LPUART IRQ.
  */
-void LPUART_EnableInt(LPUART_T*  lpuart, uint32_t u32InterruptFlag)
+void LPUART_EnableInt(LPUART_T *lpuart, uint32_t u32InterruptFlag)
 {
     /* Enable LPUART specified interrupt */
     LPUART_ENABLE_INT(lpuart, u32InterruptFlag);
@@ -179,7 +179,7 @@ void LPUART_EnableInt(LPUART_T*  lpuart, uint32_t u32InterruptFlag)
  *
  *    @details      This function use to enable LPUART function and set baud-rate.
  */
-void LPUART_Open(LPUART_T* lpuart, uint32_t u32baudrate)
+void LPUART_Open(LPUART_T *lpuart, uint32_t u32baudrate)
 {
     uint32_t u32UartClkSrcSel = 0UL;
     uint32_t u32UartClkDivNum = 0UL;
@@ -234,7 +234,7 @@ void LPUART_Open(LPUART_T* lpuart, uint32_t u32baudrate)
  *
  *    @details      The function is used to read Rx data from RX FIFO and the data will be stored in pu8RxBuf.
  */
-uint32_t LPUART_Read(const LPUART_T* lpuart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes)
+uint32_t LPUART_Read(const LPUART_T *lpuart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes)
 {
     uint32_t  u32Count;
     uint32_t  u32Exit = 0UL;
@@ -297,7 +297,7 @@ uint32_t LPUART_Read(const LPUART_T* lpuart, uint8_t pu8RxBuf[], uint32_t u32Rea
  *
  *    @details      This function use to config LPUART line setting.
  */
-void LPUART_SetLine_Config(LPUART_T* lpuart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t  u32stop_bits)
+void LPUART_SetLine_Config(LPUART_T *lpuart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t u32stop_bits)
 {
     uint32_t u32UartClkSrcSel = 0UL;
     uint32_t u32UartClkDivNum = 0UL;
@@ -344,7 +344,7 @@ void LPUART_SetLine_Config(LPUART_T* lpuart, uint32_t u32baudrate, uint32_t u32d
  *
  *    @details      This function use to set Rx timeout count.
  */
-void LPUART_SetTimeoutCnt(LPUART_T* lpuart, uint32_t u32TOC)
+void LPUART_SetTimeoutCnt(LPUART_T *lpuart, uint32_t u32TOC)
 {
     /* Set time-out interrupt comparator */
     lpuart->TOUT = (lpuart->TOUT & ~LPUART_TOUT_TOIC_Msk) | (u32TOC);
@@ -368,7 +368,7 @@ void LPUART_SetTimeoutCnt(LPUART_T* lpuart, uint32_t u32TOC)
  *
  *    @details      The function is used to set RS485 relative setting.
  */
-void LPUART_SelectRS485Mode(LPUART_T* lpuart, uint32_t u32Mode, uint32_t u32Addr)
+void LPUART_SelectRS485Mode(LPUART_T *lpuart, uint32_t u32Mode, uint32_t u32Addr)
 {
     /* Select LPUART RS485 function mode */
     lpuart->FUNCSEL = LPUART_FUNCSEL_RS485;
@@ -389,7 +389,7 @@ void LPUART_SelectRS485Mode(LPUART_T* lpuart, uint32_t u32Mode, uint32_t u32Addr
  *
  *    @details      The function is to write data into TX buffer to transmit data by LPUART.
  */
-uint32_t LPUART_Write(LPUART_T* lpuart, const uint8_t pu8TxBuf[], uint32_t u32WriteBytes)
+uint32_t LPUART_Write(LPUART_T *lpuart, const uint8_t pu8TxBuf[], uint32_t u32WriteBytes)
 {
     uint32_t  u32Count;
     uint32_t  u32Exit = 0UL;

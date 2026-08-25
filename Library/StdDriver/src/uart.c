@@ -39,7 +39,7 @@
  *    @details      The function is used to clear UART specified interrupt flag.
  */
 
-void UART_ClearIntFlag(UART_T* uart, uint32_t u32InterruptFlag)
+void UART_ClearIntFlag(UART_T *uart, uint32_t u32InterruptFlag)
 {
     if (u32InterruptFlag & UART_INTSTS_SWBEINT_Msk)   /* Clear Bit Error Detection Interrupt */
     {
@@ -91,7 +91,7 @@ void UART_ClearIntFlag(UART_T* uart, uint32_t u32InterruptFlag)
  *
  *  @details    The function is used to disable UART interrupt.
  */
-void UART_Close(UART_T* uart)
+void UART_Close(UART_T *uart)
 {
     uart->INTEN = 0UL;
 }
@@ -106,7 +106,7 @@ void UART_Close(UART_T* uart)
  *
  *  @details    The function is used to disable UART auto flow control.
  */
-void UART_DisableFlowCtrl(UART_T* uart)
+void UART_DisableFlowCtrl(UART_T *uart)
 {
     uart->INTEN &= ~(UART_INTEN_ATORTSEN_Msk | UART_INTEN_ATOCTSEN_Msk);
 }
@@ -131,7 +131,7 @@ void UART_DisableFlowCtrl(UART_T* uart)
  *
  *    @details      The function is used to disable UART specified interrupt and disable NVIC UART IRQ.
  */
-void UART_DisableInt(UART_T*  uart, uint32_t u32InterruptFlag)
+void UART_DisableInt(UART_T *uart, uint32_t u32InterruptFlag)
 {
     /* Disable UART specified interrupt */
     UART_DISABLE_INT(uart, u32InterruptFlag);
@@ -147,7 +147,7 @@ void UART_DisableInt(UART_T*  uart, uint32_t u32InterruptFlag)
  *
  *    @details      The function is used to Enable UART auto flow control.
  */
-void UART_EnableFlowCtrl(UART_T* uart)
+void UART_EnableFlowCtrl(UART_T *uart)
 {
     /* Set RTS pin output is low level active */
     uart->MODEM |= UART_MODEM_RTSACTLV_Msk;
@@ -179,7 +179,7 @@ void UART_EnableFlowCtrl(UART_T* uart)
  *
  *    @details      The function is used to enable UART specified interrupt and enable NVIC UART IRQ.
  */
-void UART_EnableInt(UART_T*  uart, uint32_t u32InterruptFlag)
+void UART_EnableInt(UART_T *uart, uint32_t u32InterruptFlag)
 {
     /* Enable UART specified interrupt */
     UART_ENABLE_INT(uart, u32InterruptFlag);
@@ -196,7 +196,7 @@ void UART_EnableInt(UART_T*  uart, uint32_t u32InterruptFlag)
  *
  *    @details      This function use to enable UART function and set baud-rate.
  */
-void UART_Open(UART_T* uart, uint32_t u32baudrate)
+void UART_Open(UART_T *uart, uint32_t u32baudrate)
 {
     uint32_t u32UartClkSrcSel=0UL;
     uint32_t u32UartClkDivNum=0UL;
@@ -306,7 +306,7 @@ void UART_Open(UART_T* uart, uint32_t u32baudrate)
  *
  *    @details      The function is used to read Rx data from RX FIFO and the data will be stored in pu8RxBuf.
  */
-uint32_t UART_Read(const UART_T* uart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes)
+uint32_t UART_Read(const UART_T *uart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes)
 {
     uint32_t  u32Count;
     uint32_t  u32Exit = 0UL;
@@ -369,7 +369,7 @@ uint32_t UART_Read(const UART_T* uart, uint8_t pu8RxBuf[], uint32_t u32ReadBytes
  *
  *    @details      This function use to config UART line setting.
  */
-void UART_SetLine_Config(UART_T* uart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t  u32stop_bits)
+void UART_SetLine_Config(UART_T *uart, uint32_t u32baudrate, uint32_t u32data_width, uint32_t u32parity, uint32_t u32stop_bits)
 {
     uint32_t u32UartClkSrcSel=0UL;
     uint32_t u32UartClkDivNum=0UL;
@@ -475,7 +475,7 @@ void UART_SetLine_Config(UART_T* uart, uint32_t u32baudrate, uint32_t u32data_wi
  *
  *    @details      This function use to set Rx timeout count.
  */
-void UART_SetTimeoutCnt(UART_T* uart, uint32_t u32TOC)
+void UART_SetTimeoutCnt(UART_T *uart, uint32_t u32TOC)
 {
     /* Set time-out interrupt comparator */
     uart->TOUT = (uart->TOUT & ~UART_TOUT_TOIC_Msk) | (u32TOC);
@@ -498,7 +498,7 @@ void UART_SetTimeoutCnt(UART_T* uart, uint32_t u32TOC)
   *
  *    @details      The function is used to configure IrDA relative settings. It consists of TX or RX mode and baudrate.
  */
-void UART_SelectIrDAMode(UART_T* uart, uint32_t u32Buadrate, uint32_t u32Direction)
+void UART_SelectIrDAMode(UART_T *uart, uint32_t u32Buadrate, uint32_t u32Direction)
 {
     uint32_t u32UartClkSrcSel=0UL;
     uint32_t u32UartClkDivNum=0UL;
@@ -621,7 +621,7 @@ void UART_SelectIrDAMode(UART_T* uart, uint32_t u32Buadrate, uint32_t u32Directi
  *
  *    @details      The function is used to set RS485 relative setting.
  */
-void UART_SelectRS485Mode(UART_T* uart, uint32_t u32Mode, uint32_t u32Addr)
+void UART_SelectRS485Mode(UART_T *uart, uint32_t u32Mode, uint32_t u32Addr)
 {
     /* Select UART RS485 function mode */
     uart->FUNCSEL = UART_FUNCSEL_RS485;
@@ -645,7 +645,7 @@ void UART_SelectRS485Mode(UART_T* uart, uint32_t u32Mode, uint32_t u32Addr)
  *
  *    @details      The function is used to set LIN relative setting.
  */
-void UART_SelectLINMode(UART_T* uart, uint32_t u32Mode, uint32_t u32BreakLength)
+void UART_SelectLINMode(UART_T *uart, uint32_t u32Mode, uint32_t u32BreakLength)
 {
     /* Select LIN function mode */
     uart->FUNCSEL = UART_FUNCSEL_LIN;
@@ -667,7 +667,7 @@ void UART_SelectLINMode(UART_T* uart, uint32_t u32Mode, uint32_t u32BreakLength)
  *
  *    @details      The function is to write data into TX buffer to transmit data by UART.
  */
-uint32_t UART_Write(UART_T* uart, const uint8_t pu8TxBuf[], uint32_t u32WriteBytes)
+uint32_t UART_Write(UART_T *uart, const uint8_t pu8TxBuf[], uint32_t u32WriteBytes)
 {
     uint32_t  u32Count;
     uint32_t  u32Exit = 0UL;
