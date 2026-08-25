@@ -74,6 +74,7 @@ static volatile int32_t g_ICE_Connected = 1;
 int kbhit(void);
 int IsDebugFifoEmpty(void);
 void _ttywrch(int ch);
+/* cppcheck-suppress misra-c2012-21.2 */
 int fputc(int ch, FILE *stream);
 
 #if defined ( __GNUC__ ) && !defined (__ARMCC_VERSION)
@@ -85,7 +86,9 @@ int fputc(int ch, FILE *stream);
 #endif
 
 #if defined (__ARMCC_VERSION) || defined (__ICCARM__)
+    /* cppcheck-suppress misra-c2012-21.2 */
     int fgetc(FILE *stream);
+    /* cppcheck-suppress misra-c2012-21.2 */
     int ferror(FILE *stream);
 #endif
 
@@ -198,6 +201,17 @@ int32_t SH_Return(int32_t n32In_R0, int32_t n32In_R1, int32_t *pn32Out_R0)
         __attribute__((weak))
     #endif
 
+    /**
+     * @static_deviation
+     * <b>Rule:</b>          MISRA C:2012 Rule 8.2<br>
+     * <b>Justification:</b> Parameters lr, msp, psp are already named in this prototype;
+     *                       the preceding conditional __WEAK / __attribute__((weak))
+     *                       qualifier confuses the MISRA addon's simplified token stream
+     *                       into misreading the parameter list as unnamed. This is a
+     *                       tool-parsing artifact of the weak-attribute macro, not a
+     *                       missing parameter name.
+     */
+    /* cppcheck-suppress misra-c2012-8.2 */
     uint32_t ProcessHardFault(uint32_t lr, uint32_t msp, uint32_t psp);
 #else
     extern int32_t SH_DoCommand(int32_t n32In_R0, int32_t n32In_R1, int32_t *pn32Out_R0);
@@ -579,7 +593,14 @@ void _ttywrch(int ch)
  *
  * @note       The above descriptions are copied from http://www.cplusplus.com/reference/clibrary/cstdio/fputc/.
  *
- *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 21.2<br>
+ * <b>Justification:</b> fputc is a standard C library function name that must be
+ *                       redeclared/redefined here by design: this is the retarget
+ *                       layer that hooks the C runtime's low-level character output
+ *                       to the UART debug port / semihosting channel. Renaming it
+ *                       would break the C library's retargeting mechanism, which
+ *                       depends on this exact reserved name being provided.
  */
 #if defined (__ICCARM__) && (__VER__ >= 9000000)
 size_t __write(int handle, const unsigned char *buffer, size_t size)
@@ -729,6 +750,14 @@ int _getpid(void)
  *
  * @details    For get message from debug port or semihosting.
  *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 21.2<br>
+ * <b>Justification:</b> fgetc is a standard C library function name that must be
+ *                       redeclared/redefined here by design: this is the retarget
+ *                       layer that hooks the C runtime's low-level character input
+ *                       to the UART debug port / semihosting channel. Renaming it
+ *                       would break the C library's retargeting mechanism, which
+ *                       depends on this exact reserved name being provided.
  */
 #if defined (__ICCARM__) && (__VER__ >= 9000000)
 size_t __read(int handle, unsigned char *buffer, size_t size)
@@ -788,6 +817,14 @@ int fgetc(FILE *stream)
  *
  * @note       The above descriptions are copied from http://www.cplusplus.com/reference/clibrary/cstdio/ferror/.
  *
+ * @static_deviation
+ * <b>Rule:</b>          MISRA C:2012 Rule 21.2<br>
+ * <b>Justification:</b> ferror is a standard C library function name that must be
+ *                       redeclared/redefined here by design: this is the retarget
+ *                       layer that hooks the C runtime's stream error-indicator query
+ *                       to this BSP's debug/semihosting channel. Renaming it would
+ *                       break the C library's retargeting mechanism, which depends
+ *                       on this exact reserved name being provided.
  */
 int ferror(FILE *stream)
 {
