@@ -67,7 +67,7 @@ extern "C"
 /*---------------------------------------------------------------------------------------------------------*/
 #define RTC_WAIT_COUNT          0xFFFFFFFFUL      /*!< Initial Time-out Value \hideinitializer */
 #define RTC_YEAR2000            2000UL            /*!< RTC Reference for compute year data \hideinitializer */
-#define RTC_FCR_REFERENCE       32761L            /*!< RTC Reference for frequency compensation \hideinitializer */
+#define RTC_FCR_REFERENCE       32752L            /*!< RTC Reference for frequency compensation \hideinitializer */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /*  RTC Tamper Constant Definitions                                                                        */
