@@ -573,6 +573,11 @@ int IsDebugFifoEmpty(void)
  */
 void _ttywrch(int ch)
 {
+#if defined(__ICCARM__) && (__VER__ >= 8000000)
+    (void)__stdout.handle;
+    (void)__stdin.handle;
+#endif
+
     SendChar(ch);
     return;
 }
