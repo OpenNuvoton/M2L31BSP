@@ -2,25 +2,32 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "serialNumber": "urn:uuid:d24ca5ba-52f9-4f89-96c2-3fb1881f62f4",
+  "serialNumber": "urn:uuid:45773863-e5a7-4049-ace0-a5bd1d427893",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-06-15T15:55:39+08:00",
+    "timestamp": "2026-08-28T20:12:18+08:00",
     "tools": {
       "components": [
         {
           "type": "application",
           "author": "anchore",
           "name": "syft",
-          "version": "1.43.0"
+          "version": "1.45.1"
         }
       ]
     },
     "component": {
-      "bom-ref": "04ed2dbaee1fb902",
+      "bom-ref": "feb4513a3eb54f7c",
       "type": "library",
       "name": "MCU Driver",
-      "version": "V3.02.000-97-ge21ed08d",
+      "version": "V3.02.000-128-gc1a435d",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/mcu-driver@V3.02.000-128-gc1a435d",
       "licenses": [
         {
           "license": {
@@ -51,7 +58,7 @@
         },
         {
           "name": "bsp:third-party-components",
-          "value": "none identified in product scope based on the defined Product SBOM scope policy"
+          "value": "Third-party component status is represented by component-level bsp:component-origin properties and manual SCA evidence."
         },
         {
           "name": "bsp:product-scope-include-path",
@@ -98,14 +105,38 @@
           "value": "Tool/"
         }
       ]
-    }
+    },
+    "supplier": {
+      "name": "Nuvoton Technology Corp.",
+      "url": [
+        "https://www.nuvoton.com"
+      ]
+    },
+    "authors": [
+      {
+        "name": "Nuvoton Technology Corp."
+      }
+    ]
   },
   "components": [
     {
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-device",
-      "name": "m2l31 Device",
-      "version": "V3.02.000-97-ge21ed08d",
+      "name": "M2L31 Device",
+      "version": "V3.02.000-128-gc1a435d",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/library-device@V3.02.000-128-gc1a435d",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ea3cc56390c2b8cb491717e5628f84dd33ab150866937d84e1ea4795ab0ab6ac"
+        }
+      ],
       "licenses": [
         {
           "license": {
@@ -149,8 +180,21 @@
     {
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-numaker",
-      "name": "m2l31 NuMaker",
-      "version": "V3.02.000-97-ge21ed08d",
+      "name": "M2L31 NuMaker",
+      "version": "V3.02.000-128-gc1a435d",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/library-numaker@V3.02.000-128-gc1a435d",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2e4d9807219124b9f52793e16da015ec562c386a7d8cdc6376e18335fa97516d"
+        }
+      ],
       "licenses": [
         {
           "license": {
@@ -194,12 +238,25 @@
     {
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-powerdeliverylib",
-      "name": "m2l31 PowerDeliveryLib",
-      "version": "V3.02.000-97-ge21ed08d",
+      "name": "M2L31 PowerDeliveryLib",
+      "version": "V3.02.000-128-gc1a435d",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/library-powerdeliverylib@V3.02.000-128-gc1a435d",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "155416fc1861a0f564ac30784bf8dc9e99214bb11d75752725da688591af40a3"
+        }
+      ],
       "licenses": [
         {
           "license": {
-            "name": "Nuvoton Proprietary"
+            "id": "LicenseRef-Nuvoton-Proprietary"
           }
         }
       ],
@@ -240,107 +297,120 @@
         },
         {
           "name": "bsp:static-lib:0:path",
-          "value": "Library/PowerDeliveryLib/PD_DRP.a"
-        },
-        {
-          "name": "bsp:static-lib:0:sha256",
-          "value": "920a4cca0fca5f400ce3af1f544846c1d5354d208afb2ac44b0dccf820662c80"
-        },
-        {
-          "name": "bsp:static-lib:1:path",
-          "value": "Library/PowerDeliveryLib/PD_DRP.lib"
-        },
-        {
-          "name": "bsp:static-lib:1:sha256",
-          "value": "36f3b81c91ca4864e582f1b0bf8b8f486138cef2f76b18230cb0d5e3feed04a0"
-        },
-        {
-          "name": "bsp:static-lib:2:path",
-          "value": "Library/PowerDeliveryLib/PD_DRP_Keil.lib"
-        },
-        {
-          "name": "bsp:static-lib:2:sha256",
-          "value": "6853024a7e86fc7f3facaf09fd154cb2080093a60031191732751f3db0295d07"
-        },
-        {
-          "name": "bsp:static-lib:3:path",
-          "value": "Library/PowerDeliveryLib/PD_SNK.a"
-        },
-        {
-          "name": "bsp:static-lib:3:sha256",
-          "value": "21bf4077b8a23e3a7464659dc50a6ea637e641fdd5311c3b3b338ae95adadec7"
-        },
-        {
-          "name": "bsp:static-lib:4:path",
-          "value": "Library/PowerDeliveryLib/PD_SNK.lib"
-        },
-        {
-          "name": "bsp:static-lib:4:sha256",
-          "value": "dfd40ffbe2471bf099a326b0ca0ef3903742636709de605076be26f7c4de8962"
-        },
-        {
-          "name": "bsp:static-lib:5:path",
-          "value": "Library/PowerDeliveryLib/PD_SNK_Keil.lib"
-        },
-        {
-          "name": "bsp:static-lib:5:sha256",
-          "value": "5e6d2c837a55cee92e89339c5eb834f7424450e02ec1d3a789a3c08745c52ef2"
-        },
-        {
-          "name": "bsp:static-lib:6:path",
-          "value": "Library/PowerDeliveryLib/PD_SRC.a"
-        },
-        {
-          "name": "bsp:static-lib:6:sha256",
-          "value": "fe193334299ba19715c827331ccaa16cc2424bafc9a8737e96c899044fac0e59"
-        },
-        {
-          "name": "bsp:static-lib:7:path",
-          "value": "Library/PowerDeliveryLib/PD_SRC.lib"
-        },
-        {
-          "name": "bsp:static-lib:7:sha256",
-          "value": "ccd90c459e2b8068239ccabd6a9fd0950f336013ae8062687dc0195238f8a49b"
-        },
-        {
-          "name": "bsp:static-lib:8:path",
-          "value": "Library/PowerDeliveryLib/PD_SRC_Keil.lib"
-        },
-        {
-          "name": "bsp:static-lib:8:sha256",
-          "value": "5da72a96c470e0b894ed0d44596d409b9cedbc6938193538a8bf9bb0dfe6fbcc"
-        },
-        {
-          "name": "bsp:static-lib:9:path",
           "value": "Library/PowerDeliveryLib/libPD_DRP.a"
         },
         {
-          "name": "bsp:static-lib:9:sha256",
-          "value": "d78ed6fc98ea1bb8fb421a8dd362fefbff2a1d26475aafe71856ace42626a262"
+          "name": "bsp:static-lib:0:sha256",
+          "value": "08e3f8e7095e5b3740a68a41812a02e7770889504ede6ac519561159aab80547"
         },
         {
-          "name": "bsp:static-lib:10:path",
+          "name": "bsp:static-lib:1:path",
           "value": "Library/PowerDeliveryLib/libPD_SNK.a"
         },
         {
-          "name": "bsp:static-lib:10:sha256",
-          "value": "9048c5ee1fbf9cda5f7f64c766900befb9c82bbb12c9673a8e38e1aed547e569"
+          "name": "bsp:static-lib:1:sha256",
+          "value": "1ab013beae051c4827d26c38ad92a1cd5f46e7b023ab090f086610b4c66529de"
         },
         {
-          "name": "bsp:static-lib:11:path",
+          "name": "bsp:static-lib:2:path",
           "value": "Library/PowerDeliveryLib/libPD_SRC.a"
         },
         {
+          "name": "bsp:static-lib:2:sha256",
+          "value": "e5215a5e559f1b1acea9979956f44e3894f9bfd00ac2273c88caff2ccfd1c3c7"
+        },
+        {
+          "name": "bsp:static-lib:3:path",
+          "value": "Library/PowerDeliveryLib/PD_DRP.a"
+        },
+        {
+          "name": "bsp:static-lib:3:sha256",
+          "value": "a65f15f8cbfe86e9f8b0b95023ad9406369c3ccf135aa3b8ac91599136cb1327"
+        },
+        {
+          "name": "bsp:static-lib:4:path",
+          "value": "Library/PowerDeliveryLib/PD_DRP.lib"
+        },
+        {
+          "name": "bsp:static-lib:4:sha256",
+          "value": "5e4e0e7f96b7934c26b4996c931a84d2ec550fa40c8faac2b10a442fc53f1c22"
+        },
+        {
+          "name": "bsp:static-lib:5:path",
+          "value": "Library/PowerDeliveryLib/PD_DRP_Keil.lib"
+        },
+        {
+          "name": "bsp:static-lib:5:sha256",
+          "value": "5c6a48c271e8de69957645002cd1ab69fe7bd5c11a736607f566cb5a0b61990c"
+        },
+        {
+          "name": "bsp:static-lib:6:path",
+          "value": "Library/PowerDeliveryLib/PD_SNK.a"
+        },
+        {
+          "name": "bsp:static-lib:6:sha256",
+          "value": "511c13eb5146e25c327e028cbdcf7d3bffe0d227c8deff8fe947f40e26fbb03b"
+        },
+        {
+          "name": "bsp:static-lib:7:path",
+          "value": "Library/PowerDeliveryLib/PD_SNK.lib"
+        },
+        {
+          "name": "bsp:static-lib:7:sha256",
+          "value": "a78ed9a791872fdfad76bb85377cf90fc1d20101a3b7200b6d19d29076510260"
+        },
+        {
+          "name": "bsp:static-lib:8:path",
+          "value": "Library/PowerDeliveryLib/PD_SNK_Keil.lib"
+        },
+        {
+          "name": "bsp:static-lib:8:sha256",
+          "value": "4a07fc96801a0806a5bcf1b7b5c0f93ecfee617e22be956f42be329939120d87"
+        },
+        {
+          "name": "bsp:static-lib:9:path",
+          "value": "Library/PowerDeliveryLib/PD_SRC.a"
+        },
+        {
+          "name": "bsp:static-lib:9:sha256",
+          "value": "590db5f524547bbf46c385b889283af0be32ecf243adf429e317c3c63f39c7f0"
+        },
+        {
+          "name": "bsp:static-lib:10:path",
+          "value": "Library/PowerDeliveryLib/PD_SRC.lib"
+        },
+        {
+          "name": "bsp:static-lib:10:sha256",
+          "value": "015f6941147e737df926fd9871ac21c407b1fe33a5dce8cc6f6d014f1d16fee8"
+        },
+        {
+          "name": "bsp:static-lib:11:path",
+          "value": "Library/PowerDeliveryLib/PD_SRC_Keil.lib"
+        },
+        {
           "name": "bsp:static-lib:11:sha256",
-          "value": "ac38ec67bc586f446391cda644026eaa9b61690ccb2ae4c641c3afd301560451"
+          "value": "a15f3661e19db449bdbe0e3901724dba83db1e840a0e28fafaa36665695fc5c0"
         }
       ]
     },
     {
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-stddriver",
-      "name": "m2l31 StdDriver",
-      "version": "V3.02.000-97-ge21ed08d",
+      "name": "M2L31 StdDriver",
+      "version": "V3.02.000-128-gc1a435d",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/library-stddriver@V3.02.000-128-gc1a435d",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5de96e292d7e0dc207ec946ae847736de5472b9225093dac8f3935fc61550a31"
+        }
+      ],
       "licenses": [
         {
           "license": {
@@ -384,12 +454,25 @@
     {
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-tklib",
-      "name": "m2l31 TKLib",
-      "version": "V3.02.000-97-ge21ed08d",
+      "name": "M2L31 TKLib",
+      "version": "V3.02.000-128-gc1a435d",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/library-tklib@V3.02.000-128-gc1a435d",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "318c0a55f0833b34b687df5ac4dc44e196dc8e6b42d9970162b41f616fa7bcd0"
+        }
+      ],
       "licenses": [
         {
           "license": {
-            "name": "Nuvoton Proprietary"
+            "id": "LicenseRef-Nuvoton-Proprietary"
           }
         }
       ],
@@ -430,99 +513,112 @@
         },
         {
           "name": "bsp:static-lib:0:path",
-          "value": "Library/TKLib/TKLib_Calibration.a"
-        },
-        {
-          "name": "bsp:static-lib:0:sha256",
-          "value": "63ed11f6d94f0dbd24627a224214cfa74e6f17ee24b1ca899ddaa627784a3be7"
-        },
-        {
-          "name": "bsp:static-lib:1:path",
-          "value": "Library/TKLib/TKLib_Calibration.lib"
-        },
-        {
-          "name": "bsp:static-lib:1:sha256",
-          "value": "b04e0c22dcd2694be9f4b669b96e553dba57cc6c9df68ec075dc25e08e733f3e"
-        },
-        {
-          "name": "bsp:static-lib:2:path",
-          "value": "Library/TKLib/TKLib_FreeRun.a"
-        },
-        {
-          "name": "bsp:static-lib:2:sha256",
-          "value": "fce33feca396d9ead1387b047e76d367b4b58daffedee4572e39877cb6e4ca24"
-        },
-        {
-          "name": "bsp:static-lib:3:path",
-          "value": "Library/TKLib/TKLib_FreeRun.lib"
-        },
-        {
-          "name": "bsp:static-lib:3:sha256",
-          "value": "dbc83b2207dbaacfc5357a0876aa8633922d7827ac764dab4f9d2f9a48546c88"
-        },
-        {
-          "name": "bsp:static-lib:4:path",
-          "value": "Library/TKLib/TKLib_MassProduction.a"
-        },
-        {
-          "name": "bsp:static-lib:4:sha256",
-          "value": "5a05825f9849cbab4424872b5b7e41f04e625d92509e6d957dbdf89ef83bad47"
-        },
-        {
-          "name": "bsp:static-lib:5:path",
-          "value": "Library/TKLib/TKLib_MassProduction.lib"
-        },
-        {
-          "name": "bsp:static-lib:5:sha256",
-          "value": "2bbdd627d007f333c43cf01fd4263c540b0f038be2efb1d9d76a8d59cf66c99f"
-        },
-        {
-          "name": "bsp:static-lib:6:path",
-          "value": "Library/TKLib/TK_Calibration.a"
-        },
-        {
-          "name": "bsp:static-lib:6:sha256",
-          "value": "d44a024b36aaedfe5ce3d264ae41d12a92d74ce2c8b9b0f106571f189501e8b7"
-        },
-        {
-          "name": "bsp:static-lib:7:path",
-          "value": "Library/TKLib/TK_FreeRun.a"
-        },
-        {
-          "name": "bsp:static-lib:7:sha256",
-          "value": "73c9c5d90c76c3d2998e0c5f556d0c208a6a1b586283f7d389fb8f3a64953f1b"
-        },
-        {
-          "name": "bsp:static-lib:8:path",
           "value": "Library/TKLib/libTKLib_Calibration.a"
         },
         {
-          "name": "bsp:static-lib:8:sha256",
-          "value": "60e92ff1e6611981239cda2c0ec50da4d578503c55e9d8e18c6b70305a44a29e"
+          "name": "bsp:static-lib:0:sha256",
+          "value": "40afcf05bdeebe76dbd17075a5ce806b22a7dbf0f24e2280ba7241a690183d03"
         },
         {
-          "name": "bsp:static-lib:9:path",
+          "name": "bsp:static-lib:1:path",
           "value": "Library/TKLib/libTKLib_FreeRun.a"
         },
         {
-          "name": "bsp:static-lib:9:sha256",
-          "value": "715ba4a180cf8882f161e3b7b06e9388e00a05f0eb71fa03345a20600d04d892"
+          "name": "bsp:static-lib:1:sha256",
+          "value": "04b7e71d37238c321ba5f566e27ba84d7926ff94f5dea3d8b059618e650101db"
         },
         {
-          "name": "bsp:static-lib:10:path",
+          "name": "bsp:static-lib:2:path",
           "value": "Library/TKLib/libTKLib_MassProduction.a"
         },
         {
+          "name": "bsp:static-lib:2:sha256",
+          "value": "1d294386e4515167cbf934aedb8c9a6e69cd9a71d133af0fa72bd789bccd2f5f"
+        },
+        {
+          "name": "bsp:static-lib:3:path",
+          "value": "Library/TKLib/TK_Calibration.a"
+        },
+        {
+          "name": "bsp:static-lib:3:sha256",
+          "value": "d44a024b36aaedfe5ce3d264ae41d12a92d74ce2c8b9b0f106571f189501e8b7"
+        },
+        {
+          "name": "bsp:static-lib:4:path",
+          "value": "Library/TKLib/TK_FreeRun.a"
+        },
+        {
+          "name": "bsp:static-lib:4:sha256",
+          "value": "73c9c5d90c76c3d2998e0c5f556d0c208a6a1b586283f7d389fb8f3a64953f1b"
+        },
+        {
+          "name": "bsp:static-lib:5:path",
+          "value": "Library/TKLib/TKLib_Calibration.a"
+        },
+        {
+          "name": "bsp:static-lib:5:sha256",
+          "value": "5b77ad7adc4d76069cbda4974f703d69586dd5e782414c18f0c596cd2fe67d3f"
+        },
+        {
+          "name": "bsp:static-lib:6:path",
+          "value": "Library/TKLib/TKLib_Calibration.lib"
+        },
+        {
+          "name": "bsp:static-lib:6:sha256",
+          "value": "f7949a1b1985338147c03f9db2a8c28a498bf35bbb311c05ce0f18262004fc2d"
+        },
+        {
+          "name": "bsp:static-lib:7:path",
+          "value": "Library/TKLib/TKLib_FreeRun.a"
+        },
+        {
+          "name": "bsp:static-lib:7:sha256",
+          "value": "1d95139ec15732f2f6f118f586a7f2abad0be07bb954d58ecc429500864943f7"
+        },
+        {
+          "name": "bsp:static-lib:8:path",
+          "value": "Library/TKLib/TKLib_FreeRun.lib"
+        },
+        {
+          "name": "bsp:static-lib:8:sha256",
+          "value": "0407c0a21b534a0f4fbd8433e35c075989a766ea3d43a3f5368f183b036010fd"
+        },
+        {
+          "name": "bsp:static-lib:9:path",
+          "value": "Library/TKLib/TKLib_MassProduction.a"
+        },
+        {
+          "name": "bsp:static-lib:9:sha256",
+          "value": "e8135c3661092371b9284d02c7432c66ba1e57e48f7439f4ddc65a8e1f0ddf4c"
+        },
+        {
+          "name": "bsp:static-lib:10:path",
+          "value": "Library/TKLib/TKLib_MassProduction.lib"
+        },
+        {
           "name": "bsp:static-lib:10:sha256",
-          "value": "9d1f0749c26b52ea3f582b1f0ee4c6d9bea3207be087cb20bc514370ab384c41"
+          "value": "2711d543924420b6967ed7d3a1defa57aebe9772ac8eba010e50b82db928b507"
         }
       ]
     },
     {
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-usbhostlib",
-      "name": "m2l31 UsbHostLib",
-      "version": "V3.02.000-97-ge21ed08d",
+      "name": "M2L31 UsbHostLib",
+      "version": "V3.02.000-128-gc1a435d",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/library-usbhostlib@V3.02.000-128-gc1a435d",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "cbb6b06da8a47d9143b6977bb0105f041be2a34a8257a3e8db4b8baf97cff915"
+        }
+      ],
       "licenses": [
         {
           "license": {
@@ -620,12 +716,18 @@
           "name": "bsp:version-evidence",
           "value": "Library/CMSIS/Core/Include/cmsis_version.h; Library/CMSIS/RTOS2/Include/cmsis_os2.h; Library/CMSIS/Driver/Include/Driver_Common.h"
         }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3b9195c5373a2a4dbfd968b083b3d7f5f446f9ec2e126f75928ac1ff4356b91e"
+        }
       ]
     }
   ],
   "dependencies": [
     {
-      "ref": "04ed2dbaee1fb902",
+      "ref": "feb4513a3eb54f7c",
       "dependsOn": [
         "m2l31bsp:product-component:library-device",
         "m2l31bsp:product-component:library-numaker",
