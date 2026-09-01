@@ -7,13 +7,14 @@
                            "version":  "R0.12",
                            "scope":  "required",
                            "author":  "ChaN",
+                           "supplier":  {
+                                            "name":  "ChaN"
+                                        },
                            "purl":  "pkg:generic/fatfs@R0.12",
                            "description":  "FatFs - Generic FAT file system module for embedded systems (ANSI C/C89), integrated as vendored source code.",
                            "licenses":  [
                                             {
-                                                "license":  {
-                                                                "name":  "FatFs license (BSD-like, as declared by ChaN in source header)"
-                                                            }
+                                                "expression":  "LicenseRef-FatFs-R0.12"
                                             }
                                         ],
                            "properties":  [
@@ -39,7 +40,11 @@
                                               },
                                               {
                                                   "name":  "bsp:evidence-file",
-                                                  "value":  "Document/SBOM/components/sca_fatfs.json"
+                                                  "value":  "Document/SBOM/components/TestSampleView/sca_fatfs.json"
+                                              },
+                                              {
+                                                  "name":  "bsp:evidence-path",
+                                                  "value":  "ThirdParty/FatFs"
                                               }
                                           ],
                            "hashes":  [

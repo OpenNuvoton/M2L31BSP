@@ -7,6 +7,9 @@
                            "version":  "6.1.0",
                            "scope":  "required",
                            "author":  "Arm Limited",
+                           "supplier":  {
+                                            "name":  "Arm Limited"
+                                        },
                            "purl":  "pkg:generic/cmsis@6.1.0",
                            "description":  "Arm CMSIS vendored in Library/CMSIS, including CMSIS-Core, CMSIS-Driver, CMSIS-RTOS2 API headers, templates, and documentation.",
                            "licenses":  [
@@ -47,7 +50,7 @@
                                               },
                                               {
                                                   "name":  "bsp:evidence-file",
-                                                  "value":  "Document/SBOM/cmsis/sca_cmsis.json"
+                                                  "value":  "Document/SBOM/components/ProductView/sca_cmsis.json"
                                               },
                                               {
                                                   "name":  "bsp:evidence-path",

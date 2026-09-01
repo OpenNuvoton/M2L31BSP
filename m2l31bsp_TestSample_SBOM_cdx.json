@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "serialNumber": "urn:uuid:31c73cbb-30db-489c-b3bc-0b202c13e2ad",
+  "serialNumber": "urn:uuid:9f8a458c-d9f5-433c-b766-4f5457f1cb15",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-08-28T20:12:35+08:00",
+    "timestamp": "2026-09-01T17:42:30+08:00",
     "tools": {
       "components": [
         {
@@ -17,17 +17,17 @@
       ]
     },
     "component": {
-      "bom-ref": "dab4729ae5955c53",
+      "bom-ref": "93ba5db90ede7ef0",
       "type": "application",
       "name": "MCU Test Sample",
-      "version": "V3.02.000-128-gc1a435d",
+      "version": "V3.02.000-130-g498bb7f0",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/mcu-test-sample@V3.02.000-128-gc1a435d",
+      "purl": "pkg:generic/nuvoton/mcu-test-sample@V3.02.000-130-g498bb7f0",
       "licenses": [
         {
           "license": {
@@ -149,16 +149,20 @@
         {
           "name": "bsp:file-path",
           "value": "Tool/HIDTransferTest/Debug/HIDTransferTest.exe"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "574f697b673b96f472321fce24cedbd5a7b3d8711067e23c7b065ae6ab074e1a"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "38f4ea3e6731367e28b6ad0eb4be8757d510a09d"
         }
       ],
       "licenses": [
@@ -167,7 +171,14 @@
             "id": "Apache-2.0"
           }
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Tool%2FHIDTransferTest%2FDebug%2FHIDTransferTest.exe"
     },
     {
       "bom-ref": "4ff6a73283a65c7d",
@@ -239,25 +250,34 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X64.exe"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "ce0ed66a5db0a0c061fd92975939f48e93affad15f3f6e806d44b3e82078b3db"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "806369cd56fe410d0e0ef8d05b1cf5d57a673636"
         }
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Nuvoton-Proprietary"
-          }
+          "expression": "LicenseRef-Nuvoton-Proprietary"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X64.exe"
     },
     {
       "bom-ref": "0751bdc6c9d5e476",
@@ -329,25 +349,34 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X86.exe"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "76e4d01dbf17ca7525e3a9156bd7e6274c5db0fff88a25943c25c8d2bdd38d92"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "f0fd2d0946f1d4632a963c9344439c93c5765b97"
         }
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Nuvoton-Proprietary"
-          }
+          "expression": "LicenseRef-Nuvoton-Proprietary"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X86.exe"
     },
     {
       "bom-ref": "3fd87dffff71a8c3",
@@ -407,25 +436,34 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/StdDriver/USBD_Micro_Printer/Windows driver/NuvPos58_Driver.exe"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "911e4c166fe9b06c8e2e31ab46b56ef662c43cba208d2088ca1d41c6d584e183"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "ba09b88a8ffa9b06bcd30ad7b45f6acb880b4cb9"
         }
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Nuvoton-Proprietary"
-          }
+          "expression": "LicenseRef-Nuvoton-Proprietary"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FUSBD_Micro_Printer%2FWindows%20driver%2FNuvPos58_Driver.exe"
     },
     {
       "bom-ref": "819356465e0f39e3",
@@ -485,26 +523,34 @@
         {
           "name": "bsp:file-path",
           "value": "Tool/TK/TouchView.exe"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "0594f3caa3685bb11b6dbb146849de0c94fb0c309e1a543a7bfa3cf9d93f2c5f"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "d385a58bca0f26c13bf6e9b13ba62a0f09636fc8"
         }
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Nuvoton-Proprietary"
-          }
+          "expression": "LicenseRef-Nuvoton-Proprietary"
         }
       ],
-      "purl": "pkg:generic/nuvoton/touchview@1.0.0.1"
+      "purl": "pkg:generic/nuvoton/touchview@1.0.0.1",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      }
     },
     {
       "bom-ref": "24081fb409fbf8da",
@@ -564,25 +610,34 @@
         {
           "name": "bsp:file-path",
           "value": "Tool/TK/TouchView_MP.exe"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "798717b616ae59f81bb7cb4428a653f424838ac305bdfccc75623e69cce53cac"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "c6024673ea41eff7fd68831b50abe513acaaaf77"
         }
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Nuvoton-Proprietary"
-          }
+          "expression": "LicenseRef-Nuvoton-Proprietary"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Tool%2FTK%2FTouchView_MP.exe"
     },
     {
       "bom-ref": "5569440e5357172b",
@@ -642,25 +697,34 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/WdfCoInstaller01011.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "dee0ddc820cd0da546dff8bcf2bc490326da90a2"
         }
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Microsoft-Software-License-Terms"
-          }
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FWdfCoInstaller01011.dll"
     },
     {
       "bom-ref": "d8995f12c25081c1",
@@ -720,25 +784,34 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/WdfCoInstaller01011.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "dee0ddc820cd0da546dff8bcf2bc490326da90a2"
         }
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Microsoft-Software-License-Terms"
-          }
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FWdfCoInstaller01011.dll"
     },
     {
       "bom-ref": "4bf0dac8cacd6698",
@@ -850,25 +923,34 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/winusbcoinstaller2.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "ebe3b7708dd974ee87efed3113028d266af87ca8dbae77c47c6f7612824d3d6c"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "1633b3715014c90d1c552cd757ef5de33c161dee"
         }
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Microsoft-Software-License-Terms"
-          }
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Fwinusbcoinstaller2.dll"
     },
     {
       "bom-ref": "a64f0d54e564b312",
@@ -964,16 +1046,20 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "4f18b5d2c28aa66b648c8683c6d09b52b92cbbee85984bbefad5f38a64bc2a14"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "bab236f840f1521c43bcbaa2a7b92f14f329bc70"
         }
       ],
       "licenses": [
@@ -982,7 +1068,14 @@
             "id": "LGPL-2.1-or-later"
           }
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0.dll"
     },
     {
       "bom-ref": "b775bc2a35788071",
@@ -1078,16 +1171,20 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0_x86.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "00caca07869b19d10b370552ac7cc2f6f2ee246fc15db11650f6cd3f4ef9b666"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "3a238468009a6dea3e4f70821339185e56ea3b69"
         }
       ],
       "licenses": [
@@ -1096,7 +1193,14 @@
             "id": "LGPL-2.1-or-later"
           }
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0_x86.dll"
     },
     {
       "bom-ref": "dd54509e3b51ed27",
@@ -1208,16 +1312,20 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0_x86.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "7dd82b6d52a840c4979a7515fc7a9ca3725363c4"
         }
       ],
       "licenses": [
@@ -1226,7 +1334,14 @@
             "id": "LGPL-2.1-or-later"
           }
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0_x86.dll"
     },
     {
       "bom-ref": "74cae8393dbbcd4b",
@@ -1338,16 +1453,20 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/install-filter.exe"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "7dd82b6d52a840c4979a7515fc7a9ca3725363c4"
         }
       ],
       "licenses": [
@@ -1356,7 +1475,14 @@
             "id": "LGPL-2.1-or-later"
           }
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Finstall-filter.exe"
     },
     {
       "bom-ref": "92903767fdf8f934",
@@ -1468,16 +1594,20 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "7dd82b6d52a840c4979a7515fc7a9ca3725363c4"
         }
       ],
       "licenses": [
@@ -1486,7 +1616,14 @@
             "id": "LGPL-2.1-or-later"
           }
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0.dll"
     },
     {
       "bom-ref": "5d9b5d81b237b8ce",
@@ -1546,23 +1683,34 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "592cd24bae321f1cb6cbe2f6e1bc5c05e279328e1c86814eb64ea1e89fdea188"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "fa8489441ac82d22567b5c3d5b494576df54f37d"
         }
       ],
       "licenses": [
         {
           "expression": "BSD-3-Clause OR GPL-3.0-only"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK.dll"
     },
     {
       "bom-ref": "54c0b73d615c0171",
@@ -1622,23 +1770,34 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK_x86.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "fc2350e45b0c7bdac7ac35f42b65f5fdfd622464"
         }
       ],
       "licenses": [
         {
           "expression": "BSD-3-Clause OR GPL-3.0-only"
         }
-      ]
+      ],
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK_x86.dll"
     },
     {
       "bom-ref": "d842a3083b0024ce",
@@ -1698,36 +1857,47 @@
         {
           "name": "bsp:file-path",
           "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusbK.dll"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:version-basis",
+          "value": "BSP release identity when no PE version is available"
         }
       ],
       "hashes": [
         {
           "alg": "SHA-256",
           "content": "22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4"
-        },
-        {
-          "alg": "SHA-1",
-          "content": "fc2350e45b0c7bdac7ac35f42b65f5fdfd622464"
         }
       ],
       "licenses": [
         {
           "expression": "BSD-3-Clause OR GPL-3.0-only"
         }
-      ]
-    },
-    {
-      "type": "application",
-      "bom-ref": "m2l31bsp:test-sample-component:samplecode",
-      "name": "M2L31 SampleCode",
-      "version": "V3.02.000-128-gc1a435d",
+      ],
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/samplecode@V3.02.000-128-gc1a435d",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FlibusbK.dll"
+    },
+    {
+      "type": "application",
+      "bom-ref": "m2l31bsp:test-sample-component:samplecode",
+      "name": "M2L31 SampleCode",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp.",
+        "url": [
+          "https://www.nuvoton.com"
+        ]
+      },
+      "purl": "pkg:generic/nuvoton/samplecode@V3.02.000-130-g498bb7f0",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1775,19 +1945,466 @@
       ]
     },
     {
+      "type": "firmware",
+      "bom-ref": "pkg:generic/m2l31-rmc-dual-bank-new-firmware@repository-build",
+      "group": "Nuvoton",
+      "name": "M2L31 RMC Dual-Bank Update Firmware",
+      "version": "repository-build",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/m2l31-rmc-dual-bank-new-firmware@repository-build",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7fd5aab425ec0a011c07e24da48e9d03969c3554038f9da3e2b4309aa29ec41f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "src_path",
+          "value": "SampleCode/StdDriver/RMC_DualBankFwUpdate"
+        },
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/RMC_DualBankFwUpdate/NewFirmwareSample.bin"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "10540"
+        },
+        {
+          "name": "toolchain",
+          "value": "repository-distributed sample payload"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:relationship-evidence",
+          "value": "SampleCode/StdDriver/RMC_DualBankFwUpdate/App/main.c; SampleCode/StdDriver/RMC_DualBankFwUpdate/App/IAR/App.ewp; SampleCode/StdDriver/RMC_DualBankFwUpdate/App/KEIL/App.uvprojx; SampleCode/StdDriver/RMC_DualBankFwUpdate/App/VSCode/App.cproject.yml"
+        },
+        {
+          "name": "bsp:evidence-file",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        }
+      ]
+    },
+    {
+      "type": "firmware",
+      "bom-ref": "pkg:generic/m2l31-rmc-update-new-app@repository-build",
+      "group": "Nuvoton",
+      "name": "M2L31 RMC Update Application Firmware",
+      "version": "repository-build",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/m2l31-rmc-update-new-app@repository-build",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e9c9e05d69f7285821d2933693e8fb1311709fa95d37a55fd8295aa0138d118b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "src_path",
+          "value": "SampleCode/StdDriver/RMC_FwUpdateApplication"
+        },
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/RMC_FwUpdateApplication/NewApp.bin"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "8560"
+        },
+        {
+          "name": "toolchain",
+          "value": "repository-distributed sample payload"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:relationship-evidence",
+          "value": "SampleCode/StdDriver/RMC_FwUpdateApplication/App/main.c; SampleCode/StdDriver/RMC_FwUpdateApplication/App/IAR/App.ewp; SampleCode/StdDriver/RMC_FwUpdateApplication/App/KEIL/App.uvprojx; SampleCode/StdDriver/RMC_FwUpdateApplication/App/VSCode/App.cproject.yml"
+        },
+        {
+          "name": "bsp:evidence-file",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        }
+      ]
+    },
+    {
+      "type": "firmware",
+      "bom-ref": "pkg:generic/m2l31-rmc-iap-ldrom@gcc-eclipse",
+      "group": "Nuvoton",
+      "name": "M2L31 RMC_IAP LDROM Firmware - GCC Eclipse",
+      "version": "repository-build",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/m2l31-rmc-iap-ldrom@gcc-eclipse",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3760d4f404b95d3586086637825cbcab586670a8af1ea9b131258695eb02cd38"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "src_path",
+          "value": "SampleCode/StdDriver/RMC_IAP"
+        },
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/RMC_IAP/GCC/LDROM_iap/LDROM_iap.bin"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "6560"
+        },
+        {
+          "name": "toolchain",
+          "value": "GCC Eclipse"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:relationship-evidence",
+          "value": "SampleCode/StdDriver/RMC_IAP/GCC/LDROM_iap/.cproject; SampleCode/StdDriver/RMC_IAP/GCC/ap_image.S"
+        },
+        {
+          "name": "bsp:evidence-file",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        }
+      ]
+    },
+    {
+      "type": "firmware",
+      "bom-ref": "pkg:generic/m2l31-rmc-iap-ldrom@iar",
+      "group": "Nuvoton",
+      "name": "M2L31 RMC_IAP LDROM Firmware - IAR",
+      "version": "repository-build",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/m2l31-rmc-iap-ldrom@iar",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ea786e858d3e7e15e8235484316f3b98dc8d35072767e5b056d6156dca5c3d3a"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "src_path",
+          "value": "SampleCode/StdDriver/RMC_IAP"
+        },
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/RMC_IAP/IAR/Release/Exe/rmc_ld_iap.bin"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "3791"
+        },
+        {
+          "name": "toolchain",
+          "value": "IAR"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:relationship-evidence",
+          "value": "SampleCode/StdDriver/RMC_IAP/IAR/rmc_ld_iap.ewp; SampleCode/StdDriver/RMC_IAP/IAR/rmc_ap_main.ewp"
+        },
+        {
+          "name": "bsp:evidence-file",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        }
+      ]
+    },
+    {
+      "type": "firmware",
+      "bom-ref": "pkg:generic/m2l31-rmc-iap-ldrom@keil",
+      "group": "Nuvoton",
+      "name": "M2L31 RMC_IAP LDROM Firmware - Keil",
+      "version": "repository-build",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/m2l31-rmc-iap-ldrom@keil",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2b125703cc1236c42f6470a4abe0e0a8833b918decf4a4f4d653625040cd55d0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "src_path",
+          "value": "SampleCode/StdDriver/RMC_IAP"
+        },
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/RMC_IAP/KEIL/Obj/rmc_ld_iap.bin"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "3132"
+        },
+        {
+          "name": "toolchain",
+          "value": "Keil"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:relationship-evidence",
+          "value": "SampleCode/StdDriver/RMC_IAP/KEIL/rmc_ld_iap.uvprojx; SampleCode/StdDriver/RMC_IAP/KEIL/ap_image.s"
+        },
+        {
+          "name": "bsp:evidence-file",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        }
+      ]
+    },
+    {
+      "type": "firmware",
+      "bom-ref": "pkg:generic/m2l31-rmc-iap-ldrom@vscode-gcc",
+      "group": "Nuvoton",
+      "name": "M2L31 RMC_IAP LDROM Firmware - VSCode GCC",
+      "version": "repository-build",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/m2l31-rmc-iap-ldrom@vscode-gcc",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "51aeb754c157f956b9c26e1c29e650d4cd91d271c55d832649fde803fe34c0f7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "src_path",
+          "value": "SampleCode/StdDriver/RMC_IAP"
+        },
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/RMC_IAP/VSCode/bin/rmc_ld_iap.bin"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "5220"
+        },
+        {
+          "name": "toolchain",
+          "value": "GCC through VSCode CMSIS project"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:relationship-evidence",
+          "value": "SampleCode/StdDriver/RMC_IAP/VSCode/RMC_IAP_LDROM/RMC_IAP_LDROM.cproject.yml; SampleCode/StdDriver/RMC_IAP/VSCode/RMC_IAP_APROM/ap_image.s; SampleCode/StdDriver/RMC_IAP/VSCode/RMC_IAP_APROM/ap_image_gcc.S"
+        },
+        {
+          "name": "bsp:evidence-file",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:generic/microsoft-windows-sdk-hid-import-library@repository-copy",
+      "group": "Microsoft",
+      "name": "Microsoft Windows HID Import Library",
+      "version": "repository-copy",
+      "scope": "required",
+      "author": "Microsoft Corporation",
+      "supplier": {
+        "name": "Microsoft Corporation"
+      },
+      "purl": "pkg:generic/microsoft-windows-sdk-hid-import-library@repository-copy",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "22bcccaed9b092f4ab2aa12e1471959ed1847296f350bb6d7390b0718fdb5ca4"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Microsoft-Windows-SDK"
+        }
+      ],
+      "properties": [
+        {
+          "name": "src_path",
+          "value": "Tool/HIDTransferTest/HIDTransferTest"
+        },
+        {
+          "name": "artifact_path",
+          "value": "Tool/HIDTransferTest/HIDTransferTest/hid.lib"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "12384"
+        },
+        {
+          "name": "integration",
+          "value": "host-build import library"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:relationship-evidence",
+          "value": "Tool/HIDTransferTest/HIDTransferTest/HIDTransferTest.vcxproj"
+        },
+        {
+          "name": "bsp:evidence-file",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        }
+      ]
+    },
+    {
       "type": "library",
       "bom-ref": "pkg:generic/fatfs@R0.12?source=vendored&path=ThirdParty/FatFs",
       "name": "FatFs",
       "version": "R0.12",
       "scope": "required",
       "author": "ChaN",
+      "supplier": {
+        "name": "ChaN"
+      },
       "purl": "pkg:generic/fatfs@R0.12",
       "description": "FatFs - Generic FAT file system module for embedded systems (ANSI C/C89), integrated as vendored source code.",
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-FatFs-license--BSD-like--as-declared-by-ChaN-in-source-header-"
-          }
+          "expression": "LicenseRef-FatFs-R0.12"
         }
       ],
       "properties": [
@@ -1813,7 +2430,11 @@
         },
         {
           "name": "bsp:evidence-file",
-          "value": "Document/SBOM/components/sca_fatfs.json"
+          "value": "Document/SBOM/components/TestSampleView/sca_fatfs.json"
+        },
+        {
+          "name": "bsp:evidence-path",
+          "value": "ThirdParty/FatFs"
         }
       ],
       "hashes": [
@@ -1830,6 +2451,9 @@
       "version": "10.5.1",
       "scope": "required",
       "author": "Amazon.com, Inc. (FreeRTOS project)",
+      "supplier": {
+        "name": "Amazon Web Services, Inc."
+      },
       "purl": "pkg:generic/freertos-kernel@10.5.1",
       "description": "FreeRTOS Kernel vendored in ThirdParty/FreeRTOS.",
       "licenses": [
@@ -1862,7 +2486,7 @@
         },
         {
           "name": "bsp:evidence-file",
-          "value": "Document/SBOM/components/sca_freertos.json"
+          "value": "Document/SBOM/components/TestSampleView/sca_freertos.json"
         },
         {
           "name": "bsp:evidence-path",
@@ -1877,6 +2501,1412 @@
         {
           "alg": "SHA-256",
           "content": "4fb17b1ff11fc3f82cff4e04f4546fc82ff3115ef213097fd942c3acdb657fbb"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06:e05d0c4f3554d3c5",
+      "group": "Microsoft Corporation",
+      "name": "WDF Coinstaller - SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/WdfCoInstaller01011.dll",
+      "version": "1.11.9200.16384",
+      "scope": "required",
+      "author": "Microsoft Corporation",
+      "supplier": {
+        "name": "Microsoft Corporation"
+      },
+      "purl": "pkg:generic/wdf-coinstaller@1.11.9200.16384?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FWdfCoInstaller01011.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/WdfCoInstaller01011.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "1629040"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-x86-wdfcoinstaller01011-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-WdfCoInstaller01011-sha256-c7649879"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows driver co-installer"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-wdfcoinstaller01011-dll.md-3b9d7d32b21ed617a344095018bd1efce8c8968a28bf69fb6f55902a1e54999a"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "binary-sca:4f18b5d2c28aa66b648c8683c6d09b52b92cbbee85984bbefad5f38a64bc2a14:d6895f2a4607765f",
+      "group": "libusb-win32 project",
+      "name": "libusb-win32 - SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0.dll",
+      "version": "1.2.6.0",
+      "scope": "required",
+      "author": "libusb-win32 project",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/libusb-win32@1.2.6.0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4f18b5d2c28aa66b648c8683c6d09b52b92cbbee85984bbefad5f38a64bc2a14"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "76384"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-amd64-libusb0-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-libusb0-dll-sha256-4f18b5d2"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows USB user-space library/tool dependency"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-amd64-libusb0-dll.md-fc3448c9b865f92f8a6af9c43482a77afdb4489b221d56fb0ab7d5d8083242d0"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "binary-sca:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:f836201765fe349f",
+      "group": "libusb-win32 project",
+      "name": "libusb-win32 - SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0_x86.dll",
+      "version": "1.2.6.0",
+      "scope": "required",
+      "author": "libusb-win32 project",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/libusb-win32@1.2.6.0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0_x86.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0_x86.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "46592"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-libusb0-x86-dll-sha256-5e84d136"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows USB user-space library/tool dependency"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-libusb0-dll.md-b58e95b36bc02292609bab19fa63717f05a8fb38fb582161d471289c2e93fa6c"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "binary-sca:592cd24bae321f1cb6cbe2f6e1bc5c05e279328e1c86814eb64ea1e89fdea188:6f68e2c1d6f8a91d",
+      "group": "libusbK project",
+      "name": "libusbK - SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK.dll",
+      "version": "3.0.7.0",
+      "scope": "required",
+      "author": "libusbK project",
+      "supplier": {
+        "name": "libusbK project"
+      },
+      "purl": "pkg:generic/libusbk@3.0.7.0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "592cd24bae321f1cb6cbe2f6e1bc5c05e279328e1c86814eb64ea1e89fdea188"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause OR GPL-3.0-only"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "99128"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-amd64-libusbk-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-libusbk-dll-sha256-592cd24b"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows USB driver/library dependency"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-amd64-libusbk-dll.md-4139d0df4c69e1ce49eaae328920bfab26e45e3c90a77059988870c357ce7eb5"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "binary-sca:22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4:b9791c799f7df765",
+      "group": "libusbK project",
+      "name": "libusbK - SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK_x86.dll",
+      "version": "3.0.7.0",
+      "scope": "required",
+      "author": "libusbK project",
+      "supplier": {
+        "name": "libusbK project"
+      },
+      "purl": "pkg:generic/libusbk@3.0.7.0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK_x86.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause OR GPL-3.0-only"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK_x86.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "84280"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-amd64-libusbk-x86-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-libusbk-x86-dll-sha256-22803c71"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows USB driver/library dependency"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-libusbk-dll.md-ed1e70d0d6dbd31b41d9aa95e27121f4c9dd53267c941ee3edd0cfc2ca59580f"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06:bd42d6bd491296ab",
+      "group": "Microsoft Corporation",
+      "name": "WDF Coinstaller - SampleCode/ISP/ISP_DFU/WindowsDriver/x86/WdfCoInstaller01011.dll",
+      "version": "1.11.9200.16384",
+      "scope": "required",
+      "author": "Microsoft Corporation",
+      "supplier": {
+        "name": "Microsoft Corporation"
+      },
+      "purl": "pkg:generic/wdf-coinstaller@1.11.9200.16384?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FWdfCoInstaller01011.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/WdfCoInstaller01011.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "1629040"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-x86-wdfcoinstaller01011-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-WdfCoInstaller01011-sha256-c7649879"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows driver co-installer"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-wdfcoinstaller01011-dll.md-3b9d7d32b21ed617a344095018bd1efce8c8968a28bf69fb6f55902a1e54999a"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "binary-sca:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:3b462e808ada9609",
+      "group": "libusb-win32 project",
+      "name": "libusb-win32 - SampleCode/ISP/ISP_DFU/WindowsDriver/x86/install-filter.exe",
+      "version": "1.2.6.0",
+      "scope": "required",
+      "author": "libusb-win32 project",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/libusb-win32@1.2.6.0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Finstall-filter.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/install-filter.exe"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "46592"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-libusb0-x86-dll-sha256-5e84d136"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows USB user-space library/tool dependency"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-libusb0-dll.md-b58e95b36bc02292609bab19fa63717f05a8fb38fb582161d471289c2e93fa6c"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "binary-sca:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:83e47bf6f822fccb",
+      "group": "libusb-win32 project",
+      "name": "libusb-win32 - SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0.dll",
+      "version": "1.2.6.0",
+      "scope": "required",
+      "author": "libusb-win32 project",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/libusb-win32@1.2.6.0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "46592"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-libusb0-x86-dll-sha256-5e84d136"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows USB user-space library/tool dependency"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-libusb0-dll.md-b58e95b36bc02292609bab19fa63717f05a8fb38fb582161d471289c2e93fa6c"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "binary-sca:00caca07869b19d10b370552ac7cc2f6f2ee246fc15db11650f6cd3f4ef9b666:8aa3d5ad788cb917",
+      "group": "libusb-win32 project",
+      "name": "libusb-win32 - SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0_x86.dll",
+      "version": "1.2.6.0",
+      "scope": "required",
+      "author": "libusb-win32 project",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/libusb-win32@1.2.6.0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0_x86.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "00caca07869b19d10b370552ac7cc2f6f2ee246fc15db11650f6cd3f4ef9b666"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0_x86.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "67680"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-x86-libusb0-x86-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-x86-libusb0-x86-dll-sha256-00caca07"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows USB user-space library/tool dependency"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-libusb0-x86-dll.md-389d1248eec5ee111213a9acb023d1b9827a729fa9123d2b1e9fe3c143954bfc"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "binary-sca:22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4:b08468b7f57a3b2e",
+      "group": "libusbK project",
+      "name": "libusbK - SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusbK.dll",
+      "version": "3.0.7.0",
+      "scope": "required",
+      "author": "libusbK project",
+      "supplier": {
+        "name": "libusbK project"
+      },
+      "purl": "pkg:generic/libusbk@3.0.7.0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FlibusbK.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause OR GPL-3.0-only"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusbK.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "84280"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-amd64-libusbk-x86-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-amd64-libusbk-x86-dll-sha256-22803c71"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows USB driver/library dependency"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-libusbk-dll.md-ed1e70d0d6dbd31b41d9aa95e27121f4c9dd53267c941ee3edd0cfc2ca59580f"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:ebe3b7708dd974ee87efed3113028d266af87ca8dbae77c47c6f7612824d3d6c:e3b02a89dec958d0",
+      "group": "Microsoft Corporation",
+      "name": "WinUSB co-installer - SampleCode/ISP/ISP_DFU/WindowsDriver/x86/winusbcoinstaller2.dll",
+      "version": "6.1.7600.16385 (win7_rtm.090713-1255)",
+      "scope": "required",
+      "author": "Microsoft Corporation",
+      "supplier": {
+        "name": "Microsoft Corporation"
+      },
+      "purl": "pkg:generic/winusb-co-installer@6.1.7600.16385%20%28win7_rtm.090713-1255%29?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Fwinusbcoinstaller2.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ebe3b7708dd974ee87efed3113028d266af87ca8dbae77c47c6f7612824d3d6c"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/winusbcoinstaller2.dll"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "851176"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/windowsdriver-x86-winusbcoinstaller2-dll.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "windowsdriver-x86-winusbcoinstaller2-dll-sha256-ebe3b770"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows driver co-installer"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "windowsdriver-x86-winusbcoinstaller2-dll.md-b0d19ae82d7ce187b97ecde1336006a2eb0cec3f10039884814149bd0a7f5c66"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:911e4c166fe9b06c8e2e31ab46b56ef662c43cba208d2088ca1d41c6d584e183:a5f94c445c17f408",
+      "group": "Nuvoton",
+      "name": "NuvPos58 Driver - SampleCode/StdDriver/USBD_Micro_Printer/Windows driver/NuvPos58_Driver.exe",
+      "version": "1.0",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvpos58-driver@1.0?file_path=SampleCode%2FStdDriver%2FUSBD_Micro_Printer%2FWindows%20driver%2FNuvPos58_Driver.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "911e4c166fe9b06c8e2e31ab46b56ef662c43cba208d2088ca1d41c6d584e183"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/USBD_Micro_Printer/Windows driver/NuvPos58_Driver.exe"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "1299564"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/samplecode-usbd-micro-printer-nuvpos58-driver-exe.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "samplecode-usbd-micro-printer-nuvpos58-driver-exe-sha256-911e4c16"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows printer driver installer"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "samplecode-usbd-micro-printer-nuvpos58-driver-exe.md-023496b951b5c7043f995e01ca891e6662a71dfcd9cc148f067314ae146e2222"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:ce0ed66a5db0a0c061fd92975939f48e93affad15f3f6e806d44b3e82078b3db:0834cff93a752b20",
+      "group": "Nuvoton",
+      "name": "NUVPOS58 x64 installer - SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X64.exe",
+      "version": "1.01",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvpos58-x64-installer@1.01?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X64.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ce0ed66a5db0a0c061fd92975939f48e93affad15f3f6e806d44b3e82078b3db"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X64.exe"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "662163"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/samplecode-usbd-printer-and-hid-transfer-nuvpos58-x64-exe.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "samplecode-usbd-printer-and-hid-transfer-nuvpos58-x64-exe-sha256-ce0ed66a"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows printer driver installer"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "samplecode-usbd-printer-and-hid-transfer-nuvpos58-x64-exe.md-996a40a474efa07e48d4ba025137e24e21674f87eac2515af16bbef84cb73620"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:76e4d01dbf17ca7525e3a9156bd7e6274c5db0fff88a25943c25c8d2bdd38d92:79d73c1470b69b8d",
+      "group": "Nuvoton",
+      "name": "NUVPOS58 x86 installer - SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X86.exe",
+      "version": "1.01",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvpos58-x86-installer@1.01?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X86.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "76e4d01dbf17ca7525e3a9156bd7e6274c5db0fff88a25943c25c8d2bdd38d92"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X86.exe"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "621575"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/samplecode-usbd-printer-and-hid-transfer-nuvpos58-x86-exe.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "samplecode-usbd-printer-and-hid-transfer-nuvpos58-x86-exe-sha256-76e4d01d"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows printer driver installer"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "samplecode-usbd-printer-and-hid-transfer-nuvpos58-x86-exe.md-65aa0409908b7d0dcdc203f499118241bae430f92b2108337010cb95a9b516a6"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:574f697b673b96f472321fce24cedbd5a7b3d8711067e23c7b065ae6ab074e1a:b191d4dffdaa7c89",
+      "group": "Nuvoton",
+      "name": "HID Transfer Test Tool - Tool/HIDTransferTest/Debug/HIDTransferTest.exe",
+      "version": "1.1.0.0",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/hid-transfer-test-tool@1.1.0.0?file_path=Tool%2FHIDTransferTest%2FDebug%2FHIDTransferTest.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "574f697b673b96f472321fce24cedbd5a7b3d8711067e23c7b065ae6ab074e1a"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "Tool/HIDTransferTest/Debug/HIDTransferTest.exe"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "745984"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/tool-hidtransfertest-exe.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "tool-hidtransfertest-exe-sha256-574f697b"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows HID transfer test utility"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "tool-hidtransfertest-exe.md-7d8494d9fb412f05d7a8e05708e0f3f3e1b548143963ae09fc5796f8608bb649"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:0594f3caa3685bb11b6dbb146849de0c94fb0c309e1a543a7bfa3cf9d93f2c5f:9d2639c3122cda74",
+      "group": "Nuvoton",
+      "name": "TouchView - Tool/TK/TouchView.exe",
+      "version": "1.0.0.1",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/touchview@1.0.0.1?file_path=Tool%2FTK%2FTouchView.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0594f3caa3685bb11b6dbb146849de0c94fb0c309e1a543a7bfa3cf9d93f2c5f"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "Tool/TK/TouchView.exe"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "3062784"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/tool-tk-touchview-exe.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "tool-tk-touchview-exe-sha256-0594f3ca"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows touch panel view utility"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "tool-tk-touchview-exe.md-4912cc1cb75bc05dcce166af6710609ca19999a18b3673b78a27560668f9bdcb"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "binary-sca:798717b616ae59f81bb7cb4428a653f424838ac305bdfccc75623e69cce53cac:6169de179c84e74a",
+      "group": "Nuvoton",
+      "name": "TouchView MP - Tool/TK/TouchView_MP.exe",
+      "version": "1.0.0.1",
+      "scope": "required",
+      "author": "Nuvoton Technology Corp.",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/touchview-mp@1.0.0.1?file_path=Tool%2FTK%2FTouchView_MP.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "798717b616ae59f81bb7cb4428a653f424838ac305bdfccc75623e69cce53cac"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "properties": [
+        {
+          "name": "artifact_path",
+          "value": "Tool/TK/TouchView_MP.exe"
+        },
+        {
+          "name": "artifact_size_bytes",
+          "value": "2779648"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:binary-license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-match-method",
+          "value": "sha256"
+        },
+        {
+          "name": "bsp:binary-license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:vendor-license-evidence",
+          "value": "license-evidence/tool-tk-touchview-mp-exe.md"
+        },
+        {
+          "name": "bsp:binary-database-entry",
+          "value": "tool-tk-touchview-mp-exe-sha256-798717b6"
+        },
+        {
+          "name": "bsp:usage",
+          "value": "host-side Windows touch panel mass production utility"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-source",
+          "value": "manual-binary-license-mapping"
+        },
+        {
+          "name": "bsp:license-evidence-id",
+          "value": "tool-tk-touchview-mp-exe.md-ca74085876a56c927c0134a62fbb7d09498bfb7e468a8081bd1dbeeb9cc5660d"
+        },
+        {
+          "name": "bsp:included-in-product-firmware",
+          "value": "false"
+        },
+        {
+          "name": "bsp:runtime-dependency",
+          "value": "false"
         }
       ]
     },
@@ -1936,10 +3966,6 @@
         {
           "name": "bsp:usage",
           "value": "host-side Windows USB driver/library dependency"
-        },
-        {
-          "name": "bsp:file-path",
-          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK.sys"
         }
       ],
       "purl": "pkg:generic/libusbk@3.0.7.0?arch=amd64"
@@ -1964,9 +3990,7 @@
       ],
       "licenses": [
         {
-          "license": {
-            "id": "LicenseRef-Nuvoton-Proprietary"
-          }
+          "expression": "LicenseRef-Nuvoton-Proprietary"
         }
       ],
       "description": "host-side Windows USB driver package catalog/signature file",
@@ -2002,10 +4026,6 @@
         {
           "name": "bsp:usage",
           "value": "host-side Windows USB driver package catalog/signature file"
-        },
-        {
-          "name": "bsp:file-path",
-          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/Nu_DFU.cat"
         }
       ],
       "purl": "pkg:generic/nuvoton/nu-dfu-driver-catalog@3.0.7.0"
@@ -2068,10 +4088,6 @@
         {
           "name": "bsp:usage",
           "value": "host-side Windows USB driver installation metadata"
-        },
-        {
-          "name": "bsp:file-path",
-          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/Nu_DFU.inf"
         }
       ],
       "purl": "pkg:generic/libusbk/nu-dfu-driver-inf@3.0.7.0"
@@ -2134,10 +4150,6 @@
         {
           "name": "bsp:usage",
           "value": "host-side Windows USB kernel driver dependency"
-        },
-        {
-          "name": "bsp:file-path",
-          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0.sys"
         }
       ],
       "purl": "pkg:generic/libusb-win32-kernel-driver@1.2.6.0?arch=x86"
@@ -2198,19 +4210,1335 @@
         {
           "name": "bsp:usage",
           "value": "host-side Windows USB driver/library dependency"
-        },
-        {
-          "name": "bsp:file-path",
-          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusbK.sys"
         }
       ],
       "purl": "pkg:generic/libusbk@3.0.7.0?arch=x86"
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:4f18b5d2c28aa66b648c8683c6d09b52b92cbbee85984bbefad5f38a64bc2a14:d6895f2a4607765f",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4f18b5d2c28aa66b648c8683c6d09b52b92cbbee85984bbefad5f38a64bc2a14"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:f836201765fe349f",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0_x86.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0_x86.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0_x86.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:592cd24bae321f1cb6cbe2f6e1bc5c05e279328e1c86814eb64ea1e89fdea188:6f68e2c1d6f8a91d",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "libusbK project"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "592cd24bae321f1cb6cbe2f6e1bc5c05e279328e1c86814eb64ea1e89fdea188"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause OR GPL-3.0-only"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4:b9791c799f7df765",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK_x86.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "libusbK project"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK_x86.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause OR GPL-3.0-only"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK_x86.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06:e05d0c4f3554d3c5",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/WdfCoInstaller01011.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Microsoft Corporation"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FWdfCoInstaller01011.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/WdfCoInstaller01011.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:3b462e808ada9609",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/install-filter.exe",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Finstall-filter.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/install-filter.exe"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:83e47bf6f822fccb",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:00caca07869b19d10b370552ac7cc2f6f2ee246fc15db11650f6cd3f4ef9b666:8aa3d5ad788cb917",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0_x86.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "libusb-win32 project"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0_x86.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "00caca07869b19d10b370552ac7cc2f6f2ee246fc15db11650f6cd3f4ef9b666"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-or-later"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0_x86.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4:b08468b7f57a3b2e",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusbK.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "libusbK project"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FlibusbK.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause OR GPL-3.0-only"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusbK.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06:bd42d6bd491296ab",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/WdfCoInstaller01011.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Microsoft Corporation"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FWdfCoInstaller01011.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/WdfCoInstaller01011.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:ebe3b7708dd974ee87efed3113028d266af87ca8dbae77c47c6f7612824d3d6c:e3b02a89dec958d0",
+      "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/winusbcoinstaller2.dll",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Microsoft Corporation"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Fwinusbcoinstaller2.dll",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ebe3b7708dd974ee87efed3113028d266af87ca8dbae77c47c6f7612824d3d6c"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Microsoft-Software-License-Terms"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/winusbcoinstaller2.dll"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:7fd5aab425ec0a011c07e24da48e9d03969c3554038f9da3e2b4309aa29ec41f:f8d750f701356090",
+      "name": "SampleCode/StdDriver/RMC_DualBankFwUpdate/NewFirmwareSample.bin",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FRMC_DualBankFwUpdate%2FNewFirmwareSample.bin",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7fd5aab425ec0a011c07e24da48e9d03969c3554038f9da3e2b4309aa29ec41f"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/RMC_DualBankFwUpdate/NewFirmwareSample.bin"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:e9c9e05d69f7285821d2933693e8fb1311709fa95d37a55fd8295aa0138d118b:a47e230eb9b0dd48",
+      "name": "SampleCode/StdDriver/RMC_FwUpdateApplication/NewApp.bin",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FRMC_FwUpdateApplication%2FNewApp.bin",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e9c9e05d69f7285821d2933693e8fb1311709fa95d37a55fd8295aa0138d118b"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/RMC_FwUpdateApplication/NewApp.bin"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:3760d4f404b95d3586086637825cbcab586670a8af1ea9b131258695eb02cd38:ccddfd5a407a6cf1",
+      "name": "SampleCode/StdDriver/RMC_IAP/GCC/LDROM_iap/LDROM_iap.bin",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FGCC%2FLDROM_iap%2FLDROM_iap.bin",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3760d4f404b95d3586086637825cbcab586670a8af1ea9b131258695eb02cd38"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/RMC_IAP/GCC/LDROM_iap/LDROM_iap.bin"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:ea786e858d3e7e15e8235484316f3b98dc8d35072767e5b056d6156dca5c3d3a:7d9f31aab2f97c1f",
+      "name": "SampleCode/StdDriver/RMC_IAP/IAR/Release/Exe/rmc_ld_iap.bin",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FIAR%2FRelease%2FExe%2Frmc_ld_iap.bin",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ea786e858d3e7e15e8235484316f3b98dc8d35072767e5b056d6156dca5c3d3a"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/RMC_IAP/IAR/Release/Exe/rmc_ld_iap.bin"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:2b125703cc1236c42f6470a4abe0e0a8833b918decf4a4f4d653625040cd55d0:1a05f2d8173d9e40",
+      "name": "SampleCode/StdDriver/RMC_IAP/KEIL/Obj/rmc_ld_iap.bin",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FKEIL%2FObj%2Frmc_ld_iap.bin",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2b125703cc1236c42f6470a4abe0e0a8833b918decf4a4f4d653625040cd55d0"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/RMC_IAP/KEIL/Obj/rmc_ld_iap.bin"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:51aeb754c157f956b9c26e1c29e650d4cd91d271c55d832649fde803fe34c0f7:4a71ff3e32a22b29",
+      "name": "SampleCode/StdDriver/RMC_IAP/VSCode/bin/rmc_ld_iap.bin",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FVSCode%2Fbin%2Frmc_ld_iap.bin",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "51aeb754c157f956b9c26e1c29e650d4cd91d271c55d832649fde803fe34c0f7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/RMC_IAP/VSCode/bin/rmc_ld_iap.bin"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party-build-artifact"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:911e4c166fe9b06c8e2e31ab46b56ef662c43cba208d2088ca1d41c6d584e183:a5f94c445c17f408",
+      "name": "SampleCode/StdDriver/USBD_Micro_Printer/Windows driver/NuvPos58_Driver.exe",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FUSBD_Micro_Printer%2FWindows%20driver%2FNuvPos58_Driver.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "911e4c166fe9b06c8e2e31ab46b56ef662c43cba208d2088ca1d41c6d584e183"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/USBD_Micro_Printer/Windows driver/NuvPos58_Driver.exe"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:ce0ed66a5db0a0c061fd92975939f48e93affad15f3f6e806d44b3e82078b3db:0834cff93a752b20",
+      "name": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X64.exe",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X64.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ce0ed66a5db0a0c061fd92975939f48e93affad15f3f6e806d44b3e82078b3db"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X64.exe"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:76e4d01dbf17ca7525e3a9156bd7e6274c5db0fff88a25943c25c8d2bdd38d92:79d73c1470b69b8d",
+      "name": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X86.exe",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X86.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "76e4d01dbf17ca7525e3a9156bd7e6274c5db0fff88a25943c25c8d2bdd38d92"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X86.exe"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:574f697b673b96f472321fce24cedbd5a7b3d8711067e23c7b065ae6ab074e1a:b191d4dffdaa7c89",
+      "name": "Tool/HIDTransferTest/Debug/HIDTransferTest.exe",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Tool%2FHIDTransferTest%2FDebug%2FHIDTransferTest.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "574f697b673b96f472321fce24cedbd5a7b3d8711067e23c7b065ae6ab074e1a"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "Tool/HIDTransferTest/Debug/HIDTransferTest.exe"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "identified"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:22bcccaed9b092f4ab2aa12e1471959ed1847296f350bb6d7390b0718fdb5ca4:43e8a20b5287d05e",
+      "name": "Tool/HIDTransferTest/HIDTransferTest/hid.lib",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Microsoft Corporation"
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Tool%2FHIDTransferTest%2FHIDTransferTest%2Fhid.lib",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "22bcccaed9b092f4ab2aa12e1471959ed1847296f350bb6d7390b0718fdb5ca4"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Microsoft-Windows-SDK"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "Tool/HIDTransferTest/HIDTransferTest/hid.lib"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "third-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "vendor-license"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:0594f3caa3685bb11b6dbb146849de0c94fb0c309e1a543a7bfa3cf9d93f2c5f:9d2639c3122cda74",
+      "name": "Tool/TK/TouchView.exe",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Tool%2FTK%2FTouchView.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0594f3caa3685bb11b6dbb146849de0c94fb0c309e1a543a7bfa3cf9d93f2c5f"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "Tool/TK/TouchView.exe"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "bom-ref": "binary-file:798717b616ae59f81bb7cb4428a653f424838ac305bdfccc75623e69cce53cac:6169de179c84e74a",
+      "name": "Tool/TK/TouchView_MP.exe",
+      "version": "V3.02.000-130-g498bb7f0",
+      "supplier": {
+        "name": "Nuvoton Technology Corp."
+      },
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Tool%2FTK%2FTouchView_MP.exe",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "798717b616ae59f81bb7cb4428a653f424838ac305bdfccc75623e69cce53cac"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "LicenseRef-Nuvoton-Proprietary"
+        }
+      ],
+      "scope": "required",
+      "description": "Binary artifact distributed in the M2L31BSP test-sample scope.",
+      "properties": [
+        {
+          "name": "bsp:sbom-category",
+          "value": "test-sample"
+        },
+        {
+          "name": "bsp:path",
+          "value": "Tool/TK/TouchView_MP.exe"
+        },
+        {
+          "name": "bsp:component-origin",
+          "value": "first-party"
+        },
+        {
+          "name": "bsp:component-granularity",
+          "value": "file"
+        },
+        {
+          "name": "bsp:license-status",
+          "value": "proprietary"
+        },
+        {
+          "name": "bsp:license-evidence",
+          "value": "Document/SBOM/components/TestSampleView/sca_windows-binaries.md"
+        },
+        {
+          "name": "bsp:identity-basis",
+          "value": "exact distributed file path, SHA-256, and BSP release"
+        }
+      ]
     }
   ],
   "dependencies": [
     {
-      "ref": "dab4729ae5955c53",
+      "ref": "93ba5db90ede7ef0",
       "dependsOn": [
+        "binary-file:00caca07869b19d10b370552ac7cc2f6f2ee246fc15db11650f6cd3f4ef9b666:8aa3d5ad788cb917",
+        "binary-file:0594f3caa3685bb11b6dbb146849de0c94fb0c309e1a543a7bfa3cf9d93f2c5f:9d2639c3122cda74",
+        "binary-file:22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4:b08468b7f57a3b2e",
+        "binary-file:22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4:b9791c799f7df765",
+        "binary-file:22bcccaed9b092f4ab2aa12e1471959ed1847296f350bb6d7390b0718fdb5ca4:43e8a20b5287d05e",
+        "binary-file:2b125703cc1236c42f6470a4abe0e0a8833b918decf4a4f4d653625040cd55d0:1a05f2d8173d9e40",
+        "binary-file:3760d4f404b95d3586086637825cbcab586670a8af1ea9b131258695eb02cd38:ccddfd5a407a6cf1",
+        "binary-file:4f18b5d2c28aa66b648c8683c6d09b52b92cbbee85984bbefad5f38a64bc2a14:d6895f2a4607765f",
+        "binary-file:51aeb754c157f956b9c26e1c29e650d4cd91d271c55d832649fde803fe34c0f7:4a71ff3e32a22b29",
+        "binary-file:574f697b673b96f472321fce24cedbd5a7b3d8711067e23c7b065ae6ab074e1a:b191d4dffdaa7c89",
+        "binary-file:592cd24bae321f1cb6cbe2f6e1bc5c05e279328e1c86814eb64ea1e89fdea188:6f68e2c1d6f8a91d",
+        "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:3b462e808ada9609",
+        "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:83e47bf6f822fccb",
+        "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:f836201765fe349f",
+        "binary-file:76e4d01dbf17ca7525e3a9156bd7e6274c5db0fff88a25943c25c8d2bdd38d92:79d73c1470b69b8d",
+        "binary-file:798717b616ae59f81bb7cb4428a653f424838ac305bdfccc75623e69cce53cac:6169de179c84e74a",
+        "binary-file:7fd5aab425ec0a011c07e24da48e9d03969c3554038f9da3e2b4309aa29ec41f:f8d750f701356090",
+        "binary-file:911e4c166fe9b06c8e2e31ab46b56ef662c43cba208d2088ca1d41c6d584e183:a5f94c445c17f408",
+        "binary-file:c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06:bd42d6bd491296ab",
+        "binary-file:c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06:e05d0c4f3554d3c5",
+        "binary-file:ce0ed66a5db0a0c061fd92975939f48e93affad15f3f6e806d44b3e82078b3db:0834cff93a752b20",
+        "binary-file:e9c9e05d69f7285821d2933693e8fb1311709fa95d37a55fd8295aa0138d118b:a47e230eb9b0dd48",
+        "binary-file:ea786e858d3e7e15e8235484316f3b98dc8d35072767e5b056d6156dca5c3d3a:7d9f31aab2f97c1f",
+        "binary-file:ebe3b7708dd974ee87efed3113028d266af87ca8dbae77c47c6f7612824d3d6c:e3b02a89dec958d0",
         "m2l31bsp:test-sample-component:samplecode"
       ]
     }

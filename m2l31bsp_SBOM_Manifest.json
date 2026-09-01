@@ -1,14 +1,38 @@
 {
   "manifestFormat": "MCU-BSP-SBOM-Manifest",
   "manifestVersion": "1.0",
-  "serialNumber": "urn:uuid:6a5a926b-2bf2-45fc-bdb7-6b868596d647",
-  "createdAt": "2026-08-28T12:13:01.961685Z",
+  "serialNumber": "urn:uuid:3b11d1c1-b41e-4a26-a056-b728a06c3bf4",
+  "createdAt": "2026-09-01T09:43:12.183799Z",
   "bsp": {
     "name": "M2L31BSP",
-    "version": "V3.02.000-128-gc1a435d",
-    "releaseIdentifierSource": "SBOM file name",
-    "gitDescribe": "V3.02.000-128-gc1a435d"
+    "version": "V3.02.000-130-g498bb7f0",
+    "releaseIdentifierSource": "git describe --tags --always --long --abbrev=8 --dirty",
+    "gitDescribe": "V3.02.000-130-g498bb7f0",
+    "gitCommit": "498bb7f0229ce37eae76e6cc215bd07d4f1567b1",
+    "sourceTreeState": "clean"
   },
+  "generationTools": [
+    {
+      "name": "SBOM Generator",
+      "version": "0.2.0"
+    },
+    {
+      "name": "Syft",
+      "version": "1.45.1"
+    },
+    {
+      "name": "CycloneDX CLI",
+      "version": "0.32.0+0ed788d25c13cef9e9a3029603f6b708e3279390"
+    },
+    {
+      "name": "grype",
+      "version": "grype 0.117.0"
+    },
+    {
+      "name": "sbom-checker",
+      "version": "1.0.0"
+    }
+  ],
   "sbomPackage": {
     "name": "MCU BSP SBOM Package",
     "format": "CycloneDX",
@@ -20,18 +44,18 @@
   },
   "sboms": [
     {
-      "fileName": "M2L31BSP_Product_SBOM_V3.02.000-128-gc1a435d_cdx.json",
+      "fileName": "M2L31BSP_Product_SBOM_V3.02.000-130-g498bb7f0.cdx.json",
       "sbomType": "Product SBOM",
       "bomFormat": "CycloneDX",
       "specVersion": "1.6",
-      "serialNumber": "urn:uuid:45773863-e5a7-4049-ace0-a5bd1d427893",
+      "serialNumber": "urn:uuid:ec6b5091-6ecf-4760-ba9b-5ebe86d71e8b",
       "sbomVersion": 1,
-      "generatedTimestamp": "2026-08-28T20:12:18+08:00",
+      "generatedTimestamp": "2026-09-01T17:42:03+08:00",
       "metadataComponent": {
-        "bomRef": "feb4513a3eb54f7c",
+        "bomRef": "065448cb263c47e9",
         "type": "library",
         "name": "MCU Driver",
-        "version": "V3.02.000-128-gc1a435d",
+        "version": "V3.02.000-130-g498bb7f0",
         "properties": [
           {
             "name": "bsp:sbom-category",
@@ -106,32 +130,33 @@
       "scope": "Components included in, linked with, deployed to, or reasonably expected to be integrated into final product firmware/software.",
       "isProductRuntimeScope": true,
       "componentSummary": {
-        "componentCount": 7,
+        "componentCount": 30,
         "componentCountByType": {
+          "file": 23,
           "library": 7
         },
         "applicationNames": [],
-        "fileComponentCount": 0,
-        "fileComponentWithHashCount": 0
+        "fileComponentCount": 23,
+        "fileComponentWithHashCount": 23
       },
       "hash": {
         "algorithm": "SHA-256",
-        "value": "c67b87d5c27067110a2180f60a86d7030f9a1395fe3d6eb6545c751d4da7adb4"
+        "value": "592da3556a0acccb946db72e843fcf7426e1c0ea9600371288bac5839a7dd3ce"
       }
     },
     {
-      "fileName": "M2L31BSP_TestSample_SBOM_V3.02.000-128-gc1a435d_cdx.json",
+      "fileName": "M2L31BSP_TestSample_SBOM_V3.02.000-130-g498bb7f0.cdx.json",
       "sbomType": "Test Sample SBOM",
       "bomFormat": "CycloneDX",
       "specVersion": "1.6",
-      "serialNumber": "urn:uuid:31c73cbb-30db-489c-b3bc-0b202c13e2ad",
+      "serialNumber": "urn:uuid:9f8a458c-d9f5-433c-b766-4f5457f1cb15",
       "sbomVersion": 1,
-      "generatedTimestamp": "2026-08-28T20:12:35+08:00",
+      "generatedTimestamp": "2026-09-01T17:42:30+08:00",
       "metadataComponent": {
-        "bomRef": "dab4729ae5955c53",
+        "bomRef": "93ba5db90ede7ef0",
         "type": "application",
         "name": "MCU Test Sample",
-        "version": "V3.02.000-128-gc1a435d",
+        "version": "V3.02.000-130-g498bb7f0",
         "properties": [
           {
             "name": "bsp:sbom-category",
@@ -178,32 +203,42 @@
       "scope": "Components used only for examples, demonstrations, validation, host-side utilities, or testing; not included in product runtime unless explicitly integrated by the user.",
       "isProductRuntimeScope": false,
       "componentSummary": {
-        "componentCount": 25,
+        "componentCount": 73,
         "componentCountByType": {
-          "application": 10,
+          "application": 19,
           "device-driver": 3,
-          "file": 2,
-          "library": 10
+          "file": 26,
+          "firmware": 6,
+          "library": 19
         },
         "applicationNames": [
           "HID Transfer Test Tool",
+          "HID Transfer Test Tool - Tool/HIDTransferTest/Debug/HIDTransferTest.exe",
           "M2L31 SampleCode",
           "NUVPOS58",
+          "NUVPOS58 x64 installer - SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X64.exe",
+          "NUVPOS58 x86 installer - SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X86.exe",
           "NuvPos58 Driver",
+          "NuvPos58 Driver - SampleCode/StdDriver/USBD_Micro_Printer/Windows driver/NuvPos58_Driver.exe",
           "TouchView",
+          "TouchView - Tool/TK/TouchView.exe",
+          "TouchView MP - Tool/TK/TouchView_MP.exe",
           "WDF Coinstaller",
+          "WDF Coinstaller - SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/WdfCoInstaller01011.dll",
+          "WDF Coinstaller - SampleCode/ISP/ISP_DFU/WindowsDriver/x86/WdfCoInstaller01011.dll",
+          "WinUSB co-installer - SampleCode/ISP/ISP_DFU/WindowsDriver/x86/winusbcoinstaller2.dll",
           "Windows Driver Foundation - User-mode Platform Device Update Co-Installer"
         ],
-        "fileComponentCount": 2,
-        "fileComponentWithHashCount": 2
+        "fileComponentCount": 26,
+        "fileComponentWithHashCount": 26
       },
       "hash": {
         "algorithm": "SHA-256",
-        "value": "bc60b86a719e0a3e2a61fa7795c4e0cfdb218cdf01d4f541530bd99c6dcc3a43"
+        "value": "5c6db982006d1a3da9b40e164ac1a1be6a7c775f5620565b7b7625bb5660cadb"
       },
       "relationshipToProductSbom": {
         "usesProductComponents": true,
-        "productSbomFile": "M2L31BSP_Product_SBOM_V3.02.000-128-gc1a435d_cdx.json",
+        "productSbomFile": "M2L31BSP_Product_SBOM_V3.02.000-130-g498bb7f0.cdx.json",
         "description": "Test sample firmware may be built using MCU Driver components described in the Product SBOM. These product components are not duplicated in the Test Sample SBOM."
       }
     }

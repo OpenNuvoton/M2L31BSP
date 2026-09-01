@@ -25,11 +25,13 @@ The license text in FatFs source files is an author-declared BSD-like license te
 1. Redistributions of source code must retain the copyright notice, conditions, and disclaimer.
 2. The software is provided "AS IS" without warranty, and the author/contributors are not liable for damages.
 
-> Recommendation: in CycloneDX, keep this as a descriptive `license.name` (and optionally full license text) instead of force-mapping to an SPDX ID.
+> Recommendation: in CycloneDX, use the SPDX-compatible custom expression
+> `LicenseRef-FatFs-R0.12`. Do not force-map this text to a standard SPDX
+> license identifier such as BSD-3-Clause.
 
 Recommended fields:
 
-- `licenses[0].license.name`: `FatFs license (BSD-like, as declared by ChaN in source header)`
+- `licenses[0].expression`: `LicenseRef-FatFs-R0.12`
 - `licenses[0].license.text.contentType`: `text/plain`
 - `licenses[0].license.text.content`: (paste the full header license text from `ff.c` / `ff.h`)
 
@@ -81,9 +83,7 @@ FatFs is vendored source code and not a typical package-manager artifact (e.g., 
   "description": "FatFs - Generic FAT file system module for embedded systems (ANSI C/C89), integrated as vendored source code.",
   "licenses": [
     {
-      "license": {
-        "name": "FatFs license (BSD-like, as declared by ChaN in source header)"
-      }
+      "expression": "LicenseRef-FatFs-R0.12"
     }
   ],
   "properties": [

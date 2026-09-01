@@ -7,6 +7,9 @@
                            "version":  "10.5.1",
                            "scope":  "required",
                            "author":  "Amazon.com, Inc. (FreeRTOS project)",
+                           "supplier":  {
+                                            "name":  "Amazon Web Services, Inc."
+                                        },
                            "purl":  "pkg:generic/freertos-kernel@10.5.1",
                            "description":  "FreeRTOS Kernel vendored in ThirdParty/FreeRTOS.",
                            "licenses":  [
@@ -39,7 +42,7 @@
                                               },
                                               {
                                                   "name":  "bsp:evidence-file",
-                                                  "value":  "Document/SBOM/components/sca_freertos.json"
+                                                  "value":  "Document/SBOM/components/TestSampleView/sca_freertos.json"
                                               },
                                               {
                                                   "name":  "bsp:evidence-path",
