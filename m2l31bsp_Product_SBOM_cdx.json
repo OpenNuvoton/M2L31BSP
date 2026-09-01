@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "serialNumber": "urn:uuid:ec6b5091-6ecf-4760-ba9b-5ebe86d71e8b",
+  "serialNumber": "urn:uuid:1a9c69d7-d8b1-40e5-a90f-f9831e7c963a",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-01T17:42:03+08:00",
+    "timestamp": "2026-09-01T18:04:04+08:00",
     "tools": {
       "components": [
         {
@@ -17,17 +17,17 @@
       ]
     },
     "component": {
-      "bom-ref": "065448cb263c47e9",
+      "bom-ref": "4f1db60b747e00de",
       "type": "library",
       "name": "MCU Driver",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/mcu-driver@V3.02.000-130-g498bb7f0",
+      "purl": "pkg:generic/nuvoton/mcu-driver@V3.02.000-131-gbf6b5193",
       "licenses": [
         {
           "license": {
@@ -123,14 +123,14 @@
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-device",
       "name": "M2L31 Device",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/library-device@V3.02.000-130-g498bb7f0",
+      "purl": "pkg:generic/nuvoton/library-device@V3.02.000-131-gbf6b5193",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -181,14 +181,14 @@
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-numaker",
       "name": "M2L31 NuMaker",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/library-numaker@V3.02.000-130-g498bb7f0",
+      "purl": "pkg:generic/nuvoton/library-numaker@V3.02.000-131-gbf6b5193",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -239,14 +239,14 @@
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-powerdeliverylib",
       "name": "M2L31 PowerDeliveryLib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/library-powerdeliverylib@V3.02.000-130-g498bb7f0",
+      "purl": "pkg:generic/nuvoton/library-powerdeliverylib@V3.02.000-131-gbf6b5193",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -299,14 +299,14 @@
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-stddriver",
       "name": "M2L31 StdDriver",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/library-stddriver@V3.02.000-130-g498bb7f0",
+      "purl": "pkg:generic/nuvoton/library-stddriver@V3.02.000-131-gbf6b5193",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -357,14 +357,14 @@
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-tklib",
       "name": "M2L31 TKLib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/library-tklib@V3.02.000-130-g498bb7f0",
+      "purl": "pkg:generic/nuvoton/library-tklib@V3.02.000-131-gbf6b5193",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -417,14 +417,14 @@
       "type": "library",
       "bom-ref": "m2l31bsp:product-component:library-usbhostlib",
       "name": "M2L31 UsbHostLib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/library-usbhostlib@V3.02.000-130-g498bb7f0",
+      "purl": "pkg:generic/nuvoton/library-usbhostlib@V3.02.000-131-gbf6b5193",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -543,14 +543,14 @@
       "type": "file",
       "bom-ref": "binary-file:08e3f8e7095e5b3740a68a41812a02e7770889504ede6ac519561159aab80547:e3a28dd0e35e4029",
       "name": "Library/PowerDeliveryLib/libPD_DRP.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FlibPD_DRP.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FlibPD_DRP.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -599,14 +599,14 @@
       "type": "file",
       "bom-ref": "binary-file:1ab013beae051c4827d26c38ad92a1cd5f46e7b023ab090f086610b4c66529de:d079490d3460d92b",
       "name": "Library/PowerDeliveryLib/libPD_SNK.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FlibPD_SNK.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FlibPD_SNK.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -655,14 +655,14 @@
       "type": "file",
       "bom-ref": "binary-file:e5215a5e559f1b1acea9979956f44e3894f9bfd00ac2273c88caff2ccfd1c3c7:69c64297ce48d3e1",
       "name": "Library/PowerDeliveryLib/libPD_SRC.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FlibPD_SRC.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FlibPD_SRC.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -711,14 +711,14 @@
       "type": "file",
       "bom-ref": "binary-file:a65f15f8cbfe86e9f8b0b95023ad9406369c3ccf135aa3b8ac91599136cb1327:dc5b9d716c59d2cd",
       "name": "Library/PowerDeliveryLib/PD_DRP.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_DRP.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_DRP.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -767,14 +767,14 @@
       "type": "file",
       "bom-ref": "binary-file:5e4e0e7f96b7934c26b4996c931a84d2ec550fa40c8faac2b10a442fc53f1c22:21079b787b3813dc",
       "name": "Library/PowerDeliveryLib/PD_DRP.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_DRP.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_DRP.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -823,14 +823,14 @@
       "type": "file",
       "bom-ref": "binary-file:5c6a48c271e8de69957645002cd1ab69fe7bd5c11a736607f566cb5a0b61990c:5fb4d2f640520b87",
       "name": "Library/PowerDeliveryLib/PD_DRP_Keil.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_DRP_Keil.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_DRP_Keil.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -879,14 +879,14 @@
       "type": "file",
       "bom-ref": "binary-file:511c13eb5146e25c327e028cbdcf7d3bffe0d227c8deff8fe947f40e26fbb03b:4d314aac6575b51e",
       "name": "Library/PowerDeliveryLib/PD_SNK.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_SNK.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_SNK.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -935,14 +935,14 @@
       "type": "file",
       "bom-ref": "binary-file:a78ed9a791872fdfad76bb85377cf90fc1d20101a3b7200b6d19d29076510260:38b2251b5f9157cf",
       "name": "Library/PowerDeliveryLib/PD_SNK.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_SNK.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_SNK.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -991,14 +991,14 @@
       "type": "file",
       "bom-ref": "binary-file:4a07fc96801a0806a5bcf1b7b5c0f93ecfee617e22be956f42be329939120d87:61a3ed2eb2ebf65c",
       "name": "Library/PowerDeliveryLib/PD_SNK_Keil.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_SNK_Keil.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_SNK_Keil.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1047,14 +1047,14 @@
       "type": "file",
       "bom-ref": "binary-file:590db5f524547bbf46c385b889283af0be32ecf243adf429e317c3c63f39c7f0:89fe1ecdff6726da",
       "name": "Library/PowerDeliveryLib/PD_SRC.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_SRC.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_SRC.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1103,14 +1103,14 @@
       "type": "file",
       "bom-ref": "binary-file:015f6941147e737df926fd9871ac21c407b1fe33a5dce8cc6f6d014f1d16fee8:555134074445bcb7",
       "name": "Library/PowerDeliveryLib/PD_SRC.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_SRC.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_SRC.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1159,14 +1159,14 @@
       "type": "file",
       "bom-ref": "binary-file:a15f3661e19db449bdbe0e3901724dba83db1e840a0e28fafaa36665695fc5c0:b608e38ac3058b51",
       "name": "Library/PowerDeliveryLib/PD_SRC_Keil.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FPowerDeliveryLib%2FPD_SRC_Keil.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FPowerDeliveryLib%2FPD_SRC_Keil.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1215,14 +1215,14 @@
       "type": "file",
       "bom-ref": "binary-file:40afcf05bdeebe76dbd17075a5ce806b22a7dbf0f24e2280ba7241a690183d03:da8fafff79c3da90",
       "name": "Library/TKLib/libTKLib_Calibration.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FlibTKLib_Calibration.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FlibTKLib_Calibration.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1271,14 +1271,14 @@
       "type": "file",
       "bom-ref": "binary-file:04b7e71d37238c321ba5f566e27ba84d7926ff94f5dea3d8b059618e650101db:ecd57b8f72a2a58f",
       "name": "Library/TKLib/libTKLib_FreeRun.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FlibTKLib_FreeRun.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FlibTKLib_FreeRun.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1327,14 +1327,14 @@
       "type": "file",
       "bom-ref": "binary-file:1d294386e4515167cbf934aedb8c9a6e69cd9a71d133af0fa72bd789bccd2f5f:5126e3ffcd792611",
       "name": "Library/TKLib/libTKLib_MassProduction.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FlibTKLib_MassProduction.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FlibTKLib_MassProduction.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1383,14 +1383,14 @@
       "type": "file",
       "bom-ref": "binary-file:d44a024b36aaedfe5ce3d264ae41d12a92d74ce2c8b9b0f106571f189501e8b7:db5dc71301e78fc4",
       "name": "Library/TKLib/TK_Calibration.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FTK_Calibration.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FTK_Calibration.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1439,14 +1439,14 @@
       "type": "file",
       "bom-ref": "binary-file:73c9c5d90c76c3d2998e0c5f556d0c208a6a1b586283f7d389fb8f3a64953f1b:035057d86dd341bd",
       "name": "Library/TKLib/TK_FreeRun.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FTK_FreeRun.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FTK_FreeRun.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1495,14 +1495,14 @@
       "type": "file",
       "bom-ref": "binary-file:5b77ad7adc4d76069cbda4974f703d69586dd5e782414c18f0c596cd2fe67d3f:4a6fc7a1f07c904f",
       "name": "Library/TKLib/TKLib_Calibration.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FTKLib_Calibration.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FTKLib_Calibration.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1551,14 +1551,14 @@
       "type": "file",
       "bom-ref": "binary-file:f7949a1b1985338147c03f9db2a8c28a498bf35bbb311c05ce0f18262004fc2d:25a8908cc4bbf640",
       "name": "Library/TKLib/TKLib_Calibration.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FTKLib_Calibration.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FTKLib_Calibration.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1607,14 +1607,14 @@
       "type": "file",
       "bom-ref": "binary-file:1d95139ec15732f2f6f118f586a7f2abad0be07bb954d58ecc429500864943f7:1c86b7eceb5f5132",
       "name": "Library/TKLib/TKLib_FreeRun.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FTKLib_FreeRun.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FTKLib_FreeRun.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1663,14 +1663,14 @@
       "type": "file",
       "bom-ref": "binary-file:0407c0a21b534a0f4fbd8433e35c075989a766ea3d43a3f5368f183b036010fd:ef10f51d37e82d49",
       "name": "Library/TKLib/TKLib_FreeRun.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FTKLib_FreeRun.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FTKLib_FreeRun.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1719,14 +1719,14 @@
       "type": "file",
       "bom-ref": "binary-file:e8135c3661092371b9284d02c7432c66ba1e57e48f7439f4ddc65a8e1f0ddf4c:d6bb77997445deb9",
       "name": "Library/TKLib/TKLib_MassProduction.a",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FTKLib_MassProduction.a",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FTKLib_MassProduction.a",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1775,14 +1775,14 @@
       "type": "file",
       "bom-ref": "binary-file:2711d543924420b6967ed7d3a1defa57aebe9772ac8eba010e50b82db928b507:638544558e21b389",
       "name": "Library/TKLib/TKLib_MassProduction.lib",
-      "version": "V3.02.000-130-g498bb7f0",
+      "version": "V3.02.000-131-gbf6b5193",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-130-g498bb7f0?file_path=Library%2FTKLib%2FTKLib_MassProduction.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Library%2FTKLib%2FTKLib_MassProduction.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -1830,7 +1830,7 @@
   ],
   "dependencies": [
     {
-      "ref": "065448cb263c47e9",
+      "ref": "4f1db60b747e00de",
       "dependsOn": [
         "binary-file:015f6941147e737df926fd9871ac21c407b1fe33a5dce8cc6f6d014f1d16fee8:555134074445bcb7",
         "binary-file:0407c0a21b534a0f4fbd8433e35c075989a766ea3d43a3f5368f183b036010fd:ef10f51d37e82d49",
