@@ -101,3 +101,9 @@ If your internal SBOM naming policy differs, keep naming consistent across all t
 - Keep original upstream copyright/license notices.
 - CMSIS in this BSP contains multiple CMSIS subareas, including Core, Driver, RTOS2 API headers, templates, and documentation.
 - If producing a finer-grained SBOM, represent major CMSIS subcomponents separately when product policy requires component-level version tracking.
+
+## CMSIS
+
+- Source evidence: `Library/CMSIS/Core/Include/cmsis_version.h`
+- Source SHA-256: `3b9195c5373a2a4dbfd968b083b3d7f5f446f9ec2e126f75928ac1ff4356b91e`
+- License evidence: the source header identifies `Apache-2.0`.

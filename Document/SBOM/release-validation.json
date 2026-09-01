@@ -1,0 +1,22 @@
+{
+  "requiredArtifacts": [
+    "Document/SBOM/product-scope.yaml",
+    "Document/SBOM/test-sample-scope.yaml",
+    "Document/SBOM/sbom_scope.md",
+    "Document/SBOM/components/ProductView/sca_cmsis.json",
+    "Document/SBOM/components/ProductView/sca_cmsis.md",
+    "Document/SBOM/components/TestSampleView/sca_binary-artifacts.json",
+    "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md",
+    "Document/SBOM/components/TestSampleView/sca_fatfs.json",
+    "Document/SBOM/components/TestSampleView/sca_fatfs.md",
+    "Document/SBOM/components/TestSampleView/sca_freertos.json",
+    "Document/SBOM/components/TestSampleView/sca_freertos.md",
+    "Document/SBOM/components/TestSampleView/sca_windows-binaries.json",
+    "Document/SBOM/components/TestSampleView/sca_windows-binaries.md",
+    "Document/SBOM/product-security-review-status.md"
+  ],
+  "binaryDatabase": {
+    "required": true,
+    "path": "binary-license-database.json"
+  }
+}

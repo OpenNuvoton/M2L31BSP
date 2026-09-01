@@ -94,3 +94,9 @@ If your internal SBOM naming policy differs, keep naming consistent across all t
 
 - Keep original upstream copyright/license notices.
 - If producing a finer-grained SBOM (for example, app + RTOS + board support), represent each major unit as separate components and declare dependencies between them.
+
+## FreeRTOS-Kernel
+
+- Source evidence: `ThirdParty/FreeRTOS/Source/include/FreeRTOS.h`
+- Source SHA-256: `4fb17b1ff11fc3f82cff4e04f4546fc82ff3115ef213097fd942c3acdb657fbb`
+- License evidence: the source header identifies `MIT`.

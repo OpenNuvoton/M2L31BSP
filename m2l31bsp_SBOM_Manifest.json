@@ -9,7 +9,19 @@
     "releaseIdentifierSource": "git describe --tags --always --long --abbrev=8 --dirty",
     "gitDescribe": "V3.02.000-131-gbf6b5193",
     "gitCommit": "bf6b5193fbffd8882b1dac3fa3694638d2f9c3b2",
-    "sourceTreeState": "clean"
+    "sourceTreeState": "clean",
+    "sourceCommit": "bf6b5193fbffd8882b1dac3fa3694638d2f9c3b2",
+    "sourceCommitStatus": "merged",
+    "sourceGerritChangeId": "Ia428fc704741141633900ef0ba244757433e74a6",
+    "sourceBranch": "master",
+    "authoritativeCurrentBaseline": "add64f95c08e72a42516325b8c36758245aaddd6",
+    "formalSvnDistribution": {
+      "path": "bsp/m2l31/V3.02.000-131-gbf6b5193",
+      "revision": 39,
+      "publicationState": "existing-formal-release"
+    },
+    "artifactDistributionCommit": "resolved-by-containing-git-commit",
+    "artifactDistributionCommitPolicy": "The containing Git commit distributes the fixed-link current Product, Test Sample, and Manifest artifacts. Its hash is not embedded to avoid self-reference."
   },
   "generationTools": [
     {
@@ -41,6 +53,130 @@
       "Product SBOM",
       "Test Sample SBOM"
     ]
+  },
+  "currentArtifactLinks": [
+    {
+      "fileName": "m2l31bsp_Product_SBOM_cdx.json",
+      "formalFileName": "M2L31BSP_Product_SBOM_V3.02.000-131-gbf6b5193.cdx.json",
+      "sha256": "eb74abd01233993a881d41c9b88d080755c4cc042cd32c389a49744b3f083782"
+    },
+    {
+      "fileName": "m2l31bsp_TestSample_SBOM_cdx.json",
+      "formalFileName": "M2L31BSP_TestSample_SBOM_V3.02.000-131-gbf6b5193.cdx.json",
+      "sha256": "99b7dc89b24512ee00d4e62eb23402b7930b5f80979be7fd143b439c3c3ef618"
+    }
+  ],
+  "validationEvidence": {
+    "phaseOneCandidateAudit": {
+      "status": "PASS",
+      "gapCount": 0,
+      "gaps": [],
+      "checks": [
+        "identity",
+        "generationTools",
+        "productReferences",
+        "testSampleReferences",
+        "manifest",
+        "applicabilityClosure",
+        "checkerReports",
+        "binaryClosure",
+        "manualClosure",
+        "scans",
+        "absolutePaths",
+        "checksums"
+      ]
+    },
+    "cycloneDx": {
+      "specVersion": "1.6",
+      "validated": 2,
+      "passed": 2
+    },
+    "strictChecker": {
+      "validated": 2,
+      "passed": 2,
+      "errors": 0,
+      "warnings": 0
+    },
+    "binaryExactClosure": {
+      "extensions": [
+        ".a",
+        ".bin",
+        ".dll",
+        ".exe",
+        ".lib"
+      ],
+      "trackedPaths": 47,
+      "matchedRepositoryRelativePathsAndSha256": 47,
+      "gaps": 0
+    },
+    "manualComponentClosure": {
+      "totalComponents": 27,
+      "sourceComponents": {
+        "components": 3,
+        "matchedSbomComponents": 3,
+        "sourceAndLicenseEvidenceValidated": 3
+      },
+      "binaryComponents": {
+        "components": 24,
+        "matchedExactPathsAndSha256": 24,
+        "licenseEvidenceReferencesValidated": 24
+      },
+      "gaps": 0
+    },
+    "grype": {
+      "scannerVersion": "0.117.0",
+      "rawSchema": {
+        "format": "Grype JSON",
+        "requiredTopLevelFields": [
+          "matches",
+          "source",
+          "distro",
+          "descriptor"
+        ],
+        "reportsValidated": 2
+      },
+      "database": {
+        "schemaVersion": "v6.1.9",
+        "built": "2026-08-31T06:37:31Z",
+        "valid": true
+      },
+      "product": {
+        "matches": 0,
+        "severity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "negligible": 0,
+          "unknown": 0
+        }
+      },
+      "testSample": {
+        "matches": 0,
+        "severity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "negligible": 0,
+          "unknown": 0
+        }
+      },
+      "coverageLimitation": "CycloneDX input can omit identifiers required for vulnerability matching; offline or stale databases further limit coverage. Zero matches is not evidence that the BSP is clean or that the assessment is complete."
+    },
+    "securityStatus": {
+      "findingsDisclosure": "The raw Product and Test Sample reports are preserved without deletion, hiding, or severity downgrade.",
+      "productSecurityDisposition": "not asserted",
+      "productSecurityApproval": "not asserted",
+      "vexApplicability": "not asserted",
+      "vexPublished": false,
+      "notAffectedAssertions": 0
+    },
+    "integrity": {
+      "candidatePayloadChecksums": "PASS (42/42)",
+      "manifestReferencesAndHashes": "PASS",
+      "absolutePaths": 0
+    }
   },
   "sboms": [
     {

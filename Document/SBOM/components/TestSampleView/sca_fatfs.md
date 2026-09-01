@@ -104,3 +104,9 @@ FatFs is vendored source code and not a typical package-manager artifact (e.g., 
 
 - Keep the original license/disclaimer headers in source files.
 - If LFN/exFAT features are enabled, perform product-level patent/license review for target markets (this is a product compliance consideration, not part of the FatFs source license terms themselves).
+
+## FatFs
+
+- Source evidence: `ThirdParty/FatFs/src/ff.c`
+- Source SHA-256: `37dacb04a194b8552072f87b95b159d80df2fe60e0196d88d8fd18cb8afae129`
+- License evidence: the source header contains the reviewed FatFs R0.12 custom license text represented as `LicenseRef-FatFs-R0.12`.
