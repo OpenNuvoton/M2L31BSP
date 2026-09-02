@@ -1,27 +1,35 @@
 {
   "manifestFormat": "MCU-BSP-SBOM-Manifest",
   "manifestVersion": "1.0",
-  "serialNumber": "urn:uuid:d5edb45b-84f0-4e3b-973d-da93965bb235",
-  "createdAt": "2026-09-01T10:05:05.205730Z",
+  "serialNumber": "urn:uuid:22cf0a6d-1b8f-4595-9df3-ef2220b007e0",
+  "createdAt": "2026-09-01T23:44:00.180683Z",
   "bsp": {
     "name": "M2L31BSP",
-    "version": "V3.02.000-131-gbf6b5193",
+    "version": "V3.02.000-133-g4c8bdbfc",
     "releaseIdentifierSource": "git describe --tags --always --long --abbrev=8 --dirty",
-    "gitDescribe": "V3.02.000-131-gbf6b5193",
-    "gitCommit": "bf6b5193fbffd8882b1dac3fa3694638d2f9c3b2",
+    "gitDescribe": "V3.02.000-133-g4c8bdbfc",
+    "gitCommit": "4c8bdbfc1d8d045243143d2d1bef8309d5a1dc97",
     "sourceTreeState": "clean",
-    "sourceCommit": "bf6b5193fbffd8882b1dac3fa3694638d2f9c3b2",
+    "sourceCommit": "4c8bdbfc1d8d045243143d2d1bef8309d5a1dc97",
     "sourceCommitStatus": "merged",
-    "sourceGerritChangeId": "Ia428fc704741141633900ef0ba244757433e74a6",
+    "sourceGerritChange": 16787,
+    "sourceGerritChangeId": "I7ae97e289181335863775fbb894ff5ba69849651",
     "sourceBranch": "master",
-    "authoritativeCurrentBaseline": "add64f95c08e72a42516325b8c36758245aaddd6",
-    "formalSvnDistribution": {
-      "path": "bsp/m2l31/V3.02.000-131-gbf6b5193",
-      "revision": 39,
-      "publicationState": "existing-formal-release"
+    "canonicalReleaseIdentity": "V3.02.000-133-g4c8bdbfc",
+    "canonicalIdentityBasis": {
+      "anchor": "V3.02.000",
+      "commitCountFromAnchor": 133,
+      "sourceAbbreviation": "4c8bdbfc",
+      "tagRefsPresent": true
     },
-    "artifactDistributionCommit": "resolved-by-containing-git-commit",
-    "artifactDistributionCommitPolicy": "The containing Git commit distributes the fixed-link current Product, Test Sample, and Manifest artifacts. Its hash is not embedded to avoid self-reference."
+    "svnDistribution": {
+      "path": "bsp/m2l31/V3.02.000-133-g4c8bdbfc",
+      "revision": 50,
+      "publicationState": "formal-in-svn-r50"
+    },
+    "gitArtifactDistributionCommit": "resolved-by-containing-git-commit",
+    "gitArtifactDistributionPolicy": "The containing Git artifact-only commit distributes byte-identical Product and Test Sample artifacts from formal SVN r50. Its own hash is not embedded to avoid self-reference and regeneration loops.",
+    "formalSvnManifestSha256": "df6782233148a599100f34b5e6d41457b124427e7df09f09868ecc11f8feed34"
   },
   "generationTools": [
     {
@@ -54,144 +62,20 @@
       "Test Sample SBOM"
     ]
   },
-  "currentArtifactLinks": [
-    {
-      "fileName": "m2l31bsp_Product_SBOM_cdx.json",
-      "formalFileName": "M2L31BSP_Product_SBOM_V3.02.000-131-gbf6b5193.cdx.json",
-      "sha256": "eb74abd01233993a881d41c9b88d080755c4cc042cd32c389a49744b3f083782"
-    },
-    {
-      "fileName": "m2l31bsp_TestSample_SBOM_cdx.json",
-      "formalFileName": "M2L31BSP_TestSample_SBOM_V3.02.000-131-gbf6b5193.cdx.json",
-      "sha256": "99b7dc89b24512ee00d4e62eb23402b7930b5f80979be7fd143b439c3c3ef618"
-    }
-  ],
-  "validationEvidence": {
-    "phaseOneCandidateAudit": {
-      "status": "PASS",
-      "gapCount": 0,
-      "gaps": [],
-      "checks": [
-        "identity",
-        "generationTools",
-        "productReferences",
-        "testSampleReferences",
-        "manifest",
-        "applicabilityClosure",
-        "checkerReports",
-        "binaryClosure",
-        "manualClosure",
-        "scans",
-        "absolutePaths",
-        "checksums"
-      ]
-    },
-    "cycloneDx": {
-      "specVersion": "1.6",
-      "validated": 2,
-      "passed": 2
-    },
-    "strictChecker": {
-      "validated": 2,
-      "passed": 2,
-      "errors": 0,
-      "warnings": 0
-    },
-    "binaryExactClosure": {
-      "extensions": [
-        ".a",
-        ".bin",
-        ".dll",
-        ".exe",
-        ".lib"
-      ],
-      "trackedPaths": 47,
-      "matchedRepositoryRelativePathsAndSha256": 47,
-      "gaps": 0
-    },
-    "manualComponentClosure": {
-      "totalComponents": 27,
-      "sourceComponents": {
-        "components": 3,
-        "matchedSbomComponents": 3,
-        "sourceAndLicenseEvidenceValidated": 3
-      },
-      "binaryComponents": {
-        "components": 24,
-        "matchedExactPathsAndSha256": 24,
-        "licenseEvidenceReferencesValidated": 24
-      },
-      "gaps": 0
-    },
-    "grype": {
-      "scannerVersion": "0.117.0",
-      "rawSchema": {
-        "format": "Grype JSON",
-        "requiredTopLevelFields": [
-          "matches",
-          "source",
-          "distro",
-          "descriptor"
-        ],
-        "reportsValidated": 2
-      },
-      "database": {
-        "schemaVersion": "v6.1.9",
-        "built": "2026-08-31T06:37:31Z",
-        "valid": true
-      },
-      "product": {
-        "matches": 0,
-        "severity": {
-          "critical": 0,
-          "high": 0,
-          "medium": 0,
-          "low": 0,
-          "negligible": 0,
-          "unknown": 0
-        }
-      },
-      "testSample": {
-        "matches": 0,
-        "severity": {
-          "critical": 0,
-          "high": 0,
-          "medium": 0,
-          "low": 0,
-          "negligible": 0,
-          "unknown": 0
-        }
-      },
-      "coverageLimitation": "CycloneDX input can omit identifiers required for vulnerability matching; offline or stale databases further limit coverage. Zero matches is not evidence that the BSP is clean or that the assessment is complete."
-    },
-    "securityStatus": {
-      "findingsDisclosure": "The raw Product and Test Sample reports are preserved without deletion, hiding, or severity downgrade.",
-      "productSecurityDisposition": "not asserted",
-      "productSecurityApproval": "not asserted",
-      "vexApplicability": "not asserted",
-      "vexPublished": false,
-      "notAffectedAssertions": 0
-    },
-    "integrity": {
-      "candidatePayloadChecksums": "PASS (42/42)",
-      "manifestReferencesAndHashes": "PASS",
-      "absolutePaths": 0
-    }
-  },
   "sboms": [
     {
-      "fileName": "M2L31BSP_Product_SBOM_V3.02.000-131-gbf6b5193.cdx.json",
+      "fileName": "M2L31BSP_Product_SBOM_V3.02.000-133-g4c8bdbfc.cdx.json",
       "sbomType": "Product SBOM",
       "bomFormat": "CycloneDX",
       "specVersion": "1.6",
-      "serialNumber": "urn:uuid:1a9c69d7-d8b1-40e5-a90f-f9831e7c963a",
+      "serialNumber": "urn:uuid:1a2aae7c-d835-4628-aaf7-ac1ac805ebc4",
       "sbomVersion": 1,
-      "generatedTimestamp": "2026-09-01T18:04:04+08:00",
+      "generatedTimestamp": "2026-09-02T07:43:10+08:00",
       "metadataComponent": {
-        "bomRef": "4f1db60b747e00de",
+        "bomRef": "83735857f9f2df7d",
         "type": "library",
         "name": "MCU Driver",
-        "version": "V3.02.000-131-gbf6b5193",
+        "version": "V3.02.000-133-g4c8bdbfc",
         "properties": [
           {
             "name": "bsp:sbom-category",
@@ -277,22 +161,22 @@
       },
       "hash": {
         "algorithm": "SHA-256",
-        "value": "eb74abd01233993a881d41c9b88d080755c4cc042cd32c389a49744b3f083782"
+        "value": "2599948e92ac9aaab86f380aadec3665beaf079e13a3629a970ad65159bfb8ef"
       }
     },
     {
-      "fileName": "M2L31BSP_TestSample_SBOM_V3.02.000-131-gbf6b5193.cdx.json",
+      "fileName": "M2L31BSP_TestSample_SBOM_V3.02.000-133-g4c8bdbfc.cdx.json",
       "sbomType": "Test Sample SBOM",
       "bomFormat": "CycloneDX",
       "specVersion": "1.6",
-      "serialNumber": "urn:uuid:87fc7b24-cecd-4f7f-b197-bab22c29bdfd",
+      "serialNumber": "urn:uuid:c8442c11-6972-4c3a-b547-ed60f76f5b03",
       "sbomVersion": 1,
-      "generatedTimestamp": "2026-09-01T18:04:28+08:00",
+      "generatedTimestamp": "2026-09-02T07:43:27+08:00",
       "metadataComponent": {
-        "bomRef": "a2d92767a67f5d45",
+        "bomRef": "885491e0b0eb5f9c",
         "type": "application",
         "name": "MCU Test Sample",
-        "version": "V3.02.000-131-gbf6b5193",
+        "version": "V3.02.000-133-g4c8bdbfc",
         "properties": [
           {
             "name": "bsp:sbom-category",
@@ -370,11 +254,11 @@
       },
       "hash": {
         "algorithm": "SHA-256",
-        "value": "99b7dc89b24512ee00d4e62eb23402b7930b5f80979be7fd143b439c3c3ef618"
+        "value": "d2b9ad0afbc19a738df6e78626c2a31c94d3edea8d11b4ecf1bf9ebccbc753f6"
       },
       "relationshipToProductSbom": {
         "usesProductComponents": true,
-        "productSbomFile": "M2L31BSP_Product_SBOM_V3.02.000-131-gbf6b5193.cdx.json",
+        "productSbomFile": "M2L31BSP_Product_SBOM_V3.02.000-133-g4c8bdbfc.cdx.json",
         "description": "Test sample firmware may be built using MCU Driver components described in the Product SBOM. These product components are not duplicated in the Test Sample SBOM."
       }
     }
@@ -391,5 +275,110 @@
   ],
   "notes": [
     "This manifest is an index for the SBOM package; it is not a merged CycloneDX BOM."
-  ]
+  ],
+  "validationEvidence": {
+    "formalPackageAudit": {
+      "status": "PASS",
+      "gapCount": 0,
+      "gaps": [],
+      "checks": [
+        "identity",
+        "generationTools",
+        "productReferences",
+        "testSampleReferences",
+        "manifest",
+        "applicabilityClosure",
+        "checkerReports",
+        "binaryClosure",
+        "manualClosure",
+        "scans",
+        "absolutePaths",
+        "checksums"
+      ]
+    },
+    "cycloneDx": {
+      "specVersion": "1.6",
+      "validated": 2,
+      "passed": 2
+    },
+    "strictChecker": {
+      "validated": 2,
+      "passed": 2,
+      "errors": 0,
+      "warnings": 0
+    },
+    "binaryExactClosure": {
+      "trackedPaths": 47,
+      "matchedRepositoryRelativePathsAndSha256": 47,
+      "gaps": 0
+    },
+    "manualComponentClosure": {
+      "totalComponents": 27,
+      "sourceComponents": {
+        "components": 3,
+        "matchedSbomComponents": 3,
+        "sourceAndLicenseEvidenceValidated": 3
+      },
+      "binaryComponents": {
+        "components": 24,
+        "matchedExactPathsAndSha256": 24,
+        "licenseEvidenceReferencesValidated": 24
+      },
+      "gaps": 0
+    },
+    "grype": {
+      "scannerVersion": "0.117.0",
+      "rawSchema": {
+        "format": "Grype JSON",
+        "requiredTopLevelFields": [
+          "matches",
+          "source",
+          "distro",
+          "descriptor"
+        ],
+        "reportsValidated": 2
+      },
+      "database": {
+        "schemaVersion": "v6.1.9",
+        "built": "2026-08-31T06:37:31Z",
+        "valid": true
+      },
+      "product": {
+        "matches": 0,
+        "severity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "negligible": 0,
+          "unknown": 0
+        }
+      },
+      "testSample": {
+        "matches": 0,
+        "severity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "negligible": 0,
+          "unknown": 0
+        }
+      },
+      "coverageLimitation": "CycloneDX input can omit identifiers required for vulnerability matching; offline or stale databases further limit coverage. Zero matches is not evidence that the BSP is clean or that the assessment is complete."
+    },
+    "securityStatus": {
+      "findingsDisclosure": "Raw Product and Test Sample reports are preserved without deletion, hiding, or severity downgrade.",
+      "productSecurityDisposition": "not asserted",
+      "productSecurityApproval": "not asserted",
+      "vexApplicability": "not asserted",
+      "vexPublished": false,
+      "notAffectedAssertions": 0
+    },
+    "integrity": {
+      "payloadChecksums": "PASS (42/42)",
+      "manifestReferencesAndHashes": "PASS",
+      "absolutePaths": 0
+    }
+  }
 }

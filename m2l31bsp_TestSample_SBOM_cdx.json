@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "serialNumber": "urn:uuid:87fc7b24-cecd-4f7f-b197-bab22c29bdfd",
+  "serialNumber": "urn:uuid:c8442c11-6972-4c3a-b547-ed60f76f5b03",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-09-01T18:04:28+08:00",
+    "timestamp": "2026-09-02T07:43:27+08:00",
     "tools": {
       "components": [
         {
@@ -17,17 +17,17 @@
       ]
     },
     "component": {
-      "bom-ref": "a2d92767a67f5d45",
+      "bom-ref": "885491e0b0eb5f9c",
       "type": "application",
       "name": "MCU Test Sample",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/mcu-test-sample@V3.02.000-131-gbf6b5193",
+      "purl": "pkg:generic/nuvoton/mcu-test-sample@V3.02.000-133-g4c8bdbfc",
       "licenses": [
         {
           "license": {
@@ -178,7 +178,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Tool%2FHIDTransferTest%2FDebug%2FHIDTransferTest.exe"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=Tool%2FHIDTransferTest%2FDebug%2FHIDTransferTest.exe"
     },
     {
       "bom-ref": "4ff6a73283a65c7d",
@@ -277,7 +277,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X64.exe"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X64.exe"
     },
     {
       "bom-ref": "0751bdc6c9d5e476",
@@ -376,7 +376,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X86.exe"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X86.exe"
     },
     {
       "bom-ref": "3fd87dffff71a8c3",
@@ -463,7 +463,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FUSBD_Micro_Printer%2FWindows%20driver%2FNuvPos58_Driver.exe"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FUSBD_Micro_Printer%2FWindows%20driver%2FNuvPos58_Driver.exe"
     },
     {
       "bom-ref": "819356465e0f39e3",
@@ -637,7 +637,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Tool%2FTK%2FTouchView_MP.exe"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=Tool%2FTK%2FTouchView_MP.exe"
     },
     {
       "bom-ref": "5569440e5357172b",
@@ -724,7 +724,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FWdfCoInstaller01011.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FWdfCoInstaller01011.dll"
     },
     {
       "bom-ref": "d8995f12c25081c1",
@@ -811,7 +811,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FWdfCoInstaller01011.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FWdfCoInstaller01011.dll"
     },
     {
       "bom-ref": "4bf0dac8cacd6698",
@@ -950,7 +950,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Fwinusbcoinstaller2.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Fwinusbcoinstaller2.dll"
     },
     {
       "bom-ref": "a64f0d54e564b312",
@@ -1075,7 +1075,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0.dll"
     },
     {
       "bom-ref": "b775bc2a35788071",
@@ -1200,7 +1200,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0_x86.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0_x86.dll"
     },
     {
       "bom-ref": "dd54509e3b51ed27",
@@ -1341,7 +1341,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0_x86.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0_x86.dll"
     },
     {
       "bom-ref": "74cae8393dbbcd4b",
@@ -1482,7 +1482,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Finstall-filter.exe"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Finstall-filter.exe"
     },
     {
       "bom-ref": "92903767fdf8f934",
@@ -1623,7 +1623,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0.dll"
     },
     {
       "bom-ref": "5d9b5d81b237b8ce",
@@ -1710,7 +1710,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK.dll"
     },
     {
       "bom-ref": "54c0b73d615c0171",
@@ -1797,7 +1797,7 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK_x86.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK_x86.dll"
     },
     {
       "bom-ref": "d842a3083b0024ce",
@@ -1884,20 +1884,20 @@
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FlibusbK.dll"
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FlibusbK.dll"
     },
     {
       "type": "application",
       "bom-ref": "m2l31bsp:test-sample-component:samplecode",
       "name": "M2L31 SampleCode",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp.",
         "url": [
           "https://www.nuvoton.com"
         ]
       },
-      "purl": "pkg:generic/nuvoton/samplecode@V3.02.000-131-gbf6b5193",
+      "purl": "pkg:generic/nuvoton/samplecode@V3.02.000-133-g4c8bdbfc",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4218,11 +4218,11 @@
       "type": "file",
       "bom-ref": "binary-file:4f18b5d2c28aa66b648c8683c6d09b52b92cbbee85984bbefad5f38a64bc2a14:d6895f2a4607765f",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "libusb-win32 project"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4273,11 +4273,11 @@
       "type": "file",
       "bom-ref": "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:f836201765fe349f",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusb0_x86.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "libusb-win32 project"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0_x86.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2Flibusb0_x86.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4328,11 +4328,11 @@
       "type": "file",
       "bom-ref": "binary-file:592cd24bae321f1cb6cbe2f6e1bc5c05e279328e1c86814eb64ea1e89fdea188:6f68e2c1d6f8a91d",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "libusbK project"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4381,11 +4381,11 @@
       "type": "file",
       "bom-ref": "binary-file:22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4:b9791c799f7df765",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/libusbK_x86.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "libusbK project"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK_x86.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FlibusbK_x86.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4434,11 +4434,11 @@
       "type": "file",
       "bom-ref": "binary-file:c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06:e05d0c4f3554d3c5",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/amd64/WdfCoInstaller01011.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Microsoft Corporation"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FWdfCoInstaller01011.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Famd64%2FWdfCoInstaller01011.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4487,11 +4487,11 @@
       "type": "file",
       "bom-ref": "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:3b462e808ada9609",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/install-filter.exe",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "libusb-win32 project"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Finstall-filter.exe",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Finstall-filter.exe",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4542,11 +4542,11 @@
       "type": "file",
       "bom-ref": "binary-file:5e84d13636fbce7869cddc8b20c7d83fa0063e98c319e8e5ab751edc9ee1da76:83e47bf6f822fccb",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "libusb-win32 project"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4597,11 +4597,11 @@
       "type": "file",
       "bom-ref": "binary-file:00caca07869b19d10b370552ac7cc2f6f2ee246fc15db11650f6cd3f4ef9b666:8aa3d5ad788cb917",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusb0_x86.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "libusb-win32 project"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0_x86.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Flibusb0_x86.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4652,11 +4652,11 @@
       "type": "file",
       "bom-ref": "binary-file:22803c719494f193d22519bfaff9484fecdcf1fadd6f082efd024fcee0b97ba4:b08468b7f57a3b2e",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/libusbK.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "libusbK project"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FlibusbK.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FlibusbK.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4705,11 +4705,11 @@
       "type": "file",
       "bom-ref": "binary-file:c7649879a10c9332fc0f9744c7e3224647aee9e7e62c7e21cf9e987462e3dd06:bd42d6bd491296ab",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/WdfCoInstaller01011.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Microsoft Corporation"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FWdfCoInstaller01011.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2FWdfCoInstaller01011.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4758,11 +4758,11 @@
       "type": "file",
       "bom-ref": "binary-file:ebe3b7708dd974ee87efed3113028d266af87ca8dbae77c47c6f7612824d3d6c:e3b02a89dec958d0",
       "name": "SampleCode/ISP/ISP_DFU/WindowsDriver/x86/winusbcoinstaller2.dll",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Microsoft Corporation"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Fwinusbcoinstaller2.dll",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FISP%2FISP_DFU%2FWindowsDriver%2Fx86%2Fwinusbcoinstaller2.dll",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4811,11 +4811,11 @@
       "type": "file",
       "bom-ref": "binary-file:7fd5aab425ec0a011c07e24da48e9d03969c3554038f9da3e2b4309aa29ec41f:f8d750f701356090",
       "name": "SampleCode/StdDriver/RMC_DualBankFwUpdate/NewFirmwareSample.bin",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FRMC_DualBankFwUpdate%2FNewFirmwareSample.bin",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FRMC_DualBankFwUpdate%2FNewFirmwareSample.bin",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4866,11 +4866,11 @@
       "type": "file",
       "bom-ref": "binary-file:e9c9e05d69f7285821d2933693e8fb1311709fa95d37a55fd8295aa0138d118b:a47e230eb9b0dd48",
       "name": "SampleCode/StdDriver/RMC_FwUpdateApplication/NewApp.bin",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FRMC_FwUpdateApplication%2FNewApp.bin",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FRMC_FwUpdateApplication%2FNewApp.bin",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4921,11 +4921,11 @@
       "type": "file",
       "bom-ref": "binary-file:3760d4f404b95d3586086637825cbcab586670a8af1ea9b131258695eb02cd38:ccddfd5a407a6cf1",
       "name": "SampleCode/StdDriver/RMC_IAP/GCC/LDROM_iap/LDROM_iap.bin",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FGCC%2FLDROM_iap%2FLDROM_iap.bin",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FGCC%2FLDROM_iap%2FLDROM_iap.bin",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -4976,11 +4976,11 @@
       "type": "file",
       "bom-ref": "binary-file:ea786e858d3e7e15e8235484316f3b98dc8d35072767e5b056d6156dca5c3d3a:7d9f31aab2f97c1f",
       "name": "SampleCode/StdDriver/RMC_IAP/IAR/Release/Exe/rmc_ld_iap.bin",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FIAR%2FRelease%2FExe%2Frmc_ld_iap.bin",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FIAR%2FRelease%2FExe%2Frmc_ld_iap.bin",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5031,11 +5031,11 @@
       "type": "file",
       "bom-ref": "binary-file:2b125703cc1236c42f6470a4abe0e0a8833b918decf4a4f4d653625040cd55d0:1a05f2d8173d9e40",
       "name": "SampleCode/StdDriver/RMC_IAP/KEIL/Obj/rmc_ld_iap.bin",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FKEIL%2FObj%2Frmc_ld_iap.bin",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FKEIL%2FObj%2Frmc_ld_iap.bin",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5086,11 +5086,11 @@
       "type": "file",
       "bom-ref": "binary-file:51aeb754c157f956b9c26e1c29e650d4cd91d271c55d832649fde803fe34c0f7:4a71ff3e32a22b29",
       "name": "SampleCode/StdDriver/RMC_IAP/VSCode/bin/rmc_ld_iap.bin",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FVSCode%2Fbin%2Frmc_ld_iap.bin",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FRMC_IAP%2FVSCode%2Fbin%2Frmc_ld_iap.bin",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5141,11 +5141,11 @@
       "type": "file",
       "bom-ref": "binary-file:911e4c166fe9b06c8e2e31ab46b56ef662c43cba208d2088ca1d41c6d584e183:a5f94c445c17f408",
       "name": "SampleCode/StdDriver/USBD_Micro_Printer/Windows driver/NuvPos58_Driver.exe",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FUSBD_Micro_Printer%2FWindows%20driver%2FNuvPos58_Driver.exe",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FUSBD_Micro_Printer%2FWindows%20driver%2FNuvPos58_Driver.exe",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5194,11 +5194,11 @@
       "type": "file",
       "bom-ref": "binary-file:ce0ed66a5db0a0c061fd92975939f48e93affad15f3f6e806d44b3e82078b3db:0834cff93a752b20",
       "name": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X64.exe",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X64.exe",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X64.exe",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5247,11 +5247,11 @@
       "type": "file",
       "bom-ref": "binary-file:76e4d01dbf17ca7525e3a9156bd7e6274c5db0fff88a25943c25c8d2bdd38d92:79d73c1470b69b8d",
       "name": "SampleCode/StdDriver/USBD_Printer_And_HID_Transfer/Windows driver/NUVPOS58_X86.exe",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X86.exe",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=SampleCode%2FStdDriver%2FUSBD_Printer_And_HID_Transfer%2FWindows%20driver%2FNUVPOS58_X86.exe",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5300,11 +5300,11 @@
       "type": "file",
       "bom-ref": "binary-file:574f697b673b96f472321fce24cedbd5a7b3d8711067e23c7b065ae6ab074e1a:b191d4dffdaa7c89",
       "name": "Tool/HIDTransferTest/Debug/HIDTransferTest.exe",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Tool%2FHIDTransferTest%2FDebug%2FHIDTransferTest.exe",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=Tool%2FHIDTransferTest%2FDebug%2FHIDTransferTest.exe",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5355,11 +5355,11 @@
       "type": "file",
       "bom-ref": "binary-file:22bcccaed9b092f4ab2aa12e1471959ed1847296f350bb6d7390b0718fdb5ca4:43e8a20b5287d05e",
       "name": "Tool/HIDTransferTest/HIDTransferTest/hid.lib",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Microsoft Corporation"
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Tool%2FHIDTransferTest%2FHIDTransferTest%2Fhid.lib",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=Tool%2FHIDTransferTest%2FHIDTransferTest%2Fhid.lib",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5408,11 +5408,11 @@
       "type": "file",
       "bom-ref": "binary-file:0594f3caa3685bb11b6dbb146849de0c94fb0c309e1a543a7bfa3cf9d93f2c5f:9d2639c3122cda74",
       "name": "Tool/TK/TouchView.exe",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Tool%2FTK%2FTouchView.exe",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=Tool%2FTK%2FTouchView.exe",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5461,11 +5461,11 @@
       "type": "file",
       "bom-ref": "binary-file:798717b616ae59f81bb7cb4428a653f424838ac305bdfccc75623e69cce53cac:6169de179c84e74a",
       "name": "Tool/TK/TouchView_MP.exe",
-      "version": "V3.02.000-131-gbf6b5193",
+      "version": "V3.02.000-133-g4c8bdbfc",
       "supplier": {
         "name": "Nuvoton Technology Corp."
       },
-      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-131-gbf6b5193?file_path=Tool%2FTK%2FTouchView_MP.exe",
+      "purl": "pkg:generic/nuvoton/m2l31bsp-binary@V3.02.000-133-g4c8bdbfc?file_path=Tool%2FTK%2FTouchView_MP.exe",
       "hashes": [
         {
           "alg": "SHA-256",
@@ -5513,7 +5513,7 @@
   ],
   "dependencies": [
     {
-      "ref": "a2d92767a67f5d45",
+      "ref": "885491e0b0eb5f9c",
       "dependsOn": [
         "binary-file:00caca07869b19d10b370552ac7cc2f6f2ee246fc15db11650f6cd3f4ef9b666:8aa3d5ad788cb917",
         "binary-file:0594f3caa3685bb11b6dbb146849de0c94fb0c309e1a543a7bfa3cf9d93f2c5f:9d2639c3122cda74",
