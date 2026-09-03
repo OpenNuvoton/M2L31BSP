@@ -1,22 +1,34 @@
 {
+  "artifactMode": "durable-sbom-source",
+  "releaseReady": false,
   "requiredArtifacts": [
-    "Document/SBOM/product-scope.yaml",
-    "Document/SBOM/test-sample-scope.yaml",
-    "Document/SBOM/sbom_scope.md",
-    "Document/SBOM/components/ProductView/sca_cmsis.json",
-    "Document/SBOM/components/ProductView/sca_cmsis.md",
-    "Document/SBOM/components/TestSampleView/sca_binary-artifacts.json",
-    "Document/SBOM/components/TestSampleView/sca_binary-artifacts.md",
-    "Document/SBOM/components/TestSampleView/sca_fatfs.json",
-    "Document/SBOM/components/TestSampleView/sca_fatfs.md",
-    "Document/SBOM/components/TestSampleView/sca_freertos.json",
-    "Document/SBOM/components/TestSampleView/sca_freertos.md",
-    "Document/SBOM/components/TestSampleView/sca_windows-binaries.json",
-    "Document/SBOM/components/TestSampleView/sca_windows-binaries.md",
-    "Document/SBOM/product-security-review-status.md"
+    "m2l31bsp_Product_SBOM_cdx.json",
+    "m2l31bsp_TestSample_SBOM_cdx.json",
+    "m2l31bsp_SBOM_Manifest.json",
+    "Document/SBOM/evidence/provenance.json",
+    "Document/SBOM/evidence/checks-performed.json",
+    "Document/SBOM/evidence/known-unknowns.json",
+    "Document/SBOM/evidence/binary-license-database.json",
+    "Document/SBOM/evidence/scan-evidence.json",
+    "Document/SBOM/config/remediation-config.json",
+    "Document/SBOM/config/grype-config.yaml"
   ],
   "binaryDatabase": {
     "required": true,
-    "path": "binary-license-database.json"
-  }
+    "path": "Document/SBOM/evidence/binary-license-database.json"
+  },
+  "checksPerformed": [
+    "dependency-reachability",
+    "purl-collision",
+    "tracked-artifact-closure",
+    "canonical-aggregate",
+    "cpe-authority",
+    "vulnerability-disposition",
+    "legal-closure"
+  ],
+  "knownUnknowns": [
+    "CAT/INF authoritative license decisions are unresolved.",
+    "PSIRT/VEX disposition is pending for scanner range matches."
+  ],
+  "status": "validated-with-release-blockers"
 }

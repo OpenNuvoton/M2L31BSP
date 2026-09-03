@@ -41,3 +41,13 @@ including `__IMPORT_DESCRIPTOR_HID`, `HID_NULL_THUNK_DATA`, `HidD_*`, and
 SDK import library used only to build the host-side test utility. The
 applicable Microsoft SDK redistribution terms must remain associated with the
 file; this evidence does not map those terms to an unrelated SPDX license.
+
+## Machine-readable hash bindings
+
+- SHA-256: `7fd5aab425ec0a011c07e24da48e9d03969c3554038f9da3e2b4309aa29ec41f`
+- SHA-256: `e9c9e05d69f7285821d2933693e8fb1311709fa95d37a55fd8295aa0138d118b`
+- SHA-256: `3760d4f404b95d3586086637825cbcab586670a8af1ea9b131258695eb02cd38`
+- SHA-256: `ea786e858d3e7e15e8235484316f3b98dc8d35072767e5b056d6156dca5c3d3a`
+- SHA-256: `2b125703cc1236c42f6470a4abe0e0a8833b918decf4a4f4d653625040cd55d0`
+- SHA-256: `51aeb754c157f956b9c26e1c29e650d4cd91d271c55d832649fde803fe34c0f7`
+- SHA-256: `22bcccaed9b092f4ab2aa12e1471959ed1847296f350bb6d7390b0718fdb5ca4`

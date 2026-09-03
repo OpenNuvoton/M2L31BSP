@@ -1,16 +1,15 @@
 # Product Security Review Status
 
-- Evidence baseline: `add64f95c08e72a42516325b8c36758245aaddd6`
-- Product Security disposition asserted: No
-- Product Security approval asserted: No
-- VEX published: No
-- `not_affected` assertions: None
+- Candidate baseline: `7d75be4053bb0365b838f165216fb42328a69ae2`
+- Product Security assessment: `not_assessed`
+- Product Security approval: `pending`
+- VEX: `not_published`
+- `not_affected` assertions: none
 
-The preserved Grype Product and Test Sample reports each contain zero matches
-against the recorded local database. This is a coverage-limited scanner result,
-not a claim that the BSP is clean or that security assessment is complete.
-
-No VEX applicability conclusion is made. If a vulnerability is identified or
-requires disposition, its complete finding and severity must remain disclosed
-with disposition pending until formal Product Security or PSIRT evidence is
-provided.
+Offline Grype 0.117.0 with database schema v6.1.9 and
+`add-cpes-if-none=false` produced five Test Sample scanner range matches:
+`CVE-2024-28115`, `CVE-2026-77234`, `CVE-2026-77235`,
+`CVE-2026-77236`, and `CVE-2026-77237`. These are retained as scanner
+range matches only. They are not affectedness determinations, VEX statements,
+or security approvals. PSIRT/Product Security disposition remains required and
+the external release gate remains blocked.

@@ -102,8 +102,13 @@ If your internal SBOM naming policy differs, keep naming consistent across all t
 - CMSIS in this BSP contains multiple CMSIS subareas, including Core, Driver, RTOS2 API headers, templates, and documentation.
 - If producing a finer-grained SBOM, represent major CMSIS subcomponents separately when product policy requires component-level version tracking.
 
-## CMSIS
+## Canonical source identity
 
-- Source evidence: `Library/CMSIS/Core/Include/cmsis_version.h`
-- Source SHA-256: `3b9195c5373a2a4dbfd968b083b3d7f5f446f9ec2e126f75928ac1ff4356b91e`
-- License evidence: the source header identifies `Apache-2.0`.
+- Version anchor: `Library/CMSIS/Core/Include/cmsis_version.h`
+- Version-anchor SHA-256: `3b9195c5373a2a4dbfd968b083b3d7f5f446f9ec2e126f75928ac1ff4356b91e`
+- Aggregate algorithm: `sha256-path-nul-content-nul-v1`
+- Aggregate path base: `Library/CMSIS`
+- Tracked files: `2189`
+- Aggregate SHA-256: `06d9b96d14d417f5932cc119038907fd99cd18723be6d4e7bf601a7e458801b2`
+- Exact inventory: `Document/SBOM/inventory/cmsis.json`
+- License evidence: the version-anchor source header identifies `Apache-2.0`.

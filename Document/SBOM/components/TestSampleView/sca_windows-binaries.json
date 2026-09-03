@@ -52,7 +52,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-x86-wdfcoinstaller01011-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-x86-wdfcoinstaller01011-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -116,7 +116,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-amd64-libusb0-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-amd64-libusb0-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -180,7 +180,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -242,7 +242,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-amd64-libusbk-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-amd64-libusbk-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -304,7 +304,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-amd64-libusbk-x86-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-amd64-libusbk-x86-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -368,7 +368,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-x86-wdfcoinstaller01011-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-x86-wdfcoinstaller01011-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -432,7 +432,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -496,7 +496,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-amd64-libusb0-x86-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -560,7 +560,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-x86-libusb0-x86-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-x86-libusb0-x86-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -622,7 +622,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-amd64-libusbk-x86-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-amd64-libusbk-x86-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -686,7 +686,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/windowsdriver-x86-winusbcoinstaller2-dll.md"
+          "value": "Document/SBOM/license-evidence/windowsdriver-x86-winusbcoinstaller2-dll.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -750,7 +750,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/samplecode-usbd-micro-printer-nuvpos58-driver-exe.md"
+          "value": "Document/SBOM/license-evidence/samplecode-usbd-micro-printer-nuvpos58-driver-exe.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -814,7 +814,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/samplecode-usbd-printer-and-hid-transfer-nuvpos58-x64-exe.md"
+          "value": "Document/SBOM/license-evidence/samplecode-usbd-printer-and-hid-transfer-nuvpos58-x64-exe.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -878,7 +878,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/samplecode-usbd-printer-and-hid-transfer-nuvpos58-x86-exe.md"
+          "value": "Document/SBOM/license-evidence/samplecode-usbd-printer-and-hid-transfer-nuvpos58-x86-exe.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -942,7 +942,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/tool-hidtransfertest-exe.md"
+          "value": "Document/SBOM/license-evidence/tool-hidtransfertest-exe.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -1006,7 +1006,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/tool-tk-touchview-exe.md"
+          "value": "Document/SBOM/license-evidence/tool-tk-touchview-exe.md"
         },
         {
           "name": "bsp:binary-database-entry",
@@ -1070,7 +1070,7 @@
         },
         {
           "name": "bsp:vendor-license-evidence",
-          "value": "license-evidence/tool-tk-touchview-mp-exe.md"
+          "value": "Document/SBOM/license-evidence/tool-tk-touchview-mp-exe.md"
         },
         {
           "name": "bsp:binary-database-entry",

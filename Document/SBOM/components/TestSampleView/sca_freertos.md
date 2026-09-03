@@ -95,8 +95,15 @@ If your internal SBOM naming policy differs, keep naming consistent across all t
 - Keep original upstream copyright/license notices.
 - If producing a finer-grained SBOM (for example, app + RTOS + board support), represent each major unit as separate components and declare dependencies between them.
 
-## FreeRTOS-Kernel
+## Canonical source identity
 
-- Source evidence: `ThirdParty/FreeRTOS/Source/include/FreeRTOS.h`
-- Source SHA-256: `4fb17b1ff11fc3f82cff4e04f4546fc82ff3115ef213097fd942c3acdb657fbb`
-- License evidence: the source header identifies `MIT`.
+- Version anchor: `ThirdParty/FreeRTOS/Source/include/FreeRTOS.h`
+- Version-anchor SHA-256: `4fb17b1ff11fc3f82cff4e04f4546fc82ff3115ef213097fd942c3acdb657fbb`
+- Aggregate algorithm: `sha256-path-nul-content-nul-v1`
+- Aggregate path base: `ThirdParty/FreeRTOS`
+- Tracked files: `144`
+- Aggregate SHA-256: `d396d0257baa029714b1507428b4aeaed19e144b821e8677b1528737b32ed83b`
+- Exact inventory: `Document/SBOM/inventory/freertos.json`
+- Canonical CPE: `cpe:2.3:o:amazon:freertos:10.5.1:*:*:*:*:*:*:*`
+- CPE binding: all 144 tracked paths and file hashes are identical to formal M2U51 evidence `sca_freertos.json` SHA-256 `c34bdf0b5413c57cfb65d2f9f0b8a077489b1ba296a8af4615a6ad928db563c2`. Its repository-relative comparison digest is `8b5255922f674077cbb1ea038fc5fd78adb40b013e5dbdd8a9531758c8d42113`; this establishes component identity only, not M2L31 affectedness or approval.
+- License evidence: the version-anchor source header identifies `MIT`.
