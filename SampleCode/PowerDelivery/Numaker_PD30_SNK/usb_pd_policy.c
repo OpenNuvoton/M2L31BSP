@@ -21,9 +21,9 @@
 
 
 /**
-  * PDO_FIXED_UNCONSTRAINED: The power source is not limited by power constraints (can supply the advertised power without restriction).
-  * PDO_FIXED_DUAL_ROLE: The device can operate as both a power source and a power sink (dual-role power).
-  * PDO_FIXED_DATA_SWAP: The device supports swapping data roles (e.g., switching between USB host and device).
+  * PDO_FIXED_UNCONSTRAINED: The power source is not limited by power constraints
+  * PDO_FIXED_DUAL_ROLE: The device can operate as both a power source and a power sink
+  * PDO_FIXED_DATA_SWAP: The device supports swapping data roles
   **/
 #define SRC_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DUAL_ROLE | PDO_FIXED_DATA_SWAP)
 
@@ -31,12 +31,13 @@
   * USB PD Source Power Data Objects (PDOs) configuration
   * Each PDO entry defines a voltage/current capability that this device can provide
   * Recommendation: Maximum 7 PDOs (per USB PD specification), and each voltage/current should not exceed hardware capability
+  *
+  * Since the source PDO may be changed based on cable capability going forward, we declare it as a array on SRAM area.
   **/
 uint32_t pd_src_pdo[] =
 {
     PDO_FIXED(5000, 3000, SRC_PDO_FIXED_FLAGS),
-    PDO_FIXED(9000, 1500, 0),
-    PDO_FIXED(15000, 1000, 0),
+    PDO_FIXED(9000, 3000, 0),
 };
 const int pd_src_pdo_cnt = ARRAY_SIZE(pd_src_pdo);
 
@@ -45,19 +46,43 @@ const int pd_src_pdo_cnt = ARRAY_SIZE(pd_src_pdo);
 _Static_assert( pd_src_pdo_cnt <= 7, "SPR PDO count exceeds USB PD specification limit (7)");
 #endif
 
-#define SNK_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DUAL_ROLE | PDO_FIXED_DATA_SWAP )
+//==================================================================================
+
+//#define SNK_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DUAL_ROLE | PDO_FIXED_DATA_SWAP )
+
+//uint32_t pd_snk_pdo[] =
+//{
+//    PDO_FIXED(5000, 3000, SNK_PDO_FIXED_FLAGS),
+////      PDO_FIXED(9000, 3000, SNK_PDO_FIXED_FLAGS),
+////      PDO_FIXED(12000, 3000, SNK_PDO_FIXED_FLAGS),
+////      PDO_FIXED(15000, 3000, SNK_PDO_FIXED_FLAGS),
+//    PDO_FIXED(20000, 3000, SNK_PDO_FIXED_FLAGS),
+
+////      PDO_BATT(4750, 21000, 15000),
+////      PDO_VAR(4750, 21000, 3000),
+//};
+//==================================================================================
+
+
+
+//-----Note: Change above array to this part. 20260812 -------------------------
+//#define SNK_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DUAL_ROLE | PDO_FIXED_DATA_SWAP ) //For Dual Role Use
+//#define SNK_PDO_FIXED_FLAGS (PDO_FIXED_UNCONSTRAINED | PDO_FIXED_DATA_SWAP) //For Sink Role with DR_Swap support (required for TEST.PD.PROT.SNK.10)
+/* VIF: UNCONSTRAINED_POWER=NO, DR_SWAP_TO_UFP=NO, DR_SWAP_TO_DFP=NO => all flags = 0
+ * Fix COMMON.CHECK.PD.12: bit27(UNCONSTRAINED) and bit25(DR_SWAP) must be 0 per VIF */
 
 uint32_t pd_snk_pdo[] =
 {
-    PDO_FIXED(5000, 3000, SNK_PDO_FIXED_FLAGS),
-    PDO_FIXED(9000, 3000, SNK_PDO_FIXED_FLAGS),
-//  PDO_FIXED(12000, 3000, SNK_PDO_FIXED_FLAGS),
-//  PDO_FIXED(15000, 3000, SNK_PDO_FIXED_FLAGS),
-//   PDO_FIXED(20000, 3000, SNK_PDO_FIXED_FLAGS),
-
-//  PDO_BATT(4750, 21000, 15000),
-//  PDO_VAR(4750, 21000, 3000),
+    PDO_FIXED(5000, 3000, 0),   /* PDO[0]: UNCONSTRAINED_POWER=NO, DR_SWAP=NO per VIF */
+    PDO_FIXED(9000, 3000, 0),   /* PDO[1]+: capability flags must be 0 (only valid in PDO[0]) */
+    PDO_FIXED(15000, 3000, 0),
+    PDO_FIXED(20000, 3000, 0),
 };
+//==================================================================================
+
+
+
+
 #if 1
 int pd_snk_pdo_cnt = ARRAY_SIZE(pd_snk_pdo);
 #else
@@ -314,6 +339,7 @@ static int svdm_response_modes(int port, uint32_t *payload)
 
 static int fdp_status(int port, uint32_t *payload)
 {
+
     return 2;
 }
 
@@ -397,10 +423,10 @@ const struct svdm_response svdm_rsp =
   *				Test.PD.PROT.PORT3.2 Invalid Battery Status
   **/
 /* Source Capabilities Extended Data Block */
-const uint8_t ext_src_cap[] =   //====> Programmer needs to modify the content
+const uint8_t ext_src_cap[] =   //====> Program need to modify
 {
-    0x16, 0x04, 								//VID
-    0x60, 0x82, 								//PID
+    0xB4, 0x04, 								//VID
+    0x65, 0xF6, 								//PID
     0x00, 0x00, 0x00, 0x00, 		//XID
     0x01, 											//FW Version
     0x01,												//HW Version
@@ -415,7 +441,7 @@ const uint8_t ext_src_cap[] =   //====> Programmer needs to modify the content
     0x00, 											//Source Inputs
     0x10, 											//Number of Hot Swapable Batteries(High)/Fixed Battery(Low) Slots
 #if 1
-    0x0F,   //SPR Source PDP Rating  15W, It needs to meet VIF file and pd_src_pdo[]
+    0x0F, //SPR Source PDP Rating  15W, It needs to meet VIF file and pd_src_pdo[]
     0x00	//Didn't support EPR
 #else
     0x64, //SPR Source PDP, up to 100W. It needs to meet with pd_src_pdo[]
@@ -424,38 +450,50 @@ const uint8_t ext_src_cap[] =   //====> Programmer needs to modify the content
 };
 
 /* Sink Capabilities Extended Data Block */
-const uint8_t ext_snk_cap[] =  //====> Programmer needs to modify the content
+const uint8_t ext_snk_cap[] =  //====> Program need to modify
 {
-    0x16, 0x04, 0x60, 0x82, 0x00, 0x00, 0x00, 0x00,
+    0xB4, 0x04, 0x65, 0xF6, 0x00, 0x00, 0x00, 0x00,
     0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x0A, 0x05, 0x05, 0x64, 0x00, 0x00, 0x00,
-};
+//    0x00, 0x0A, 0x05, 0x05, 0x64, 0x00, 0x00, 0x00,
+    0x00, 0x0A, 0x05, 0x05, 0x64, 0x00, 0x00, 0x00,			//Note: byte[20]=Minimum PDP (PD Power) must <= 100W
 
+};
+//#endif
+
+/* Note: The following array is the original data in BSP															  
 const uint8_t battery_capabilities_rom[] =
 {
-    0x16, 0x04,       // VID = 0x0416                                                   ====> Programmer needs to modify the content
-    0x60, 0x82,       // PID = 0x8260                                                   ====> Programmer needs to modify the content
-    0xED, 0x00,       // 0x77, 0x00,       // Design Capacity = 11.9 Wh (0.1Wh units)   ====> Programmer needs to modify the content
+    0x16, 0x04,       // VID = 0x0416                                                   ====> Program need to modify
+    0x60, 0x82,       // PID = 0x8260                                                   ====> Program need to modify
+    0x96, 0x00,       // 0x96, 0x00,       // Design Capacity = 15 Wh (0.1Wh units)     ====> Program need to modify
     0xFF, 0xFF,       // 0xFF, 0xFF,       // Last Full Charge is unknown (0.1Wh units)
-    0x01              // Battery Type: valid                                ====> Program need to modify
-};
+    0x01              // Battery Type: valid                                            ====> Program need to modify
+}; */
+
+
+
+/* Note: Modify the array as below */
+/* Note: This table is still failed in M310e test. */
+//const uint8_t battery_capabilities_rom[] =
+//{
+//    0x16, 0x04,       // VID = 0x0416                                                   ====> Program need to modify
+//    0x60, 0x82,       // PID = 0x8260                                                   ====> Program need to modify
+//    0x96, 0x00,       // 0x96, 0x00,       // Design Capacity = 15 Wh (0.1Wh units)     ====> Program need to modify
+//    0xFF, 0xFF,       // 0xFF, 0xFF,       // Last Full Charge is unknown (0.1Wh units)
+//    0x00              // Battery Type: Not valid, because this demo code is sink role only without battery.                                            ====> Program need to modify
+//}; 
+
+
+/* Note: Modify the array as below*/
+const uint8_t battery_capabilities_rom[] =
+{
+    0xFF, 0xFF,       // VID = 0x0416                                                   ====> Program need to modify
+    0x00, 0x00,       // PID = 0x8260                                                   ====> Program need to modify
+    0x00, 0x00,       // 0x96, 0x00,       // Design Capacity = 15 Wh (0.1Wh units)     ====> Program need to modify
+    0xFF, 0xFF,       // 0xFF, 0xFF,       // Last Full Charge is unknown (0.1Wh units)
+    0x01              // Battery Type: bit[0]=1 = Invalid Battery Reference (no battery in this sink-only device)
+}; 
 
 uint8_t battery_capabilities[9] = {0x0};
 
-/**
-  * Battery Present Capacity[31:16] 0.1 WH increments (Program need to modify)
-  * Battery Info[15:8]
-  *      bit 8 : Invalid Battery reference
-  *      bit 9 : Battery is present when set
-  *      bit [11:10] : Battery Status                 (Program need to modify)
-  *             00b : Battery is Charging.
-  *             01b : Battery is Discharging.
-  *             10b : Battery is Idle.
-  *             11b : Reserved, Shall Not be used
-  *      bit [15:12]  : Reserved
-  * Reserved [7:0]  : Reserved
-  **/
-uint32_t battery_status[] =  //Battery non-present
-{
-    0x00000900,
-};
+
