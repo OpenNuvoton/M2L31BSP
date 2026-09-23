@@ -18,6 +18,7 @@ void _close(void) {}
 void _lseek(void) {}
 void _read_r(void) {}
 void _write_r(void) {}
+void ProcessHardFault(void) {}
 
 __WEAK uint32_t TIMER_Open(TIMER_T *timer, uint32_t u32Mode, uint32_t u32Freq)
 {
