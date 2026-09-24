@@ -56,7 +56,7 @@ int usbh_printf(const char *fmt, ...)
 
 USBH_T     *_ohci;
 
-static int    _IsInUsbInterrupt = 0;
+int    _IsInUsbInterrupt = 0;
 
 static UDEV_DRV_T *  _drivers[MAX_UDEV_DRIVER];
 
@@ -414,7 +414,7 @@ int usbh_quit_xfer(UDEV_T *udev, EP_INFO_T *ep)
 }
 
 
-static void  dump_device_descriptor(DESC_DEV_T *desc)
+void  dump_device_descriptor(DESC_DEV_T *desc)
 {
     USB_debug("\n[Device Descriptor]\n");
     USB_debug("----------------------------------------------\n");
@@ -709,7 +709,7 @@ int usbh_get_config_descriptor(UDEV_T *udev, uint8_t *desc_buff, int buff_len)
  *  @retval   0  Success
  *  @retval   Otherwise  Failed
  */
-static int usbh_get_string_descriptor(UDEV_T *udev, int index, uint8_t *desc_buff, int buff_len)
+int usbh_get_string_descriptor(UDEV_T *udev, int index, uint8_t *desc_buff, int buff_len)
 {
     uint32_t  read_len;
     int       ret;
@@ -1127,7 +1127,7 @@ static int  usbh_parse_configuration(UDEV_T *udev, uint8_t *desc_buff)
     return len;
 }
 
-static void print_usb_string(char *lead, uint8_t *str)
+void print_usb_string(char *lead, uint8_t *str)
 {
     int  len;
     int  i = 2;
