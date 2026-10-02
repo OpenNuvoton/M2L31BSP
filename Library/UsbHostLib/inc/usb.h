@@ -462,7 +462,9 @@ extern int usbh_int_xfer(UTR_T *utr);
 extern int usbh_iso_xfer(UTR_T *utr);
 extern int usbh_quit_utr(UTR_T *utr);
 extern int usbh_quit_xfer(UDEV_T *udev, EP_INFO_T *ep);
-
+void dump_device_descriptor(DESC_DEV_T *desc);
+int usbh_get_string_descriptor(UDEV_T *udev, int index, uint8_t *desc_buff, int buff_len);
+void print_usb_string(char *lead, uint8_t *str);
 
 /// @endcond HIDDEN_SYMBOLS
 

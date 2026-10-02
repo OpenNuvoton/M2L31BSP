@@ -56,8 +56,6 @@ int usbh_printf(const char *fmt, ...)
 
 USBH_T     *_ohci;
 
-int    _IsInUsbInterrupt = 0;
-
 static UDEV_DRV_T *  _drivers[MAX_UDEV_DRIVER];
 
 static CONN_FUNC  *g_conn_func;
