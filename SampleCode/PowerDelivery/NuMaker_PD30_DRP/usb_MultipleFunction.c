@@ -17,7 +17,7 @@ void vconn_disable_src_cc(void)
     outp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL, inp32(UTCPD0_BASE + TCPC_REG_POWER_CTRL) & ~TCPC_REG_POWER_CTRL_ENABLE_VCONN);
 }
 /*
-    The CC ststus interupt won't be issued if Enable_VCONN_SRC_CCC with wrong VCONN source CC pin
+    The CC status interrupt won't be issued if Enable_VCONN_SRC_CCC with wrong VCONN source CC pin
 */
 
 void vconn_enable_src_cc(void)
@@ -335,4 +335,3 @@ void UTCPD_MultipleFunction()
     SYS->GPB_MFP0 = (SYS->GPB_MFP0 & ~(0xFFUL << (0 * 8))) | (18UL << (0 * 8));
 
 }
-

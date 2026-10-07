@@ -69,7 +69,7 @@ extern "C"
 /**
   * @brief      Clear WDT Reset System Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -81,7 +81,7 @@ extern "C"
 /**
   * @brief      Clear WDT Time-out Interrupt Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -93,7 +93,7 @@ extern "C"
 /**
   * @brief      Clear WDT Wake-up Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -105,7 +105,7 @@ extern "C"
 /**
   * @brief      Get WDT Time-out Reset Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     0   WDT time-out reset system did not occur
   * @retval     1   WDT time-out reset system occurred
@@ -118,7 +118,7 @@ extern "C"
 /**
   * @brief      Get WDT Time-out Interrupt Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     0   WDT time-out interrupt did not occur
   * @retval     1   WDT time-out interrupt occurred
@@ -131,7 +131,7 @@ extern "C"
 /**
   * @brief      Get WDT Time-out Wake-up Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     0   WDT time-out interrupt does not cause CPU wake-up
   * @retval     1   WDT time-out interrupt event cause CPU wake-up
@@ -144,7 +144,7 @@ extern "C"
 /**
   * @brief      Reset WDT Counter
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -168,9 +168,8 @@ static inline void WDT_DisableInt(void);
 /**
   * @brief      Stop WDT Counting
   *
-  * @param      None
+  * @note       No parameters.
   *
-  * @return     None
   *
   * @details    This function will stop WDT counting and disable WDT module.
   */
@@ -193,9 +192,8 @@ static inline void WDT_Close(void)
 /**
   * @brief      Enable WDT Time-out Interrupt
   *
-  * @param      None
+  * @note       No parameters.
   *
-  * @return     None
   *
   * @details    This function will enable the WDT time-out interrupt function.
   */
@@ -207,9 +205,8 @@ static inline void WDT_EnableInt(void)
 /**
   * @brief      Disable WDT Time-out Interrupt
   *
-  * @param      None
+  * @note       No parameters.
   *
-  * @return     None
   *
   * @details    This function will disable the WDT time-out interrupt function.
   */
@@ -221,11 +218,11 @@ static inline void WDT_DisableInt(void)
 
 int32_t WDT_Open(uint32_t u32TimeoutInterval, uint32_t u32ResetDelay, uint32_t u32EnableReset, uint32_t u32EnableWakeup);
 
-/*@}*/ /* end of group WDT_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group WDT_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group WDT_Driver */
+/** @} */ /* end of group WDT_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

@@ -27,7 +27,6 @@
   * @param[in]  u32FuncMask Input capture function select
   *                         - \ref ECAP_DISABLE_COMPARE
   *                         - \ref ECAP_COMPARE_FUNCTION
-  * @return     None
   * @details    This macro enable input capture function and select compare and reload function.
   */
 void ECAP_Open(ECAP_T* ecap, uint32_t u32FuncMask)
@@ -43,7 +42,6 @@ void ECAP_Open(ECAP_T* ecap, uint32_t u32FuncMask)
 /**
   * @brief      Disable ECAP function
   * @param[in]  ecap        The pointer of the specified ECAP module.
-  * @return     None
   * @details    This macro disable input capture function.
   */
 void ECAP_Close(ECAP_T* ecap)
@@ -61,7 +59,6 @@ void ECAP_Close(ECAP_T* ecap)
   *                  - \ref ECAP_CTL0_CAPIEN2_Msk
   *                  - \ref ECAP_CTL0_OVIEN_Msk
   *                  - \ref ECAP_CTL0_CMPIEN_Msk
-  * @return None
   * @details This macro will enable the input channel_n interrupt.
   */
 void ECAP_EnableINT(ECAP_T* ecap, uint32_t u32Mask)
@@ -89,7 +86,6 @@ void ECAP_EnableINT(ECAP_T* ecap, uint32_t u32Mask)
   *                  - \ref ECAP_CTL0_CAPIEN2_Msk
   *                  - \ref ECAP_CTL0_OVIEN_Msk
   *                  - \ref ECAP_CTL0_CMPIEN_Msk
-  * @return None
   * @details This macro will disable the input channel_n interrupt.
   */
 void ECAP_DisableINT(ECAP_T* ecap, uint32_t u32Mask)
@@ -108,10 +104,10 @@ void ECAP_DisableINT(ECAP_T* ecap, uint32_t u32Mask)
     }
 }
 
-/*@}*/ /* end of group ECAP_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group ECAP_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group ECAP_Driver */
+/** @} */ /* end of group ECAP_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

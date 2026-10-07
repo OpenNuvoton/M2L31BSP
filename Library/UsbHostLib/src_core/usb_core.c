@@ -22,14 +22,14 @@
  * @param[in] fmt  Format string (printf-compatible)
  * @return  Number of characters printed
  *
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 17.1<br>
  * <b>Justification:</b> This is the single, contained variadic debug-print wrapper for the USB
  *                       Host library. The features of <stdarg.h> (va_list, va_start, va_end) are
  *                       required to forward a variable argument list to vprintf() and are
  *                       intentionally confined to this one function.
  *
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 21.6<br>
  * <b>Justification:</b> vprintf() is used here solely for low-level USB Host diagnostic tracing on
  *                       the debug console. This is the library's single I/O entry point; the
@@ -118,7 +118,6 @@ static void usb_read_endpoint_descriptor(const uint8_t *buffer, DESC_EP_T *ep_de
 /**
   * @brief       Initialize USB Host controller and USB stack.
   *
-  * @return      None.
   */
 void  usbh_core_init(void)
 {
@@ -154,7 +153,6 @@ void  usbh_core_init(void)
   *
   * @param[in]  conn_func       Device connect callback function.
   * @param[in]  disconn_func    Device disconnect callback function.
-  * @return     None.
   */
 void usbh_install_conn_callback(CONN_FUNC *conn_func, CONN_FUNC *disconn_func)
 {
@@ -183,7 +181,6 @@ static int  reset_device(UDEV_T *udev)
 
 /**
   * @brief    Suspend USB Host Controller and devices
-  * @return   None
   */
 void usbh_suspend(void)
 {
@@ -207,7 +204,6 @@ void usbh_suspend(void)
 
 /**
   * @brief    Resume USB Host controller and devices
-  * @return   None
   */
 void usbh_resume(void)
 {
@@ -232,7 +228,7 @@ void usbh_resume(void)
 /**
   * @brief    Register an USB device class or vendor driver to lightweight USB stack.
   *           All USB device drivers must be registered before usbh_core_init() called.
-  * @param[in]  udrv   The USB device driver to be registered.
+  * @param[in]  driver The USB device driver to be registered.
   * @return   Driver registration success or not.
   * @retval   0  Success
   * @retval   USBH_ERR_MEMORY_OUT   Registered drivers have reached MAX_UDEV_DRIVER limitation.
@@ -268,7 +264,6 @@ int  usbh_register_driver(UDEV_DRV_T *driver)
   * @param[in]  wIndex          Word-sized field that varies according to request
   * @param[in]  wLength         Number of bytes to transfer if there is a Data stage
   * @param[in]  buff            Data buffer used in data stage
-  * @param[in]  data_len        Length of data to be transmitted/received
   * @param[out] xfer_len        Transmitted/received length of data
   * @param[in]  timeout         Time-out limit (in 10ms - timer tick) of this transfer
   * @retval   0     Transfer success
@@ -621,6 +616,7 @@ int usbh_set_interface(IFACE_T *iface, uint16_t alt_setting)
 
 /**
  *  @brief  Get device descriptor from the USB device.
+ *  @param[in]  udev       The target USB device.
  *  @param[out] desc_buff  Data buffer to receive device descriptor data.
  *  @return   Success or not.
  *  @retval   0  Success
@@ -651,6 +647,7 @@ int usbh_get_device_descriptor(UDEV_T *udev, DESC_DEV_T *desc_buff)
 
 /**
  *  @brief  Get configuration descriptor from the USB device.
+ *  @param[in]  udev       The target USB device.
  *  @param[out] desc_buff  Data buffer to receive configuration descriptor data.
  *  @param[in]  buff_len   Valid length of <desc_buff>
  *  @return   Success or not.
@@ -723,7 +720,8 @@ int usbh_get_string_descriptor(UDEV_T *udev, int index, uint8_t *desc_buff, int 
 }
 
 /**
- *  @brief  Issue a standard request SET_FEATURE to clear USB device endpoint halt state.
+ *  @brief  Issue a standard request CLEAR_FEATURE to clear USB device endpoint halt state.
+ *  @param[in] udev     The target USB device.
  *  @param[in] ep_addr  Endpoint to be clear halt.
  *  @return   Success or not.
  *  @retval   0  Success
@@ -830,7 +828,7 @@ static int  usbh_parse_interface(UDEV_T *udev, uint8_t *desc_buff, int len)
     enum { PARSE_RUNNING, PARSE_DONE, PARSE_ERROR } state = PARSE_RUNNING;
 
     /**
-     * @static_deviation
+     * @par Static deviation
      * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
      * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is
      *                       the single conversion point where the raw block becomes a
@@ -971,7 +969,7 @@ static int  usbh_parse_interface(UDEV_T *udev, uint8_t *desc_buff, int len)
         }
 
         /**
-         * @static_deviation
+         * @par Static deviation
          * <b>Rule:</b>          MISRA C:2012 Rule 11.3<br>
          * <b>Justification:</b> if_desc_buff identifies a validated Interface Descriptor
          *                       in UDEV_T->cfd_buff. ALT_IFACE_T stores this typed view
@@ -1185,7 +1183,7 @@ int  connect_device(UDEV_T *udev)
     }
 
     /**
-     * @static_deviation
+     * @par Static deviation
      * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
      * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is
      *                       the single conversion point where the raw block becomes a
@@ -1300,7 +1298,7 @@ int  usbh_reset_device(UDEV_T *udev)
 
     (void)usbh_quit_xfer(udev, &(udev->ep0));    /* Quit control transfer if hw_pipe is not NULL.  */
 
-    /* Notified all actived interface device driver  */
+    /* Notified all activated interface device driver  */
     iface = udev->iface_list;
     while(iface != NULL)
     {
@@ -1407,7 +1405,7 @@ void disconnect_device(UDEV_T *udev)
 
     (void)usbh_quit_xfer(udev, &(udev->ep0));    /* Quit control transfer if hw_pipe is not NULL.  */
 
-    /* Notified all actived interface device driver  */
+    /* Notified all activated interface device driver  */
     iface = udev->iface_list;
     while(iface != NULL)
     {

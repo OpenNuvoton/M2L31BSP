@@ -69,9 +69,8 @@ static int32_t RMC_ClearDataBuffer(void)
 /**
   * @brief    Disable ISP Functions
   *
-  * @param    None
+  * @note     No parameters.
   *
-  * @return   None
   *
   * @details  This function will clear ISPEN bit of ISPCON to disable ISP function
   *
@@ -88,7 +87,7 @@ void RMC_Close(void)
   * @param[in] u8XomPage    The XOM page number of region size.
   *
   * @retval    0  Success
-  * @retval    1  XOM is has already actived.
+  * @retval    1  XOM has already been activated.
   * @retval   -1  Program failed.
   * @retval   -2  Invalid XOM number.
   *
@@ -256,12 +255,12 @@ int32_t RMC_EraseXOM(uint32_t u32XomNum)
 }
 
 /**
-  * @brief  Check the XOM is actived or not.
+  * @brief  Check the XOM is activated or not.
   *
   * @param[in] u32XomNum    The xom number(0~3).
   *
-  * @retval    1   XOM is actived.
-  * @retval    0   XOM is not actived.
+  * @retval    1   XOM is activated.
+  * @retval    0   XOM is not activated.
   * @retval   -2   Invalid XOM number.
   *
   * @details To get specify XOMRn(n = 0 ~ 3) active status
@@ -286,7 +285,6 @@ int32_t RMC_GetXOMState(uint32_t u32XomNum)
 
 /**
   * @brief Enable RMC ISP function
-  * @return None
   */
 void RMC_Open(void)
 {
@@ -348,7 +346,6 @@ uint32_t RMC_ReadDataFlashBaseAddr(void)
   * @param[in]  i32BootSrc
   *                1: Boot from LDROM
   *                0: Boot from APROM
-  * @return    None
   * @details   This function is used to switch APROM boot or LDROM boot. User need to call
   *            RMC_SetBootSource to select boot source first, then use CPU reset or
   *            System Reset Request to reset system.
@@ -388,7 +385,8 @@ int32_t RMC_GetBootSource (void)
   * @param[in]  u32Addr Address of the flash location to be programmed.
   *             It must be a word aligned address.
   * @param[in]  u32Data The word data to be programmed.
-  * @return None
+  * @retval   0  Success
+  * @retval  -1  Program failed or time-out
   */
 int32_t RMC_Write(uint32_t u32Addr, uint32_t u32Data)
 {
@@ -721,7 +719,7 @@ int32_t RMC_WriteConfig(const uint32_t u32Config[], uint32_t u32Count)
  * @return   -1   Program failed.
  * @return   -2   Invalid address or length
  *
- * @detail     Program Multi-Word data into specified address of flash.
+ * @details    Program Multi-Word data into specified address of flash.
  * @note     Global error code g_RMC_i32ErrCode
  *           -1  Program failed or time-out
  *           -2  Invalid address or length
@@ -1028,7 +1026,7 @@ uint32_t  RMC_CheckAllOne(uint32_t u32addr, uint32_t u32count)
 /**
   * @brief     Remap Bank0/Bank1
   *
-  * @param[in] u32Bank    Bank Num which will remap to.
+  * @param[in] u32BankAddr Bank address to remap.
   *
   * @retval    0   Success
   * @retval    -1  Program failed.
@@ -1228,12 +1226,11 @@ int32_t RMC_WriteOTP(uint32_t otp_num, uint32_t low_word, uint32_t high_word)
 }
 
 
-/*@}*/ /* end of group RMC_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group RMC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group RMC_Driver */
+/** @} */ /* end of group RMC_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/
-
 

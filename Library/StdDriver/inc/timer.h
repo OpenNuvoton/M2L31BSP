@@ -86,7 +86,7 @@ extern "C"
 
 #define TIMER_TIMEOUT_ERR                       (-1L)                           /*!< TIMER operation abort due to timeout error \hideinitializer */
 
-/*@}*/ /* end of group TIMER_EXPORTED_CONSTANTS */
+/** @} */ /* end of group TIMER_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup TIMER_EXPORTED_FUNCTIONS TIMER Exported Functions
@@ -195,7 +195,6 @@ static inline uint32_t TIMER_GetCounter(const TIMER_T *timer);
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to start Timer counting.
   */
@@ -209,7 +208,6 @@ static inline void TIMER_Start(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to stop/suspend Timer counting.
   */
@@ -223,7 +221,6 @@ static inline void TIMER_Stop(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to enable the timer interrupt wake-up function and interrupt source could be time-out interrupt, \n
   *             counter event interrupt or capture trigger interrupt.
@@ -239,7 +236,6 @@ static inline void TIMER_EnableWakeup(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to disable the timer interrupt wake-up function.
   */
@@ -253,7 +249,6 @@ static inline void TIMER_DisableWakeup(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to start Timer capture function.
   */
@@ -267,7 +262,6 @@ static inline void TIMER_StartCapture(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to stop Timer capture function.
   */
@@ -281,7 +275,6 @@ static inline void TIMER_StopCapture(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to enable the detect de-bounce function of capture pin.
   */
@@ -295,7 +288,6 @@ static inline void TIMER_EnableCaptureDebounce(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to disable the detect de-bounce function of capture pin.
   */
@@ -309,7 +301,6 @@ static inline void TIMER_DisableCaptureDebounce(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to enable the detect de-bounce function of counter pin.
   */
@@ -323,7 +314,6 @@ static inline void TIMER_EnableEventCounterDebounce(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to disable the detect de-bounce function of counter pin.
   */
@@ -337,7 +327,6 @@ static inline void TIMER_DisableEventCounterDebounce(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to enable the timer time-out interrupt function.
   */
@@ -351,7 +340,6 @@ static inline void TIMER_EnableInt(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to disable the timer time-out interrupt function.
   */
@@ -365,7 +353,6 @@ static inline void TIMER_DisableInt(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to enable the timer capture trigger interrupt function.
   */
@@ -379,7 +366,6 @@ static inline void TIMER_EnableCaptureInt(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to disable the timer capture trigger interrupt function.
   */
@@ -408,7 +394,6 @@ static inline uint32_t TIMER_GetIntFlag(const TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function clears timer time-out interrupt flag to 0.
   */
@@ -437,7 +422,6 @@ static inline uint32_t TIMER_GetCaptureIntFlag(const TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function clears timer capture trigger interrupt flag to 0.
   */
@@ -466,7 +450,6 @@ static inline uint32_t TIMER_GetWakeupFlag(const TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function clears the timer wake-up system flag to 0.
   */
@@ -522,11 +505,11 @@ void     TIMER_SetTriggerTarget(TIMER_T *timer, uint32_t u32Mask);
 void     TIMER_CaptureSelect(TIMER_T *timer, uint32_t u32Src);
 int32_t  TIMER_ResetCounter(TIMER_T *timer);
 
-/*@}*/ /* end of group TIMER_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TIMER_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TIMER_Driver */
+/** @} */ /* end of group TIMER_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

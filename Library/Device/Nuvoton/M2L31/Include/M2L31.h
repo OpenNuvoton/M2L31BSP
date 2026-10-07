@@ -104,7 +104,7 @@ extern "C" {
 #define __Vendor_SysTickConfig    0U        /* Set to 1 if different SysTick Config is used */
 #define USE_ASSERT                0U        /* Define to use Assert function or not       */
 
-/*@}*/ /* end of group CMSIS_Device */
+/** @} */ /* end of group CMSIS_Device */
 
 
 #include "core_cm23.h"                      /* Processor and core peripherals             */
@@ -526,7 +526,7 @@ typedef volatile unsigned short vu16;
   */
 #define inp8(port)          ((*((volatile unsigned char *)(port))))
 
-/*@}*/ /* end of group IO_ROUTINE */
+/** @} */ /* end of group IO_ROUTINE */
 
 
 /******************************************************************************/
@@ -592,7 +592,7 @@ typedef volatile unsigned short vu16;
 #define GET_BYTE2(u32Param)    (((u32Param) & BYTE2_Msk) >> 16) /*!< Extract Byte 2 (Bit 16~23) from parameter u32Param */
 #define GET_BYTE3(u32Param)    (((u32Param) & BYTE3_Msk) >> 24) /*!< Extract Byte 3 (Bit 24~31) from parameter u32Param */
 
-/*@}*/ /* end of group Legacy_Constants */
+/** @} */ /* end of group Legacy_Constants */
 
 
 /******************************************************************************/
@@ -646,8 +646,7 @@ typedef volatile unsigned short vu16;
 /**
  * Initialize the system clock
  *
- * @param  none
- * @return none
+ * @note   No parameters.
  *
  * @brief  Setup the micro controller system
  *         Initialize the PLL and update the SystemFrequency variable

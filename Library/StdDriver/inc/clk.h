@@ -582,7 +582,7 @@ extern "C"
 #define CLK_TIMEOUT_ERR             (-1)    /*!< Clock timeout error value \hideinitializer */
 #define CLK_PLL_FAIL_ERR            (-2)    /*!< Set PLL Fail error value \hideinitializer */
 
-/*@}*/ /* end of group CLK_EXPORTED_CONSTANTS */
+/** @} */ /* end of group CLK_EXPORTED_CONSTANTS */
 
 /** @addtogroup CLK_EXPORTED_FUNCTIONS CLK Exported Functions
   @{
@@ -638,7 +638,7 @@ extern "C"
  *
  * @return      None
  *
- * @details     This function set Set De-bounce Sampling Cycle Time.
+ * @details     This function sets De-bounce Sampling Cycle Time.
  *
  * \hideinitializer
  */
@@ -788,11 +788,11 @@ uint32_t CLK_GetPCLK2Freq(void);
 int32_t  CLK_GetErrCode(void);
 void     CLK_SetErrCode(int32_t err);
 
-/*@}*/ /* end of group CLK_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group CLK_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group CLK_Driver */
+/** @} */ /* end of group CLK_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

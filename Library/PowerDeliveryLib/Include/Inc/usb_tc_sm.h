@@ -168,7 +168,7 @@ void tc_prs_snk_src_assert_rp(int port);
  * Informs the Type-C State Machine that a Power Role Swap is starting.
  * This function is called from the Policy Engine.
  *
- * @parm port USB_C port number
+ * @param port USB_C port number
  */
 void tc_request_power_swap(int port);
 
@@ -329,7 +329,7 @@ bool tc_event_loop_is_paused(int port);
 /**
  * Allow system to override the control of TrySrc
  *
- * @param en    TRY_SRC_OVERRIDE_OFF - Force TrySrc OFF
+ * @param ov    TRY_SRC_OVERRIDE_OFF - Force TrySrc OFF
  *      TRY_SRC_OVERRIDE_ON - Force TrySrc ON
  *      TRY_SRC_NO_OVERRIDE - Allow state machine to control TrySrc
  */

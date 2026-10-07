@@ -180,7 +180,7 @@ volatile uint32_t gu32TimeBase = 0;
 /**
   * @brief       Timer0 IRQ
   *
-  * @param       None
+  * @note        No parameters.
   *
   * @return      None
   *
@@ -211,9 +211,8 @@ void TMR0_IRQHandler(void)
 /**
  * @brief       Timer1 IRQ
  *
- * @param       None
+ * @note        No parameters.
  *
- * @return      None
  *
  * @details     The Timer1 default IRQ.
  *              Utilizaton for driving ADC trigger conversion VBUS and VCONN to periodicly
@@ -273,7 +272,7 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
 /**
  * @brief       UTCPD Callback Function
  *
- * @param       event: UTCPD_PD_ATTACHED = 0,                  : Port partner attached or disattached
+ * @param       event: UTCPD_PD_ATTACHED = 0,                  : Port partner attached or detached
  *                     UTCPD_PD_CONTRACT = 1,                  : PD contract established
  *                     UTCPD_PD_SNK_VOLTAGE = 2,               : SNK Role Contract voltage
  *                     UTCPD_PD_CABLE_MAX_POWER = 3,           : M2L31 Didn't Support. NPD48: Cable Max Voltage and Max Current : ((max_vol<<16) | max_curr)
@@ -288,7 +287,7 @@ void pd_get_request_pdo_info(int port, uint32_t pdo_idx, uint32_t* u32volt, uint
  *                     UTCPD_PD_VBUS_DISCHARGE_START = 0x20,   : VBUS Discharge Start
  *                     UTCPD_PD_VBUS_DISCHARGE_STOP = 0x21,    : VBUS Discharge End
  *                     UTCPD_PD_TC_ASSERT_RD = 0x22,           : Assert Rd
- *                     UTCPD_PD_TC_PD_DISCONNECTION = 0x23,    : Deattached
+ *                     UTCPD_PD_TC_PD_DISCONNECTION = 0x23,    : Detached
  *                     UTCPD_PD_SRC_TC_PD_CONNECTION = 0x24,   : Acts As SRC Role
  *                     UTCPD_PD_SNK_TC_PD_CONNECTION = 0x25,   : Acts As SNK Role
  *                     UTCPD_PD_GET_BATTERY_CAP = 0x26         : GET_BAT_CAP Message From Port Partner
@@ -329,7 +328,7 @@ void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
 				}
 				else if(op == 0)
 				{
-						//Deattached 
+						//Detached
 				}
 		}
     if(event == UTCPD_PD_VBUS_DISCHARGE_START)

@@ -81,8 +81,8 @@ extern S_NEIGHBOR s_neighbor[];
 
 /**
  * @brief       Send chars by UART interface
- * @param[i]    pu8buf  buffer pointer that contain the characters to be sent.
- * @param[i]    u32len  length of characters to be sent.
+ * @param[in]   pu8buf  Pointer to the buffer containing the characters to send.
+ * @param[in]   u32len  Number of characters to send.
  * @return      None
  * @details     This Function used to send chars by UART interface
  */
@@ -102,16 +102,13 @@ void TK_SendChars(uint8_t *pu8buf, uint32_t u32len)
 }
 
 /**
-  * @brief      Get packet from AP tool and check if the header, data length and checksum are all correct
-  * @param      None.
-  * @retval     0:success.
-  *             -1:fail
-  * @details    This function is used to get command packet from AP tool
-  *             AP transmission format:
-  *             | HEADER BYTES('N''T''K') | CMD(1 byte) | LEN(2 bytes) | PAYLOAD(n bytes) | checkSum(1 byte) |
-  *             Firmware would return status immediately
-  *
-  */
+ * @brief Command packet format used by the AP tool.
+ *
+ * @details The AP sends packets in this format:
+ *          | HEADER BYTES ('N''T''K') | CMD (1 byte) | LEN (2 bytes) |
+ *          PAYLOAD (n bytes) | checksum (1 byte) |
+ *          The firmware returns a status immediately.
+ */
 
 /* RX: PC--> DUT,
    TX: DUT--> PC */
@@ -161,16 +158,16 @@ void UART_StateInit(void)
 }
 
 /**
-  * @brief  There are total 6 bytes transfer from PC.
+  * @brief  A total of 6 bytes are transferred from the PC.
   *         PC : Cmd + 4 parameters + Checksum
   *         DUT: ACK/NACK only
   *
-  * @param[in]  Touch key information pointer
-  * @param[in]  RX buffer to receive data from PC
-  * @param[in]  Length
+  * @param[in]  pu8RXBuf  Pointer to the received 6-byte command packet.
   *
   * @return     0: Continue receive.
-  *             1: Escape to do calibration
+  *             1: Start calibration.
+  *             2: Start run-time key scanning.
+  *             3: Stop run-time key scanning.
   * @details    Receive command from PC
   */
 int8_t TK_CmdType1(uint8_t *pu8RXBuf)
@@ -277,7 +274,7 @@ int8_t TK_CmdType1(uint8_t *pu8RXBuf)
         }
         break;
 
-        case E_CMD_TYPE1_START_CALIBRATION:     /* It took a long time to calibration */
+        case E_CMD_TYPE1_START_CALIBRATION:     /* Calibration takes a long time. */
 
             if (pu8RXBuf[1] == 0)
                 psTkInfo->u8NoiseImmunity = 0x13;
@@ -347,7 +344,7 @@ int8_t TK_CmdType1(uint8_t *pu8RXBuf)
             break;
 
         case E_CMD_TYPE1_ESCAPE_APPLICATION:
-            /* Escap to free run case */
+            /* Escape to free-run mode. */
             break;
 
         case E_CMD_TYPE1_IIR_PARAMETER:
@@ -374,16 +371,14 @@ int8_t TK_CmdType1(uint8_t *pu8RXBuf)
 }
 
 /**
-  * @brief  There are total 3 bytes transfer from PC.
+  * @brief  A total of 3 bytes are transferred from the PC.
   *         PC : Cmd + 1 parameters + Checksum
   *         DUT: 4 parameters + 1 byte ACK/NACK only
   *
-  * @param[in]  Touch key information pointer
-  * @param[in]  RX buffer to receive data from PC
-  * @param[in]  Length
+  * @param[in]  pu8RXBuf  Pointer to the received 3-byte command packet.
   *
-  * @return     0: Continue receive.
-  *             1: Escape to do calibration
+  * @return     0: Continue receiving.
+  *             1: Stop waiting and return to the caller.
   * @details    Receive command from PC
   */
 int8_t TK_CmdType2(uint8_t *pu8RXBuf)
@@ -513,7 +508,7 @@ int8_t TK_CmdType2(uint8_t *pu8RXBuf)
 
             if (chan & 0x80)
             {
-                /* MSB bit = 1 to get manufactory setting */
+                /* MSB bit = 1 to read the factory setting. */
                 uint8_t u8Level;
 
                 chan &= ~0x80;
@@ -647,14 +642,14 @@ int8_t TK_GetPacket(uint32_t *pu32ChanelMsk)
     {
         if (gu8CmdSts == E_CMD_TYPE1_READY)
         {
-            /* i8Ret will be set to 1 if E_CMD_TYPE1_START_CALIBRATION command */
+            /* Handles calibration and run-time key-scan command return values. */
             i8Ret = TK_CmdType1(gu8RXBuf);
             UART_StateInit();
         }
 
         if (gu8CmdSts == E_CMD_TYPE2_READY)
         {
-            /* i8Ret will always 0 */
+            /* The runtime-key-info command sets i8Ret to 1. */
 
             i8Ret = TK_CmdType2(gu8RXBuf);
             UART_StateInit();
@@ -686,7 +681,7 @@ int8_t TK_GetPacket(uint32_t *pu32ChanelMsk)
             TK_RawDataView();
         }
 
-    } while (i8Ret == 0); /* Escape the loop until E_CMD_TYPE1_START_CALIBRATION command */
+    } while (i8Ret == 0); /* Exit when a command handler returns a nonzero status. */
 
     *pu32ChanelMsk = (psTkInfo->u32EnChanMsk) | ((psTkInfo->u32EnSliderMsk | psTkInfo->u32EnWheelMsk)\
                                                  | (1UL << psTkInfo->u8RefChan));
@@ -695,7 +690,7 @@ int8_t TK_GetPacket(uint32_t *pu32ChanelMsk)
         *pu32ChanelMsk = *pu32ChanelMsk | (1UL << psTkInfo->u8ShieldChan);
 
     return i8Ret;
-    /* Escape as receive start calibration */
+    /* Return the status that caused the receive loop to exit. */
 }
 
 

@@ -395,7 +395,6 @@ static inline void LPUART_SET_RTS(LPUART_T* lpuart);
  *
  *    @param[in]    lpuart    The pointer of the specified LPUART module
  *
- *    @return       None
  *
  *    @details      This macro set RTS pin to low.
  *    \hideinitializer
@@ -412,7 +411,6 @@ static inline void LPUART_CLEAR_RTS(LPUART_T* lpuart)
  *
  *    @param[in]    lpuart    The pointer of the specified LPUART module
  *
- *    @return       None
  *
  *    @details      This macro set RTS pin to high.
  *    \hideinitializer

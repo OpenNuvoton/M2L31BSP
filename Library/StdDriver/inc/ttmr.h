@@ -40,7 +40,7 @@ extern "C"
 
 #define TTMR_TIMEOUT_ERR                    (-1L)                           /*!< TTMR operation abort due to timeout error \hideinitializer */
 
-/*@}*/ /* end of group TTMR_EXPORTED_CONSTANTS */
+/** @} */ /* end of group TTMR_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup TTMR_EXPORTED_FUNCTIONS TTMR Exported Functions
@@ -123,7 +123,6 @@ static inline uint32_t TTMR_GetCounter(const TTMR_T *ttmr);
   *
   * @param[in]  ttmr        The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to start Timer counting.
   */
@@ -137,7 +136,6 @@ static inline void TTMR_Start(TTMR_T *ttmr)
   *
   * @param[in]  ttmr        The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to stop/suspend Timer counting.
   */
@@ -151,7 +149,6 @@ static inline void TTMR_Stop(TTMR_T *ttmr)
   *
   * @param[in]  ttmr        The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the ttmr interrupt wake-up function and interrupt source could be time-out interrupt, \n
   *             counter event interrupt or capture trigger interrupt.
@@ -167,7 +164,6 @@ static inline void TTMR_EnableWakeup(TTMR_T *ttmr)
   *
   * @param[in]  ttmr        The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the ttmr interrupt wake-up function.
   */
@@ -182,7 +178,6 @@ static inline void TTMR_DisableWakeup(TTMR_T *ttmr)
   *
   * @param[in]  ttmr        The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the ttmr time-out interrupt function.
   */
@@ -196,7 +191,6 @@ static inline void TTMR_EnableInt(TTMR_T *ttmr)
   *
   * @param[in]  ttmr        The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the ttmr time-out interrupt function.
   */
@@ -226,7 +220,6 @@ static inline uint32_t TTMR_GetIntFlag(const TTMR_T *ttmr)
   *
   * @param[in]  ttmr        The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function clears ttmr time-out interrupt flag to 0.
   */
@@ -256,7 +249,6 @@ static inline uint32_t TTMR_GetWakeupFlag(const TTMR_T *ttmr)
   *
   * @param[in]  ttmr        The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function clears the ttmr wake-up system flag to 0.
   */
@@ -285,7 +277,6 @@ static inline uint32_t TTMR_GetCounter(const TTMR_T *ttmr)
   *
   * @param[in]  ttmr       The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the ttmr Power-down Engine Clock.
   */
@@ -299,7 +290,6 @@ static inline void TTMR_EnablePDCLK(TTMR_T *ttmr)
   *
   * @param[in]  ttmr       The pointer of the specified Timer module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the ttmr Power-down Engine Clock.
   */
@@ -315,11 +305,11 @@ uint32_t TTMR_GetModuleClock(const TTMR_T *ttmr);
 void     TTMR_SetTriggerTarget(TTMR_T *ttmr, uint32_t u32Mask);
 int32_t  TTMR_ResetCounter(TTMR_T *ttmr);
 
-/*@}*/ /* end of group TTMR_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TTMR_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TTMR_Driver */
+/** @} */ /* end of group TTMR_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

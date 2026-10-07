@@ -129,7 +129,7 @@ uint32_t LPTMR_Open(LPTMR_T *lptmr, uint32_t u32Mode, uint32_t u32Freq)
     /*
      * Maximum denominator:
      *
-     * 0x00FFFFFF × 256 = 0xFFFFFF00
+     * 0x00FFFFFF ?256 = 0xFFFFFF00
      *
      * Therefore, the multiplication does not overflow uint32_t,
      * assuming the prescaler is an 8-bit direct value as used by
@@ -150,7 +150,6 @@ uint32_t LPTMR_Open(LPTMR_T *lptmr, uint32_t u32Mode, uint32_t u32Freq)
   *
   * @param[in]  lptmr   The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This API stops lptmr counting and disable all lptmr interrupt function.
   */
@@ -385,7 +384,6 @@ int32_t LPTMR_Delay(LPTMR_T *lptmr, uint32_t u32Usec)
   *                         - \ref LPTMR_CAPTURE_EVENT_GET_LOW_PERIOD
   *                         - \ref LPTMR_CAPTURE_EVENT_GET_HIGH_PERIOD
   *
-  * @return     None
   *
   * @details    This API is used to enable lptmr capture function with specify capture trigger edge \n
   *             to get current counter value or reset counter value to 0.
@@ -403,7 +401,6 @@ void LPTMR_EnableCapture(LPTMR_T *lptmr, uint32_t u32CapMode, uint32_t u32Edge)
   *
   * @param[in]  lptmr   The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This API is used to disable the lptmr capture function.
   */
@@ -421,7 +418,6 @@ void LPTMR_DisableCapture(LPTMR_T *lptmr)
   *                         - \ref LPTMR_COUNTER_EVENT_FALLING
   *                         - \ref LPTMR_COUNTER_EVENT_RISING
   *
-  * @return     None
   *
   * @details    This function is used to enable the lptmr counter function with specify detection edge.
   * @note       LPTMR compare value should be configured separately by using \ref LPTMR_SET_CMP_VALUE macro or program registers directly.
@@ -439,7 +435,6 @@ void LPTMR_EnableEventCounter(LPTMR_T *lptmr, uint32_t u32Edge)
   *
   * @param[in]  lptmr   The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This API is used to disable the lptmr event counter function.
   */
@@ -491,7 +486,6 @@ uint32_t LPTMR_GetModuleClock(const LPTMR_T *lptmr)
   * @param[in] u32Src Selects the interrupt source to trigger other modules. Could be:
   *              - \ref LPTMR_TRGSRC_TIMEOUT_EVENT
   *              - \ref LPTMR_TRGSRC_CAPTURE_EVENT
-  * @return None
   */
 void LPTMR_SetTriggerSource(LPTMR_T *lptmr, uint32_t u32Src)
 {
@@ -505,7 +499,6 @@ void LPTMR_SetTriggerSource(LPTMR_T *lptmr, uint32_t u32Src)
   * @param[in] u32Mask The mask of modules (Low power IPs and LPPDMA) trigger by lptmr. Is the combination of
   *             - \ref LPTMR_TRGEN
   *             - \ref LPTMR_TRG_TO_LPPDMA
-  * @return None
   */
 void LPTMR_SetTriggerTarget(LPTMR_T *lptmr, uint32_t u32Mask)
 {
@@ -523,7 +516,6 @@ void LPTMR_SetTriggerTarget(LPTMR_T *lptmr, uint32_t u32Mask)
   *                         - \ref LPTMR_CAPTURE_FROM_ACMP1
   *                         - \ref LPTMR_CAPTURE_FROM_ACMP2
   *
-  * @return     None
   *
   * @details    This API is used to select LPTMR capture source from Tx_EXT or internal signal.
   */
@@ -586,7 +578,6 @@ int32_t LPTMR_ResetCounter(LPTMR_T *lptmr)
   *                                 - \ref LPTMR_CAPTURE_NOISE_FILTER_PCLK_DIV_64
   *                                 - \ref LPTMR_CAPTURE_NOISE_FILTER_PCLK_DIV_128
   *
-  * @return     None
   *
   * @details    This function is used to enable capture input noise filter function.
   */
@@ -601,7 +592,6 @@ void LPTMR_EnableCaptureInputNoiseFilter(LPTMR_T *lptmr, uint32_t u32FilterCount
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable capture input noise filter function.
   */
@@ -610,8 +600,8 @@ void LPTMR_DisableCaptureInputNoiseFilter(LPTMR_T *lptmr)
     lptmr->CAPNF &= ~LPTMR_CAPNF_CAPNFEN_Msk;
 }
 
-/*@}*/ /* end of group LPTMR_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPTMR_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPTMR_Driver */
+/** @} */ /* end of group LPTMR_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */

@@ -1,7 +1,7 @@
 /**************************************************************************//**
  * @file     PartTest.c
  * @version  V3.00
- * @brief    IRQ handlers and system initialzation
+ * @brief    IRQ handlers and system initialization
  *
  * @copyright (C) 2023 Nuvoton Technology Corp. All rights reserved.
  ******************************************************************************/
@@ -34,7 +34,7 @@ volatile uint32_t g_u32WriteRTC_Ticks, g_u32ReadRTC_Ticks;
  *
  * @return      None
  *
- * @details     The RTC_IRQHandler is default IRQ of RTC, declared in startup_M460.s.
+ * @details     The RTC_IRQHandler is the default RTC IRQ handler, declared in startup_M2L31.s.
  */
 void RTC_IRQHandler(void)
 {
@@ -69,7 +69,7 @@ void RTC_IRQHandler(void)
  *
  * @return      None
  *
- * @details     The PB default IRQ, declared in startup_M460.s.
+ * @details     The default IRQ handler for GPIO port B is declared in startup_M2L31.s.
  */
 void GPB_IRQHandler(void)
 {
@@ -212,7 +212,7 @@ void vParTestInitialise(void)
     sWriteRTC.u32Hour       = 0;
     sWriteRTC.u32Minute     = 0;
     sWriteRTC.u32Second     = 0;
-    sWriteRTC.u32DayOfWeek  = RTC_FRIDAY;
+    sWriteRTC.u32DayOfWeek  = RTC_THURSDAY;
     sWriteRTC.u32TimeScale  = RTC_CLOCK_24;
 
     if(RTC_Open(&sWriteRTC) != 0)

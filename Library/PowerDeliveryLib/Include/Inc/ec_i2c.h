@@ -236,7 +236,7 @@ int i2c_get_line_levels(int port);
  * Get GPIO pin for I2C SCL from the i2c port number
  *
  * @param port I2C port number
- * @param sda  Pointer to gpio signal to store the SCL gpio at
+ * @param scl  Pointer to gpio signal to store the SCL gpio at
  * @return EC_SUCCESS if a valid GPIO point is found, EC_ERROR_INVAL if not
  */
 int get_scl_from_i2c_port(int port, enum gpio_signal *scl);
@@ -493,7 +493,7 @@ int i2c_write_block(const int port,
  * This function will only be called if CONFIG_I2C_MULTI_PORT_CONTROLLER is
  * defined.
  *
- * @parm port I2C port
+ * @param port I2C port
  *
  * @return controller number, or -1 on invalid parameter
  */
@@ -537,7 +537,7 @@ void i2c_init(void);
  * Board-level function to determine whether i2c passthru should be allowed
  * on a given port.
  *
- * @parm port I2C port
+ * @param port I2C port
  *
  * @return true, if passthru should be allowed on the port.
  */

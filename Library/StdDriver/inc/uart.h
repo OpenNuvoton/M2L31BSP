@@ -116,7 +116,7 @@ extern "C"
 #define UART_BAUD_MODE2     (UART_BAUD_BAUDM1_Msk | UART_BAUD_BAUDM0_Msk) /*!< Set UART Baudrate Mode is Mode2 \hideinitializer */
 
 
-/*@}*/ /* end of group UART_EXPORTED_CONSTANTS */
+/** @} */ /* end of group UART_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup UART_EXPORTED_FUNCTIONS UART Exported Functions
@@ -447,7 +447,6 @@ static inline void UART_SET_RTS(UART_T* uart);
  *
  *    @param[in]    uart    The pointer of the specified UART module
  *
- *    @return       None
  *
  *    @details      This macro set RTS pin to low.
  *    \hideinitializer
@@ -464,7 +463,6 @@ static inline void UART_CLEAR_RTS(UART_T* uart)
  *
  *    @param[in]    uart    The pointer of the specified UART module
  *
- *    @return       None
  *
  *    @details      This macro set RTS pin to high.
  *    \hideinitializer
@@ -522,11 +520,11 @@ void UART_SelectSingleWireMode(UART_T *uart);
 
 
 
-/*@}*/ /* end of group UART_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group UART_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group UART_Driver */
+/** @} */ /* end of group UART_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

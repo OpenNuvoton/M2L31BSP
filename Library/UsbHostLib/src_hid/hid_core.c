@@ -413,7 +413,7 @@ int32_t  usbh_hid_set_protocol(HID_DEV_T *hdev, uint8_t protocol)
  * HID int-in complete function
  */
 /**
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> utr->context stores a generic void * set by usbhid_probe() to the
  *                       owning HID_DEV_T. This accessor centralizes what was previously
@@ -843,7 +843,6 @@ int32_t usbh_hid_stop_int_write(HID_DEV_T *hdev, uint8_t ep_addr)
  *         Any mouse reports will be sent to user application via this callback.
  *
  * @param[in] func       Mouse event callback function
- * @return   None
  */
 void  usbh_hid_regitser_mouse_callback(HID_MOUSE_FUNC *func)
 {
@@ -866,7 +865,6 @@ HID_MOUSE_FUNC *usbh_hid_get_mouse_callback(void)
  *         Any keyboard reports will be sent to user application via this callback.
  *
  * @param[in] func     Keyboard event callback function
- * @return   None
  */
 void  usbh_hid_regitser_keyboard_callback(HID_KEYBOARD_FUNC *func)
 {

@@ -72,7 +72,7 @@ extern "C"
 #define LPSPI_AUTOCTL_TRIGSEL_WKIOD0    (7UL<<LPSPI_AUTOCTL_TRIGSEL_Pos)     /*!< LPSPI Automatic Operation Trigger Source Select is WKIOD0  \hideinitializer */
 
 
-/*@}*/ /* end of group LPSPI_EXPORTED_CONSTANTS */
+/** @} */ /* end of group LPSPI_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup LPSPI_EXPORTED_FUNCTIONS LPSPI Exported Functions
@@ -474,7 +474,7 @@ extern "C"
   *                          - \ref LPSPI_AUTOCTL_TRIGSEL_WKIOC0
   *                          - \ref LPSPI_AUTOCTL_TRIGSEL_WKIOD0
   * @return     None.
-  * @details    Set Trigger Souce Selection (LPSPI_AUTOCTL[3:0]).
+  * @details    Set Trigger Source Selection (LPSPI_AUTOCTL[3:0]).
   * \hideinitializer
   */
 #define LPSPI_SET_AUTO_TRIG_SOURCE(lpspi, u32TrigSrc)   ((lpspi)->AUTOCTL &= ~LPSPI_AUTOCTL_TRIGSEL_Msk); \
@@ -573,11 +573,11 @@ uint32_t LPSPI_GetIntFlag(const LPSPI_T *lpspi, uint32_t u32Mask);
 void LPSPI_ClearIntFlag(LPSPI_T *lpspi, uint32_t u32Mask);
 uint32_t LPSPI_GetStatus(const LPSPI_T *lpspi, uint32_t u32Mask);
 
-/*@}*/ /* end of group LPSPI_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPSPI_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPSPI_Driver */
+/** @} */ /* end of group LPSPI_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

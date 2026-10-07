@@ -53,19 +53,19 @@ extern "C"
 #define USBH_ERR_DATA_BUFF          -274   /*!< Data buffer overrun or underrun                 */
 
 #define USBH_ERR_CC_NO_ERR          -280   /*!< OHCI CC code - no error                         */
-#define USBH_ERR_CRC                -281   /*!< USB trasfer CRC error                           */
+#define USBH_ERR_CRC                -281   /*!< USB transfer CRC error                          */
 #define USBH_ERR_BIT_STUFF          -282   /*!< USB transfer bit stuffing error                 */
-#define USBH_ERR_DATA_TOGGLE        -283   /*!< USB trasfer data toggle error                   */
-#define USBH_ERR_STALL              -284   /*!< USB trasfer STALL error                         */
-#define USBH_ERR_DEV_NO_RESP        -285   /*!< USB trasfer device no response error            */
-#define USBH_ERR_PID_CHECK          -286   /*!< USB trasfer PID check failure                   */
-#define USBH_ERR_UNEXPECT_PID       -287   /*!< USB trasfer unexpected PID error                */
-#define USBH_ERR_DATA_OVERRUN       -288   /*!< USB trasfer data overrun error                  */
-#define USBH_ERR_DATA_UNDERRUN      -289   /*!< USB trasfer data underrun error                 */
-#define USBH_ERR_BUFF_OVERRUN       -292   /*!< USB trasfer buffer overrun error                */
-#define USBH_ERR_BUFF_UNDERRUN      -293   /*!< USB trasfer buffer underrun error               */
-#define USBH_ERR_NOT_ACCESS0        -294   /*!< USB trasfer not accessed error                  */
-#define USBH_ERR_NOT_ACCESS1        -295   /*!< USB trasfer not accessed error                  */
+#define USBH_ERR_DATA_TOGGLE        -283   /*!< USB transfer data toggle error                  */
+#define USBH_ERR_STALL              -284   /*!< USB transfer STALL error                        */
+#define USBH_ERR_DEV_NO_RESP        -285   /*!< USB transfer device no response error           */
+#define USBH_ERR_PID_CHECK          -286   /*!< USB transfer PID check failure                  */
+#define USBH_ERR_UNEXPECT_PID       -287   /*!< USB transfer unexpected PID error               */
+#define USBH_ERR_DATA_OVERRUN       -288   /*!< USB transfer data overrun error                 */
+#define USBH_ERR_DATA_UNDERRUN      -289   /*!< USB transfer data underrun error                */
+#define USBH_ERR_BUFF_OVERRUN       -292   /*!< USB transfer buffer overrun error               */
+#define USBH_ERR_BUFF_UNDERRUN      -293   /*!< USB transfer buffer underrun error              */
+#define USBH_ERR_NOT_ACCESS0        -294   /*!< USB transfer not accessed error                 */
+#define USBH_ERR_NOT_ACCESS1        -295   /*!< USB transfer not accessed error                 */
 
 #define USBH_ERR_OHCI_INIT          -301   /*!< Failed to initialize OHIC controller.           */
 #define USBH_ERR_OHCI_EP_BUSY       -303   /*!< The endpoint is under transfer.                 */

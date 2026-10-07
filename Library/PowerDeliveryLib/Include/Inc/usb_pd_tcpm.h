@@ -636,8 +636,8 @@ void tcpc_dump_std_registers(int port);
  * Dump chip specific TCPC registers.
  *
  * @param port Type-C port number
- * @param pointer to table of registers and names
- * @param count of registers to dump
+ * @param reg Pointer to table of registers and names
+ * @param count Number of registers to dump
  *
  */
 void tcpc_dump_registers(int port, const struct tcpc_reg_dump_map *reg,

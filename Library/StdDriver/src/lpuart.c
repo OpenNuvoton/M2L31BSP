@@ -32,7 +32,6 @@
  *                                      - \ref LPUART_INTSTS_MODEMINT_Msk  : Modem Status interrupt
  *                                      - \ref LPUART_INTSTS_RLSINT_Msk    : Receive Line Status interrupt
  *
- *    @return       None
  *
  *    @details      The function is used to clear LPUART specified interrupt flag.
  */
@@ -74,7 +73,6 @@ void LPUART_ClearIntFlag(LPUART_T *lpuart, uint32_t u32InterruptFlag)
  *
  *  @param[in]  lpuart The pointer of the specified LPUART module.
  *
- *  @return     None
  *
  *  @details    The function is used to disable LPUART interrupt.
  */
@@ -89,7 +87,6 @@ void LPUART_Close(LPUART_T *lpuart)
  *
  *  @param[in]  lpuart The pointer of the specified LPUART module.
  *
- *  @return     None
  *
  *  @details    The function is used to disable LPUART auto flow control.
  */
@@ -112,7 +109,6 @@ void LPUART_DisableFlowCtrl(LPUART_T *lpuart)
  *                                      - \ref LPUART_INTEN_THREIEN_Msk    : Tx empty interrupt
  *                                      - \ref LPUART_INTEN_RDAIEN_Msk     : Rx ready interrupt *
  *
- *    @return       None
  *
  *    @details      The function is used to disable LPUART specified interrupt and disable NVIC LPUART IRQ.
  */
@@ -128,7 +124,6 @@ void LPUART_DisableInt(LPUART_T *lpuart, uint32_t u32InterruptFlag)
  *
  *    @param[in]    lpuart    The pointer of the specified LPUART module.
  *
- *    @return       None
  *
  *    @details      The function is used to Enable LPUART auto flow control.
  */
@@ -158,7 +153,6 @@ void LPUART_EnableFlowCtrl(LPUART_T *lpuart)
  *                                      - \ref LPUART_INTEN_THREIEN_Msk    : Tx empty interrupt
  *                                      - \ref LPUART_INTEN_RDAIEN_Msk     : Rx ready interrupt *
  *
- *    @return       None
  *
  *    @details      The function is used to enable LPUART specified interrupt and enable NVIC LPUART IRQ.
  */
@@ -175,7 +169,6 @@ void LPUART_EnableInt(LPUART_T *lpuart, uint32_t u32InterruptFlag)
  *    @param[in]    lpuart            The pointer of the specified LPUART module.
  *    @param[in]    u32baudrate     The baudrate of LPUART module.
  *
- *    @return       None
  *
  *    @details      This function use to enable LPUART function and set baud-rate.
  */
@@ -228,7 +221,7 @@ void LPUART_Open(LPUART_T *lpuart, uint32_t u32baudrate)
  *
  *    @param[in]    lpuart            The pointer of the specified LPUART module.
  *    @param[in]    pu8RxBuf        The buffer to receive the data of receive FIFO.
- *    @param[in]    u32ReadBytes    The the read bytes number of data.
+ *    @param[in]    u32ReadBytes    The read bytes number of data.
  *
  *    @return       u32Count Receive byte count
  *
@@ -293,7 +286,6 @@ uint32_t LPUART_Read(const LPUART_T *lpuart, uint8_t pu8RxBuf[], uint32_t u32Rea
  *                                  - \ref LPUART_STOP_BIT_1_5
  *                                  - \ref LPUART_STOP_BIT_2
  *
- *    @return       None
  *
  *    @details      This function use to config LPUART line setting.
  */
@@ -340,7 +332,6 @@ void LPUART_SetLine_Config(LPUART_T *lpuart, uint32_t u32baudrate, uint32_t u32d
  *    @param[in]    lpuart    The pointer of the specified LPUART module.
  *    @param[in]    u32TOC  Rx timeout counter.
  *
- *    @return       None
  *
  *    @details      This function use to set Rx timeout count.
  */
@@ -364,7 +355,6 @@ void LPUART_SetTimeoutCnt(LPUART_T *lpuart, uint32_t u32TOC)
  *                              - \ref LPUART_ALTCTL_RS485AAD_Msk
  *    @param[in]    u32Addr     The RS485 address.
  *
- *    @return       None
  *
  *    @details      The function is used to set RS485 relative setting.
  */
@@ -427,7 +417,6 @@ uint32_t LPUART_Write(LPUART_T *lpuart, const uint8_t pu8TxBuf[], uint32_t u32Wr
  *
  *    @param[in]    lpuart        The pointer of the specified LPUART module.
  *
- *    @return       None
  *
  *    @details      The function is used to select Single Wire mode.
  */
@@ -438,11 +427,11 @@ void LPUART_SelectSingleWireMode(LPUART_T *lpuart)
     lpuart->FUNCSEL = ((lpuart->FUNCSEL & (~LPUART_FUNCSEL_FUNCSEL_Msk)) | LPUART_FUNCSEL_SINGLE_WIRE);
 
 }
-/*@}*/ /* end of group LPUART_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPUART_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPUART_Driver */
+/** @} */ /* end of group LPUART_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/
 

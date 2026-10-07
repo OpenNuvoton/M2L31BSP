@@ -185,7 +185,7 @@ extern "C"
 #define PWM_CLKSRC_TIMER2                        (3UL)    /*!< PWM Clock source selects to TIMER2 overflow \hideinitializer */
 #define PWM_CLKSRC_TIMER3                        (4UL)    /*!< PWM Clock source selects to TIMER3 overflow \hideinitializer */
 
-/*@}*/ /* end of group PWM_EXPORTED_CONSTANTS */
+/** @} */ /* end of group PWM_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup PWM_EXPORTED_FUNCTIONS PWM Exported Functions
@@ -589,11 +589,11 @@ void PWM_DisableAccPDMA(PWM_T *pwm, uint32_t u32ChannelNum);
 void PWM_EnableAccStopMode(PWM_T *pwm, uint32_t u32ChannelNum);
 void PWM_DisableAccStopMode(PWM_T *pwm, uint32_t u32ChannelNum);
 
-/*@}*/ /* end of group PWM_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group PWM_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group PWM_Driver */
+/** @} */ /* end of group PWM_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

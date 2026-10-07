@@ -145,112 +145,112 @@ typedef struct
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 1.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DSET[n] will make DOUT[n] reflect the set value.
      * |[1]     |DSET1     |LPIOn Data Ouput Set Control (Write Only)
      * |        |          |Writing 1 to each bit can set LPIOn pin output data to 1.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 1.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DSET[n] will make DOUT[n] reflect the set value.
      * |[2]     |DSET2     |LPIOn Data Ouput Set Control (Write Only)
      * |        |          |Writing 1 to each bit can set LPIOn pin output data to 1.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 1.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DSET[n] will make DOUT[n] reflect the set value.
      * |[3]     |DSET3     |LPIOn Data Ouput Set Control (Write Only)
      * |        |          |Writing 1 to each bit can set LPIOn pin output data to 1.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 1.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DSET[n] will make DOUT[n] reflect the set value.
      * |[4]     |DSET4     |LPIOn Data Ouput Set Control (Write Only)
      * |        |          |Writing 1 to each bit can set LPIOn pin output data to 1.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 1.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DSET[n] will make DOUT[n] reflect the set value.
      * |[5]     |DSET5     |LPIOn Data Ouput Set Control (Write Only)
      * |        |          |Writing 1 to each bit can set LPIOn pin output data to 1.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 1.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DSET[n] will make DOUT[n] reflect the set value.
      * |[6]     |DSET6     |LPIOn Data Ouput Set Control (Write Only)
      * |        |          |Writing 1 to each bit can set LPIOn pin output data to 1.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 1.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DSET[n] will make DOUT[n] reflect the set value.
      * |[7]     |DSET7     |LPIOn Data Ouput Set Control (Write Only)
      * |        |          |Writing 1 to each bit can set LPIOn pin output data to 1.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 1.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DSET[n] will make DOUT[n] reflect the set value.
      * |[16]    |DRESET0   |LPIOn Data Ouput Reset Control (Write Only)
      * |        |          |Writing 1 to each bit can reset LPIOn pin output data to 0.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 0.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DRESET[n] will make DOUT[n] reflect the reset value.
      * |[17]    |DRESET1   |LPIOn Data Ouput Reset Control (Write Only)
      * |        |          |Writing 1 to each bit can reset LPIOn pin output data to 0.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 0.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DRESET[n] will make DOUT[n] reflect the reset value.
      * |[18]    |DRESET2   |LPIOn Data Ouput Reset Control (Write Only)
      * |        |          |Writing 1 to each bit can reset LPIOn pin output data to 0.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 0.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DRESET[n] will make DOUT[n] reflect the reset value.
      * |[19]    |DRESET3   |LPIOn Data Ouput Reset Control (Write Only)
      * |        |          |Writing 1 to each bit can reset LPIOn pin output data to 0.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 0.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DRESET[n] will make DOUT[n] reflect the reset value.
      * |[20]    |DRESET4   |LPIOn Data Ouput Reset Control (Write Only)
      * |        |          |Writing 1 to each bit can reset LPIOn pin output data to 0.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 0.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DRESET[n] will make DOUT[n] reflect the reset value.
      * |[21]    |DRESET5   |LPIOn Data Ouput Reset Control (Write Only)
      * |        |          |Writing 1 to each bit can reset LPIOn pin output data to 0.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 0.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DRESET[n] will make DOUT[n] reflect the reset value.
      * |[22]    |DRESET6   |LPIOn Data Ouput Reset Control (Write Only)
      * |        |          |Writing 1 to each bit can reset LPIOn pin output data to 0.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 0.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DRESET[n] will make DOUT[n] reflect the reset value.
      * |[23]    |DRESET7   |LPIOn Data Ouput Reset Control (Write Only)
      * |        |          |Writing 1 to each bit can reset LPIOn pin output data to 0.
      * |        |          |0 = No action.
      * |        |          |1 = Reset LPIOn to 0.
      * |        |          |Note 1 : This bit field is write only, and reading this field will respond with 0.
-     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher pirority.
+     * |        |          |Note 2 : If DRESET[n] and DSET[n] are both set, DSET[n] has higher priority.
      * |        |          |Note 3 : Writing 1 to DRESET[n] will make DOUT[n] reflect the reset value.
      * @var LPGPIO_T::DRST
      * Offset: 0x10  LPIOn Data Output Reset Control

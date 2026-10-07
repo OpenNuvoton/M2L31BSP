@@ -198,7 +198,7 @@ typedef enum
 #define CANFD_ERR_FAIL       (-1L)              /*!< CANFD operation failed */
 #define CANFD_ERR_TIMEOUT    (-2L)              /*!< CANFD operation abort due to timeout error */
 
-/*@}*/ /* end of group CANFD_EXPORTED_CONSTANTS */
+/** @} */ /* end of group CANFD_EXPORTED_CONSTANTS */
 
 /** @addtogroup CANFD_EXPORTED_STRUCTS CANFD Exported Structs
   @{
@@ -390,7 +390,7 @@ typedef struct
     uint8_t             bBitRateSwitch;  /*!< Bit Rate Switch */
 } CANFD_TX_EVNT_ELEM_T;
 
-/*@}*/ /* end of group CANFD_EXPORTED_STRUCTS */
+/** @} */ /* end of group CANFD_EXPORTED_STRUCTS */
 
 /** @addtogroup CANFD_EXPORTED_FUNCTIONS CANFD Exported Functions
   @{
@@ -437,11 +437,11 @@ void CANFD_ClearStatusFlag(CANFD_T *psCanfd, uint32_t u32InterruptFlag);
 uint32_t CANFD_GetStatusFlag(const CANFD_T *psCanfd, uint32_t u32IntTypeFlag);
 void CANFD_CalculateTimingValues(CANFD_T *psCanfd, uint32_t u32NominalBaudRate, uint32_t u32DataBaudRate, uint32_t u32SourceClock_Hz, CANFD_TIMEING_CONFIG_T *psConfig);
 uint32_t CANFD_SetBitRate(CANFD_T *psCanfd, uint32_t u32BaudRate, int32_t u32SourceClock_Hz, uint32_t u32Set_NBTP);
-/*@}*/ /* end of group CANFD_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group CANFD_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group CANFD_Driver */
+/** @} */ /* end of group CANFD_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

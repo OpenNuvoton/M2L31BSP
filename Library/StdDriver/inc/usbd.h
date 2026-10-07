@@ -42,7 +42,7 @@ typedef struct s_usbd_info
 extern const S_USBD_INFO_T gsInfo;
 extern uint8_t g_usbd_SetupPacket[8];
 
-/*@}*/ /* end of group USBD_EXPORTED_STRUCT */
+/** @} */ /* end of group USBD_EXPORTED_STRUCT */
 
 
 
@@ -219,7 +219,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 
 
 
-/*@}*/ /* end of group USBD_EXPORTED_CONSTANTS */
+/** @} */ /* end of group USBD_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup USBD_EXPORTED_FUNCTIONS USBD Exported Functions
@@ -256,7 +256,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Enable USB
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   None
   *
@@ -268,7 +268,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Disable USB
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   None
   *
@@ -280,7 +280,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Enable USB PHY
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   None
   *
@@ -292,7 +292,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Disable USB PHY
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   None
   *
@@ -304,7 +304,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Enable SE0. Force USB PHY transceiver to drive SE0.
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   None
   *
@@ -316,7 +316,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Disable SE0
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   None
   *
@@ -340,7 +340,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Get USB device address
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   USB device address
   *
@@ -367,7 +367,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Get interrupt status
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   The value of USB_INTSTS register
   *
@@ -394,7 +394,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Get endpoint interrupt status
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   The value of USB_EPINTSTS register
   *
@@ -420,7 +420,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Get endpoint status
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   The value of USB_EPSTS register.
   *
@@ -432,7 +432,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Get USB bus state
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @return   The value of USB_ATTR[13:12] and USB_ATTR[3:0].
   *           Bit 0 indicates USB bus reset status.
@@ -448,7 +448,7 @@ extern uint8_t g_usbd_SetupPacket[8];
 /**
   * @brief    Check cable connection state
   *
-  * @param    None
+  * @note     No parameters.
   *
   * @retval   0 USB cable is not attached.
   * @retval   1 USB cable is attached.
@@ -669,7 +669,6 @@ extern uint8_t g_usbd_SetupPacket[8];
   *
   * @param[in]  size Byte count.
   *
-  * @return     None
   *
   * @details    This function will copy the number of data specified by size and src parameters to the address specified by dest parameter.
   *
@@ -689,7 +688,6 @@ static inline void USBD_MemCopy(uint8_t dest[], const uint8_t src[], uint32_t si
   *
   * @param[in]   epnum  USB endpoint number
   *
-  * @return      None
   *
   * @details     Set USB endpoint stall state. Endpoint will respond STALL token automatically.
   *
@@ -721,7 +719,6 @@ static inline void USBD_SetStall(uint8_t epnum)
   *
   * @param[in]   epnum  USB endpoint number
   *
-  * @return      None
   *
   * @details     Clear USB endpoint stall state. Endpoint will respond ACK/NAK token.
   */
@@ -814,11 +811,11 @@ void USBD_SetConfigCallback(SET_CONFIG_CB pfnSetConfigCallback);
 void USBD_LockEpStall(uint32_t u32EpBitmap);
 void USBD_GetDescriptor(void);
 
-/*@}*/ /* end of group USBD_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group USBD_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group USBD_Driver */
+/** @} */ /* end of group USBD_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

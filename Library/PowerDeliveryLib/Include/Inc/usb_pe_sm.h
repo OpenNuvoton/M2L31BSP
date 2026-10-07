@@ -151,7 +151,7 @@ void pe_invalidate_explicit_contract(int port);
 bool pe_in_frs_mode(int port);
 
 /*
- * Return true if the PE is is within an atomic
+ * Return true if the PE is within an atomic
  * messaging sequence that it initiated with a SOP* port partner.
  *
  * Note the PRL layer polls this instead of using AMS_START and AMS_END

@@ -39,7 +39,7 @@ extern "C"
 #define TRNG_CTL_KATSEL_RESEED  (1UL << TRNG_CTL_KATSEL_Pos)  /*!< TRNG Known Answer Test for Reseed        \hideinitializer */
 #define TRNG_CTL_KATSEL_UPDATE  (2UL << TRNG_CTL_KATSEL_Pos)  /*!< TRNG Known Answer Test for Generation    \hideinitializer */
 
-/*@}*/ /* end of group TRNG_EXPORTED_CONSTANTS */
+/** @} */ /* end of group TRNG_EXPORTED_CONSTANTS */
 
 /** @addtogroup TRNG_EXPORTED_FUNCTIONS TRNG Exported Functions
   @{
@@ -52,11 +52,11 @@ int32_t TRNG_GenBignum(uint8_t u8BigNum[], int32_t i32Len);
 int32_t TRNG_GenBignumHex(char cBigNumHex[], int32_t i32Len);
 
 
-/*@}*/ /* end of group TRNG_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TRNG_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TRNG_Driver */
+/** @} */ /* end of group TRNG_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

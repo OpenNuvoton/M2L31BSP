@@ -87,7 +87,7 @@ extern "C"
 
 #define LPTMR_TIMEOUT_ERR                       (-1L)                               /*!< LPTMR operation abort due to timeout error \hideinitializer */
 
-/*@}*/ /* end of group LPTMR_EXPORTED_CONSTANTS */
+/** @} */ /* end of group LPTMR_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup LPTMR_EXPORTED_FUNCTIONS LPTMR Exported Functions
@@ -200,7 +200,6 @@ static inline void LPTMR_EventCounterSelect(LPTMR_T *lptmr, uint32_t u32Src);
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to start LPTMR counting.
   */
@@ -214,7 +213,6 @@ static inline void LPTMR_Start(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to stop/suspend LPTMR counting.
   */
@@ -228,7 +226,6 @@ static inline void LPTMR_Stop(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the lptmr interrupt wake-up function and interrupt source could be time-out interrupt, \n
   *             counter event interrupt or capture trigger interrupt.
@@ -244,7 +241,6 @@ static inline void LPTMR_EnableWakeup(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the lptmr interrupt wake-up function.
   */
@@ -258,7 +254,6 @@ static inline void LPTMR_DisableWakeup(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to start LPTMR capture function.
   */
@@ -272,7 +267,6 @@ static inline void LPTMR_StartCapture(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to stop LPTMR capture function.
   */
@@ -286,7 +280,6 @@ static inline void LPTMR_StopCapture(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the detect de-bounce function of capture pin.
   */
@@ -300,7 +293,6 @@ static inline void LPTMR_EnableCaptureDebounce(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the detect de-bounce function of capture pin.
   */
@@ -314,7 +306,6 @@ static inline void LPTMR_DisableCaptureDebounce(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the detect de-bounce function of counter pin.
   */
@@ -328,7 +319,6 @@ static inline void LPTMR_EnableEventCounterDebounce(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the detect de-bounce function of counter pin.
   */
@@ -342,7 +332,6 @@ static inline void LPTMR_DisableEventCounterDebounce(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the lptmr time-out interrupt function.
   */
@@ -356,7 +345,6 @@ static inline void LPTMR_EnableInt(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the lptmr time-out interrupt function.
   */
@@ -370,7 +358,6 @@ static inline void LPTMR_DisableInt(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the lptmr capture trigger interrupt function.
   */
@@ -384,7 +371,6 @@ static inline void LPTMR_EnableCaptureInt(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the lptmr capture trigger interrupt function.
   */
@@ -413,7 +399,6 @@ static inline uint32_t LPTMR_GetIntFlag(const LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function clears lptmr time-out interrupt flag to 0.
   */
@@ -457,7 +442,6 @@ static inline uint32_t LPTMR_GetCaptureIntFlagOV(const LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function clears lptmr capture trigger interrupt flag to 0.
   */
@@ -486,7 +470,6 @@ static inline uint32_t LPTMR_GetWakeupFlag(const LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function clears the lptmr wake-up system flag to 0.
   */
@@ -528,7 +511,6 @@ static inline uint32_t LPTMR_GetCounter(const LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified lptmr module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the lptmr Power-down Engine Clock.
   */
@@ -542,7 +524,6 @@ static inline void LPTMR_EnablePDCLK(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified lptmr module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the lptmr Power-down Engine Clock.
   */
@@ -560,7 +541,6 @@ static inline void LPTMR_DisablePDCLK(LPTMR_T *lptmr)
   *                         - \ref LPTMR_EVENT_COUNTER_SOURCE_ACMP0
   *                         - \ref LPTMR_EVENT_COUNTER_SOURCE_ACMP1
   *                         - \ref LPTMR_EVENT_COUNTER_SOURCE_ACMP2
-  * @return     None
   *
   * @details    This API is used to select lptmr Event Counter source from LPTMx or internal singal.
   */
@@ -584,11 +564,11 @@ int32_t  LPTMR_ResetCounter(LPTMR_T *lptmr);
 void     LPTMR_EnableCaptureInputNoiseFilter(LPTMR_T *lptmr, uint32_t u32FilterCount, uint32_t u32ClkSrcSel);
 void     LPTMR_DisableCaptureInputNoiseFilter(LPTMR_T *lptmr);
 
-/*@}*/ /* end of group LPTMR_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPTMR_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPTMR_Driver */
+/** @} */ /* end of group LPTMR_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

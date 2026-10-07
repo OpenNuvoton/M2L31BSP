@@ -56,7 +56,7 @@ extern "C"
 #define TPWM_IFA_PERIOD_POINT                (1U)         /*!< Timer PWM counter equal to period \hideinitializer */
 #define TPWM_IFA_COMPARE_UP_COUNT_POINT      (2U)         /*!< Timer PWM counter up count to comparator value \hideinitializer */
 
-/*@}*/ /* end of group TIMER_PWM_EXPORTED_CONSTANTS */
+/** @} */ /* end of group TIMER_PWM_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup TIMER_PWM_EXPORTED_FUNCTIONS TIMER PWM Exported Functions
@@ -565,7 +565,6 @@ static inline void TPWM_ClearWakeupFlag(TIMER_T *timer);
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to enable the TPWM interrupt Wake-up function and interrupt source could be period interrupt, \n
   *             or compare interrupt.
@@ -582,7 +581,6 @@ static inline void TPWM_EnableWakeup(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to disable the TPWM interrupt Wake-up function.
   * \hideinitializer
@@ -613,7 +611,6 @@ static inline uint32_t TPWM_GetWakeupFlag(const TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function clears TPWM Wake-up flag.
   * \hideinitializer
@@ -634,11 +631,11 @@ void TPWM_DisableAccPDMA(TIMER_T *timer);
 void TPWM_EnableAccStopMode(TIMER_T *timer);
 void TPWM_DisableAccStopMode(TIMER_T *timer);
 
-/*@}*/ /* end of group TIMER_PWM_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TIMER_PWM_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TIMER_PWM_Driver */
+/** @} */ /* end of group TIMER_PWM_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

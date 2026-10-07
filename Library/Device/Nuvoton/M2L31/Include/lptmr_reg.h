@@ -436,7 +436,7 @@ typedef struct
      * | :----: | :----:   | :---- |
      * |[15:0]  |IFACNT    |PWM Interrupt Flag Accumulator Counter
      * |        |          |This field sets the count number which defines (IFACNT+1) times of specify PWM interrupt occurs to set IFAIF bit to request the PWM accumulator interrupt.
-     * |        |          |PWM accumulator flag (IFAIF) will be set in every (IFACNT+1) times during the the PWM counter operation.
+     * |        |          |PWM accumulator flag (IFAIF) will be set in every (IFACNT+1) times during the PWM counter operation.
      * |[24]    |STPMOD    |PWM Accumulator Stop Mode Enable Bit
      * |        |          |0 = PWM interrupt accumulator event to stop counting Disabled.
      * |        |          |1 = PWM interrupt accumulator event to stop counting Enabled.

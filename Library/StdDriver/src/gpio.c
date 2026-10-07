@@ -37,7 +37,6 @@
  *                          - \ref GPIO_MODE_OPEN_DRAIN
  *                          - \ref GPIO_MODE_QUASI
  *
- * @return      None
  *
  * @details     This function is used to set specified GPIO operation mode.
  */
@@ -71,7 +70,6 @@ void GPIO_SetMode(GPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode)
  *                              - \ref GPIO_INT_BOTH_EDGE
  *                              - \ref GPIO_INT_HIGH
  *                              - \ref GPIO_INT_LOW
- * @return      None
  *
  * @details     This function is used to enable specified GPIO pin interrupt.
  */
@@ -93,7 +91,6 @@ void GPIO_EnableInt(GPIO_T *port, uint32_t u32Pin, uint32_t u32IntAttribs)
  *                          - It could be 2 ~ 4, 9 ~ 15 for PG GPIO port.
  *                          - It could be 4 ~ 11 for PH GPIO port.
  *
- * @return      None
  *
  * @details     This function is used to disable specified GPIO pin interrupt.
  */
@@ -117,7 +114,6 @@ void GPIO_DisableInt(GPIO_T *port, uint32_t u32Pin)
  *                          - \ref GPIO_SLEWCTL_NORMAL (maximum 40 MHz at 2.7V)
  *                          - \ref GPIO_SLEWCTL_HIGH (maximum 72 MHz at 2.7V)
  *
- * @return      None
  *
  * @details     This function is used to set specified GPIO operation mode.
  */
@@ -149,7 +145,6 @@ void GPIO_SetSlewCtl(GPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode)
  *                          - \ref GPIO_PUSEL_PULL_UP
  *                          - \ref GPIO_PUSEL_PULL_DOWN
  *
- * @return      None
  *
  * @details     Set the pin mode of specified GPIO pin.
  */
@@ -167,10 +162,10 @@ void GPIO_SetPullCtl(GPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode)
 }
 
 
-/*@}*/ /* end of group GPIO_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group GPIO_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group GPIO_Driver */
+/** @} */ /* end of group GPIO_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

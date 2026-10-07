@@ -237,11 +237,11 @@ int32_t TRNG_GenBignumHex(char cBigNumHex[], int32_t i32Len)
     return 0;
 }
 
-/*@}*/ /* end of group TRNG_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TRNG_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TRNG_Driver */
+/** @} */ /* end of group TRNG_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/
 

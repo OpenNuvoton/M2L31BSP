@@ -232,7 +232,7 @@ static bool CheckPacketIntegrity(bool bIsCrc, const uint8_t *pu8Buf, int32_t i32
   * @param[in]  u32DestAddr Destination address of flash to program.
   * @return     Recived data size if successful. Return -1 when error.
   *
-  * @details    This function is used to recieve UART data through Xmodem transfer.
+  * @details    This function is used to receive UART data through Xmodem transfer.
   *             The received data will be programmed to flash packet by packet.
   */
 int32_t Xmodem(uint32_t u32DestAddr)
@@ -408,11 +408,11 @@ int32_t Xmodem(uint32_t u32DestAddr)
 
 /**
   * @brief      Send data by UART Xmodem transfer.
-  * @param[in]  src     Address of the source data to transfer.
-  * @param[in]  srcsz   Size of the total size to transfer.
-  * @retval     Total transfer size when successfull
+  * @param[in]  pu8SrcBuf   Address of the source data to transfer.
+  * @param[in]  i32SrcSize  Total size of the data to transfer.
+  * @retval     Total transfer size when successful
   * @retval     -1  Canceled by remote
-  * @retval     -2  No sync chararcter received.
+  * @retval     -2  No sync character received.
   * @retval     -4  Transmit error.
   * @retval     -5  Unknown error.
   * @details    This function is used to send UART data through Xmodem transfer.

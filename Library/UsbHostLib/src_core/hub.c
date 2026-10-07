@@ -183,9 +183,8 @@ static int  get_port_status(HUB_DEV_T *hub, int port, uint16_t *wPortStatus, uin
 /**
  * @brief     Interrupt-IN transfer completion callback for hub status-change notification.
  * @param[in] utr  The completed transfer request; its context field carries the owning HUB_DEV_T.
- * @return    None.
  *
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> utr->context stores a generic void * set by hub_probe() to
  *                       the owning HUB_DEV_T. This is the single conversion point
@@ -353,9 +352,8 @@ static int hub_probe(IFACE_T *iface)
 /**
   * @brief     Disconnect handler for a USB hub interface; tears down all downstream devices.
   * @param[in] iface  The hub interface being disconnected.
-  * @return    None.
   *
-  * @static_deviation
+  * @par Static deviation
   * <b>Rule:</b> constParameterCallback (cppcheck native check)<br>
   * <b>Location:</b> `hub_disconnect()` parameter `iface`<br>
   * <b>Justification:</b> `iface` is only read here, but this function is assigned to the
@@ -698,7 +696,6 @@ static int  hub_polling(void)
 
 /**
   * @brief    Initialize USB Hub Class device driver.
-  * @return   None
   */
 void usbh_hub_init(void)
 {

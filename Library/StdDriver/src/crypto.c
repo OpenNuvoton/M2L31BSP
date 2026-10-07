@@ -52,7 +52,6 @@
   *         - \ref PRNG_SEED_CONT
   *         - \ref PRNG_SEED_RELOAD
   * @param[in]  u32Seed  The new seed. Only valid when u32SeedReload is PRNG_SEED_RELOAD.
-  * @return None
   */
 void PRNG_Open(CRPT_T *crpt, uint32_t u32KeySize, uint32_t u32SeedReload, uint32_t u32Seed)
 {
@@ -91,7 +90,6 @@ int32_t PRNG_Start(CRPT_T *crpt)
   * @brief  Read the PRNG key.
   * @param[in]   crpt         The pointer of CRPT module
   * @param[out]  u32RandKey  The key buffer to store newly generated PRNG key.
-  * @return None
   */
 void PRNG_Read(CRPT_T *crpt, uint32_t u32RandKey[])
 {
@@ -142,7 +140,6 @@ void PRNG_Read(CRPT_T *crpt, uint32_t u32RandKey[])
   *         - \ref AES_OUT_SWAP
   *         - \ref AES_IN_SWAP
   *         - \ref AES_IN_OUT_SWAP
-  * @return None
   */
 void AES_Open(CRPT_T *crpt, uint32_t u32Channel, uint32_t u32EncDec,
               uint32_t u32OpMode, uint32_t u32KeySize, uint32_t u32SwapType)
@@ -164,7 +161,6 @@ void AES_Open(CRPT_T *crpt, uint32_t u32Channel, uint32_t u32EncDec,
   *         - \ref CRYPTO_DMA_ONE_SHOT   One shot AES encrypt/decrypt.
   *         - \ref CRYPTO_DMA_CONTINUE   Continuous AES encrypt/decrypt.
   *         - \ref CRYPTO_DMA_LAST       Last AES encrypt/decrypt of a series of AES_Start.
-  * @return None
   */
 void AES_Start(CRPT_T *crpt, uint32_t u32Channel, uint32_t u32DMAMode)
 {
@@ -183,7 +179,6 @@ void AES_Start(CRPT_T *crpt, uint32_t u32Channel, uint32_t u32DMAMode)
   *         - \ref AES_KEY_SIZE_128
   *         - \ref AES_KEY_SIZE_192
   *         - \ref AES_KEY_SIZE_256
-  * @return None
   */
 void AES_SetKey(CRPT_T *crpt, uint32_t u32Channel, const uint32_t au32Keys[], uint32_t u32KeySize)
 {
@@ -209,7 +204,6 @@ void AES_SetKey(CRPT_T *crpt, uint32_t u32Channel, const uint32_t au32Keys[], ui
   * @param[in]  crpt        The pointer of CRPT module
   * @param[in]  u32Channel  AES channel. Must be 0~3.
   * @param[in]  au32IV      A four entry word array contains AES initial vectors.
-  * @return None
   */
 void AES_SetInitVect(CRPT_T *crpt, uint32_t u32Channel, const uint32_t au32IV[])
 {
@@ -235,7 +229,6 @@ void AES_SetInitVect(CRPT_T *crpt, uint32_t u32Channel, const uint32_t au32IV[])
   * @param[in]  u32SrcAddr   AES DMA source address
   * @param[in]  u32DstAddr   AES DMA destination address
   * @param[in]  u32TransCnt  AES DMA transfer byte count
-  * @return None
   */
 void AES_SetDMATransfer(CRPT_T *crpt, uint32_t u32Channel, uint32_t u32SrcAddr,
                         uint32_t u32DstAddr, uint32_t u32TransCnt)

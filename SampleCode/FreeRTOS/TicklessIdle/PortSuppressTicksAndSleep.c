@@ -71,7 +71,7 @@
 /*-----------------------------------------------------------*/
 
 /**
- * @brief The minimum requirement of RTC slepp time.
+ * @brief The minimum required RTC sleep time.
  */
 #define MIN_RTC_SLEEP_TIME (25UL)
 

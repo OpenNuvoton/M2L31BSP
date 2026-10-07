@@ -47,8 +47,7 @@ typedef void(*VECTOR_TABLE_Type)(void);
 /**
  * Initialize the system
  *
- * @param  none
- * @return none
+ * @note   No parameters.
  *
  * @brief  Setup the micro controller system.
  *         Initialize the System and update the SystemCoreClock variable.
@@ -58,8 +57,7 @@ extern void SystemInit(void);
 /**
  * Update SystemCoreClock variable
  *
- * @param  none
- * @return none
+ * @note   No parameters.
  *
  * @brief  Updates the SystemCoreClock with current core Clock
  *         retrieved from cpu registers.
@@ -69,8 +67,7 @@ extern void SystemCoreClockUpdate(void);
 /**
  * Set UART0 default multi function pin
  *
- * @param  none
- * @return none
+ * @note   No parameters.
  *
  * @brief  The initialization of uart0 default multiple-function pin.
  */
@@ -79,7 +76,7 @@ extern void Uart0DefaultMPF(void);
 /**
  * Check if debug message finished
  *
- * @param    None
+ * @note        No parameters.
  *
  * @retval   1: Message is finished
  * @retval   0: Message is transmitting.

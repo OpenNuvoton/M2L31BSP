@@ -188,7 +188,7 @@ int32_t  usbh_cdc_set_control_line_state(CDC_DEV_T *cdev, int active_carrier, in
 }
 
 /**
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> utr->context stores a generic void * set by cdc_probe() to the
  *                       owning CDC_DEV_T. This accessor centralizes what was previously

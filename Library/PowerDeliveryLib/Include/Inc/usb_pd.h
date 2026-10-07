@@ -1816,6 +1816,7 @@ void pd_snk_give_back(int port, uint32_t * const ma, uint32_t * const mv);
 
 /**
  * Put a cap on the max voltage requested as a sink.
+ * @param port USB-C port number
  * @param mv maximum voltage in millivolts.
  */
 void pd_set_max_voltage(int port, unsigned mv);
@@ -1829,7 +1830,7 @@ unsigned int pd_get_max_voltage(int port);
 /**
  * Check if this board supports the given input voltage.
  *
- * @mv input voltage
+ * @param mv input voltage
  * @return 1 if voltage supported, 0 if not
  */
 __override_proto int pd_is_valid_input_voltage(int mv);
@@ -1870,7 +1871,7 @@ void pd_power_supply_reset(int port);
  * Enable or disable VBUS discharge for a given port.
  *
  * @param port USB-C port number
- * @enable 1 if enabling discharge, 0 if disabling
+ * @param enable 1 if enabling discharge, 0 if disabling
  */
 void pd_set_vbus_discharge(int port, int enable);
 
@@ -1978,8 +1979,8 @@ __override_proto int pd_check_power_swap(int port);
  * Check if we are allowed to automatically charge from port partner
  *
  * @param port USB-C port number
- * @pdo_cnt number of source cap PDOs
- * @*pdos  pointer to source cap PDOs
+ * @param pdo_cnt number of source cap PDOs
+ * @param pdos    pointer to source cap PDOs
  * @return True if port partner can supply power
  */
 __override_proto bool pd_can_charge_from_device(int port, const int pdo_cnt,
@@ -2772,7 +2773,7 @@ __override_proto bool board_is_tbt_usb4_port(int port);
  * @param port          USB-C port number
  * @param dev_id        device identifier
  * @param rw_hash       pointer to rw_hash
- * @param current_image     current image: RW or RO
+ * @param ec_image          current image: RW or RO
  * @return          true if the dev / hash match an existing hash
  *              in our table, false otherwise
  */
@@ -3615,8 +3616,8 @@ __override_proto int svdm_dp_status(int port, uint32_t *payload);
  * Configure the pins used for DisplayPort Alternate Mode.
  *
  * @param port The PD port number
- * @payload payload Pointer to the PDO payload which is filled with the
- *                  DPConfigure response message
+ * @param payload Pointer to the PDO payload which is filled with the
+ *                DPConfigure response message
  * @return number of VDOs
  */
 __override_proto int svdm_dp_config(int port, uint32_t *payload);

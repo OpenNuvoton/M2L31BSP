@@ -107,7 +107,6 @@ uint32_t LPTPWM_ConfigOutputFreqAndDuty(LPTMR_T *lptmr, uint32_t u32Frequency, u
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable LPTPWM generator and start counter counting.
   */
@@ -121,7 +120,6 @@ void LPTPWM_EnableCounter(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details This function is used to disable LPTPWM counter immediately by clear CNTEN (LPTMRx_PWMCTL[0]) bit.
   */
@@ -135,13 +133,12 @@ void LPTPWM_DisableCounter(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr           The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1
   * @param[in]  u32TargetMask   The mask of modules (Low power IP or LPPDMA) trigger by LPTPWM, the combination of:
-  *                                 - \ref LPTMR_PWMTRGCTL_TRGSEL_Msk
-  *                                 - \ref (LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk  | LPTMR_PWMTRGCTL_TRGSEL_Msk)
+  *                                 - \ref LPTMR_PWMTRGCTL_TRGEN_Msk
+  *                                 - \ref (LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk | LPTMR_PWMTRGCTL_TRGEN_Msk)
   * @param[in]  u32Condition    The condition to trigger LPPDMA. It could be one of following conditions:
   *                                 - \ref LPTPWM_TRIGGER_AT_PERIOD_POINT
   *                                 - \ref LPTPWM_TRIGGER_AT_COMPARE_POINT
   *                                 - \ref LPTPWM_TRIGGER_AT_PERIOD_OR_COMPARE_POINT
-  * @return     None
   *
   * @details    This function is used to enable specified counter event to trigger ADC/DAC/PDMA.
   */
@@ -158,7 +155,6 @@ void LPTPWM_EnableTrigger(LPTMR_T *lptmr, uint32_t u32TargetMask, uint32_t u32Co
   * @param[in]  u32TargetMask   The mask of modules (LPPDMA) trigger by LPTPWM, the combination of:
   *                                 - \ref LPTMR_PWMTRGCTL_PWMTRGLPPDMA_Msk
   *
-  * @return     None
   *
   * @details    This function is used to disable counter event to trigger LPPDMA.
   */
@@ -174,7 +170,6 @@ void LPTPWM_DisableTrigger(LPTMR_T *lptmr, uint32_t u32TargetMask)
   * @param[in]  u32IntAccSrc    Interrupt flag accumulator source selection.
   *                                 - \ref LPTPWM_IFA_PERIOD_POINT
   *                                 - \ref LPTPWM_IFA_COMPARE_UP_COUNT_POINT
-  * @return     None
   * @details    This function is used to enable interrupt flag accumulator.
   */
 void LPTPWM_EnableAcc(LPTMR_T *lptmr, uint32_t u32IntFlagCnt, uint32_t u32IntAccSrc)
@@ -186,7 +181,6 @@ void LPTPWM_EnableAcc(LPTMR_T *lptmr, uint32_t u32IntFlagCnt, uint32_t u32IntAcc
 /**
   * @brief      Disable Interrupt Flag Accumulator
   * @param[in]  lptmr       The pointer of the specified Timer module. It could be LPTMR0, LPTMR1
-  * @return     None
   * @details    This function is used to disable interrupt flag accumulator.
   */
 void LPTPWM_DisableAcc(LPTMR_T *lptmr)
@@ -197,7 +191,6 @@ void LPTPWM_DisableAcc(LPTMR_T *lptmr)
 /**
   * @brief      Enable Interrupt Flag Accumulator Interrupt Function
   * @param[in]  lptmr       The pointer of the specified Timer module. It could be LPTMR0, LPTMR1
-  * @return     None
   * @details    This function is used to enable interrupt flag accumulator interrupt.
   */
 void LPTPWM_EnableAccInt(LPTMR_T *lptmr)
@@ -208,7 +201,6 @@ void LPTPWM_EnableAccInt(LPTMR_T *lptmr)
 /**
   * @brief      Disable Interrupt Flag Accumulator Interrupt Function
   * @param[in]  lptmr       The pointer of the specified Timer module. It could be LPTMR0, LPTMR1
-  * @return     None
   * @details    This function is used to disable interrupt flag accumulator interrupt.
   */
 void LPTPWM_DisableAccInt(LPTMR_T *lptmr)
@@ -219,7 +211,6 @@ void LPTPWM_DisableAccInt(LPTMR_T *lptmr)
 /**
   * @brief      Clear Interrupt Flag Accumulator Interrupt Flag
   * @param[in]  lptmr       The pointer of the specified Timer module. It could be LPTMR0, LPTMR1
-  * @return     None
   * @details    This function is used to clear interrupt flag accumulator interrupt.
   */
 void LPTPWM_ClearAccInt(LPTMR_T *lptmr)
@@ -242,7 +233,6 @@ uint32_t LPTPWM_GetAccInt(const LPTMR_T *lptmr)
 /**
   * @brief      Enable Accumulator Interrupt Trigger LPPDMA
   * @param[in]  lptmr       The pointer of the specified Timer module. It could be LPTMR0, LPTMR1
-  * @return     None
   * @details    This function is used to enable accumulator interrupt trigger PDMA transfer.
   */
 void LPTPWM_EnableAccLPPDMA(LPTMR_T *lptmr)
@@ -253,7 +243,6 @@ void LPTPWM_EnableAccLPPDMA(LPTMR_T *lptmr)
 /**
   * @brief      Disable Accumulator Interrupt Trigger PDMA
   * @param[in]  lptmr       The pointer of the specified Timer module. It could be LPTMR0, LPTMR1
-  * @return     None
   * @details    This function is used to disable accumulator interrupt trigger PDMA transfer.
   */
 void LPTPWM_DisableAccPDMA(LPTMR_T *lptmr)
@@ -264,7 +253,6 @@ void LPTPWM_DisableAccPDMA(LPTMR_T *lptmr)
 /**
   * @brief      Enable Interrupt Flag Accumulator Stop Mode
   * @param[in]  lptmr       The pointer of the specified Timer module. It could be LPTMR0, LPTMR1
-  * @return     None
   * @details    This function is used to enable interrupt flag accumulator event to stop PWM counting.
   */
 void LPTPWM_EnableAccStopMode(LPTMR_T *lptmr)
@@ -275,7 +263,6 @@ void LPTPWM_EnableAccStopMode(LPTMR_T *lptmr)
 /**
   * @brief      Disable Interrupt Flag Accumulator Stop Mode
   * @param[in]  lptmr       The pointer of the specified Timer module. It could be LPTMR0, LPTMR1
-  * @return     None
   * @details    This function is used to disable interrupt flag accumulator event to stop PWM counting.
   */
 void LPTPWM_DisableAccStopMode(LPTMR_T *lptmr)
@@ -283,10 +270,10 @@ void LPTPWM_DisableAccStopMode(LPTMR_T *lptmr)
     lptmr->PWMIFA &= ~LPTMR_PWMIFA_STPMOD_Msk;
 }
 
-/*@}*/ /* end of group LPTMR_PWM_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPTMR_PWM_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPTMR_PWM_Driver */
+/** @} */ /* end of group LPTMR_PWM_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2019 Nuvoton Technology Corp. ***/

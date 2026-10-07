@@ -31,7 +31,6 @@ static uint32_t u32ChSelect[PDMA_CH_MAX];
  *
  * @param[in]   u32Mask     Channel enable bits.
  *
- * @return      None
  *
  * @details     This function enable the PDMA channels.
  */
@@ -56,7 +55,6 @@ void PDMA_Open(PDMA_T *pdma, uint32_t u32Mask)
  *
  * @param[in]   pdma            The pointer of the specified PDMA module
  *
- * @return      None
  *
  * @details     This function disable all PDMA channels.
  */
@@ -76,7 +74,6 @@ void PDMA_Close(PDMA_T *pdma)
  *                - \ref PDMA_WIDTH_32
  * @param[in]   u32TransCount   Transfer count
  *
- * @return      None
  *
  * @details     This function set the selected channel data width and transfer count.
  */
@@ -100,7 +97,6 @@ void PDMA_SetTransferCnt(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32Width, uint32
  *                - \ref PDMA_DAR_INC
  *                - \ref PDMA_DAR_FIX
  *
- * @return      None
  *
  * @details     This function set the selected channel source/destination address and attribute.
  */
@@ -211,7 +207,6 @@ void PDMA_SetTransferAddr(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32SrcAddr, uin
  * @param[in]   u32ScatterEn    Scatter-gather mode enable
  * @param[in]   u32DescAddr     Scatter-gather descriptor address
  *
- * @return      None
  *
  * @details     This function set the selected channel transfer mode. Include peripheral setting.
  */
@@ -301,7 +296,6 @@ void PDMA_SetTransferMode(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32Peripheral, 
  *                - \ref PDMA_BURST_2
  *                - \ref PDMA_BURST_1
  *
- * @return      None
  *
  * @details     This function set the selected channel burst type and size.
  */
@@ -318,7 +312,6 @@ void PDMA_SetBurstType(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32BurstType, uint
  *
  * @param[in]   u32Mask         Channel enable bits.
  *
- * @return      None
  *
  * @details     This function enable timeout function of the selected channel(s).
  */
@@ -334,7 +327,6 @@ void PDMA_EnableTimeout(PDMA_T *pdma, uint32_t u32Mask)
  *
  * @param[in]   u32Mask         Channel enable bits.
  *
- * @return      None
  *
  * @details     This function disable timeout function of the selected channel(s).
  */
@@ -351,7 +343,6 @@ void PDMA_DisableTimeout(PDMA_T *pdma, uint32_t u32Mask)
  * @param[in]   u32OnOff        Enable/disable time out function
  * @param[in]   u32TimeOutCnt   Timeout count
  *
- * @return      None
  *
  * @details     This function set the timeout count.
  * @note        M2L31 only supported channel 0/1.
@@ -386,7 +377,6 @@ void PDMA_SetTimeOut(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32OnOff, uint32_t u
  * @param[in]   pdma            The pointer of the specified PDMA module
  * @param[in]   u32Ch           The selected channel
  *
- * @return      None
  *
  * @details     This function trigger the selected channel.
  */
@@ -409,7 +399,6 @@ void PDMA_Trigger(PDMA_T *pdma, uint32_t u32Ch)
  *                - \ref PDMA_INT_TEMPTY
  *                - \ref PDMA_INT_TIMEOUT
  *
- * @return      None
  *
  * @details     This function enable the selected channel interrupt.
  */
@@ -441,7 +430,6 @@ void PDMA_EnableInt(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32Mask)
  *                - \ref PDMA_INT_TEMPTY
  *                - \ref PDMA_INT_TIMEOUT
  *
- * @return      None
  *
  * @details     This function disable the selected channel interrupt.
  */
@@ -463,10 +451,10 @@ void PDMA_DisableInt(PDMA_T *pdma, uint32_t u32Ch, uint32_t u32Mask)
     }
 }
 
-/*@}*/ /* end of group PDMA_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group PDMA_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group PDMA_Driver */
+/** @} */ /* end of group PDMA_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

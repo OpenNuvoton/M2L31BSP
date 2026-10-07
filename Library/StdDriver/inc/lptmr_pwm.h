@@ -57,7 +57,7 @@ extern "C"
 #define LPTPWM_IFA_PERIOD_POINT                (1U)         /*!< Low Power Timer PWM counter equal to period \hideinitializer */
 #define LPTPWM_IFA_COMPARE_UP_COUNT_POINT      (2U)         /*!< Low Power Timer PWM counter up count to comparator value \hideinitializer */
 
-/*@}*/ /* end of group LPTMR_PWM_EXPORTED_CONSTANTS */
+/** @} */ /* end of group LPTMR_PWM_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup LPTMR_PWM_EXPORTED_FUNCTIONS LPTMR PWM Exported Functions
@@ -417,7 +417,6 @@ static inline void LPTPWM_ClearWakeupFlag(LPTMR_T *lptmr);
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to enable the LPTPWM interrupt Wake-up function and interrupt source could be period interrupt, \n
   *             or compare interrupt.
@@ -434,7 +433,6 @@ static inline void LPTPWM_EnableWakeup(LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function is used to disable the LPTPWM interrupt Wake-up function.
   * \hideinitializer
@@ -465,7 +463,6 @@ static inline uint32_t LPTPWM_GetWakeupFlag(const LPTMR_T *lptmr)
   *
   * @param[in]  lptmr       The pointer of the specified LPTMR module. It could be LPTMR0, LPTMR1.
   *
-  * @return     None
   *
   * @details    This function clears LPTPWM Wake-up flag.
   * \hideinitializer
@@ -486,11 +483,11 @@ void LPTPWM_DisableAccPDMA(LPTMR_T *lptmr);
 void LPTPWM_EnableAccStopMode(LPTMR_T *lptmr);
 void LPTPWM_DisableAccStopMode(LPTMR_T *lptmr);
 
-/*@}*/ /* end of group LPTMR_PWM_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPTMR_PWM_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPTMR_PWM_Driver */
+/** @} */ /* end of group LPTMR_PWM_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

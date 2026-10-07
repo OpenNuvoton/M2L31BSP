@@ -34,7 +34,7 @@ extern "C"
 #define LPGPIO_MODE_INPUT       (0x0UL) /*!< Input Mode \hideinitializer */
 #define LPGPIO_MODE_OUTPUT      (0x1UL) /*!< Output Mode \hideinitializer */
 
-/*@}*/ /* end of group LPGPIO_EXPORTED_CONSTANTS */
+/** @} */ /* end of group LPGPIO_EXPORTED_CONSTANTS */
 
 /** @addtogroup LPGPIO_EXPORTED_FUNCTIONS LPGPIO Exported Functions
   @{
@@ -67,11 +67,11 @@ extern "C"
 
 void LPGPIO_SetMode(LPGPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode);
 
-/*@}*/ /* end of group LPGPIO_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPGPIO_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPGPIO_Driver */
+/** @} */ /* end of group LPGPIO_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

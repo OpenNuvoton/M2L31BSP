@@ -492,7 +492,7 @@ int  usbh_uac_auto_gain_control(UAC_DEV_T *uac, uint8_t target, uint8_t req, uin
 
 /**
  *  @brief    Find the alternative interface whose endpoint has the maximum packet size.
- *  @param[in]  ifcae     USB device interface
+ *  @param[in]  iface     USB device interface
  *  @param[in]  dir       Endpoint bEndpointAddress[7] direction
  *  @param[in]  attr      Endpoint bmAttributes[1:0] transfer type
  *  @param[out] bAlternateSetting   The alternative interface number if found.
@@ -537,7 +537,7 @@ int  usbh_uac_find_max_alt(IFACE_T *iface, uint8_t dir, uint8_t attr, uint8_t *b
 
 /**
  *  @brief    Find the alternative interface whose endpoint is the best choice.
- *  @param[in]  ifcae     USB device interface
+ *  @param[in]  iface     USB device interface
  *  @param[in]  dir       Endpoint bEndpointAddress[7] direction
  *  @param[in]  attr      Endpoint bmAttributes[1:0] transfer type
  *  @param[in]  pkt_sz    Find the endpoint whose wMaxPacketSize is larger than <pkt_sz> and is most cross to <pkt_sz>.
@@ -584,7 +584,7 @@ int  usbh_uac_find_best_alt(IFACE_T *iface, uint8_t dir, uint8_t attr, int pkt_s
 /// @endcond HIDDEN_SYMBOLS
 
 /**
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> utr->context stores a generic void * set by uac_probe() to the
  *                       owning UAC_DEV_T. This accessor centralizes what was previously

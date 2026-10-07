@@ -2,7 +2,7 @@ FreeRTOS's tickless idle mode works by halting the periodic tick interrupt when 
 
 To activate the built-in tickless idle feature in FreeRTOS, you need to set the value of configUSE_TICKLESS_IDLE to 1 in the FreeRTOSConfig.h file.
 
-Tickless Idle sample code demonostrate set configUSE_TICKLESS_IDLE to 1 in FreeRTOSConfig.h to enable tickless idle.
-User can monitor HCLK by PD12 to check if the system enter deeper sleep (clock off).
-In the sample code, a thread is created to print the tick count and delay ever 500ms.
-PB1~5 are supported to wake up the system in this sample code.
+This sample demonstrates how to enable tickless idle by setting configUSE_TICKLESS_IDLE to 1 in FreeRTOSConfig.h.
+Monitor HCLK on PD.12 to check whether the system enters power-down mode (when the clock is off).
+The sample creates a task that prints the tick count and delays for 500 ticks.
+PB.1 through PB.5 can wake the system.

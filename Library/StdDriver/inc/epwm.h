@@ -199,7 +199,7 @@ extern "C"
 #define EPWM_FDCTL_FDCKSEL_CLK_DIV_8              (3UL << EPWM_FDCTL0_FDCKSEL_Pos)    /*!<  Fault detect clock selects to fault detect clock divided by 8 \hideinitializer */
 
 
-/*@}*/ /* end of group EPWM_EXPORTED_CONSTANTS */
+/** @} */ /* end of group EPWM_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup EPWM_EXPORTED_FUNCTIONS EPWM Exported Functions
@@ -632,11 +632,11 @@ void EPWM_DisableFaultDetectInt(EPWM_T *epwm, uint32_t u32ChannelNum);
 void EPWM_ClearFaultDetectInt(EPWM_T *epwm, uint32_t u32ChannelNum);
 uint32_t EPWM_GetFaultDetectInt(const EPWM_T *epwm, uint32_t u32ChannelNum);
 
-/*@}*/ /* end of group EPWM_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group EPWM_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group EPWM_Driver */
+/** @} */ /* end of group EPWM_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

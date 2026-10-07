@@ -442,7 +442,7 @@ int  usbh_umas_reset_disk(int drv_no)
 /// @endcond HIDDEN_SYMBOLS
 
 /**
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is the
  *                       single conversion point where the raw block becomes a typed

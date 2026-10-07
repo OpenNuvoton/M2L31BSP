@@ -68,7 +68,7 @@ extern "C"
 #define I2C_ERR_FAIL    (-1L)            /*!< I2C operation failed                                                        \hideinitializer */
 #define I2C_ERR_TIMEOUT (-2L)            /*!< I2C operation abort due to timeout error                                    \hideinitializer */
 
-/*@}*/ /* end of group I2C_EXPORTED_CONSTANTS */
+/** @} */ /* end of group I2C_EXPORTED_CONSTANTS */
 
 extern int32_t g_I2C_i32ErrCode;
 
@@ -487,7 +487,6 @@ static inline void I2C_STOP(I2C_T *i2c);
  *
  *    @param[in]    i2c        Specify I2C port
  *
- *    @return       None
  *
  *    @details      Set the I2C bus STOP condition in I2C_CTL register.
  */
@@ -549,11 +548,11 @@ void I2C_SMBusIdleTimeout(I2C_T *i2c, uint32_t us, uint32_t u32Hclk);
 void I2C_SMBusTimeout(I2C_T *i2c, uint32_t ms, uint32_t u32Pclk);
 void I2C_SMBusClockLoTimeout(I2C_T *i2c, uint32_t ms, uint32_t u32Pclk);
 
-/*@}*/ /* end of group I2C_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group I2C_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group I2C_Driver */
+/** @} */ /* end of group I2C_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

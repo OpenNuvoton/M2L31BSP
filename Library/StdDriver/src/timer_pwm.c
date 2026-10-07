@@ -125,7 +125,6 @@ uint32_t TPWM_ConfigOutputFreqAndDuty(TIMER_T *timer, uint32_t u32Frequency, uin
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details    This function is used to enable TPWM generator and start counter counting.
   */
@@ -139,7 +138,6 @@ void TPWM_EnableCounter(TIMER_T *timer)
   *
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
   *
-  * @return     None
   *
   * @details This function is used to disable TPWM counter immediately by clear CNTEN (TIMERx_PWMCTL[0]) bit.
   */
@@ -161,7 +159,6 @@ void TPWM_DisableCounter(TIMER_T *timer)
   *                                 - \ref TPWM_TRIGGER_AT_PERIOD_POINT
   *                                 - \ref TPWM_TRIGGER_AT_COMPARE_POINT
   *                                 - \ref TPWM_TRIGGER_AT_PERIOD_OR_COMPARE_POINT
-  * @return     None
   *
   * @details    This function is used to enable specified counter event to trigger ADC/DAC/PDMA/LPADC.
   */
@@ -181,7 +178,6 @@ void TPWM_EnableTrigger(TIMER_T *timer, uint32_t u32TargetMask, uint32_t u32Cond
   *                                 - \ref TIMER_PWMTRGCTL_PWMTRGPDMA_Msk
   *                                 - \ref TIMER_PWMTRGCTL_PWMTRGLPADC_Msk
   *
-  * @return     None
   *
   * @details    This function is used to disable counter event to trigger ADC/DAC/PDMA/LPADC.
   */
@@ -197,7 +193,6 @@ void TPWM_DisableTrigger(TIMER_T *timer, uint32_t u32TargetMask)
   * @param[in]  u32IntAccSrc    Interrupt flag accumulator source selection.
   *                                 - \ref TPWM_IFA_PERIOD_POINT
   *                                 - \ref TPWM_IFA_COMPARE_UP_COUNT_POINT
-  * @return     None
   * @details    This function is used to enable interrupt flag accumulator.
   */
 void TPWM_EnableAcc(TIMER_T *timer, uint32_t u32IntFlagCnt, uint32_t u32IntAccSrc)
@@ -209,7 +204,6 @@ void TPWM_EnableAcc(TIMER_T *timer, uint32_t u32IntFlagCnt, uint32_t u32IntAccSr
 /**
   * @brief      Disable Interrupt Flag Accumulator
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
-  * @return     None
   * @details    This function is used to disable interrupt flag accumulator.
   */
 void TPWM_DisableAcc(TIMER_T *timer)
@@ -220,7 +214,6 @@ void TPWM_DisableAcc(TIMER_T *timer)
 /**
   * @brief      Enable Interrupt Flag Accumulator Interrupt Function
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
-  * @return     None
   * @details    This function is used to enable interrupt flag accumulator interrupt.
   */
 void TPWM_EnableAccInt(TIMER_T *timer)
@@ -231,7 +224,6 @@ void TPWM_EnableAccInt(TIMER_T *timer)
 /**
   * @brief      Disable Interrupt Flag Accumulator Interrupt Function
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
-  * @return     None
   * @details    This function is used to disable interrupt flag accumulator interrupt.
   */
 void TPWM_DisableAccInt(TIMER_T *timer)
@@ -242,7 +234,6 @@ void TPWM_DisableAccInt(TIMER_T *timer)
 /**
   * @brief      Clear Interrupt Flag Accumulator Interrupt Flag
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
-  * @return     None
   * @details    This function is used to clear interrupt flag accumulator interrupt.
   */
 void TPWM_ClearAccInt(TIMER_T *timer)
@@ -265,7 +256,6 @@ uint32_t TPWM_GetAccInt(const TIMER_T *timer)
 /**
   * @brief      Enable Accumulator Interrupt Trigger PDMA
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
-  * @return     None
   * @details    This function is used to enable accumulator interrupt trigger PDMA transfer.
   */
 void TPWM_EnableAccPDMA(TIMER_T *timer)
@@ -276,7 +266,6 @@ void TPWM_EnableAccPDMA(TIMER_T *timer)
 /**
   * @brief      Disable Accumulator Interrupt Trigger PDMA
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
-  * @return     None
   * @details    This function is used to disable accumulator interrupt trigger PDMA transfer.
   */
 void TPWM_DisableAccPDMA(TIMER_T *timer)
@@ -287,7 +276,6 @@ void TPWM_DisableAccPDMA(TIMER_T *timer)
 /**
   * @brief      Enable Interrupt Flag Accumulator Stop Mode
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
-  * @return     None
   * @details    This function is used to enable interrupt flag accumulator event to stop PWM counting.
   */
 void TPWM_EnableAccStopMode(TIMER_T *timer)
@@ -298,7 +286,6 @@ void TPWM_EnableAccStopMode(TIMER_T *timer)
 /**
   * @brief      Disable Interrupt Flag Accumulator Stop Mode
   * @param[in]  timer       The pointer of the specified Timer module. It could be TIMER0, TIMER1, TIMER2, TIMER3.
-  * @return     None
   * @details    This function is used to disable interrupt flag accumulator event to stop PWM counting.
   */
 void TPWM_DisableAccStopMode(TIMER_T *timer)
@@ -306,10 +293,10 @@ void TPWM_DisableAccStopMode(TIMER_T *timer)
     timer->PWMIFA &= ~TIMER_PWMIFA_STPMOD_Msk;
 }
 
-/*@}*/ /* end of group TIMER_PWM_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TIMER_PWM_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TIMER_PWM_Driver */
+/** @} */ /* end of group TIMER_PWM_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2020 Nuvoton Technology Corp. ***/

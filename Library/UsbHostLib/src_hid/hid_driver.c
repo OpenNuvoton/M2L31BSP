@@ -124,7 +124,7 @@ static int hid_probe(IFACE_T *iface)
 /// @endcond HIDDEN_SYMBOLS
 
 /**
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> iface->context stores a generic void * set by usbhid_probe() to
  *                       the owning HID_DEV_T. This accessor centralizes what was
@@ -230,7 +230,6 @@ static void  hid_disconnect(IFACE_T *iface)
 
 /**
   * @brief    Initialize USB Host HID driver.
-  * @return   None
   */
 void usbh_hid_init(void)
 {

@@ -37,7 +37,6 @@
  *                          - \ref UUART_RXST_INT_MASK
  *                          - \ref UUART_RXEND_INT_MASK
  *
- *    @return       None
  *
  *    @details      The function is used to clear USCI_UART related interrupt flags specified by u32Mask parameter.
  */
@@ -174,7 +173,6 @@ uint32_t UUART_GetIntFlag(const UUART_T *uuart, uint32_t u32Mask)
  *
  *  @param[in]  uuart The pointer of the specified USCI_UART module.
  *
- *  @return     None
  *
  *  @details    The function is used to disable USCI_UART function mode.
  */
@@ -199,7 +197,6 @@ void UUART_Close(UUART_T *uuart)
  *                          - \ref UUART_RXST_INT_MASK
  *                          - \ref UUART_RXEND_INT_MASK
  *
- *    @return       None
  *
  *    @details      The function is used to disabled USCI_UART related interrupts specified by u32Mask parameter.
  */
@@ -265,7 +262,6 @@ void UUART_DisableInt(UUART_T *uuart, uint32_t u32Mask)
  *                              - \ref UUART_RXST_INT_MASK
  *                              - \ref UUART_RXEND_INT_MASK
  *
- *    @return       None
  *
  *    @details      The function is used to enable USCI_UART related interrupts specified by u32Mask parameter.
  */
@@ -680,7 +676,6 @@ uint32_t UUART_Write(UUART_T *uuart, const uint8_t pu8TxBuf[], uint32_t u32Write
 *                                   - \ref UUART_PROTCTL_DATWKEN_Msk    : Data wake-up Mode
 *                                   - \ref UUART_PROTCTL_CTSWKEN_Msk    : nCTS wake-up Mode
  *
- *    @return       None
  *
  *    @details      The function is used to enable Wake-up function of USCI_UART.
  */
@@ -696,7 +691,6 @@ void UUART_EnableWakeup(UUART_T *uuart, uint32_t u32WakeupMode)
  *
  *    @param[in]    uuart   The pointer of the specified USCI_UART module.
  *
- *    @return       None
  *
  *    @details      The function is used to disable Wake-up function of USCI_UART.
  */
@@ -711,7 +705,6 @@ void UUART_DisableWakeup(UUART_T *uuart)
  *
  *    @param[in]    uuart   The pointer of the specified USCI_UART module.
  *
- *    @return       None
  *
  *    @details      The function is used to enable USCI_UART auto flow control.
  */
@@ -732,7 +725,6 @@ void UUART_EnableFlowCtrl(UUART_T *uuart)
  *
  *    @param[in]    uuart    The pointer of the specified USCI_UART module.
  *
- *    @return       None
  *
  *    @details      The function is used to disable USCI_UART auto flow control.
  */
@@ -742,10 +734,10 @@ void UUART_DisableFlowCtrl(UUART_T *uuart)
     uuart->PROTCTL &= ~(UUART_PROTCTL_RTSAUTOEN_Msk | UUART_PROTCTL_CTSAUTOEN_Msk);
 }
 
-/*@}*/ /* end of group USCI_UART_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group USCI_UART_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group USCI_UART_Driver */
+/** @} */ /* end of group USCI_UART_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

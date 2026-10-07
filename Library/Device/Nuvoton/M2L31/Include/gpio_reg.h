@@ -109,7 +109,7 @@ typedef struct
      * |        |          |0 = Edge trigger interrupt.
      * |        |          |1 = Level trigger interrupt.
      * |        |          |If the pin is set as the level trigger interrupt, only one level can be set on the registers RHIEN (Px_INTEN[n+16])/FLIEN (Px_INTEN[n]).
-     * |        |          |If both levels to trigger interrupt are set, the setting is ignored and and there is a chance that unexpected interrupts will occur.
+     * |        |          |If both levels to trigger interrupt are set, the setting is ignored and there is a chance that unexpected interrupts will occur.
      * |        |          |The de-bounce function is valid only for edge triggered interrupt.
      * |        |          |If the interrupt mode is level triggered, the de-bounce enable bit is ignored.
      * |        |          |Note: For more information about Px.n, please refer to the "PIN CONFIGURATION" chapter.

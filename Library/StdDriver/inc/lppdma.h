@@ -97,7 +97,7 @@ extern "C"
 #define LPPDMA_INT_TEMPTY     0x00000002UL            /*!<Table Empty Interrupt  \hideinitializer */
 
 
-/*@}*/ /* end of group LPPDMA_EXPORTED_CONSTANTS */
+/** @} */ /* end of group LPPDMA_EXPORTED_CONSTANTS */
 
 /** @addtogroup LPPDMA_EXPORTED_FUNCTIONS LPPDMA Exported Functions
   @{
@@ -317,11 +317,11 @@ void LPPDMA_EnableInt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Mask);
 void LPPDMA_DisableInt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Mask);
 
 
-/*@}*/ /* end of group LPPDMA_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPPDMA_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPPDMA_Driver */
+/** @} */ /* end of group LPPDMA_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

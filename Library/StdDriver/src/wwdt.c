@@ -44,7 +44,6 @@
   * @param[in]  u32CmpValue     Setting the window compared value. Valid values are between 0x0 to 0x3F.
   * @param[in]  u32EnableInt    Enable WWDT time-out interrupt function. Valid values are TRUE and FALSE.
   *
-  * @return     None
   *
   * @details    This function makes WWDT module start counting with different counter period by pre-scale setting and compared window value.
   * @note       This WWDT_CTL register can be write only one time after chip is powered on or reset.
@@ -59,10 +58,10 @@ void WWDT_Open(uint32_t u32PreScale,
                 WWDT_CTL_WWDTEN_Msk;
 }
 
-/*@}*/ /* end of group WWDT_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group WWDT_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group WWDT_Driver */
+/** @} */ /* end of group WWDT_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/

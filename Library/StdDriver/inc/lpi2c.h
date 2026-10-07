@@ -75,7 +75,7 @@ extern "C"
 #define LPI2C_ERR_FAIL    (-1L)            /*!< LPI2C operation failed                                                     \hideinitializer */
 #define LPI2C_ERR_TIMEOUT (-2L)            /*!< LPI2C operation abort due to timeout error                                 \hideinitializer */
 
-/*@}*/ /* end of group LPI2C_EXPORTED_CONSTANTS */
+/** @} */ /* end of group LPI2C_EXPORTED_CONSTANTS */
 
 extern int32_t g_LPI2C_i32ErrCode;
 
@@ -384,7 +384,6 @@ static inline void LPI2C_STOP(LPI2C_T *lpi2c);
  *
  *    @param[in]    lpi2c        Specify LPI2C port
  *
- *    @return       None
  *
  *    @details      Set the LPI2C bus STOP condition in LPI2C_CTL register.
  */
@@ -434,11 +433,11 @@ uint32_t LPI2C_ReadMultiBytesOneReg(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint8_t
 uint8_t LPI2C_ReadByteTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr);
 uint32_t LPI2C_ReadMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16_t u16DataAddr, uint8_t rdata[], uint32_t u32rLen);
 
-/*@}*/ /* end of group LPI2C_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPI2C_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPI2C_Driver */
+/** @} */ /* end of group LPI2C_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

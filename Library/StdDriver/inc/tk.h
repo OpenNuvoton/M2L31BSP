@@ -131,7 +131,7 @@ extern "C"
 
 #define TK_SCANALL_NUM                      (31)                                              /*!< Touch key scan all number */
 
-/*@}*/ /* end of group TK_EXPORTED_CONSTANTS */
+/** @} */ /* end of group TK_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup TK_EXPORTED_FUNCTIONS TK Exported Functions
@@ -199,7 +199,7 @@ extern "C"
     } while (0)
 /**
  * @brief Initiate enabled key(s) scan immediately.
- * @param None
+ * @note No parameters.
  * @return None
  * \hideinitializer
  */
@@ -284,7 +284,7 @@ extern "C"
 
 /**
  * @brief Get touch key sensing result data.
- * @param[in] u32TKNum Touch key number. The valid value is 17~25.
+ * @note No parameters.
  * @return Sensing result data
  * \hideinitializer
  */
@@ -292,7 +292,7 @@ extern "C"
 
 /**
  * @brief Get touch key busy status.
- * @param None
+ * @note No parameters.
  * @retval 0 Touch key is scan completed or stopped.
  * @retval 1 Touch key is busy.
  * \hideinitializer
@@ -412,7 +412,7 @@ extern "C"
 #define TK_CAPACITOR_BANK_SEL_MODE2 					(2UL << TK_EXTCBC_EXT_CBSEL_Pos)
 /**
  * @brief Set TK Capacitor Bank Select Mode
- * @param[in] u32Level Capacitor Bank Select Mode
+ * @param[in] u32CapBankSel Capacitor Bank Select Mode
  *              - \ref TK_CAPACITOR_BANK_SEL_MODE0
  *              - \ref TK_CAPACITOR_BANK_SEL_MODE1
  *              - \ref TK_CAPACITOR_BANK_SEL_MODE2
@@ -453,11 +453,11 @@ uint32_t TK_CheckTKIF(uint8_t u8TKNum);
 
 void TK_ConfigPowerDown(uint8_t u8Sensitivity);
 
-/*@}*/ /* end of group TK_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TK_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TK_Driver */
+/** @} */ /* end of group TK_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

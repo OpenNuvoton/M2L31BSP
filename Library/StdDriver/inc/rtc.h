@@ -118,7 +118,7 @@ extern "C"
 #define RTC_ERR_FAIL        (-1L)               /*!< RTC operation failed */
 #define RTC_ERR_TIMEOUT     (-2L)               /*!< RTC operation abort due to timeout error */
 
-/*@}*/ /* end of group RTC_EXPORTED_CONSTANTS */
+/** @} */ /* end of group RTC_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup RTC_EXPORTED_STRUCTS RTC Exported Structs
@@ -140,7 +140,7 @@ typedef struct
     uint32_t u32AmPm;           /*!< Only Time Scale select 12-hr used */
 } S_RTC_TIME_DATA_T;
 
-/*@}*/ /* end of group RTC_EXPORTED_STRUCTS */
+/** @} */ /* end of group RTC_EXPORTED_STRUCTS */
 
 
 /** @addtogroup RTC_EXPORTED_FUNCTIONS RTC Exported Functions
@@ -150,7 +150,7 @@ typedef struct
 /**
   * @brief      Indicate is Leap Year or not
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     0   This year is not a leap year
   * @retval     1   This year is a leap year
@@ -163,7 +163,7 @@ typedef struct
 /**
   * @brief      Clear RTC Alarm Interrupt Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -175,7 +175,7 @@ typedef struct
 /**
   * @brief      Clear RTC Tick Interrupt Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -202,7 +202,7 @@ typedef struct
 /**
   * @brief      Get RTC Alarm Interrupt Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     0   RTC alarm interrupt did not occur
   * @retval     1   RTC alarm interrupt occurred
@@ -215,7 +215,7 @@ typedef struct
 /**
   * @brief      Get RTC Time Tick Interrupt Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     0   RTC time tick interrupt did not occur
   * @retval     1   RTC time tick interrupt occurred
@@ -228,7 +228,7 @@ typedef struct
 /**
   * @brief      Set I/O Control By GPIO
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -240,7 +240,7 @@ typedef struct
 /**
   * @brief      Set I/O Control By RTC
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -252,7 +252,7 @@ typedef struct
 /**
   * @brief      Get I/O Control Property
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     0   PF.4~11 pin I/O is controlled by GPIO module
   * @retval     1   PF.4~11 pin I/O is controlled by RTC module
@@ -265,7 +265,7 @@ typedef struct
 /**
   * @brief      Get RTC Tamper Interrupt Flag
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     0   RTC snooper pin interrupt did not occur
   * @retval     1   RTC snooper pin interrupt occurred
@@ -278,7 +278,7 @@ typedef struct
 /**
   * @brief      Get RTC TAMPER Interrupt Status
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @retval     RTC_INTSTS_TAMP0IF_Msk    Tamper 0 interrupt flag is generated
   * @retval     RTC_INTSTS_TAMP1IF_Msk    Tamper 1 interrupt flag is generated
@@ -292,7 +292,7 @@ typedef struct
 /**
   * @brief      Enable RTC Tick Wake-up Function
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -304,7 +304,7 @@ typedef struct
 /**
   * @brief      Disable RTC Tick Wake-up Function
   *
-  * @param      None
+  * @note       No parameters.
   *
   * @return     None
   *
@@ -367,11 +367,11 @@ uint32_t RTC_SetClockSource(uint32_t u32ClkSrc);
 void RTC_SetGPIOMode(uint32_t u32PFPin, uint32_t u32Mode, uint32_t u32DigitalCtl, uint32_t u32PullCtl, uint32_t u32OutputLevel);
 void RTC_SetGPIOLevel(uint32_t u32PFPin, uint32_t u32OutputLevel);
 
-/*@}*/ /* end of group RTC_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group RTC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group RTC_Driver */
+/** @} */ /* end of group RTC_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

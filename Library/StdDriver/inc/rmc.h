@@ -107,7 +107,7 @@ extern "C"
 #define RMC_VECMAP_LDROM_RAW_BASE      0x00100000UL
 #define RMC_VECMAP_LDROM_ALIAS_BASE    0x0F000000UL
 
-/*@}*/ /* end of group RMC_EXPORTED_CONSTANTS */
+/** @} */ /* end of group RMC_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup RMC_EXPORTED_MACROS RMC Exported Macros
@@ -120,7 +120,7 @@ extern "C"
 /**
  * @brief      Set Boot from APROM
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -132,7 +132,7 @@ extern "C"
 /**
  * @brief      Set Boot from LDROM
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -144,7 +144,7 @@ extern "C"
 /**
  * @brief      Enable APROM Update Function
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -157,7 +157,7 @@ extern "C"
 /**
  * @brief      Disable APROM Update Function
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -169,7 +169,7 @@ extern "C"
 /**
  * @brief      Enable User Configuration Update Function
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -182,7 +182,7 @@ extern "C"
 /**
  * @brief      Disable User Configuration Update Function
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -194,7 +194,7 @@ extern "C"
 /**
  * @brief      Enable LDROM Update Function
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -207,7 +207,7 @@ extern "C"
 /**
  * @brief      Disable LDROM Update Function
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -219,7 +219,7 @@ extern "C"
 /**
  * @brief      Disable ISP Function
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -231,7 +231,7 @@ extern "C"
 /**
  * @brief      Enable ISP Function
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -243,7 +243,7 @@ extern "C"
 /**
  * @brief      Get ISP Fail Flag
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -255,7 +255,7 @@ extern "C"
 /**
  * @brief      Clear ISP Fail Flag
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -268,7 +268,7 @@ extern "C"
 /**
  * @brief      Enable ISP Interrupt
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -280,7 +280,7 @@ extern "C"
 /**
  * @brief      Disable ISP Interrupt
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -292,7 +292,7 @@ extern "C"
 /**
  * @brief      Get ISP Interrupt Flag
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -304,7 +304,7 @@ extern "C"
 /**
  * @brief      Clear ISP Interrupt Flag
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -316,7 +316,7 @@ extern "C"
 /**
  * @brief      Check if wakeup from pwoer-down mode
  *
- * @param      None
+ * @note       No parameters.
  *
  * @return     None
  *
@@ -325,7 +325,7 @@ extern "C"
  */
 #define RMC_CHECK_MAGICNUM()         ((RMC->ISPADDR == RMC_ISPADDR_MAGIC_NUM)? 1UL : 0UL)  /*!< Check if wakeup from pwoer-down mode */
 
-/*@}*/ /* end of group RMC_EXPORTED_MACROS */
+/** @} */ /* end of group RMC_EXPORTED_MACROS */
 
 extern int32_t  g_RMC_i32ErrCode;
 
@@ -346,7 +346,7 @@ static inline uint32_t RMC_GetVECMAP(void);
 
 /**
  * @brief       Get current vector mapping address.
- * @param       None
+ * @note        No parameters.
  * @return      The current vector mapping address.
  * @details     To get VECMAP value which is the page address for remapping to vector page (0x0).
  * @note
@@ -371,7 +371,7 @@ static inline uint32_t RMC_GetVECMAP(void)
 
 /**
   * @brief    Dummy Read company ID for System Level issue
-  * @param    None
+  * @note     No parameters.
   * @return   The company ID (32-bit)
   * @details  The company ID of Nuvoton is fixed to be 0xDA
   */
@@ -410,7 +410,7 @@ static inline uint32_t RMC_DummyReadCID(void)
 
 /**
   * @brief    Read company ID
-  * @param    None
+  * @note     No parameters.
   * @return   The company ID (32-bit)
   * @details  The company ID of Nuvoton is fixed to be 0xDA
   */
@@ -451,7 +451,7 @@ static inline uint32_t RMC_ReadCID(void)
 
 /**
   * @brief    Read product ID
-  * @param    None
+  * @note     No parameters.
   * @return   The product ID (32-bit)
   * @details  This function is used to read product ID.
   */
@@ -637,11 +637,11 @@ extern int32_t  RMC_IsOTPLocked(uint32_t otp_num);
 extern int32_t  RMC_LockOTP(uint32_t otp_num);
 extern int32_t  RMC_RemapBank(uint32_t u32BankAddr);
 
-/*@}*/ /* end of group RMC_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group RMC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group RMC_Driver */
+/** @} */ /* end of group RMC_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

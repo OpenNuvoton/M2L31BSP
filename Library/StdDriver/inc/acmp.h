@@ -75,7 +75,7 @@ extern "C"
 /*--------------------------------------------------------------------------------------------------*/
 #define ACMP_TIMEOUT_ERR            (-1L)    /*!< ACMP operation abort due to timeout error \hideinitializer */
 
-/*@}*/ /* end of group ACMP_EXPORTED_CONSTANTS */
+/** @} */ /* end of group ACMP_EXPORTED_CONSTANTS */
 
 /** @addtogroup ACMP_EXPORTED_FUNCTIONS ACMP Exported Functions
   @{
@@ -867,11 +867,11 @@ void ACMP_Close(ACMP_T *acmp, uint32_t u32ChNum);
 int32_t ACMP_GetErrCode(void);
 void    ACMP_SetErrCode(int32_t err);
 
-/*@}*/ /* end of group ACMP_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group ACMP_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group ACMP_Driver */
+/** @} */ /* end of group ACMP_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

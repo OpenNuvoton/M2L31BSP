@@ -26,7 +26,7 @@ static int32_t g_LPADC_i32ErrCode = 0;   /*!< LPADC global error code */
 /* Restrict error code to module scope. */
 /**
   * @brief      Get the error code of LPADC module
-  * @param      None
+  * @note       No parameters.
   * @return     The error code of LPADC module
   * @details    This function return the error code of LPADC module.
   */
@@ -37,8 +37,7 @@ int32_t LPADC_GetErrCode(void)
 
 /**
   * @brief      Set the error code of LPADC module
-  * @param      The error code of LPADC module
-  * @return     None
+  * @param[in]  err  The error code of LPADC module
   * @details    This function set the error code of LPADC module.
   */
 void LPADC_SetErrCode(int32_t err)
@@ -58,7 +57,6 @@ void LPADC_SetErrCode(int32_t err)
   *                       - \ref LPADC_ADCR_ADMD_SINGLE_CYCLE         :Single cycle scan mode.
   *                       - \ref LPADC_ADCR_ADMD_CONTINUOUS           :Continuous scan mode.
   * @param[in] u32ChMask Channel enable bit. Each bit corresponds to a input channel. Bit 0 is channel 0, bit 1 is channel 1..., bit 15 is channel 15.
-  * @return  None
   * @note LPADC can only convert 1 channel at a time. If more than 1 channels are enabled, only channel
   *       with smallest number will be convert.
   * @note This API does not turn on LPADC power nor does trigger LPADC conversion.
@@ -129,7 +127,6 @@ void LPADC_Open(LPADC_T *lpadc,
 /**
   * @brief Disable LPADC module
   * @param[in] lpadc The pointer of the specified LPADC module
-  * @return None
   */
 void LPADC_Close(const LPADC_T *lpadc)
 {
@@ -163,7 +160,6 @@ void LPADC_Close(const LPADC_T *lpadc)
   *                      - \ref LPADC_ADCR_TRGCOND_FALLING_EDGE  :STADC Falling edge active
   *                      - \ref LPADC_ADCR_TRGCOND_RISING_EDGE   :STADC Rising edge active
   *                     While LPADC trigger by other source, this parameter is unused.
-  * @return None
   * @note Software should disable TRGEN and ADST before change TRGS.
   */
 void LPADC_EnableHWTrigger(LPADC_T *lpadc,
@@ -192,7 +188,6 @@ void LPADC_EnableHWTrigger(LPADC_T *lpadc,
 /**
   * @brief Disable hardware trigger LPADC function.
   * @param[in] lpadc The pointer of the specified LPADC module
-  * @return None
   */
 void LPADC_DisableHWTrigger(LPADC_T *lpadc)
 {
@@ -211,7 +206,6 @@ void LPADC_DisableHWTrigger(LPADC_T *lpadc)
   *                     - \ref LPADC_ADF_INT    :LPADC convert complete interrupt
   *                     - \ref LPADC_CMP0_INT   :LPADC comparator 0 interrupt
   *                     - \ref LPADC_CMP1_INT   :LPADC comparator 1 interrupt
-  * @return None
   */
 void LPADC_EnableInt(LPADC_T *lpadc, uint32_t u32Mask)
 {
@@ -239,7 +233,6 @@ void LPADC_EnableInt(LPADC_T *lpadc, uint32_t u32Mask)
   *                     - \ref LPADC_ADF_INT     :LPADC convert complete interrupt
   *                     - \ref LPADC_CMP0_INT    :LPADC comparator 0 interrupt
   *                     - \ref LPADC_CMP1_INT    :LPADC comparator 1 interrupt
-  * @return None
   */
 void LPADC_DisableInt(LPADC_T *lpadc, uint32_t u32Mask)
 {
@@ -263,7 +256,6 @@ void LPADC_DisableInt(LPADC_T *lpadc, uint32_t u32Mask)
   * @param[in] lpadc The pointer of the specified LPADC module.
   * @param[in] u32ModuleNum Decides the sample module number, valid value are 0.
   * @param[in] u32ExtendSampleTime Decides the extend sampling time, the range is from 0~255 LPADC clock. Valid value are from 0 to 0xFF.
-  * @return None
   * @details When A/D converting at high conversion rate, the sampling time of analog input voltage may not enough if input channel loading is heavy,
   *         user can extend A/D sampling time after trigger source is coming to get enough sampling time.
   */
@@ -300,7 +292,6 @@ void LPADC_SetExtendSampleTime(LPADC_T *lpadc, uint32_t u32ModuleNum, uint32_t u
   *                       - \ref LPADC_AUTOCTL_TRIGSEL_ACMP0    : Auto-operation Trigger Source from ACMP0.
   *                       - \ref LPADC_AUTOCTL_TRIGSEL_ACMP1    : Auto-operation Trigger Source from ACMP1.
   *                       - \ref LPADC_AUTOCTL_TRIGSEL_ACMP2    : Auto-operation Trigger Source from ACMP2.
-  * @return  None
   * @details The function is used to set Automatic Operation relative setting.
   */
 void LPADC_SelectAutoOperationMode(LPADC_T *lpadc, uint32_t u32TrigSel)
@@ -321,10 +312,10 @@ void LPADC_SelectAutoOperationMode(LPADC_T *lpadc, uint32_t u32TrigSel)
     lpadc->AUTOCTL |= LPADC_AUTOCTL_AUTOEN_Msk;
 }
 
-/*@}*/ /* end of group LPADC_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPADC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPADC_Driver */
+/** @} */ /* end of group LPADC_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2018 Nuvoton Technology Corp. ***/

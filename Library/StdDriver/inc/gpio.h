@@ -225,7 +225,7 @@ extern "C"
 #define PH10            GPIO_PIN_DATA(7, 10) /*!< Specify PH.10 Pin Data Input/Output \hideinitializer */
 #define PH11            GPIO_PIN_DATA(7, 11) /*!< Specify PH.11 Pin Data Input/Output \hideinitializer */
 
-/*@}*/ /* end of group GPIO_EXPORTED_CONSTANTS */
+/** @} */ /* end of group GPIO_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup GPIO_EXPORTED_FUNCTIONS GPIO Exported Functions
@@ -459,11 +459,11 @@ void GPIO_SetSlewCtl(GPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode);
 void GPIO_SetPullCtl(GPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode);
 
 
-/*@}*/ /* end of group GPIO_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group GPIO_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group GPIO_Driver */
+/** @} */ /* end of group GPIO_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 
 #ifdef __cplusplus

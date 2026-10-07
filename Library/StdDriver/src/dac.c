@@ -37,7 +37,6 @@
   *                      - \ref DAC_TIMER3_TRIGGER                :Timer 3 trigger
   *                      - \ref DAC_EPWM0_TRIGGER                 :EPWM0 trigger
   *                      - \ref DAC_EPWM1_TRIGGER                 :EPWM1 trigger
-  * @return None
   * @details The DAC conversion can be started by writing DAC_DAT, software trigger or hardware trigger.
   *         When TRGEN (DAC_CTL[4]) is 0, the data conversion is started by writing DAC_DAT register.
   *         When TRGEN (DAC_CTL[4]) is 1, the data conversion is started by SWTRG (DAC_SWTRG[0]) is set to 1,
@@ -57,7 +56,6 @@ void DAC_Open(DAC_T *dac,
   * @brief Disable DAC analog power.
   * @param[in] dac Base address of DAC module.
   * @param[in] u32Ch Not used.
-  * @return None
   * @details Disable DAC analog power for saving power consumption.
   */
 void DAC_Close(DAC_T *dac, uint32_t u32Ch)
@@ -83,10 +81,10 @@ uint32_t DAC_SetDelayTime(DAC_T *dac, uint32_t u32Delay)
     return ((dac->TCTL) * 1000000UL / CLK_GetPCLK1Freq());
 }
 
-/*@}*/ /* end of group DAC_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group DAC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group DAC_Driver */
+/** @} */ /* end of group DAC_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/

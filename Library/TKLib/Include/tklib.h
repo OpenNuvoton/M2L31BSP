@@ -66,7 +66,7 @@ extern "C"
 #define E_RESET_BASELINE            (0)
 #define E_TRACE_BASELINE            (1)
 
-/*@}*/ /* end of group TKLIB_EXPORTED_CONSTANTS */
+/** @} */ /* end of group TKLIB_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup TKLIB_EXPORTED_STRUCTS Touch Key Library Exported Structs
@@ -135,7 +135,7 @@ typedef struct
 #define MAX_PRESSED_KEY_TK_QUEUE (6)                              /* To report pressed TK keys */
 
 extern uint8_t u8MaxScKeyNum;
-/*@}*/ /* end of group TKLIB_EXPORTED_STRUCTS */
+/** @} */ /* end of group TKLIB_EXPORTED_STRUCTS */
 
 
 /** @addtogroup TKLIB_EXPORTED_FUNCTIONS Touch Key Library Exported Functions
@@ -168,11 +168,11 @@ uint8_t TK_DebounceChannel(uint8_t i);                              /*!< Report 
 
 int TK_GetDebounce(uint32_t i, int8_t* i8Count,  int8_t* State);
 
-/*@}*/ /* end of group TKLIB_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TKLIB_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TKLIB */
+/** @} */ /* end of group TKLIB */
 
-/*@}*/ /* end of group Library */
+/** @} */ /* end of group Library */
 
 #ifdef __cplusplus
 }

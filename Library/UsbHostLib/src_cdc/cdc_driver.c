@@ -28,7 +28,7 @@ static CDC_DEV_T *alloc_cdc_device(void)
     CDC_DEV_T  *cdev;
 
     /**
-     * @static_deviation
+     * @par Static deviation
      * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
      * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is
      *                       the single conversion point where the raw block becomes a
@@ -216,7 +216,7 @@ static int  cdc_probe(IFACE_T *iface)
 /// @endcond HIDDEN_SYMBOLS
 
 /**
- * @static_deviation
+ * @par Static deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> iface->context stores a generic void * set by cdc_probe() to the
  *                       owning CDC_DEV_T. This accessor centralizes what was previously
@@ -302,7 +302,6 @@ static void  cdc_disconnect(IFACE_T *iface)
 
 /**
   * @brief    Init USB Host CDC driver.
-  * @return   None
   */
 void usbh_cdc_init(void)
 {

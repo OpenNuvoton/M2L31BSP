@@ -74,7 +74,6 @@ uint32_t TTMR_Open(TTMR_T *ttmr, uint32_t u32Mode, uint32_t u32Freq)
   *
   * @param[in]  ttmr        The pointer of the specified TTMR module. It could be TTMR0, TTMR1.
   *
-  * @return     None
   *
   * @details    This API stops ttmr counting and disable all ttmr interrupt function.
   */
@@ -292,7 +291,6 @@ uint32_t TTMR_GetModuleClock(const TTMR_T *ttmr)
   * @param[in] u32Mask The mask of modules (Low power IPs and LPPDMA) trigger by TTMR. Is the combination of
   *             - \ref TTMR_TRGEN
   *             - \ref TTMR_TRG_TO_LPPDMA
-  * @return None
   */
 void TTMR_SetTriggerTarget(TTMR_T *ttmr, uint32_t u32Mask)
 {
@@ -324,8 +322,8 @@ int32_t TTMR_ResetCounter(TTMR_T *ttmr)
     return ((u32Delay > 0UL) ? 0L : TTMR_TIMEOUT_ERR);
 }
 
-/*@}*/ /* end of group TTMR_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TTMR_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TTMR_Driver */
+/** @} */ /* end of group TTMR_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */

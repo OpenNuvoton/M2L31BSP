@@ -102,7 +102,7 @@ void pd_backup_snk_pdo(int port)
 void pd_recovery_snk_pdo(int port)
 {
     uint32_t i;
-    if(pd_snk_pdo_backup[0] != 0x0) /* Default Deattached */
+    if(pd_snk_pdo_backup[0] != 0x0) /* Restore the saved PDOs if a backup exists. */
     {
         for( i = 0; i < pd_snk_pdo_cnt; i = i + 1)
         {
@@ -495,5 +495,4 @@ const uint8_t battery_capabilities_rom[] =
 }; 
 
 uint8_t battery_capabilities[9] = {0x0};
-
 

@@ -154,7 +154,7 @@ int32_t main(void)
     /* Calculate SRAM checksum */
     for(u32Idx = 0; u32Idx < SRAM_REGION_NUMBER; u32Idx++)
     {
-        /* For M2L31, SRAM regison 6 is in LPSRAM. */
+        /* For M2L31, SRAM region 6 is in LPSRAM. */
         if (u32Idx == 6)
         {
             u32SRAMStartAddr = LPSRAM_BASE;
@@ -246,7 +246,7 @@ int32_t main(void)
     /* Calculate SRAM checksum */
     for(u32Idx = 0; u32Idx < SRAM_REGION_NUMBER; u32Idx++)
     {
-        /* For M2L31, SRAM regison 6 is in LPSRAM. */
+        /* For M2L31, SRAM region 6 is in LPSRAM. */
         if (u32Idx == 6)
         {
             u32SRAMStartAddr = LPSRAM_BASE;

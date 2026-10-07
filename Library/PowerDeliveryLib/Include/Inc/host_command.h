@@ -245,7 +245,7 @@ int host_request_expected_size(const struct ec_host_request *r);
 /**
  * Handle a received host packet.
  *
- * @param packet    Host packet args
+ * @param pkt       Host packet args
  */
 void host_packet_receive(struct host_packet *pkt);
 
@@ -309,7 +309,7 @@ void host_throttle_cpu(int throttle);
 /**
  * Signal host command task to send status to PD MCU.
  *
- * @new_chg_state PD MCU charge state
+ * @param new_chg_state PD MCU charge state
  */
 void host_command_pd_send_status(enum pd_charge_state new_chg_state);
 

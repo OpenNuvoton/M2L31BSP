@@ -25,7 +25,7 @@ static int32_t g_ACMP_i32ErrCode = 0;  /*!< ACMP global error code */
 
 /**
   * @brief      Get the error code of ACMP module
-  * @param      None
+  * @note       No parameters.
   * @return     The error code of ACMP module
   * @details    This function return the error code of ACMP module.
   */
@@ -36,8 +36,7 @@ int32_t ACMP_GetErrCode(void)
 
 /**
   * @brief      Set the error code of ACMP module
-  * @param      The error code of ACMP module
-  * @return     None
+  * @param[in]  err  The error code of ACMP module
   * @details    This function set the error code of ACMP module.
   */
 void ACMP_SetErrCode(int32_t err)
@@ -61,7 +60,6 @@ void ACMP_SetErrCode(int32_t err)
   *                  - \ref ACMP_CTL_HYSTERESIS_20MV
   *                  - \ref ACMP_CTL_HYSTERESIS_DISABLE
   *
-  * @return     None
   *
   * @details    Configure hysteresis function, select the source of negative input and enable analog comparator.
   * @note       This API will reset and calibrate ACMP if ACMP never be calibrated after chip power on.
@@ -160,7 +158,6 @@ void ACMP_Open(ACMP_T *acmp, uint32_t u32ChNum, uint32_t u32NegSrc, uint32_t u32
   * @param[in]  acmp The pointer of the specified ACMP module
   * @param[in]  u32ChNum Comparator number.
   *
-  * @return     None
   *
   * @details  This function will clear ACMPEN bit of ACMP_CTL register to disable analog comparator.
   */
@@ -177,10 +174,10 @@ void ACMP_Close(ACMP_T *acmp, uint32_t u32ChNum)
     }
 }
 
-/*@}*/ /* end of group ACMP_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group ACMP_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group ACMP_Driver */
+/** @} */ /* end of group ACMP_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/

@@ -63,7 +63,6 @@ uint32_t I2C_Open(I2C_T *i2c, uint32_t u32BusClock)
   *
   * @param[in]  i2c         Specify I2C port
     *
-  * @return     None
   *
   * @details    Reset I2C Controller and disable specify I2C port.
     *
@@ -106,7 +105,6 @@ void I2C_Close(I2C_T *i2c)
   *
   * @param[in]  i2c         Specify I2C port
     *
-  * @return     None
   *
   * @details    When Time-out flag will be set, use this function to clear I2C Bus Time-out counter flag .
     *
@@ -125,7 +123,6 @@ void I2C_ClearTimeoutFlag(I2C_T *i2c)
   * @param[in]  u8Si        Clear SI flag
   * @param[in]  u8Ack       Set I2C ACK bit
   *
-  * @return     None
   *
   * @details    The function set I2C Control bit of I2C Bus protocol.
   *
@@ -162,7 +159,6 @@ void I2C_Trigger(I2C_T *i2c, uint8_t u8Start, uint8_t u8Stop, uint8_t u8Si, uint
   *
   * @param[in]  i2c         Specify I2C port
   *
-  * @return     None
   *
   * @details    The function is used for disable I2C interrupt
   *
@@ -177,7 +173,6 @@ void I2C_DisableInt(I2C_T *i2c)
   *
   * @param[in]  i2c         Specify I2C port
   *
-  * @return     None
   *
   * @details    The function is used for enable I2C interrupt
   *
@@ -302,7 +297,6 @@ uint8_t I2C_GetData(const I2C_T *i2c)
  * @param[in]  i2c          Specify I2C port
  * @param[in]  u8Data       The data to send to I2C bus
  *
- * @return     None
  *
  * @details    This function is used to write a byte to specified I2C port
  */
@@ -319,7 +313,6 @@ void I2C_SetData(I2C_T *i2c, uint8_t u8Data)
  * @param[in]  u16SlaveAddr 7-bit or 10-bit slave address
  * @param[in]  u8GCMode     Enable/Disable GC mode (I2C_GCMODE_ENABLE / I2C_GCMODE_DISABLE)
  *
- * @return     None
  *
  * @details    This function is used to set 7-bit or 10-bit slave addresses in I2C SLAVE ADDRESS REGISTER (I2CADDR0~3)
  *             and enable GC Mode.
@@ -357,7 +350,6 @@ void I2C_SetSlaveAddr(I2C_T *i2c, uint8_t u8SlaveNo, uint16_t u16SlaveAddr, uint
  * @param[in]  u8SlaveNo        Set the number of I2C address mask register (0~3)
  * @param[in]  u16SlaveAddrMask 2 bytes for slave address mask
  *
- * @return     None
  *
  * @details    This function is used to set slave addresses.
  *
@@ -393,7 +385,6 @@ void I2C_SetSlaveAddrMask(I2C_T *i2c, uint8_t u8SlaveNo, uint16_t u16SlaveAddrMa
  * @param[in]  i2c              Specify I2C port
  * @param[in]  u8LongTimeout    Configure DIV4 to enable Long Time-out (0/1)
  *
- * @return     None
  *
  * @details    This function enable Time-out Counter function and configure DIV4 to support Long
  *             Time-out.
@@ -418,7 +409,6 @@ void I2C_EnableTimeout(I2C_T *i2c, uint8_t u8LongTimeout)
  *
  * @param[in]  i2c          Specify I2C port
  *
- * @return     None
  *
  * @details    To disable Time-out Counter function in I2C_TOCTL register.
  *
@@ -433,7 +423,6 @@ void I2C_DisableTimeout(I2C_T *i2c)
  *
  * @param[in]  i2c          Specify I2C port
  *
- * @return     None
  *
  * @details    To enable Wake-up function of I2C Wake-up control register.
  *
@@ -448,7 +437,6 @@ void I2C_EnableWakeup(I2C_T *i2c)
  *
  * @param[in]  i2c          Specify I2C port
  *
- * @return     None
  *
  * @details    To disable Wake-up function of I2C Wake-up control register.
  *
@@ -467,7 +455,6 @@ void I2C_DisableWakeup(I2C_T *i2c)
  *                          - \ref I2C_DATA_PHASE_BIT_7
  *                          - \ref I2C_DATA_PHASE_BIT_8
  *
- * @return     None
  *
  * @details    To enable I2C slave mode two-level buffer function.
  *
@@ -486,7 +473,6 @@ void I2C_EnableTwoBufferMode(I2C_T *i2c, uint32_t u32BitCount)
  *
  * @param[in]  i2c          Specify I2C port
  *
- * @return     None
  *
  * @details    To disable I2C slave mode two-level buffer function.
  *
@@ -521,7 +507,6 @@ uint32_t I2C_SMBusGetStatus(const I2C_T *i2c)
  * @param[in]  i2c              Specify I2C port
  * @param[in]  u8SMBusIntFlag   Specify SMBus interrupt flag
  *
- * @return     None
  *
  * @details    To clear flags of I2C_BUSSTS status register if interrupt set.
  *
@@ -537,7 +522,6 @@ void I2C_SMBusClearInterruptFlag(I2C_T *i2c, uint8_t u8SMBusIntFlag)
  * @param[in]  i2c              Specify I2C port
  * @param[in]  u32PktSize       Transmit / Receive bytes
  *
- * @return     None
  *
  * @details    The transmission or receive byte number in one transaction when PECEN is set. The maximum is 255 bytes.
  *
@@ -553,7 +537,6 @@ void I2C_SMBusSetPacketByteCount(I2C_T *i2c, uint32_t u32PktSize)
  * @param[in]  i2c              Specify I2C port
  * @param[in]  u8HostDevice     Init SMBus port mode(I2C_SMBH_ENABLE/I2C_SMBD_ENABLE)
  *
- * @return     None
  *
  * @details    Using SMBus communication must specify the port is a Host or a Device.
  *
@@ -579,7 +562,6 @@ void I2C_SMBusOpen(I2C_T *i2c, uint8_t u8HostDevice)
  *
  * @param[in]  i2c              Specify I2C port
  *
- * @return     None
  *
  * @details    Disable all SMBus function include Bus disable, CRC check, Acknowledge by manual, Host/Device Mode.
  *
@@ -596,7 +578,6 @@ void I2C_SMBusClose(I2C_T *i2c)
  * @param[in]  i2c              Specify I2C port
  * @param[in]  u8PECTxEn        CRC transmit enable(I2C_PECTX_ENABLE) or disable(I2C_PECTX_DISABLE)
  *
- * @return     None
  *
  * @details    When enable CRC check function, the Host or Device needs to transmit CRC byte.
  *
@@ -637,7 +618,6 @@ uint8_t I2C_SMBusGetPECValue(const I2C_T *i2c)
  * @param[in]  us               Time-out length(us)
  * @param[in]  u32Hclk          I2C peripheral clock frequency
  *
- * @return     None
  *
  * @details    This function is used to set SMBus Time-out length when bus is in Idle state.
  *
@@ -669,7 +649,6 @@ void I2C_SMBusIdleTimeout(I2C_T *i2c, uint32_t us, uint32_t u32Hclk)
  * @param[in]  ms               Time-out length(ms)
  * @param[in]  u32Pclk          peripheral clock frequency
  *
- * @return     None
  *
  * @details    This function is used to set SMBus Time-out length when bus is in active state.
  *             Time-out length is calculate the SCL line "one clock" pull low timing.
@@ -706,7 +685,6 @@ void I2C_SMBusTimeout(I2C_T *i2c, uint32_t ms, uint32_t u32Pclk)
  * @param[in]  ms               Time-out length(ms)
  * @param[in]  u32Pclk          peripheral clock frequency
  *
- * @return     None
  *
  * @details    This function is used to set SMBus Time-out length when bus is in Active state.
  *             Time-out length is calculate the SCL line "clocks" low cumulative timing.
@@ -896,10 +874,10 @@ uint8_t I2C_WriteByteOneReg(I2C_T *i2c, uint8_t u8SlaveAddr, uint8_t u8DataAddr,
 /**
   * @brief      Specify a byte register address and write multi bytes to Slave
   *
-  * @param[in]  *i2c            Point to I2C peripheral
+  * @param[in]  i2c             Point to I2C peripheral
   * @param[in]  u8SlaveAddr     Access Slave address(7-bit)
   * @param[in]  u8DataAddr      Specify a address (1 byte) of data write to
-  * @param[in]  *data           Pointer to array to write data to Slave
+  * @param[in]  data            Pointer to array to write data to Slave
   * @param[in]  u32wLen         How many bytes need to write to Slave
   *
   * @return     A length of how many bytes have been transmitted.
@@ -994,7 +972,7 @@ uint32_t I2C_WriteMultiBytesOneReg(I2C_T *i2c, uint8_t u8SlaveAddr, uint8_t u8Da
 /**
   * @brief      Specify two bytes register address and Write a byte to Slave
   *
-  * @param[in]  *i2c            Point to I2C peripheral
+  * @param[in]  i2c             Point to I2C peripheral
   * @param[in]  u8SlaveAddr     Access Slave address(7-bit)
   * @param[in]  u16DataAddr     Specify a address (2 byte) of data write to
   * @param[in]  data            Write a byte data to Slave
@@ -1026,7 +1004,7 @@ uint8_t I2C_WriteByteTwoRegs(I2C_T *i2c, uint8_t u8SlaveAddr, uint16_t u16DataAd
 /**
   * @brief      Specify two bytes register address and write multi bytes to Slave
   *
-  * @param[in]  *i2c            Point to I2C peripheral
+  * @param[in]  i2c             Point to I2C peripheral
   * @param[in]  u8SlaveAddr     Access Slave address(7-bit)
   * @param[in]  u16DataAddr     Specify a address (2 bytes) of data write to
   * @param[in]  data[]          A data array for write data to Slave
@@ -1130,7 +1108,7 @@ uint32_t I2C_WriteMultiBytesTwoRegs(I2C_T *i2c, uint8_t u8SlaveAddr, uint16_t u1
 /**
   * @brief      Read a byte from Slave
   *
-  * @param[in]  *i2c            Point to I2C peripheral
+  * @param[in]  i2c             Point to I2C peripheral
   * @param[in]  u8SlaveAddr     Access Slave address(7-bit)
   *
   * @return     Read a byte data from Slave
@@ -1159,7 +1137,7 @@ uint8_t I2C_ReadByte(I2C_T *i2c, uint8_t u8SlaveAddr)
 /**
   * @brief      Read multi bytes from Slave
   *
-  * @param[in]  *i2c            Point to I2C peripheral
+  * @param[in]  i2c             Point to I2C peripheral
   * @param[in]  u8SlaveAddr     Access Slave address(7-bit)
   * @param[out] rdata[]         A data array to store data from Slave
   * @param[in]  u32rLen         How many bytes need to read from Slave
@@ -1271,7 +1249,7 @@ uint32_t I2C_ReadMultiBytes(I2C_T *i2c, uint8_t u8SlaveAddr, uint8_t rdata[], ui
 /**
   * @brief      Specify a byte register address and read a byte from Slave
   *
-  * @param[in]  *i2c            Point to I2C peripheral
+  * @param[in]  i2c             Point to I2C peripheral
   * @param[in]  u8SlaveAddr     Access Slave address(7-bit)
   * @param[in]  u8DataAddr      Specify a address(1 byte) of data read from
   *
@@ -1599,11 +1577,11 @@ uint32_t I2C_ReadMultiBytesTwoRegs(I2C_T *i2c, uint8_t u8SlaveAddr, uint16_t u16
 }
 
 
-/*@}*/ /* end of group I2C_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group I2C_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group I2C_Driver */
+/** @} */ /* end of group I2C_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/
 

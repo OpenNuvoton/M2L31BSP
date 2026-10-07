@@ -276,7 +276,7 @@ typedef struct
      * |        |          |1 = XOM region 3 is active.
      * |[4]     |XOMPEF    |XOM Page Erase Function Fail
      * |        |          |XOM page erase function status. If XOMPEF is set to 1, user needs to erase XOM region again.
-     * |        |          |0 = Sucess.
+     * |        |          |0 = Success.
      * |        |          |1 = Fail.
      * @var RMC_T::APWPROT0
      * Offset: 0x110  APROM Write Protect Register0

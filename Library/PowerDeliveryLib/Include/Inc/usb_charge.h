@@ -157,7 +157,7 @@ void usb_charger_vbus_change(int port, int vbus_level);
  * Check if ramping is allowed for given supplier
  *
  * @param port port number.
- * @supplier Supplier to check
+ * @param supplier Supplier to check
  *
  * @return Ramping is allowed for given supplier
  */
@@ -172,8 +172,8 @@ static inline int usb_charger_ramp_allowed(int port, int supplier)
  * Get the maximum current limit that we are allowed to ramp to
  *
  * @param port port number.
- * @supplier Active supplier type
- * @sup_curr Input current limit based on supplier
+ * @param supplier Active supplier type
+ * @param sup_curr Input current limit based on supplier
  *
  * @return Maximum current in mA
  */
@@ -207,7 +207,7 @@ int board_is_sourcing_vbus(int port);
  *
  * @param port port number
  * @param enable 0 to disable, 1 to enable
- * @return EC_SUCCESS if OK, EC_ERROR_INVAL if @port is invalid
+ * @return EC_SUCCESS if OK, EC_ERROR_INVAL if port is invalid
  */
 int board_vbus_sink_enable(int port, int enable);
 

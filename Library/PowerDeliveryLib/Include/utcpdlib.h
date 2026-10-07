@@ -90,7 +90,7 @@ typedef enum
 
 } E_UTCPD_PD_EVENT;
 
-/*@}*/ /* end of group UTCPDLIB_EXPORTED_CONSTANTS */
+/** @} */ /* end of group UTCPDLIB_EXPORTED_CONSTANTS */
 
 
 
@@ -99,7 +99,7 @@ typedef enum
 */
 typedef void (*utcpd_pvFunPtr)(int port, E_UTCPD_PD_EVENT event, uint32_t op);   /* function pointer declaration */
 
-/*@}*/ /* end of group UTCPDLIB_EXPORTED_STRUCTS */
+/** @} */ /* end of group UTCPDLIB_EXPORTED_STRUCTS */
 
 
 
@@ -140,13 +140,13 @@ int pd_set_power_supply_ready(int port);
 void VBUS_Source_Level(int port, char i8Level);
 
 extern uint32_t pd_get_tick(void);
-/*@}*/ /* end of group UTCPDLIB_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group UTCPDLIB_EXPORTED_FUNCTIONS */
 
 
 
-/*@}*/ /* end of group UTCPDLIB */
+/** @} */ /* end of group UTCPDLIB */
 
-/*@}*/ /* end of group LIBRARY */
+/** @} */ /* end of group LIBRARY */
 
 #ifdef __cplusplus
 }

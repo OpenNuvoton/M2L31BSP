@@ -32,7 +32,7 @@
 #define FS_C_PORT_RESET                20
 
 /*--------------------------------------------------------------------------*/
-/*   Hub/Port staus and change bits                                         */
+/*   Hub/Port status and change bits                                        */
 /*--------------------------------------------------------------------------*/
 #define HUB_S_LOCAL_POWER              (1UL << 0)
 #define HUB_S_OVERCURRENT              (1UL << 1)

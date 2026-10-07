@@ -186,9 +186,8 @@ void TIMER1_Init(void)
 /**
  * @brief       Timer0 IRQ
  *
- * @param       None
+ * @note        No parameters.
  *
- * @return      None
  *
  * @details     The Timer0 default IRQ.
  *              Software Timer base for PD check time our mechanism
@@ -205,9 +204,8 @@ void TMR0_IRQHandler(void)
 /**
  * @brief       Timer1 IRQ
  *
- * @param       None
+ * @note        No parameters.
  *
- * @return      None
  *
  * @details     The Timer1 default IRQ.
  *              Utilizaton for driving ADC trigger conversion VBUS and VCONN to periodicly
@@ -220,10 +218,12 @@ void TMR1_IRQHandler(void)
     TIMER_ClearIntFlag(TIMER1);
 }
 
+extern void pd_recovery_snk_pdo(int port);
 /**
  * @brief       UTCPD Callback Function
+ * @param       port   Port number.
  *
- * @param       event: UTCPD_PD_ATTACHED = 0,                  : Port partner attached or disattached
+ * @param       event: UTCPD_PD_ATTACHED = 0,                  : Port partner attached or detached
  *                     UTCPD_PD_CONTRACT = 1,                  : PD contract established
  *                     UTCPD_PD_SNK_VOLTAGE = 2,               : SNK Role Contract voltage
  *                     UTCPD_PD_CABLE_MAX_POWER = 3,           : M2L31 Didn't Support. NPD48: Cable Max Voltage and Max Current : ((max_vol<<16) | max_curr)
@@ -238,7 +238,7 @@ void TMR1_IRQHandler(void)
  *                     UTCPD_PD_VBUS_DISCHARGE_START = 0x20,   : VBUS Discharge Start
  *                     UTCPD_PD_VBUS_DISCHARGE_STOP = 0x21,    : VBUS Discharge End
  *                     UTCPD_PD_TC_ASSERT_RD = 0x22,           : Assert Rd
- *                     UTCPD_PD_TC_PD_DISCONNECTION = 0x23,    : Deattached
+ *                     UTCPD_PD_TC_PD_DISCONNECTION = 0x23,    : Detached
  *                     UTCPD_PD_SRC_TC_PD_CONNECTION = 0x24,   : Acts As SRC Role
  *                     UTCPD_PD_SNK_TC_PD_CONNECTION = 0x25,   : Acts As SNK Role
  *                     UTCPD_PD_GET_BATTERY_CAP = 0x26         : GET_BAT_CAP Message From Port Partner
@@ -246,14 +246,11 @@ void TMR1_IRQHandler(void)
  *                     UTCPD_PD_SNK_REC_SOURCE_CAP = 0x28,     : SNK Role Receive SOURCE_CAP Message From Port Partner
  *                     UTCPD_PD_SNK_REC_ACCEPT = 0x29,         : SNK Role Receive ACCEPT Message From Port Partner
  *                     UTCPD_PD_SRC_SEND_ACCEPT = 0x2A,        : SRC Role Send ACCEPT Message to Accept Power Negotiation
- *              op:    event flag set/clear or the 2nd parameter
+ * @param       op     Event flag set/clear or the second parameter.
  *
- * @return      None
  *
- * @details     None
  *
  */
-extern void pd_recovery_snk_pdo(int port);
 void UTCPD_Callback(int port, E_UTCPD_PD_EVENT event, uint32_t op)
 {
     printf("Callback event = %d\n", event);

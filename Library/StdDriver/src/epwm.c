@@ -204,7 +204,6 @@ uint32_t EPWM_ConfigOutputChannel(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel.
  *                           Bit 0 is channel 0, bit 1 is channel 1...
- * @return None
  * @details This function is used to start EPWM module.
  */
 void EPWM_Start(EPWM_T *epwm, uint32_t u32ChannelMask)
@@ -219,7 +218,6 @@ void EPWM_Start(EPWM_T *epwm, uint32_t u32ChannelMask)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel.
  *                           Bit 0 is channel 0, bit 1 is channel 1...
- * @return None
  * @details This function is used to stop EPWM module.
  */
 void EPWM_Stop(EPWM_T *epwm, uint32_t u32ChannelMask)
@@ -241,7 +239,6 @@ void EPWM_Stop(EPWM_T *epwm, uint32_t u32ChannelMask)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel.
  *                           Bit 0 is channel 0, bit 1 is channel 1...
- * @return None
  * @details This function is used to stop EPWM generation immediately by clear channel enable bit.
  */
 void EPWM_ForceStop(EPWM_T *epwm, uint32_t u32ChannelMask)
@@ -272,7 +269,6 @@ void EPWM_ForceStop(EPWM_T *epwm, uint32_t u32ChannelMask)
  *                  - \ref EPWM_TRG_ADC_CH_2_FREE_CMP_DOWN
  *                  - \ref EPWM_TRG_ADC_CH_4_FREE_CMP_UP
  *                  - \ref EPWM_TRG_ADC_CH_4_FREE_CMP_DOWN
- * @return None
  * @details This function is used to enable selected channel to trigger ADC.
  */
 void EPWM_EnableADCTrigger(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Condition)
@@ -295,7 +291,6 @@ void EPWM_EnableADCTrigger(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Con
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable selected channel to trigger ADC.
  */
 void EPWM_DisableADCTrigger(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -358,7 +353,6 @@ int32_t EPWM_EnableADCTriggerPrescale(EPWM_T *epwm, uint32_t u32ChannelNum, uint
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable trigger ADC prescale.
  */
 void EPWM_DisableADCTriggerPrescale(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -373,7 +367,6 @@ void EPWM_DisableADCTriggerPrescale(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
  * @param[in] u32Condition This parameter is not used
- * @return None
  * @details This function is used to clear selected channel trigger ADC flag.
  */
 void EPWM_ClearADCTriggerFlag(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Condition)
@@ -408,7 +401,6 @@ uint32_t EPWM_GetADCTriggerFlag(const EPWM_T *epwm, uint32_t u32ChannelNum)
  *                  - \ref EPWM_TRIGGER_DAC_PERIOD
  *                  - \ref EPWM_TRIGGER_DAC_COMPARE_UP
  *                  - \ref EPWM_TRIGGER_DAC_COMPARE_DOWN
- * @return None
  * @details This function is used to enable selected channel to trigger DAC.
  */
 void EPWM_EnableDACTrigger(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Condition)
@@ -422,7 +414,6 @@ void EPWM_EnableDACTrigger(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Con
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable selected channel to trigger DAC.
  */
 void EPWM_DisableDACTrigger(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -438,7 +429,6 @@ void EPWM_DisableDACTrigger(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. This parameter is not used
  * @param[in] u32Condition The condition to trigger DAC. This parameter is not used
- * @return None
  * @details This function is used to clear selected channel trigger DAC flag.
  */
 void EPWM_ClearDACTriggerFlag(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Condition)
@@ -491,7 +481,6 @@ uint32_t EPWM_GetDACTriggerFlag(const EPWM_T *epwm, uint32_t u32ChannelNum)
  *                  - \ref EPWM_FB_LEVEL_SYS_BOD
  *                  - \ref EPWM_FB_LEVEL_SYS_RAM
  *                  - \ref EPWM_FB_LEVEL_SYS_COR
- * @return None
  * @details This function is used to enable fault brake of selected channel(s).
  *          The write-protection function should be disabled before using this function.
  */
@@ -557,7 +546,6 @@ void EPWM_EnableFaultBrake(EPWM_T *epwm, uint32_t u32ChannelMask, uint32_t u32Le
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel.
  *                           Bit 0 is channel 0, bit 1 is channel 1...
- * @return None
  * @details This function is used to enable capture of selected channel(s).
  */
 void EPWM_EnableCapture(EPWM_T *epwm, uint32_t u32ChannelMask)
@@ -573,7 +561,6 @@ void EPWM_EnableCapture(EPWM_T *epwm, uint32_t u32ChannelMask)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel.
  *                           Bit 0 is channel 0, bit 1 is channel 1...
- * @return None
  * @details This function is used to disable capture of selected channel(s).
  */
 void EPWM_DisableCapture(EPWM_T *epwm, uint32_t u32ChannelMask)
@@ -589,7 +576,6 @@ void EPWM_DisableCapture(EPWM_T *epwm, uint32_t u32ChannelMask)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel.
  *                           Set bit 0 to 1 enables channel 0 output, set bit 1 to 1 enables channel 1 output...
- * @return None
  * @details This function is used to enable EPWM output generation of selected channel(s).
  */
 void EPWM_EnableOutput(EPWM_T *epwm, uint32_t u32ChannelMask)
@@ -604,7 +590,6 @@ void EPWM_EnableOutput(EPWM_T *epwm, uint32_t u32ChannelMask)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel
  *                           Set bit 0 to 1 disables channel 0 output, set bit 1 to 1 disables channel 1 output...
- * @return None
  * @details This function is used to disable EPWM output generation of selected channel(s).
  */
 void EPWM_DisableOutput(EPWM_T *epwm, uint32_t u32ChannelMask)
@@ -623,7 +608,6 @@ void EPWM_DisableOutput(EPWM_T *epwm, uint32_t u32ChannelMask)
  *              - \ref EPWM_CAPTURE_PDMA_RISING_LATCH
  *              - \ref EPWM_CAPTURE_PDMA_FALLING_LATCH
  *              - \ref EPWM_CAPTURE_PDMA_RISING_FALLING_LATCH
- * @return None
  * @details This function is used to enable PDMA transfer of selected channel(s) for EPWM capture.
  * @note This function can only selects even or odd channel of pairs to do PDMA transfer.
  */
@@ -642,7 +626,6 @@ void EPWM_EnablePDMA(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32RisingFir
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number.
- * @return None
  * @details This function is used to enable PDMA transfer of selected channel(s) for EPWM capture.
  */
 void EPWM_DisablePDMA(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -657,7 +640,6 @@ void EPWM_DisablePDMA(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
  * @param[in] u32Duration Dead zone length in EPWM clock count, valid values are between 0~0xFFF, but 0 means there is no Dead zone.
- * @return None
  * @details This function is used to enable Dead zone of selected channel.
  *          The write-protection function should be disabled before using this function.
  * @note Every two channels share the same setting.
@@ -675,7 +657,6 @@ void EPWM_EnableDeadZone(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Durat
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable Dead zone of selected channel.
  *          The write-protection function should be disabled before using this function.
  */
@@ -694,7 +675,6 @@ void EPWM_DisableDeadZone(EPWM_T *epwm, uint32_t u32ChannelNum)
  * @param[in] u32Edge Rising or falling edge to latch counter.
  *              - \ref EPWM_CAPTURE_INT_RISING_LATCH
  *              - \ref EPWM_CAPTURE_INT_FALLING_LATCH
- * @return None
  * @details This function is used to enable capture interrupt of selected channel.
  */
 void EPWM_EnableCaptureInt(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Edge)
@@ -711,7 +691,6 @@ void EPWM_EnableCaptureInt(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Edg
  * @param[in] u32Edge Rising or falling edge to latch counter.
  *              - \ref EPWM_CAPTURE_INT_RISING_LATCH
  *              - \ref EPWM_CAPTURE_INT_FALLING_LATCH
- * @return None
  * @details This function is used to disable capture interrupt of selected channel.
  */
 void EPWM_DisableCaptureInt(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Edge)
@@ -728,7 +707,6 @@ void EPWM_DisableCaptureInt(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Ed
  * @param[in] u32Edge Rising or falling edge to latch counter.
  *              - \ref EPWM_CAPTURE_INT_RISING_LATCH
  *              - \ref EPWM_CAPTURE_INT_FALLING_LATCH
- * @return None
  * @details This function is used to clear capture interrupt of selected channel.
  */
 void EPWM_ClearCaptureIntFlag(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Edge)
@@ -762,7 +740,6 @@ uint32_t EPWM_GetCaptureIntFlag(const EPWM_T *epwm, uint32_t u32ChannelNum)
  * @param[in] u32IntDutyType Duty interrupt type, could be either
  *              - \ref EPWM_DUTY_INT_DOWN_COUNT_MATCH_CMP
  *              - \ref EPWM_DUTY_INT_UP_COUNT_MATCH_CMP
- * @return None
  * @details This function is used to enable duty interrupt of selected channel.
  */
 void EPWM_EnableDutyInt(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32IntDutyType)
@@ -776,7 +753,6 @@ void EPWM_EnableDutyInt(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32IntDut
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable duty interrupt of selected channel.
  */
 void EPWM_DisableDutyInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -797,7 +773,6 @@ void EPWM_DisableDutyInt(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to clear duty interrupt flag of selected channel.
  */
 void EPWM_ClearDutyIntFlag(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -827,7 +802,6 @@ uint32_t EPWM_GetDutyIntFlag(const EPWM_T *epwm, uint32_t u32ChannelNum)
  * @param[in] u32BrakeSource Fault brake source.
  *              - \ref EPWM_FB_EDGE
  *              - \ref EPWM_FB_LEVEL
- * @return None
  * @details This function is used to enable fault brake interrupt.
  *          The write-protection function should be disabled before using this function.
  * @note Every two channels share the same setting.
@@ -843,7 +817,6 @@ void EPWM_EnableFaultBrakeInt(EPWM_T *epwm, uint32_t u32BrakeSource)
  * @param[in] u32BrakeSource Fault brake source.
  *              - \ref EPWM_FB_EDGE
  *              - \ref EPWM_FB_LEVEL
- * @return None
  * @details This function is used to disable fault brake interrupt.
  *          The write-protection function should be disabled before using this function.
  * @note Every two channels share the same setting.
@@ -859,7 +832,6 @@ void EPWM_DisableFaultBrakeInt(EPWM_T *epwm, uint32_t u32BrakeSource)
  * @param[in] u32BrakeSource Fault brake source.
  *              - \ref EPWM_FB_EDGE
  *              - \ref EPWM_FB_LEVEL
- * @return None
  * @details This function is used to clear fault brake interrupt of selected source.
  *          The write-protection function should be disabled before using this function.
  */
@@ -891,7 +863,6 @@ uint32_t EPWM_GetFaultBrakeIntFlag(const EPWM_T *epwm, uint32_t u32BrakeSource)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
  * @param[in] u32IntPeriodType Period interrupt type. This parameter is not used.
- * @return None
  * @details This function is used to enable period interrupt of selected channel.
  */
 void EPWM_EnablePeriodInt(EPWM_T *epwm, uint32_t u32ChannelNum,  uint32_t u32IntPeriodType)
@@ -906,7 +877,6 @@ void EPWM_EnablePeriodInt(EPWM_T *epwm, uint32_t u32ChannelNum,  uint32_t u32Int
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable period interrupt of selected channel.
  */
 void EPWM_DisablePeriodInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -920,7 +890,6 @@ void EPWM_DisablePeriodInt(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to clear period interrupt of selected channel.
  */
 void EPWM_ClearPeriodIntFlag(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -950,7 +919,6 @@ uint32_t EPWM_GetPeriodIntFlag(const EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to enable zero interrupt of selected channel.
  */
 void EPWM_EnableZeroInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -964,7 +932,6 @@ void EPWM_EnableZeroInt(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable zero interrupt of selected channel.
  */
 void EPWM_DisableZeroInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -978,7 +945,6 @@ void EPWM_DisableZeroInt(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to clear zero interrupt of selected channel.
  */
 void EPWM_ClearZeroIntFlag(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1014,7 +980,6 @@ uint32_t EPWM_GetZeroIntFlag(const EPWM_T *epwm, uint32_t u32ChannelNum)
  *              - \ref EPWM_IFA_PERIOD_POINT
  *              - \ref EPWM_IFA_COMPARE_UP_COUNT_POINT
  *              - \ref EPWM_IFA_COMPARE_DOWN_COUNT_POINT
- * @return None
  * @details This function is used to enable interrupt flag accumulator of selected channel.
  */
 void EPWM_EnableAcc(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32IntFlagCnt, uint32_t u32IntAccSrc)
@@ -1029,7 +994,6 @@ void EPWM_EnableAcc(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32IntFlagCnt
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to Disable interrupt flag accumulator of selected channel.
  */
 void EPWM_DisableAcc(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1043,7 +1007,6 @@ void EPWM_DisableAcc(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to enable interrupt flag accumulator interrupt of selected channel.
  */
 void EPWM_EnableAccInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1057,7 +1020,6 @@ void EPWM_EnableAccInt(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable interrupt flag accumulator interrupt of selected channel.
  */
 void EPWM_DisableAccInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1071,7 +1033,6 @@ void EPWM_DisableAccInt(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to clear interrupt flag accumulator interrupt of selected channel.
  */
 void EPWM_ClearAccInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1100,7 +1061,6 @@ uint32_t EPWM_GetAccInt(const EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to enable accumulator interrupt trigger PDMA of selected channel.
  */
 void EPWM_EnableAccPDMA(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1114,7 +1074,6 @@ void EPWM_EnableAccPDMA(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable accumulator interrupt trigger PDMA of selected channel.
  */
 void EPWM_DisableAccPDMA(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1128,7 +1087,6 @@ void EPWM_DisableAccPDMA(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to enable interrupt flag accumulator stop mode of selected channel.
  */
 void EPWM_EnableAccStopMode(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1142,7 +1100,6 @@ void EPWM_EnableAccStopMode(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to disable interrupt flag accumulator stop mode of selected channel.
  */
 void EPWM_DisableAccStopMode(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1156,7 +1113,6 @@ void EPWM_DisableAccStopMode(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to clear free trigger duty interrupt flag of selected channel.
  */
 void EPWM_ClearFTDutyIntFlag(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1190,7 +1146,6 @@ uint32_t EPWM_GetFTDutyIntFlag(const EPWM_T *epwm, uint32_t u32ChannelNum)
  *              - \ref EPWM_LOAD_MODE_IMMEDIATE
  *              - \ref EPWM_LOAD_MODE_WINDOW
  *              - \ref EPWM_LOAD_MODE_CENTER
- * @return None
  * @details This function is used to enable load mode of selected channel.
  */
 void EPWM_EnableLoadMode(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32LoadMode)
@@ -1208,7 +1163,6 @@ void EPWM_EnableLoadMode(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32LoadM
  *              - \ref EPWM_LOAD_MODE_IMMEDIATE
  *              - \ref EPWM_LOAD_MODE_WINDOW
  *              - \ref EPWM_LOAD_MODE_CENTER
- * @return None
  * @details This function is used to disable load mode of selected channel.
  */
 void EPWM_DisableLoadMode(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32LoadMode)
@@ -1231,7 +1185,6 @@ void EPWM_DisableLoadMode(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Load
  *              - \ref EPWM_PHS_DIR_DECREMENT
  *              - \ref EPWM_PHS_DIR_INCREMENT
  * @param[in] u32StartPhase Synchronous start phase value. Valid values are between 0~65535.
- * @return None
  * @details This function is used to configure synchronization phase of selected channel.
  * @note Every two channels share the same setting.
  */
@@ -1254,7 +1207,6 @@ void EPWM_ConfigSyncPhase(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Sync
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel.
  *                           Bit 0 is channel 0, bit 1 is channel 1...
- * @return None
  * @details This function is used to enable SYNC phase of selected channel(s).
  * @note Every two channels share the same setting.
  */
@@ -1277,7 +1229,6 @@ void EPWM_EnableSyncPhase(EPWM_T *epwm, uint32_t u32ChannelMask)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelMask Combination of enabled channels. Each bit corresponds to a channel.
  *                           Bit 0 is channel 0, bit 1 is channel 1...
- * @return None
  * @details This function is used to disable SYNC phase of selected channel(s).
  * @note Every two channels share the same setting.
  */
@@ -1309,7 +1260,6 @@ void EPWM_DisableSyncPhase(EPWM_T *epwm, uint32_t u32ChannelMask)
  *              - \ref EPWM_NF_CLK_DIV_32
  *              - \ref EPWM_NF_CLK_DIV_64
  *              - \ref EPWM_NF_CLK_DIV_128
- * @return None
  * @details This function is used to enable EPWM SYNC_IN noise filter function.
  */
 void EPWM_EnableSyncNoiseFilter(EPWM_T *epwm, uint32_t u32ClkCnt, uint32_t u32ClkDivSel)
@@ -1323,7 +1273,6 @@ void EPWM_EnableSyncNoiseFilter(EPWM_T *epwm, uint32_t u32ClkCnt, uint32_t u32Cl
  * @param[in] epwm The pointer of the specified EPWM module
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
- * @return None
  * @details This function is used to Disable EPWM SYNC_IN noise filter function.
  */
 void EPWM_DisableSyncNoiseFilter(EPWM_T *epwm)
@@ -1336,7 +1285,6 @@ void EPWM_DisableSyncNoiseFilter(EPWM_T *epwm)
  * @param[in] epwm The pointer of the specified EPWM module
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
- * @return None
  * @details This function is used to enable EPWM SYNC input pin inverse function.
  */
 void EPWM_EnableSyncPinInverse(EPWM_T *epwm)
@@ -1349,7 +1297,6 @@ void EPWM_EnableSyncPinInverse(EPWM_T *epwm)
  * @param[in] epwm The pointer of the specified EPWM module
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
- * @return None
  * @details This function is used to Disable EPWM SYNC input pin inverse function.
  */
 void EPWM_DisableSyncPinInverse(EPWM_T *epwm)
@@ -1369,7 +1316,6 @@ void EPWM_DisableSyncPinInverse(EPWM_T *epwm)
  *              - \ref EPWM_CLKSRC_TIMER1
  *              - \ref EPWM_CLKSRC_TIMER2
  *              - \ref EPWM_CLKSRC_TIMER3
- * @return None
  * @details This function is used to set EPWM clock source.
  * @note Every two channels share the same setting.
  * @note If the clock source of EPWM counter is selected from TIMERn interrupt events, the TRGEPWM(TIMERn_TRGCTL[1], n=0,1..3) bit must be set as 1.
@@ -1396,7 +1342,6 @@ void EPWM_SetClockSource(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32ClkSr
  *              - \ref EPWM_NF_CLK_DIV_32
  *              - \ref EPWM_NF_CLK_DIV_64
  *              - \ref EPWM_NF_CLK_DIV_128
- * @return None
  * @details This function is used to enable EPWM brake noise filter function.
  */
 void EPWM_EnableBrakeNoiseFilter(EPWM_T *epwm, uint32_t u32BrakePinNum, uint32_t u32ClkCnt, uint32_t u32ClkDivSel)
@@ -1411,7 +1356,6 @@ void EPWM_EnableBrakeNoiseFilter(EPWM_T *epwm, uint32_t u32BrakePinNum, uint32_t
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32BrakePinNum Brake pin selection. Valid values are 0 or 1.
- * @return None
  * @details This function is used to disable EPWM brake noise filter function.
  */
 void EPWM_DisableBrakeNoiseFilter(EPWM_T *epwm, uint32_t u32BrakePinNum)
@@ -1425,7 +1369,6 @@ void EPWM_DisableBrakeNoiseFilter(EPWM_T *epwm, uint32_t u32BrakePinNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32BrakePinNum Brake pin selection. Valid values are 0 or 1.
- * @return None
  * @details This function is used to enable EPWM brake pin inverse function.
  */
 void EPWM_EnableBrakePinInverse(EPWM_T *epwm, uint32_t u32BrakePinNum)
@@ -1439,7 +1382,6 @@ void EPWM_EnableBrakePinInverse(EPWM_T *epwm, uint32_t u32BrakePinNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32BrakePinNum Brake pin selection. Valid values are 0 or 1.
- * @return None
  * @details This function is used to disable EPWM brake pin inverse function.
  */
 void EPWM_DisableBrakePinInverse(EPWM_T *epwm, uint32_t u32BrakePinNum)
@@ -1454,7 +1396,6 @@ void EPWM_DisableBrakePinInverse(EPWM_T *epwm, uint32_t u32BrakePinNum)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32BrakePinNum Brake pin selection. Valid values are 0 or 1.
  * @param[in] u32SelAnotherModule Select to another module. Valid values are TRUE or FALSE.
- * @return None
  * @details This function is used to set EPWM brake pin source.
  */
 void EPWM_SetBrakePinSource(EPWM_T *epwm, uint32_t u32BrakePinNum, uint32_t u32SelAnotherModule)
@@ -1484,7 +1425,6 @@ void EPWM_SetBrakePinSource(EPWM_T *epwm, uint32_t u32BrakePinNum, uint32_t u32S
  * @param[in] u32BlankingEnable Enable EPWM leading edge blanking function. Valid values are TRUE (ENABLE) or FALSE (DISABLE).
  *              - \ref FALSE
  *              - \ref TRUE
- * @return None
  * @details This function is used to configure EPWM leading edge blanking function that blank the false trigger from ACMP brake source which may cause by EPWM output transition.
  * @note EPWM leading edge blanking function is only used for brake source from ACMP.
  */
@@ -1517,7 +1457,6 @@ uint32_t EPWM_GetWrapAroundFlag(const EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5
- * @return None
  * @details This function is used to clear the time-base counter reached its maximum value flag of selected channel.
  */
 void EPWM_ClearWrapAroundFlag(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1537,7 +1476,6 @@ void EPWM_ClearWrapAroundFlag(EPWM_T *epwm, uint32_t u32ChannelNum)
  *              - \ref EPWM_FDCTL_FDCKSEL_CLK_DIV_2
  *              - \ref EPWM_FDCTL_FDCKSEL_CLK_DIV_4
  *              - \ref EPWM_FDCTL_FDCKSEL_CLK_DIV_8
- * @return None
  * @details This function is used to enable fault detect of selected channel.
  */
 void EPWM_EnableFaultDetect(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32AfterPrescaler, uint32_t u32ClkSel)
@@ -1553,7 +1491,6 @@ void EPWM_EnableFaultDetect(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32Af
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
- * @return None
  * @details This function is used to disable fault detect of selected channel.
  */
 void EPWM_DisableFaultDetect(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1567,7 +1504,6 @@ void EPWM_DisableFaultDetect(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
- * @return None
  * @details This function is used to enable fault detect output of selected channel.
  */
 void EPWM_EnableFaultDetectOutput(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1581,7 +1517,6 @@ void EPWM_EnableFaultDetectOutput(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
- * @return None
  * @details This function is used to disable fault detect output of selected channel.
  */
 void EPWM_DisableFaultDetectOutput(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1596,7 +1531,6 @@ void EPWM_DisableFaultDetectOutput(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
  * @param[in] u32DeglitchSmpCycle Deglitch Sampling Cycle. Valid values are between 0~7.
- * @return None
  * @details This function is used to enable fault detect deglitch function of selected channel.
  */
 void EPWM_EnableFaultDetectDeglitch(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32DeglitchSmpCycle)
@@ -1611,7 +1545,6 @@ void EPWM_EnableFaultDetectDeglitch(EPWM_T *epwm, uint32_t u32ChannelNum, uint32
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
- * @return None
  * @details This function is used to disable fault detect deglitch function of selected channel.
  */
 void EPWM_DisableFaultDetectDeglitch(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1626,7 +1559,6 @@ void EPWM_DisableFaultDetectDeglitch(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
  * @param[in] u32MaskCnt Transition mask counter. Valid values are between 0~0x7F.
- * @return None
  * @details This function is used to enable fault detect mask function of selected channel.
  */
 void EPWM_EnableFaultDetectMask(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u32MaskCnt)
@@ -1640,7 +1572,6 @@ void EPWM_EnableFaultDetectMask(EPWM_T *epwm, uint32_t u32ChannelNum, uint32_t u
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
- * @return None
  * @details This function is used to disable fault detect mask function of selected channel.
  */
 void EPWM_DisableFaultDetectMask(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1654,7 +1585,6 @@ void EPWM_DisableFaultDetectMask(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
- * @return None
  * @details This function is used to enable fault detect interrupt of selected channel.
  */
 void EPWM_EnableFaultDetectInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1668,7 +1598,6 @@ void EPWM_EnableFaultDetectInt(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
- * @return None
  * @details This function is used to disable fault detect interrupt of selected channel.
  */
 void EPWM_DisableFaultDetectInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1682,7 +1611,6 @@ void EPWM_DisableFaultDetectInt(EPWM_T *epwm, uint32_t u32ChannelNum)
  *                - EPWM0 : EPWM Group 0
  *                - EPWM1 : EPWM Group 1
  * @param[in] u32ChannelNum EPWM channel number. Valid values are between 0~5.
- * @return None
  * @details This function is used to clear fault detect interrupt of selected channel.
  */
 void EPWM_ClearFaultDetectInt(EPWM_T *epwm, uint32_t u32ChannelNum)
@@ -1705,10 +1633,10 @@ uint32_t EPWM_GetFaultDetectInt(const EPWM_T *epwm, uint32_t u32ChannelNum)
     return (((epwm)->FDSTS & (EPWM_FDSTS_FDIF0_Msk << (u32ChannelNum))) ? 1UL : 0UL);
 }
 
-/*@}*/ /* end of group EPWM_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group EPWM_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group EPWM_Driver */
+/** @} */ /* end of group EPWM_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/

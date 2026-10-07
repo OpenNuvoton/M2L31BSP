@@ -551,7 +551,7 @@ int tcpm_set_msg_header(int port, int power_role, int data_role);
  * Set RX enable flag
  *
  * @param port Type-C port number
- * @enable true for enable, false for disable
+ * @param enable true for enable, false for disable
  *
  * @return EC_SUCCESS or error
  */
@@ -571,7 +571,6 @@ void tcpm_enable_auto_discharge_disconnect(int port, int enable);
  * @param port Type-C port number
  * @param type Transmit type
  * @param header Packet header
- * @param cnt Number of bytes in payload
  * @param data Payload
  *
  * @return EC_SUCCESS or error

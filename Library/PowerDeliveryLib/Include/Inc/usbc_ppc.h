@@ -310,6 +310,7 @@ int ppc_get_alert_status(int port);
  * Turn on/off the FRS trigger
  *
  * @param port: The Type-C port number.
+ * @param enable: 1 to turn on the FRS trigger, 0 to turn it off.
  * @return EC_SUCCESS on success, error otherwise
  */
 int ppc_set_frs_enable(int port, int enable);

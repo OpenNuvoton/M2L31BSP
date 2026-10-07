@@ -65,7 +65,7 @@ extern "C"
 /* QSPI Status2 Mask */
 #define QSPI_SLVBENUM_MASK                (0x01U)                           /*!< Effective bit number of uncompleted RX data status mask \hideinitializer */
 
-/*@}*/ /* end of group QSPI_EXPORTED_CONSTANTS */
+/** @} */ /* end of group QSPI_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup QSPI_EXPORTED_FUNCTIONS QSPI Exported Functions
@@ -423,11 +423,11 @@ uint32_t QSPI_GetStatus(const QSPI_T *qspi, uint32_t u32Mask);
 uint32_t QSPI_GetStatus2(const QSPI_T *qspi, uint32_t u32Mask);
 
 
-/*@}*/ /* end of group QSPI_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group QSPI_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group QSPI_Driver */
+/** @} */ /* end of group QSPI_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

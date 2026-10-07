@@ -39,7 +39,7 @@ extern "C"
 #define OTG_VBUS_ST_VALID_LOW        (1UL) /*!< USB VBUS power switch valid status is low. \hideinitializer */
 
 
-/*@}*/ /* end of group OTG_EXPORTED_CONSTANTS */
+/** @} */ /* end of group OTG_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup OTG_EXPORTED_FUNCTIONS OTG Exported Functions
@@ -53,7 +53,7 @@ extern "C"
 
 /**
   * @brief This macro is used to enable OTG function
-  * @param None
+  * @note  No parameters.
   * @return None
   * @details This macro will set OTGEN bit of OTG_CTL register to enable OTG function.
   * \hideinitializer
@@ -62,7 +62,7 @@ extern "C"
 
 /**
   * @brief This macro is used to disable OTG function
-  * @param None
+  * @note  No parameters.
   * @return None
   * @details This macro will clear OTGEN bit of OTG_CTL register to disable OTG function.
   * \hideinitializer
@@ -71,7 +71,7 @@ extern "C"
 
 /**
   * @brief This macro is used to enable USB PHY
-  * @param None
+  * @note  No parameters.
   * @return None
   * @details When the USB role is selected as OTG device, use this macro to enable USB PHY.
   *          This macro will set OTGPHYEN bit of OTG_PHYCTL register to enable USB PHY.
@@ -81,7 +81,7 @@ extern "C"
 
 /**
   * @brief This macro is used to disable USB PHY
-  * @param None
+  * @note  No parameters.
   * @return None
   * @details This macro will clear OTGPHYEN bit of OTG_PHYCTL register to disable USB PHY.
   * \hideinitializer
@@ -90,7 +90,7 @@ extern "C"
 
 /**
   * @brief This macro is used to enable ID detection function
-  * @param None
+  * @note  No parameters.
   * @return None
   * @details This macro will set IDDETEN bit of OTG_PHYCTL register to enable ID detection function.
   * \hideinitializer
@@ -99,7 +99,7 @@ extern "C"
 
 /**
   * @brief This macro is used to disable ID detection function
-  * @param None
+  * @note  No parameters.
   * @return None
   * @details This macro will clear IDDETEN bit of OTG_PHYCTL register to disable ID detection function.
   * \hideinitializer
@@ -108,7 +108,7 @@ extern "C"
 
 /**
   * @brief This macro is used to enable OTG wake-up function
-  * @param None
+  * @note  No parameters.
   * @return None
   * @details This macro will set WKEN bit of OTG_CTL register to enable OTG wake-up function.
   * \hideinitializer
@@ -117,7 +117,7 @@ extern "C"
 
 /**
   * @brief This macro is used to disable OTG wake-up function
-  * @param None
+  * @note  No parameters.
   * @return None
   * @details This macro will clear WKEN bit of OTG_CTL register to disable OTG wake-up function.
   * \hideinitializer
@@ -251,11 +251,11 @@ extern "C"
 
 
 
-/*@}*/ /* end of group OTG_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group OTG_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group OTG_Driver */
+/** @} */ /* end of group OTG_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 
 #ifdef __cplusplus

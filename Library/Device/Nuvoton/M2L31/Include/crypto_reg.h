@@ -1,5 +1,5 @@
 /**************************************************************************//**
-* @file     crpt_reg.h
+* @file     crypto_reg.h
 * @version  V1.00
 * @brief    CRPT register definition header file
 *

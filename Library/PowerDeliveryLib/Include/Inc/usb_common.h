@@ -381,7 +381,7 @@ uint8_t get_src_polarity(uint8_t cc1, uint8_t cc2);
  * @param src_cap_cnt
  * @param src_caps
  * @param max_mv maximum voltage (or -1 if no limit)
- * @param pdo raw pdo corresponding to index, or index 0 on error (output)
+ * @param selected_pdo raw pdo corresponding to index, or index 0 on error (output)
  * @return index of PDO within source cap packet
  */
 int pd_find_pdo_index(uint32_t src_cap_cnt, const uint32_t * const src_caps,

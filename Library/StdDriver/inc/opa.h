@@ -88,7 +88,7 @@ typedef enum {
     OPA_GAIN_MINUS_RESERVED
 } E_INVERTING_GAIN;
 
-/*@}*/ /* end of group OPA_EXPORTED_CONSTANTS */
+/** @} */ /* end of group OPA_EXPORTED_CONSTANTS */
 
 /** @addtogroup OPA_EXPORTED_FUNCTIONS OPA Exported Functions
   @{
@@ -171,7 +171,7 @@ static inline int32_t OPA_Calibration(OPA_T *opa, uint32_t u32OpaNum, uint32_t u
 #define OPA_ENABLE_OUTPUT(opa, u32OpaNum) *((__IO uint32_t *) (&((opa)->MODE0) + (u32OpaNum))) |= OPA_MODE_OUTOE_Msk
 
 /**
-  * @brief This macro is used to enable OPA output
+  * @brief This macro is used to disable OPA output
   * @param[in] opa The pointer of the specified OPA module
   * @param[in] u32OpaNum The OPA number. 0 for OPA0; 1 for OPA1; 2 for OPA2.
   * @return None
@@ -337,7 +337,7 @@ static inline int32_t OPA_Calibration(OPA_T *opa,
 
 /**
   * @brief This macro is used to generate asynchronous reset signals to OPA controller
-  * @param    None
+  * @note  No parameters.
   * @return   None
   * \hideinitializer
   */
@@ -348,11 +348,11 @@ do { \
 } while(0)
 
 
-/*@}*/ /* end of group OPA_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group OPA_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group OPA_Driver */
+/** @} */ /* end of group OPA_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

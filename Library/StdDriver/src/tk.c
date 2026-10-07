@@ -111,8 +111,7 @@ static volatile uint32_t *TK_GetTHCReg(uint32_t u32TKNum)
 
 /**
  * @brief Enable touch key function
- * @param None
- * @return None
+ * @note  No parameters.
  * @note This function will enable touch key function and initial idle and polarity state as GND first for all scan keys
  * \hideinitializer
  */
@@ -136,8 +135,7 @@ void TK_Open(void)
 
 /**
  * @brief Disable touch key function
- * @param None
- * @return None
+ * @note  No parameters.
  * \hideinitializer
  */
 void TK_Close(void)
@@ -152,7 +150,6 @@ void TK_Close(void)
  *              - \ref TK_SCAN_MODE_PERIODIC
  *              - \ref TK_SCAN_MODE_ALL_KEY
  *              - \ref TK_SCAN_MODE_PERIODIC_ALL_KEY
- * @return None
  * @details This function is used to set touch key scan mode.
  * @note If touch key controller sets as periodic mode, touch key will be trigger scan by Timer0. So Timer0 must be enabled and operated in periodic mode.
  *       If touch key controller sets as single scan mode, touch key can be trigger scan by calling TK_START_SCAN().
@@ -192,8 +189,7 @@ void TK_SetScanMode(uint32_t u32Mode)
  *              - \ref TK_SCAN_TRIGGER_SOURCE_LPTMR0
  *              - \ref TK_SCAN_TRIGGER_SOURCE_LPTMR1
  *              - \ref TK_SCAN_TRIGGER_SOURCE_TICKTMR0
- *              - \ref TK_SCAN_TRIGGER_SOURCE_TICKTMR2
- * @return None
+ *              - \ref TK_SCAN_TRIGGER_SOURCE_TICKTMR1
  */
 void TK_TriggerMode(uint32_t u32Src)
 {
@@ -227,7 +223,6 @@ void TK_TriggerMode(uint32_t u32Src)
  *              - \ref TK_AVCCH_3_DIV_8
  *              - \ref TK_AVCCH_7_DIV_16
  *              - \ref TK_AVCCH_1_DIV_2
- * @return None
  * @details This function is used to configure touch key scan sensitivity.
  * \hideinitializer
  */
@@ -243,7 +238,6 @@ void TK_ConfigSensitivity(uint32_t u32PulseWidth, uint32_t u32SenseCnt, uint32_t
  *              - \ref TK_CAP_BANK_POL_SEL_GND
  *              - \ref TK_CAP_BANK_POL_SEL_AVCCH
  *              - \ref TK_CAP_BANK_POL_SEL_VDD
- * @return None
  * @details This function is used to set touch key capacitor bank polarity.
  * \hideinitializer
  */
@@ -259,7 +253,6 @@ void TK_SetCapBankPol(uint32_t u32CapBankPolSel)
  *              - \ref TK_TKn_POL_SEL_GND
  *              - \ref TK_TKn_POL_SEL_AVCCH
  *              - \ref TK_TKn_POL_SEL_VDD
- * @return None
  * @details This function is used to configure touch key polarity.
  * \hideinitializer
  */
@@ -297,7 +290,6 @@ void TK_SetTkPol(uint32_t u32Mask, uint32_t u32PolSel)
  * @brief Enable the polarity of specified touch key(s)
  * @param[in] u32Mask Combination of enabled scan keys. Each bit corresponds to a touch key
  *                           Bit 0 represents touch key 0, bit 1 represents touch key 1...
- * @return None
  * @details This function is used to enable the polarity of specified touch key(s).
  * \hideinitializer
  */
@@ -315,7 +307,6 @@ void TK_EnableTkPolarity(uint32_t u32Mask)
  * @brief Disable the polarity of specified touch key(s)
  * @param[in] u32Mask Combination of enabled scan keys. Each bit corresponds to a touch key
  *                           Bit 0 represents touch key 0, bit 1 represents touch key 1...
- * @return None
  * @details This function is used to disable the polarity of specified touch key(s).
  * \hideinitializer
  */
@@ -333,7 +324,6 @@ void TK_DisableTkPolarity(uint32_t u32Mask)
  * @brief Set complement capacitor bank data of specified touch key
  * @param[in] u32TKNum Touch key number. The valid value is 0~16.
  * @param[in] u32CapData Complement capacitor bank data. The valid value is 0~0xFF.
- * @return None
  * @details This function is used to set complement capacitor bank data of specified touch key.
  * \hideinitializer
  */
@@ -369,7 +359,6 @@ void TK_SetCompCapBankData(uint32_t u32TKNum, uint32_t u32CapData)
 /**
  * @brief Set complement capacitor bank data of reference touch key
  * @param[in] u32CapData Complement capacitor bank data. The valid value is 0~0xFF.
- * @return None
  * @details This function is used to set complement capacitor bank data of reference touch key.
  * \hideinitializer
  */
@@ -389,7 +378,6 @@ void TK_SetRefKeyCapBankData(uint32_t u32CapData)
   * @brief      Set reference capacitor bank data of specified touch key
   * @param[in]  u32TKNum: Touch key number. The valid value is 0~25.
   * @param[in]  u32CapData: Complement capacitor bank data. The valid value is 0~0xFF.
-  * @return     None
   * @details    This function is used to set complement capacitor bank data of reference touch key.
   */
 
@@ -426,7 +414,6 @@ void TK_SetRefCapBankData(uint32_t u32TKNum, uint32_t u32CapData)
  * @brief Set high and low threshold of specified touch key for threshold control interrupt
  * @param[in] u32TKNum Touch key number. The valid value is 0~16.
  * @param[in] u32HighLevel High level for touch key threshold control. The valid value is 0~0xFF.
- * @return None
  * @details This function is used to set high and low threshold of specified touch key for threshold control interrupt.
  * \hideinitializer
  */
@@ -467,7 +454,6 @@ void TK_SetScanThreshold(uint32_t u32TKNum, uint32_t u32HighLevel)
  * @param[in] u32Msk Interrupt type selection.
  *              - \ref TK_INT_EN_SCAN_COMPLETE
  *              - \ref TK_INT_EN_SCAN_COMPLETE_LEVEL_TH
- * @return None
  * @details This function is used to enable touch key scan interrupt.
  * @note It need disable the enabled interrupt type first by TK_DisableInt() before to change enabled interrupt type.
  * \hideinitializer
@@ -482,7 +468,6 @@ void TK_EnableInt(uint32_t u32Msk)
  * @param[in] u32Msk Interrupt type selection.
  *              - \ref TK_INT_EN_SCAN_COMPLETE
  *              - \ref TK_INT_EN_SCAN_COMPLETE_LEVEL_TH
- * @return None
  * @details This function is used to disable touch key scan interrupt.
 * @note It need disable the enabled interrupt type first by TK_DisableInt() before to change enabled interrupt type.
  * \hideinitializer
@@ -494,8 +479,7 @@ void TK_DisableInt(uint32_t u32Msk)
 
 /**
   * @brief      To disable all channels
-  * @param[in]  None
-  * @return     None
+  * @note       No parameters.
   * @details    This function is used to disable all channels for key scan.
   */
 void TK_DisableAllChannel(void)
@@ -511,8 +495,7 @@ void TK_DisableAllChannel(void)
 
 /**
   * @brief      To clear all interrupts that were caused if the conversion TK data over the high threshold.
-  * @param[in]  None
-  * @return     None
+  * @note       No parameters.
   * @details    This function is used to clear all interrupts that were caused if the conversion TK data over the high threshold.
   */
 void TK_ClearTKIF(void)
@@ -530,7 +513,6 @@ void TK_ClearTKIF(void)
   * @param[in]  u8RefcbAll: The value co-works with u8CcbAll to make conversion all enabled touch keys' data - TKDATALL close to 0.
   * @param[in]  u8CcbAll: The value co-works with u8RefcbAll to make conversion all enabled touch keys' data - TKDATALL close to 0.
   * @param[in]  u8HThAll: Threshold to wake up system by any touch keys as low power mode
-  * @return     None
   * @details    The u8RefcbAll and u8CcbAll are the calibration values was generate by calibration flow
   *             The flow makes the TKDATALL close to 0 after scan all enabled all touch keys.
   */
@@ -544,8 +526,7 @@ void TK_EnableScanAll(uint8_t u8RefcbAll, uint8_t u8CcbAll, uint8_t u8HThAll)
 
 /**
   * @brief      To disable scan all function to wake up system by any touch keys as low power mode
-  * @param[in]  None
-  * @return     None
+  * @note       No parameters.
   */
 void TK_DisableScanAll(void)
 {
@@ -555,7 +536,6 @@ void TK_DisableScanAll(void)
 /**
   * @brief      To assign a TK channel as reference channel
   * @param[in]  u32TKChanBitMsk: Channel mask
-  * @return     None
   * @details    The reference channel's voltage will compare with TK channel's as operation
   *
   */
@@ -576,7 +556,6 @@ void TK_SetReferenceChannel(uint32_t u32TKChanBitMsk)  /* Single bit can be set 
 /**
   * @brief      To assign enabled TK channels mask
   * @param[in]  u32TKChanBitMsk: Enabled channels mask
-  * @return     None
   * @details
   *
   */
@@ -589,7 +568,6 @@ void TK_EnableChannel(uint32_t u32TKChanBitMsk)     /* Multiple bits can be set 
 /**
   * @brief      To assign disabled TK channels mask
   * @param[in]  u32TKChanBitMsk: Disable channels mask
-  * @return     None
   * @details
   *
   */
@@ -606,9 +584,8 @@ void TK_DisableChannel(uint32_t u32TKChanBitMsk)    /* Multiple bits can be set 
 }
 
 /**
-  * @brief      Clear the specifiy TK channel mask interrupt flags
+  * @brief      Clear the specified TK channel mask interrupt flags
   * @param[in]  u32TKChanBitMsk: Clear TK channels mask
-  * @return     None
   * @details
   *
   */
@@ -625,9 +602,10 @@ void TK_ClearTKIFBitMask(uint32_t u32TKChanBitMsk)          /* Multiple bits can
 }
 
 /**
-  * @brief      Checking if the specifiy TK channel number interrupt flag occurs
-  * @param[in]  u8TKNum: Disable channels number. Value from 0 ~ max TK number
-  * @return     None
+  * @brief      Checking if the specified TK channel number interrupt flag occurs
+  * @param[in]  u8TKNum Touch key channel number. Value from 0 ~ max TK number
+  * @retval     0  The interrupt flag of the specified channel is not set
+  * @retval     1  The interrupt flag of the specified channel is set
   * @details
   *
   */
@@ -658,8 +636,8 @@ uint32_t TK_CheckTKIF(uint8_t u8TKNum)
     return u32Ret;
 }
 
-/*@}*/ /* end of group TK_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group TK_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group TK_Driver */
+/** @} */ /* end of group TK_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */

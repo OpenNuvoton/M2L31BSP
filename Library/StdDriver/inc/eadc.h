@@ -114,7 +114,7 @@ extern "C"
 /*--------------------------------------------------------------------------------------------------*/
 #define EADC_TIMEOUT_ERR    (-1L)    /*!< EADC operation abort due to timeout error \hideinitializer */
 
-/*@}*/ /* end of group EADC_EXPORTED_CONSTANTS */
+/** @} */ /* end of group EADC_EXPORTED_CONSTANTS */
 
 /** @addtogroup EADC_EXPORTED_FUNCTIONS EADC Exported Functions
   @{
@@ -358,7 +358,7 @@ extern "C"
   *                    Bit 0 is ADIF0, bit 1 is ADIF1..., bit 3 is ADIF3.
   *                    Bit 4 is ADCMPF0, bit 5 is ADCMPF1..., bit 7 is ADCMPF3.
   * @return None
-  * @details This macro is used to clear clear the selected interrupt status bits.
+  * @details This macro is used to clear the selected interrupt status bits.
   * \hideinitializer
   */
 #define EADC_CLR_INT_FLAG(eadc, u32Mask) ((eadc)->STATUS2 = (u32Mask))
@@ -698,11 +698,11 @@ void EADC_SetExtendSampleTime(EADC_T *eadc, uint32_t u32ModuleNum, uint32_t u32E
 int32_t EADC_GetErrCode(void);
 void    EADC_SetErrCode(int32_t err);
 
-/*@}*/ /* end of group EADC_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group EADC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group EADC_Driver */
+/** @} */ /* end of group EADC_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

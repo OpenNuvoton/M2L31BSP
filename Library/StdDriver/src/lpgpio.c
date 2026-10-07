@@ -31,7 +31,6 @@
  *                          - \ref LPGPIO_MODE_INPUT
  *                          - \ref LPGPIO_MODE_OUTPUT
  *
- * @return      None
  *
  * @details     This function is used to set specified LPGPIO operation mode.
  */
@@ -48,10 +47,10 @@ void LPGPIO_SetMode(LPGPIO_T *port, uint32_t u32PinMask, uint32_t u32Mode)
     }
 }
 
-/*@}*/ /* end of group LPGPIO_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPGPIO_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPGPIO_Driver */
+/** @} */ /* end of group LPGPIO_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

@@ -28,7 +28,7 @@ static int32_t g_CLK_i32ErrCode = 0;   /*!< CLK global error code */
 /* Restrict error code to module scope. */
 /**
   * @brief      Get the error code of CLK module
-  * @param      None
+  * @note       No parameters.
   * @return     The error code of CLK module
   * @details    This function return the error code of CLK module.
   */
@@ -39,8 +39,7 @@ int32_t CLK_GetErrCode(void)
 
 /**
   * @brief      Set the error code of CLK module
-  * @param      The error code of CLK module
-  * @return     None
+  * @param[in]  err  The error code of CLK module
   * @details    This function set the error code of CLK module.
   */
 void CLK_SetErrCode(int32_t err)
@@ -50,8 +49,7 @@ void CLK_SetErrCode(int32_t err)
 
 /**
   * @brief      Disable clock divider output function
-  * @param      None
-  * @return     None
+  * @note       No parameters.
   * @details    This function disable clock divider output function.
   */
 void CLK_DisableCKO(void)
@@ -74,7 +72,6 @@ void CLK_DisableCKO(void)
   *             - \ref CLK_CLKSEL1_CLKOSEL_MIRC
   * @param[in]  u32ClkDiv is divider output frequency selection. It could be 0~15.
   * @param[in]  u32ClkDivBy1En is clock divided by one enabled.
-  * @return     None
   * @details    Output selected clock to CKO. The output clock frequency is divided by u32ClkDiv. \n
   *             The formula is: \n
   *                 CKO frequency = (Clock source frequency) / 2^(u32ClkDiv + 1) \n
@@ -95,8 +92,7 @@ void CLK_EnableCKO(uint32_t u32ClkSrc, uint32_t u32ClkDiv, uint32_t u32ClkDivBy1
 
 /**
   * @brief      Enter to Power-down mode
-  * @param      None
-  * @return     None
+  * @note       No parameters.
   * @details    This function is used to let system enter to Power-down mode. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -130,8 +126,7 @@ void CLK_PowerDown(void)
 
 /**
   * @brief      Enter to Idle mode
-  * @param      None
-  * @return     None
+  * @note       No parameters.
   * @details    This function let system enter to Idle mode. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -149,7 +144,7 @@ void CLK_Idle(void)
 
 /**
   * @brief      Get external high speed crystal clock frequency
-  * @param      None
+  * @note       No parameters.
   * @return     External high frequency crystal frequency
   * @details    This function get external high frequency crystal frequency. The frequency unit is Hz.
   */
@@ -172,7 +167,7 @@ uint32_t CLK_GetHXTFreq(void)
 
 /**
   * @brief      Get external low speed crystal clock frequency
-  * @param      None
+  * @note       No parameters.
   * @return     External low speed crystal clock frequency
   * @details    This function get external low frequency crystal frequency. The frequency unit is Hz.
   */
@@ -193,7 +188,7 @@ uint32_t CLK_GetLXTFreq(void)
 
 /**
   * @brief      Get PCLK0 frequency
-  * @param      None
+  * @note       No parameters.
   * @return     PCLK0 frequency
   * @details    This function get PCLK0 frequency. The frequency unit is Hz.
   */
@@ -233,7 +228,7 @@ uint32_t CLK_GetPCLK0Freq(void)
 
 /**
   * @brief      Get PCLK1 frequency
-  * @param      None
+  * @note       No parameters.
   * @return     PCLK1 frequency
   * @details    This function get PCLK1 frequency. The frequency unit is Hz.
   */
@@ -273,7 +268,7 @@ uint32_t CLK_GetPCLK1Freq(void)
 
 /**
   * @brief      Get HCLK frequency
-  * @param      None
+  * @note       No parameters.
   * @return     HCLK frequency
   * @details    This function get HCLK frequency. The frequency unit is Hz.
   */
@@ -286,7 +281,7 @@ uint32_t CLK_GetHCLKFreq(void)
 
 /**
   * @brief      Get HCLK1 frequency
-  * @param      None
+  * @note       No parameters.
   * @return     HCLK1 frequency
   * @details    This function get HCLK1 frequency. The frequency unit is Hz.
   */
@@ -316,7 +311,7 @@ uint32_t CLK_GetHCLK1Freq(void)
 
 /**
   * @brief      Get PCLK2 frequency
-  * @param      None
+  * @note       No parameters.
   * @return     PCLK2 frequency
   * @details    This function get PCLK2 frequency. The frequency unit is Hz.
   */
@@ -354,7 +349,7 @@ uint32_t CLK_GetPCLK2Freq(void)
 
 /**
   * @brief      Get CPU frequency
-  * @param      None
+  * @note       No parameters.
   * @return     CPU frequency
   * @details    This function get CPU frequency. The frequency unit is Hz.
   */
@@ -510,7 +505,6 @@ uint32_t CLK_SetCoreClock(uint32_t u32Hclk)
   *             - \ref CLK_CLKSEL0_HCLKSEL_HIRC48M
   * @param[in]  u32ClkDiv is HCLK clock divider. Including :
   *             - \ref CLK_CLKDIV0_HCLK(x)
-  * @return     None
   * @details    This function set HCLK clock source and HCLK clock divider. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -564,7 +558,6 @@ void CLK_SetHCLK(uint32_t u32ClkSrc, uint32_t u32ClkDiv)
   * @param[in]  u32ModuleIdx is module index.
   * @param[in]  u32ClkSrc is module clock source.
   * @param[in]  u32ClkDiv is module clock divider.
-  * @return     None
   * @details    Valid parameter combinations listed in following table:
   *
   * |Module index       |Clock source                           |Divider                    |
@@ -840,7 +833,6 @@ void CLK_SetModuleClock(uint32_t u32ModuleIdx, uint32_t u32ClkSrc, uint32_t u32C
   *             - \ref CLK_CLKSEL0_STCLKSEL_HCLK_DIV2
   *             - \ref CLK_CLKSEL0_STCLKSEL_HIRC_DIV2
   *             - \ref CLK_CLKSEL0_STCLKSEL_HCLK
-  * @return     None
   * @details    This function set SysTick clock source. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -858,7 +850,6 @@ void CLK_SetSysTickClockSrc(uint32_t u32ClkSrc)
   *             - \ref CLK_PWRCTL_LIRCEN_Msk
   *             - \ref CLK_PWRCTL_HIRC48MEN_Msk
   *             - \ref CLK_PWRCTL_MIRCEN_Msk
-  * @return     None
   * @details    This function enable clock source. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -876,7 +867,6 @@ void CLK_EnableXtalRC(uint32_t u32ClkMask)
   *             - \ref CLK_PWRCTL_LIRCEN_Msk
   *             - \ref CLK_PWRCTL_HIRC48MEN_Msk
   *             - \ref CLK_PWRCTL_MIRCEN_Msk
-  * @return     None
   * @details    This function disable clock source. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -966,7 +956,6 @@ void CLK_DisableXtalRC(uint32_t u32ClkMask)
   *             - \ref UTCPD0_MODULE
   *             - \ref WDT_MODULE
   *             - \ref WWDT_MODULE
-  * @return     None
   * @details    This function is used to enable module clock.
   */
 void CLK_EnableModuleClock(uint32_t u32ModuleIdx)
@@ -1064,7 +1053,6 @@ void CLK_EnableModuleClock(uint32_t u32ModuleIdx)
   *             - \ref UTCPD0_MODULE
   *             - \ref WDT_MODULE
   *             - \ref WWDT_MODULE
-  * @return     None
   * @details    This function is used to disable module clock.
   */
 void CLK_DisableModuleClock(uint32_t u32ModuleIdx)
@@ -1244,8 +1232,7 @@ uint32_t CLK_EnablePLL(uint32_t u32PllClkSrc, uint32_t u32PllFreq)
 
 /**
   * @brief      Disable PLL
-  * @param      None
-  * @return     None
+  * @note       No parameters.
   * @details    This function set PLL in Power-down mode. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -1302,7 +1289,6 @@ uint32_t CLK_WaitClockReady(uint32_t u32ClkMask)
   *             - \ref CLK_CLKSEL0_STCLKSEL_HIRC_DIV2
   *             - \ref CLK_CLKSEL0_STCLKSEL_HCLK
   * @param[in]  u32Count is System Tick reload value. It could be 0~0xFFFFFF.
-  * @return     None
   * @details    This function set System Tick clock source, reload value, enable System Tick counter and interrupt. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -1344,8 +1330,7 @@ void CLK_EnableSysTick(uint32_t u32ClkSrc, uint32_t u32Count)
 
 /**
   * @brief      Disable System Tick counter
-  * @param      None
-  * @return     None
+  * @note       No parameters.
   * @details    This function disable System Tick counter.
   */
 void CLK_DisableSysTick(void)
@@ -1369,7 +1354,6 @@ void CLK_DisableSysTick(void)
   *             - \ref CLK_PMUCTL_PDMSEL_SPD2
   *             - \ref CLK_PMUCTL_PDMSEL_DPD0
   *             - \ref CLK_PMUCTL_PDMSEL_DPD1
-  * @return     None
   * @details    This function is used to set power-down mode.
   */
 
@@ -1421,7 +1405,6 @@ void CLK_SetPowerDownMode(uint32_t u32PDMode)
  *              - \ref CLK_DPDWKPIN_RISING
  *              - \ref CLK_DPDWKPIN_FALLING
  *              - \ref CLK_DPDWKPIN_BOTHEDGE
- * @return      None
  *
  * @details     This function is used to enable Wake-up pin trigger type.
  */
@@ -1468,8 +1451,8 @@ void CLK_EnableDPDWKPin(uint32_t u32Pin, uint32_t u32TriggerType)
 /**
  * @brief      Get power manager wake up source
  *
- * @param[in]   None
- * @return      None
+ * @note       No parameters.
+ * @return      The value of CLK_PMUSTS register (power manager wake-up source flags).
  *
  * @details     This function get power manager wake up source.
  */
@@ -1490,7 +1473,6 @@ uint32_t CLK_GetPMUWKSrc(void)
  * @param[in]   u32DebounceEn
  *              - \ref CLK_SPDWKPIN_DEBOUNCEEN
  *              - \ref CLK_SPDWKPIN_DEBOUNCEDIS
- * @return      None
  *
  * @details     This function is used to set specified GPIO as wake up source
  *              at Stand-by Power down mode.
@@ -1512,7 +1494,7 @@ void CLK_EnableSPDWKPin(uint32_t u32Port, uint32_t u32Pin, uint32_t u32TriggerTy
 
 /**
   * @brief      Get PLL clock frequency
-  * @param      None
+  * @note       No parameters.
   * @return     PLL frequency
   * @details    This function get PLL frequency. The frequency unit is Hz.
   */
@@ -1769,7 +1751,7 @@ uint32_t CLK_GetModuleClockDivider(uint32_t u32ModuleIdx)
 
 /**
   * @brief      Get internal multiple speed RC oscillator (MIRC) clock frequency
-  * @param      None
+  * @note       No parameters.
   * @return     Internal multiple speed RC oscillator (MIRC) clock frequency
   * @details    This function get internal multiple speed RC oscillator (MIRC) clock frequency. The frequency unit is Hz.
   */
@@ -1808,8 +1790,7 @@ uint32_t CLK_GetMIRCFreq(void)
 
 /**
   * @brief      Disable MIRC
-  * @param      None
-  * @return     None
+  * @note       No parameters.
   * @details    This function disable MIRC clock. \n
   *             The register write-protection function should be disabled before using this function.
   */
@@ -1845,10 +1826,10 @@ uint32_t CLK_EnableMIRC(uint32_t u32MircFreq)
 }
 
 
-/*@}*/ /* end of group CLK_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group CLK_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group CLK_Driver */
+/** @} */ /* end of group CLK_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/

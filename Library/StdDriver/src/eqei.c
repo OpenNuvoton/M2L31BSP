@@ -24,7 +24,6 @@
 /**
   * @brief      Close EQEI function
   * @param[in]  eqei         The pointer of the specified EQEI module.
-  * @return     None
   * @details    This function reset EQEI configuration and stop EQEI counting.
   */
 void EQEI_Close(EQEI_T* eqei)
@@ -41,7 +40,6 @@ void EQEI_Close(EQEI_T* eqei)
   *                         - \ref EQEI_CTL_OVUNIEN_Msk  : Counter overflow or underflow interrupt
   *                         - \ref EQEI_CTL_CMPIEN_Msk   : Compare-match interrupt
   *                         - \ref EQEI_CTL_IDXIEN_Msk   : Index detected interrupt
-  * @return     None
   * @details    This function disable EQEI specified interrupt.
   */
 void EQEI_DisableInt(EQEI_T* eqei, uint32_t u32IntSel)
@@ -72,7 +70,6 @@ void EQEI_DisableInt(EQEI_T* eqei, uint32_t u32IntSel)
   *                         - \ref EQEI_CTL_OVUNIEN_Msk  : Counter overflow or underflow interrupt
   *                         - \ref EQEI_CTL_CMPIEN_Msk   : Compare-match interrupt
   *                         - \ref EQEI_CTL_IDXIEN_Msk   : Index detected interrupt
-  * @return     None
   * @details    This function enable EQEI specified interrupt.
   */
 void EQEI_EnableInt(EQEI_T* eqei, uint32_t u32IntSel)
@@ -107,7 +104,6 @@ void EQEI_EnableInt(EQEI_T* eqei, uint32_t u32IntSel)
   *                         - \ref EQEI_CTL_PHASE_COUNTING_MODE_TYPE2
   *                         - \ref EQEI_CTL_DIRECTIONAL_COUNTING_MODE
   * @param[in]  u32Value    The counter maximum value in compare-counting mode.
-  * @return     None
   * @details    This function set EQEI in specified mode and enable input.
   */
 void EQEI_Open(EQEI_T* eqei, uint32_t u32Mode, uint32_t u32Value)
@@ -117,14 +113,13 @@ void EQEI_Open(EQEI_T* eqei, uint32_t u32Mode, uint32_t u32Value)
     /* Enable IDX, QEA and QEB input to EQEI controller */
     eqei->CTL = (eqei->CTL & (~EQEI_CTL_MODE_Msk)) | ((u32Mode) | EQEI_CTL_CHAEN_Msk | EQEI_CTL_CHBEN_Msk | EQEI_CTL_IDXEN_Msk);
 
-    /* Set EQEI maximum count value in in compare-counting mode */
+    /* Set EQEI maximum count value in compare-counting mode */
     eqei->CNTMAX = u32Value;
 }
 
 /**
   * @brief      Start EQEI function
   * @param[in]  eqei     The pointer of the specified EQEI module.
-  * @return     None
   * @details    This function enable EQEI function and start EQEI counting.
   */
 void EQEI_Start(EQEI_T* eqei)
@@ -136,7 +131,6 @@ void EQEI_Start(EQEI_T* eqei)
 /**
   * @brief      Stop EQEI function
   * @param[in]  eqei     The pointer of the specified EQEI module.
-  * @return     None
   * @details    This function disable EQEI function and stop EQEI counting.
   */
 void EQEI_Stop(EQEI_T* eqei)
@@ -146,10 +140,10 @@ void EQEI_Stop(EQEI_T* eqei)
 }
 
 
-/*@}*/ /* end of group EQEI_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group EQEI_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group EQEI_Driver */
+/** @} */ /* end of group EQEI_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2021 Nuvoton Technology Corp. ***/

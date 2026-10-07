@@ -188,9 +188,8 @@ static int  uac_probe(IFACE_T *iface)
 /**
   * @brief     Disconnect handler for a USB Audio Class interface; tears down the owning UAC device.
   * @param[in] iface  The UAC interface being disconnected.
-  * @return    None.
   *
-  * @static_deviation
+  * @par Static deviation
   * <b>Rule:</b> constParameterCallback (cppcheck native check)<br>
   * <b>Location:</b> `uac_disconnect()` parameter `iface`<br>
   * <b>Justification:</b> `iface` is only read here, but this function is assigned to the
@@ -279,11 +278,8 @@ static void  uac_disconnect(IFACE_T *iface)
     }
 }
 
-/// @endcond HIDDEN_SYMBOLS
-
 /**
   * @brief    Initialize USB Audio Class driver.
-  * @return   None
   */
 void usbh_uac_init(void)
 {
@@ -322,4 +318,3 @@ UAC_DEV_T * usbh_uac_get_device_list(void)
 /**@}*/ /* end of group LIBRARY */
 
 /*** (C) COPYRIGHT 2020 Nuvoton Technology Corp. ***/
-

@@ -56,7 +56,6 @@ uint32_t LPI2C_Open(LPI2C_T *lpi2c, uint32_t u32BusClock)
   *
   * @param[in]  lpi2c       Specify LPI2C port
     *
-  * @return     None
   *
   * @details    Reset LPI2C Controller and disable specify LPI2C port.
     *
@@ -77,7 +76,6 @@ void LPI2C_Close(LPI2C_T *lpi2c)
   *
   * @param[in]  lpi2c       Specify LPI2C port
     *
-  * @return     None
   *
   * @details    When Time-out flag will be set, use this function to clear LPI2C Bus Time-out counter flag .
     *
@@ -96,7 +94,6 @@ void LPI2C_ClearTimeoutFlag(LPI2C_T *lpi2c)
   * @param[in]  u8Si        Clear SI flag
   * @param[in]  u8Ack       Set LPI2C ACK bit
   *
-  * @return     None
   *
   * @details    The function set LPI2C Control bit of LPI2C Bus protocol.
   *
@@ -133,7 +130,6 @@ void LPI2C_Trigger(LPI2C_T *lpi2c, uint8_t u8Start, uint8_t u8Stop, uint8_t u8Si
   *
   * @param[in]  lpi2c       Specify LPI2C port
   *
-  * @return     None
   *
   * @details    The function is used for disable LPI2C interrupt
   *
@@ -148,7 +144,6 @@ void LPI2C_DisableInt(LPI2C_T *lpi2c)
   *
   * @param[in]  lpi2c       Specify LPI2C port
   *
-  * @return     None
   *
   * @details    The function is used for enable LPI2C interrupt
   *
@@ -259,7 +254,6 @@ uint8_t LPI2C_GetData(const LPI2C_T *lpi2c)
  * @param[in]  lpi2c        Specify LPI2C port
  * @param[in]  u8Data       The data to send to LPI2C bus
  *
- * @return     None
  *
  * @details    This function is used to write a byte to specified LPI2C port
  */
@@ -276,7 +270,6 @@ void LPI2C_SetData(LPI2C_T *lpi2c, uint8_t u8Data)
  * @param[in]  u8SlaveAddr  7-bit slave address
  * @param[in]  u8GCMode     Enable/Disable GC mode (LPI2C_GCMODE_ENABLE / LPI2C_GCMODE_DISABLE)
  *
- * @return     None
  *
  * @details    This function is used to set 7-bit slave addresses in LPI2C SLAVE ADDRESS REGISTER (LPI2CADDR0~3)
  *             and enable GC Mode.
@@ -309,7 +302,6 @@ void LPI2C_SetSlaveAddr(LPI2C_T *lpi2c, uint8_t u8SlaveNo, uint8_t u8SlaveAddr, 
  * @param[in]  u8SlaveNo        Set the number of LPI2C address mask register (0~3)
  * @param[in]  u8SlaveAddrMask  A byte for slave address mask
  *
- * @return     None
  *
  * @details    This function is used to set 7-bit slave addresses.
  *
@@ -340,7 +332,6 @@ void LPI2C_SetSlaveAddrMask(LPI2C_T *lpi2c, uint8_t u8SlaveNo, uint8_t u8SlaveAd
  * @param[in]  lpi2c            Specify LPI2C port
  * @param[in]  u8LongTimeout    Configure DIV4 to enable Long Time-out (0/1)
  *
- * @return     None
  *
  * @details    This function enable Time-out Counter function and configure DIV4 to support Long
  *             Time-out.
@@ -365,7 +356,6 @@ void LPI2C_EnableTimeout(LPI2C_T *lpi2c, uint8_t u8LongTimeout)
  *
  * @param[in]  lpi2c          Specify LPI2C port
  *
- * @return     None
  *
  * @details    To disable Time-out Counter function in LPI2C_TOCTL register.
  *
@@ -380,7 +370,6 @@ void LPI2C_DisableTimeout(LPI2C_T *lpi2c)
  *
  * @param[in]  lpi2c          Specify LPI2C port
  *
- * @return     None
  *
  * @details    To enable Wake-up function of LPI2C Wake-up control register.
  *
@@ -395,7 +384,6 @@ void LPI2C_EnableWakeup(LPI2C_T *lpi2c)
  *
  * @param[in]  lpi2c          Specify LPI2C port
  *
- * @return     None
  *
  * @details    To disable Wake-up function of LPI2C Wake-up control register.
  *
@@ -1215,10 +1203,10 @@ uint32_t LPI2C_ReadMultiBytesTwoRegs(LPI2C_T *lpi2c, uint8_t u8SlaveAddr, uint16
 }
 
 
-/*@}*/ /* end of group LPI2C_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPI2C_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPI2C_Driver */
+/** @} */ /* end of group LPI2C_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

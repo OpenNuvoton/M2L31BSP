@@ -19,7 +19,7 @@ typedef struct timeEvent_t
 #define TICKEVENTCOUNT                                  (3) /* 1 ~ 3 */
 
 static TimeEvent_T tTime0Event[TICKEVENTCOUNT];
-volatile uint8_t  _sys_uTime0EventCount = 0;             /* Speed up interrupt reponse time if no callback function */
+volatile uint8_t  _sys_uTime0EventCount = 0;             /* Speed up interrupt response time if no callback function */
 volatile uint32_t u32Tick = 0;
 
 #if 1 /* 45 byte */

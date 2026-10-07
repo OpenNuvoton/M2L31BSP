@@ -124,7 +124,7 @@ extern "C"
 /*--------------------------------------------------------------------------------------------------*/
 #define LPADC_TIMEOUT_ERR     (-1)    /*!< LPADC operation abort due to timeout error \hideinitializer */
 
-/*@}*/ /* end of group LPADC_EXPORTED_CONSTANTS */
+/** @} */ /* end of group LPADC_EXPORTED_CONSTANTS */
 
 /** @addtogroup LPADC_EXPORTED_FUNCTIONS LPADC Exported Functions
   @{
@@ -545,9 +545,11 @@ void LPADC_SelectAutoOperationMode(LPADC_T *lpadc, uint32_t u32TrigSel);
 int32_t LPADC_GetErrCode(void);
 void LPADC_SetErrCode(int32_t err);
 
-/*@}*/ /* end of group LPADC_Driver */
+/** @} */ /* end of group LPADC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group LPADC_Driver */
+
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

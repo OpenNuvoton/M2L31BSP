@@ -71,7 +71,7 @@ extern "C"
 
 #define ECAP_CNT_CLEAR_EVENT_CTL1_MASK         (0x00700F00UL)
 
-/*@}*/ /* end of group ECAP_EXPORTED_CONSTANTS */
+/** @} */ /* end of group ECAP_EXPORTED_CONSTANTS */
 
 /** @addtogroup ECAP_EXPORTED_FUNCTIONS ECAP Exported Functions
   @{
@@ -450,11 +450,11 @@ void ECAP_Open(ECAP_T* ecap, uint32_t u32FuncMask);
 void ECAP_Close(ECAP_T* ecap);
 void ECAP_EnableINT(ECAP_T* ecap, uint32_t u32Mask);
 void ECAP_DisableINT(ECAP_T* ecap, uint32_t u32Mask);
-/*@}*/ /* end of group ECAP_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group ECAP_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group ECAP_Driver */
+/** @} */ /* end of group ECAP_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

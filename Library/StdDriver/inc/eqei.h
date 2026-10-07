@@ -62,7 +62,7 @@ extern "C"
 #define EQEI_CTL2_DIRCTION_TIED_HIGH        (0x2UL<<EQEI_CTL2_DIRSRC_Pos)  /*!<Direction signal is tied 1 only for direction up count mode   \hideinitializer */
 #define EQEI_CTL2_DIRCTION_TIED_LOW         (0x3UL<<EQEI_CTL2_DIRSRC_Pos)  /*!<Direction signal is tied 0 only for direction down count mode \hideinitializer */
 
-/*@}*/ /* end of group EQEI_EXPORTED_CONSTANTS */
+/** @} */ /* end of group EQEI_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup EQEI_EXPORTED_FUNCTIONS EQEI Exported Functions
@@ -419,11 +419,11 @@ void EQEI_Start(EQEI_T* eqei);
 void EQEI_Stop(EQEI_T* eqei);
 
 
-/*@}*/ /* end of group EQEI_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group EQEI_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group EQEI_Driver */
+/** @} */ /* end of group EQEI_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

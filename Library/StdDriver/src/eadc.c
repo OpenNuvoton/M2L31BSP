@@ -25,7 +25,7 @@ static int32_t g_EADC_i32ErrCode = 0;   /*!< EADC global error code */
 /* Restrict error code to module scope. */
 /**
   * @brief      Get the error code of EADC module
-  * @param      None
+  * @note       No parameters.
   * @return     The error code of EADC module
   * @details    This function return the error code of EADC module.
   */
@@ -36,8 +36,7 @@ int32_t EADC_GetErrCode(void)
 
 /**
   * @brief      Set the error code of EADC module
-  * @param      The error code of EADC module
-  * @return     None
+  * @param[in]  err  The error code of EADC module
   * @details    This function set the error code of EADC module.
   */
 void EADC_SetErrCode(int32_t err)
@@ -51,7 +50,6 @@ void EADC_SetErrCode(int32_t err)
   * @param[in] u32InputMode Decides the input mode.
   *                       - \ref EADC_CTL_DIFFEN_SINGLE_END      :Single end input mode.
   *                       - \ref EADC_CTL_DIFFEN_DIFFERENTIAL    :Differential input type.
-  * @return None
   * @details This function is used to set analog input mode and enable A/D Converter.
   *         Before starting A/D conversion function, ADCEN bit should be set to 1.
   * @note
@@ -122,7 +120,6 @@ void EADC_Open(EADC_T *eadc, uint32_t u32InputMode)
 /**
   * @brief Disable EADC_module.
   * @param[in] eadc The pointer of the specified EADC module..
-  * @return None
   * @details Clear ADCEN bit to disable A/D converter analog circuit power consumption.
   */
 void EADC_Close(EADC_T *eadc)
@@ -173,7 +170,6 @@ void EADC_Close(EADC_T *eadc)
   *                            - \ref EADC_ACMP1_TRIGGER
   *                            - \ref EADC_ACMP2_TRIGGER
   * @param[in] u32Channel Specifies the sample module channel, valid value are from 0 to 30.
-  * @return None
   * @details Each of EADC control logic modules 0~26 which is configurable for EADC converter channel EADC_CH0~26 and trigger source.
   *         sample module 27~30 is fixed for EADC channel 27, 28, 29, 30 input sources as AVdd/4, band-gap voltage, temperature sensor, and battery power/4.
   */
@@ -209,7 +205,6 @@ void EADC_ConfigSampleModule(EADC_T *eadc, \
     *                                - \ref EADC_SCTL_TRGDLYDIV_DIVIDER_2    : Trigger delay clock frequency is ADC_CLK/2
     *                                - \ref EADC_SCTL_TRGDLYDIV_DIVIDER_4    : Trigger delay clock frequency is ADC_CLK/4
     *                                - \ref EADC_SCTL_TRGDLYDIV_DIVIDER_16   : Trigger delay clock frequency is ADC_CLK/16
-  * @return None
   * @details User can configure the trigger delay time by setting TRGDLYCNT and TRGDLYDIV.
   *         Trigger delay time = (u32TriggerDelayTime) x Trigger delay clock period.
   */
@@ -241,7 +236,6 @@ void EADC_SetTriggerDelayTime(EADC_T *eadc, \
   * @param[in] eadc The pointer of the specified EADC module.
   * @param[in] u32ModuleNum Decides the sample module number, valid value are from 0 to 30.
   * @param[in] u32ExtendSampleTime Decides the extend sampling time, the range is from 0~255 EADC clock. Valid value are from 0 to 0xFF.
-  * @return None
   * @details When A/D converting at high conversion rate, the sampling time of analog input voltage may not enough if input channel loading is heavy,
   *         user can extend A/D sampling time after trigger source is coming to get enough sampling time.
   */
@@ -265,10 +259,10 @@ void EADC_SetExtendSampleTime(EADC_T *eadc, uint32_t u32ModuleNum, uint32_t u32E
 }
 
 
-/*@}*/ /* end of group EADC_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group EADC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group EADC_Driver */
+/** @} */ /* end of group EADC_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

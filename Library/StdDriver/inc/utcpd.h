@@ -276,11 +276,15 @@ extern "C"
 
 #define UTCPD_PWRASTS_BLEEDDLVL_HIGH (0x0UL << 3)                                      /*!< UTCPD_T::PWRASTS: Bleed Discharge Level*/
 #define UTCPD_PWRASTS_BLEEDDLVL_LOW  (0x1UL << 3)                                      /*!< UTCPD_T::PWRASTS: Bleed Discharge Level*/
-/*@}*/ /* end of group I2C_EXPORTED_CONSTANTS */
+/** @} */ /* end of group UTCPD_EXPORTED_CONSTANTS */
 
 /*---------------------------------------------------------------------------------------------------------*/
 /* Define utcpd functions prototype                                                                        */
 /*---------------------------------------------------------------------------------------------------------*/
+/** @addtogroup UTCPD_EXPORTED_FUNCTIONS UTCPD Exported Functions
+  @{
+*/
+
 int32_t UTCPD_GetAlertStatus(int port, int* i32AlertSts);
 int32_t UTCPD_ClearAlertStatus(int port, int AlertStClr);
 int32_t UTCPD_EnableAlertMask(int port, int mask_set);
@@ -349,11 +353,11 @@ void UTCPD_frs_mux_selection(int port, uint32_t cc1frssel, uint32_t cc2frssel);
 uint32_t UTCPD_Open(int port);
 uint32_t UTCPD_SetExternalDivider(int port, int div); 
 
-/*@}*/ /* end of group UTCPD_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group UTCPD_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group UTCPD_Driver */
+/** @} */ /* end of group UTCPD_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

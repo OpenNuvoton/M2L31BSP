@@ -30,7 +30,6 @@ static uint32_t g_u32ChSelect[LPPDMA_CH_MAX];
  *
  * @param[in]   u32Mask     Channel enable bits.
  *
- * @return      None
  *
  * @details     This function enable the LPPDMA channels.
  */
@@ -55,7 +54,6 @@ void LPPDMA_Open(LPPDMA_T *lppdma, uint32_t u32Mask)
  *
  * @param[in]   lppdma            The pointer of the specified LPPDMA module
  *
- * @return      None
  *
  * @details     This function disable all LPPDMA channels.
  */
@@ -75,7 +73,6 @@ void LPPDMA_Close(LPPDMA_T *lppdma)
  *                - \ref LPPDMA_WIDTH_32
  * @param[in]   u32TransCount   Transfer count
  *
- * @return      None
  *
  * @details     This function set the selected channel data width and transfer count.
  */
@@ -99,7 +96,6 @@ void LPPDMA_SetTransferCnt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Width, 
  *                - \ref LPPDMA_DAR_INC
  *                - \ref LPPDMA_DAR_FIX
  *
- * @return      None
  *
  * @details     This function set the selected channel source/destination address and attribute.
  */
@@ -135,7 +131,6 @@ void LPPDMA_SetTransferAddr(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32SrcAdd
  * @param[in]   u32ScatterEn    Scatter-gather mode enable
  * @param[in]   u32DescAddr     Scatter-gather descriptor address
  *
- * @return      None
  *
  * @details     This function set the selected channel transfer mode. Include peripheral setting.
  */
@@ -195,7 +190,6 @@ void LPPDMA_SetTransferMode(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Periph
  *                - \ref LPPDMA_BURST_2
  *                - \ref LPPDMA_BURST_1
  *
- * @return      None
  *
  * @details     This function set the selected channel burst type and size.
  */
@@ -211,7 +205,6 @@ void LPPDMA_SetBurstType(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32BurstType
  * @param[in]   lppdma            The pointer of the specified LPPDMA module
  * @param[in]   u32Ch           The selected channel
  *
- * @return      None
  *
  * @details     This function trigger the selected channel.
  */
@@ -236,7 +229,6 @@ void LPPDMA_Trigger(LPPDMA_T *lppdma, uint32_t u32Ch)
  *                - \ref LPPDMA_INT_TRANS_DONE
  *                - \ref LPPDMA_INT_TEMPTY
  *
- * @return      None
  *
  * @details     This function enable the selected channel interrupt.
  */
@@ -262,7 +254,6 @@ void LPPDMA_EnableInt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Mask)
  *                - \ref LPPDMA_INT_TRANS_DONE
  *                - \ref LPPDMA_INT_TEMPTY
  *
- * @return      None
  *
  * @details     This function disable the selected channel interrupt.
  */
@@ -279,10 +270,10 @@ void LPPDMA_DisableInt(LPPDMA_T *lppdma, uint32_t u32Ch, uint32_t u32Mask)
     }
 }
 
-/*@}*/ /* end of group LPPDMA_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group LPPDMA_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group LPPDMA_Driver */
+/** @} */ /* end of group LPPDMA_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 /*** (C) COPYRIGHT 2023 Nuvoton Technology Corp. ***/

@@ -53,7 +53,7 @@ extern "C"
 #define DAC_TRIGGER_MODE_ENABLE    (1UL<<DAC_CTL_TRGEN_Pos)   /*!< Trigger mode enable \hideinitializer */
 
 
-/*@}*/ /* end of group DAC_EXPORTED_CONSTANTS */
+/** @} */ /* end of group DAC_EXPORTED_CONSTANTS */
 
 
 /** @addtogroup DAC_EXPORTED_FUNCTIONS DAC Exported Functions
@@ -255,11 +255,11 @@ void DAC_Open(DAC_T *dac, uint32_t u32Ch, uint32_t u32TrgSrc);
 void DAC_Close(DAC_T *dac, uint32_t u32Ch);
 uint32_t DAC_SetDelayTime(DAC_T *dac, uint32_t u32Delay);
 
-/*@}*/ /* end of group DAC_EXPORTED_FUNCTIONS */
+/** @} */ /* end of group DAC_EXPORTED_FUNCTIONS */
 
-/*@}*/ /* end of group DAC_Driver */
+/** @} */ /* end of group DAC_Driver */
 
-/*@}*/ /* end of group Standard_Driver */
+/** @} */ /* end of group Standard_Driver */
 
 #ifdef __cplusplus
 }

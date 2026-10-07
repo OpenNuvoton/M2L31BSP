@@ -306,7 +306,7 @@ int32_t main(void)
     {
         /** i8Ret = -1 means that no any calibration data stored in flash
           * If no any data stored in flash. Get TK setting and calibration data from UART port
-          * Program will be blocked in the function until received START_CALIBRATION command. The return value will be 1
+          * TK_GetPacket blocks until a command returns a nonzero status. A return value of 1 triggers calibration handling.
           */
         i8Ret = TK_GetPacket(&u32ChanelMsk);
     }
@@ -387,5 +387,4 @@ int32_t main(void)
 
 
 }
-
 
