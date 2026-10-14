@@ -50,7 +50,7 @@ static volatile int  _device_addr;
  * @param[in] size  Number of bytes to allocate.
  * @return    Pointer to the allocated block, or NULL if allocation failed.
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 21.3<br>
  * <b>Justification:</b> The USB Host library requires dynamic memory for its system allocator.
  *                       malloc() is intentionally used here as the single, contained heap entry
@@ -67,7 +67,7 @@ static void *usbh_sys_malloc(size_t size)
  * @brief     Release a block of memory previously obtained from usbh_sys_malloc().
  * @param[in] ptr  Pointer to the memory block to free. NULL is safely ignored by free().
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 21.3<br>
  * <b>Justification:</b> Pairs with usbh_sys_malloc(). free() is intentionally used here as the
  *                       single, contained heap release point; the deviation is isolated to this
@@ -156,7 +156,7 @@ void * usbh_alloc_mem(int size)
  * @param[in] size  Number of bytes to allocate.
  * @return    Pointer to the allocated byte buffer, or NULL if allocation failed.
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This wrapper
  *                       is the single conversion point for USB transfer and descriptor
@@ -194,7 +194,7 @@ void usbh_free_mem(void *p, int size)
  * @brief     Allocate and initialize a new USB device (UDEV_T) object.
  * @return    Pointer to the newly allocated USB device, or NULL if allocation failed.
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> usbh_sys_malloc() provides generic storage as void *. This is the
  *                       single conversion point where the raw block becomes a typed
@@ -313,7 +313,7 @@ void  free_dev_address(int dev_addr)
  * @param[in] udev  The USB device that owns this transfer request.
  * @return    Pointer to the newly allocated UTR, or NULL if allocation failed.
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> usbh_sys_malloc() provides generic storage as void *. This is the
  *                       single conversion point where the raw block becomes a typed

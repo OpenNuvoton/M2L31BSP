@@ -584,7 +584,7 @@ int  usbh_uac_find_best_alt(IFACE_T *iface, uint8_t dir, uint8_t attr, int pkt_s
 /// @endcond HIDDEN_SYMBOLS
 
 /**
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> utr->context stores a generic void * set by uac_probe() to the
  *                       owning UAC_DEV_T. This accessor centralizes what was previously

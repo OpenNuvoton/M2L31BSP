@@ -44,7 +44,7 @@ void USBH_IRQHandler(void);
  * @param[in] hw_pipe  Hardware-pipe pointer stored by the host-controller abstraction.
  * @return    OHCI endpoint descriptor pointer, or NULL if hw_pipe is NULL.
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> EP_INFO_T.hw_pipe is a polymorphic void * shared by host
  *                       controller implementations. This OHCI-only helper centralizes

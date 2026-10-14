@@ -189,7 +189,7 @@ static int  uac_probe(IFACE_T *iface)
   * @brief     Disconnect handler for a USB Audio Class interface; tears down the owning UAC device.
   * @param[in] iface  The UAC interface being disconnected.
   *
-  * @par Static deviation
+  * @static_deviation
   * <b>Rule:</b> constParameterCallback (cppcheck native check)<br>
   * <b>Location:</b> `uac_disconnect()` parameter `iface`<br>
   * <b>Justification:</b> `iface` is only read here, but this function is assigned to the

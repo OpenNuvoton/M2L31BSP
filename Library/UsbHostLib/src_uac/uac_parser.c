@@ -390,7 +390,7 @@ static int  uac_parse_as_interface(AS_IF_T *asif, uint8_t *bptr)
     if(hdr.bDescriptorType == CS_ENDPOINT)
     {
         /**
-         * @par Static deviation
+         * @static_deviation
          * <b>Rule:</b>          MISRA C:2012 Rule 11.3<br>
          * <b>Justification:</b> bptr identifies a validated Class-Specific Endpoint
          *                       Descriptor in the USB configuration buffer. AS_IF_T
@@ -423,7 +423,7 @@ static int  uac_parse_as_interface(AS_IF_T *asif, uint8_t *bptr)
 
             case AS_GENERAL:
                 /**
-                 * @par Static deviation
+                 * @static_deviation
                  * <b>Rule:</b>          MISRA C:2012 Rule 11.3<br>
                  * <b>Justification:</b> bptr identifies a validated AS_GENERAL descriptor
                  *                       in the USB configuration buffer. AS_IF_T retains
@@ -448,7 +448,7 @@ static int  uac_parse_as_interface(AS_IF_T *asif, uint8_t *bptr)
 
             case FORMAT_TYPE:
                 /**
-                 * @par Static deviation
+                 * @static_deviation
                  * <b>Rule:</b>          MISRA C:2012 Rule 11.3<br>
                  * <b>Justification:</b> bptr identifies a validated Type-I Format
                  *                       descriptor in the USB configuration buffer.
@@ -719,7 +719,7 @@ int uac_parse_streaming_interface(UAC_DEV_T *uac, IFACE_T *iface, uint8_t bAlter
     {
         /* Find microphone's output terminal by AS_GEN's bTerminalLink */
         /**
-         * @par Static deviation
+         * @static_deviation
          * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
          * <b>Justification:</b> uac_find_terminal() returns the matching Output Terminal
          *                       address in the persistent USB configuration buffer. The
@@ -753,7 +753,7 @@ int uac_parse_streaming_interface(UAC_DEV_T *uac, IFACE_T *iface, uint8_t bAlter
     else if(iface_have_iso_out_ep(iface))
     {
         /**
-         * @par Static deviation
+         * @static_deviation
          * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
          * <b>Justification:</b> uac_find_terminal() returns the matching Input Terminal
          *                       address in the persistent USB configuration buffer. The

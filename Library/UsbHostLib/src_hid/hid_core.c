@@ -413,7 +413,7 @@ int32_t  usbh_hid_set_protocol(HID_DEV_T *hdev, uint8_t protocol)
  * HID int-in complete function
  */
 /**
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> utr->context stores a generic void * set by usbhid_probe() to the
  *                       owning HID_DEV_T. This accessor centralizes what was previously

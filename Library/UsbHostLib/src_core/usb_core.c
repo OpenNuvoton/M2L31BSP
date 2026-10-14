@@ -22,14 +22,14 @@
  * @param[in] fmt  Format string (printf-compatible)
  * @return  Number of characters printed
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 17.1<br>
  * <b>Justification:</b> This is the single, contained variadic debug-print wrapper for the USB
  *                       Host library. The features of <stdarg.h> (va_list, va_start, va_end) are
  *                       required to forward a variable argument list to vprintf() and are
  *                       intentionally confined to this one function.
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 21.6<br>
  * <b>Justification:</b> vprintf() is used here solely for low-level USB Host diagnostic tracing on
  *                       the debug console. This is the library's single I/O entry point; the
@@ -828,7 +828,7 @@ static int  usbh_parse_interface(UDEV_T *udev, uint8_t *desc_buff, int len)
     enum { PARSE_RUNNING, PARSE_DONE, PARSE_ERROR } state = PARSE_RUNNING;
 
     /**
-     * @par Static deviation
+     * @static_deviation
      * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
      * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is
      *                       the single conversion point where the raw block becomes a
@@ -969,7 +969,7 @@ static int  usbh_parse_interface(UDEV_T *udev, uint8_t *desc_buff, int len)
         }
 
         /**
-         * @par Static deviation
+         * @static_deviation
          * <b>Rule:</b>          MISRA C:2012 Rule 11.3<br>
          * <b>Justification:</b> if_desc_buff identifies a validated Interface Descriptor
          *                       in UDEV_T->cfd_buff. ALT_IFACE_T stores this typed view
@@ -1183,7 +1183,7 @@ int  connect_device(UDEV_T *udev)
     }
 
     /**
-     * @par Static deviation
+     * @static_deviation
      * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
      * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is
      *                       the single conversion point where the raw block becomes a

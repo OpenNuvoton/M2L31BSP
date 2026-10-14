@@ -399,7 +399,7 @@ int hid_parse_report_descriptor(HID_DEV_T *hdev, IFACE_T *iface)
  * @param[in] type  Report type to assign to the newly created report-info node.
  * @return    0 on success, or a negative USBH_ERR_xxx / HID error code on failure.
  *
- * @par Static deviation
+ * @static_deviation
  * <b>Rule:</b>          MISRA C:2012 Rule 11.5<br>
  * <b>Justification:</b> usbh_alloc_mem() provides generic storage as void *. This is
  *                       the single conversion point where the raw block becomes a
